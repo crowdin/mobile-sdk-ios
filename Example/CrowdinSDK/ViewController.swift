@@ -14,10 +14,14 @@ class ViewController: UIViewController {
             textLabel.text = NSLocalizedString("test_key", comment: "")
         }
     }
+    @IBOutlet weak var textLabel1: UILabel! {
+        didSet {
+            textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "LOL")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "LOL"))
     }
 
     override func didReceiveMemoryWarning() {
