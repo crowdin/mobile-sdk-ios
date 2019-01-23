@@ -45,6 +45,10 @@
 		73009D73726F70ED640344C3 /* Pods-CrowdinSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrowdinSDK_Tests/Pods-CrowdinSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		920F09C021F913B400078558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		920F09C221F913B500078558 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		920F09D421F9337600078558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		920F09D521F9337800078558 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
+		920F09D621F9337C00078558 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		920F09D721F9337E00078558 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		960AA23B8AAA3FDC20A03EF9 /* Pods-CrowdinSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CrowdinSDK_Tests/Pods-CrowdinSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		9F20283C2F072FA2AB2FB9FE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		A7DB3CD8DB2FBF4119B44BF0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -376,6 +380,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDA1AFB9204008FA782 /* Base */,
+				920F09D421F9337600078558 /* en */,
+				920F09D521F9337800078558 /* uk */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -384,6 +390,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDF1AFB9204008FA782 /* Base */,
+				920F09D621F9337C00078558 /* en */,
+				920F09D721F9337E00078558 /* uk */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

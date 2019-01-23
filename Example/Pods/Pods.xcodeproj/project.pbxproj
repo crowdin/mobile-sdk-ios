@@ -15,6 +15,8 @@
 		920F09C421F91A7F00078558 /* Bundle+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920F09C321F91A7F00078558 /* Bundle+Application.swift */; };
 		920F09CD21F92AF800078558 /* Bundle+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920F09CC21F92AF800078558 /* Bundle+Codable.swift */; };
 		920F09CF21F92F0B00078558 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920F09CE21F92F0B00078558 /* Localize.swift */; };
+		920F09D121F9305100078558 /* LocalizationExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920F09D021F9305100078558 /* LocalizationExtractor.swift */; };
+		920F09D321F9323200078558 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920F09D221F9323200078558 /* FileType.swift */; };
 		A3521891A31002FCB35EF9F3BBDF2F94 /* Pods-CrowdinSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BE817D2120A9604998DC121DC7DCA774 /* Pods-CrowdinSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A8442BA08D785DDE3A40FF8DB2B6BFAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		B49ABADA85D7293EA191FF8994E4D8B7 /* CrowdinSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 391E8F5573333DE1A9AB4C5B71634333 /* CrowdinSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +68,8 @@
 		920F09C321F91A7F00078558 /* Bundle+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Application.swift"; sourceTree = "<group>"; };
 		920F09CC21F92AF800078558 /* Bundle+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Codable.swift"; sourceTree = "<group>"; };
 		920F09CE21F92F0B00078558 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Localize.swift; path = CrowdinSDK/Classes/Localize.swift; sourceTree = "<group>"; };
+		920F09D021F9305100078558 /* LocalizationExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationExtractor.swift; sourceTree = "<group>"; };
+		920F09D221F9323200078558 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		92CC4D9BD7A5B592739B1FC950123232 /* Pods-CrowdinSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CrowdinSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		97CD8DAF66CBCC459946E17E7FF12931 /* Pods-CrowdinSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CrowdinSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -175,9 +179,11 @@
 			isa = PBXGroup;
 			children = (
 				920F09CE21F92F0B00078558 /* Localize.swift */,
+				920F09D021F9305100078558 /* LocalizationExtractor.swift */,
 				920F09B121F9124C00078558 /* Extensions */,
 				A57B7666E3C1E236401E9954F3C32DA5 /* Pod */,
 				F1BED82202C4C27E123D17F8DA2B4CB6 /* Support Files */,
+				920F09D221F9323200078558 /* FileType.swift */,
 			);
 			name = CrowdinSDK;
 			path = ../..;
@@ -406,6 +412,8 @@
 			files = (
 				920F09CF21F92F0B00078558 /* Localize.swift in Sources */,
 				920F09CD21F92AF800078558 /* Bundle+Codable.swift in Sources */,
+				920F09D121F9305100078558 /* LocalizationExtractor.swift in Sources */,
+				920F09D321F9323200078558 /* FileType.swift in Sources */,
 				920F09C421F91A7F00078558 /* Bundle+Application.swift in Sources */,
 				920F09B321F9124C00078558 /* Bundle+Swizzle.swift in Sources */,
 				BB737CD2E6DBC5578C335B2BF1DB04DF /* CrowdinSDK-dummy.m in Sources */,

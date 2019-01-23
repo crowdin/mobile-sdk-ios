@@ -8,7 +8,12 @@
 import Foundation
 
 public class Localize: NSObject {
+    class var localizations: [String] { return Bundle.main.localizations }
+    
     public class func start() {
         Bundle.swizzle()
+        
+        let localizationFiles = LocalizationExtractor(locale: "en").files
+        print(localizationFiles)
     }
 }
