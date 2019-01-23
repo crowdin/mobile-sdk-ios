@@ -1,0 +1,22 @@
+{
+  "name": "CrowdinSDK",
+  "version": "0.1.0",
+  "summary": "A short description of CrowdinSDK.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Serhii Londar/CrowdinSDK",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Serhii Londar": "serhii.londar@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Serhii Londar/CrowdinSDK.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "CrowdinSDK/Classes/**/*"
+}

@@ -1,0 +1,16 @@
+PODS:
+  - CrowdinSDK (0.1.0)
+
+DEPENDENCIES:
+  - CrowdinSDK (from `../`)
+
+EXTERNAL SOURCES:
+  CrowdinSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CrowdinSDK: 02729a61c09155f4f3b5e8746fdb8be3f07164ed
+
+PODFILE CHECKSUM: c5848aae23148f653bcd3c6c69782dff0ef4ade7
+
+COCOAPODS: 1.5.3

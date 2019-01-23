@@ -1,0 +1,11 @@
+/* 
+  Localized.strings
+  CrowdinSDK
+
+  Created by Serhii Londar on 1/23/19.
+  Copyright © 2019 CocoaPods. All rights reserved.
+*/
+
+"test_key" = "Тест";
+"test_with_format_key" = "Тест %@";
+

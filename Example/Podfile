@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CrowdinSDK_Example' do
+  pod 'CrowdinSDK', :path => '../'
+
+  target 'CrowdinSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
