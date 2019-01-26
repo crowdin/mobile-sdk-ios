@@ -294,7 +294,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CrowdinSDK/CrowdinSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/FileBrowser/FileBrowser.framework",
-				"${BUILT_PRODUCTS_DIR}/FileExplorer/FileExplorer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -302,7 +301,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CrowdinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileBrowser.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileExplorer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -546,7 +544,7 @@
 				INFOPLIST_FILE = CrowdinSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.crowdin.demo.CrowdinSDK-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -560,7 +558,7 @@
 				INFOPLIST_FILE = CrowdinSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.crowdin.demo.CrowdinSDK-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};

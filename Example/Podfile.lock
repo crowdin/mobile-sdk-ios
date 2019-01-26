@@ -1,19 +1,16 @@
 PODS:
   - CrowdinSDK (0.1.0)
   - FileBrowser (1.0.0)
-  - FileExplorer (1.0.4)
   - SwiftLint (0.30.0)
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
   - FileBrowser
-  - FileExplorer
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FileBrowser
-    - FileExplorer
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -23,9 +20,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CrowdinSDK: 706d42340fe40338994521793777736755e02404
   FileBrowser: 2ca91ff61c9ea09665eb3b8f9e64a7a77e66a0bf
-  FileExplorer: 1f7fbfa839ac391f0fb57b07eb289daa7c090a31
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: a6d4919765bd03faa48ec61ad8d0d82f322eee79
+PODFILE CHECKSUM: 5dc944b0df32e33e8cc301ae912a52b4b428c173
 
 COCOAPODS: 1.5.3
