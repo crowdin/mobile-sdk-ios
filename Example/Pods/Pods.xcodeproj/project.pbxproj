@@ -14,10 +14,11 @@
 		6A0451415940BEDA2952320F6A4DE9CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908E902E026C5C22904CF9014A5604AD /* Foundation.framework */; };
 		7ECDEB88F640AF535B1F1F3645C002C3 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306103CDD2BAE7F3A61D7BFA4FB26004 /* UILabel.swift */; };
 		85608CE913F058011B0E9FC1AF31ADDA /* Pods-CrowdinSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1374F55C6F3DF435B7C1AB374F9D0063 /* Pods-CrowdinSDK_Example-dummy.m */; };
-		922D12EF21FB9EC500CC69DD /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D12EE21FB9EC500CC69DD /* Localization.swift */; };
 		922D12F121FBAEF000CC69DD /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D12F021FBAEF000CC69DD /* Locale.swift */; };
-		922D12F321FBAFF800CC69DD /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D12F221FBAFF800CC69DD /* Folder.swift */; };
-		922D12F521FBB11300CC69DD /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D12F421FBB11300CC69DD /* File.swift */; };
+		9255BF4421FC9F6D00C80A40 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF4321FC9F6D00C80A40 /* String.swift */; };
+		9255BF4821FC9F9600C80A40 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF4521FC9F9600C80A40 /* Localization.swift */; };
+		9255BF4921FC9F9600C80A40 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF4621FC9F9600C80A40 /* Folder.swift */; };
+		9255BF4A21FC9F9600C80A40 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF4721FC9F9600C80A40 /* File.swift */; };
 		92C227B021FA726B009AFC1F /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C227AE21FA726A009AFC1F /* FileType.swift */; };
 		92C227B121FA726B009AFC1F /* LocalizationExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C227AF21FA726A009AFC1F /* LocalizationExtractor.swift */; };
 		A3521891A31002FCB35EF9F3BBDF2F94 /* Pods-CrowdinSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BE817D2120A9604998DC121DC7DCA774 /* Pods-CrowdinSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -74,10 +75,11 @@
 		806CE871BBB1BE0122DDE7FE1F006F0A /* CrowdinSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CrowdinSDK.xcconfig; sourceTree = "<group>"; };
 		8C726BDB50B3778BF9027AC9614003B6 /* Bundle+Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Codable.swift"; sourceTree = "<group>"; };
 		908E902E026C5C22904CF9014A5604AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		922D12EE21FB9EC500CC69DD /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		922D12F021FBAEF000CC69DD /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
-		922D12F221FBAFF800CC69DD /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		922D12F421FBB11300CC69DD /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		9255BF4321FC9F6D00C80A40 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		9255BF4521FC9F9600C80A40 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localization.swift; path = CrowdinSDK/Classes/Localization.swift; sourceTree = "<group>"; };
+		9255BF4621FC9F9600C80A40 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Folder.swift; path = CrowdinSDK/Classes/Folder.swift; sourceTree = "<group>"; };
+		9255BF4721FC9F9600C80A40 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = File.swift; path = CrowdinSDK/Classes/File.swift; sourceTree = "<group>"; };
 		92C227AE21FA726A009AFC1F /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileType.swift; path = CrowdinSDK/Classes/FileType.swift; sourceTree = "<group>"; };
 		92C227AF21FA726A009AFC1F /* LocalizationExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalizationExtractor.swift; path = CrowdinSDK/Classes/LocalizationExtractor.swift; sourceTree = "<group>"; };
 		92CC4D9BD7A5B592739B1FC950123232 /* Pods-CrowdinSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CrowdinSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -180,10 +182,10 @@
 		4FF3BA6182D1B61819684286DE57D3A4 /* CrowdinSDK */ = {
 			isa = PBXGroup;
 			children = (
-				922D12F421FBB11300CC69DD /* File.swift */,
-				922D12F221FBAFF800CC69DD /* Folder.swift */,
+				9255BF4721FC9F9600C80A40 /* File.swift */,
+				9255BF4621FC9F9600C80A40 /* Folder.swift */,
+				9255BF4521FC9F9600C80A40 /* Localization.swift */,
 				92C227AE21FA726A009AFC1F /* FileType.swift */,
-				922D12EE21FB9EC500CC69DD /* Localization.swift */,
 				92C227AF21FA726A009AFC1F /* LocalizationExtractor.swift */,
 				D804E2BE3A46B45E434EF8FF896F863B /* CrowdinSDK.swift */,
 				C1E606B79B3ED57CA3DC9B059F248933 /* Extensions */,
@@ -271,6 +273,7 @@
 				2C21EC656B9E6A3AF02B46096E16EA33 /* Bundle+Swizzle.swift */,
 				306103CDD2BAE7F3A61D7BFA4FB26004 /* UILabel.swift */,
 				922D12F021FBAEF000CC69DD /* Locale.swift */,
+				9255BF4321FC9F6D00C80A40 /* String.swift */,
 			);
 			name = Extensions;
 			path = CrowdinSDK/Classes/Extensions;
@@ -439,17 +442,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				92C227B021FA726B009AFC1F /* FileType.swift in Sources */,
-				922D12F521FBB11300CC69DD /* File.swift in Sources */,
+				9255BF4821FC9F9600C80A40 /* Localization.swift in Sources */,
+				9255BF4421FC9F6D00C80A40 /* String.swift in Sources */,
 				1F7634A8567FFBB4E62519895723EA5D /* Bundle+Application.swift in Sources */,
 				0B95530855C13AFFFB57E8B681222EEB /* Bundle+Codable.swift in Sources */,
 				92C227B121FA726B009AFC1F /* LocalizationExtractor.swift in Sources */,
-				922D12F321FBAFF800CC69DD /* Folder.swift in Sources */,
 				BA8E53AF5E4FB0D029DA745490A44423 /* Bundle+Swizzle.swift in Sources */,
 				922D12F121FBAEF000CC69DD /* Locale.swift in Sources */,
-				922D12EF21FB9EC500CC69DD /* Localization.swift in Sources */,
 				06959B23E86528EDBE002EEBDEFAF2C4 /* CrowdinSDK-dummy.m in Sources */,
 				D1D1A85EF71244F747BF7E21C2626B31 /* CrowdinSDK.swift in Sources */,
+				9255BF4A21FC9F9600C80A40 /* File.swift in Sources */,
 				7ECDEB88F640AF535B1F1F3645C002C3 /* UILabel.swift in Sources */,
+				9255BF4921FC9F9600C80A40 /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
