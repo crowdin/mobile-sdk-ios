@@ -293,12 +293,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CrowdinSDK/CrowdinSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/FileBrowser/FileBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/FileExplorer/FileExplorer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CrowdinSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileExplorer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

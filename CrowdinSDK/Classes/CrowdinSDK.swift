@@ -15,12 +15,13 @@ public class CrowdinSDK: NSObject {
         
         Localization.shared.set(localization: "uk")
         
-        print(localizations)
-        
         let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
         if !crowdinFolder.isCreated { try? crowdinFolder.create() }
         
-        localizations.forEach({ _ = try? crowdinFolder.createFolder(with: $0) })
+        localizations.forEach({
+            let folder = try? crowdinFolder.createFolder(with: $0)
+            try? folder?.delete()
+        })
         
         
         

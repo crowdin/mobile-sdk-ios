@@ -11,8 +11,8 @@ import Foundation
 extension Locale {
     static var preferredLanguageIdentifiers: [String] {
         return Locale.preferredLanguages.compactMap ({
-            let comps = Locale.components(fromIdentifier: $0)
-            return comps.values.first?.lowercased() ?? ""
+            let components = Locale.components(fromIdentifier: $0)
+            return components.values.first?.lowercased()
         })
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FileBrowser
 
 class ViewController: UIViewController {
     @IBOutlet weak var textLabel: UILabel! {
@@ -28,6 +29,12 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func showFileExplorer(_ sender: AnyObject) {
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
+        let fileExplorer = FileBrowser(initialPath: documentsUrl, allowEditing: true)
+        self.present(fileExplorer, animated: true, completion: nil)
+        
+    }
 }
 
