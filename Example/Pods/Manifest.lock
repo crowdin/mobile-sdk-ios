@@ -1,16 +1,23 @@
 PODS:
   - CrowdinSDK (0.1.0)
+  - SwiftLint (0.30.0)
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
+  - SwiftLint
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SwiftLint
 
 EXTERNAL SOURCES:
   CrowdinSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 02729a61c09155f4f3b5e8746fdb8be3f07164ed
+  CrowdinSDK: 706d42340fe40338994521793777736755e02404
+  SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: c5848aae23148f653bcd3c6c69782dff0ef4ade7
+PODFILE CHECKSUM: 9650d83cc5ed70ace8f7bf73c2199c9bdbe155de
 
 COCOAPODS: 1.5.3

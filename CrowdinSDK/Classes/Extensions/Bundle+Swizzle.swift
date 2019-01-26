@@ -12,14 +12,15 @@ extension Bundle {
     static var original: Method!
     static var swizzled: Method!
     
-    @objc func swizzled_LocalizedString(forKey key: String?, value: String?, table tableName: String?) -> String? {
-        var translation: String? = nil
+    @objc func swizzled_LocalizedString(forKey key: String, value: String?, table tableName: String?) -> String {
+        var translation = Localization.shared.sdkLocalization[key] as? String
         if translation == nil {
-            translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName) ?? ""
+            translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName)
         }
-        return translation ?? "translation";
+        return translation ?? key;
     }
 
+    
     public class func swizzle() {
         original = class_getInstanceMethod(self, #selector(Bundle.localizedString(forKey:value:table:)))!
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!
