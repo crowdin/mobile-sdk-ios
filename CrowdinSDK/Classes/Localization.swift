@@ -41,13 +41,12 @@ class Localization {
         return Bundle.main.localizations
     }
     
-//    var bundleLocalization: NSDictionary!
     var sdkLocalization: [String: String] = [:]
     
     func refresh() {
         guard let sdkFile = crowdinFolder.files.filter({ $0.name == current }).first else { return }
         guard let data = sdkFile.content else { return }
-         guard let content = try? JSONDecoder().decode([String: String].self, from: data) else { return }
+        guard let content = try? JSONDecoder().decode([String: String].self, from: data) else { return }
         self.sdkLocalization = content
     }
     

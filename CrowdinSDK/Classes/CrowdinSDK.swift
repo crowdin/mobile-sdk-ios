@@ -8,40 +8,54 @@
 import Foundation
 
 public class CrowdinSDK: NSObject {
-    class var localizations: [String] { return Bundle.main.localizations }
+    public class var inSDKLocalizations: [String] { return Localization.shared.inSDK }
+    public class var inBundleLocalizations: [String] { return Localization.shared.inBundle }
+    public class var currentLocalization: String { return Localization.shared.current }
+    
+    public class func refresh() {
+        Localization.shared.refresh()
+        UIUtil.shared.refresh()
+    }
     
     public class func start() {
-        Bundle.swizzle()
-        
-        Localization.shared.set(localization: "uk")
-        
-        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
-        if !crowdinFolder.isCreated { try? crowdinFolder.create() }
-        
-        localizations.forEach({
-            let folder = try? crowdinFolder.createFolder(with: $0)
-            try? folder?.delete()
-        })
-        
-        
-        
-//        guard let path = Bundle.main.path(forResource: "en", ofType: FileType.lproj.extension) else { return }
-//        let folder = Folder(path: path)
-//        let files = folder.files
-//        files.forEach { (file) in
-//            let dict = NSDictionary(contentsOf: URL(fileURLWithPath: file.path))
-//            print(file.name)
-//            print(dict)
-//            print("")
-//        }
-//        print("finish")
+        self.initializeLib()
     }
     
     public class func deintegrate() {
-        
+        self.deleteCrowdinFolder()
     }
     
     public class func setLocale(_ locale: String) {
-        
+        Localization.shared.set(localization: "uk")
+    }
+    
+    
+    
+    private class func initializeLib() {
+        self.swizzle()
+        self.createCrowdinFolderIfNeeded()
+    }
+    
+}
+
+
+extension CrowdinSDK {
+    class func swizzle() {
+        Bundle.swizzle()
+        UILabel.swizzle()
+        UIButton.swizzle()
+    }
+}
+
+
+extension CrowdinSDK {
+    class func createCrowdinFolderIfNeeded() {
+        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
+        if !crowdinFolder.isCreated { try? crowdinFolder.create() }
+    }
+    
+    class func deleteCrowdinFolder() {
+        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
+        if crowdinFolder.isCreated { try? crowdinFolder.delete() }
     }
 }

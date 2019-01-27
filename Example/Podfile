@@ -4,7 +4,9 @@ target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK', :path => '../'
   pod 'SwiftLint'
   pod 'FileBrowser'
-  pod 'Firebase/Core'
+  pod 'Firebase'
+  pod 'FirebaseDatabase'
+  pod 'FAPanels'
   
   target 'CrowdinSDK_Tests' do
     inherit! :search_paths

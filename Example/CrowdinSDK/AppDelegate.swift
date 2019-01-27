@@ -9,42 +9,51 @@
 import UIKit
 import CrowdinSDK
 import Firebase
+import FAPanels
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         CrowdinSDK.start()
         FirebaseApp.configure()
-        // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        var panelsVC = FAPanelController()
+        
+        let mainVC = UIStoryboard(name: "MainViewController", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        let mainNC = UINavigationController(rootViewController: mainVC)
+        
+        
+        let menuVC = UIStoryboard(name: "MenuVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "MenuVC") as! MenuVC
+        
+        panelsVC = panelsVC.center(mainNC).left(menuVC)
+        
+        self.window?.rootViewController = panelsVC
+        self.window?.makeKeyAndVisible()
+        
+        self.subscribe()
+        
         return true
     }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    func subscribe() {
+        FireTiny.shared.subscribe(nil) { (data) in
+            if let data = data {
+                let dictionary = data as! [String: Any]
+                dictionary.keys.forEach({ (key) in
+                    let translation = dictionary[key] as! [String: String]
+                    let data = try! JSONEncoder().encode(translation)
+                    try! data.write(to: URL(fileURLWithPath: self.documentsPath + "/org.crowdin.demo.CrowdinSDK.Crowdin/\(key).json"))
+                })
+                CrowdinSDK.refresh()
+            }
+        }
+        
     }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
 }
 

@@ -43,7 +43,6 @@ class File: Path, FileStatusable {
     let name: String
     let type: String
     
-    
     init(path: String) {
         self.path = path
         let url = URL(fileURLWithPath: path)
@@ -69,5 +68,20 @@ class File: Path, FileStatusable {
     var content: Data? {
         guard self.isCreated else { return nil }
         return try? Data(contentsOf: URL(fileURLWithPath: path))
+    }
+}
+
+class ImageFile: File {
+    var image: UIImage? = nil
+    
+    override init(path: String) {
+        super.init(path: path)
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return }
+        self.image = UIImage(data: data)
+    }
+    
+    func save() throws {
+        guard let image = self.image else { return }
+        try image.save(self.path)
     }
 }

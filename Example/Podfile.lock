@@ -1,6 +1,9 @@
 PODS:
   - CrowdinSDK (0.1.0)
+  - FAPanels (1.0.2)
   - FileBrowser (1.0.0)
+  - Firebase (5.15.0):
+    - Firebase/Core (= 5.15.0)
   - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.4.0)
@@ -15,8 +18,13 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
+  - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (5.1.10):
     - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseDatabase (5.0.4):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.1)
+    - leveldb-library (~> 1.18)
   - FirebaseInstanceID (3.3.0):
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
@@ -45,6 +53,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.3.7):
     - GoogleUtilities/Logger
+  - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -54,19 +63,25 @@ PODS:
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
+  - FAPanels
   - FileBrowser
-  - Firebase/Core
+  - Firebase
+  - FirebaseDatabase
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - FAPanels
     - FileBrowser
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseDatabase
     - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleUtilities
+    - leveldb-library
     - nanopb
     - SwiftLint
 
@@ -76,16 +91,20 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CrowdinSDK: 706d42340fe40338994521793777736755e02404
+  FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 2ca91ff61c9ea09665eb3b8f9e64a7a77e66a0bf
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
+  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 35747502d9e8c6ee217385ad04446c7c2aaf9c5c
+  FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: 9c843c20f4fc31a1ea4477c22f80fc5c89fcb6c7
+PODFILE CHECKSUM: 59a4c53141de2ed27fe2fafaa60d85e975e72432
 
 COCOAPODS: 1.5.3
