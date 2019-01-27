@@ -50,7 +50,7 @@ class File: Path, FileStatusable {
             fatalError("Error while creating a file at path - \(path)")
         }
         let components = lastPathComponent.split(separator: ".")
-        guard components.count > 0 && components.count <= 2 else {
+        guard components.count > 0 else {
             fatalError("Error while detecting file name and type, from path - \(path)")
         }
         if components.count == 1 {
@@ -58,8 +58,10 @@ class File: Path, FileStatusable {
             name = ""
             type = String(components[0])
         } else {
-            name = String(components[0])
-            type = String(components[1])
+            type = String(components.last!)
+            var fileName = lastPathComponent.replacingOccurrences(of: type, with: "")
+            fileName.removeLast()
+            name = fileName
         }
     }
     
