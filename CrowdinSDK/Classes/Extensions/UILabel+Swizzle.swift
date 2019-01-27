@@ -30,5 +30,10 @@ extension UILabel {
         swizzled = class_getInstanceMethod(self, #selector(UILabel.swizzled_setText(_:)))!
         method_exchangeImplementations(original, swizzled)
     }
+    
+    public class func unswizzle() {
+        guard original != nil && swizzled != nil else { return }
+        method_exchangeImplementations(swizzled, original)
+    }
 }
 

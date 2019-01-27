@@ -12,6 +12,22 @@ public class CrowdinSDK: NSObject {
     public class var inBundleLocalizations: [String] { return Localization.shared.inBundle }
     public class var currentLocalization: String { return Localization.shared.current }
     
+    public class var enabled: Bool {
+        set {
+            guard newValue != enabled else { return }
+            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.enabled")
+            UserDefaults.standard.synchronize()
+            if newValue {
+                CrowdinSDK.swizzle()
+            } else {
+                CrowdinSDK.unswizzle()
+            }
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: "CrowdinSDK.enabled")
+        }
+    }
+    
     public class func refresh() {
         Localization.shared.refresh()
         UIUtil.shared.refresh()
@@ -26,16 +42,15 @@ public class CrowdinSDK: NSObject {
     }
     
     public class func setLocale(_ locale: String) {
-        Localization.shared.set(localization: "uk")
+        Localization.shared.set(localization: locale)
     }
-    
-    
     
     private class func initializeLib() {
-        self.swizzle()
+        if CrowdinSDK.enabled {
+            CrowdinSDK.swizzle()
+        }
         self.createCrowdinFolderIfNeeded()
     }
-    
 }
 
 
@@ -44,6 +59,12 @@ extension CrowdinSDK {
         Bundle.swizzle()
         UILabel.swizzle()
         UIButton.swizzle()
+    }
+    
+    class func unswizzle() {
+        Bundle.unswizzle()
+        UILabel.unswizzle()
+        UIButton.unswizzle()
     }
 }
 

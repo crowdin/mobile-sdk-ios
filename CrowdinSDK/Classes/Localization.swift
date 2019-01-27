@@ -14,14 +14,24 @@ class Localization {
     static var shared = Localization()
     
     var current : String {
-        didSet {
+        set {
             self.refresh()
+            guard current != newValue else { return }
+            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.current")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            var value = UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.current")
+            if value == nil {
+                value = preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) }) ?? "en"
+            }
+            return value!
         }
     }
     
     init() {
-        self.current = preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) }) ?? "en"
         self.refresh()
+        self.readAllAvalaibleKeysAndValues()
     }
     
     /// Set new localization.
@@ -40,7 +50,8 @@ class Localization {
     var inBundle: [String] {
         return Bundle.main.localizations
     }
-    
+    var allSDKKeys: [String] = []
+    var allSDKValues: [String] = []
     var sdkLocalization: [String: String] = [:]
     
     func refresh() {
@@ -50,4 +61,14 @@ class Localization {
         self.sdkLocalization = content
     }
     
+    func readAllAvalaibleKeysAndValues() {
+        crowdinFolder.files.forEach({
+            guard let data = $0.content else { return }
+            guard let content = try? JSONDecoder().decode([String: String].self, from: data) else { return }
+            allSDKKeys.append(contentsOf: content.keys)
+            allSDKValues.append(contentsOf: content.values)
+        })
+        let uniqueValues: Set<String> = Set<String>(allSDKKeys)
+        allSDKKeys = ([String])(uniqueValues)
+    }
 }

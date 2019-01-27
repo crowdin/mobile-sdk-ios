@@ -65,13 +65,23 @@ class MenuVC: UIViewController {
     }
     
     @IBAction func explorerButtonPressed(_ sender: AnyObject) {
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
-        let fileExplorer = FileBrowser(initialPath: documentsUrl, allowEditing: true)
-        _ = self.panel?.center(fileExplorer)
+        if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is FileBrowser {
+            panel?.closeLeft()
+        } else {
+            let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
+            let fileExplorer = FileBrowser(initialPath: documentsUrl, allowEditing: true)
+            _ = self.panel?.center(fileExplorer)
+        }
     }
     
     @IBAction func settingsButtonPressed(_ sender: AnyObject) {
-        
+        if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is SettingsVC {
+            panel?.closeLeft()
+        } else {
+            let settingsVC = UIStoryboard(name: "SettingsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "SettingsVC") as! SettingsVC
+            let settingsNC = UINavigationController(rootViewController: settingsVC)
+            _ = panel?.center(settingsNC)
+        }
     }
     
 }

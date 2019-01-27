@@ -45,6 +45,11 @@ extension UIButton {
         swizzled = class_getInstanceMethod(self, #selector(UIButton.swizzled_setTitle(_:for:)))!
         method_exchangeImplementations(original, swizzled)
     }
+    
+    public class func unswizzle() {
+        guard original != nil && swizzled != nil else { return }
+        method_exchangeImplementations(swizzled, original)
+    }
 }
 
 extension Dictionary {

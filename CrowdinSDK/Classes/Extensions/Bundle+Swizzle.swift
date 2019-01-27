@@ -26,4 +26,9 @@ extension Bundle {
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!
         method_exchangeImplementations(original, swizzled)
     }
+    
+    public class func unswizzle() {
+        guard original != nil && swizzled != nil else { return }
+        method_exchangeImplementations(swizzled, original)
+    }
 }
