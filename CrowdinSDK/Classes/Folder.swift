@@ -28,7 +28,7 @@ class Folder: Path, FileStatusable {
     
     var files: [File] {
         let allContent = self.contents.compactMap({ File(path: path + "/" + $0) })
-        return allContent.filter({ $0.status == .file })
+        return allContent.filter({ $0.status == .file && $0.name.count > 0 })
     }
     
     var directories: [Folder] {

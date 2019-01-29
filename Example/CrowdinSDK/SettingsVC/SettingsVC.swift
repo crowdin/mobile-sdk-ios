@@ -70,8 +70,11 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             exit(0)
             // Set New bundle localization by setting language code in Pref's
         } else if indexPath.section == 1 {
+            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+            UserDefaults.standard.synchronize()
+            let localization = CrowdinSDK.inSDKLocalizations[indexPath.row]
             CrowdinSDK.enabled = true
-            CrowdinSDK.setLocale(CrowdinSDK.inSDKLocalizations[indexPath.row])
+            CrowdinSDK.setLocale(localization)
             CrowdinSDK.refresh()
         }
         self.tableView.reloadData()

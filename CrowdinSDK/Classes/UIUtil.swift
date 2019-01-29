@@ -57,7 +57,6 @@ class UIUtil {
     }
     
     func refresh(button: UIButton) {
-        let state = button.state.rawValue
         print(button.localizationKeys ?? "empty")
         if let key = button.localizationKeys?[button.state.rawValue] {
             button.setTitle(NSLocalizedString(key, comment: ""), for: button.state)

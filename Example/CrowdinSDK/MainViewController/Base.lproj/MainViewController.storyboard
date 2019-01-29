@@ -64,6 +64,8 @@
                         <barButtonItem key="leftBarButtonItem" title="Firebase" id="9Vr-H2-jOb"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="reloadUIButton" destination="Cs6-rN-TmL" id="2jB-vB-vRc"/>
+                        <outlet property="showDetailsButton" destination="GhZ-W1-hZc" id="K6c-n0-kmj"/>
                         <outlet property="textLabel" destination="A75-9d-qXn" id="4AQ-9B-Mr6"/>
                         <outlet property="textLabel1" destination="hgT-Re-Azx" id="eU6-rC-r6x"/>
                     </connections>

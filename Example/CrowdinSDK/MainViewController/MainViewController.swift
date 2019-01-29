@@ -19,6 +19,16 @@ class MainViewController: BaseMenuVC {
             textLabel1.text = String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
         }
     }
+    @IBOutlet weak var reloadUIButton: UIButton! {
+        didSet {
+            reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button", comment: ""), for: .normal)
+        }
+    }
+    @IBOutlet weak var showDetailsButton: UIButton! {
+        didSet {
+            showDetailsButton.setTitle(NSLocalizedString("main_show_details_button", comment: ""), for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
