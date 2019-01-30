@@ -71,6 +71,7 @@
                     <connections>
                         <outlet property="button" destination="qv5-H8-jgG" id="hXG-7M-SEc"/>
                         <outlet property="label" destination="DO5-fT-6Jg" id="m7w-gY-C3l"/>
+                        <outlet property="reloadUIButton" destination="lTh-er-R8b" id="W8r-0c-GRq"/>
                         <outlet property="segmentedControl" destination="WR4-F1-xPP" id="Ae3-4h-u6F"/>
                         <outlet property="textField" destination="5X0-AI-Qc0" id="r75-Qy-E6F"/>
                     </connections>

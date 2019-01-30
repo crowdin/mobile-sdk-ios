@@ -41,7 +41,7 @@ public class CrowdinSDK: NSObject {
         self.deleteCrowdinFolder()
     }
     
-    public class func setLocale(_ locale: String) {
+    public class func setLocale(_ locale: String?) {
         Localization.shared.set(localization: locale)
     }
     

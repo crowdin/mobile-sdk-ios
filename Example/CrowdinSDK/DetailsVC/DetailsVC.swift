@@ -31,6 +31,11 @@ class DetailsVC: UIViewController {
             segmentedControl.setTitle(NSLocalizedString("details_segmentedControl_1", comment: ""), forSegmentAt: 1)
         }
     }
+    @IBOutlet weak var reloadUIButton: UIButton! {
+        didSet {
+            reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button", comment: ""), for: .normal)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("details_title", comment: "")

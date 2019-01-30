@@ -15,10 +15,10 @@ class Localization {
     
     var current : String {
         set {
-            self.refresh()
             guard current != newValue else { return }
             UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.current")
             UserDefaults.standard.synchronize()
+            self.refresh()
         }
         get {
             var value = UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.current")
@@ -36,9 +36,13 @@ class Localization {
     
     /// Set new localization.
     ///
-    /// - Parameter localization: Language IDs.
-    func set(localization: String)  {
-        self.current = localization
+    /// - Parameter localization: Language IDs. Pass nil for autodetection.
+    func set(localization: String?)  {
+        if let localization = localization {
+            self.current = localization
+        } else {
+            self.current = preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) }) ?? "en"
+        }
     }
     
     /// A list of all avalaible localization in SDK downloaded from crowdin server.
