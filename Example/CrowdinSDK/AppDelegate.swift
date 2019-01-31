@@ -50,10 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let data = try! JSONEncoder().encode(translation)
                     try! data.write(to: URL(fileURLWithPath: self.documentsPath + "/org.crowdin.demo.CrowdinSDK.Crowdin/\(key).json"))
                 })
-                CrowdinSDK.refresh()
+                CrowdinSDK.refreshUI()
             }
         }
-        
     }
 }
 

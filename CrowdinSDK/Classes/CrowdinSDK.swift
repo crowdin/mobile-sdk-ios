@@ -7,29 +7,36 @@
 
 import Foundation
 
-public class CrowdinSDK: NSObject {
-    public class var inSDKLocalizations: [String] { return Localization.shared.inSDK }
-    public class var inBundleLocalizations: [String] { return Localization.shared.inBundle }
-    public class var currentLocalization: String { return Localization.shared.current }
-    
-    public class var enabled: Bool {
-        set {
-            guard newValue != enabled else { return }
-            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.enabled")
-            UserDefaults.standard.synchronize()
-            if newValue {
-                CrowdinSDK.swizzle()
-            } else {
-                CrowdinSDK.unswizzle()
-            }
-        }
-        get {
-            return UserDefaults.standard.bool(forKey: "CrowdinSDK.enabled")
-        }
-    }
-    
-    public class func refresh() {
-        Localization.shared.refresh()
+@objc public class CrowdinSDK: NSObject {
+	@objc public enum Mode: Int {
+		case autoSDK
+		case customSDK
+		case autoBundle
+		case customBundle
+	}
+	
+	@objc public class var mode: Mode {
+		get {
+			return Localization.current.mode
+		}
+		set {
+			Localization.current.mode = newValue
+		}
+	}
+	
+	@objc public class var currentLocalization: String? {
+		get {
+			return Localization.current.currentLocalization
+		}
+		set {
+			Localization.current.currentLocalization = currentLocalization
+		}
+	}
+	
+    public class var inSDKLocalizations: [String] { return Localization.current.inProvider }
+    public class var inBundleLocalizations: [String] { return Localization.current.inBundle }
+	
+    public class func refreshUI() {
         UIUtil.shared.refresh()
     }
     
@@ -38,19 +45,24 @@ public class CrowdinSDK: NSObject {
     }
     
     public class func deintegrate() {
-        self.deleteCrowdinFolder()
+        Localization.current.provider.deintegrate()
     }
     
-    public class func setLocale(_ locale: String?) {
-        Localization.shared.set(localization: locale)
+    public class func setLocale(_ locale: String) {
+        Localization.current.currentLocalization = locale
     }
     
     private class func initializeLib() {
-        if CrowdinSDK.enabled {
-            CrowdinSDK.swizzle()
-        }
-        self.createCrowdinFolderIfNeeded()
+		if self.mode == .autoSDK || self.mode == .customSDK {
+			CrowdinSDK.swizzle()
+		} else {
+			CrowdinSDK.unswizzle()
+		}
     }
+	
+	public class func setProvider(_ provider: LocalizationProvider) {
+		Localization.current.provider = provider
+	}
 }
 
 
@@ -65,18 +77,5 @@ extension CrowdinSDK {
         Bundle.unswizzle()
         UILabel.unswizzle()
         UIButton.unswizzle()
-    }
-}
-
-
-extension CrowdinSDK {
-    class func createCrowdinFolderIfNeeded() {
-        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
-        if !crowdinFolder.isCreated { try? crowdinFolder.create() }
-    }
-    
-    class func deleteCrowdinFolder() {
-        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
-        if crowdinFolder.isCreated { try? crowdinFolder.delete() }
     }
 }

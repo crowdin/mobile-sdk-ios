@@ -8,77 +8,75 @@
 import Foundation
 
 class Localization {
-	let provider: LocalizationProvider
+	var provider: LocalizationProvider
 	
-    let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
     let preferredLanguageIdentifiers = Locale.preferredLanguageIdentifiers
     
-    static var shared = Localization(provider: CrowdinProvider())
-    
-    var current : String {
+	static var current = Localization()
+	
+	var mode: CrowdinSDK.Mode {
+		get {
+			let value = UserDefaults.standard.integer(forKey: "CrowdinSDK.Localization.mode")
+			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
+		}
+		set {
+			UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.mode")
+			UserDefaults.standard.synchronize()
+		}
+	}
+	
+	var currentLocalization: String? {
+		set {
+			switch mode {
+			case .autoSDK: break;
+			case .customSDK:
+				self.current = newValue
+			case .autoBundle: break;
+			case .customBundle:
+				UserDefaults.standard.appleLanguage = newValue
+			}
+		}
+		get {
+			switch mode {
+			case .autoSDK:
+				return Locale.preferredLanguageIdentifiers.first(where: { provider.localizations.contains($0) })
+			case .autoBundle:
+				return Locale.preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) })
+			case .customSDK:
+				return self.current
+			case .customBundle:
+				return UserDefaults.standard.appleLanguage
+			}
+		}
+	}
+	
+    private var current : String? {
         set {
             guard current != newValue else { return }
-            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.current")
+            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.currentLocalization")
             UserDefaults.standard.synchronize()
-            self.refresh()
         }
         get {
-            var value = UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.current")
-            if value == nil {
-                value = preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) }) ?? "en"
-            }
-            return value!
+            return UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.currentLocalization")
         }
     }
 	
+	init(provider: LocalizationProvider? = nil) {
+		self.provider = provider ?? CrowdinProvider(localization: "en")
+		self.provider.localization = self.currentLocalization ?? "en"
+	}
 	
-	init(provider: LocalizationProvider) {
-		self.provider = provider
-		self.refresh()
-		self.readAllAvalaibleKeysAndValues()
+	var localization: [String : String] {
+		return self.provider.localizationDict
 	}
 
-    /// Set new localization.
-    ///
-    /// - Parameter localization: Language IDs. Pass nil for autodetection.
-    func set(localization: String?)  {
-        if let localization = localization {
-            self.current = localization
-        } else {
-            self.current = preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) }) ?? "en"
-        }
-    }
-    
-    /// A list of all avalaible localization in SDK downloaded from crowdin server.
-    var inSDK: [String] {
-        return crowdinFolder.files.compactMap({ $0.name })
-    }
+	/// A list of all avalaible localization in SDK downloaded from current provider.
+	var inProvider: [String] {
+		return provider.localizations
+	}
     
     /// A list of all the localizations contained in the bundle.
     var inBundle: [String] {
         return Bundle.main.localizations
-    }
-    var allSDKKeys: [String] = []
-    var allSDKValues: [String] = []
-    var sdkLocalization: [String: String] = [:]
-    
-    func refresh() {
-        guard let sdkFile = crowdinFolder.files.filter({ $0.name == current }).first else { return }
-        guard let data = sdkFile.content else { return }
-        guard let content = try? JSONDecoder().decode([String: String].self, from: data) else { return }
-        self.sdkLocalization = content
-    }
-    
-    func readAllAvalaibleKeysAndValues() {
-        crowdinFolder.files.forEach({
-            guard let data = $0.content else { return }
-            guard let content = try? JSONDecoder().decode([String: String].self, from: data) else { return }
-            allSDKKeys.append(contentsOf: content.keys)
-            allSDKValues.append(contentsOf: content.values)
-        })
-        let uniqueKeys: Set<String> = Set<String>(allSDKKeys)
-        allSDKKeys = ([String])(uniqueKeys)
-		let uniqueValues: Set<String> = Set<String>(allSDKValues)
-		allSDKValues = ([String])(uniqueValues)
     }
 }

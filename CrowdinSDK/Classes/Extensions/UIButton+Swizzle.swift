@@ -27,7 +27,7 @@ extension UIButton {
     static var original: Method!
     static var swizzled: Method!
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
-        let key = Localization.shared.sdkLocalization.first(where: { $1 == title })?.key
+        let key = Localization.current.localization.first(where: { $1 == title })?.key
         if let key = key {
             if var localizationKeys = self.localizationKeys {
                 localizationKeys.merge(dict: [state.rawValue: key])
@@ -36,7 +36,6 @@ extension UIButton {
                 self.localizationKeys = [state.rawValue: key]
             }
         }
-        print(self.localizationKeys ?? [:])
         swizzled_setTitle(title, for: state)
     }
     
@@ -49,13 +48,5 @@ extension UIButton {
     public class func unswizzle() {
         guard original != nil && swizzled != nil else { return }
         method_exchangeImplementations(swizzled, original)
-    }
-}
-
-extension Dictionary {
-    mutating func merge(dict: [Key: Value]){
-        for (k, v) in dict {
-            updateValue(v, forKey: k)
-        }
     }
 }

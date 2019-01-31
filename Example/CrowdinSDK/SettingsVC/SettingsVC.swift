@@ -49,12 +49,12 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             cell.textLabel?.text = CrowdinSDK.inBundleLocalizations[indexPath.row]
             guard let language = UserDefaults.standard.array(forKey: "AppleLanguages")?.first as? String else { return cell }
-            if !CrowdinSDK.enabled, CrowdinSDK.inBundleLocalizations[indexPath.row] == language {
+            if CrowdinSDK.inBundleLocalizations[indexPath.row] == language {
                 cell.accessoryType = .checkmark
             }
         } else if indexPath.section == 1 {
             cell.textLabel?.text = CrowdinSDK.inSDKLocalizations[indexPath.row]
-            if CrowdinSDK.enabled && CrowdinSDK.inSDKLocalizations[indexPath.row] == CrowdinSDK.currentLocalization  {
+            if CrowdinSDK.inSDKLocalizations[indexPath.row] == CrowdinSDK.currentLocalization  {
                 cell.accessoryType = .checkmark
             }
         }
@@ -63,7 +63,6 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            CrowdinSDK.enabled = false
             let localization = CrowdinSDK.inBundleLocalizations[indexPath.row]
             UserDefaults.standard.set([localization], forKey: "AppleLanguages")
             UserDefaults.standard.synchronize()
@@ -73,9 +72,8 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             UserDefaults.standard.removeObject(forKey: "AppleLanguages")
             UserDefaults.standard.synchronize()
             let localization = CrowdinSDK.inSDKLocalizations[indexPath.row]
-            CrowdinSDK.enabled = true
             CrowdinSDK.setLocale(localization)
-            CrowdinSDK.refresh()
+            CrowdinSDK.refreshUI()
         }
         self.tableView.reloadData()
     }
