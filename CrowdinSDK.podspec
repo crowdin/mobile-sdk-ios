@@ -31,7 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'CrowdinSDK/Classes/**/*'
-  
+  s.resources = 'Assets/**/*.{storyboard}'
   # s.resource_bundles = {
   #   'CrowdinSDK' => ['CrowdinSDK/Assets/*.png']
   # }
