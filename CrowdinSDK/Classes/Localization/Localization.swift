@@ -8,10 +8,12 @@
 import Foundation
 
 class Localization {
+	let provider: LocalizationProvider
+	
     let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
     let preferredLanguageIdentifiers = Locale.preferredLanguageIdentifiers
     
-    static var shared = Localization()
+    static var shared = Localization(provider: CrowdinProvider())
     
     var current : String {
         set {
@@ -28,12 +30,14 @@ class Localization {
             return value!
         }
     }
-    
-    init() {
-        self.refresh()
-        self.readAllAvalaibleKeysAndValues()
-    }
-    
+	
+	
+	init(provider: LocalizationProvider) {
+		self.provider = provider
+		self.refresh()
+		self.readAllAvalaibleKeysAndValues()
+	}
+
     /// Set new localization.
     ///
     /// - Parameter localization: Language IDs. Pass nil for autodetection.
@@ -72,7 +76,9 @@ class Localization {
             allSDKKeys.append(contentsOf: content.keys)
             allSDKValues.append(contentsOf: content.values)
         })
-        let uniqueValues: Set<String> = Set<String>(allSDKKeys)
-        allSDKKeys = ([String])(uniqueValues)
+        let uniqueKeys: Set<String> = Set<String>(allSDKKeys)
+        allSDKKeys = ([String])(uniqueKeys)
+		let uniqueValues: Set<String> = Set<String>(allSDKValues)
+		allSDKValues = ([String])(uniqueValues)
     }
 }
