@@ -48,13 +48,12 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
         cell.accessoryType = .none
         if indexPath.section == 0 {
             cell.textLabel?.text = CrowdinSDK.inBundleLocalizations[indexPath.row]
-            guard let language = UserDefaults.standard.array(forKey: "AppleLanguages")?.first as? String else { return cell }
-            if CrowdinSDK.inBundleLocalizations[indexPath.row] == language {
+            if CrowdinSDK.mode == .customBundle && CrowdinSDK.inBundleLocalizations[indexPath.row] == CrowdinSDK.currentLocalization {
                 cell.accessoryType = .checkmark
             }
         } else if indexPath.section == 1 {
             cell.textLabel?.text = CrowdinSDK.inSDKLocalizations[indexPath.row]
-            if CrowdinSDK.inSDKLocalizations[indexPath.row] == CrowdinSDK.currentLocalization  {
+            if CrowdinSDK.mode == .customSDK && CrowdinSDK.inSDKLocalizations[indexPath.row] == CrowdinSDK.currentLocalization  {
                 cell.accessoryType = .checkmark
             }
         }
@@ -64,15 +63,14 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let localization = CrowdinSDK.inBundleLocalizations[indexPath.row]
-            UserDefaults.standard.set([localization], forKey: "AppleLanguages")
-            UserDefaults.standard.synchronize()
+            CrowdinSDK.setLocale(localization)
+			CrowdinSDK.mode = .customBundle
             exit(0)
             // Set New bundle localization by setting language code in Pref's
         } else if indexPath.section == 1 {
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-            UserDefaults.standard.synchronize()
             let localization = CrowdinSDK.inSDKLocalizations[indexPath.row]
             CrowdinSDK.setLocale(localization)
+			CrowdinSDK.mode = .customSDK
             CrowdinSDK.refreshUI()
         }
         self.tableView.reloadData()

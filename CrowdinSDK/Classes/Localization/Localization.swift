@@ -20,7 +20,8 @@ class Localization {
 			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
 		}
 		set {
-			UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.mode")
+			// TODO: Add changes after switching mode. f.e. cleanAppleLanguages.
+			UserDefaults.standard.set(newValue.rawValue, forKey: "CrowdinSDK.Localization.mode")
 			UserDefaults.standard.synchronize()
 		}
 	}

@@ -30,4 +30,8 @@ extension UserDefaults {
 			self.appleLanguages = newValue != nil ? [newValue!] : nil
 		}
 	}
+	
+	func cleanAppleLanguages() {
+		self.appleLanguage = nil
+	}
 }
