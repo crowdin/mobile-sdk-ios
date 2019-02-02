@@ -23,7 +23,7 @@ class Localization {
 			UserDefaults.standard.set(newValue.rawValue, forKey: "CrowdinSDK.Localization.mode")
 			UserDefaults.standard.synchronize()
             
-            self.provider.localization = self.currentLocalization ?? "en"
+            self.provider.setLocalization(currentLocalization)
 		}
 	}
 	
@@ -37,7 +37,7 @@ class Localization {
 			case .customBundle:
 				UserDefaults.standard.appleLanguage = newValue
 			}
-            self.provider.localization = self.currentLocalization ?? "en"
+            self.provider.setLocalization(currentLocalization)
 		}
 		get {
 			switch mode {
@@ -65,7 +65,7 @@ class Localization {
 	
 	init(provider: LocalizationProvider? = nil) {
 		self.provider = provider ?? CrowdinProvider(localization: "en")
-		self.provider.localization = self.currentLocalization ?? "en"
+        self.provider.setLocalization(currentLocalization)
 	}
 	
 	var localization: [String : String] {

@@ -33,18 +33,26 @@ TODO: Add long description of the pod here.
 
   spec.frameworks = 'UIKit'
   spec.static_framework = true
-  spec.default_subspec = 'Core'
+  spec.swift_version = '4.2'
+  spec.default_subspecs = 'Core', 'CrowdinProvider'
   
   spec.subspec 'Core' do |core|
       core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
       core.resources = 'CrowdinSDK/Assets/**/*.{storyboard}'
   end
   
-  spec.subspec 'FirebaseProvider' do |firebase|
-      firebase.name = 'FirebaseProvider'
-      firebase.dependency 'Firebase'
-      firebase.dependency 'FirebaseDatabase'
-      firebase.source_files = 'CrowdinSDK/Classes/Providers/Firebase/*.swift', 'CrowdinSDK/Classes/Localization/Provider/LocalizationProvider.swift'
-      firebase.dependency 'CrowdinSDK/Core'
+  spec.subspec 'FirebaseProvider' do |provider|
+      provider.name = 'FirebaseProvider'
+      provider.dependency 'Firebase'
+      provider.dependency 'FirebaseDatabase'
+      provider.source_files = 'CrowdinSDK/Classes/Providers/Firebase/*.swift'
+      provider.dependency 'CrowdinSDK/Core'
   end
+  
+  spec.subspec 'CrowdinProvider' do |provider|
+      provider.name = 'CrowdinProvider'
+      provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/*.swift'
+      provider.dependency 'CrowdinSDK/Core'
+  end
+  
 end

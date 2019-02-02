@@ -7,21 +7,29 @@
 
 import Foundation
 
-class CrowdinProvider: LocalizationProvider {
+public class CrowdinProvider: LocalizationProvider {
+    public var localizationCompleted: LocalizationProviderHandler = { }
+    
+    public required init() { }
+
+    public func setLocalization(_ localization: String?) {
+        self.localization = localization
+    }
+    
     let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + String.dot + "Crowdin")
     var allKeys: [String] = []
     var allValues: [String] = []
-    var localizationDict: [String: String] = [:]
-    var localizations: [String]  {
+    public var localizationDict: [String: String] = [:]
+    public var localizations: [String]  {
         return crowdinFolder.files.compactMap({ $0.name })
     }
-    var localization: String {
+    public var localization: String? {
         didSet {
             self.refresh()
         }
     }
     
-    required init(localization: String) {
+    public required init(localization: String) {
         self.localization = localization
         self.refresh()
         self.createCrowdinFolderIfNeeded()
@@ -57,7 +65,7 @@ class CrowdinProvider: LocalizationProvider {
         if crowdinFolder.isCreated { try? crowdinFolder.delete() }
     }
     
-    func deintegrate() {
+    public func deintegrate() {
         self.deleteCrowdinFolder()
     }
 }

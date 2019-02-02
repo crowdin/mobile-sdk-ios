@@ -19,9 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        CrowdinSDK.start()
-        
-        CrowdinSDK.setProvider(FirebaseLocalizationProvider(localization: "en"))
+        CrowdinSDK.start(wirh: FirebaseLocalizationProvider(path: "my/custom/path"))
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         

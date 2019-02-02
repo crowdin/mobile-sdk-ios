@@ -1,7 +1,10 @@
 PODS:
   - CrowdinSDK (0.1.0):
     - CrowdinSDK/Core (= 0.1.0)
+    - CrowdinSDK/CrowdinProvider (= 0.1.0)
   - CrowdinSDK/Core (0.1.0)
+  - CrowdinSDK/CrowdinProvider (0.1.0):
+    - CrowdinSDK/Core
   - CrowdinSDK/FirebaseProvider (0.1.0):
     - CrowdinSDK/Core
     - Firebase
@@ -97,7 +100,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrowdinSDK: d3cdde39c369c538258249412ddde4badf66ba82
+  CrowdinSDK: 72aa7cbff5959681d1d8afa920792246b0e685bf
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 2ca91ff61c9ea09665eb3b8f9e64a7a77e66a0bf
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae

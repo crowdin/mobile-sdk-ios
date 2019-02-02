@@ -8,9 +8,10 @@
 import Foundation
 
 class EmptyProvider: LocalizationProvider {
-    var localization: String
+    var localizationCompleted: LocalizationProviderHandler = { }
+    required init() { }
+    func setLocalization(_ localization: String?) { }
     var localizationDict: [String : String] = [:]
     var localizations: [String] = []
-    required init(localization: String) { self.localization = localization }
     func deintegrate() { }
 }

@@ -48,7 +48,8 @@ import Foundation
         UIUtil.shared.reload()
     }
     
-    public class func start() {
+    @objc public class func start(wirh provider: LocalizationProvider) {
+        self.setProvider(provider)
         self.initializeLib()
     }
     
@@ -81,10 +82,20 @@ import Foundation
 		}
     }
 	
-	public class func setProvider(_ provider: LocalizationProvider) {
-		Localization.current.provider = provider
-        provider.localization = self.currentLocalization ?? "en"
-	}
+    public class func setProvider(_ provider: LocalizationProvider) {
+        Localization.current.provider = provider
+        provider.setLocalization(currentLocalization)
+        provider.localizationCompleted = self.localizationCompleted
+    }
+    
+    public class var localizationCompleted: () -> Void {
+        return {
+            print("loaded")
+            Localization.current.provider.setLocalization(currentLocalization)
+            self.reloadUI()
+        }
+    }
+    
 }
 
 extension CrowdinSDK {

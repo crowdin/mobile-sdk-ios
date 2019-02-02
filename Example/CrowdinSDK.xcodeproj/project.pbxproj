@@ -18,6 +18,7 @@
 		9232187921FE2111009F8339 /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9232187B21FE2111009F8339 /* MainViewController.storyboard */; };
 		9232188221FE21DA009F8339 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232188121FE21DA009F8339 /* SettingsVC.swift */; };
 		9232188421FE21E0009F8339 /* SettingsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9232188321FE21E0009F8339 /* SettingsVC.storyboard */; };
+		923C62E02205EFBF001A6BC3 /* CustomProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923C62DF2205EFBF001A6BC3 /* CustomProvider.swift */; };
 		9255BF4C21FCBE2D00C80A40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */; };
 		9255BF5921FCC1F300C80A40 /* ObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5521FCC1F300C80A40 /* ObjectViewController.swift */; };
 		9255BF5A21FCC1F300C80A40 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5621FCC1F300C80A40 /* TableViewController.swift */; };
@@ -62,6 +63,7 @@
 		9232187F21FE2117009F8339 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/MainViewController.strings; sourceTree = "<group>"; };
 		9232188121FE21DA009F8339 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		9232188321FE21E0009F8339 /* SettingsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsVC.storyboard; sourceTree = "<group>"; };
+		923C62DF2205EFBF001A6BC3 /* CustomProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProvider.swift; sourceTree = "<group>"; };
 		9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9255BF5521FCC1F300C80A40 /* ObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectViewController.swift; sourceTree = "<group>"; };
 		9255BF5621FCC1F300C80A40 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				9268149D21FCE9350052F778 /* BaseMenuVC.swift */,
+				923C62DF2205EFBF001A6BC3 /* CustomProvider.swift */,
 			);
 			name = "Example for CrowdinSDK";
 			path = CrowdinSDK;
@@ -482,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9255BF5B21FCC1F300C80A40 /* FireTiny.swift in Sources */,
+				923C62E02205EFBF001A6BC3 /* CustomProvider.swift in Sources */,
 				9255BF6021FCCE9800C80A40 /* DetailsVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				9255BF5921FCC1F300C80A40 /* ObjectViewController.swift in Sources */,

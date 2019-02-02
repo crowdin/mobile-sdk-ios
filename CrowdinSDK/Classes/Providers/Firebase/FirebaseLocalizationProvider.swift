@@ -9,6 +9,16 @@ import Foundation
 import FirebaseDatabase
 
 public class FirebaseLocalizationProvider: LocalizationProvider {
+    public var localizationCompleted: LocalizationProviderHandler = { }
+    
+    public required init() {
+        self.subscribe()
+    }
+    
+    public func setLocalization(_ localization: String?) {
+        self.localization = localization
+    }
+    
     let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
     let database: DatabaseReference = Database.database().reference()
     var allKeys: [String] = []
@@ -18,21 +28,14 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
     }
     public var localizationDict: [String : String] = [:]
     
-    public var localization: String {
+    public var localization: String? {
         didSet {
             self.refresh()
         }
     }
     public var path: String?
     
-    public required init(localization: String) {
-        self.path = nil
-        self.localization = localization
-        self.subscribe()
-    }
-    
-    public convenience init(localization: String, path: String) {
-        self.init(localization: localization)
+    public init(path: String) {
         self.path = path
         self.subscribe()
     }
@@ -73,7 +76,7 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
     
     func subscribe() {
         var reference = self.database
-        if let url = path{
+        if let url = path {
             reference = self.database.child(url)
         }
         reference.observe(DataEventType.value) { (snapshot: DataSnapshot) in
@@ -84,6 +87,7 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
                     try! data.write(to: URL(fileURLWithPath: self.crowdinFolder.path + "/\(key).json"))
                 })
                 self.refresh()
+                self.localizationCompleted()
             }
         }
     }

@@ -7,10 +7,14 @@
 
 import Foundation
 
-@objc public  protocol LocalizationProvider {
+public typealias LocalizationProviderHandler = () -> Void
+
+@objc public protocol LocalizationProvider {
+    var localizationCompleted: LocalizationProviderHandler { get set }
 	var localizations: [String] { get }
 	var localizationDict: [String: String]  { get }
-	var localization: String { get set }
-	init(localization: String)
+	init()
 	func deintegrate()
+    func setLocalization(_ localization: String?)
+    
 }
