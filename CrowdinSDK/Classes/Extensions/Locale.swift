@@ -9,10 +9,14 @@
 import Foundation
 
 extension Locale {
+    enum Keys: String {
+        case kCFLocaleLanguageCodeKey
+        case kCFLocaleCountryCodeKey
+    }
     static var preferredLanguageIdentifiers: [String] {
         return Locale.preferredLanguages.compactMap ({
             let components = Locale.components(fromIdentifier: $0)
-            return components.values.first?.lowercased()
+            return components[Keys.kCFLocaleLanguageCodeKey.rawValue]!.lowercased()
         })
     }
 }

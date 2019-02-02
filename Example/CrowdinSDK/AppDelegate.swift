@@ -13,13 +13,15 @@ import FAPanels
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        CrowdinSDK.start()
+        
         FirebaseApp.configure()
+        
+        CrowdinSDK.start()
+        
+        CrowdinSDK.setProvider(FirebaseLocalizationProvider(localization: "en"))
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -36,23 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = panelsVC
         self.window?.makeKeyAndVisible()
         
-        self.subscribe()
-        
         return true
-    }
-    
-    func subscribe() {
-        FireTiny.shared.subscribe(nil) { (data) in
-            if let data = data {
-                let dictionary = data as! [String: Any]
-                dictionary.keys.forEach({ (key) in
-                    let translation = dictionary[key] as! [String: String]
-                    let data = try! JSONEncoder().encode(translation)
-                    try! data.write(to: URL(fileURLWithPath: self.documentsPath + "/org.crowdin.demo.CrowdinSDK.Crowdin/\(key).json"))
-                })
-                CrowdinSDK.refreshUI()
-            }
-        }
     }
 }
 

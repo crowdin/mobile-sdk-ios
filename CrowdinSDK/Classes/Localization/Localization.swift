@@ -9,8 +9,7 @@ import Foundation
 
 class Localization {
 	var provider: LocalizationProvider
-	
-    let preferredLanguageIdentifiers = Locale.preferredLanguageIdentifiers
+    fileprivate let preferredLanguageIdentifiers = Locale.preferredLanguageIdentifiers
     
 	static var current = Localization()
 	
@@ -23,6 +22,8 @@ class Localization {
 			// TODO: Add changes after switching mode. f.e. cleanAppleLanguages.
 			UserDefaults.standard.set(newValue.rawValue, forKey: "CrowdinSDK.Localization.mode")
 			UserDefaults.standard.synchronize()
+            
+            self.provider.localization = self.currentLocalization ?? "en"
 		}
 	}
 	
@@ -36,6 +37,7 @@ class Localization {
 			case .customBundle:
 				UserDefaults.standard.appleLanguage = newValue
 			}
+            self.provider.localization = self.currentLocalization ?? "en"
 		}
 		get {
 			switch mode {
@@ -53,7 +55,6 @@ class Localization {
 	
     private var current : String? {
         set {
-            guard current != newValue else { return }
             UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.currentLocalization")
             UserDefaults.standard.synchronize()
         }

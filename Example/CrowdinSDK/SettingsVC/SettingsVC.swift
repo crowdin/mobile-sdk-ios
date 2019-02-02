@@ -63,15 +63,21 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let localization = CrowdinSDK.inBundleLocalizations[indexPath.row]
-            CrowdinSDK.setLocale(localization)
-			CrowdinSDK.mode = .customBundle
+            if CrowdinSDK.mode == .customBundle && localization == CrowdinSDK.currentLocalization {
+                CrowdinSDK.enableSDKLocalization(false, localization: nil)
+            } else {
+                CrowdinSDK.enableSDKLocalization(false, localization: localization)
+            }
             exit(0)
             // Set New bundle localization by setting language code in Pref's
         } else if indexPath.section == 1 {
             let localization = CrowdinSDK.inSDKLocalizations[indexPath.row]
-            CrowdinSDK.setLocale(localization)
-			CrowdinSDK.mode = .customSDK
-            CrowdinSDK.refreshUI()
+            if CrowdinSDK.mode == .customSDK && localization == CrowdinSDK.currentLocalization  {
+                CrowdinSDK.enableSDKLocalization(true, localization: nil)
+            } else {
+                CrowdinSDK.enableSDKLocalization(true, localization: localization)
+            }
+            CrowdinSDK.reloadUI()
         }
         self.tableView.reloadData()
     }

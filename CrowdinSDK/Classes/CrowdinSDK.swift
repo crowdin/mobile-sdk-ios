@@ -13,6 +13,14 @@ import Foundation
 		case customSDK
 		case autoBundle
 		case customBundle
+        
+        var isAutoMode: Bool {
+            return self == .autoSDK || self == .autoBundle
+        }
+        
+        var isSDKMode: Bool {
+            return self == .autoSDK || self == .customSDK
+        }
 	}
 	
 	@objc public class var mode: Mode {
@@ -36,8 +44,8 @@ import Foundation
     public class var inSDKLocalizations: [String] { return Localization.current.inProvider }
     public class var inBundleLocalizations: [String] { return Localization.current.inBundle }
 	
-    public class func refreshUI() {
-        UIUtil.shared.refresh()
+    public class func reloadUI() {
+        UIUtil.shared.reload()
     }
     
     public class func start() {
@@ -48,12 +56,25 @@ import Foundation
         Localization.current.provider.deintegrate()
     }
     
-    public class func setLocale(_ locale: String) {
-        Localization.current.currentLocalization = locale
+    public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
+        if sdkLocalization {
+            if localization != nil {
+                self.mode = .customSDK
+            } else {
+                self.mode = .autoSDK
+            }
+        } else {
+            if localization != nil {
+                self.mode = .customBundle
+            } else {
+                self.mode = .autoBundle
+            }
+        }
+        Localization.current.currentLocalization = localization
     }
     
     private class func initializeLib() {
-		if self.mode == .autoSDK || self.mode == .customSDK {
+		if self.mode == .customSDK || self.mode == .autoSDK {
 			CrowdinSDK.swizzle()
 		} else {
 			CrowdinSDK.unswizzle()
@@ -62,9 +83,9 @@ import Foundation
 	
 	public class func setProvider(_ provider: LocalizationProvider) {
 		Localization.current.provider = provider
+        provider.localization = self.currentLocalization ?? "en"
 	}
 }
-
 
 extension CrowdinSDK {
     class func swizzle() {

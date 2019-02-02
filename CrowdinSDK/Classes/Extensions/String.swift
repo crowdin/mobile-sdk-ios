@@ -14,3 +14,6 @@ extension String {
 	}
 }
 
+extension String {
+    static var dot: String { return "." }
+}

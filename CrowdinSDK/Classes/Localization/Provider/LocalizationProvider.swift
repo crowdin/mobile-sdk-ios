@@ -9,8 +9,6 @@ import Foundation
 
 @objc public  protocol LocalizationProvider {
 	var localizations: [String] { get }
-	var allKeys: [String] { get }
-	var allValues: [String]  { get }
 	var localizationDict: [String: String]  { get }
 	var localization: String { get set }
 	init(localization: String)
@@ -19,8 +17,6 @@ import Foundation
 
 class EmptyProvider: LocalizationProvider {
 	var localization: String
-	var allKeys: [String] = []
-	var allValues: [String] = []
 	var localizationDict: [String : String] = [:]
 	var localizations: [String] = []
 	required init(localization: String) { self.localization = localization }
@@ -28,11 +24,11 @@ class EmptyProvider: LocalizationProvider {
 }
 
 class CrowdinProvider: LocalizationProvider {
-	let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
+	let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + String.dot + "Crowdin")
 	var allKeys: [String] = []
 	var allValues: [String] = []
 	var localizationDict: [String: String] = [:]
-	var localizations: [String] {
+	var localizations: [String]  {
 		return crowdinFolder.files.compactMap({ $0.name })
 	}
 	var localization: String {
@@ -68,12 +64,12 @@ class CrowdinProvider: LocalizationProvider {
 	}
 	
 	func createCrowdinFolderIfNeeded() {
-		let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
+		let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + String.dot + "Crowdin")
 		if !crowdinFolder.isCreated { try? crowdinFolder.create() }
 	}
 	
 	func deleteCrowdinFolder() {
-		let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
+		let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + String.dot + "Crowdin")
 		if crowdinFolder.isCreated { try? crowdinFolder.delete() }
 	}
 	

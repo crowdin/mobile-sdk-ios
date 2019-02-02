@@ -1,5 +1,7 @@
 PODS:
-  - CrowdinSDK (0.1.0)
+  - CrowdinSDK (0.1.0):
+    - Firebase
+    - FirebaseDatabase
   - FAPanels (1.0.2)
   - FileBrowser (1.0.0)
   - Firebase (5.15.0):
@@ -90,7 +92,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 8f02083e1b27e8ed5f8f72dd89f004e0531a53d3
+  CrowdinSDK: 2abefeaea9143e84a9e00c26a10925547dea6f65
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 2ca91ff61c9ea09665eb3b8f9e64a7a77e66a0bf
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae

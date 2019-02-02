@@ -18,7 +18,7 @@ class UIUtil {
     
     static let shared: UIUtil = UIUtil()
     
-    func refresh() {
+    func reload() {
         self.refreshWindows()
     }
     
