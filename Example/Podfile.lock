@@ -1,5 +1,9 @@
 PODS:
   - CrowdinSDK (0.1.0):
+    - CrowdinSDK/Core (= 0.1.0)
+  - CrowdinSDK/Core (0.1.0)
+  - CrowdinSDK/FirebaseProvider (0.1.0):
+    - CrowdinSDK/Core
     - Firebase
     - FirebaseDatabase
   - FAPanels (1.0.2)
@@ -65,6 +69,7 @@ PODS:
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
+  - CrowdinSDK/FirebaseProvider (from `../`)
   - FAPanels
   - FileBrowser
   - Firebase
@@ -92,7 +97,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 2abefeaea9143e84a9e00c26a10925547dea6f65
+  CrowdinSDK: d3cdde39c369c538258249412ddde4badf66ba82
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 2ca91ff61c9ea09665eb3b8f9e64a7a77e66a0bf
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
@@ -107,6 +112,6 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: 59a4c53141de2ed27fe2fafaa60d85e975e72432
+PODFILE CHECKSUM: c7e1c31d95607c16948c5dc1ed0e28f7afeb5e08
 
 COCOAPODS: 1.5.3

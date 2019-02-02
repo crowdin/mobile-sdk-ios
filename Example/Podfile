@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK', :path => '../'
+  pod 'CrowdinSDK/FirebaseProvider', :path => '../'
   pod 'SwiftLint'
   pod 'FileBrowser'
   pod 'Firebase'

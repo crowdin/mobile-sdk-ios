@@ -6,10 +6,10 @@
 # To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
 #
 
-Pod::Spec.new do |s|
-  s.name             = 'CrowdinSDK'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of CrowdinSDK.'
+Pod::Spec.new do |spec|
+  spec.name             = 'CrowdinSDK'
+  spec.version          = '0.1.0'
+  spec.summary          = 'A short description of CrowdinSDK.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,28 +17,34 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
+  spec.description      = <<-DESC
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/Serhii Londar/CrowdinSDK'
+  spec.homepage         = 'https://github.com/Serhii Londar/CrowdinSDK'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
-  s.source           = { :git => 'https://github.com/Serhii Londar/CrowdinSDK.git', :tag => s.version.to_s }
+  spec.license          = { :type => 'MIT', :file => 'LICENSE' }
+  spec.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
+  spec.source           = { :git => 'https://github.com/Serhii Londar/CrowdinSDK.git', :tag => spec.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  spec.ios.deployment_target = '9.0'
 
-  s.source_files = 'CrowdinSDK/Classes/**/*'
-  s.resources = 'Assets/**/*.{storyboard}'
-  # s.resource_bundles = {
-  #   'CrowdinSDK' => ['CrowdinSDK/Assets/*.png']
-  # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit'
-  s.dependency 'Firebase'
-  s.dependency 'FirebaseDatabase'
-  s.static_framework = true
+  spec.frameworks = 'UIKit'
+  spec.static_framework = true
+  spec.default_subspec = 'Core'
+  
+  spec.subspec 'Core' do |core|
+      core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
+      core.resources = 'CrowdinSDK/Assets/**/*.{storyboard}'
+  end
+  
+  spec.subspec 'FirebaseProvider' do |firebase|
+      firebase.name = 'FirebaseProvider'
+      firebase.dependency 'Firebase'
+      firebase.dependency 'FirebaseDatabase'
+      firebase.source_files = 'CrowdinSDK/Classes/Providers/Firebase/*.swift', 'CrowdinSDK/Classes/Localization/Provider/LocalizationProvider.swift'
+      firebase.dependency 'CrowdinSDK/Core'
+  end
 end
