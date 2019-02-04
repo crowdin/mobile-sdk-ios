@@ -52,7 +52,6 @@ import UIKit
         self.setProvider(nil)
         self.initializeLib()
     }
-    
     @objc public class func start(with provider: LocalizationProvider?) {
         self.setProvider(provider)
         self.initializeLib()

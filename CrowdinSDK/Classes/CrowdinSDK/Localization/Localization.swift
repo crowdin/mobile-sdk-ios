@@ -11,7 +11,7 @@ class Localization {
 	var provider: LocalizationProvider
     var extractor: LocalizationExtractor
     
-    fileprivate let preferredLanguageIdentifiers = Locale.preferredLanguageIdentifiers
+    fileprivate let preferredLocalizations = Bundle.main.localizations
     
     static var current: Localization! = nil
 	
@@ -21,6 +21,7 @@ class Localization {
 			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
 		}
 		set {
+            UserDefaults.standard.cleanAppleLanguages()
             switch newValue {
             case .autoSDK, .customSDK,.autoBundle:
                 UserDefaults.standard.cleanAppleLanguages()
@@ -36,7 +37,6 @@ class Localization {
 	
 	var currentLocalization: String? {
 		set {
-            UserDefaults.standard.cleanAppleLanguages()
 			switch mode {
 			case .autoSDK: break;
 			case .customSDK:
@@ -50,10 +50,9 @@ class Localization {
 		get {
 			switch mode {
 			case .autoSDK:
-                print(preferredLanguageIdentifiers)
-				return Locale.preferredLanguageIdentifiers.first(where: { provider.localizations.contains($0) })
+				return preferredLocalizations.first(where: { provider.localizations.contains($0) })
 			case .autoBundle:
-				return Locale.preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) })
+				return preferredLocalizations.first(where: { Bundle.main.localizations.contains($0) })
 			case .customSDK:
 				return self.customLocalization
 			case .customBundle:

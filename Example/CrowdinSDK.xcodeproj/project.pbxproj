@@ -85,6 +85,9 @@
 		9287522F2208ECBA00BB9CB6 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/MainViewController.strings"; sourceTree = "<group>"; };
 		928752302208ECBA00BB9CB6 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		928752312208ECBA00BB9CB6 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		928752322208F4CD00BB9CB6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainViewController.strings"; sourceTree = "<group>"; };
+		928752332208F4CD00BB9CB6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		928752342208F4CD00BB9CB6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		92C227B221FA7357009AFC1F /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		960AA23B8AAA3FDC20A03EF9 /* Pods-CrowdinSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CrowdinSDK_Tests/Pods-CrowdinSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		9F20283C2F072FA2AB2FB9FE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -342,6 +345,7 @@
 				"en-AU",
 				"zh-Hans",
 				"zh-Hans-CN",
+				"zh-Hant",
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
@@ -542,6 +546,7 @@
 				925FC4202207572200E4BF9B /* en-AU */,
 				9287522D2208E8D900BB9CB6 /* zh-Hans */,
 				928752302208ECBA00BB9CB6 /* zh-Hans-CN */,
+				928752332208F4CD00BB9CB6 /* zh-Hant */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -555,6 +560,7 @@
 				925FC4212207572200E4BF9B /* en-AU */,
 				9287522E2208E8D900BB9CB6 /* zh-Hans */,
 				928752312208ECBA00BB9CB6 /* zh-Hans-CN */,
+				928752342208F4CD00BB9CB6 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				925FC41F2207572200E4BF9B /* en-AU */,
 				9287522C2208E8D900BB9CB6 /* zh-Hans */,
 				9287522F2208ECBA00BB9CB6 /* zh-Hans-CN */,
+				928752322208F4CD00BB9CB6 /* zh-Hant */,
 			);
 			name = MainViewController.storyboard;
 			sourceTree = "<group>";
