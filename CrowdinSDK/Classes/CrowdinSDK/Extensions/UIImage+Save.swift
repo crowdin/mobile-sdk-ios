@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 1/26/19.
 //
 
-import Foundation
+import UIKit
 
 extension UIImage {
     func save(_ path: String) throws {

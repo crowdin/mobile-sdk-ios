@@ -13,6 +13,13 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
     
     public required init() {
         self.subscribe()
+        self.createCrowdinFolderIfNeeded()
+    }
+
+    public init(path: String) {
+        self.path = path
+        self.subscribe()
+        self.createCrowdinFolderIfNeeded()
     }
     
     public func setLocalization(_ localization: String?) {
@@ -34,11 +41,6 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
         }
     }
     public var path: String?
-    
-    public init(path: String) {
-        self.path = path
-        self.subscribe()
-    }
     
     func refresh() {
         guard let sdkFile = crowdinFolder.files.filter({ $0.name == localization }).first else { return }

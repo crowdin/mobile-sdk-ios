@@ -5,9 +5,9 @@
 //  Created by Serhii Londar on 1/24/19.
 //
 
-import Foundation
+import UIKit
 
-@objc public class CrowdinSDK: NSObject {
+@objc public class CrowdinSDK: NSObject {    
 	@objc public enum Mode: Int {
 		case autoSDK
 		case customSDK
@@ -48,7 +48,12 @@ import Foundation
         UIUtil.shared.reload()
     }
     
-    @objc public class func start(wirh provider: LocalizationProvider) {
+    @objc public class func start() {
+        self.setProvider(nil)
+        self.initializeLib()
+    }
+    
+    @objc public class func start(with provider: LocalizationProvider?) {
         self.setProvider(provider)
         self.initializeLib()
     }
@@ -82,15 +87,14 @@ import Foundation
 		}
     }
 	
-    public class func setProvider(_ provider: LocalizationProvider) {
-        Localization.current.provider = provider
-        provider.setLocalization(currentLocalization)
-        provider.localizationCompleted = self.localizationCompleted
+    public class func setProvider(_ provider: LocalizationProvider?) {
+        Localization.current = Localization(provider: provider)
+        Localization.current.provider.setLocalization(currentLocalization)
+        Localization.current.provider.localizationCompleted = self.localizationCompleted
     }
     
     public class var localizationCompleted: () -> Void {
         return {
-            print("loaded")
             Localization.current.provider.setLocalization(currentLocalization)
             self.reloadUI()
         }

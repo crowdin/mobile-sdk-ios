@@ -6,7 +6,7 @@
 //  Copyright © 2019 Crowdin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum FileStatus {
     case file

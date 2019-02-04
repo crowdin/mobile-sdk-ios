@@ -12,11 +12,17 @@ extension Locale {
     enum Keys: String {
         case kCFLocaleLanguageCodeKey
         case kCFLocaleCountryCodeKey
+        case kCFLocaleScriptCodeKey
     }
     static var preferredLanguageIdentifiers: [String] {
         return Locale.preferredLanguages.compactMap ({
             let components = Locale.components(fromIdentifier: $0)
-            return components[Keys.kCFLocaleLanguageCodeKey.rawValue]!.lowercased()
+            print(components)
+            var value = components[Keys.kCFLocaleLanguageCodeKey.rawValue]!
+            if let scriptCode = components[Keys.kCFLocaleScriptCodeKey.rawValue] {
+                value = value + "-" + scriptCode
+            }
+            return value
         })
     }
 }

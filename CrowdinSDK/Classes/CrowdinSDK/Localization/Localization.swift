@@ -9,9 +9,11 @@ import Foundation
 
 class Localization {
 	var provider: LocalizationProvider
+    var extractor: LocalizationExtractor
+    
     fileprivate let preferredLanguageIdentifiers = Locale.preferredLanguageIdentifiers
     
-	static var current = Localization()
+    static var current: Localization! = nil
 	
 	var mode: CrowdinSDK.Mode {
 		get {
@@ -19,6 +21,11 @@ class Localization {
 			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
 		}
 		set {
+            switch newValue {
+            case .autoSDK, .customSDK,.autoBundle:
+                UserDefaults.standard.cleanAppleLanguages()
+            case .customBundle: break
+            }
 			// TODO: Add changes after switching mode. f.e. cleanAppleLanguages.
 			UserDefaults.standard.set(newValue.rawValue, forKey: "CrowdinSDK.Localization.mode")
 			UserDefaults.standard.synchronize()
@@ -29,10 +36,11 @@ class Localization {
 	
 	var currentLocalization: String? {
 		set {
+            UserDefaults.standard.cleanAppleLanguages()
 			switch mode {
 			case .autoSDK: break;
 			case .customSDK:
-				self.current = newValue
+				self.customLocalization = newValue
 			case .autoBundle: break;
 			case .customBundle:
 				UserDefaults.standard.appleLanguage = newValue
@@ -42,30 +50,33 @@ class Localization {
 		get {
 			switch mode {
 			case .autoSDK:
+                print(preferredLanguageIdentifiers)
 				return Locale.preferredLanguageIdentifiers.first(where: { provider.localizations.contains($0) })
 			case .autoBundle:
 				return Locale.preferredLanguageIdentifiers.first(where: { Bundle.main.localizations.contains($0) })
 			case .customSDK:
-				return self.current
+				return self.customLocalization
 			case .customBundle:
 				return UserDefaults.standard.appleLanguage
 			}
 		}
 	}
 	
-    private var current : String? {
+    private var customLocalization : String? {
         set {
-            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.currentLocalization")
+            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.customLocalization")
             UserDefaults.standard.synchronize()
         }
         get {
-            return UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.currentLocalization")
+            return UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.customLocalization")
         }
     }
 	
 	init(provider: LocalizationProvider? = nil) {
-		self.provider = provider ?? CrowdinProvider(localization: "en")
+        self.extractor = LocalizationExtractor()
+        self.provider = provider ?? CrowdinProvider()
         self.provider.setLocalization(currentLocalization)
+        self.extractor.setLocalization(currentLocalization)
 	}
 	
 	var localization: [String : String] {
@@ -80,5 +91,13 @@ class Localization {
     /// A list of all the localizations contained in the bundle.
     var inBundle: [String] {
         return Bundle.main.localizations
+    }
+    
+    func keyForText(_ text: String) -> String? {
+        var key = localization.first(where: { $1 == text })?.key
+        if key == nil {
+            key = extractor.localizationDict.first(where: { $1 == text })?.key
+        }
+        return key
     }
 }

@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 1/26/19.
 //
 
-import Foundation
+import UIKit
 
 class UIUtil {
     var windows: [UIWindow] {
@@ -49,7 +49,6 @@ class UIUtil {
     }
     
     func refresh(label: UILabel) {
-//        print(label.localizationKey ?? "empty")
         if let key = label.localizationKey {
             label.text = NSLocalizedString(key, comment: "")
             label.setNeedsDisplay()
@@ -57,7 +56,6 @@ class UIUtil {
     }
     
     func refresh(button: UIButton) {
-        print(button.localizationKeys ?? "empty")
         if let key = button.localizationKeys?[button.state.rawValue] {
             button.setTitle(NSLocalizedString(key, comment: ""), for: button.state)
         }

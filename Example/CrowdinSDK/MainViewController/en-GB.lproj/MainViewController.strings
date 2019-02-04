@@ -1,0 +1,18 @@
+
+/* Class = "UIBarButtonItem"; title = "Firebase"; ObjectID = "9Vr-H2-jOb"; */
+"9Vr-H2-jOb.title" = "Firebase";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "A75-9d-qXn"; */
+"A75-9d-qXn.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Reload UI"; ObjectID = "Cs6-rN-TmL"; */
+"Cs6-rN-TmL.normalTitle" = "Reload UI";
+
+/* Class = "UIButton"; normalTitle = "Detals"; ObjectID = "GhZ-W1-hZc"; */
+"GhZ-W1-hZc.normalTitle" = "Detals";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hgT-Re-Azx"; */
+"hgT-Re-Azx.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Main"; ObjectID = "mjp-eQ-nl1"; */
+"mjp-eQ-nl1.title" = "Main";

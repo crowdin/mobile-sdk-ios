@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 1/27/19.
 //
 
-import Foundation
+import UIKit
 
 extension UIControl.State: Hashable {
     static let all: [UIControl.State] = [.normal, .selected, .disabled, .highlighted]
@@ -27,7 +27,7 @@ extension UIButton {
     static var original: Method!
     static var swizzled: Method!
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
-        let key = Localization.current.localization.first(where: { $1 == title })?.key
+        let key = Localization.current.keyForText(title ?? "")
         if let key = key {
             if var localizationKeys = self.localizationKeys {
                 localizationKeys.merge(dict: [state.rawValue: key])

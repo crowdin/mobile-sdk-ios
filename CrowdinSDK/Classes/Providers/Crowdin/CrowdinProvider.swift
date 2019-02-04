@@ -21,7 +21,9 @@ public class CrowdinProvider: LocalizationProvider {
     var allValues: [String] = []
     public var localizationDict: [String: String] = [:]
     public var localizations: [String]  {
-        return crowdinFolder.files.compactMap({ $0.name })
+        let localizations = crowdinFolder.files.compactMap({ $0.name })
+        if localizations.isEmpty { return Bundle.main.localizations }
+        return localizations
     }
     public var localization: String? {
         didSet {
