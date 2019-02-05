@@ -10,7 +10,14 @@ import Foundation
 public class CrowdinProvider: LocalizationProvider {
     public var localizationCompleted: LocalizationProviderHandler = { }
     
-    public required init() { }
+    public required init() {
+		self.refresh()
+		self.createCrowdinFolderIfNeeded()
+		DispatchQueue(label: "localization").async {
+			Thread.sleep(forTimeInterval: 5)
+			self.localizationCompleted()
+		}
+	}
 
     public func setLocalization(_ localization: String?) {
         self.localization = localization
@@ -35,6 +42,10 @@ public class CrowdinProvider: LocalizationProvider {
         self.localization = localization
         self.refresh()
         self.createCrowdinFolderIfNeeded()
+		DispatchQueue(label: "localization").async {
+			Thread.sleep(forTimeInterval: 5)
+			self.localizationCompleted()
+		}
     }
     
     func refresh() {
@@ -42,6 +53,14 @@ public class CrowdinProvider: LocalizationProvider {
         guard let data = sdkFile.content else { return }
         guard let content = try? JSONDecoder().decode([String: String].self, from: data) else { return }
         self.localizationDict = content
+		
+		self.localizationDict.keys.forEach { (key) in
+			self.localizationDict[key] = self.localizationDict[key]! + "[C]"
+		}
+		DispatchQueue(label: "localization").async {
+			Thread.sleep(forTimeInterval: 5)
+			self.localizationCompleted()
+		}
     }
     
     func readAllKeysAndValues() {

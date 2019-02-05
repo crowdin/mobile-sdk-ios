@@ -49,9 +49,11 @@ import UIKit
     }
     
     @objc public class func start() {
+		print("Start")
         self.setProvider(nil)
         self.initializeLib()
     }
+	
     @objc public class func start(with provider: LocalizationProvider?) {
         self.setProvider(provider)
         self.initializeLib()
@@ -87,7 +89,8 @@ import UIKit
     }
 	
     public class func setProvider(_ provider: LocalizationProvider?) {
-        Localization.current = Localization(provider: provider)
+		let localizationProvider = provider ?? CrowdinProvider()
+        Localization.current = Localization(provider: localizationProvider)
         Localization.current.provider.setLocalization(currentLocalization)
         Localization.current.provider.localizationCompleted = self.localizationCompleted
     }

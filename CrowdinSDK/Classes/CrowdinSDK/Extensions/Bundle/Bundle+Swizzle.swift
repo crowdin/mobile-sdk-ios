@@ -17,7 +17,7 @@ extension Bundle {
         if translation == nil {
             translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName)
         }
-        return translation ?? key;
+        return translation ?? key
     }
 
     

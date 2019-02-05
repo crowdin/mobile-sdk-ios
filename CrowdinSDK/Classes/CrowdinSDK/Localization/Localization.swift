@@ -11,7 +11,7 @@ class Localization {
 	var provider: LocalizationProvider
     var extractor: LocalizationExtractor
     
-    fileprivate let preferredLocalizations = Bundle.main.localizations
+    fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
     
     static var current: Localization! = nil
 	
