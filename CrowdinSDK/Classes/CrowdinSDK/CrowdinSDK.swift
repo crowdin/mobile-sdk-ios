@@ -95,7 +95,7 @@ import UIKit
     public class var localizationCompleted: () -> Void {
         return {
             Localization.current.provider.setLocalization(currentLocalization)
-            self.reloadUI()
+            DispatchQueue.main.async { self.reloadUI() }
         }
     }
     

@@ -14,7 +14,6 @@
 		928751FC2208C42D00BB9CB6 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751DC2208C42D00BB9CB6 /* Folder.swift */; };
 		928751FD2208C42D00BB9CB6 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751DD2208C42D00BB9CB6 /* FileType.swift */; };
 		928751FE2208C42D00BB9CB6 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751DE2208C42D00BB9CB6 /* File.swift */; };
-		928751FF2208C42D00BB9CB6 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751E02208C42D00BB9CB6 /* Locale.swift */; };
 		928752002208C42D00BB9CB6 /* UIViewController+Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751E12208C42D00BB9CB6 /* UIViewController+Shake.swift */; };
 		928752012208C42D00BB9CB6 /* Bundle+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751E32208C42D00BB9CB6 /* Bundle+Application.swift */; };
 		928752022208C42D00BB9CB6 /* Bundle+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751E42208C42D00BB9CB6 /* Bundle+Swizzle.swift */; };
@@ -44,7 +43,6 @@
 		928751DC2208C42D00BB9CB6 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		928751DD2208C42D00BB9CB6 /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		928751DE2208C42D00BB9CB6 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		928751E02208C42D00BB9CB6 /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		928751E12208C42D00BB9CB6 /* UIViewController+Shake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Shake.swift"; sourceTree = "<group>"; };
 		928751E32208C42D00BB9CB6 /* Bundle+Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Application.swift"; sourceTree = "<group>"; };
 		928751E42208C42D00BB9CB6 /* Bundle+Swizzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Swizzle.swift"; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 		928751DF2208C42D00BB9CB6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				928751E02208C42D00BB9CB6 /* Locale.swift */,
 				928751E12208C42D00BB9CB6 /* UIViewController+Shake.swift */,
 				928751E22208C42D00BB9CB6 /* Bundle */,
 				928751E62208C42D00BB9CB6 /* UIButton+Swizzle.swift */,
@@ -330,7 +327,6 @@
 				928752032208C42D00BB9CB6 /* Bundle+Codable.swift in Sources */,
 				928751FD2208C42D00BB9CB6 /* FileType.swift in Sources */,
 				928751F92208C42D00BB9CB6 /* UIUtil.swift in Sources */,
-				928751FF2208C42D00BB9CB6 /* Locale.swift in Sources */,
 				928752012208C42D00BB9CB6 /* Bundle+Application.swift in Sources */,
 				9287520A2208C42D00BB9CB6 /* LocalizationExtractor.swift in Sources */,
 				928751FB2208C42D00BB9CB6 /* ObjectAssociation.swift in Sources */,
