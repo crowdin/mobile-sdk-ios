@@ -42,9 +42,10 @@ class LocalizationExtractor {
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
             self.localizationDict.merge(dict: dict as! [String : String])
         }
-        /*
-        print("self.localization - \(self.localization)")
-        var localizationString: String = ""
+		
+        print("self.localization - \(self.localizationDict)")
+		/*
+		var localizationString: String = ""
         self.localization.keys.forEach { (key) in
             localizationString = localizationString + "\"\(key)\" : \"\(self.localization[key] as! String) [\(self.locale)]\"," + "\n"
         }

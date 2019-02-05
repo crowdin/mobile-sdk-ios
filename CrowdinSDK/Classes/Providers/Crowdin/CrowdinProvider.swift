@@ -10,7 +10,14 @@ import Foundation
 public class CrowdinProvider: LocalizationProvider {
     public var localizationCompleted: LocalizationProviderHandler = { }
     
-    public required init() { }
+    public required init() {
+		self.refresh()
+		self.createCrowdinFolderIfNeeded()
+		DispatchQueue(label: "localization").async {
+			Thread.sleep(forTimeInterval: 5)
+			self.localizationCompleted()
+		}
+	}
 
     public func setLocalization(_ localization: String?) {
         if self.localization != localization {
@@ -30,6 +37,11 @@ public class CrowdinProvider: LocalizationProvider {
     public required init(localization: String) {
         self.localization = localization
         self.refresh()
+        self.createCrowdinFolderIfNeeded()
+		DispatchQueue(label: "localization").async {
+			Thread.sleep(forTimeInterval: 5)
+			self.localizationCompleted()
+		}
     }
     
     public func deintegrate() { }
