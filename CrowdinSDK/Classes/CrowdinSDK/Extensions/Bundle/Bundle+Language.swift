@@ -8,20 +8,22 @@
 import Foundation
 
 extension Bundle {
+    /// Return ordered list of language codes according to device settings, and bundle localizations.
+	//	TODO: Add handling case when intersection of preffered languages from settings and localizations in bundle is empty.
     var preferredLanguages: [String] {
-        let preferredLanguages = Locale.preferredLanguages
-        var localizations = self.localizations
-        localizations.sort { (str1, str2) -> Bool in
-            var firstIndex = preferredLanguages.firstIndex(where: { $0.contains(str1) && $0.count == str1.count })
-            if firstIndex == nil {
-                firstIndex = preferredLanguages.firstIndex(where: { $0.contains(str1)}) ?? 0
-            }
-            var secondIndex = preferredLanguages.firstIndex(where: { $0.contains(str2) && $0.count == str2.count })
-            if secondIndex == nil {
-                secondIndex = preferredLanguages.firstIndex(where: { $0.contains(str2)}) ?? -0
-            }
-            return firstIndex! < secondIndex!
-        }
-        return localizations
+        var preferredLanguages = Locale.preferredLocalizations
+		let localizations = self.localizations.compactMap { (localization) -> String? in
+			if preferredLanguages.contains(localization) {
+				return localization
+			}
+			return nil
+		}
+		preferredLanguages = preferredLanguages.compactMap { (localization) -> String? in
+			if localizations.contains(localization) {
+				return localization
+			}
+			return nil
+		}
+        return preferredLanguages
     }
 }
