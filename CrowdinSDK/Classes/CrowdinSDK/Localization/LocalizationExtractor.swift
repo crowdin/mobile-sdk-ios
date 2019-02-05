@@ -26,6 +26,9 @@ class LocalizationExtractor {
     
     init(localization: String? = LocalizationExtractor.allLocalizations.first) {
         self.localization = localization
+        if localization == nil {
+            self.localization = LocalizationExtractor.allLocalizations.first
+        }
         self.extract()
     }
     
@@ -40,16 +43,7 @@ class LocalizationExtractor {
     func extract() {
         self.files.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
-            self.localizationDict.merge(dict: dict as! [String : String])
+            self.localizationDict.merge(dict: dict as? [String : String] ?? [:])
         }
-		
-        print("self.localization - \(self.localizationDict)")
-		/*
-		var localizationString: String = ""
-        self.localization.keys.forEach { (key) in
-            localizationString = localizationString + "\"\(key)\" : \"\(self.localization[key] as! String) [\(self.locale)]\"," + "\n"
-        }
-        print(localizationString)
-         */
     }
 }

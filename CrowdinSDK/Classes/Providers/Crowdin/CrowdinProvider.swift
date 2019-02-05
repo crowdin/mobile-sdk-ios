@@ -11,12 +11,8 @@ public class CrowdinProvider: LocalizationProvider {
     public var localizationCompleted: LocalizationProviderHandler = { }
     
     public required init() {
+        self.localization = LocalizationExtractor.allLocalizations.first
 		self.refresh()
-		self.createCrowdinFolderIfNeeded()
-		DispatchQueue(label: "localization").async {
-			Thread.sleep(forTimeInterval: 5)
-			self.localizationCompleted()
-		}
 	}
 
     public func setLocalization(_ localization: String?) {
@@ -37,25 +33,24 @@ public class CrowdinProvider: LocalizationProvider {
     public required init(localization: String) {
         self.localization = localization
         self.refresh()
-        self.createCrowdinFolderIfNeeded()
-		DispatchQueue(label: "localization").async {
-			Thread.sleep(forTimeInterval: 5)
-			self.localizationCompleted()
-		}
+//        DispatchQueue(label: "localization").async {
+//            Thread.sleep(forTimeInterval: 5)
+//            self.localizationCompleted()
+//        }
     }
     
     public func deintegrate() { }
     
     func refresh() {
-        DispatchQueue(label: "localization").async {
-            Thread.sleep(forTimeInterval: 5)
+//        DispatchQueue(label: "localization").async {
+//            Thread.sleep(forTimeInterval: 5)
             let extractor = LocalizationExtractor(localization: self.localization)
             self.localizationDict = extractor.localizationDict
             self.localizationDict.keys.forEach { (key) in
                 self.localizationDict[key] = self.localizationDict[key]! + "[cw]"
             }
             self.localizationCompleted()
-        }
+//        }
     }
     
     func readAllKeysAndValues() {

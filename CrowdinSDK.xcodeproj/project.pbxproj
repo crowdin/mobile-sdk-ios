@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9213B8F5220A0CD30027CEFB /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213B8F4220A0CD30027CEFB /* Locale.swift */; };
 		928751F72208C42D00BB9CB6 /* CrowdinProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751D22208C42D00BB9CB6 /* CrowdinProvider.swift */; };
 		928751F92208C42D00BB9CB6 /* UIUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751D62208C42D00BB9CB6 /* UIUtil.swift */; };
 		928751FA2208C42D00BB9CB6 /* SaveScreenshotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751D82208C42D00BB9CB6 /* SaveScreenshotVC.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9213B8F4220A0CD30027CEFB /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		928751C12208C3FC00BB9CB6 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		928751D02208C42D00BB9CB6 /* FirebaseLocalizationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseLocalizationProvider.swift; sourceTree = "<group>"; };
 		928751D22208C42D00BB9CB6 /* CrowdinProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrowdinProvider.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		928751DF2208C42D00BB9CB6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9213B8F4220A0CD30027CEFB /* Locale.swift */,
 				928751E12208C42D00BB9CB6 /* UIViewController+Shake.swift */,
 				928751E22208C42D00BB9CB6 /* Bundle */,
 				928751E62208C42D00BB9CB6 /* UIButton+Swizzle.swift */,
@@ -346,6 +349,7 @@
 				928751FA2208C42D00BB9CB6 /* SaveScreenshotVC.swift in Sources */,
 				928752082208C42D00BB9CB6 /* UIImage+Save.swift in Sources */,
 				928751FC2208C42D00BB9CB6 /* Folder.swift in Sources */,
+				9213B8F5220A0CD30027CEFB /* Locale.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
