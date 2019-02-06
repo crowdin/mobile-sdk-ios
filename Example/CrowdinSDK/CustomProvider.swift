@@ -10,16 +10,16 @@ import Foundation
 import CrowdinSDK
 
 class CustomProvider: LocalizationProvider {
-    required init(localizationCompleted: @escaping LocalizationProviderHandler) {
-        self.localizationCompleted = localizationCompleted
+    func set(localization: String?) {
+        self.localization = localization ?? "en"
+        localizationDict = self.allLocalization[self.localization] as? [String: String] ?? [:]
     }
-    
-    required init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler) {
-        self.localizationCompleted = localizationCompleted
-        self.setLocalization(localization)
+
+    required init(localization: String?) {
+        self.localization = localization ?? "en"
+        localizationDict = self.allLocalization[self.localization] as? [String: String] ?? [:]
     }
-    
-    var localizationCompleted: LocalizationProviderHandler = { }
+    var localization: String
     
     var allLocalization: [String: Any] = [:]
     var localizations: [String] = []
@@ -30,12 +30,50 @@ class CustomProvider: LocalizationProvider {
         
     }
     
-    func setLocalization(_ localization: String?) {
-        guard let localization = localization else { return }
-        localizationDict = self.allLocalization[localization] as? [String: String] ?? [:]
-    }
-    
     required init() {
+        self.localization = "en"
+        self.allLocalization = [
+            "en": [
+                "details_button" : "Button [INITIAL]",
+                "details_label" : "Label 123 [INITIAL]",
+                "details_segmentedControl_0" : "Value [INITIAL]",
+                "details_segmentedControl_1" : "Value1 [INITIAL]",
+                "details_textfield_placeholder" : "Placeholder [INITIAL]",
+                "details_title" : "Details Screen [INITIAL]",
+                "main_show_details_button" : "Show Details [INITIAL]",
+                "main_title" : "Main Screen [INITIAL]",
+                "menu_explorer_button_title" : "Explorer [INITIAL]",
+                "menu_firebase_button_title" : "Firebase [INITIAL]",
+                "menu_main_button_title" : "Main [INITIAL]",
+                "menu_settings_button_title" : "Settings [INITIAL]",
+                "settings_in_bundle" : "In Bundle [INITIAL]",
+                "settings_in_sdk" : "In SDK [INITIAL]",
+                "test_key" : "Test [INITIAL]",
+                "test_parameter" : "Parameter [INITIAL]",
+                "test_with_format_key" : "Test parameter - %@ [INITIAL]"
+            ],
+            "uk": [
+                "details_button" : "Кнопка 123 [INITIAL]",
+                "details_label" : "Лейбл 12 [INITIAL]",
+                "details_segmentedControl_0" : "Значення0 [INITIAL]",
+                "details_segmentedControl_1" : "Значення1 [INITIAL]",
+                "details_textfield_placeholder" : "Якийсь текст [INITIAL]",
+                "details_title" : "Деталі [INITIAL]",
+                "main_show_details_button" : "Показати деталі [INITIAL]",
+                "main_title" : "Головна [INITIAL]",
+                "menu_explorer_button_title" : "Перегляд файлів [INITIAL]",
+                "menu_firebase_button_title" : "Firebase [UA] [INITIAL]",
+                "menu_main_button_title" : "Головна кнопка [INITIAL]",
+                "menu_settings_button_title" : "Налаштування [INITIAL]",
+                "settings_in_bundle" : "У бандлі [INITIAL]",
+                "settings_in_sdk" : "У СДК [INITIAL]",
+                "test_key" : "Тест [INITIAL]",
+                "test_parameter" : "Параметр [INITIAL]",
+                "test_with_format_key" : "Тестовий параметер - %@ [INITIAL]"
+            ]
+        ]
+        localizationDict = self.allLocalization[self.localization] as? [String: String] ?? [:]
+        
         DispatchQueue(label: "localization").async {
             Thread.sleep(forTimeInterval: 5)
             self.localizations = ["en", "uk"]
@@ -79,7 +117,13 @@ class CustomProvider: LocalizationProvider {
                     "test_with_format_key" : "Тестовий параметер - %@ [CUSTOM]"
                 ]
             ]
-            self.localizationCompleted()
+            DispatchQueue.main.async {
+                self.refresh()
+                CrowdinSDK.reloadUI()
+            }
         }
+    }
+    func refresh() {
+        localizationDict = self.allLocalization[self.localization] as? [String: String] ?? [:]
     }
 }

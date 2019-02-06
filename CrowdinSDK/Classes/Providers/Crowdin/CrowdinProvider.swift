@@ -8,17 +8,19 @@
 import Foundation
 
 public class CrowdinProvider: LocalizationProvider {
-    public var localizationCompleted: LocalizationProviderHandler
+    public required init(localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
+        self.refresh()
+    }
     
-    public required init(localizationCompleted: @escaping LocalizationProviderHandler) {
-		self.localizationCompleted = localizationCompleted
-        self.localization = LocalizationExtractor.allLocalizations.first
+    public required init() {
+        self.localization = Bundle.main.preferredLanguages.first ?? "en"
 		self.refresh()
 	}
 
-    public func setLocalization(_ localization: String?) {
+    public func set(localization: String?) {
         if self.localization != localization {
-			self.localization = localization
+			self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
             self.refresh()
         }
     }
@@ -29,17 +31,7 @@ public class CrowdinProvider: LocalizationProvider {
     public var localizations: [String]  {
         return Bundle.main.localizations
     }
-    public var localization: String?
-    
-    public required init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler) {
-		self.localizationCompleted = localizationCompleted
-        self.localization = localization
-        self.refresh()
-//        DispatchQueue(label: "localization").async {
-//            Thread.sleep(forTimeInterval: 5)
-//            self.localizationCompleted()
-//        }
-    }
+    public var localization: String
     
     public func deintegrate() { }
     
@@ -47,9 +39,8 @@ public class CrowdinProvider: LocalizationProvider {
 		let extractor = LocalizationExtractor(localization: self.localization)
 		self.localizationDict = extractor.localizationDict
 		self.localizationDict.keys.forEach { (key) in
-            self.localizationDict[key] = self.localizationDict[key]! + "[\(localization ?? "")][cw]"
+            self.localizationDict[key] = self.localizationDict[key]! + "[\(localization)][cw]"
 		}
-		self.localizationCompleted()
 	}
 	
     func readAllKeysAndValues() {

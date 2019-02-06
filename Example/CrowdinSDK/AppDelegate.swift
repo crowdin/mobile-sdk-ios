@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        CrowdinSDK.start()
+//        CrowdinSDK.start(with: CustomProvider())
 		
         self.window = UIWindow(frame: UIScreen.main.bounds)
         

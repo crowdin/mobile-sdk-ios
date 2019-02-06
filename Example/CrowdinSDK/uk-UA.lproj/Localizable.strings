@@ -6,21 +6,21 @@
   Copyright © 2019 CocoaPods. All rights reserved.
 */
 
-"details_button" = "Кнопка [BUNDLE]";
-"details_label" = "Лейбл [BUNDLE]";
-"details_segmentedControl_0" = "Значення0 [BUNDLE]";
-"details_segmentedControl_1" = "Значення1 [BUNDLE]";
-"details_textfield_placeholder" = "Якийсь текст [BUNDLE]";
-"details_title" = "Деталі [BUNDLE]";
-"main_title" = "Головна [BUNDLE]";
-"menu_explorer_button_title" = "Перегляд файлів [BUNDLE]";
-"menu_firebase_button_title" = "Firebase [UA] [BUNDLE]";
-"menu_main_button_title" = "Головна [BUNDLE]";
-"menu_settings_button_title" = "Налаштування [BUNDLE]";
-"settings_in_bundle" = "У бандлі [BUNDLE]";
-"settings_in_sdk" = "У СДК [BUNDLE]";
-"test_key" = "Тест [BUNDLE]";
-"test_with_format_key" = "Тестовий параметер - %@ [BUNDLE]";
-"test_parameter" = "Параметер [BUNDLE]";
-"main_reload_ui_button" = "Оновити UI [BUNDLE]";
-"main_show_details_button" = "Показати деталі [BUNDLE]";
+"details_button" = "Кнопка [uk-UA][BUNDLE]";
+"details_label" = "Лейбл [uk-UA][BUNDLE]";
+"details_segmentedControl_0" = "Значення0 [uk-UA][BUNDLE]";
+"details_segmentedControl_1" = "Значення1 [uk-UA][BUNDLE]";
+"details_textfield_placeholder" = "Якийсь текст [uk-UA][BUNDLE]";
+"details_title" = "Деталі [uk-UA][BUNDLE]";
+"main_title" = "Головна [uk-UA][BUNDLE]";
+"menu_explorer_button_title" = "Перегляд файлів [uk-UA][BUNDLE]";
+"menu_firebase_button_title" = "Firebase [uk-UA][BUNDLE]";
+"menu_main_button_title" = "Головна [uk-UA][BUNDLE]";
+"menu_settings_button_title" = "Налаштування [uk-UA][BUNDLE]";
+"settings_in_bundle" = "У бандлі [uk-UA][BUNDLE]";
+"settings_in_sdk" = "У СДК [uk-UA][BUNDLE]";
+"test_key" = "Тест [uk-UA][BUNDLE]";
+"test_with_format_key" = "Тестовий параметер - %@ [uk-UA][BUNDLE]";
+"test_parameter" = "Параметер [uk-UA][BUNDLE]";
+"main_reload_ui_button" = "Оновити UI [uk-UA][BUNDLE]";
+"main_show_details_button" = "Показати деталі [uk-UA][BUNDLE]";

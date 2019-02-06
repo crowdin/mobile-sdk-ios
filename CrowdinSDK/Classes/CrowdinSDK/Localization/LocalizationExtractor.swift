@@ -11,6 +11,7 @@ class LocalizationExtractor {
     static var allLocalizations: [String] {
         return Bundle.main.preferredLocalizations
     }
+    
     var allKeys: [String] = []
     var allValues: [String] = []
     var localizationDict: [String: String] = [:]

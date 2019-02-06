@@ -9,29 +9,21 @@ import Foundation
 import FirebaseDatabase
 
 public class FirebaseLocalizationProvider: LocalizationProvider {
-    public required init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler) {
-        self.localizationCompleted = localizationCompleted
-        self.setLocalization(localization)
-        self.subscribe()
-        self.createCrowdinFolderIfNeeded()
-    }
-    
-    public var localizationCompleted: LocalizationProviderHandler = { }
-    
-    public required init(localizationCompleted: @escaping LocalizationProviderHandler) {
-        self.localizationCompleted = localizationCompleted
+    public required init(localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
         self.subscribe()
         self.createCrowdinFolderIfNeeded()
     }
 
-    public init(path: String) {
+    public init(path: String, localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
         self.path = path
         self.subscribe()
         self.createCrowdinFolderIfNeeded()
     }
     
-    public func setLocalization(_ localization: String?) {
-        self.localization = localization
+    public func set(localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
     }
     
     let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
@@ -43,7 +35,7 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
     }
     public var localizationDict: [String : String] = [:]
     
-    public var localization: String? {
+    public var localization: String {
         didSet {
             self.refresh()
         }
@@ -97,7 +89,7 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
                     try! data.write(to: URL(fileURLWithPath: self.crowdinFolder.path + "/\(key).json"))
                 })
                 self.refresh()
-                self.localizationCompleted()
+                CrowdinSDK.reloadUI()
             }
         }
     }

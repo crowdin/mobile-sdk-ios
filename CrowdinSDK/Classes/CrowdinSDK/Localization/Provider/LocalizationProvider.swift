@@ -10,11 +10,10 @@ import Foundation
 public typealias LocalizationProviderHandler = () -> Void
 
 @objc public protocol LocalizationProvider {
-    var localizationCompleted: LocalizationProviderHandler { get set }
+    var localization: String { get }
 	var localizations: [String] { get }
 	var localizationDict: [String: String]  { get }
-	init(localizationCompleted: @escaping LocalizationProviderHandler)
-	init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler)
+	init(localization: String?)
 	func deintegrate()
-    func setLocalization(_ localization: String?)
+    func set(localization: String?)
 }

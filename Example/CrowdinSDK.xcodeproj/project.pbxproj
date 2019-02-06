@@ -327,7 +327,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 				uk,
 				"zh-Hans",

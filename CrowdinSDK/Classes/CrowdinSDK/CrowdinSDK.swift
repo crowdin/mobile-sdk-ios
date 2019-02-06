@@ -47,7 +47,8 @@ import UIKit
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
 	
     public class func reloadUI() {
-        UIUtil.shared.reload()
+        DispatchQueue.main.async { UIUtil.shared.reload() }
+       
     }
     
     @objc public class func start() {
@@ -91,14 +92,8 @@ import UIKit
     }
 	
     public class func setProvider(_ provider: LocalizationProvider?) {
-		let localizationProvider = provider ?? CrowdinProvider(localizationCompleted: self.localizationCompleted)
+		let localizationProvider = provider ?? CrowdinProvider()
         Localization.current = Localization(provider: localizationProvider)
-    }
-    
-    public class var localizationCompleted: () -> Void {
-        return {
-            DispatchQueue.main.async { self.reloadUI() }
-        }
     }
 }
 
