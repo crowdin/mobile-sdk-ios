@@ -10,6 +10,15 @@ import Foundation
 import CrowdinSDK
 
 class CustomProvider: LocalizationProvider {
+    required init(localizationCompleted: @escaping LocalizationProviderHandler) {
+        self.localizationCompleted = localizationCompleted
+    }
+    
+    required init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler) {
+        self.localizationCompleted = localizationCompleted
+        self.setLocalization(localization)
+    }
+    
     var localizationCompleted: LocalizationProviderHandler = { }
     
     var allLocalization: [String: Any] = [:]

@@ -10,7 +10,7 @@ import Foundation
 public class CrowdinProvider: LocalizationProvider {
     public var localizationCompleted: LocalizationProviderHandler
     
-    public required init(_ localizationCompleted: LocalizationProviderHandler) {
+    public required init(localizationCompleted: @escaping LocalizationProviderHandler) {
 		self.localizationCompleted = localizationCompleted
         self.localization = LocalizationExtractor.allLocalizations.first
 		self.refresh()
@@ -31,7 +31,7 @@ public class CrowdinProvider: LocalizationProvider {
     }
     public var localization: String?
     
-	public required init(localization: String, _ localizationCompleted: LocalizationProviderHandler) {
+    public required init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler) {
 		self.localizationCompleted = localizationCompleted
         self.localization = localization
         self.refresh()
@@ -47,7 +47,7 @@ public class CrowdinProvider: LocalizationProvider {
 		let extractor = LocalizationExtractor(localization: self.localization)
 		self.localizationDict = extractor.localizationDict
 		self.localizationDict.keys.forEach { (key) in
-			self.localizationDict[key] = self.localizationDict[key]! + "[cw]"
+            self.localizationDict[key] = self.localizationDict[key]! + "[\(localization ?? "")][cw]"
 		}
 		self.localizationCompleted()
 	}

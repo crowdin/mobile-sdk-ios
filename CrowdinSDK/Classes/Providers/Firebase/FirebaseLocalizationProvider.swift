@@ -9,9 +9,17 @@ import Foundation
 import FirebaseDatabase
 
 public class FirebaseLocalizationProvider: LocalizationProvider {
+    public required init(localization: String, localizationCompleted: @escaping LocalizationProviderHandler) {
+        self.localizationCompleted = localizationCompleted
+        self.setLocalization(localization)
+        self.subscribe()
+        self.createCrowdinFolderIfNeeded()
+    }
+    
     public var localizationCompleted: LocalizationProviderHandler = { }
     
-    public required init() {
+    public required init(localizationCompleted: @escaping LocalizationProviderHandler) {
+        self.localizationCompleted = localizationCompleted
         self.subscribe()
         self.createCrowdinFolderIfNeeded()
     }

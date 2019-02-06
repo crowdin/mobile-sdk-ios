@@ -71,7 +71,7 @@ class Localization {
 	
 	init(provider: LocalizationProvider? = nil) {
         self.extractor = LocalizationExtractor()
-        self.provider = provider ?? CrowdinProvider()
+        self.provider = provider ?? CrowdinProvider(localizationCompleted: CrowdinSDK.localizationCompleted)
         self.provider.setLocalization(currentLocalization)
         self.extractor.setLocalization(currentLocalization)
 	}
