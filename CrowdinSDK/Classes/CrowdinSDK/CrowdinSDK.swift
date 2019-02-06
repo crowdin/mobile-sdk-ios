@@ -37,12 +37,14 @@ import UIKit
 			return Localization.current.currentLocalization
 		}
 		set {
-			Localization.current.currentLocalization = currentLocalization
+			Localization.current.currentLocalization = newValue
 		}
 	}
 	
-    public class var inSDKLocalizations: [String] { return Localization.current.inProvider }
-    public class var inBundleLocalizations: [String] { return Localization.current.inBundle }
+	// TODO: Avoid using optionals here:
+	public class var inSDKLocalizations: [String] { return Localization.current?.inProvider ?? [] }
+	// TODO: Avoid using optionals here:
+    public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
 	
     public class func reloadUI() {
         UIUtil.shared.reload()
@@ -69,14 +71,16 @@ import UIKit
             } else {
                 self.mode = .autoSDK
             }
+			self.currentLocalization = localization
         } else {
             if localization != nil {
                 self.mode = .customBundle
             } else {
                 self.mode = .autoBundle
             }
+			self.currentLocalization = localization
         }
-        Localization.current.currentLocalization = localization
+		Localization.current.provider.setLocalization(currentLocalization)
     }
     
     private class func initializeLib() {
@@ -96,11 +100,9 @@ import UIKit
     
     public class var localizationCompleted: () -> Void {
         return {
-            Localization.current.provider.setLocalization(currentLocalization)
             DispatchQueue.main.async { self.reloadUI() }
         }
     }
-    
 }
 
 extension CrowdinSDK {

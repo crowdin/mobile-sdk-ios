@@ -13,8 +13,8 @@ public typealias LocalizationProviderHandler = () -> Void
     var localizationCompleted: LocalizationProviderHandler { get set }
 	var localizations: [String] { get }
 	var localizationDict: [String: String]  { get }
-	init()
+	init(localizationCompleted: LocalizationProviderHandler)
+	init(localization: String, localizationCompleted: LocalizationProviderHandler)
 	func deintegrate()
     func setLocalization(_ localization: String?)
-    
 }

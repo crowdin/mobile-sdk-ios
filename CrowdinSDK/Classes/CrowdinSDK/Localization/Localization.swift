@@ -30,8 +30,6 @@ class Localization {
 			// TODO: Add changes after switching mode. f.e. cleanAppleLanguages.
 			UserDefaults.standard.set(newValue.rawValue, forKey: "CrowdinSDK.Localization.mode")
 			UserDefaults.standard.synchronize()
-            
-            self.provider.setLocalization(currentLocalization)
 		}
 	}
 	
@@ -45,14 +43,14 @@ class Localization {
 			case .customBundle:
 				UserDefaults.standard.appleLanguage = newValue
 			}
-            self.provider.setLocalization(currentLocalization)
+            self.provider.setLocalization(newValue)
 		}
 		get {
 			switch mode {
 			case .autoSDK:
 				return preferredLocalizations.first(where: { provider.localizations.contains($0) })
 			case .autoBundle:
-				return preferredLocalizations.first(where: { Bundle.main.localizations.contains($0) })
+				return preferredLocalizations.first(where: { self.inBundle.contains($0) })
 			case .customSDK:
 				return self.customLocalization
 			case .customBundle:

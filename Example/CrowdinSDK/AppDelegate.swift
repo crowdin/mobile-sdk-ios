@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         CrowdinSDK.start()
-        
+		
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         var panelsVC = FAPanelController()
