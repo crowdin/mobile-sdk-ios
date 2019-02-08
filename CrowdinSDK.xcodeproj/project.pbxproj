@@ -28,7 +28,6 @@
 		9287520A2208C42D00BB9CB6 /* LocalizationExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751ED2208C42D00BB9CB6 /* LocalizationExtractor.swift */; };
 		9287520B2208C42D00BB9CB6 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751EE2208C42D00BB9CB6 /* Localization.swift */; };
 		9287520C2208C42D00BB9CB6 /* LocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751F02208C42D00BB9CB6 /* LocalizationProvider.swift */; };
-		9287520D2208C42D00BB9CB6 /* EmptyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751F12208C42D00BB9CB6 /* EmptyProvider.swift */; };
 		9287520E2208C42D00BB9CB6 /* CrowdinSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928751F22208C42D00BB9CB6 /* CrowdinSDK.swift */; };
 		9287520F2208C42D00BB9CB6 /* SaveScreenshotVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928751F42208C42D00BB9CB6 /* SaveScreenshotVC.storyboard */; };
 		928752132208C46F00BB9CB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928752122208C46F00BB9CB6 /* UIKit.framework */; };
@@ -59,7 +58,6 @@
 		928751ED2208C42D00BB9CB6 /* LocalizationExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationExtractor.swift; sourceTree = "<group>"; };
 		928751EE2208C42D00BB9CB6 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		928751F02208C42D00BB9CB6 /* LocalizationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationProvider.swift; sourceTree = "<group>"; };
-		928751F12208C42D00BB9CB6 /* EmptyProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyProvider.swift; sourceTree = "<group>"; };
 		928751F22208C42D00BB9CB6 /* CrowdinSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrowdinSDK.swift; sourceTree = "<group>"; };
 		928751F42208C42D00BB9CB6 /* SaveScreenshotVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SaveScreenshotVC.storyboard; sourceTree = "<group>"; };
 		928752122208C46F00BB9CB6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -227,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				928751F02208C42D00BB9CB6 /* LocalizationProvider.swift */,
-				928751F12208C42D00BB9CB6 /* EmptyProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -329,7 +326,6 @@
 				928752052208C42D00BB9CB6 /* UILabel+Swizzle.swift in Sources */,
 				928752062208C42D00BB9CB6 /* Dictionary.swift in Sources */,
 				9287520B2208C42D00BB9CB6 /* Localization.swift in Sources */,
-				9287520D2208C42D00BB9CB6 /* EmptyProvider.swift in Sources */,
 				928752032208C42D00BB9CB6 /* Bundle+Codable.swift in Sources */,
 				928751FD2208C42D00BB9CB6 /* FileType.swift in Sources */,
 				928751F92208C42D00BB9CB6 /* UIUtil.swift in Sources */,
@@ -500,6 +496,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhii.londar.CrowdinSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME).h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -526,6 +523,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhii.londar.CrowdinSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME).h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
