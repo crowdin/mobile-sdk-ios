@@ -10,6 +10,7 @@ import Foundation
 enum FileType: String {
     case lproj
     case strings
+    case stringsdict
     
     var `extension`: String {
         return ".\(self.rawValue)"

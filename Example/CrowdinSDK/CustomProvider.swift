@@ -126,4 +126,13 @@ class CustomProvider: LocalizationProvider {
     func refresh() {
         localizationDict = self.allLocalization[self.localization] as? [String: String] ?? [:]
     }
+    func localizedString(for key: String) -> String? {
+        return localizationDict[key]
+    }
+    
+    func keyForString(_ text: String) -> String? {
+        let key = localizationDict.first(where: { $1 == text })?.key
+        return key
+    }
+    
 }

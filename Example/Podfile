@@ -8,6 +8,7 @@ target 'CrowdinSDK_Example' do
   pod 'Firebase'
   pod 'FirebaseDatabase'
   pod 'FAPanels'
+  pod 'R.swift'
   
   target 'CrowdinSDK_Tests' do
     inherit! :search_paths

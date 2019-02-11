@@ -76,8 +76,9 @@ class Localization {
         self.extractor.setLocalization(currentLocalization)
 	}
 	
-	var localization: [String : String] {
-		return self.provider.localizationDict
+    func localizedString(for key: String) -> String? {
+        // TODO: Override for plurals
+		return self.provider.localizedString(for: key)
 	}
 
 	/// A list of all avalaible localization in SDK downloaded from current provider.
@@ -90,8 +91,8 @@ class Localization {
         return Bundle.main.localizations
     }
     
-    func keyForText(_ text: String) -> String? {
-        var key = localization.first(where: { $1 == text })?.key
+    func keyForString(_ text: String) -> String? {
+        var key = provider.keyForString(text)
         if key == nil {
             key = extractor.localizationDict.first(where: { $1 == text })?.key
         }

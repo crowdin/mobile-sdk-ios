@@ -73,17 +73,20 @@ class File: Path, FileStatusable {
     }
 }
 
-class ImageFile: File {
-    var image: UIImage? = nil
+class ReadWriteFile<T: ReadWrite>: File {
+    var file: T? = nil
     
     override init(path: String) {
         super.init(path: path)
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return }
-        self.image = UIImage(data: data)
+        self.file = T.read(from: path)
     }
     
     func save() throws {
-        guard let image = self.image else { return }
-        try image.save(self.path)
+        guard let file = self.file else { return }
+        file.save(self.path)
     }
 }
+
+class ImageFile: ReadWriteFile<UIImage> {}
+
+class PlistFile: ReadWriteFile<NSDictionary> {}

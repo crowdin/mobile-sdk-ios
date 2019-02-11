@@ -13,7 +13,7 @@ extension Bundle {
     static var swizzled: Method!
     
     @objc func swizzled_LocalizedString(forKey key: String, value: String?, table tableName: String?) -> String {
-        var translation = Localization.current.localization[key]
+        var translation = Localization.current.localizedString(for: key)
         if translation == nil {
             translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName)
         }

@@ -27,7 +27,7 @@ extension UIButton {
     static var original: Method!
     static var swizzled: Method!
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
-        let key = Localization.current.keyForText(title ?? "")
+        let key = Localization.current.keyForString(title ?? "")
         if let key = key {
             if var localizationKeys = self.localizationKeys {
                 localizationKeys.merge(dict: [state.rawValue: key])

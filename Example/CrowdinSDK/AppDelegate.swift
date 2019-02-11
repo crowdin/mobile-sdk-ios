@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-//        CrowdinSDK.start(with: CustomProvider())
+        CrowdinSDK.start()
 		
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -35,6 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = panelsVC
         self.window?.makeKeyAndVisible()
+        
+        let data = try! Data(contentsOf: Bundle.main.url(forResource: "Localizable", withExtension: "plist")!)
+        let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+        
+        
+        try? data.write(to: URL(fileURLWithPath: "test.json"))
         
         return true
     }

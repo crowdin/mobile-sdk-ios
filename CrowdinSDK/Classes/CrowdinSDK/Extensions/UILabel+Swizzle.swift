@@ -20,7 +20,7 @@ extension UILabel {
     static var swizzled: Method!
 
     @objc func swizzled_setText(_ text: String) {
-        self.localizationKey = Localization.current.keyForText(text)
+        self.localizationKey = Localization.current.keyForString(text)
         swizzled_setText(text)
     }
 

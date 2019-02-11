@@ -93,4 +93,13 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
             }
         }
     }
+    
+    public func localizedString(for key: String) -> String? {
+        // TODO: Add pluralization
+        return self.localizationDict[key]
+    }
+    public func keyForString(_ text: String) -> String? {
+        let key = localizationDict.first(where: { $1 == text })?.key
+        return key
+    }
 }

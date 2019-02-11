@@ -25,9 +25,12 @@ public class CrowdinProvider: LocalizationProvider {
         }
     }
     
+    var pluralsBundle: Bundle!
+    var pluralsFolder: Folder? = try? DocumentsFolder.createFolder(with: "Plurals")
     var allKeys: [String] = []
     var allValues: [String] = []
     public var localizationDict: [String: String] = [:]
+    public var localizationPluralsDict: NSMutableDictionary = NSMutableDictionary()
     public var localizations: [String]  {
         return Bundle.main.localizations
     }
@@ -41,7 +44,15 @@ public class CrowdinProvider: LocalizationProvider {
 		self.localizationDict.keys.forEach { (key) in
             self.localizationDict[key] = self.localizationDict[key]! + "[\(localization)][cw]"
 		}
+        self.localizationPluralsDict = extractor.localizationPluralsDict
+        guard let path = pluralsFolder?.path else { return }
+        self.pluralsBundle = Bundle(path: path)
+        let plist = PlistFile(path: self.pluralsBundle.bundlePath + "/Localizable.stringsdict")
+        plist.file = self.localizationPluralsDict
+        try? plist.save()
+        self.pluralsBundle.load()
 	}
+    
 	
     func readAllKeysAndValues() {
         let extractor = LocalizationExtractor(localization: self.localization)
@@ -49,5 +60,18 @@ public class CrowdinProvider: LocalizationProvider {
         allKeys = ([String])(uniqueKeys)
         let uniqueValues: Set<String> = Set<String>(extractor.allValues)
         allValues = ([String])(uniqueValues)
+    }
+    
+    public func localizedString(for key: String) -> String? {
+        let string = self.pluralsBundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+        if string != key {
+            return string
+        }
+        return self.localizationDict[key]
+    }
+    
+    public func keyForString(_ text: String) -> String? {
+        let key = localizationDict.first(where: { $1 == text })?.key
+        return key
     }
 }

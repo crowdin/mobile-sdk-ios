@@ -68,6 +68,9 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - R.swift (5.0.1):
+    - R.swift.Library (~> 5.0.0)
+  - R.swift.Library (5.0.0)
   - SwiftLint (0.30.0)
 
 DEPENDENCIES:
@@ -77,6 +80,7 @@ DEPENDENCIES:
   - FileBrowser
   - Firebase
   - FirebaseDatabase
+  - R.swift
   - SwiftLint
 
 SPEC REPOS:
@@ -93,6 +97,8 @@ SPEC REPOS:
     - GoogleUtilities
     - leveldb-library
     - nanopb
+    - R.swift
+    - R.swift.Library
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -113,8 +119,10 @@ SPEC CHECKSUMS:
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  R.swift: a8e1a7e7f38441282fbcb7a3c266076eb38b77ba
+  R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: c7e1c31d95607c16948c5dc1ed0e28f7afeb5e08
+PODFILE CHECKSUM: d4601b301a14cad20d3ed1541196a7268b985ce3
 
 COCOAPODS: 1.5.3

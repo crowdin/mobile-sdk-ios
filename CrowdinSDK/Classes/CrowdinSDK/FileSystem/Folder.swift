@@ -57,6 +57,12 @@ class Folder: Path, FileStatusable {
         if !folder.isCreated { try folder.create() }
         return folder
     }
+    
+    static func createFolder(with name: String) throws -> Folder {
+        let folder = Folder(path: DocumentsFolder.documentsPath + "/" + name)
+        if !folder.isCreated { try folder.create() }
+        return folder
+    }
 }
 
 class DocumentsFolder: Folder {

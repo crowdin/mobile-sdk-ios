@@ -47,13 +47,21 @@
                                     <action selector="reloadUI:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bds-XB-3Hc"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghv-FW-TCv">
+                                <rect key="frame" x="166.5" y="184" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cs6-rN-TmL" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="0Fy-ui-ff2"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GhZ-W1-hZc" secondAttribute="bottom" constant="20" id="3ES-pC-wrE"/>
+                            <constraint firstItem="Ghv-FW-TCv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4M9-Ds-eMg"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4c4-xr-WTm"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="top" secondItem="Cs6-rN-TmL" secondAttribute="bottom" constant="20" id="U0X-ez-xmr"/>
+                            <constraint firstItem="Ghv-FW-TCv" firstAttribute="top" secondItem="hgT-Re-Azx" secondAttribute="bottom" constant="41" id="VzZ-PU-fB8"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="WDe-c9-zj9"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="top" secondItem="A75-9d-qXn" secondAttribute="bottom" constant="41" id="eaf-43-G7L"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="huG-1H-1hX"/>
@@ -68,6 +76,7 @@
                         <outlet property="showDetailsButton" destination="GhZ-W1-hZc" id="K6c-n0-kmj"/>
                         <outlet property="textLabel" destination="A75-9d-qXn" id="4AQ-9B-Mr6"/>
                         <outlet property="textLabel1" destination="hgT-Re-Azx" id="eU6-rC-r6x"/>
+                        <outlet property="textLabel2" destination="Ghv-FW-TCv" id="m8j-N6-lS7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
