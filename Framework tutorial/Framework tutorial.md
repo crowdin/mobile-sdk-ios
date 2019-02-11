@@ -1,3 +1,15 @@
+## Requirements: 
+- Xcode 10.2
+- Swift 4.2
+
+## Integration
+
+### Cocoapods [TBA]
+
+### Carthage [TBA]
+
+### Manual
+
 This tutorial used on this open source project: [eoshub-ios](https://github.com/eoshubio/eoshub-ios) - Easy access to the EOS network. [https://eos-hub.io](https://eos-hub.io).
 
 #### 1. Install all dependencies via 'pod install' command:
@@ -27,13 +39,23 @@ Make sure that crowdin sdk added to "Embeded Binaries" and to "Lonked Frameworks
 <img src='./Screenshots/add framework3.png' width="600"/>
 
 #### 5. Setup SDK.
-In app delegate add 'import CrowdinSDK'.
+
+##### Swift
+
+In AppDelegate.swift add ```import CrowdinSDK```.
 
 In ```func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool``` method add: 
 
-```'CrowdinSDK.start()'```
+```CrowdinSDK.start()```
 
 <img src='./Screenshots/app delegate.png' width="600"/>
+
+##### Objective-C
+In AppDelegate.m add ```@import CrowdinSDK``` or ```#import<CrowdinSDK/CrowdinSDK.h>```.
+
+In ```- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions``` method add: 
+
+```[CrowdinSDK start];```
 
 #### 6. Run application.
 When you run your application, all localized strings shoul be appended with following construction:  
