@@ -1,6 +1,8 @@
 ## Requirements: 
+
 - Xcode 10.2
 - Swift 4.2
+- iOS 9.0
 
 ## Integration
 
@@ -10,7 +12,7 @@
 
 ### Manual
 
-This tutorial used on this open source project: [eoshub-ios](https://github.com/eoshubio/eoshub-ios) - Easy access to the EOS network. [https://eos-hub.io](https://eos-hub.io).
+This tutorial used in this open source project: [eoshub-ios](https://github.com/eoshubio/eoshub-ios) - Easy access to the EOS network. [https://eos-hub.io](https://eos-hub.io).
 
 #### 1. Install all dependencies via 'pod install' command:
 
@@ -20,21 +22,21 @@ This tutorial used on this open source project: [eoshub-ios](https://github.com/
 #### 2. Check out CrowdinSDK.framework from repository home path:
 <img src='./Screenshots/main folder.png' width="600"/>
 
-#### 3. Drag end dorop CrowdinSDK.framework to your xcode project:
+#### 3. Drag end drop CrowdinSDK.framework to your xcode project:
 
 <img src='./Screenshots/drag and drop.png' width="600"/>
 
 #### 4. Add CrowdinSDK.framework to Embeded Binaries:
 
-Press Project -> Target -> General, And under Embeded Binaries section press "Add Items" (Plus button):
+Press Project -> Target -> General, and under Embeded Binaries section press "Add Items" (Plus button):
 
 <img src='./Screenshots/add framework1.png' width="600"/>
 
-Select Crowdin.framework from list:
+Select CrowdinSDK.framework from list:
 
 <img src='./Screenshots/add framework2.png' width="600"/>
 
-Make sure that crowdin sdk added to "Embeded Binaries" and to "Lonked Frameworks and Libraries" sections only once:
+Make sure that crowdin sdk is added to "Embeded Binaries" and to "Linked Frameworks and Libraries" sections only once:
 
 <img src='./Screenshots/add framework3.png' width="600"/>
 
@@ -58,7 +60,7 @@ In ```- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOpt
 ```[CrowdinSDK start];```
 
 #### 6. Run application.
-When you run your application, all localized strings shoul be appended with following construction:  
+When you will run your application, all localized strings should be appended with following construction:  
 ```[current localization][cw]```, f.e. [en][cw].
 
 <img src='./Screenshots/simulator1.png' width="100"/>
