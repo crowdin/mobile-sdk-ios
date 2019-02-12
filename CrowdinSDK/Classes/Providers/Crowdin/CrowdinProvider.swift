@@ -8,8 +8,6 @@
 import Foundation
 
 public class CrowdinProvider: LocalizationProvider {
-    var allKeys: [String] = []
-    var allValues: [String] = []
     public var localizationDict: [String: String] = [:]
     public var localizations: [String]  {
         return Bundle.main.localizations
@@ -41,15 +39,6 @@ public class CrowdinProvider: LocalizationProvider {
 		self.localizationDict = extractor.localizationDict
         self.stringsdict = DictionaryBundle(name: "Plurals", fileName: "Localizable.stringsdict", stringsDictionary: extractor.localizationPluralsDict)
 	}
-    
-	
-    func readAllKeysAndValues() {
-        let extractor = LocalizationExtractor(localization: self.localization)
-        let uniqueKeys: Set<String> = Set<String>(extractor.allKeys)
-        allKeys = ([String])(uniqueKeys)
-        let uniqueValues: Set<String> = Set<String>(extractor.allValues)
-        allValues = ([String])(uniqueValues)
-    }
     
     public func localizedString(for key: String) -> String? {
         let string = self.stringsdict?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)

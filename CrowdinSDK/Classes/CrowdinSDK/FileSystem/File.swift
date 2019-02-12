@@ -71,6 +71,10 @@ class File: Path, FileStatusable {
         guard self.isCreated else { return nil }
         return try? Data(contentsOf: URL(fileURLWithPath: path))
     }
+    
+    func remove() throws {
+        try FileManager.default.removeItem(atPath: path)
+    }
 }
 
 class ReadWriteFile<T: ReadWrite>: File {

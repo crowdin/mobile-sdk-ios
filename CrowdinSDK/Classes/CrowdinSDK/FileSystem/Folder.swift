@@ -50,6 +50,7 @@ class Folder: Path, FileStatusable {
     
     func move(to path: String) throws {
         try fileManager.moveItem(atPath: self.path, toPath: path)
+        self.path = path
     }
     
     func createFolder(with name: String) throws -> Folder {
@@ -66,10 +67,16 @@ class Folder: Path, FileStatusable {
 }
 
 class DocumentsFolder: Folder {
+    static let root = DocumentsFolder()
+    
     static let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     
     init(_ path: String) {
         super.init(path: path)
+    }
+    
+    init() {
+        super.init(path: DocumentsFolder.documentsPath)
     }
     
     init(name: String) {

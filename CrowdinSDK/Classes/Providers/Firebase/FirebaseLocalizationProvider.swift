@@ -9,23 +9,6 @@ import Foundation
 import FirebaseDatabase
 
 public class FirebaseLocalizationProvider: LocalizationProvider {
-    public required init(localization: String?) {
-        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
-        self.subscribe()
-        self.createCrowdinFolderIfNeeded()
-    }
-
-    public init(path: String, localization: String?) {
-        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
-        self.path = path
-        self.subscribe()
-        self.createCrowdinFolderIfNeeded()
-    }
-    
-    public func set(localization: String?) {
-        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
-    }
-    
     let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
     let database: DatabaseReference = Database.database().reference()
     var allKeys: [String] = []
@@ -41,6 +24,23 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
         }
     }
     public var path: String?
+    
+    public required init(localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
+        self.subscribe()
+        self.createCrowdinFolderIfNeeded()
+    }
+    
+    public init(path: String, localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
+        self.path = path
+        self.subscribe()
+        self.createCrowdinFolderIfNeeded()
+    }
+    
+    public func set(localization: String?) {
+        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
+    }
     
     func refresh() {
         guard let sdkFile = crowdinFolder.files.filter({ $0.name == localization }).first else { return }
@@ -63,12 +63,10 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
     }
     
     func createCrowdinFolderIfNeeded() {
-        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
         if !crowdinFolder.isCreated { try? crowdinFolder.create() }
     }
     
     func deleteCrowdinFolder() {
-        let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
         if crowdinFolder.isCreated { try? crowdinFolder.delete() }
     }
     
@@ -95,7 +93,6 @@ public class FirebaseLocalizationProvider: LocalizationProvider {
     }
     
     public func localizedString(for key: String) -> String? {
-        // TODO: Add pluralization
         return self.localizationDict[key]
     }
     public func keyForString(_ text: String) -> String? {

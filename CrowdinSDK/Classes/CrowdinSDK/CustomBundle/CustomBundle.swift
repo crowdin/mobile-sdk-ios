@@ -18,7 +18,7 @@ class CustomBundle: CustomBundleProtocol {
     
     // TODO: Find way to remove forse  unwraping.
     init(name: String) {
-        self.folder = try! DocumentsFolder.createFolder(with: name)
+        self.folder = try! DocumentsFolder.root.createFolder(with: name)
         self.bundle = Bundle(path: folder.path)!
         self.bundle.load()
     }
@@ -32,7 +32,7 @@ class FileBundle: CustomBundle, FileBundleProtocol {
     var file: File
     
     init(name: String, fileName: String) {
-        let folder = try! DocumentsFolder.createFolder(with: name)
+        let folder = try! DocumentsFolder.root.createFolder(with: name)
         self.file = File(path: folder.path + "/" + fileName)
         super.init(name: name)
     }
@@ -50,10 +50,14 @@ class DictionaryBundle: CustomBundle, DictionaryBundleProtocol {
     // TODO: Find way to remove forse  unwraping.
     init(name: String, fileName: String, stringsDictionary: NSDictionary) {
         self.stringsDictionary = stringsDictionary
-        let folder = try! DocumentsFolder.createFolder(with: name)
+        let folder = try! DocumentsFolder.root.createFolder(with: name)
         self.file = PlistFile(path: folder.path + "/" + fileName)
         self.file.file = self.stringsDictionary
         try? self.file.save()
         super.init(name: name)
+    }
+    
+    func remove() {
+        try? self.file.remove()
     }
 }
