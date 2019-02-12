@@ -8,6 +8,15 @@
 import Foundation
 
 public class CrowdinProvider: LocalizationProvider {
+    var allKeys: [String] = []
+    var allValues: [String] = []
+    public var localizationDict: [String: String] = [:]
+    public var localizations: [String]  {
+        return Bundle.main.localizations
+    }
+    public var localization: String
+    var stringsdict: DictionaryBundle?
+    
     public required init(localization: String?) {
         self.localization = localization ?? Bundle.main.preferredLanguages.first ?? "en"
         self.refresh()
@@ -25,32 +34,12 @@ public class CrowdinProvider: LocalizationProvider {
         }
     }
     
-    var pluralsBundle: Bundle!
-    var pluralsFolder: Folder? = try? DocumentsFolder.createFolder(with: "Plurals")
-    var allKeys: [String] = []
-    var allValues: [String] = []
-    public var localizationDict: [String: String] = [:]
-    public var localizationPluralsDict: NSMutableDictionary = NSMutableDictionary()
-    public var localizations: [String]  {
-        return Bundle.main.localizations
-    }
-    public var localization: String
-    
     public func deintegrate() { }
     
 	func refresh() {
 		let extractor = LocalizationExtractor(localization: self.localization)
 		self.localizationDict = extractor.localizationDict
-		self.localizationDict.keys.forEach { (key) in
-            self.localizationDict[key] = self.localizationDict[key]! + "[\(localization)][cw]"
-		}
-        self.localizationPluralsDict = extractor.localizationPluralsDict
-        guard let path = pluralsFolder?.path else { return }
-        self.pluralsBundle = Bundle(path: path)
-        let plist = PlistFile(path: self.pluralsBundle.bundlePath + "/Localizable.stringsdict")
-        plist.file = self.localizationPluralsDict
-        try? plist.save()
-        self.pluralsBundle.load()
+        self.stringsdict = DictionaryBundle(name: "Plurals", fileName: "Localizable.stringsdict", stringsDictionary: extractor.localizationPluralsDict)
 	}
     
 	
@@ -63,7 +52,7 @@ public class CrowdinProvider: LocalizationProvider {
     }
     
     public func localizedString(for key: String) -> String? {
-        let string = self.pluralsBundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+        let string = self.stringsdict?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
         if string != key {
             return string
         }

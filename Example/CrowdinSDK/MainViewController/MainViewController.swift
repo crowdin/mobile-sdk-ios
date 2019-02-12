@@ -22,7 +22,7 @@ class MainViewController: BaseMenuVC {
     @IBOutlet weak var textLabel2: UILabel! {
         didSet {
             textLabel2.text = R.string.localizable.johnsPineapplesCount(v1_pineapples_count: 12)
-            textLabel2.text = pineapplesCountUniversal(count: 2, count2: 12)
+            //textLabel2.text = pineapplesCountUniversal(count: 2, count2: 12)
         }
     }
     @IBOutlet weak var reloadUIButton: UIButton! {
@@ -37,8 +37,8 @@ class MainViewController: BaseMenuVC {
     }
     
     private func pineapplesCountUniversal(count: UInt, count2: UInt) -> String{
-        let formatString : String = NSLocalizedString("lu_completed_runs", comment: "Johns pineapples count string format to be found in Localized.stringsdict")
-        let resultString1 : String = String(format: formatString, count, count2)
+        let formatString : String = NSLocalizedString("johns pineapples count", comment: "Johns pineapples count string format to be found in Localized.stringsdict")
+        let resultString1 : String = String.localizedStringWithFormat(formatString, count)
         return resultString1
     }
     
