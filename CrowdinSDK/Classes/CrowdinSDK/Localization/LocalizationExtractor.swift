@@ -15,7 +15,7 @@ class LocalizationExtractor {
     var allKeys: [String] = []
     var allValues: [String] = []
     var localizationDict: [String: String] = [:]
-    var localizationPluralsDict: NSMutableDictionary = NSMutableDictionary()
+	var localizationPluralsDict: [AnyHashable: Any] = [:]
     
     var localization: String? = LocalizationExtractor.allLocalizations.first
     
@@ -57,7 +57,8 @@ class LocalizationExtractor {
         
         self.stringsdictFiles.forEach { (file) in
             guard let dict = NSMutableDictionary (contentsOfFile: file) else { return }
-            self.localizationPluralsDict.addEntries(from: dict as? [AnyHashable : Any] ?? [:])
+			guard let strings = dict as? [AnyHashable : Any] else { return }
+			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }
         
         self.addCW()
@@ -69,9 +70,9 @@ class LocalizationExtractor {
         }
         
         let dict = self.localizationPluralsDict
-        dict.allKeys.forEach({ (key) in
-            let localized = dict[key] as! NSMutableDictionary
-            localized.allKeys.forEach({ (key1) in
+        dict.keys.forEach({ (key) in
+			var localized = dict[key] as! [AnyHashable: Any]
+            localized.keys.forEach({ (key1) in
                 if key1 as! String == "NSStringLocalizedFormatKey" {
                     return
                 }
@@ -82,7 +83,7 @@ class LocalizationExtractor {
                     
                     value[key] = value[key]! + "[\(localization ?? "en")][cw]"
                 })
-                localized.setValue(value, forKey: key1 as! String)
+                localized[key1 as! String] = value
             })
         })
         self.localizationPluralsDict = dict

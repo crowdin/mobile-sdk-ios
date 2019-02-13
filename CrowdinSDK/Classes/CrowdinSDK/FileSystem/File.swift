@@ -91,6 +91,8 @@ class ReadWriteFile<T: ReadWrite>: File {
     }
 }
 
-class ImageFile: ReadWriteFile<UIImage> {}
+class UIImageFile: ReadWriteFile<UIImage> {}
 
-class PlistFile: ReadWriteFile<NSDictionary> {}
+class NSDictionaryFile: ReadWriteFile<NSDictionary> {}
+
+class DictionaryFile: ReadWriteFile<Dictionary<AnyHashable, Any>> {}

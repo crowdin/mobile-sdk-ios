@@ -39,19 +39,19 @@ class FileBundle: CustomBundle, FileBundleProtocol {
 }
 
 protocol DictionaryBundleProtocol: CustomBundleProtocol {
-    var stringsDictionary: NSDictionary { get }
-    var file: PlistFile { get }
+    var stringsDictionary: [AnyHashable: Any] { get }
+    var file: DictionaryFile { get }
 }
 
 class DictionaryBundle: CustomBundle, DictionaryBundleProtocol {
-    var stringsDictionary: NSDictionary
-    var file: PlistFile
+    var stringsDictionary: [AnyHashable: Any]
+    var file: DictionaryFile
     
     // TODO: Find way to remove forse  unwraping.
-    init(name: String, fileName: String, stringsDictionary: NSDictionary) {
+    init(name: String, fileName: String, stringsDictionary: [AnyHashable: Any]) {
         self.stringsDictionary = stringsDictionary
         let folder = try! DocumentsFolder.root.createFolder(with: name)
-        self.file = PlistFile(path: folder.path + "/" + fileName)
+        self.file = DictionaryFile(path: folder.path + "/" + fileName)
         self.file.file = self.stringsDictionary
         try? self.file.save()
         super.init(name: name)

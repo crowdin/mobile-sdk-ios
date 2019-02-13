@@ -9,21 +9,21 @@ import Foundation
 
 protocol BaseProviderProtocol {
     var strings: [String: String] { get set }
-    var plurals: NSDictionary { get set }
-    init(strings: [String: String], plurals: NSDictionary)
+	var plurals: [AnyHashable: Any] { get set }
+    init(strings: [String: String], plurals: [AnyHashable: Any])
     func deintegrate()
     func set(strings: [String: String])
-    func set(plurals: NSDictionary)
+    func set(plurals: [AnyHashable: Any])
 }
 
 class BaseProvider: BaseProviderProtocol {
     // Public
     var strings: [String: String]
-    var plurals: NSDictionary
+    var plurals: [AnyHashable: Any]
     // Private
     var pluralsBundle: DictionaryBundle?
     
-    required init(strings: [String: String], plurals: NSDictionary) {
+    required init(strings: [String: String], plurals: [AnyHashable: Any]) {
         self.strings = strings
         self.plurals = plurals
         
@@ -39,7 +39,7 @@ class BaseProvider: BaseProviderProtocol {
         self.strings = strings
     }
     
-    func set(plurals: NSDictionary) {
+    func set(plurals: [AnyHashable: Any]) {
         self.plurals = plurals
         self.setupPluralsBundle()
     }

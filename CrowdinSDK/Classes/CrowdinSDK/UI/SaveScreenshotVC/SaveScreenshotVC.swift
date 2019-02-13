@@ -38,7 +38,7 @@ class SaveScreenshotVC: UIViewController {
         self.createScreenshotsFolderIfNeeded()
         let screenshotsFolder = Folder(path: crowdinFolder.path + "/" + "Screenshots")
         let screenshotFileName = (self.screenshotNameTextField.text ?? DateFormatter().string(from: Date())) + ".png"
-        let screenshotFile = ImageFile(path: screenshotsFolder.path + "/" + screenshotFileName)
+        let screenshotFile = UIImageFile(path: screenshotsFolder.path + "/" + screenshotFileName)
         screenshotFile.file = screenshot
         try? screenshotFile.save()
         self.dismiss(self)
