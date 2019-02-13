@@ -48,7 +48,6 @@ import UIKit
 	
     public class func reloadUI() {
         DispatchQueue.main.async { UIUtil.shared.reload() }
-       
     }
     
     @objc public class func start() {

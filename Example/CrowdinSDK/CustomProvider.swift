@@ -9,7 +9,8 @@
 import Foundation
 import CrowdinSDK
 
-class CustomProvider: LocalizationProvider {
+class CustomProvider: BaseLocalizationProvider {
+    /*
     func set(localization: String?) {
         self.localization = localization ?? "en"
         localizationDict = self.allLocalization[self.localization] as? [String: String] ?? [:]
@@ -134,5 +135,5 @@ class CustomProvider: LocalizationProvider {
         let key = localizationDict.first(where: { $1 == text })?.key
         return key
     }
-    
+    */
 }
