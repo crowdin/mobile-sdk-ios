@@ -60,32 +60,6 @@ class LocalizationExtractor {
 			guard let strings = dict as? [AnyHashable : Any] else { return }
 			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }
-        
-        self.addCW()
     }
     
-    func addCW() {
-        self.localizationDict.keys.forEach { (key) in
-            self.localizationDict[key] = self.localizationDict[key]! + "[\(localization ?? "en")][cw]"
-        }
-        
-        let dict = self.localizationPluralsDict
-        dict.keys.forEach({ (key) in
-			var localized = dict[key] as! [AnyHashable: Any]
-            localized.keys.forEach({ (key1) in
-                if key1 as! String == "NSStringLocalizedFormatKey" {
-                    return
-                }
-                var value = localized[key1] as! [String: String]
-                value.keys.forEach({ (key) in
-                    guard key != "NSStringFormatSpecTypeKey" else { return }
-                    guard key != "NSStringFormatValueTypeKey" else { return }
-                    
-                    value[key] = value[key]! + "[\(localization ?? "en")][cw]"
-                })
-                localized[key1 as! String] = value
-            })
-        })
-        self.localizationPluralsDict = dict
-    }
 }

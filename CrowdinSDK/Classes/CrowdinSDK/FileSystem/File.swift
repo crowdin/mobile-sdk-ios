@@ -96,3 +96,5 @@ class UIImageFile: ReadWriteFile<UIImage> {}
 class NSDictionaryFile: ReadWriteFile<NSDictionary> {}
 
 class DictionaryFile: ReadWriteFile<Dictionary<AnyHashable, Any>> {}
+
+class StringsFile: ReadWriteFile<Dictionary<String, String>> {}
