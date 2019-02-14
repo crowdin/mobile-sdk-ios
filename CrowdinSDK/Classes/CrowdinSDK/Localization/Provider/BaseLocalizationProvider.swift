@@ -15,6 +15,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
     public var strings: [AnyHashable : Any]
     public var plurals: [AnyHashable : Any]
     // Private
+    var pluralsFolder: Folder
     var pluralsBundle: DictionaryBundle?
     var localizationStrings: [String : String]
     
@@ -24,6 +25,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.localization = Bundle.main.preferredLanguages.first ?? "en"
         self.localizations = []
         self.localizationStrings = self.strings[localization] as? [String : String] ?? [:]
+        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + "/" + "Plurals")
         self.setupPluralsBundle()
     }
     
@@ -33,6 +35,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.localization = Bundle.main.preferredLanguages.first ?? "en"
         self.localizations = localizations
         self.localizationStrings = self.strings[localization] as? [String : String] ?? [:]
+        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + "/" + "Plurals")
         self.setupPluralsBundle()
     }
     
@@ -59,7 +62,8 @@ open class BaseLocalizationProvider: LocalizationProvider {
     // Setup plurals bundle
     func setupPluralsBundle() {
 		self.pluralsBundle?.remove()
-        self.pluralsBundle = DictionaryBundle(path: "Plurals" + "/" + localization, fileName: "Localizable.stringsdict", dictionary: self.plurals)
+        
+        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + "/" + localization, fileName: "Localizable.stringsdict", dictionary: self.plurals)
     }
     
     func setupLocalizationStrings() {

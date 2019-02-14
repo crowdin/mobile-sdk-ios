@@ -31,6 +31,7 @@ class PathBundle: CustomBundleProtocol {
 	// TODO: Find way to remove forse  unwraping.
 	init(path: String) {
 		self.folder = Folder(path: path)
+        try? self.folder.create()
 		self.bundle = Bundle(path: folder.path)!
 		self.bundle.load()
 	}
@@ -59,7 +60,6 @@ class DictionaryBundle: PathBundle, DictionaryBundleProtocol {
 	var dictionary: Dictionary<AnyHashable, Any>
     var file: DictionaryFile
     
-    // TODO: Find way to remove forse  unwraping.
     init(path: String, fileName: String, dictionary: [AnyHashable: Any]) {
         self.dictionary = dictionary
         let folder = Folder(path: path)

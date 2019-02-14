@@ -24,6 +24,11 @@ class Folder: Path, FileStatusable {
         }
         self.name = String(lastPathComponent)
         self.path = path
+        self.createFolderIfNeeded()
+    }
+    // Private
+    private func createFolderIfNeeded() {
+        if !self.isCreated { try? self.create() }
     }
     
     var files: [File] {
@@ -86,14 +91,20 @@ class DocumentsFolder: Folder {
 
 
 class CrowdinFolder: Folder {
+    enum Folders: String {
+        case Crowdin
+        case Screenshots
+    }
+    
 	static let shared = CrowdinFolder()
 	
 	let screenshotsFolder: Folder
 	
 	init() {
-		self.screenshotsFolder = CrowdinFolder.shared.screenshotsFolder
-		let name = Bundle.main.bundleId + ".Crowdin"
-		super.init(path: DocumentsFolder.root.path + name)
+		let name = Bundle.main.bundleId + "." + Folders.Crowdin.rawValue
+        let path = DocumentsFolder.root.path + "/" + name
+        self.screenshotsFolder = Folder(path: path + "/" + Folders.Screenshots.rawValue)
+		super.init(path: path)
 		self.createFoldersIfNeeded()
 	}
 	
