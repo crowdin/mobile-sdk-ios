@@ -8,6 +8,7 @@
 import Foundation
 
 public class LocalLocalizationProvider: BaseLocalizationProvider {
+	
 	var additionalWord: String
 	
 	public override init() {
@@ -64,6 +65,7 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
 				})
 				localized[key1 as! String] = value
 			})
+			dict[key] = localized
 		})
 		return dict
 	}

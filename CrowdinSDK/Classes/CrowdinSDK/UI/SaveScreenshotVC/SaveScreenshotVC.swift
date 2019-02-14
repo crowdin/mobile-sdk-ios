@@ -9,7 +9,6 @@
 import UIKit
 
 class SaveScreenshotVC: UIViewController {
-    let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
     var screenshot: UIImage!
     
     @IBOutlet weak var imageView: UIImageView! {
@@ -35,8 +34,7 @@ class SaveScreenshotVC: UIViewController {
     }
     
     @IBAction func save(_ sender: AnyObject) {
-        self.createScreenshotsFolderIfNeeded()
-        let screenshotsFolder = Folder(path: crowdinFolder.path + "/" + "Screenshots")
+        let screenshotsFolder = CrowdinFolder.shared.screenshotsFolder
         let screenshotFileName = (self.screenshotNameTextField.text ?? DateFormatter().string(from: Date())) + ".png"
         let screenshotFile = UIImageFile(path: screenshotsFolder.path + "/" + screenshotFileName)
         screenshotFile.file = screenshot
@@ -44,10 +42,4 @@ class SaveScreenshotVC: UIViewController {
         self.dismiss(self)
     }
     
-    func createScreenshotsFolderIfNeeded() {
-        let screenshotsFolder = Folder(path: crowdinFolder.path + "/" + "Screenshots")
-        if !screenshotsFolder.isCreated {
-            try? screenshotsFolder.create()
-        }
-    }
 }

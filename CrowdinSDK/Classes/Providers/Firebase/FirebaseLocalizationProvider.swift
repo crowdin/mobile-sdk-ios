@@ -9,7 +9,7 @@ import Foundation
 import FirebaseDatabase
 
 public class FirebaseLocalizationProvider: BaseLocalizationProvider {
-    let crowdinFolder = DocumentsFolder(name: Bundle.main.bundleId + ".Crowdin")
+    let crowdinFolder = CrowdinFolder.shared
     let database: DatabaseReference = Database.database().reference()
     var allKeys: [String] = []
     var allValues: [String] = []
@@ -20,21 +20,18 @@ public class FirebaseLocalizationProvider: BaseLocalizationProvider {
         self.path = "localization"
         super.init()
         self.subscribe()
-        self.createCrowdinFolderIfNeeded()
     }
     
     public init(path: String) {
         self.path = path
         super.init()
         self.subscribe()
-        self.createCrowdinFolderIfNeeded()
     }
     
     public required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
         self.path = "localization"
         super.init(localizations: localizations, strings: strings, plurals: plurals)
         self.subscribe()
-        self.createCrowdinFolderIfNeeded()
     }
     
     public override func set(localization: String?) {
@@ -52,13 +49,9 @@ public class FirebaseLocalizationProvider: BaseLocalizationProvider {
             self.set(plurals: plurals)
         }
     }
-    
-    func createCrowdinFolderIfNeeded() {
-        if !crowdinFolder.isCreated { try? crowdinFolder.create() }
-    }
-    
+	
     func deleteCrowdinFolder() {
-        if crowdinFolder.isCreated { try? crowdinFolder.delete() }
+        if crowdinFolder.isCreated { try? crowdinFolder.remove() }
     }
     
     public override func deintegrate() {

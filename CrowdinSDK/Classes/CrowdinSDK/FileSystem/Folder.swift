@@ -44,7 +44,7 @@ class Folder: Path, FileStatusable {
         try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
     }
     
-    func delete() throws {
+    func remove() throws {
         try fileManager.removeItem(atPath: path)
     }
     
@@ -82,4 +82,31 @@ class DocumentsFolder: Folder {
     init(name: String) {
         super.init(path: DocumentsFolder.documentsPath + "/" + name)
     }
+}
+
+
+class CrowdinFolder: Folder {
+	static let shared = CrowdinFolder()
+	
+	let screenshotsFolder: Folder
+	
+	init() {
+		self.screenshotsFolder = CrowdinFolder.shared.screenshotsFolder
+		let name = Bundle.main.bundleId + ".Crowdin"
+		super.init(path: DocumentsFolder.root.path + name)
+		self.createFoldersIfNeeded()
+	}
+	
+	func createFoldersIfNeeded() {
+		self.createCrowdinFolderIfNeeded()
+		self.createScreenshotsFolderIfNeeded()
+	}
+	
+	func createCrowdinFolderIfNeeded() {
+		if !self.isCreated { try? self.create() }
+	}
+	
+	func createScreenshotsFolderIfNeeded() {
+		if !screenshotsFolder.isCreated { try? screenshotsFolder.create() }
+	}
 }

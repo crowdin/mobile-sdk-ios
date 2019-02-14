@@ -75,6 +75,10 @@ class File: Path, FileStatusable {
     func remove() throws {
         try FileManager.default.removeItem(atPath: path)
     }
+	
+	func create() {
+		FileManager.default.createFile(atPath: path, contents: nil, attributes: nil)
+	}
 }
 
 class ReadWriteFile<T: ReadWrite>: File {

@@ -6,21 +6,21 @@
   Copyright © 2019 CocoaPods. All rights reserved.
 */
 
-"details_button" = "Button [zh-Hans-CN][BUNDLE]";
-"details_label" = "Label 123 [zh-Hans-CN][BUNDLE]";
-"details_segmentedControl_0" = "Value [zh-Hans-CN][BUNDLE]";
-"details_segmentedControl_1" = "Value1 [zh-Hans-CN][BUNDLE]";
-"details_textfield_placeholder" = "Placeholder [zh-Hans-CN][BUNDLE]";
-"details_title" = "Details Screen [zh-Hans-CN][BUNDLE]";
-"main_title" = "Main Screen [zh-Hans-CN][BUNDLE]";
-"menu_explorer_button_title" = "Explorer [zh-Hans-CN][BUNDLE]";
-"menu_firebase_button_title" = "Firebase [zh-Hans-CN][BUNDLE]";
-"menu_main_button_title" = "Main [zh-Hans-CN][BUNDLE]";
-"menu_settings_button_title" = "Settings [zh-Hans-CN][BUNDLE]";
-"settings_in_bundle" = "In Bundle [zh-Hans-CN][BUNDLE]";
-"settings_in_sdk" = "In SDK [zh-Hans-CN][BUNDLE]";
-"test_key" = "Test [zh-Hans-CN][BUNDLE]";
-"test_with_format_key" = "Test parameter - %@ [zh-Hans-CN][BUNDLE]";
-"test_parameter" = "Parameter [zh-Hans-CN][BUNDLE]";
-"main_reload_ui_button" = "Reload UI [zh-Hans-CN][BUNDLE]";
-"main_show_details_button" = "Show Details [zh-Hans-CN][BUNDLE]";
+"details_button" = "Button [BUNDLE]";
+"details_label" = "Label 123 [BUNDLE]";
+"details_segmentedControl_0" = "Value [BUNDLE]";
+"details_segmentedControl_1" = "Value1 [BUNDLE]";
+"details_textfield_placeholder" = "Placeholder [BUNDLE]";
+"details_title" = "Details Screen [BUNDLE]";
+"main_title" = "Main Screen [BUNDLE]";
+"menu_explorer_button_title" = "Explorer [BUNDLE]";
+"menu_firebase_button_title" = "Firebase [BUNDLE]";
+"menu_main_button_title" = "Main [BUNDLE]";
+"menu_settings_button_title" = "Settings [BUNDLE]";
+"settings_in_bundle" = "In Bundle [BUNDLE]";
+"settings_in_sdk" = "In SDK [BUNDLE]";
+"test_key" = "Test [BUNDLE]";
+"test_with_format_key" = "Test parameter - %@ [BUNDLE]";
+"test_parameter" = "Parameter [BUNDLE]";
+"main_reload_ui_button" = "Reload UI [BUNDLE]";
+"main_show_details_button" = "Show Details [BUNDLE]";

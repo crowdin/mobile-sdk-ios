@@ -58,7 +58,8 @@ open class BaseLocalizationProvider: LocalizationProvider {
     
     // Setup plurals bundle
     func setupPluralsBundle() {
-        self.pluralsBundle = DictionaryBundle(name: "Plurals", fileName: "Localizable.stringsdict", stringsDictionary: self.plurals)
+		self.pluralsBundle?.remove()
+        self.pluralsBundle = DictionaryBundle(path: "Plurals" + "/" + localization, fileName: "Localizable.stringsdict", dictionary: self.plurals)
     }
     
     func setupLocalizationStrings() {

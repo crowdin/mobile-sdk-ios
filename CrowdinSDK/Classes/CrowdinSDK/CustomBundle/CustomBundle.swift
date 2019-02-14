@@ -12,52 +12,66 @@ protocol CustomBundleProtocol {
     var folder: Folder { get }
 }
 
-class CustomBundle: CustomBundleProtocol {
+class FolderBundle: CustomBundleProtocol {
     var bundle: Bundle
     var folder: Folder
     
     // TODO: Find way to remove forse  unwraping.
-    init(name: String) {
-        self.folder = try! DocumentsFolder.root.createFolder(with: name)
+    init(folder: Folder) {
+        self.folder = folder
         self.bundle = Bundle(path: folder.path)!
         self.bundle.load()
     }
+}
+
+class PathBundle: CustomBundleProtocol {
+	var bundle: Bundle
+	var folder: Folder
+	
+	// TODO: Find way to remove forse  unwraping.
+	init(path: String) {
+		self.folder = Folder(path: path)
+		self.bundle = Bundle(path: folder.path)!
+		self.bundle.load()
+	}
 }
 
 protocol FileBundleProtocol: CustomBundleProtocol {
     var file: File { get }
 }
 
-class FileBundle: CustomBundle, FileBundleProtocol {
+class FileBundle: PathBundle, FileBundleProtocol {
     var file: File
     
-    init(name: String, fileName: String) {
-        let folder = try! DocumentsFolder.root.createFolder(with: name)
+    init(path: String, fileName: String) {
+        let folder = Folder(path: path)
         self.file = File(path: folder.path + "/" + fileName)
-        super.init(name: name)
+        super.init(path: path)
     }
 }
 
 protocol DictionaryBundleProtocol: CustomBundleProtocol {
-    var stringsDictionary: [AnyHashable: Any] { get }
+	var dictionary: Dictionary<AnyHashable, Any> { get }
     var file: DictionaryFile { get }
 }
 
-class DictionaryBundle: CustomBundle, DictionaryBundleProtocol {
-    var stringsDictionary: [AnyHashable: Any]
+class DictionaryBundle: PathBundle, DictionaryBundleProtocol {
+	var dictionary: Dictionary<AnyHashable, Any>
     var file: DictionaryFile
     
     // TODO: Find way to remove forse  unwraping.
-    init(name: String, fileName: String, stringsDictionary: [AnyHashable: Any]) {
-        self.stringsDictionary = stringsDictionary
-        let folder = try! DocumentsFolder.root.createFolder(with: name)
+    init(path: String, fileName: String, dictionary: [AnyHashable: Any]) {
+        self.dictionary = dictionary
+        let folder = Folder(path: path)
         self.file = DictionaryFile(path: folder.path + "/" + fileName)
-        self.file.file = self.stringsDictionary
+        self.file.file = self.dictionary
         try? self.file.save()
-        super.init(name: name)
+        super.init(path: path)
     }
     
     func remove() {
+		self.bundle.unload()
+		try? self.folder.remove()
         try? self.file.remove()
     }
 }
