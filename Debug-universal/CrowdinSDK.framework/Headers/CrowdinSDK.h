@@ -219,13 +219,20 @@ typedef SWIFT_ENUM(NSInteger, Mode, closed) {
 
 SWIFT_PROTOCOL("_TtP10CrowdinSDK20LocalizationProvider_")
 @protocol LocalizationProvider
-@property (nonatomic, readonly, copy) NSString * _Nonnull localization;
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull localizations;
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, NSString *> * _Nonnull localizationDict;
-- (nonnull instancetype)initWithLocalization:(NSString * _Nullable)localization;
+@property (nonatomic, copy) NSString * _Nonnull localization;
+@property (nonatomic, copy) NSArray<NSString *> * _Nonnull localizations;
+@property (nonatomic, copy) NSDictionary * _Nonnull strings;
+@property (nonatomic, copy) NSDictionary * _Nonnull plurals;
+- (nonnull instancetype)initWithLocalizations:(NSArray<NSString *> * _Nonnull)localizations strings:(NSDictionary<NSString *, NSString *> * _Nonnull)strings plurals:(NSDictionary * _Nonnull)plurals;
 - (void)deintegrate;
 - (void)setWithLocalization:(NSString * _Nullable)localization;
+- (void)setWithStrings:(NSDictionary * _Nonnull)strings;
+- (void)setWithPlurals:(NSDictionary * _Nonnull)plurals;
+- (NSString * _Nullable)localizedStringFor:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)keyForString:(NSString * _Nonnull)text SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
