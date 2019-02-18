@@ -19,4 +19,6 @@ import Foundation
     func set(plurals: [AnyHashable : Any])
     func localizedString(for key: String) -> String?
     func keyForString(_ text: String) -> String?
+	// TODO: Move this method from this protocol.
+	func findValues(for string: String, with format: String) -> [String]
 }

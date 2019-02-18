@@ -15,13 +15,31 @@ extension UILabel {
         get { return UILabel.localizationKeyAssociation[self] }
         set { UILabel.localizationKeyAssociation[self] = newValue }
     }
+	
+	private static let localizationValuesAssociation = ObjectAssociation<[String]>()
+	
+	var localizationValues: [String]? {
+		get { return UILabel.localizationValuesAssociation[self] }
+		set { UILabel.localizationValuesAssociation[self] = newValue }
+	}
     
     static var original: Method!
     static var swizzled: Method!
 
     @objc func swizzled_setText(_ text: String) {
         self.localizationKey = Localization.current.keyForString(text)
-        swizzled_setText(text)
+		
+		let isFormated = text.isFormated
+		if !isFormated, let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
+			self.localizationValues = Localization.current.findValues(for: text, with: string)
+		}
+		if isFormated, let values = self.localizationValues {
+			let newText = String(format: text, arguments: values)
+			swizzled_setText(newText)
+			return
+		} else {
+        	swizzled_setText(text)
+		}
     }
 
 

@@ -83,54 +83,31 @@ open class BaseLocalizationProvider: LocalizationProvider {
     public func keyForString(_ text: String) -> String? {
         var key = localizationStrings.first(where: { $1 == text })?.key
         if key == nil {
-            key = findKey(in: self.localizationStrings, forText: text)
-        }
+            key = findKey(in: self.localizationStrings, for: text)
+			if let key = key, let format = localizationStrings[key] {
+				let values = self.findValues(for: text, with: format)
+				print(values)
+			}
+			
+		}
 //        if key == nil, let plurals = self.pluralsBundle?.dictionary {
 //            key = findKey(for: plurals)
 //        }
         return key
     }
-    
-    private let formatTypesRegEx: NSRegularExpression = {
-        let pattern_int = "(?:h|hh|l|ll|q|z|t|j)?([dioux])" // %d/%i/%o/%u/%x with their optional length modifiers like in "%lld"
-        let pattern_float = "[aefg]"
-        let position = "([1-9]\\d*\\$)?" // like in "%3$" to make positional specifiers
-        let precision = "[-+]?\\d*(?:\\.\\d*)?" // precision like in "%1.2f" or "%012.10"
-        let reference = "#@([^@]+)@" // reference to NSStringFormatSpecType in .stringsdict
-        do {
-            return try NSRegularExpression(pattern: "(?<!%)%\(position)\(precision)(@|\(pattern_int)|\(pattern_float)|[csp]|\(reference))", options: [.caseInsensitive])
-        } catch {
-            fatalError("Error building the regular expression used to match string formats")
-        }
-    }()
-    
-    func findKey(in formatedStrings: [String: String], forText: String) -> String? {
-        for (key, value) in formatedStrings {
+	
+//    https://github.com/mac-cain13/R.swift/blob/master/Sources/RswiftCore/ResourceTypes/LocalizableStrings.swift
+	func findKey(in strings: [String: String], for text: String) -> String? {
+        for (key, value) in strings {
             let matches = formatTypesRegEx.matches(in: value, options: [], range: NSRange(location: 0, length: value.count))
             guard matches.count > 0 else { continue }
             let ranges = matches.compactMap({ $0.range })
             let nsStringValue = value as NSString
-            var components = [String]()
-            for index in 0...ranges.count - 1 {
-                let range = ranges[index]
-                if index == 0 {
-                    let string = nsStringValue.substring(with: NSRange(location: 0, length: range.location))
-                    components.append(string)
-                } else if index == ranges.count - 1 {
-                    let location = range.location + range.length
-                    let string = nsStringValue.substring(with: NSRange(location: location, length: nsStringValue.length - location))
-                    components.append(string)
-                } else {
-                    let previousRange = ranges[index - 1]
-                    let location = previousRange.location + previousRange.length
-                    let string = nsStringValue.substring(with: NSRange(location: location, length: range.location - location))
-                    components.append(string)
-                }
-            }
-            
+            let components = nsStringValue.splitBy(ranges: ranges)
+	
             var isIncluded = true
             components.forEach { (component) in
-                if !forText.contains(component) {
+                if !text.contains(component) {
                     isIncluded = false
                     return
                 }
@@ -139,6 +116,21 @@ open class BaseLocalizationProvider: LocalizationProvider {
         }
         return nil
     }
+	
+	public func findValues(for string: String, with format: String) -> [String] {
+		let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
+		guard matches.count > 0 else { return [] }
+		let ranges = matches.compactMap({ $0.range })
+		let nsStringValue = format as NSString
+		let components = nsStringValue.splitBy(ranges: ranges)
+		
+		let nsStringText = string as NSString
+		
+		var valueRanges = [NSRange]()
+		components.forEach({ valueRanges.append(nsStringText.range(of: $0)) })
+
+		return nsStringText.splitBy(ranges: valueRanges)
+	}
     
     func findKey(for plurals: [AnyHashable: Any]) -> String? {
 //        var dict = plurals

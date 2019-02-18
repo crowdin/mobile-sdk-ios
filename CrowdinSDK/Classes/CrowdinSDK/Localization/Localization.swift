@@ -77,7 +77,6 @@ class Localization {
 	}
 	
     func localizedString(for key: String) -> String? {
-        // TODO: Override for plurals
 		return self.provider.localizedString(for: key)
 	}
 
@@ -94,8 +93,13 @@ class Localization {
     func keyForString(_ text: String) -> String? {
         var key = provider.keyForString(text)
         if key == nil {
+			// TODO: Add proper method to extractor for getting keys.
             key = extractor.localizationDict.first(where: { $1 == text })?.key
         }
         return key
     }
+	
+	func findValues(for string: String, with format: String) -> [String] {
+		return provider.findValues(for:string, with:format)
+	}
 }

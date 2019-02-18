@@ -17,3 +17,42 @@ extension String {
 extension String {
     static var dot: String { return "." }
 }
+
+extension String {
+	var isFormated: Bool {
+		return formatTypesRegEx.matches(in: self, options: [], range: NSRange(location: 0, length: self.count)).count > 0
+	}
+}
+
+extension NSString {
+	func splitBy(ranges: [NSRange]) -> [String] {
+		var values = [String]()
+		for index in 0...ranges.count - 1 {
+			let range = ranges[index]
+			guard range.location != NSNotFound else { continue }
+			if index == 0 {
+				if range.location == 0 { continue }
+				guard self.isValid(range: range) else { continue }
+				values.append(self.substring(with: NSRange(location: 0, length: range.location)))
+			} else {
+				let previousRange = ranges[index - 1]
+				let location = previousRange.location + previousRange.length
+				let substringRange = NSRange(location: location, length: range.location - location)
+				guard self.isValid(range: substringRange) else { continue }
+				values.append(self.substring(with: substringRange))
+			}
+			if index == ranges.count - 1 {
+				if range.location + range.length == self.length { continue }
+				let location = range.location + range.length
+				let substringRange = NSRange(location: location, length: self.length - location)
+				guard self.isValid(range: substringRange) else { continue }
+				values.append(self.substring(with: substringRange))
+			}
+		}
+		return values
+	}
+	
+	private func isValid(range: NSRange) -> Bool {
+		return range.location != NSNotFound && range.location + range.length <= length
+	}
+}
