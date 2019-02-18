@@ -77,7 +77,7 @@ DEPENDENCIES:
   - CrowdinSDK (from `../`)
   - CrowdinSDK/FirebaseProvider (from `../`)
   - FAPanels
-  - FileBrowser
+  - FileBrowser (from `https://github.com/serhii-londar/FileBrowser.git`)
   - Firebase
   - FirebaseDatabase
   - R.swift
@@ -86,7 +86,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FAPanels
-    - FileBrowser
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuthInterop
@@ -104,11 +103,18 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   CrowdinSDK:
     :path: "../"
+  FileBrowser:
+    :git: https://github.com/serhii-londar/FileBrowser.git
+
+CHECKOUT OPTIONS:
+  FileBrowser:
+    :commit: 2b89796436311c117270382355ad030caadd3a3f
+    :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
   CrowdinSDK: af1f763dc8c871866321b580bce63b0cfe44458a
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
-  FileBrowser: 2ca91ff61c9ea09665eb3b8f9e64a7a77e66a0bf
+  FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -123,6 +129,6 @@ SPEC CHECKSUMS:
   R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: d4601b301a14cad20d3ed1541196a7268b985ce3
+PODFILE CHECKSUM: 86579b2ad06cf1c9f59ed1b7da62807fec661d8c
 
 COCOAPODS: 1.5.3

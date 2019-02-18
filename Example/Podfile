@@ -4,7 +4,7 @@ target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK', :path => '../'
   pod 'CrowdinSDK/FirebaseProvider', :path => '../'
   pod 'SwiftLint'
-  pod 'FileBrowser'
+  pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
   pod 'Firebase'
   pod 'FirebaseDatabase'
   pod 'FAPanels'

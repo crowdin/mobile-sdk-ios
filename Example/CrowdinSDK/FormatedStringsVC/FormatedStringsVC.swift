@@ -22,8 +22,8 @@ class FormatedStringsVC: BaseMenuVC {
 		[
 			"test_with_format_key",
 			"test_format_key_with_1_parameter",
-			"test_format_key_with_2_parameter",
-			"test_format_key_with_3_parameter"
+			"test_format_key_with_2_parameters",
+			"test_format_key_with_3_parameters"
 		]
 	var localizationParameters: [[String]] = [
 		["param"],
@@ -43,6 +43,7 @@ extension FormatedStringsVC: UITableViewDelegate, UITableViewDataSource {
 		
 		let text = String(format: NSLocalizedString(localizationKeys[indexPath.row], comment: ""), arguments: localizationParameters[indexPath.row])
 		cell.textLabel?.text = text
+        cell.textLabel?.numberOfLines = 0
 		return cell
 	}
 }

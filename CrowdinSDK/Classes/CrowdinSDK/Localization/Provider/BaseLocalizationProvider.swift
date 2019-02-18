@@ -112,7 +112,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
                     return
                 }
             }
-            return isIncluded ? key : nil
+            if isIncluded { return key }
         }
         return nil
     }

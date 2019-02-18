@@ -21,14 +21,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A75-9d-qXn">
-                                <rect key="frame" x="166.5" y="60" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A75-9d-qXn">
+                                <rect key="frame" x="166.5" y="60" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-Re-Azx">
-                                <rect key="frame" x="166.5" y="122" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-Re-Azx">
+                                <rect key="frame" x="166.5" y="121.5" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -47,8 +47,8 @@
                                     <action selector="reloadUI:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bds-XB-3Hc"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghv-FW-TCv">
-                                <rect key="frame" x="166.5" y="184" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghv-FW-TCv">
+                                <rect key="frame" x="166.5" y="183" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -57,15 +57,21 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cs6-rN-TmL" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="0Fy-ui-ff2"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="A75-9d-qXn" secondAttribute="trailing" constant="16" id="2Cb-sr-1AF"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GhZ-W1-hZc" secondAttribute="bottom" constant="20" id="3ES-pC-wrE"/>
                             <constraint firstItem="Ghv-FW-TCv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4M9-Ds-eMg"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4c4-xr-WTm"/>
+                            <constraint firstItem="hgT-Re-Azx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="5MJ-Nu-Ygj"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="hgT-Re-Azx" secondAttribute="trailing" constant="16" id="8lJ-SU-rIN"/>
+                            <constraint firstItem="A75-9d-qXn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="TC2-7j-Ca2"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="top" secondItem="Cs6-rN-TmL" secondAttribute="bottom" constant="20" id="U0X-ez-xmr"/>
                             <constraint firstItem="Ghv-FW-TCv" firstAttribute="top" secondItem="hgT-Re-Azx" secondAttribute="bottom" constant="41" id="VzZ-PU-fB8"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="WDe-c9-zj9"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="top" secondItem="A75-9d-qXn" secondAttribute="bottom" constant="41" id="eaf-43-G7L"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="huG-1H-1hX"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="qCF-D5-diq"/>
+                            <constraint firstItem="Ghv-FW-TCv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="qMz-mv-HkQ"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Ghv-FW-TCv" secondAttribute="trailing" constant="16" id="qQb-P4-yeW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Main" id="mjp-eQ-nl1">
