@@ -24,3 +24,12 @@
 "test_parameter" = "Параметер [BUNDLE]";
 "main_reload_ui_button" = "Оновити UI [BUNDLE]";
 "main_show_details_button" = "Показати деталі [BUNDLE]";
+
+// Formatted Strings:
+"test_with_format_key" = "Тестовий параметер - %@ [BUNDLE]";
+"test_format_key_with_1_parameter" = "Тестовий параметер1 - %@ [BUNDLE]";
+"test_format_key_with_2_parameters" = "Перший параметер1 - %@, 2 - %@ [BUNDLE]";
+"test_format_key_with_3_parameters" = "Перший параметер1 - %@, 2 - %@, 3 - %@ [BUNDLE]";
+
+"menu_formated_strings_button_title" = "Formated Strings [BUNDLE]";
+

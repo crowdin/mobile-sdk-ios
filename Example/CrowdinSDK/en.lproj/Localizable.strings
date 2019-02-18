@@ -20,7 +20,14 @@
 "settings_in_bundle" = "In Bundle [BUNDLE]";
 "settings_in_sdk" = "In SDK [BUNDLE]";
 "test_key" = "Test [BUNDLE]";
-"test_with_format_key" = "Test parameter - %@ [BUNDLE]";
 "test_parameter" = "Parameter [BUNDLE]";
 "main_reload_ui_button" = "Reload UI [BUNDLE]";
 "main_show_details_button" = "Show Details [BUNDLE]";
+
+// Formatted Strings:
+"test_with_format_key" = "Test parameter - %@ [BUNDLE]";
+"test_format_key_with_1_parameter" = "Test parameter - %@ [BUNDLE]";
+"test_format_key_with_2_parameters" = "First parameter - %@, second parameter - %@ [BUNDLE]";
+"test_format_key_with_3_parameters" = "First parameter - %@, second parameter - %@, third parameter - %@ [BUNDLE]";
+
+"menu_formated_strings_button_title" = "Formated Strings [BUNDLE]";

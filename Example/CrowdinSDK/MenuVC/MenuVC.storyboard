@@ -70,9 +70,23 @@
                                     <action selector="explorerButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="kOk-AU-XRx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gaa-DL-NDv">
+                                <rect key="frame" x="20" y="270" width="335" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="T4t-TQ-cpO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="formatedStringsButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="hB3-py-pqb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Gaa-DL-NDv" firstAttribute="leading" secondItem="FC4-eF-F8j" secondAttribute="leading" constant="20" id="1j2-gY-WIc"/>
                             <constraint firstItem="lq7-v7-f6l" firstAttribute="top" secondItem="uT6-dC-nZt" secondAttribute="bottom" id="2K6-Ev-uuL"/>
                             <constraint firstItem="FC4-eF-F8j" firstAttribute="trailing" secondItem="uT6-dC-nZt" secondAttribute="trailing" constant="20" id="2dU-T4-ZZ9"/>
                             <constraint firstItem="FC4-eF-F8j" firstAttribute="trailing" secondItem="lq7-v7-f6l" secondAttribute="trailing" constant="20" id="3GV-Af-s2g"/>
@@ -82,7 +96,9 @@
                             <constraint firstItem="cBP-P0-qP9" firstAttribute="leading" secondItem="FC4-eF-F8j" secondAttribute="leading" constant="20" id="JEH-kO-ncx"/>
                             <constraint firstItem="uT6-dC-nZt" firstAttribute="leading" secondItem="FC4-eF-F8j" secondAttribute="leading" constant="20" id="LiP-Ox-jQn"/>
                             <constraint firstItem="FC4-eF-F8j" firstAttribute="trailing" secondItem="DdE-tP-A2O" secondAttribute="trailing" constant="20" id="RMX-td-vUf"/>
+                            <constraint firstItem="FC4-eF-F8j" firstAttribute="trailing" secondItem="Gaa-DL-NDv" secondAttribute="trailing" constant="20" id="a4M-xR-Ss5"/>
                             <constraint firstItem="uT6-dC-nZt" firstAttribute="top" secondItem="DdE-tP-A2O" secondAttribute="bottom" id="ddI-HN-ZHo"/>
+                            <constraint firstItem="Gaa-DL-NDv" firstAttribute="top" secondItem="lq7-v7-f6l" secondAttribute="bottom" id="oo8-k2-oo4"/>
                             <constraint firstItem="DdE-tP-A2O" firstAttribute="leading" secondItem="FC4-eF-F8j" secondAttribute="leading" constant="20" id="q3n-Mu-UnA"/>
                             <constraint firstItem="FC4-eF-F8j" firstAttribute="trailing" secondItem="cBP-P0-qP9" secondAttribute="trailing" constant="20" id="qgE-Uh-pYl"/>
                         </constraints>
@@ -91,6 +107,7 @@
                     <connections>
                         <outlet property="explorerButton" destination="DdE-tP-A2O" id="HGx-Va-oaS"/>
                         <outlet property="firebaseButton" destination="uT6-dC-nZt" id="NaD-3V-rj4"/>
+                        <outlet property="formatedStringsButton" destination="Gaa-DL-NDv" id="RVO-gd-wYr"/>
                         <outlet property="mainButton" destination="cBP-P0-qP9" id="gCy-th-Yl6"/>
                         <outlet property="settingsButton" destination="lq7-v7-f6l" id="KGW-bt-CFW"/>
                     </connections>

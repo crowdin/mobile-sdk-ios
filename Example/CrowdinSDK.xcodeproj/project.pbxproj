@@ -31,6 +31,8 @@
 		92A1BCDB2210A3C70086B3AC /* Localizable.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A1BCDA2210A3C70086B3AC /* Localizable.plist */; };
 		92A1BCE52210C7CD0086B3AC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1BCE42210C7CC0086B3AC /* R.generated.swift */; };
 		C82D2893220B431C00DB239B /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C82D2892220B431C00DB239B /* MainViewController.storyboard */; };
+		C836C157221B1EE4006CEECF /* FormatedStringsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C836C156221B1EE4006CEECF /* FormatedStringsVC.swift */; };
+		C836C159221B1EF2006CEECF /* FormatedStringsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C836C158221B1EF2006CEECF /* FormatedStringsVC.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		C82D288D220B40E400DB239B /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C82D288E220B40E400DB239B /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C82D2892220B431C00DB239B /* MainViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainViewController.storyboard; sourceTree = "<group>"; };
+		C836C156221B1EE4006CEECF /* FormatedStringsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedStringsVC.swift; sourceTree = "<group>"; };
+		C836C158221B1EF2006CEECF /* FormatedStringsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FormatedStringsVC.storyboard; sourceTree = "<group>"; };
 		DED704D7359DAC03416512CF /* Pods-CrowdinSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +146,7 @@
 		607FACD21AFB9204008FA782 /* Example for CrowdinSDK */ = {
 			isa = PBXGroup;
 			children = (
+				C836C155221B1ECF006CEECF /* FormatedStringsVC */,
 				92A1BCE42210C7CC0086B3AC /* R.generated.swift */,
 				9232188021FE21CE009F8339 /* SettingsVC */,
 				9232187021FE0590009F8339 /* DetailsVC */,
@@ -264,6 +269,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C836C155221B1ECF006CEECF /* FormatedStringsVC */ = {
+			isa = PBXGroup;
+			children = (
+				C836C156221B1EE4006CEECF /* FormatedStringsVC.swift */,
+				C836C158221B1EF2006CEECF /* FormatedStringsVC.storyboard */,
+			);
+			path = FormatedStringsVC;
+			sourceTree = "<group>";
+		};
 		CBF91F351DC8A0B927E4287B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +385,7 @@
 				C82D2893220B431C00DB239B /* MainViewController.storyboard in Resources */,
 				920F09CB21F928B900078558 /* Localizable.strings in Resources */,
 				9255BF4C21FCBE2D00C80A40 /* GoogleService-Info.plist in Resources */,
+				C836C159221B1EF2006CEECF /* FormatedStringsVC.storyboard in Resources */,
 				9268149821FCD60E0052F778 /* MenuVC.storyboard in Resources */,
 				9232187221FE059F009F8339 /* DetailsVC.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
@@ -537,6 +552,7 @@
 				9255BF5B21FCC1F300C80A40 /* FireTiny.swift in Sources */,
 				923C62E02205EFBF001A6BC3 /* CustomProvider.swift in Sources */,
 				9255BF6021FCCE9800C80A40 /* DetailsVC.swift in Sources */,
+				C836C157221B1EE4006CEECF /* FormatedStringsVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				9255BF5921FCC1F300C80A40 /* ObjectViewController.swift in Sources */,
 				9268149E21FCE9350052F778 /* BaseMenuVC.swift in Sources */,

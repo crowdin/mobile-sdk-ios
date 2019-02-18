@@ -31,6 +31,12 @@ class MenuVC: UIViewController {
             settingsButton.setTitle(NSLocalizedString("menu_settings_button_title", comment: ""), for: .normal)
         }
     }
+	
+	@IBOutlet weak var formatedStringsButton: UIButton! {
+		didSet {
+			formatedStringsButton.setTitle(NSLocalizedString("menu_formated_strings_button_title", comment: ""), for: .normal)
+		}
+	}
     
     @IBAction func mainButtonPressed(_ sender: AnyObject) {
         if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is MainViewController {
@@ -83,5 +89,18 @@ class MenuVC: UIViewController {
             _ = panel?.center(settingsNC)
         }
     }
-    
+	
+	@IBAction func formatedStringsButtonPressed(_ sender: AnyObject) {
+		if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is FormatedStringsVC {
+			panel?.closeLeft()
+		} else {
+			let formatedStringsVC = UIStoryboard(name: "FormatedStringsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "FormatedStringsVC") as! FormatedStringsVC
+			let formatedStringsNC = UINavigationController(rootViewController: formatedStringsVC)
+			_ = panel?.center(formatedStringsNC)
+		}
+	}
+	
+	func show(vc: UIViewController) {
+		
+	}
 }
