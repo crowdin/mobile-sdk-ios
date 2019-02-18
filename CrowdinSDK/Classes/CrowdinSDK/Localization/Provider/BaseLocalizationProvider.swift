@@ -62,8 +62,9 @@ open class BaseLocalizationProvider: LocalizationProvider {
     // Setup plurals bundle
     func setupPluralsBundle() {
 		self.pluralsBundle?.remove()
-        
-        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + "/" + localization, fileName: "Localizable.stringsdict", dictionary: self.plurals)
+		pluralsFolder.directories.forEach({ try? $0.remove() })
+        let localizationFolderName = localization + "-" + UUID().uuidString
+        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + "/" + localizationFolderName, fileName: "Localizable.stringsdict", dictionary: self.plurals)
     }
     
     func setupLocalizationStrings() {
