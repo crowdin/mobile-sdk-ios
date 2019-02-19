@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-      CrowdinSDK.start(with: FirebaseLocalizationProvider())
+      CrowdinSDK.start(with: FirebaseLocalizationProvider(path: "extracted_example"))
 //        CrowdinSDK.start(with: LocalLocalizationProvider())
 //        CrowdinSDK.start(with: LocalLocalizationProvider(additionalWord: "test"))
 		

@@ -69,7 +69,8 @@ public class FirebaseLocalizationProvider: BaseLocalizationProvider {
     func subscribe() {
         let reference = self.database.child(path)
         reference.observe(DataEventType.value) { (snapshot: DataSnapshot) in
-            if let dictionary = snapshot.value as? [String: Any] {
+            if var dictionary = snapshot.value as? [String: Any] {
+				dictionary = dictionary.decodeFirebase()
 				self.localizations = [String](dictionary.keys)
                 dictionary.keys.forEach({ (key) in
                     let strings = dictionary[key] as! [String: Any]
@@ -79,7 +80,16 @@ public class FirebaseLocalizationProvider: BaseLocalizationProvider {
                 })
                 self.refresh()
                 CrowdinSDK.reloadUI()
-            }
+			} else {
+				// Upload localization.
+				self.uploadLocalization()
+			}
         }
     }
+	
+	func uploadLocalization() {
+		let json = LocalizationExtractor.extractLocalizationJSON().encodeFirebase()
+		let reference = self.database.child(path)
+		reference.setValue(json)
+	}
 }

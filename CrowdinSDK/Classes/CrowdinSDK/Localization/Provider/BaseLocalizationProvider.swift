@@ -73,11 +73,11 @@ open class BaseLocalizationProvider: LocalizationProvider {
     
     // Localization methods
     public func localizedString(for key: String) -> String? {
-        let string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
-        if string != key {
-            return string
+        var string = self.localizationStrings[key]
+        if string == nil {
+			string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
         }
-        return self.localizationStrings[key]
+        return string
     }
     
     public func keyForString(_ text: String) -> String? {
@@ -96,7 +96,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
         return key
     }
 	
-//    https://github.com/mac-cain13/R.swift/blob/master/Sources/RswiftCore/ResourceTypes/LocalizableStrings.swift
+//    https://github.com/mac-cain13/R.swift/blob/master/Sources/RswiftCore/ResourceTypes/StringParam.swift
 	func findKey(in strings: [String: String], for text: String) -> String? {
         for (key, value) in strings {
             let matches = formatTypesRegEx.matches(in: value, options: [], range: NSRange(location: 0, length: value.count))
@@ -118,6 +118,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
     }
 	
 	public func findValues(for string: String, with format: String) -> [String] {
+		let parts = FormatPart.formatParts(formatString: format)
 		let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
 		guard matches.count > 0 else { return [] }
 		let ranges = matches.compactMap({ $0.range })
