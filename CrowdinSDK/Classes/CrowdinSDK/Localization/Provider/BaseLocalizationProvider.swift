@@ -40,6 +40,8 @@ open class BaseLocalizationProvider: LocalizationProvider {
     }
     
     public func deintegrate() {
+        try? CrowdinFolder.shared.remove()
+        try? pluralsFolder.remove()
         pluralsBundle?.remove()
     }
     
@@ -117,8 +119,9 @@ open class BaseLocalizationProvider: LocalizationProvider {
         return nil
     }
 	
-	public func findValues(for string: String, with format: String) -> [String] {
+	public func findValues(for string: String, with format: String) -> [Any] {
 		let parts = FormatPart.formatParts(formatString: format)
+        print(parts)
 		let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
 		guard matches.count > 0 else { return [] }
 		let ranges = matches.compactMap({ $0.range })
@@ -130,7 +133,32 @@ open class BaseLocalizationProvider: LocalizationProvider {
 		var valueRanges = [NSRange]()
 		components.forEach({ valueRanges.append(nsStringText.range(of: $0)) })
 
-		return nsStringText.splitBy(ranges: valueRanges)
+		let values = nsStringText.splitBy(ranges: valueRanges)
+        
+        guard values.count == parts.count else { return [] }
+        
+        var result = [Any]()
+        
+        for index in 0...parts.count - 1 {
+            let part = parts[index]
+            let value = values[index]
+            guard let formatSpecifier = part.formatSpecifier else {
+                result.append(value)
+                continue
+            }
+            switch formatSpecifier {
+            case .object: result.append(value)
+            case .double: result.append(Double(value)!)
+            case .int: result.append(Int(value)!)
+            case .uInt: result.append(UInt(value)!)
+            case .character: result.append(Character(value))
+            case .cStringPointer: result.append(Double(value)!)
+            case .voidPointer: result.append(Double(value)!)
+            case .topType: result.append(value)
+            }
+        }
+        
+        return result
 	}
     
     func findKey(for plurals: [AnyHashable: Any]) -> String? {

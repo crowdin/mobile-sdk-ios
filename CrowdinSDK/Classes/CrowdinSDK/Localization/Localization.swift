@@ -99,7 +99,7 @@ class Localization {
         return key
     }
 	
-	func findValues(for string: String, with format: String) -> [String] {
+	func findValues(for string: String, with format: String) -> [Any] {
 		return provider.findValues(for:string, with:format)
 	}
 }

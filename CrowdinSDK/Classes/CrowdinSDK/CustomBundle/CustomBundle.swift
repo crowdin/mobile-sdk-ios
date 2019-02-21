@@ -22,26 +22,21 @@ class FolderBundle: CustomBundleProtocol {
         self.bundle = Bundle(path: folder.path)!
         self.bundle.load()
     }
-}
-
-class PathBundle: CustomBundleProtocol {
-	var bundle: Bundle
-	var folder: Folder
-	
-	// TODO: Find way to remove forse  unwraping.
-	init(path: String) {
-		self.folder = Folder(path: path)
+    
+    
+    init(path: String) {
+        self.folder = Folder(path: path)
         try? self.folder.create()
-		self.bundle = Bundle(path: folder.path)!
-		self.bundle.load()
-	}
+        self.bundle = Bundle(path: folder.path)!
+        self.bundle.load()
+    }
 }
 
 protocol FileBundleProtocol: CustomBundleProtocol {
     var file: File { get }
 }
 
-class FileBundle: PathBundle, FileBundleProtocol {
+class FileBundle: FolderBundle, FileBundleProtocol {
     var file: File
     
     init(path: String, fileName: String) {
@@ -56,7 +51,7 @@ protocol DictionaryBundleProtocol: CustomBundleProtocol {
     var file: DictionaryFile { get }
 }
 
-class DictionaryBundle: PathBundle, DictionaryBundleProtocol {
+class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {
 	var dictionary: Dictionary<AnyHashable, Any>
     var file: DictionaryFile
     

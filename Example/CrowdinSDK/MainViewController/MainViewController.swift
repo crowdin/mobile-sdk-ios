@@ -21,7 +21,7 @@ class MainViewController: BaseMenuVC {
     }
     @IBOutlet weak var textLabel2: UILabel! {
         didSet {
-            textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), "P1", "P2", "P3")
+            textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), "P1", 12, "P3")
         }
     }
     @IBOutlet weak var reloadUIButton: UIButton! {
@@ -51,7 +51,7 @@ class MainViewController: BaseMenuVC {
         textLabel.text = NSLocalizedString("test_key", comment: "")
 //        textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
         
-        textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), "P1", "P2", "P3")
+        textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), "P1", 12, "P3")
     }
     
     @IBAction func showDetaildVC(_ sender: AnyObject) {

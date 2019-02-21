@@ -38,12 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = panelsVC
         self.window?.makeKeyAndVisible()
         
-        let data = try! Data(contentsOf: Bundle.main.url(forResource: "Localizable", withExtension: "plist")!)
-        let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-        
-        
-        try? data.write(to: URL(fileURLWithPath: "test.json"))
-        
         return true
     }
 }

@@ -16,32 +16,7 @@
 
 import Foundation
 
-protocol Unifiable {
-	func unify(_ other: Self) -> Self?
-}
-
-struct StringParam : Equatable, Unifiable {
-	let name: String?
-	let spec: FormatSpecifier
-	
-	func unify(_ other: StringParam) -> StringParam? {
-		if let name = name, let otherName = other.name , name != otherName {
-			return nil
-		}
-		
-		if let spec = spec.unify(other.spec) {
-			return StringParam(name: name ?? other.name, spec: spec)
-		}
-		
-		return nil
-	}
-}
-
-func ==(lhs: StringParam, rhs: StringParam) -> Bool {
-	return lhs.name == rhs.name && lhs.spec == rhs.spec
-}
-
-enum FormatPart: Unifiable {
+enum FormatPart {
 	case spec(FormatSpecifier)
 	case reference(String)
 	
@@ -57,24 +32,6 @@ enum FormatPart: Unifiable {
 	
 	static func formatParts(formatString: String) -> [FormatPart] {
 		return createFormatParts(formatString)
-	}
-	
-	func unify(_ other: FormatPart) -> FormatPart? {
-		switch (self, other) {
-		case let (.spec(l), .spec(r)):
-			if let spec = l.unify(r) {
-				return .spec(spec)
-			}
-			else {
-				return nil
-			}
-			
-		case let (.reference(l), .reference(r)) where l == r:
-			return .reference(l)
-			
-		default:
-			return nil
-		}
 	}
 }
 
@@ -111,8 +68,7 @@ enum FormatSpecifier {
 	}
 }
 
-extension FormatSpecifier : Unifiable {
-	
+extension FormatSpecifier {
 	// Convenience initializer, uses last character of string,
 	// ignoring lengt modifiers, e.g. "lld"
 	init?(formatString string: String) {
@@ -144,22 +100,6 @@ extension FormatSpecifier : Unifiable {
 			return nil
 		}
 	}
-	
-	func unify(_ other: FormatSpecifier) -> FormatSpecifier? {
-		if self == .topType {
-			return other
-		}
-		
-		if other == .topType {
-			return self
-		}
-		
-		if self == other {
-			return self
-		}
-		
-		return nil
-	}
 }
 
 private let referenceRegEx: NSRegularExpression = {
@@ -169,8 +109,8 @@ private let referenceRegEx: NSRegularExpression = {
 		fatalError("Error building the regular expression used to match reference")
 	}
 }()
-/*
-private let formatTypesRegEx: NSRegularExpression = {
+
+let formatTypesRegEx: NSRegularExpression = {
 	let pattern_int = "(?:h|hh|l|ll|q|z|t|j)?([dioux])" // %d/%i/%o/%u/%x with their optional length modifiers like in "%lld"
 	let pattern_float = "[aefg]"
 	let position = "([1-9]\\d*\\$)?" // like in "%3$" to make positional specifiers
@@ -182,7 +122,6 @@ private let formatTypesRegEx: NSRegularExpression = {
 		fatalError("Error building the regular expression used to match string formats")
 	}
 }()
-*/
 
 // "I give %d apples to %@ %#@named@" --> [.Spec(.Int), .Spec(.String), .Reference("named")]
 private func createFormatParts(_ formatString: String) -> [FormatPart] {
@@ -220,8 +159,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 		let insertionPos: Int
 		if let pos = pos {
 			insertionPos = pos
-		}
-		else {
+		}  else {
 			insertionPos = nextNonPositional
 			nextNonPositional += 1
 		}
@@ -230,12 +168,9 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 		
 		if let reference = referenceRegEx.firstSubstring(input: str) {
 			param = FormatPart.reference(reference)
-		}
-		else if let char = str.first, let fs = FormatSpecifier(formatChar: char)
-		{
+		} else if let char = str.first, let fs = FormatSpecifier(formatChar: char) {
 			param = FormatPart.spec(fs)
-		}
-		else {
+		} else {
 			param = nil
 		}
 		

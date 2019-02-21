@@ -16,9 +16,9 @@ extension UILabel {
         set { UILabel.localizationKeyAssociation[self] = newValue }
     }
 	
-	private static let localizationValuesAssociation = ObjectAssociation<[String]>()
+	private static let localizationValuesAssociation = ObjectAssociation<[Any]>()
 	
-	var localizationValues: [String]? {
+	var localizationValues: [Any]? {
 		get { return UILabel.localizationValuesAssociation[self] }
 		set { UILabel.localizationValuesAssociation[self] = newValue }
 	}
@@ -34,7 +34,7 @@ extension UILabel {
 			self.localizationValues = Localization.current.findValues(for: text, with: string)
 		}
 		if isFormated, let values = self.localizationValues {
-			let newText = String(format: text, arguments: values)
+            let newText = String(format: text, arguments: values as! [CVarArg])
 			swizzled_setText(newText)
 			return
 		} else {
