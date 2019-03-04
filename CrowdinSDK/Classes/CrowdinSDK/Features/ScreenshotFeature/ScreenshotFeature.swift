@@ -14,7 +14,7 @@ enum ScreenshotFeatureType {
 class ScreenshotFeature {
     var type: ScreenshotFeatureType = .shake
     
-    static let shared = ScreenshotFeature()
+    static var shared: ScreenshotFeature?
     
     var windows: [UIWindow] { return UIApplication.shared.windows }
     

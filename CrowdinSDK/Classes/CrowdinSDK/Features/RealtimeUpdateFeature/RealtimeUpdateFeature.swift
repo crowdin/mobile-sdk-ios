@@ -8,7 +8,7 @@
 import Foundation
 
 class RealtimeUpdateFeature {
-    static let shared: RealtimeUpdateFeature = RealtimeUpdateFeature()
+    static var shared: RealtimeUpdateFeature?
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
     
