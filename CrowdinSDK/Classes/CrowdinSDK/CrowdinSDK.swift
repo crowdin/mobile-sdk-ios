@@ -47,7 +47,7 @@ import UIKit
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
 	
     public class func reloadUI() {
-        DispatchQueue.main.async { UIUtil.shared.reload() }
+        DispatchQueue.main.async { UIUtil.shared.refresh() }
     }
     
     @objc public class func start() {

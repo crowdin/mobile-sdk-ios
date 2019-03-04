@@ -30,7 +30,7 @@ extension UILabel {
         self.localizationKey = Localization.current.keyForString(text)
 		
         if self.localizationKey != nil {
-            UIUtil.shared.subscribe(label: self)
+            UIUtil.shared.subscribe(control: self)
         }
         
 		if let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
