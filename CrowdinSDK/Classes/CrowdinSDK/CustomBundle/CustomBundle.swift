@@ -41,7 +41,7 @@ class FileBundle: FolderBundle, FileBundleProtocol {
     
     init(path: String, fileName: String) {
         let folder = Folder(path: path)
-        self.file = File(path: folder.path + "/" + fileName)
+        self.file = File(path: folder.path + String.pathDelimiter + fileName)
         super.init(path: path)
     }
 }
@@ -58,7 +58,7 @@ class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {
     init(path: String, fileName: String, dictionary: [AnyHashable: Any]) {
         self.dictionary = dictionary
         let folder = Folder(path: path)
-        self.file = DictionaryFile(path: folder.path + "/" + fileName)
+        self.file = DictionaryFile(path: folder.path + String.pathDelimiter + fileName)
         self.file.file = self.dictionary
         try? self.file.save()
         super.init(path: path)

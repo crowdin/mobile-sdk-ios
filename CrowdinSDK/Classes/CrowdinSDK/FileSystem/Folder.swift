@@ -32,12 +32,12 @@ class Folder: Path, FileStatusable {
     }
     
     var files: [File] {
-        let allContent = self.contents.compactMap({ File(path: path + "/" + $0) })
+        let allContent = self.contents.compactMap({ File(path: path + String.pathDelimiter + $0) })
         return allContent.filter({ $0.status == .file && $0.name.count > 0 })
     }
     
     var directories: [Folder] {
-        let allContent = self.contents.compactMap({ Folder(path: path + "/" + $0) })
+        let allContent = self.contents.compactMap({ Folder(path: path + String.pathDelimiter + $0) })
         return allContent.filter({ $0.status == .directory })
     }
     
@@ -59,13 +59,13 @@ class Folder: Path, FileStatusable {
     }
     
     func createFolder(with name: String) throws -> Folder {
-        let folder = Folder(path: self.path + "/" + name)
+        let folder = Folder(path: self.path + String.pathDelimiter + name)
         if !folder.isCreated { try folder.create() }
         return folder
     }
     
     static func createFolder(with name: String) throws -> Folder {
-        let folder = Folder(path: DocumentsFolder.documentsPath + "/" + name)
+        let folder = Folder(path: DocumentsFolder.documentsPath + String.pathDelimiter + name)
         if !folder.isCreated { try folder.create() }
         return folder
     }
@@ -85,7 +85,7 @@ class DocumentsFolder: Folder {
     }
     
     init(name: String) {
-        super.init(path: DocumentsFolder.documentsPath + "/" + name)
+        super.init(path: DocumentsFolder.documentsPath + String.pathDelimiter + name)
     }
 }
 
@@ -101,9 +101,9 @@ class CrowdinFolder: Folder {
 	let screenshotsFolder: Folder
 	
 	init() {
-		let name = Bundle.main.bundleId + "." + Folders.Crowdin.rawValue
-        let path = DocumentsFolder.root.path + "/" + name
-        self.screenshotsFolder = Folder(path: path + "/" + Folders.Screenshots.rawValue)
+		let name = Bundle.main.bundleId + String.dot + Folders.Crowdin.rawValue
+        let path = DocumentsFolder.root.path + String.pathDelimiter + name
+        self.screenshotsFolder = Folder(path: path + String.pathDelimiter + Folders.Screenshots.rawValue)
 		super.init(path: path)
 		self.createFoldersIfNeeded()
 	}

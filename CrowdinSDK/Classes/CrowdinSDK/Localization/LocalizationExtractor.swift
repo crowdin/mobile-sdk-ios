@@ -22,7 +22,7 @@ class LocalizationExtractor {
     var files: [String] {
         guard let filePath = Bundle.main.path(forResource: localization, ofType: FileType.lproj.rawValue) else { return [] }
         guard var files = try? FileManager.default.contentsOfDirectory(atPath: filePath) else { return [] }
-        files = files.map({ filePath + "/" + $0 })
+        files = files.map({ filePath + String.pathDelimiter + $0 })
         return files
     }
     
@@ -81,62 +81,6 @@ class LocalizationExtractor {
 				dict["plurals"] = extractor.localizationPluralsDict
 			}
 			result[localization] = dict
-		}
-		return result
-	}
-}
-
-extension Dictionary where Key == String {
-	func encodeFirebase() -> Dictionary {
-		var result = Dictionary()
-		for (key, value) in self {
-			if let value = value as? Dictionary {
-				result[key.encodedFirebaseKey] = value.encodeFirebase() as? Value
-			} else {
-				result[key.encodedFirebaseKey] = value
-			}
-		}
-		return result
-	}
-	
-	func decodeFirebase() -> Dictionary {
-		var result = Dictionary()
-		for (key, value) in self {
-			if let value = value as? Dictionary {
-				result[key.decodedFirebaseKey] = value.decodeFirebase() as? Value
-			} else {
-				result[key.decodedFirebaseKey] = value
-			}
-		}
-		return result
-	}
-	
-	//	 '/' '.' '#' '$' '[' ']'
-	
-}
-
-extension String {
-	static let symbolsMap = [
-		".": "'U+002E'",
-		"/": "'U+002F'",
-		"#": "'U+0023'",
-		"$": "'U+0024'",
-		"[": "'U+005B'",
-		"]": "'U+005D'",
-	]
-	
-	var encodedFirebaseKey: String {
-		var result = self
-		for (key, value) in String.symbolsMap {
-			result = result.replacingOccurrences(of: key, with: value)
-		}
-		return result
-	}
-	
-	var decodedFirebaseKey: String {
-		var result = self
-		for (key, value) in String.symbolsMap {
-			result = result.replacingOccurrences(of: value, with: key)
 		}
 		return result
 	}

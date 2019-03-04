@@ -8,6 +8,8 @@
 import Foundation
 
 enum FileType: String {
+    case plist
+    case png
     case lproj
     case strings
     case stringsdict

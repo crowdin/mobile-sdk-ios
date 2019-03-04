@@ -74,7 +74,7 @@ public class FirebaseLocalizationProvider: BaseLocalizationProvider {
 				self.localizations = [String](dictionary.keys)
                 dictionary.keys.forEach({ (key) in
                     let strings = dictionary[key] as! [String: Any]
-                    let stringsFile = DictionaryFile(path: self.firebaseFolder.path + "/" + key + ".plist")
+                    let stringsFile = DictionaryFile(path: self.firebaseFolder.path + String.pathDelimiter + key + FileType.plist.extension)
                     stringsFile.file = strings
                     try? stringsFile.save()
                 })

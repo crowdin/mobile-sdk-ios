@@ -20,5 +20,5 @@ import Foundation
     func localizedString(for key: String) -> String?
     func keyForString(_ text: String) -> String?
 	// TODO: Move this method from this protocol.
-	func findValues(for string: String, with format: String) -> [Any]
+	func findValues(for string: String, with format: String) -> [Any]?
 }

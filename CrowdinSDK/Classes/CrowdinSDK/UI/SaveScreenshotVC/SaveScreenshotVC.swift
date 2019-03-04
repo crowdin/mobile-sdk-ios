@@ -35,8 +35,8 @@ class SaveScreenshotVC: UIViewController {
     
     @IBAction func save(_ sender: AnyObject) {
         let screenshotsFolder = CrowdinFolder.shared.screenshotsFolder
-        let screenshotFileName = (self.screenshotNameTextField.text ?? DateFormatter().string(from: Date())) + ".png"
-        let screenshotFile = UIImageFile(path: screenshotsFolder.path + "/" + screenshotFileName)
+        let screenshotFileName = (self.screenshotNameTextField.text ?? DateFormatter().string(from: Date())) + FileType.png.extension
+        let screenshotFile = UIImageFile(path: screenshotsFolder.path + String.pathDelimiter + screenshotFileName)
         screenshotFile.file = screenshot
         try? screenshotFile.save()
         self.dismiss(self)

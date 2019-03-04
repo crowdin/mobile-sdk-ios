@@ -10,18 +10,22 @@ import Foundation
 
 extension String {
 	public var localized: String {
-		return NSLocalizedString(self, comment: "")
+		return NSLocalizedString(self, comment: String.empty)
 	}
-}
-
-extension String {
-    static var dot: String { return "." }
 }
 
 extension String {
 	var isFormated: Bool {
 		return formatTypesRegEx.matches(in: self, options: [], range: NSRange(location: 0, length: self.count)).count > 0
 	}
+}
+
+extension String {
+    static let dot = "."
+    static let empty = ""
+    static let space = " "
+    static let enter = "\n"
+    static let pathDelimiter = "/"
 }
 
 extension NSString {

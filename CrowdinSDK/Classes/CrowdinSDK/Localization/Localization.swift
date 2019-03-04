@@ -8,6 +8,10 @@
 import Foundation
 
 class Localization {
+    private enum Keys: String {
+        case mode = "CrowdinSDK.Localization.mode"
+        case customLocalization = "CrowdinSDK.Localization.customLocalization"
+    }
 	var provider: LocalizationProvider
     var extractor: LocalizationExtractor
     
@@ -17,7 +21,7 @@ class Localization {
 	
 	var mode: CrowdinSDK.Mode {
 		get {
-			let value = UserDefaults.standard.integer(forKey: "CrowdinSDK.Localization.mode")
+			let value = UserDefaults.standard.integer(forKey: Keys.mode.rawValue)
 			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
 		}
 		set {
@@ -28,7 +32,7 @@ class Localization {
             case .customBundle: break
             }
 			// TODO: Add changes after switching mode. f.e. cleanAppleLanguages.
-			UserDefaults.standard.set(newValue.rawValue, forKey: "CrowdinSDK.Localization.mode")
+			UserDefaults.standard.set(newValue.rawValue, forKey: Keys.mode.rawValue)
 			UserDefaults.standard.synchronize()
 		}
 	}
@@ -61,11 +65,11 @@ class Localization {
 	
     private var customLocalization : String? {
         set {
-            UserDefaults.standard.set(newValue, forKey: "CrowdinSDK.Localization.customLocalization")
+            UserDefaults.standard.set(newValue, forKey: Keys.customLocalization.rawValue)
             UserDefaults.standard.synchronize()
         }
         get {
-            return UserDefaults.standard.string(forKey: "CrowdinSDK.Localization.customLocalization")
+            return UserDefaults.standard.string(forKey: Keys.customLocalization.rawValue)
         }
     }
 	
@@ -99,7 +103,7 @@ class Localization {
         return key
     }
 	
-	func findValues(for string: String, with format: String) -> [Any] {
+	func findValues(for string: String, with format: String) -> [Any]? {
 		return provider.findValues(for:string, with:format)
 	}
 }
