@@ -8,46 +8,28 @@
 import UIKit
 
 class UIUtil {
-    var windows: [UIWindow] {
-        return UIApplication.shared.windows
-    }
-    
-    var window: UIWindow? {
-        return UIApplication.shared.keyWindow
-    }
-    
     static let shared: UIUtil = UIUtil()
     
+    private var labels: NSHashTable<UILabel> = NSHashTable<UILabel>.weakObjects()
+    private var buttons: NSHashTable<UIButton> = NSHashTable<UIButton>.weakObjects()
+    
+    func subscribe(label: UILabel) {
+        labels.add(label)
+    }
+    
+    func subscribe(button: UIButton) {
+        buttons.add(button)
+    }
+    
+    var windows: [UIWindow] { return UIApplication.shared.windows }
+    
+    var window: UIWindow? { return UIApplication.shared.keyWindow }
+    
     func reload() {
-        self.refreshWindows()
+        self.labels.allObjects.forEach({ self.refresh(label: $0) })
+        self.buttons.allObjects.forEach({ self.refresh(button: $0) })
     }
-    
-    func refreshWindows() {
-        self.windows.forEach({ self.refresh(window: $0) })
-    }
-    
-    func refreshWindow() {
-        if let window = self.window {
-            self.refresh(window: window)
-        }
-    }
-    
-    func refresh(window: UIWindow) {
-        window.subviews.forEach({ self.refresh(view: $0) })
-    }
-    
-    func refresh(view: UIView) {
-        view.subviews.forEach { (subview) in
-            if let label = subview as? UILabel {
-                self.refresh(label: label)
-            } else if let button = subview as? UIButton {
-                self.refresh(button: button)
-            } else {
-                self.refresh(view: subview)
-            }
-        }
-    }
-    
+
     func refresh(label: UILabel) {
         if let key = label.localizationKey, let values = label.localizationValues as? [CVarArg] {
             label.text = String(format: NSLocalizedString(key, comment: ""), arguments: values)
@@ -58,6 +40,7 @@ class UIUtil {
     }
     
     func refresh(button: UIButton) {
+        // TODO: Plurals and formated string support.
         if let key = button.localizationKeys?[button.state.rawValue] {
             button.setTitle(NSLocalizedString(key, comment: ""), for: button.state)
         }

@@ -29,18 +29,15 @@ extension UILabel {
     @objc func swizzled_setText(_ text: String) {
         self.localizationKey = Localization.current.keyForString(text)
 		
-		let isFormated = text.isFormated
-		if !isFormated, let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
+        if self.localizationKey != nil {
+            UIUtil.shared.subscribe(label: self)
+        }
+        
+		if let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
 			self.localizationValues = Localization.current.findValues(for: text, with: string)
-            
 		}
-		if isFormated, let values = self.localizationValues as? [CVarArg] {
-            let newText = String(format: text, arguments: values)
-			swizzled_setText(newText)
-			return
-		} else {
-        	swizzled_setText(text)
-		}
+        
+        swizzled_setText(text)
     }
 
 
