@@ -23,7 +23,6 @@ class FolderBundle: CustomBundleProtocol {
         self.bundle.load()
     }
     
-    
     init(path: String) {
         self.folder = Folder(path: path)
         try? self.folder.create()

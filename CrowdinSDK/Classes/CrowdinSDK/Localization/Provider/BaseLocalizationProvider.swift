@@ -85,7 +85,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
     public func keyForString(_ text: String) -> String? {
         var key = findKey(in: self.localizationStrings, for: text)
         guard key == nil else { return key }
-        key = findKey(for: self.plurals, for: text).key
+        key = findKeyValues(for: self.plurals, for: text).key
         return key
     }
 	
@@ -115,6 +115,14 @@ open class BaseLocalizationProvider: LocalizationProvider {
         return true
     }
 	
+    public func values(for string: String, with format: String) -> [Any]? {
+        var values = self.findValues(for: string, with: format)
+        if values == nil {
+            values = self.findKeyValues(for: self.plurals, for: string).values
+        }
+        return values
+    }
+    
 	public func findValues(for string: String, with format: String) -> [Any]? {
 		let parts = FormatPart.formatParts(formatString: format)
 		let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
@@ -158,7 +166,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
         return result
 	}
     
-    func findKey(for plurals: [AnyHashable: Any], for text: String) -> (key: String?, values: [Any]?) {
+    func findKeyValues(for plurals: [AnyHashable: Any], for text: String) -> (key: String?, values: [Any]?) {
         for (key, plural) in plurals {
             guard let plural = plural as? [AnyHashable: Any] else { continue }
             for(key1, value) in plural {

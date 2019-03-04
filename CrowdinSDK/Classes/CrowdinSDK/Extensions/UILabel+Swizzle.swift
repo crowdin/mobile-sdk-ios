@@ -32,9 +32,10 @@ extension UILabel {
 		let isFormated = text.isFormated
 		if !isFormated, let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
 			self.localizationValues = Localization.current.findValues(for: text, with: string)
+            
 		}
-		if isFormated, let values = self.localizationValues {
-            let newText = String(format: text, arguments: values as! [CVarArg])
+		if isFormated, let values = self.localizationValues as? [CVarArg] {
+            let newText = String(format: text, arguments: values)
 			swizzled_setText(newText)
 			return
 		} else {

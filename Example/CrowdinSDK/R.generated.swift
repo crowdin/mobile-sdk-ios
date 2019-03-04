@@ -69,10 +69,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
   struct storyboard {
     /// Storyboard `DetailsVC`.
     static let detailsVC = _R.storyboard.detailsVC()
+    /// Storyboard `FormatedStringsVC`.
+    static let formatedStringsVC = _R.storyboard.formatedStringsVC()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
     /// Storyboard `MenuVC`.
@@ -83,6 +85,11 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "DetailsVC", bundle: ...)`
     static func detailsVC(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.detailsVC)
+    }
+    
+    /// `UIStoryboard(name: "FormatedStringsVC", bundle: ...)`
+    static func formatedStringsVC(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.formatedStringsVC)
     }
     
     /// `UIStoryboard(name: "MainViewController", bundle: ...)`
@@ -133,16 +140,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 20 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 24 localization keys.
     struct localizable {
-      /// en translation: %1$#@lu_completed_runs@
-      /// 
-      /// Locales: en
-      static let lu_completed_runs = Rswift.StringResource(key: "lu_completed_runs", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// uk translation: Firebase [UA] [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
       static let menu_firebase_button_title = Rswift.StringResource(key: "menu_firebase_button_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
+      /// uk translation: Formated Strings [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static let menu_formated_strings_button_title = Rswift.StringResource(key: "menu_formated_strings_button_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
       /// uk translation: Головна [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
@@ -187,6 +194,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
       static let menu_explorer_button_title = Rswift.StringResource(key: "menu_explorer_button_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
+      /// uk translation: Перший параметер1 - %@, 2 - %@ [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static let test_format_key_with_2_parameters = Rswift.StringResource(key: "test_format_key_with_2_parameters", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
+      /// uk translation: Перший параметер1 - %@, 2 - %@, 3 - %@ [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static let test_format_key_with_3_parameters = Rswift.StringResource(key: "test_format_key_with_3_parameters", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
       /// uk translation: Показати деталі [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
@@ -199,6 +214,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
       static let test_with_format_key = Rswift.StringResource(key: "test_with_format_key", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
+      /// uk translation: Тестовий параметер1 - %@ [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static let test_format_key_with_1_parameter = Rswift.StringResource(key: "test_format_key_with_1_parameter", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA", "en"], comment: nil)
       /// uk translation: У СДК [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
@@ -215,19 +234,23 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: uk-UA, zh-Hant, zh-Hans-CN, uk, zh-Hans, en
       static let johnsPineapplesCount = Rswift.StringResource(key: "johns pineapples count", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk-UA", "zh-Hant", "zh-Hans-CN", "uk", "zh-Hans", "en"], comment: nil)
-      
-      /// en translation: %1$#@lu_completed_runs@
+      /// uk-UA translation: %1$#@lu_completed_runs@
       /// 
-      /// Locales: en
-      static func lu_completed_runs(lu_completed_runs value1: UInt, lu_total_runs value2: UInt) -> String {
-        return String(format: NSLocalizedString("lu_completed_runs", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
-      }
+      /// Locales: uk-UA, en
+      static let lu_completed_runs = Rswift.StringResource(key: "lu_completed_runs", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk-UA", "en"], comment: nil)
       
       /// uk translation: Firebase [UA] [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
       static func menu_firebase_button_title(_: Void = ()) -> String {
         return NSLocalizedString("menu_firebase_button_title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// uk translation: Formated Strings [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static func menu_formated_strings_button_title(_: Void = ()) -> String {
+        return NSLocalizedString("menu_formated_strings_button_title", bundle: R.hostingBundle, comment: "")
       }
       
       /// uk translation: Головна [BUNDLE]
@@ -307,6 +330,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("menu_explorer_button_title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// uk translation: Перший параметер1 - %@, 2 - %@ [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static func test_format_key_with_2_parameters(_ value1: String, _ value2: String) -> String {
+        return String(format: NSLocalizedString("test_format_key_with_2_parameters", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// uk translation: Перший параметер1 - %@, 2 - %@, 3 - %@ [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static func test_format_key_with_3_parameters(_ value1: String, _ value2: String, _ value3: String) -> String {
+        return String(format: NSLocalizedString("test_format_key_with_3_parameters", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2, value3)
+      }
+      
       /// uk translation: Показати деталі [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
@@ -326,6 +363,13 @@ struct R: Rswift.Validatable {
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
       static func test_with_format_key(_ value1: String) -> String {
         return String(format: NSLocalizedString("test_with_format_key", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// uk translation: Тестовий параметер1 - %@ [BUNDLE]
+      /// 
+      /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA, en
+      static func test_format_key_with_1_parameter(_ value1: String) -> String {
+        return String(format: NSLocalizedString("test_format_key_with_1_parameter", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// uk translation: У СДК [BUNDLE]
@@ -354,6 +398,13 @@ struct R: Rswift.Validatable {
       /// Locales: uk-UA, zh-Hant, zh-Hans-CN, uk, zh-Hans, en
       static func johnsPineapplesCount(v1_pineapples_count value1: UInt) -> String {
         return String(format: NSLocalizedString("johns pineapples count", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// uk-UA translation: %1$#@lu_completed_runs@
+      /// 
+      /// Locales: uk-UA, en
+      static func lu_completed_runs(lu_completed_runs value1: UInt, lu_total_runs value2: UInt) -> String {
+        return String(format: NSLocalizedString("lu_completed_runs", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
       fileprivate init() {}
@@ -398,6 +449,7 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       try detailsVC.validate()
+      try formatedStringsVC.validate()
       try mainViewController.validate()
       try menuVC.validate()
       try settingsVC.validate()
@@ -416,6 +468,24 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, *) {
         }
         if _R.storyboard.detailsVC().detailsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'detailsVC' could not be loaded from storyboard 'DetailsVC' as 'DetailsVC'.") }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct formatedStringsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let formatedStringsVC = StoryboardViewControllerResource<FormatedStringsVC>(identifier: "FormatedStringsVC")
+      let name = "FormatedStringsVC"
+      
+      func formatedStringsVC(_: Void = ()) -> FormatedStringsVC? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: formatedStringsVC)
+      }
+      
+      static func validate() throws {
+        if #available(iOS 11.0, *) {
+        }
+        if _R.storyboard.formatedStringsVC().formatedStringsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'formatedStringsVC' could not be loaded from storyboard 'FormatedStringsVC' as 'FormatedStringsVC'.") }
       }
       
       fileprivate init() {}

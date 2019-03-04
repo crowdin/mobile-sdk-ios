@@ -104,6 +104,6 @@ class Localization {
     }
 	
 	func findValues(for string: String, with format: String) -> [Any]? {
-		return provider.findValues(for:string, with:format)
+		return provider.values(for:string, with:format)
 	}
 }

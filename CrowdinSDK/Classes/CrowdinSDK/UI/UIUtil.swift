@@ -49,10 +49,12 @@ class UIUtil {
     }
     
     func refresh(label: UILabel) {
-        if let key = label.localizationKey {
+        if let key = label.localizationKey, let values = label.localizationValues as? [CVarArg] {
+            label.text = String(format: NSLocalizedString(key, comment: ""), arguments: values)
+        } else if let key = label.localizationKey {
             label.text = NSLocalizedString(key, comment: "")
-            label.setNeedsDisplay()
         }
+        label.setNeedsDisplay()
     }
     
     func refresh(button: UIButton) {
