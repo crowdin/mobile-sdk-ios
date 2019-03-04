@@ -8,10 +8,9 @@
 import Foundation
 
 open class BaseLocalizationProvider: LocalizationProvider {
+    // Public
     public var localization: String
     public var localizations: [String]
-    
-    // Public
     public var strings: [AnyHashable : Any]
     public var plurals: [AnyHashable : Any]
     // Private
