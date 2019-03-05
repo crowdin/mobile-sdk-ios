@@ -88,6 +88,7 @@ import UIKit
 		} else {
 			CrowdinSDK.unswizzle()
 		}
+        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
     }
 	
     public class func setProvider(_ provider: LocalizationProvider?) {

@@ -24,11 +24,39 @@ extension UIButton {
         return localizationKeys?[state.rawValue]
     }
     
+    private static let localizationValuesAssociation = ObjectAssociation<[UInt: [Any]]>()
+    
+    var localizationValues: [UInt: [Any]]? {
+        get { return UIButton.localizationValuesAssociation[self] }
+        set { UIButton.localizationValuesAssociation[self] = newValue }
+    }
+    
+    func localizationValues(for state: UIControl.State) -> [Any]? {
+        return localizationValues?[state.rawValue]
+    }
+    
     static var original: Method!
     static var swizzled: Method!
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
-        let key = Localization.current.keyForString(title ?? "")
-        if let key = key {
+        guard let nonNilTitle = title else {
+            swizzled_setTitle(title, for: state)
+            return
+        }
+        
+        if let key = Localization.current.keyForString(nonNilTitle) {
+            // Try to find values for key (formated strings, plurals)
+            if let string = Localization.current.localizedString(for: key), string.isFormated {
+                if let values = Localization.current.findValues(for: nonNilTitle, with: string) {
+                    // Store values in localizationValues
+                    if var localizationValues = self.localizationValues {
+                        localizationValues.merge(dict: [state.rawValue: values])
+                        self.localizationValues = localizationValues
+                    } else {
+                        self.localizationValues = [state.rawValue: values]
+                    }
+                }
+            }
+            // Store key in localizationKeys
             if var localizationKeys = self.localizationKeys {
                 localizationKeys.merge(dict: [state.rawValue: key])
                 self.localizationKeys = localizationKeys
@@ -36,7 +64,12 @@ extension UIButton {
                 self.localizationKeys = [state.rawValue: key]
             }
         }
-        swizzled_setTitle(title, for: state)
+        // Subscribe to realtime updates if needed.
+        if self.localizationKeys != nil {
+            RealtimeUpdateFeature.shared?.subscribe(control: self)
+        }
+        
+        swizzled_setTitle(nonNilTitle, for: state)
     }
     
     public class func swizzle() {

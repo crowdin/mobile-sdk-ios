@@ -28,11 +28,13 @@ class MainViewController: BaseMenuVC {
     @IBOutlet weak var reloadUIButton: UIButton! {
         didSet {
             reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button", comment: ""), for: .normal)
+            reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button_highlighted", comment: ""), for: .highlighted)
         }
     }
     @IBOutlet weak var showDetailsButton: UIButton! {
         didSet {
             showDetailsButton.setTitle(NSLocalizedString("main_show_details_button", comment: ""), for: .normal)
+            showDetailsButton.setTitle(NSLocalizedString("main_show_details_button_highlighted", comment: ""), for: .highlighted)
         }
     }
     

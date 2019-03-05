@@ -13,7 +13,8 @@ protocol Refreshable: NSObjectProtocol {
 
 extension UILabel: Refreshable {
     func refresh() {
-        if let key = self.localizationKey, let values = self.localizationValues as? [CVarArg] {
+        guard let key = self.localizationKey else { return }
+        if let values = self.localizationValues as? [CVarArg] {
             self.text = String(format: NSLocalizedString(key, comment: ""), arguments: values)
         } else if let key = self.localizationKey {
             self.text = NSLocalizedString(key, comment: "")
@@ -25,9 +26,15 @@ extension UILabel: Refreshable {
 
 extension UIButton: Refreshable {
     func refresh() {
-        // TODO: Plurals and formated string support.
-        if let key = self.localizationKeys?[self.state.rawValue] {
-            self.setTitle(NSLocalizedString(key, comment: ""), for: self.state)
+        UIControl.State.all.forEach { (state) in
+            guard let key = self.localizationKeys?[state.rawValue] else { return }
+            if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
+                self.setTitle( String(format: NSLocalizedString(key, comment: ""), arguments: values), for: state)
+            } else {
+                self.setTitle(NSLocalizedString(key, comment: ""), for: state)
+            }
         }
+        // TODO: Check whether we need this for force redrawing.
+        self.setNeedsDisplay()
     }
 }
