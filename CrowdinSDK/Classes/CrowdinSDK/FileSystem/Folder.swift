@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Folder: Path, FileStatusable {
+class Folder: PathProtocol, FileStatsProtocol {
     let fileManager = FileManager.default
     var path: String
     var name: String
@@ -71,53 +71,3 @@ class Folder: Path, FileStatusable {
     }
 }
 
-class DocumentsFolder: Folder {
-    static let root = DocumentsFolder()
-    
-    static let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-    
-    init(_ path: String) {
-        super.init(path: path)
-    }
-    
-    init() {
-        super.init(path: DocumentsFolder.documentsPath)
-    }
-    
-    init(name: String) {
-        super.init(path: DocumentsFolder.documentsPath + String.pathDelimiter + name)
-    }
-}
-
-
-class CrowdinFolder: Folder {
-    enum Folders: String {
-        case Crowdin
-        case Screenshots
-    }
-    
-	static let shared = CrowdinFolder()
-	
-	let screenshotsFolder: Folder
-	
-	init() {
-		let name = Bundle.main.bundleId + String.dot + Folders.Crowdin.rawValue
-        let path = DocumentsFolder.root.path + String.pathDelimiter + name
-        self.screenshotsFolder = Folder(path: path + String.pathDelimiter + Folders.Screenshots.rawValue)
-		super.init(path: path)
-		self.createFoldersIfNeeded()
-	}
-	
-	func createFoldersIfNeeded() {
-		self.createCrowdinFolderIfNeeded()
-		self.createScreenshotsFolderIfNeeded()
-	}
-	
-	func createCrowdinFolderIfNeeded() {
-		if !self.isCreated { try? self.create() }
-	}
-	
-	func createScreenshotsFolderIfNeeded() {
-		if !screenshotsFolder.isCreated { try? screenshotsFolder.create() }
-	}
-}

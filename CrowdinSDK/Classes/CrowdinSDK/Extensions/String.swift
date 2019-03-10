@@ -60,3 +60,24 @@ extension NSString {
 		return range.location != NSNotFound && range.location + range.length <= length
 	}
 }
+
+
+extension String {
+    static func findMatch(for formatedString: String, with text: String) -> Bool {
+        // Check is it equal:
+        if formatedString == text { return true }
+        // If not try to parse localized string as formated:
+        let matches = formatTypesRegEx.matches(in: formatedString, options: [], range: NSRange(location: 0, length: formatedString.count))
+        // If it is not formated string return false.
+        guard matches.count > 0 else { return false }
+        let ranges = matches.compactMap({ $0.range })
+        let nsStringValue = formatedString as NSString
+        let components = nsStringValue.splitBy(ranges: ranges)
+        for component in components {
+            if !text.contains(component) {
+                return false
+            }
+        }
+        return true
+    }
+}

@@ -11,20 +11,25 @@ open class BaseLocalizationProvider: LocalizationProvider {
     // Public
     public var localization: String
     public var localizations: [String]
-    public var strings: [AnyHashable : Any]
+    public var strings: [String : String]
     public var plurals: [AnyHashable : Any]
+    
     // Private
     var pluralsFolder: Folder
     var pluralsBundle: DictionaryBundle?
     var localizationStrings: [String : String]
+    var stringsDataSource: StringsLocalizationDataSource
+    var pluralsDataSource: PluralsLocalizationDataSource
     
     public init() {
         self.strings = [:]
         self.plurals = [:]
         self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
         self.localizations = []
-        self.localizationStrings = self.strings[localization] as? [String : String] ?? [:]
+        self.localizationStrings = self.strings
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
+        self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
+        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         self.setupPluralsBundle()
     }
     
@@ -33,8 +38,10 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.plurals = plurals
         self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
         self.localizations = localizations
-        self.localizationStrings = self.strings[localization] as? [String : String] ?? [:]
+        self.localizationStrings = self.strings
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
+        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
+        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
         self.setupPluralsBundle()
     }
     
@@ -45,18 +52,21 @@ open class BaseLocalizationProvider: LocalizationProvider {
     }
     
     // Setters
-    public func set(strings: [AnyHashable: Any]) {
+    public func set(strings: [String: String]) {
         self.strings = strings
+        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
         self.setupLocalizationStrings()
     }
     
     public func set(plurals: [AnyHashable: Any]) {
         self.plurals = plurals
+        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
         self.setupPluralsBundle()
     }
     
     public func set(localization: String?) {
         self.localization = localization ?? Bundle.main.preferredLanguages.first ?? defaultLocalization
+        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
         self.setupLocalizationStrings()
     }
     
@@ -69,7 +79,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
     }
     
     func setupLocalizationStrings() {
-        self.localizationStrings = self.strings[localization] as? [String : String] ?? [:]
+        self.localizationStrings = self.strings
     }
     
     // Localization methods
@@ -81,10 +91,10 @@ open class BaseLocalizationProvider: LocalizationProvider {
         return string
     }
     
-    public func keyForString(_ text: String) -> String? {
-        var key = findKey(in: self.localizationStrings, for: text)
+    public func key(for string: String) -> String? {
+        var key = stringsDataSource.findKey(for: string)
         guard key == nil else { return key }
-        key = findKeyValues(for: self.plurals, for: text).key
+        key = pluralsDataSource.findKey(for: string)
         return key
     }
 	
@@ -115,9 +125,9 @@ open class BaseLocalizationProvider: LocalizationProvider {
     }
 	
     public func values(for string: String, with format: String) -> [Any]? {
-        var values = self.findValues(for: string, with: format)
+        var values = self.stringsDataSource.findValues(for: string, with: format)
         if values == nil {
-            values = self.findKeyValues(for: self.plurals, for: string).values
+            values = self.pluralsDataSource.findValues(for: string, with: format)
         }
         return values
     }

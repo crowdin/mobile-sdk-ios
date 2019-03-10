@@ -52,7 +52,7 @@ class LocalizationExtractor {
     func extract() {
         self.files.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
-            self.localizationDict.merge(dict: dict as? [String : String] ?? [:])
+            self.localizationDict.merge(with: dict as? [String : String] ?? [:])
         }
         
         self.stringsdictFiles.forEach { (file) in

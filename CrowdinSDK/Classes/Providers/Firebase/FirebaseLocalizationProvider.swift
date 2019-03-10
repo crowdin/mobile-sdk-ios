@@ -49,8 +49,8 @@ public class FirebaseLocalizationProvider: BaseLocalizationProvider {
     func refresh() {
         guard let sdkFile = firebaseFolder.files.filter({ $0.name == localization }).first else { return }
         guard let dictionary = NSDictionary(contentsOfFile: sdkFile.path)  else { return }
-        if let strings = dictionary["strings"] as? [AnyHashable: Any] {
-            self.set(strings: [self.localization : strings])
+        if let strings = dictionary["strings"] as? [String: String] {
+            self.set(strings: strings)
         }
         if let plurals = dictionary["plurals"] as? [AnyHashable: Any] {
             self.set(plurals: plurals)

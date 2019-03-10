@@ -49,7 +49,7 @@ extension UIButton {
                 if let values = Localization.current.findValues(for: nonNilTitle, with: string) {
                     // Store values in localizationValues
                     if var localizationValues = self.localizationValues {
-                        localizationValues.merge(dict: [state.rawValue: values])
+                        localizationValues.merge(with: [state.rawValue: values])
                         self.localizationValues = localizationValues
                     } else {
                         self.localizationValues = [state.rawValue: values]
@@ -58,7 +58,7 @@ extension UIButton {
             }
             // Store key in localizationKeys
             if var localizationKeys = self.localizationKeys {
-                localizationKeys.merge(dict: [state.rawValue: key])
+                localizationKeys.merge(with: [state.rawValue: key])
                 self.localizationKeys = localizationKeys
             } else {
                 self.localizationKeys = [state.rawValue: key]

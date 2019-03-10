@@ -39,7 +39,7 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
 		let plurals = self.addAdditionalWord(to: extractor.localizationPluralsDict)
         self.set(plurals: plurals)
 		let strings = self.addAdditionalWord(to: extractor.localizationDict)
-        self.set(strings: [localization: strings])
+        self.set(strings: strings)
     }
 	
 	func addAdditionalWord(to strings: [String: String]) -> [String: String] {

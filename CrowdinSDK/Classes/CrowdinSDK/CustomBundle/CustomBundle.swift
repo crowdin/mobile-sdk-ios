@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol CustomBundleProtocol {
+protocol BundleProtocol {
     var bundle: Bundle { get }
     var folder: Folder { get }
 }
 
-class FolderBundle: CustomBundleProtocol {
+class FolderBundle: BundleProtocol {
     var bundle: Bundle
     var folder: Folder
     
@@ -31,7 +31,7 @@ class FolderBundle: CustomBundleProtocol {
     }
 }
 
-protocol FileBundleProtocol: CustomBundleProtocol {
+protocol FileBundleProtocol: BundleProtocol {
     var file: File { get }
 }
 
@@ -45,7 +45,7 @@ class FileBundle: FolderBundle, FileBundleProtocol {
     }
 }
 
-protocol DictionaryBundleProtocol: CustomBundleProtocol {
+protocol DictionaryBundleProtocol: BundleProtocol {
 	var dictionary: Dictionary<AnyHashable, Any> { get }
     var file: DictionaryFile { get }
 }

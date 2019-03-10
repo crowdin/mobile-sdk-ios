@@ -8,37 +8,12 @@
 
 import UIKit
 
-enum FileStatus {
-    case file
-    case directory
-    case none
-}
 
-protocol FileStatusable {
-    var status: FileStatus { get }
-}
-
-extension FileStatusable where Self : Path {
-    var status: FileStatus {
-        let fileManager = FileManager.default
-        var isDir : ObjCBool = false
-        if fileManager.fileExists(atPath: path, isDirectory:&isDir) {
-            if isDir.boolValue {
-                return .directory
-            } else {
-                return .file
-            }
-        } else {
-            return .none
-        }
-    }
-}
-
-protocol Path {
+protocol PathProtocol {
     var path: String { get set}
 }
 
-class File: Path, FileStatusable {
+class File: PathProtocol, FileStatsProtocol {
     var path: String
     let name: String
     let type: String
@@ -81,7 +56,7 @@ class File: Path, FileStatusable {
 	}
 }
 
-class ReadWriteFile<T: ReadWrite>: File {
+class ReadWriteFile<T: ReadWriteProtocol>: File {
     var file: T? = nil
     
     override init(path: String) {

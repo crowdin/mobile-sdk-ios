@@ -1,5 +1,5 @@
 //
-//  ReadWrite.swift
+//  ReadWriteProtocol.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 2/10/19.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol ReadWrite {
+protocol ReadWriteProtocol {
     func save(_ path: String)
     static func read(from path: String) -> Self?
 }
 
-extension NSDictionary: ReadWrite {
+extension NSDictionary: ReadWriteProtocol {
     func save(_ path: String) {
         self.write(toFile: path, atomically: true)
     }
@@ -22,7 +22,7 @@ extension NSDictionary: ReadWrite {
     }
 }
 
-extension Dictionary: ReadWrite {
+extension Dictionary: ReadWriteProtocol {
     func save(_ path: String) {
         NSDictionary(dictionary: self).write(toFile: path, atomically: true)
     }
@@ -32,7 +32,7 @@ extension Dictionary: ReadWrite {
     }
 }
 
-extension UIImage: ReadWrite {
+extension UIImage: ReadWriteProtocol {
     static func read(from path: String) -> Self? {
         return self.init(contentsOfFile: path)
     }

@@ -8,11 +8,12 @@
 import Foundation
 
 extension Locale {
-	enum Keys: String {
+	private enum Keys: String {
 		case kCFLocaleLanguageCodeKey
 		case kCFLocaleCountryCodeKey
 		case kCFLocaleScriptCodeKey
 	}
+    
 	static var preferredLocalizations: [String] {
 		return Locale.preferredLanguages.compactMap ({
 			var components = Locale.components(fromIdentifier: $0)

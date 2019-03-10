@@ -80,10 +80,6 @@ class Localization {
         self.extractor.setLocalization(currentLocalization)
 	}
 	
-    func localizedString(for key: String) -> String? {
-		return self.provider.localizedString(for: key)
-	}
-
 	/// A list of all avalaible localization in SDK downloaded from current provider.
 	var inProvider: [String] {
 		return provider.localizations
@@ -95,12 +91,11 @@ class Localization {
     }
     
     func keyForString(_ text: String) -> String? {
-        var key = provider.keyForString(text)
-        if key == nil {
-			// TODO: Add proper method to extractor for getting keys.
-            key = extractor.localizationDict.first(where: { $1 == text })?.key
-        }
-        return key
+        return provider.key(for: text)
+    }
+    
+    func localizedString(for key: String) -> String? {
+        return self.provider.localizedString(for: key)
     }
 	
 	func findValues(for string: String, with format: String) -> [Any]? {
