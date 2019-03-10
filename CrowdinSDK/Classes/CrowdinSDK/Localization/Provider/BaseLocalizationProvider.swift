@@ -17,7 +17,6 @@ open class BaseLocalizationProvider: LocalizationProvider {
     // Private
     var pluralsFolder: Folder
     var pluralsBundle: DictionaryBundle?
-    var localizationStrings: [String : String]
     var stringsDataSource: StringsLocalizationDataSource
     var pluralsDataSource: PluralsLocalizationDataSource
     
@@ -26,7 +25,6 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.plurals = [:]
         self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
         self.localizations = []
-        self.localizationStrings = self.strings
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
@@ -38,7 +36,6 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.plurals = plurals
         self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
         self.localizations = localizations
-        self.localizationStrings = self.strings
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
         self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
@@ -54,24 +51,22 @@ open class BaseLocalizationProvider: LocalizationProvider {
     // Setters
     public func set(strings: [String: String]) {
         self.strings = strings
-        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
         self.setupLocalizationStrings()
     }
     
     public func set(plurals: [AnyHashable: Any]) {
         self.plurals = plurals
-        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
         self.setupPluralsBundle()
     }
     
     public func set(localization: String?) {
         self.localization = localization ?? Bundle.main.preferredLanguages.first ?? defaultLocalization
-        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
         self.setupLocalizationStrings()
     }
     
     // Setup plurals bundle
     func setupPluralsBundle() {
+        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
 		self.pluralsBundle?.remove()
 		pluralsFolder.directories.forEach({ try? $0.remove() })
         let localizationFolderName = localization + "-" + UUID().uuidString
@@ -79,12 +74,12 @@ open class BaseLocalizationProvider: LocalizationProvider {
     }
     
     func setupLocalizationStrings() {
-        self.localizationStrings = self.strings
+        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
     }
     
     // Localization methods
     public func localizedString(for key: String) -> String? {
-        var string = self.localizationStrings[key]
+        var string = self.strings[key]
         if string == nil {
 			string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
         }
@@ -97,102 +92,12 @@ open class BaseLocalizationProvider: LocalizationProvider {
         key = pluralsDataSource.findKey(for: string)
         return key
     }
-	
-//    https://github.com/mac-cain13/R.swift/blob/master/Sources/RswiftCore/ResourceTypes/StringParam.swift
-	func findKey(in strings: [String: String], for text: String) -> String? {
-        for (key, value) in strings {
-            if findMatch(for: value, with: text) { return key }
-        }
-        return nil
-    }
-    
-    func findMatch(for localizedString: String, with text: String) -> Bool {
-        // Check is it equal:
-        if localizedString == text { return true }
-        // If not try to parse localized string as formated:
-        let matches = formatTypesRegEx.matches(in: localizedString, options: [], range: NSRange(location: 0, length: localizedString.count))
-        // If it is not formated string return false.
-        guard matches.count > 0 else { return false }
-        let ranges = matches.compactMap({ $0.range })
-        let nsStringValue = localizedString as NSString
-        let components = nsStringValue.splitBy(ranges: ranges)
-        for component in components {
-            if !text.contains(component) {
-                return false
-            }
-        }
-        return true
-    }
-	
+
     public func values(for string: String, with format: String) -> [Any]? {
         var values = self.stringsDataSource.findValues(for: string, with: format)
         if values == nil {
             values = self.pluralsDataSource.findValues(for: string, with: format)
         }
         return values
-    }
-    
-	public func findValues(for string: String, with format: String) -> [Any]? {
-		let parts = FormatPart.formatParts(formatString: format)
-		let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
-		guard matches.count > 0 else { return nil }
-		let ranges = matches.compactMap({ $0.range })
-		let nsStringValue = format as NSString
-		let components = nsStringValue.splitBy(ranges: ranges)
-		
-		let nsStringText = string as NSString
-		
-		var valueRanges = [NSRange]()
-		components.forEach({ valueRanges.append(nsStringText.range(of: $0)) })
-        
-        guard valueRanges.count > 0 else { return nil }
-        
-		let values = nsStringText.splitBy(ranges: valueRanges)
-        
-        guard values.count == parts.count else { return nil }
-        
-        var result = [Any]()
-        
-        for index in 0...parts.count - 1 {
-            let part = parts[index]
-            let value = values[index]
-            guard let formatSpecifier = part.formatSpecifier else {
-                result.append(value)
-                continue
-            }
-            switch formatSpecifier {
-            case .object: result.append(value)
-            case .double: result.append(Double(value)!)
-            case .int: result.append(Int(value)!)
-            case .uInt: result.append(UInt(value)!)
-            case .character: result.append(Character(value))
-            case .cStringPointer: result.append(Double(value)!)
-            case .voidPointer: result.append(Double(value)!)
-            case .topType: result.append(value)
-            }
-        }
-        
-        return result
-	}
-    
-    func findKeyValues(for plurals: [AnyHashable: Any], for text: String) -> (key: String?, values: [Any]?) {
-        for (key, plural) in plurals {
-            guard let plural = plural as? [AnyHashable: Any] else { continue }
-            for(key1, value) in plural {
-                if key1 as! String == "NSStringLocalizedFormatKey" { continue }
-                guard let value = value as? [String: String] else { continue }
-                for (key2, formatedString) in value {
-                    guard key2 != "NSStringFormatSpecTypeKey" else { continue }
-                    guard key2 != "NSStringFormatValueTypeKey" else { continue }
-                    // As plurals can be simple string then check whether it is equal to text. If not do the same as for formated string.
-                    if formatedString == text { return (key as? String, nil) }
-                    if findMatch(for: formatedString, with: text) {
-                        let values = findValues(for: text, with: formatedString)
-                        return (key as? String, values)
-                    }
-                }
-            }
-        }
-        return (nil, nil)
     }
 }
