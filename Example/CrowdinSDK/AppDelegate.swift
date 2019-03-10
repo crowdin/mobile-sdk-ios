@@ -18,11 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-        let string = String(format: "23fds %u", arguments: ["sdf"])
-      CrowdinSDK.start(with: FirebaseLocalizationProvider(path: "extracted_example"))
-//        CrowdinSDK.start(with: LocalLocalizationProvider())
-//        CrowdinSDK.start(with: LocalLocalizationProvider(additionalWord: "test"))
-		
+        CrowdinSDK.start(with: FirebaseLocalizationProvider(path: "extracted_example"))
+        //        CrowdinSDK.start(with: LocalLocalizationProvider())
+        //        CrowdinSDK.start(with: LocalLocalizationProvider(additionalWord: "test"))
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         var panelsVC = FAPanelController()

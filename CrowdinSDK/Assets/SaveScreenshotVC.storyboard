@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="n6s-ZS-xkE">
             <objects>
                 <viewController storyboardIdentifier="SaveScreenshotVC" id="d16-yF-VV7" customClass="SaveScreenshotVC" customModule="CrowdinSDK" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jE4-3G-Q1l"/>
-                        <viewControllerLayoutGuide type="bottom" id="oQS-IQ-d78"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="laF-xE-Tce">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -59,19 +56,20 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vYh-wz-9ZN" firstAttribute="leading" secondItem="laF-xE-Tce" secondAttribute="leading" id="5Rg-ZM-i5T"/>
-                            <constraint firstItem="SHy-DZ-KJF" firstAttribute="centerX" secondItem="laF-xE-Tce" secondAttribute="centerX" id="9Bg-3f-4Xi"/>
-                            <constraint firstAttribute="trailing" secondItem="Xbf-iD-vmr" secondAttribute="trailing" constant="16" id="9vp-3T-3F9"/>
-                            <constraint firstItem="oQS-IQ-d78" firstAttribute="top" secondItem="h1H-P7-sb1" secondAttribute="bottom" constant="20" id="F5T-RQ-Qs3"/>
+                            <constraint firstItem="vYh-wz-9ZN" firstAttribute="leading" secondItem="lGO-VS-W65" secondAttribute="leading" id="5Rg-ZM-i5T"/>
+                            <constraint firstItem="SHy-DZ-KJF" firstAttribute="centerX" secondItem="lGO-VS-W65" secondAttribute="centerX" id="9Bg-3f-4Xi"/>
+                            <constraint firstItem="lGO-VS-W65" firstAttribute="trailing" secondItem="Xbf-iD-vmr" secondAttribute="trailing" constant="16" id="9vp-3T-3F9"/>
+                            <constraint firstItem="lGO-VS-W65" firstAttribute="bottom" secondItem="h1H-P7-sb1" secondAttribute="bottom" constant="20" id="F5T-RQ-Qs3"/>
                             <constraint firstItem="SHy-DZ-KJF" firstAttribute="top" secondItem="gIU-l2-11Q" secondAttribute="bottom" constant="8" id="OoQ-qC-WLf"/>
-                            <constraint firstItem="gIU-l2-11Q" firstAttribute="centerX" secondItem="laF-xE-Tce" secondAttribute="centerX" id="SkX-ry-UY6"/>
+                            <constraint firstItem="gIU-l2-11Q" firstAttribute="centerX" secondItem="lGO-VS-W65" secondAttribute="centerX" id="SkX-ry-UY6"/>
                             <constraint firstItem="vYh-wz-9ZN" firstAttribute="top" secondItem="SHy-DZ-KJF" secondAttribute="bottom" constant="16" id="V3z-yK-qpj"/>
-                            <constraint firstItem="h1H-P7-sb1" firstAttribute="centerX" secondItem="laF-xE-Tce" secondAttribute="centerX" id="Y6Z-yL-kMk"/>
-                            <constraint firstItem="vYh-wz-9ZN" firstAttribute="trailing" secondItem="laF-xE-Tce" secondAttribute="trailing" id="Yyl-7o-5tR"/>
+                            <constraint firstItem="h1H-P7-sb1" firstAttribute="centerX" secondItem="lGO-VS-W65" secondAttribute="centerX" id="Y6Z-yL-kMk"/>
+                            <constraint firstItem="vYh-wz-9ZN" firstAttribute="trailing" secondItem="lGO-VS-W65" secondAttribute="trailing" id="Yyl-7o-5tR"/>
                             <constraint firstItem="h1H-P7-sb1" firstAttribute="top" secondItem="vYh-wz-9ZN" secondAttribute="bottom" constant="16" id="d2I-Hr-XyN"/>
-                            <constraint firstItem="SHy-DZ-KJF" firstAttribute="top" secondItem="jE4-3G-Q1l" secondAttribute="bottom" constant="50" id="g3o-Gz-99M"/>
-                            <constraint firstItem="Xbf-iD-vmr" firstAttribute="top" secondItem="jE4-3G-Q1l" secondAttribute="bottom" constant="16" id="ywf-gQ-jbR"/>
+                            <constraint firstItem="SHy-DZ-KJF" firstAttribute="top" secondItem="lGO-VS-W65" secondAttribute="top" constant="50" id="g3o-Gz-99M"/>
+                            <constraint firstItem="Xbf-iD-vmr" firstAttribute="top" secondItem="lGO-VS-W65" secondAttribute="top" constant="16" id="ywf-gQ-jbR"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="lGO-VS-W65"/>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="vYh-wz-9ZN" id="Ga9-s0-CPZ"/>

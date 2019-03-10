@@ -112,7 +112,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: af1f763dc8c871866321b580bce63b0cfe44458a
+  CrowdinSDK: 708d0704aa5974b5592471e2356331d3b4cc7d9d
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae

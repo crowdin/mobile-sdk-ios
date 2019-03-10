@@ -45,7 +45,7 @@ TODO: Add long description of the pod here.
       provider.name = 'FirebaseProvider'
       provider.dependency 'Firebase'
       provider.dependency 'FirebaseDatabase'
-      provider.source_files = 'CrowdinSDK/Classes/Providers/Firebase/*.swift'
+      provider.source_files = 'CrowdinSDK/Classes/Providers/Firebase/**/*'
       provider.dependency 'CrowdinSDK/Core'
   end
   

@@ -91,7 +91,12 @@ class Localization {
     }
     
     func keyForString(_ text: String) -> String? {
-        return provider.key(for: text)
+        var key = provider.key(for: text)
+        if key == nil {
+            // TODO: Add proper method to extractor for getting keys.
+            key = extractor.localizationDict.first(where: { $1 == text })?.key
+        }
+        return key
     }
     
     func localizedString(for key: String) -> String? {
