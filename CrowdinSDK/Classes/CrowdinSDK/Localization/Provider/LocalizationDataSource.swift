@@ -21,6 +21,11 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
     }
     
     func findKey(for string: String) -> String? {
+        // Simple strings
+        for (key, value) in strings {
+            if string == value { return key }
+        }
+        // Formated strings
         for (key, value) in strings {
             if String.findMatch(for: value, with: string) { return key }
         }
@@ -97,16 +102,19 @@ fileprivate extension String {
                 result.append(value)
                 continue
             }
+            var formatValue: Any?
             switch formatSpecifier {
-            case .object: result.append(value)
-            case .double: result.append(Double(value)!)
-            case .int: result.append(Int(value)!)
-            case .uInt: result.append(UInt(value)!)
-            case .character: result.append(Character(value))
-            case .cStringPointer: result.append(Double(value)!)
-            case .voidPointer: result.append(Double(value)!)
-            case .topType: result.append(value)
+            case .object: formatValue = value
+            case .double: formatValue = Double(value)
+            case .int: formatValue = Int(value)
+            case .uInt: formatValue = UInt(value)
+            case .character: formatValue = Character(value)
+            case .cStringPointer: formatValue = value
+            case .voidPointer: formatValue = value
+            case .topType: formatValue = value
             }
+            guard let nonNilFormatValue = formatValue else { return nil }
+            result.append(nonNilFormatValue)
         }
         
         return result

@@ -51,7 +51,7 @@ import UIKit
     }
     
     @objc public class func start() {
-        self.setProvider(nil)
+        self.setProvider(LocalLocalizationProvider(additionalWord: "cw"))
         self.initializeLib()
     }
 	
@@ -88,8 +88,7 @@ import UIKit
 		} else {
 			CrowdinSDK.unswizzle()
 		}
-        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
-        LocalizationUpdateFeature.shared = LocalizationUpdateFeature()
+//        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
         ScreenshotFeature.shared = ScreenshotFeature()
     }
 	

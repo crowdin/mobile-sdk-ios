@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class BaseLocalizationProvider: LocalizationProvider {
+@objcMembers open class BaseLocalizationProvider: NSObject, LocalizationProvider {
     // Public
     public var localization: String
     public var localizations: [String]
@@ -20,7 +20,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
     var stringsDataSource: StringsLocalizationDataSource
     var pluralsDataSource: PluralsLocalizationDataSource
     
-    public init() {
+    public override init() {
         self.strings = [:]
         self.plurals = [:]
         self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
@@ -28,6 +28,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
+        super.init()
         self.setupPluralsBundle()
     }
     
@@ -39,6 +40,7 @@ open class BaseLocalizationProvider: LocalizationProvider {
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
         self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
+        super.init()
         self.setupPluralsBundle()
     }
     

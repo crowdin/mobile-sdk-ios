@@ -36,13 +36,13 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
     
     func refresh() {
         let extractor = LocalizationExtractor(localization: self.localization)
-		let plurals = self.addAdditionalWord(to: extractor.localizationPluralsDict)
+		let plurals = self.addAdditionalWordTo(plurals: extractor.localizationPluralsDict)
         self.set(plurals: plurals)
-		let strings = self.addAdditionalWord(to: extractor.localizationDict)
+        let strings = self.addAdditionalWordTo(strings: extractor.localizationDict)
         self.set(strings: strings)
     }
 	
-	func addAdditionalWord(to strings: [String: String]) -> [String: String] {
+	func addAdditionalWordTo(strings: [String: String]) -> [String: String] {
 		var dict = strings
 		dict.keys.forEach { (key) in
 			dict[key] = dict[key]! + "[\(localization)][\(additionalWord)]"
@@ -50,7 +50,7 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
 		return dict
 	}
 	
-	func addAdditionalWord(to plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
+	func addAdditionalWordTo(plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
 		var dict = plurals
 		dict.keys.forEach({ (key) in
 			var localized = dict[key] as! [AnyHashable: Any]
