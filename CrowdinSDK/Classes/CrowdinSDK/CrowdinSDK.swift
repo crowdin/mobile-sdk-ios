@@ -88,7 +88,6 @@ import UIKit
 		} else {
 			CrowdinSDK.unswizzle()
 		}
-//        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
         ScreenshotFeature.shared = ScreenshotFeature()
     }
 	

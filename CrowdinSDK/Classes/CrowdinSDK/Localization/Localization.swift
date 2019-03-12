@@ -77,7 +77,7 @@ class Localization {
         self.extractor = LocalizationExtractor()
         self.provider = provider ?? CrowdinProvider()
         self.provider.set(localization: currentLocalization)
-        self.extractor.setLocalization(currentLocalization)
+        self.extractor.setLocalization(currentLocalization ?? defaultLocalization)
 	}
 	
 	/// A list of all avalaible localization in SDK downloaded from current provider.

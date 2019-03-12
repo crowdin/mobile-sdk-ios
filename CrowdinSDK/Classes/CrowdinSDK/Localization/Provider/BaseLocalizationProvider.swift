@@ -23,7 +23,7 @@ import Foundation
     public override init() {
         self.strings = [:]
         self.plurals = [:]
-        self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
+        self.localization = Bundle.main.preferredLanguage
         self.localizations = []
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
@@ -35,7 +35,7 @@ import Foundation
     public required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
         self.strings = strings
         self.plurals = plurals
-        self.localization = Bundle.main.preferredLanguages.first ?? defaultLocalization
+        self.localization = Bundle.main.preferredLanguage
         self.localizations = localizations
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
         self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
@@ -62,7 +62,7 @@ import Foundation
     }
     
     public func set(localization: String?) {
-        self.localization = localization ?? Bundle.main.preferredLanguages.first ?? defaultLocalization
+        self.localization = localization ?? Bundle.main.preferredLanguage
         self.setupLocalizationStrings()
     }
     

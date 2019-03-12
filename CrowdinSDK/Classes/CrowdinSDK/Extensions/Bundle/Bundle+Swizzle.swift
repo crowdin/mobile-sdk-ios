@@ -14,7 +14,7 @@ extension Bundle {
     
     @objc func swizzled_LocalizedString(forKey key: String, value: String?, table tableName: String?) -> String {
         var translation = Localization.current.localizedString(for: key)
-        if translation == nil {
+        if translation == nil || translation == key {
             translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName)
         }
         return translation ?? key

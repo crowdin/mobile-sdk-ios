@@ -17,7 +17,7 @@ class LocalizationExtractor {
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
     
-    var localization: String? = LocalizationExtractor.allLocalizations.first
+    var localization: String = Bundle.main.preferredLanguage
     
     var files: [String] {
         guard let filePath = Bundle.main.path(forResource: localization, ofType: FileType.lproj.rawValue) else { return [] }
@@ -33,19 +33,13 @@ class LocalizationExtractor {
         return files.map({ $0.path })
     }
     
-    init(localization: String? = LocalizationExtractor.allLocalizations.first) {
+    init(localization: String = Bundle.main.preferredLanguage) {
         self.localization = localization
-        if localization == nil {
-            self.localization = LocalizationExtractor.allLocalizations.first
-        }
         self.extract()
     }
     
-    func setLocalization(_ localization: String?) {
+    func setLocalization(_ localization: String = Bundle.main.preferredLanguage) {
         self.localization = localization
-        if localization == nil {
-            self.localization = LocalizationExtractor.allLocalizations.first
-        }
         self.extract()
     }
     

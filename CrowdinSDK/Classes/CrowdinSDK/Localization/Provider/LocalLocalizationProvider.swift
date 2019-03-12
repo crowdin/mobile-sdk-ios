@@ -31,7 +31,7 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
     
     override public func set(localization: String?) {
         super.set(localization: localization)
-        refresh()
+        self.refresh()
     }
     
     func refresh() {

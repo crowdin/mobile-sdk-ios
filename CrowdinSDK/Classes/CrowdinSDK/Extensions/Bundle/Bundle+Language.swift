@@ -8,6 +8,9 @@
 import Foundation
 
 extension Bundle {
+    var preferredLanguage: String {
+        return self.preferredLanguages.first ?? defaultLocalization
+    }
     /// Return ordered list of language codes according to device settings, and bundle localizations.
 	//	TODO: Add handling case when intersection of preffered languages from settings and localizations in bundle is empty.
     var preferredLanguages: [String] {
