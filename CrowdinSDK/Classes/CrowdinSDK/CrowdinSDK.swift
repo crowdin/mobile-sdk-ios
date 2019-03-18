@@ -51,7 +51,7 @@ import UIKit
     }
     
     @objc public class func start() {
-        self.setProvider(LocalLocalizationProvider(additionalWord: "cw"))
+        self.setProvider(nil)
         self.initializeLib()
     }
 	

@@ -20,6 +20,16 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CrowdinHash</key>
+	<string>66f02b964afeb77aea8d191e68748abc</string>
+	<key>CrowdinPluralsFileNames</key>
+	<array>
+		<string>Localizable.stringsdict</string>
+	</array>
+	<key>CrowdinStringsFileNames</key>
+	<array>
+		<string>Localizable.strings</string>
+	</array>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

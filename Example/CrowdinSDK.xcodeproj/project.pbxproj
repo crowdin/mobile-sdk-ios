@@ -70,8 +70,6 @@
 		924197B722108B4C00D0B12A /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		924197B822108B4D00D0B12A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		924197B922108C7600D0B12A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		924197BA22108C7600D0B12A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		924197BB22108C7700D0B12A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9255BF5521FCC1F300C80A40 /* ObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectViewController.swift; sourceTree = "<group>"; };
 		9255BF5621FCC1F300C80A40 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -414,7 +412,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FAPanels/FAPanels.framework",
 				"${BUILT_PRODUCTS_DIR}/FileBrowser/FileBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -435,7 +433,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		49936CF158AC1982BB88B57C /* [CP] Check Pods Manifest.lock */ = {
@@ -468,8 +466,8 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/en.lproj/LocalizationUpdateVC.storyboard",
+				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh",
+				"${PODS_ROOT}/../../CrowdinSDK/Assets/LocalizationUpdateVC.storyboard",
 				"${PODS_ROOT}/../../CrowdinSDK/Assets/SaveScreenshotVC.storyboard",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -481,7 +479,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		92A1BCE32210C6650086B3AC /* R.swift */ = {
@@ -498,7 +496,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/CrowdinSDK/R.generated.swift",
+				$SRCROOT/CrowdinSDK/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -607,7 +605,6 @@
 				928752312208ECBA00BB9CB6 /* zh-Hans-CN */,
 				928752342208F4CD00BB9CB6 /* zh-Hant */,
 				C82D288E220B40E400DB239B /* uk-UA */,
-				924197BA22108C7600D0B12A /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -620,7 +617,6 @@
 				924197B622108B4B00D0B12A /* zh-Hans-CN */,
 				924197B722108B4C00D0B12A /* uk */,
 				924197B822108B4D00D0B12A /* zh-Hans */,
-				924197BB22108C7700D0B12A /* en */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
