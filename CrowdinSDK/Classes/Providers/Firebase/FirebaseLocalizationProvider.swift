@@ -12,8 +12,6 @@ import FirebaseDatabase
     let crowdinFolder = CrowdinFolder.shared
 	let firebaseFolder: Folder
     let database: DatabaseReference = Database.database().reference()
-    var allKeys: [String] = []
-    var allValues: [String] = []
     
     public var path: String
     
