@@ -28,6 +28,7 @@ extension Bundle {
         return infoDictionary?["UILaunchStoryboardName"] as? String
     }
     
+    /// Localization native development region
     var developmentRegion: String? {
         return infoDictionary?["CFBundleDevelopmentRegion"] as? String
     }

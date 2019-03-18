@@ -57,7 +57,7 @@ extension NSString {
 	}
 	
 	private func isValid(range: NSRange) -> Bool {
-		return range.location != NSNotFound && range.location + range.length <= length
+		return range.location != NSNotFound && range.location + range.length <= length && range.length > 0
 	}
 }
 

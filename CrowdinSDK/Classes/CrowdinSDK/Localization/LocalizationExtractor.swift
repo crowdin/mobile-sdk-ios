@@ -19,6 +19,10 @@ class LocalizationExtractor {
     
     var localization: String = Bundle.main.preferredLanguage
     
+    var isEmpty: Bool {
+        return self.localizationDict.isEmpty && self.localizationPluralsDict.isEmpty
+    }
+    
     var files: [String] {
         guard let filePath = Bundle.main.path(forResource: localization, ofType: FileType.lproj.rawValue) else { return [] }
         guard var files = try? FileManager.default.contentsOfDirectory(atPath: filePath) else { return [] }
@@ -36,6 +40,11 @@ class LocalizationExtractor {
     init(localization: String = Bundle.main.preferredLanguage) {
         self.localization = localization
         self.extract()
+        // If we're unable to extract localization passed/detected language then try to extract Base localization.
+        if self.isEmpty, let developmentRegion = Bundle.main.developmentRegion {
+            self.localization = developmentRegion
+            self.extract()
+        }
     }
     
     func setLocalization(_ localization: String = Bundle.main.preferredLanguage) {

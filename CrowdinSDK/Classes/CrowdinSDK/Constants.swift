@@ -8,4 +8,5 @@
 import Foundation
 
 let defaultLocalization = "en"
+let baseLocalization = "Base"
 
