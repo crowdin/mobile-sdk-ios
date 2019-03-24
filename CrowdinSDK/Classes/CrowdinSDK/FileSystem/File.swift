@@ -13,10 +13,20 @@ protocol PathProtocol {
     var path: String { get set}
 }
 
-class File: PathProtocol, FileStatsProtocol {
+protocol FileProtocol: PathProtocol {
+    var name: String { get set }
+    var type: String { get set }
+    var isCreated: Bool { get }
+    var content: Data? { get }
+    
+    func create()
+    func remove() throws
+}
+
+class File: FileProtocol, FileStatsProtocol {
     var path: String
-    let name: String
-    let type: String
+    var name: String
+    var type: String
     
     init(path: String) {
         self.path = path

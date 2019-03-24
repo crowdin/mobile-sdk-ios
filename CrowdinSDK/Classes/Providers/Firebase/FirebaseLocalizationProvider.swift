@@ -9,8 +9,8 @@ import Foundation
 import FirebaseDatabase
 
 @objcMembers public class FirebaseLocalizationProvider: BaseLocalizationProvider {
-    let crowdinFolder = CrowdinFolder.shared
-	let firebaseFolder: Folder
+    let crowdinFolder: FolderProtocol = CrowdinFolder.shared
+	let firebaseFolder: FolderProtocol
     let database: DatabaseReference = Database.database().reference()
     
     public var path: String

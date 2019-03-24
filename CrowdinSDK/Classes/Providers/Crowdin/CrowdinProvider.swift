@@ -8,15 +8,24 @@
 import Foundation
 
 public class CrowdinProvider: BaseLocalizationProvider {
-    let crowdinFolder = CrowdinFolder.shared
-    let localizationFolder: Folder
+    let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: "Crowdin")
     
     var hashString: String
-    var stringsFileNames: [String] = []
-    var pluralsFileNames: [String] = []
-    let crowdinAPI: CrowdinAPI
+    var stringsFileNames: [String]
+    var pluralsFileNames: [String]
+    let crowdinAPI: CrowdinAPIProtolol
     
     fileprivate let downloadOperationQueue = OperationQueue()
+    
+    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String]) {
+        self.hashString = hashString
+        self.stringsFileNames = stringsFileNames
+        self.pluralsFileNames = pluralsFileNames
+        self.crowdinAPI = CrowdinAPI(hash: hashString)
+        super.init()
+        self.loadSavedLocalization()
+        self.downloadLocalization()
+    }
     
     public override init() {
         guard let hashString = Bundle.main.crowdinHash else {
@@ -33,7 +42,6 @@ public class CrowdinProvider: BaseLocalizationProvider {
         self.pluralsFileNames = crowdinPluralsFileNames
         
         self.crowdinAPI = CrowdinAPI(hash: hashString)
-        self.localizationFolder = try! crowdinFolder.createFolder(with: "Crowdin")
         super.init()
         self.loadSavedLocalization()
         self.downloadLocalization()

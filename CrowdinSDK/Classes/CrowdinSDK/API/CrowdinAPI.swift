@@ -13,21 +13,31 @@ enum Errors: Error {
     case dataError
 }
 
-class CrowdinAPI {
-    let hash: String
-    let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
-    let session: URLSession
+typealias CrowdinAPIStringsCompletion = (([String : String]?, Error?) -> Void)
+typealias CrowdinAPIPluralsCompletion = (([AnyHashable : Any]?, Error?) -> Void)
+
+protocol CrowdinAPIProtolol {
+    func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion)
+    func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion)
+}
+
+class CrowdinAPI: CrowdinAPIProtolol {
+    private typealias CrowdinAPIDataCompletion = ((Data?, Error?) -> Void)
+    
+    private let hash: String
+    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
+    private let session: URLSession
     
     init(hash: String) {
         self.hash = hash
         session = URLSession.shared
     }
     
-    func buildURL(localization: String, file: String) -> String {
-        return baseURL + "/" + hash + "/" + localization + "/" + file
+    private func buildURL(localization: String, file: String) -> String {
+        return baseURL + String.pathDelimiter + hash + String.pathDelimiter + localization + String.pathDelimiter + file
     }
     
-    func get(file: String, for localization: String, completion: @escaping ((Data?, Error?) -> Void)) {
+    private func get(file: String, for localization: String, completion: @escaping CrowdinAPIDataCompletion) {
         let stringURL = buildURL(localization: localization, file: file)
         guard let url = URL(string: stringURL) else {
             completion(nil, Errors.badUrl(url: stringURL))
@@ -39,7 +49,7 @@ class CrowdinAPI {
         task.resume()
     }
     
-    func getStrings(file: String, for localization: String, completion: @escaping (([String : String]?, Error?) -> Void)) {
+    func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion) {
         self.get(file: file, for: localization) { (data, error) in
             guard let data = data else {
                 completion(nil, Errors.dataError)
@@ -53,7 +63,7 @@ class CrowdinAPI {
         }
     }
     
-    func getPlurals(file: String, for localization: String, completion: @escaping (([AnyHashable : Any]?, Error?) -> Void)) {
+    func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion) {
         self.get(file: file, for: localization) { (data, error) in
             guard let data = data else {
                 completion(nil, Errors.dataError)
@@ -66,10 +76,5 @@ class CrowdinAPI {
             }
             completion(dictionary, nil)
         }
-    }
-    
-    // TODO:
-    func getSync(file: String, for localization: String) {
-        
     }
 }

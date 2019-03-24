@@ -16,8 +16,6 @@ class LocalizationUpdateFeature {
         controls.add(control)
         control.subscribe()
     }
-    
-    
 }
 
 protocol Updatable: NSObjectProtocol {

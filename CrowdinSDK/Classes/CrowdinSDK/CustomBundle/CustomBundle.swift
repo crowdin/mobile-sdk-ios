@@ -9,25 +9,26 @@ import Foundation
 
 protocol BundleProtocol {
     var bundle: Bundle { get }
-    var folder: Folder { get }
 }
 
-class FolderBundle: BundleProtocol {
+protocol FolderBundleProtocol {
+    var folder: FolderProtocol { get }
+}
+
+class FolderBundle: FolderBundleProtocol {
     var bundle: Bundle
-    var folder: Folder
+    var folder: FolderProtocol
     
     // TODO: Find way to remove forse  unwraping.
-    init(folder: Folder) {
+    init(folder: FolderProtocol) {
         self.folder = folder
         self.bundle = Bundle(path: folder.path)!
-        self.bundle.load()
     }
     
     init(path: String) {
         self.folder = Folder(path: path)
         try? self.folder.create()
         self.bundle = Bundle(path: folder.path)!
-        self.bundle.load()
     }
 }
 
@@ -64,7 +65,6 @@ class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {
     }
     
     func remove() {
-		self.bundle.unload()
 		try? self.folder.remove()
         try? self.file.remove()
     }
