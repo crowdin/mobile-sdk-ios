@@ -18,7 +18,7 @@ class MenuVC: UIViewController {
     }
     @IBOutlet weak var firebaseButton: UIButton! {
         didSet {
-            firebaseButton.setTitle(NSLocalizedString("menu_firebase_button_title", comment: ""), for: .normal)
+            firebaseButton.setTitle(NSLocalizedString("menu_plurals_button_title", comment: ""), for: .normal)
         }
     }
     @IBOutlet weak var explorerButton: UIButton! {
@@ -31,12 +31,16 @@ class MenuVC: UIViewController {
             settingsButton.setTitle(NSLocalizedString("menu_settings_button_title", comment: ""), for: .normal)
         }
     }
-	
-	@IBOutlet weak var formatedStringsButton: UIButton! {
-		didSet {
-			formatedStringsButton.setTitle(NSLocalizedString("menu_formated_strings_button_title", comment: ""), for: .normal)
-		}
-	}
+    @IBOutlet weak var stringsButton: UIButton! {
+        didSet {
+            stringsButton.setTitle(NSLocalizedString("menu_strings_button_title", comment: ""), for: .normal)
+        }
+    }
+    @IBOutlet weak var pluralsButton: UIButton! {
+        didSet {
+            pluralsButton.setTitle(NSLocalizedString("menu_plurals_button_title", comment: ""), for: .normal)
+        }
+    }
     
     @IBAction func mainButtonPressed(_ sender: AnyObject) {
         if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is MainViewController {
@@ -90,17 +94,35 @@ class MenuVC: UIViewController {
         }
     }
 	
-	@IBAction func formatedStringsButtonPressed(_ sender: AnyObject) {
-		if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is FormatedStringsVC {
+	@IBAction func stringsButtonPressed(_ sender: AnyObject) {
+		if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is StringsVC {
 			panel?.closeLeft()
 		} else {
-			let formatedStringsVC = UIStoryboard(name: "FormatedStringsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "FormatedStringsVC") as! FormatedStringsVC
+			let formatedStringsVC = UIStoryboard(name: "StringsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "StringsVC") as! StringsVC
 			let formatedStringsNC = UINavigationController(rootViewController: formatedStringsVC)
 			_ = panel?.center(formatedStringsNC)
 		}
 	}
+    
+    @IBAction func pluralsButtonPressed(_ sender: AnyObject) {
+        if let nc = panel?.center as? UINavigationController, nc.viewControllers.first is PluralsVC {
+            panel?.closeLeft()
+        } else {
+            let pluralsVC = UIStoryboard(name: "PluralsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "PluralsVC") as! PluralsVC
+            let pluralsNC = UINavigationController(rootViewController: pluralsVC)
+            _ = panel?.center(pluralsNC)
+        }
+    }
 	
 	func show(vc: UIViewController) {
 		
 	}
+    
+    func reloadUI() {
+        mainButton.setTitle(NSLocalizedString("menu_main_button_title", comment: ""), for: .normal)
+        explorerButton.setTitle(NSLocalizedString("menu_explorer_button_title", comment: ""), for: .normal)
+        settingsButton.setTitle(NSLocalizedString("menu_settings_button_title", comment: ""), for: .normal)
+        stringsButton.setTitle(NSLocalizedString("menu_strings_button_title", comment: ""), for: .normal)
+        pluralsButton.setTitle(NSLocalizedString("menu_plurals_button_title", comment: ""), for: .normal)
+    }
 }

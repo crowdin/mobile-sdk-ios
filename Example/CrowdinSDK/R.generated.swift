@@ -475,10 +475,10 @@ struct _R: Rswift.Validatable {
     
     struct formatedStringsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
-      let formatedStringsVC = StoryboardViewControllerResource<FormatedStringsVC>(identifier: "FormatedStringsVC")
-      let name = "FormatedStringsVC"
+      let formatedStringsVC = StoryboardViewControllerResource<StringsVC>(identifier: "StringsVC")
+      let name = "StringsVC"
       
-      func formatedStringsVC(_: Void = ()) -> FormatedStringsVC? {
+      func formatedStringsVC(_: Void = ()) -> StringsVC? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: formatedStringsVC)
       }
       

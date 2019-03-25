@@ -41,7 +41,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="firebaseButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="ita-9d-lve"/>
+                                    <action selector="pluralsButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="IXP-8F-kfZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lq7-v7-f6l">
@@ -55,6 +55,7 @@
                                 </state>
                                 <connections>
                                     <action selector="settingsButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="fOg-Fa-exp"/>
+                                    <action selector="stringsButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="xqq-6G-hsW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdE-tP-A2O">
@@ -79,9 +80,6 @@
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="formatedStringsButtonPressed:" destination="bDs-YC-m2b" eventType="touchUpInside" id="hB3-py-pqb"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,10 +104,10 @@
                     </view>
                     <connections>
                         <outlet property="explorerButton" destination="DdE-tP-A2O" id="HGx-Va-oaS"/>
-                        <outlet property="firebaseButton" destination="uT6-dC-nZt" id="NaD-3V-rj4"/>
-                        <outlet property="formatedStringsButton" destination="Gaa-DL-NDv" id="RVO-gd-wYr"/>
                         <outlet property="mainButton" destination="cBP-P0-qP9" id="gCy-th-Yl6"/>
-                        <outlet property="settingsButton" destination="lq7-v7-f6l" id="KGW-bt-CFW"/>
+                        <outlet property="pluralsButton" destination="uT6-dC-nZt" id="1R4-Ml-XwL"/>
+                        <outlet property="settingsButton" destination="Gaa-DL-NDv" id="3KH-0R-Ska"/>
+                        <outlet property="stringsButton" destination="lq7-v7-f6l" id="q0a-vI-uu2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2yo-GN-61F" userLabel="First Responder" sceneMemberID="firstResponder"/>

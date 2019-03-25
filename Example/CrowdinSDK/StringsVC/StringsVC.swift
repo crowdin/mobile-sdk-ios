@@ -1,6 +1,6 @@
 
 //
-//  FormatedStringsVC.swift
+//  StringsVC.swift
 //  CrowdinSDK_Example
 //
 //  Created by Serhii Londar on 2/18/19.
@@ -10,7 +10,7 @@
 import UIKit
 import CrowdinSDK
 
-class FormatedStringsVC: BaseMenuVC {
+class StringsVC: BaseMenuVC {
     let crowdinSDKTester = CrowdinSDKTester(localization: CrowdinSDK.currentLocalization ?? "en")
     
 	@IBOutlet var tableView: UITableView! {
@@ -26,7 +26,7 @@ class FormatedStringsVC: BaseMenuVC {
     }
 }
 
-extension FormatedStringsVC: UITableViewDelegate, UITableViewDataSource {
+extension StringsVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return localizationKeys.count
 	}

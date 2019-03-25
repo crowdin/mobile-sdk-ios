@@ -10,33 +10,33 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Formated StringsVC-->
-        <scene sceneID="6sN-gz-L1R">
+        <!--PluralsVC-->
+        <scene sceneID="4rZ-gs-b0b">
             <objects>
-                <viewController storyboardIdentifier="FormatedStringsVC" id="UV4-RX-fqQ" customClass="FormatedStringsVC" customModule="CrowdinSDK_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SeV-X2-E1e">
+                <viewController storyboardIdentifier="PluralsVC" id="abT-xI-5Sa" customClass="PluralsVC" customModule="CrowdinSDK_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vce-C0-8iK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Eg-rX-cJV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AfA-r1-MI4">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4Eg-rX-cJV" firstAttribute="top" secondItem="rBo-m6-1zS" secondAttribute="top" id="dyV-Gt-kut"/>
-                            <constraint firstItem="rBo-m6-1zS" firstAttribute="bottom" secondItem="4Eg-rX-cJV" secondAttribute="bottom" id="jDS-S6-dxF"/>
-                            <constraint firstItem="rBo-m6-1zS" firstAttribute="trailing" secondItem="4Eg-rX-cJV" secondAttribute="trailing" id="sOc-Hl-rDU"/>
-                            <constraint firstItem="4Eg-rX-cJV" firstAttribute="leading" secondItem="rBo-m6-1zS" secondAttribute="leading" id="yuJ-Lr-y6F"/>
+                            <constraint firstItem="6L8-5B-SI1" firstAttribute="trailing" secondItem="AfA-r1-MI4" secondAttribute="trailing" id="P4i-zB-3YI"/>
+                            <constraint firstItem="6L8-5B-SI1" firstAttribute="bottom" secondItem="AfA-r1-MI4" secondAttribute="bottom" id="PAE-zh-fdd"/>
+                            <constraint firstItem="AfA-r1-MI4" firstAttribute="top" secondItem="6L8-5B-SI1" secondAttribute="top" id="gWj-cz-29R"/>
+                            <constraint firstItem="AfA-r1-MI4" firstAttribute="leading" secondItem="6L8-5B-SI1" secondAttribute="leading" id="ghP-Ba-Mav"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="rBo-m6-1zS"/>
+                        <viewLayoutGuide key="safeArea" id="6L8-5B-SI1"/>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="4Eg-rX-cJV" id="yoi-mh-X14"/>
+                        <outlet property="tableView" destination="AfA-r1-MI4" id="H6b-q3-7m2"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EDl-v6-ree" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tlQ-RS-Q3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="73" y="61"/>
         </scene>
