@@ -12,6 +12,14 @@ extension Bundle {
         return infoDictionary?["CrowdinHash"] as? String
     }
     
+    var projectIdentifier: String? {
+        return infoDictionary?["CrowdinProjectIdentifier"] as? String
+    }
+    
+    var projectKey: String? {
+        return infoDictionary?["CrowdinProjectKey"] as? String
+    }
+    
     var crowdinStringsFileNames: [String]? {
         return infoDictionary?["CrowdinStringsFileNames"] as? [String]
     }
@@ -19,4 +27,5 @@ extension Bundle {
     var crowdinPluralsFileNames: [String]? {
         return infoDictionary?["CrowdinPluralsFileNames"] as? [String]
     }
+    
 }

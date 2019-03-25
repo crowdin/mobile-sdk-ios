@@ -26,6 +26,10 @@
 	<array>
 		<string>Localizable.stringsdict</string>
 	</array>
+	<key>CrowdinProjectIdentifier</key>
+	<string>content-er4</string>
+	<key>CrowdinProjectKey</key>
+	<string>af3d3deb8d45b7f7ac4e58c83ca2bc0c</string>
 	<key>CrowdinStringsFileNames</key>
 	<array>
 		<string>Localizable.strings</string>

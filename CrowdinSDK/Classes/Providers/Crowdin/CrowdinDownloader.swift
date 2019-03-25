@@ -7,11 +7,11 @@
 
 import Foundation
 
-typealias CrowdinDownloaderSuccess = (_ strings: [String : String], _ plurals: [AnyHashable : Any]) -> Void
+typealias CrowdinDownloaderSuccess = (_ strings: [String : String], _ plurals: [AnyHashable : Any], _ localizations: [String]) -> Void
 typealias CrowdinDownloaderError = (_ error: Error) -> Void
 
 protocol CrowdinDownloaderProtocol {
-    func download(strings: [String], plurals: [String], with hash: String, for localization: String, success: @escaping CrowdinDownloaderSuccess, error: @escaping CrowdinDownloaderError)
+    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, success: @escaping CrowdinDownloaderSuccess, error: @escaping CrowdinDownloaderError)
 }
 
 class CrowdinDownloader: CrowdinDownloaderProtocol {
@@ -21,15 +21,17 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
     fileprivate let operationQueue = OperationQueue()
     fileprivate var strings: [String : String] = [:]
     fileprivate var plurals: [AnyHashable : Any] = [:]
+    fileprivate var localizations: [String] = []
     
-    func download(strings: [String], plurals: [String], with hash: String, for localization: String, success: @escaping ([String : String], [AnyHashable : Any]) -> Void, error: @escaping (Error) -> Void) {
+    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, success: @escaping ([String : String], [AnyHashable : Any], [String]) -> Void, error: @escaping (Error) -> Void) {
         self.strings = [:]
         self.plurals = [:]
+        self.localizations = []
         
         self.success = success
         self.error = error
         let completion = BlockOperation {
-            self.success(self.strings, self.plurals)
+            self.success(self.strings, self.plurals, self.localizations)
         }
         
         strings.forEach { (string) in
@@ -59,6 +61,20 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
             completion.addDependency(download)
             operationQueue.addOperation(download)
         }
+        
+        let infoOperation = DownloadProjectInfoOperation(projectIdentifier: projectIdentifier, projectKey: projectKey)
+        infoOperation.completion = { projectInfo, error in
+            if let error = error {
+                self.error?(error)
+                print(error.localizedDescription)
+            }
+            guard let projectInfo = projectInfo else { return }
+            self.localizations = projectInfo.languages?.item?.compactMap({ $0.code }) ?? []
+            print(self.localizations)
+        }
+        
+        completion.addDependency(infoOperation)
+        operationQueue.addOperation(infoOperation)
         
         operationQueue.addOperation(completion)
     }

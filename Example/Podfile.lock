@@ -1,14 +1,23 @@
 PODS:
+  - BaseAPI (0.1.5)
   - CrowdinSDK (0.1.0):
     - CrowdinSDK/Core (= 0.1.0)
     - CrowdinSDK/CrowdinProvider (= 0.1.0)
   - CrowdinSDK/Core (0.1.0)
+  - CrowdinSDK/CrowdinAPI (0.1.0):
+    - BaseAPI
+    - CrowdinSDK/Operations
+  - CrowdinSDK/CrowdinContentDeliveryAPI (0.1.0):
+    - CrowdinSDK/Operations
   - CrowdinSDK/CrowdinProvider (0.1.0):
     - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinContentDeliveryAPI
   - CrowdinSDK/FirebaseProvider (0.1.0):
     - CrowdinSDK/Core
     - Firebase
     - FirebaseDatabase
+  - CrowdinSDK/Operations (0.1.0)
   - FAPanels (1.0.2)
   - FileBrowser (1.0.0)
   - Firebase (5.15.0):
@@ -85,6 +94,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - BaseAPI
     - FAPanels
     - Firebase
     - FirebaseAnalytics
@@ -112,7 +122,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 3fd42bf0d8d8cfd5131879ffd592c7196cb9c849
+  BaseAPI: 9248feed65933cd20283514e7a9917ecba1b69c0
+  CrowdinSDK: d6d37941d82efb8c18e4e4111097389066673898
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
