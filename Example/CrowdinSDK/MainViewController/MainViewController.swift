@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CrowdinSDK
 
 class MainViewController: BaseMenuVC {
     @IBOutlet weak var textLabel: UILabel! {
@@ -21,8 +22,7 @@ class MainViewController: BaseMenuVC {
     }
     @IBOutlet weak var textLabel2: UILabel! {
         didSet {
-//            textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), 111, 222, 333)
-            textLabel2.text = pineapplesCountUniversal(count: 0, count2: 0)
+            textLabel2.text = pineapplesCountUniversal(count: 0)
         }
     }
     @IBOutlet weak var reloadUIButton: UIButton! {
@@ -38,7 +38,7 @@ class MainViewController: BaseMenuVC {
         }
     }
     
-    private func pineapplesCountUniversal(count: UInt, count2: UInt) -> String{
+    private func pineapplesCountUniversal(count: UInt) -> String{
         let formatString : String = NSLocalizedString("johns pineapples count", comment: "Johns pineapples count string format to be found in Localized.stringsdict")
         let resultString1 : String = String.localizedStringWithFormat(formatString, count)
         return resultString1
@@ -46,6 +46,9 @@ class MainViewController: BaseMenuVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: NSNotification.Name(rawValue: CrowdinProvider.Notifications.CrowdinProviderDidDownloadLocalization.rawValue), object: nil)
+        
         self.title = NSLocalizedString("main_title", comment: "")
     }
     
@@ -53,8 +56,7 @@ class MainViewController: BaseMenuVC {
         self.title = NSLocalizedString("main_title", comment: "")
         textLabel.text = NSLocalizedString("test_key", comment: "")
         textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
-//        textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), 111, 222, 333)
-        textLabel2.text = pineapplesCountUniversal(count: 12, count2: 12)
+        textLabel2.text = pineapplesCountUniversal(count: 0)
     }
     
     @IBAction func showDetaildVC(_ sender: AnyObject) {

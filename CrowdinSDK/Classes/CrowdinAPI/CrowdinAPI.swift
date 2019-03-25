@@ -16,7 +16,7 @@ public class CrowdinAPI: BaseAPI {
     }
     
     func jsonDataFrom(xmlData: Data) -> Data? {
-        guard let dictionary = XMLDictionaryParser.sharedInstance.dictionaryWithData(data: xmlData) else {
+        guard let dictionary = XMLDictionaryParser().dictionaryWithData(data: xmlData) else {
             return nil
         }
         guard let jsonData = try? JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted) else {

@@ -9,6 +9,7 @@
 import UIKit
 import FAPanels
 import FileBrowser
+import CrowdinSDK
 
 class MenuVC: UIViewController {
     @IBOutlet weak var mainButton: UIButton! {
@@ -50,6 +51,11 @@ class MenuVC: UIViewController {
             let mainNC = UINavigationController(rootViewController: mainVC)
             _ = panel?.center(mainNC)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: NSNotification.Name(rawValue: CrowdinProvider.Notifications.CrowdinProviderDidDownloadLocalization.rawValue), object: nil)
     }
     
     @IBAction func firebaseButtonPressed(_ sender: AnyObject) {
@@ -118,7 +124,11 @@ class MenuVC: UIViewController {
 		
 	}
     
-    func reloadUI() {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func reloadUI() {
         mainButton.setTitle(NSLocalizedString("menu_main_button_title", comment: ""), for: .normal)
         explorerButton.setTitle(NSLocalizedString("menu_explorer_button_title", comment: ""), for: .normal)
         settingsButton.setTitle(NSLocalizedString("menu_settings_button_title", comment: ""), for: .normal)

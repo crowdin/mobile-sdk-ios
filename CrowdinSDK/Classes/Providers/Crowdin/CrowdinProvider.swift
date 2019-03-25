@@ -8,6 +8,10 @@
 import Foundation
 
 public class CrowdinProvider: BaseLocalizationProvider {
+    public enum Notifications: String {
+        case CrowdinProviderDidDownloadLocalization
+    }
+    
     let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     
     var hashString: String
@@ -68,24 +72,29 @@ public class CrowdinProvider: BaseLocalizationProvider {
             self.plurals = plurals
             self.localizations = localizations
             self.saveLocalization()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: Notifications.CrowdinProviderDidDownloadLocalization.rawValue)))
+            }
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     
     func saveLocalization() {
-        let path = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
-        let localizationFile = DictionaryFile(path: path)
-        localizationFile.file = [Keys.strings.rawValue : strings, Keys.plurals.rawValue: plurals, Keys.localizations.rawValue : localizations]
+        let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
+        let localizationFile = DictionaryFile(path: localizationFilePath)
+        localizationFile.file = [Keys.strings.rawValue : strings, Keys.plurals.rawValue: plurals]
         try? localizationFile.save()
+        
+        let localizationsFilePath = self.localizationFolder.path + String.pathDelimiter + "localizations" + FileType.plist.extension
+        let localizationsFile = DictionaryFile(path: localizationsFilePath)
+        localizationsFile.file = [Keys.localizations.rawValue : localizations]
+        try? localizationsFile.save()
     }
     
     func loadSavedLocalization() {
-        let path = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
-        let localizationFile = DictionaryFile(path: path)
-        if let localizations = localizationFile.file?[Keys.localizations.rawValue] as? [String] {
-            self.localizations = localizations
-        }
+        let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
+        let localizationFile = DictionaryFile(path: localizationFilePath)
         if let strings = localizationFile.file?[Keys.strings.rawValue] as? [String : String] {
             self.strings = strings
             self.setupLocalizationStrings()
@@ -93,6 +102,12 @@ public class CrowdinProvider: BaseLocalizationProvider {
         if let plurals = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable : Any] {
             self.plurals = plurals
             self.setupPluralsBundle()
+        }
+        
+        let localizationsFilePath = self.localizationFolder.path + String.pathDelimiter + "localizations" + FileType.plist.extension
+        let localizationsFile = DictionaryFile(path: localizationsFilePath)
+        if let localizations = localizationsFile.file?[Keys.localizations.rawValue] as? [String] {
+            self.localizations = localizations
         }
     }
     
