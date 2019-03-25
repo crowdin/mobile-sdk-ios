@@ -63,6 +63,18 @@ class Folder: FolderProtocol {
         self.path = path
     }
     
+    func file(with name: String) -> FileProtocol? {
+        let file = File(path: self.path + String.pathDelimiter + name)
+        guard file.isCreated else { return nil }
+        return file
+    }
+    
+    func folder(with name: String) -> FolderProtocol? {
+        let folder = Folder(path: self.path + String.pathDelimiter + name)
+        guard folder.isCreated else { return nil }
+        return folder
+    }
+    
     func createFolder(with name: String) throws -> FolderProtocol {
         let folder = Folder(path: self.path + String.pathDelimiter + name)
         if !folder.isCreated { try folder.create() }

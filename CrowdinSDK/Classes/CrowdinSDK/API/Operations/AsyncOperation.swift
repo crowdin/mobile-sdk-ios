@@ -12,7 +12,7 @@ protocol AnyAsyncOperation {
     func finish(with fail: Bool)
 }
 
-public class AsyncOperation: Operation {
+public class AsyncOperation: Operation, AnyAsyncOperation {
     public var failed: Bool = false
     public enum State: String {
         case ready, executing, finished

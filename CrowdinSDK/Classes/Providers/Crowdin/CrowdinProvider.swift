@@ -13,7 +13,7 @@ public class CrowdinProvider: BaseLocalizationProvider {
     var hashString: String
     var stringsFileNames: [String]
     var pluralsFileNames: [String]
-    let crowdinAPI: CrowdinAPIProtolol
+    let crowdinDownloadr: CrowdinDownloaderProtocol
     
     fileprivate let downloadOperationQueue = OperationQueue()
     
@@ -21,7 +21,7 @@ public class CrowdinProvider: BaseLocalizationProvider {
         self.hashString = hashString
         self.stringsFileNames = stringsFileNames
         self.pluralsFileNames = pluralsFileNames
-        self.crowdinAPI = CrowdinAPI(hash: hashString)
+        self.crowdinDownloadr = CrowdinDownloader()
         super.init()
         self.loadSavedLocalization()
         self.downloadLocalization()
@@ -40,8 +40,7 @@ public class CrowdinProvider: BaseLocalizationProvider {
             fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
         }
         self.pluralsFileNames = crowdinPluralsFileNames
-        
-        self.crowdinAPI = CrowdinAPI(hash: hashString)
+        self.crowdinDownloadr = CrowdinDownloader()
         super.init()
         self.loadSavedLocalization()
         self.downloadLocalization()
@@ -52,27 +51,12 @@ public class CrowdinProvider: BaseLocalizationProvider {
     }
     
     func downloadLocalization() {
-        self.stringsFileNames.forEach { (fileName) in
-            let blockOperation = BlockAsyncOperation(block: {
-                self.crowdinAPI.getStrings(file: fileName, for: self.localization, completion: { (strings, error) in
-                    guard let strings = strings else { return }
-                    self.strings += strings
-                    self.set(strings: self.strings)
-                    self.saveLocalization()
-                })
-            })
-            downloadOperationQueue.addOperation(blockOperation)
-        }
-        self.pluralsFileNames.forEach { (fileName) in
-            let blockOperation = BlockAsyncOperation(block: {
-                self.crowdinAPI.getPlurals(file: fileName, for: self.localization, completion: { (plurals, error) in
-                    guard let plurals = plurals else { return }
-                    self.plurals += plurals
-                    self.set(plurals: self.plurals)
-                    self.saveLocalization()
-                })
-            })
-            downloadOperationQueue.addOperation(blockOperation)
+        self.crowdinDownloadr.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, for: self.localization, success: { (strings, plurals) in
+            self.strings = strings
+            self.plurals = plurals
+            self.saveLocalization()
+        }) { (error) in
+            print(error.localizedDescription)
         }
     }
     

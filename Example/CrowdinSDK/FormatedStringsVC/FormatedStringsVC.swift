@@ -8,8 +8,11 @@
 //
 
 import UIKit
+import CrowdinSDK
 
 class FormatedStringsVC: BaseMenuVC {
+    let crowdinSDKTester = CrowdinSDKTester(localization: CrowdinSDK.currentLocalization ?? "en")
+    
 	@IBOutlet var tableView: UITableView! {
 		didSet {
 			tableView.delegate = self
@@ -18,19 +21,9 @@ class FormatedStringsVC: BaseMenuVC {
 		}
 	}
 	
-	var localizationKeys: [String] =
-		[
-			"test_with_format_key",
-			"test_format_key_with_1_parameter",
-			"test_format_key_with_2_parameters",
-			"test_format_key_with_3_parameters"
-		]
-	var localizationParameters: [[String]] = [
-		["param"],
-		["param"],
-		["param", "param 12"],
-		["param", "param 2", "param 3"]
-	]
+    var localizationKeys: [String] {
+        return crowdinSDKTester.inSDKStringsKeys
+    }
 }
 
 extension FormatedStringsVC: UITableViewDelegate, UITableViewDataSource {
@@ -41,7 +34,8 @@ extension FormatedStringsVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = UITableViewCell()
 		
-		let text = String(format: NSLocalizedString(localizationKeys[indexPath.row], comment: ""), arguments: localizationParameters[indexPath.row])
+		let text = NSLocalizedString(localizationKeys[indexPath.row], comment: "")
+        
 		cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0
 		return cell
