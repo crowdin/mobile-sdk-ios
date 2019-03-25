@@ -27,13 +27,25 @@ class PluralsVC: BaseMenuVC {
 
 extension PluralsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return localizationKeys.count
+        return localizationKeys.count * 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        
-        let text = NSLocalizedString(localizationKeys[indexPath.row], comment: "")
+        var text: String
+        let index = Int(indexPath.row / 5)
+        let rule = indexPath.row % 5
+        if rule == 0 {
+            text = String.localizedStringWithFormat(NSLocalizedString(localizationKeys[index], comment: ""), 0, 100)
+        } else if rule == 1 {
+            text = String.localizedStringWithFormat(NSLocalizedString(localizationKeys[index], comment: ""), 1, 100)
+        } else if rule == 2 {
+            text = String.localizedStringWithFormat(NSLocalizedString(localizationKeys[index], comment: ""), 2, 100)
+        } else if rule == 3 {
+            text = String.localizedStringWithFormat(NSLocalizedString(localizationKeys[index], comment: ""), 3, 100)
+        } else {
+            text = String.localizedStringWithFormat(NSLocalizedString(localizationKeys[index], comment: ""), 100, 100)
+        }
         
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0

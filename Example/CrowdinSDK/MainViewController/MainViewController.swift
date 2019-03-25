@@ -22,7 +22,7 @@ class MainViewController: BaseMenuVC {
     @IBOutlet weak var textLabel2: UILabel! {
         didSet {
 //            textLabel2.text = String.localizedStringWithFormat(NSLocalizedString("test_format_key_with_3_parameters", comment: ""), 111, 222, 333)
-            textLabel2.text = pineapplesCountUniversal(count: 12, count2: 12)
+            textLabel2.text = pineapplesCountUniversal(count: 0, count2: 0)
         }
     }
     @IBOutlet weak var reloadUIButton: UIButton! {

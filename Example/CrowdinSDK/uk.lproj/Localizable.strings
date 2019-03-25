@@ -17,7 +17,8 @@
 "menu_firebase_button_title" = "Firebase [UA] [BUNDLE]";
 "menu_main_button_title" = "Головна [BUNDLE]";
 "menu_settings_button_title" = "Налаштування [BUNDLE]";
-"menu_plurals_button_title" = "Налаштування [BUNDLE]";
+"menu_strings_button_title" = "Strings [BUNDLE]";
+"menu_plurals_button_title" = "Plurals [BUNDLE]";
 "settings_in_bundle" = "У бандлі [BUNDLE]";
 "settings_in_sdk" = "У СДК [BUNDLE]";
 "test_key" = "Тест [BUNDLE]";
