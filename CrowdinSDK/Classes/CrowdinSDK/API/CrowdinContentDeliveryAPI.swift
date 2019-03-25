@@ -1,5 +1,5 @@
 //
-//  CrowdinAPI.swift
+//  CrowdinContentDeliveryAPI.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 3/18/19.
@@ -7,25 +7,26 @@
 
 import Foundation
 
-enum Errors: Error {
+enum CrowdinContentDeliveryAPIError: Error {
     case badUrl(url: String)
     case parsingError(file: String)
     case dataError
+    case error(error: Error?)
 }
 
-typealias CrowdinAPIStringsResult = (strings: [String : String]?, error: Error?)
-typealias CrowdinAPIPluralsResult = (plurapls: [AnyHashable : Any]?, error: Error?)
+typealias CrowdinAPIStringsResult = (strings: [String : String]?, error: CrowdinContentDeliveryAPIError?)
+typealias CrowdinAPIPluralsResult = (plurapls: [AnyHashable : Any]?, error: CrowdinContentDeliveryAPIError?)
 
-typealias CrowdinAPIStringsCompletion = (([String : String]?, Error?) -> Void)
-typealias CrowdinAPIPluralsCompletion = (([AnyHashable : Any]?, Error?) -> Void)
+typealias CrowdinAPIStringsCompletion = (([String : String]?, CrowdinContentDeliveryAPIError?) -> Void)
+typealias CrowdinAPIPluralsCompletion = (([AnyHashable : Any]?, CrowdinContentDeliveryAPIError?) -> Void)
 
-protocol CrowdinAPIProtolol {
+protocol CrowdinContentDeliveryProtolol {
     func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion)
     func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion)
 }
 
-class CrowdinAPI: CrowdinAPIProtolol {
-    private typealias CrowdinAPIDataCompletion = ((Data?, Error?) -> Void)
+class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
+    private typealias CrowdinAPIDataCompletion = ((Data?, CrowdinContentDeliveryAPIError?) -> Void)
     
     private let hash: String
     private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
@@ -43,11 +44,11 @@ class CrowdinAPI: CrowdinAPIProtolol {
     private func get(file: String, for localization: String, completion: @escaping CrowdinAPIDataCompletion) {
         let stringURL = buildURL(localization: localization, file: file)
         guard let url = URL(string: stringURL) else {
-            completion(nil, Errors.badUrl(url: stringURL))
+            completion(nil, CrowdinContentDeliveryAPIError.badUrl(url: stringURL))
             return
         }
         let task = self.session.dataTask(with: url) { (data, response, error) in
-            completion(data, error)
+            completion(data, CrowdinContentDeliveryAPIError.error(error: error))
         }
         task.resume()
     }
@@ -63,11 +64,11 @@ class CrowdinAPI: CrowdinAPIProtolol {
     private func getSync(file: String, for localization: String, completion: @escaping CrowdinAPIDataCompletion) {
         let stringURL = buildURL(localization: localization, file: file)
         guard let url = URL(string: stringURL) else {
-            completion(nil, Errors.badUrl(url: stringURL))
+            completion(nil, CrowdinContentDeliveryAPIError.badUrl(url: stringURL))
             return
         }
         let task = self.session.dataTask(with: url) { (data, response, error) in
-            completion(data, error)
+            completion(data, CrowdinContentDeliveryAPIError.error(error: error))
         }
         task.resume()
     }
@@ -75,11 +76,11 @@ class CrowdinAPI: CrowdinAPIProtolol {
     func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion) {
         self.get(file: file, for: localization) { (data, error) in
             guard let data = data else {
-                completion(nil, Errors.dataError)
+                completion(nil, CrowdinContentDeliveryAPIError.dataError)
                 return
             }
             guard let dictionary = self.parse(data: data) else {
-                completion(nil, Errors.parsingError(file: file))
+                completion(nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
                 return
             }
             completion(dictionary as? [String : String], nil)
@@ -89,11 +90,11 @@ class CrowdinAPI: CrowdinAPIProtolol {
     func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion) {
         self.get(file: file, for: localization) { (data, error) in
             guard let data = data else {
-                completion(nil, Errors.dataError)
+                completion(nil, CrowdinContentDeliveryAPIError.dataError)
                 return
             }
             guard let dictionary = self.parse(data: data) else {
-                completion(nil, Errors.parsingError(file: file))
+                completion(nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
                 return
             }
             completion(dictionary, nil)
@@ -102,22 +103,22 @@ class CrowdinAPI: CrowdinAPIProtolol {
     
     // MARK: - Sync methods
     
-    func getSync(file: String, for localization: String) -> (data: Data?, error: Error?) {
+    func getSync(file: String, for localization: String) -> (data: Data?, error: CrowdinContentDeliveryAPIError?) {
         let stringURL = buildURL(localization: localization, file: file)
         guard let url = URL(string: stringURL) else {
             return (nil, nil)
         }
         let response = URLSession.shared.synchronousDataTask(url: url)
-        return (response.data, response.error)
+        return (response.data, CrowdinContentDeliveryAPIError.error(error: response.error))
     }
     
     func getStrings(file: String, for localization: String) -> CrowdinAPIStringsResult {
         let response = self.getSync(file: file, for: localization)
         guard let data = response.data else {
-            return (nil, Errors.dataError)
+            return (nil, CrowdinContentDeliveryAPIError.dataError)
         }
         guard let dictionary = self.parse(data: data) else {
-            return (nil, Errors.parsingError(file: file))
+            return (nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
         }
         return (dictionary as? [String : String], nil)
     }
@@ -125,10 +126,10 @@ class CrowdinAPI: CrowdinAPIProtolol {
     func getPlurals(file: String, for localization: String) -> CrowdinAPIPluralsResult {
         let response = self.getSync(file: file, for: localization)
         guard let data = response.data else {
-            return (nil, Errors.dataError)
+            return (nil, CrowdinContentDeliveryAPIError.dataError)
         }
         guard let dictionary = self.parse(data: data) else {
-            return (nil, Errors.parsingError(file: file))
+            return (nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
         }
         return (dictionary, nil)
     }
