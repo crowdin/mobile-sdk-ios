@@ -7,11 +7,11 @@
 
 import Foundation
 
+extension Notification.Name {
+    public static let CrowdinProviderDidDownloadLocalization = Notification.Name("CrowdinProviderDidDownloadLocalization")
+}
+
 public class CrowdinProvider: BaseLocalizationProvider {
-    public enum Notifications: String {
-        case CrowdinProviderDidDownloadLocalization
-    }
-    
     let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     
     var hashString: String
@@ -73,7 +73,7 @@ public class CrowdinProvider: BaseLocalizationProvider {
             self.localizations = localizations
             self.saveLocalization()
             DispatchQueue.main.async {
-                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: Notifications.CrowdinProviderDidDownloadLocalization.rawValue)))
+                NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
             }
         }) { (error) in
             print(error.localizedDescription)

@@ -48,7 +48,7 @@ class MainViewController: BaseMenuVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: NSNotification.Name(rawValue: CrowdinProvider.Notifications.CrowdinProviderDidDownloadLocalization.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: Notification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
         
         self.title = NSLocalizedString("main_title", comment: "")
     }

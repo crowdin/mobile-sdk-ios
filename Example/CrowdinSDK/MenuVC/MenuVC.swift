@@ -55,7 +55,7 @@ class MenuVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: NSNotification.Name(rawValue: CrowdinProvider.Notifications.CrowdinProviderDidDownloadLocalization.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: NSNotification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
     }
     
     @IBAction func firebaseButtonPressed(_ sender: AnyObject) {

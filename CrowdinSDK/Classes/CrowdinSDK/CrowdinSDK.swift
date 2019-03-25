@@ -7,8 +7,9 @@
 
 import UIKit
 
-@objc public class CrowdinSDK: NSObject {
-	@objc public enum Mode: Int {
+/// Main interface For working with CrowdinSDK library.
+@objcMembers public class CrowdinSDK: NSObject {
+	public enum Mode: Int {
 		case autoSDK
 		case customSDK
 		case autoBundle
@@ -23,7 +24,7 @@ import UIKit
         }
 	}
 	
-	@objc public class var mode: Mode {
+	public class var mode: Mode {
 		get {
 			return Localization.current.mode
 		}
@@ -32,7 +33,8 @@ import UIKit
 		}
 	}
 	
-	@objc public class var currentLocalization: String? {
+    /// Property for getting and setting localization language code.
+	public class var currentLocalization: String? {
 		get {
 			return Localization.current.currentLocalization
 		}
@@ -41,11 +43,13 @@ import UIKit
 		}
 	}
 	
-	// TODO: Avoid using optionals here:
+    /// List of avalaible localizations in SDK.
 	public class var inSDKLocalizations: [String] { return Localization.current?.inProvider ?? [] }
-	// TODO: Avoid using optionals here:
+	
+    /// List of supported in app localizations.
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
 	
+    /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
     public class func reloadUI() {
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refresh() }
     }
@@ -56,14 +60,14 @@ import UIKit
     ///   - hashString: Distribution hash value.
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
-    @objc public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
+    public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
         let crowdinProvider = CrowdinProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey)
         self.setProvider(crowdinProvider)
         self.initializeLib()
     }
     
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
-    @objc public class func start() {
+    public class func start() {
         let crowdinProvider = CrowdinProvider()
         self.setProvider(crowdinProvider)
         self.initializeLib()
@@ -72,15 +76,21 @@ import UIKit
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    @objc public class func start(with provider: LocalizationProvider) {
+    public class func start(with provider: LocalizationProvider) {
         self.setProvider(provider)
         self.initializeLib()
     }
     
+    /// Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.
     public class func deintegrate() {
         Localization.current.provider.deintegrate()
     }
     
+    /// Method for changing SDK lcoalization and mode. There are 4 avalaible modes in SDK. For more information please look on Mode enum description.
+    ///
+    /// - Parameters:
+    ///   - sdkLocalization: Bool value which indicate whether to use SDK localization or native in bundle localization.
+    ///   - localization: Localization code to use.
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
         if sdkLocalization {
             if localization != nil {
@@ -98,22 +108,17 @@ import UIKit
 			self.currentLocalization = localization
         }
     }
-    
-    private class func initializeLib() {
-		if self.mode == .customSDK || self.mode == .autoSDK {
-			CrowdinSDK.swizzle()
-		} else {
-			CrowdinSDK.unswizzle()
-		}
-        ScreenshotFeature.shared = ScreenshotFeature()
-    }
 	
+    /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
+    ///
+    /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
     public class func setProvider(_ provider: LocalizationProvider) {
 		let localizationProvider = provider
         Localization.current = Localization(provider: localizationProvider)
     }
     
-    @objc public class func extractAllLocalization() {
+    /// Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
+    public class func extractAllLocalization() {
         let folder = try! CrowdinFolder.shared.createFolder(with: "Extracted")
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
@@ -121,15 +126,29 @@ import UIKit
 }
 
 extension CrowdinSDK {
+    /// Method for swizzling all needed methods.
     class func swizzle() {
         Bundle.swizzle()
         UILabel.swizzle()
         UIButton.swizzle()
     }
     
+    /// Method for unswizzling all methods.
     class func unswizzle() {
         Bundle.unswizzle()
         UILabel.unswizzle()
         UIButton.unswizzle()
+    }
+}
+
+extension CrowdinSDK {
+    /// Method for library initialization.
+    private class func initializeLib() {
+        if self.mode == .customSDK || self.mode == .autoSDK {
+            CrowdinSDK.swizzle()
+        } else {
+            CrowdinSDK.unswizzle()
+        }
+        ScreenshotFeature.shared = ScreenshotFeature()
     }
 }

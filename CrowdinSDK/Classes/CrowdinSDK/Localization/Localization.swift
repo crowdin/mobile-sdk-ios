@@ -7,18 +7,30 @@
 
 import Foundation
 
+/// Helper class for working with localization providers and extractors. Store all needed information such as: mode, current localization value, ect.
 class Localization {
+    /// Enum with simple key values which are used to save information in UserDefaults.
+    ///
+    /// - mode: Key for saving SDK mode value.
+    /// - customLocalization: Key for saving current localization language code.
     private enum Keys: String {
         case mode = "CrowdinSDK.Localization.mode"
         case customLocalization = "CrowdinSDK.Localization.customLocalization"
     }
+    
+    /// Current localization provider.
 	var provider: LocalizationProvider
+    
+    /// Localization extractor.
     var extractor: LocalizationExtractor
     
+    /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
     fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
     
+    /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
 	
+    /// Property for detecting and storing current SDK mode value.
 	var mode: CrowdinSDK.Mode {
 		get {
 			let value = UserDefaults.standard.integer(forKey: Keys.mode.rawValue)
@@ -37,6 +49,7 @@ class Localization {
 		}
 	}
 	
+    /// Property for detecting and storing curent localization value depending on current SDK mode.
 	var currentLocalization: String? {
 		set {
 			switch mode {
@@ -63,6 +76,7 @@ class Localization {
 		}
 	}
 	
+    /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
     private var customLocalization : String? {
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.customLocalization.rawValue)
@@ -73,9 +87,12 @@ class Localization {
         }
     }
 	
-	init(provider: LocalizationProvider? = nil) {
+    /// Initialize object with specific localization provider.
+    ///
+    /// - Parameter provider: Localization provider implementation.
+	init(provider: LocalizationProvider) {
         self.extractor = LocalizationExtractor()
-        self.provider = provider ?? CrowdinProvider()
+        self.provider = provider
         self.provider.set(localization: currentLocalization)
         self.extractor.setLocalization(currentLocalization ?? defaultLocalization)
 	}
@@ -90,6 +107,10 @@ class Localization {
         return Bundle.main.localizations
     }
     
+    /// Find localization key for a given text.
+    ///
+    /// - Parameter text: Text to find key for.
+    /// - Returns: Localization key for given text. If there are no such text in localization strings then method will return nil.
     func keyForString(_ text: String) -> String? {
         var key = provider.key(for: text)
         if key == nil {
@@ -99,10 +120,20 @@ class Localization {
         return key
     }
     
+    /// Find localization string for geiven key.
+    ///
+    /// - Parameter key: Key to find localization string for.
+    /// - Returns: Localization key string value. If string woun't find method will return key value.
     func localizedString(for key: String) -> String? {
         return self.provider.localizedString(for: key)
     }
 	
+    /// Method for detecting formated values in string by given format.
+    ///
+    /// - Parameters:
+    ///   - string: Given localized string.
+    ///   - format: String format.
+    /// - Returns: Detected values. If values aren't detected than method will return nil.
 	func findValues(for string: String, with format: String) -> [Any]? {
 		return provider.values(for:string, with:format)
 	}
