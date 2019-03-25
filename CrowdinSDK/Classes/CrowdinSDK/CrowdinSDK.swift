@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc public class CrowdinSDK: NSObject {    
+@objc public class CrowdinSDK: NSObject {
 	@objc public enum Mode: Int {
 		case autoSDK
 		case customSDK
@@ -50,12 +50,29 @@ import UIKit
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refresh() }
     }
     
+    /// Initialization method. Initialize CrowdinProvider with passed parameters.
+    ///
+    /// - Parameters:
+    ///   - hashString: Distribution hash value.
+    ///   - stringsFileNames: Array of names of strings files.
+    ///   - pluralsFileNames: Array of names of plurals files.
+    @objc public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String]) {
+        let crowdinProvider = CrowdinProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames)
+        self.setProvider(crowdinProvider)
+        self.initializeLib()
+    }
+    
+    /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     @objc public class func start() {
-        self.setProvider(nil)
+        let crowdinProvider = CrowdinProvider()
+        self.setProvider(crowdinProvider)
         self.initializeLib()
     }
 	
-    @objc public class func start(with provider: LocalizationProvider?) {
+    /// Initialization method. Initialize library with passed localization provider.
+    ///
+    /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
+    @objc public class func start(with provider: LocalizationProvider) {
         self.setProvider(provider)
         self.initializeLib()
     }
@@ -91,9 +108,15 @@ import UIKit
         ScreenshotFeature.shared = ScreenshotFeature()
     }
 	
-    public class func setProvider(_ provider: LocalizationProvider?) {
-		let localizationProvider = provider ?? CrowdinProvider()
+    public class func setProvider(_ provider: LocalizationProvider) {
+		let localizationProvider = provider
         Localization.current = Localization(provider: localizationProvider)
+    }
+    
+    public class func extractAllLocalization() {
+        let folder = try! CrowdinFolder.shared.createFolder(with: "Extracted")
+        LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
+        LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
 }
 

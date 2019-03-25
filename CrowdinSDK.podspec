@@ -53,6 +53,7 @@ TODO: Add long description of the pod here.
       provider.name = 'CrowdinProvider'
       provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/*.swift'
       provider.dependency 'CrowdinSDK/Core'
+      # provider.dependency 'CrowdinAPI'
   end
   
 end

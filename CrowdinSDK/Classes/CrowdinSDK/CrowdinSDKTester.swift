@@ -13,7 +13,7 @@ public class CrowdinSDKTester {
     
     public init(localization: String) {
         self.localization = localization
-        let path = CrowdinFolder.shared.path + String.pathDelimiter + "Crowdin" + String.pathDelimiter + localization + FileType.plist.extension
+        let path = CrowdinFolder.shared.path + String.pathDelimiter + Strings.Crowdin.rawValue + String.pathDelimiter + localization + FileType.plist.extension
         self.localizationFile = DictionaryFile(path: path)
     }
     
@@ -22,12 +22,12 @@ public class CrowdinSDKTester {
     }
     
     public var inSDKStringsKeys: [String] {
-        guard let strings = localizationFile.file?["strings"] as? [String : String] else { return [] }
+        guard let strings = localizationFile.file?[Keys.strings.rawValue] as? [String : String] else { return [] }
         return strings.keys.map({ $0 })
     }
     
     public var inSDKPluralsKeys: [String] {
-        guard let strings = localizationFile.file?["plurals"] as? [AnyHashable : Any] else { return [] }
+        guard let strings = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable : Any] else { return [] }
         return strings.keys.map({ $0 as! String })
     }
 }

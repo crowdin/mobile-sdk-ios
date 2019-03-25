@@ -8,7 +8,7 @@
 import Foundation
 
 public class CrowdinProvider: BaseLocalizationProvider {
-    let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: "Crowdin")
+    let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     
     var hashString: String
     var stringsFileNames: [String]
@@ -63,18 +63,18 @@ public class CrowdinProvider: BaseLocalizationProvider {
     func saveLocalization() {
         let path = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: path)
-        localizationFile.file = ["strings": strings, "plurals": plurals]
+        localizationFile.file = [Keys.strings.rawValue : strings, Keys.plurals.rawValue: plurals]
         try? localizationFile.save()
     }
     
     func loadSavedLocalization() {
         let path = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: path)
-        if let strings = localizationFile.file?["strings"] as? [String : String] {
+        if let strings = localizationFile.file?[Keys.strings.rawValue] as? [String : String] {
             self.strings = strings
             self.setupLocalizationStrings()
         }
-        if let plurals = localizationFile.file?["plurals"] as? [AnyHashable : Any] {
+        if let plurals = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable : Any] {
             self.plurals = plurals
             self.setupPluralsBundle()
         }

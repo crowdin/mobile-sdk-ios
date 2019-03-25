@@ -10,3 +10,11 @@ import Foundation
 let defaultLocalization = "en"
 let baseLocalization = "Base"
 
+enum Strings: String {
+    case Crowdin
+}
+
+enum Keys: String {
+    case strings
+    case plurals
+}

@@ -76,15 +76,44 @@ class LocalizationExtractor {
 		self.allLocalizations.forEach { (localization) in
 			let extractor = LocalizationExtractor(localization: localization)
 			var dict = [String: Any]()
-			dict["app_version"] = Bundle.main.versionNumber
 			if !extractor.localizationDict.isEmpty {
-				dict["strings"] = extractor.localizationDict
+				dict[Keys.strings.rawValue] = extractor.localizationDict
 			}
 			if !extractor.localizationPluralsDict.isEmpty {
-				dict["plurals"] = extractor.localizationPluralsDict
+				dict[Keys.plurals.rawValue] = extractor.localizationPluralsDict
 			}
 			result[localization] = dict
 		}
 		return result
 	}
+    
+    
+    func extractLocalizationStrings(to path: String) -> DictionaryFile {
+        let file = DictionaryFile(path: path + String.pathDelimiter + localization + FileType.strings.extension)
+        file.file = self.localizationDict
+        try? file.save()
+        return file
+    }
+    
+    static func extractAllLocalizationStrings(to path: String) {
+        self.allLocalizations.forEach { (localization) in
+            let ectractor = LocalizationExtractor(localization: localization)
+            _ = ectractor.extractLocalizationStrings(to: path)
+        }
+    }
+    
+    
+    func extractLocalizationPlurals(to path: String) -> DictionaryFile {
+        let file = DictionaryFile(path: path + String.pathDelimiter + localization + FileType.stringsdict.extension)
+        file.file = self.localizationPluralsDict
+        try? file.save()
+        return file
+    }
+    
+    static func extractAllLocalizationPlurals(to path: String) {
+        self.allLocalizations.forEach { (localization) in
+            let ectractor = LocalizationExtractor(localization: localization)
+            _ = ectractor.extractLocalizationPlurals(to: path)
+        }
+    }
 }

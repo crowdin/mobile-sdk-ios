@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                CrowdinSDK.start(with: LocalLocalizationProvider())
         //        CrowdinSDK.start(with: LocalLocalizationProvider(additionalWord: "test"))
         CrowdinSDK.start()
+        
+        CrowdinSDK.extractAllLocalization()
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         var panelsVC = FAPanelController()

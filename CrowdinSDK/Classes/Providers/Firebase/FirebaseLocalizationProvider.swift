@@ -47,10 +47,10 @@ import FirebaseDatabase
     func refresh() {
         guard let sdkFile = firebaseFolder.files.filter({ $0.name == localization }).first else { return }
         guard let dictionary = NSDictionary(contentsOfFile: sdkFile.path)  else { return }
-        if let strings = dictionary["strings"] as? [String: String] {
+        if let strings = dictionary[Keys.strings.rawValue] as? [String: String] {
             self.set(strings: strings)
         }
-        if let plurals = dictionary["plurals"] as? [AnyHashable: Any] {
+        if let plurals = dictionary[Keys.plurals.rawValue] as? [AnyHashable: Any] {
             self.set(plurals: plurals)
         }
     }
