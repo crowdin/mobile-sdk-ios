@@ -18,6 +18,7 @@ PODS:
     - Firebase
     - FirebaseDatabase
   - CrowdinSDK/Operations (0.1.0)
+  - DateToolsSwift (4.0.0)
   - FAPanels (1.0.2)
   - FileBrowser (1.0.0)
   - Firebase (5.15.0):
@@ -85,6 +86,7 @@ PODS:
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
   - CrowdinSDK/FirebaseProvider (from `../`)
+  - DateToolsSwift
   - FAPanels
   - FileBrowser (from `https://github.com/serhii-londar/FileBrowser.git`)
   - Firebase
@@ -95,6 +97,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BaseAPI
+    - DateToolsSwift
     - FAPanels
     - Firebase
     - FirebaseAnalytics
@@ -124,6 +127,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   BaseAPI: 9248feed65933cd20283514e7a9917ecba1b69c0
   CrowdinSDK: d6d37941d82efb8c18e4e4111097389066673898
+  DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
@@ -140,6 +144,6 @@ SPEC CHECKSUMS:
   R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: 86579b2ad06cf1c9f59ed1b7da62807fec661d8c
+PODFILE CHECKSUM: 02c67f4adee69a3d68afc6d96a3ce13bc88519ad
 
 COCOAPODS: 1.6.1

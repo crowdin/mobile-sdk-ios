@@ -69,27 +69,24 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
   struct storyboard {
     /// Storyboard `DetailsVC`.
     static let detailsVC = _R.storyboard.detailsVC()
-    /// Storyboard `FormatedStringsVC`.
-    static let formatedStringsVC = _R.storyboard.formatedStringsVC()
     /// Storyboard `MainViewController`.
     static let mainViewController = _R.storyboard.mainViewController()
     /// Storyboard `MenuVC`.
     static let menuVC = _R.storyboard.menuVC()
+    /// Storyboard `PluralsVC`.
+    static let pluralsVC = _R.storyboard.pluralsVC()
     /// Storyboard `SettingsVC`.
     static let settingsVC = _R.storyboard.settingsVC()
+    /// Storyboard `StringsVC`.
+    static let stringsVC = _R.storyboard.stringsVC()
     
     /// `UIStoryboard(name: "DetailsVC", bundle: ...)`
     static func detailsVC(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.detailsVC)
-    }
-    
-    /// `UIStoryboard(name: "FormatedStringsVC", bundle: ...)`
-    static func formatedStringsVC(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.formatedStringsVC)
     }
     
     /// `UIStoryboard(name: "MainViewController", bundle: ...)`
@@ -102,9 +99,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIStoryboard(resource: R.storyboard.menuVC)
     }
     
+    /// `UIStoryboard(name: "PluralsVC", bundle: ...)`
+    static func pluralsVC(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.pluralsVC)
+    }
+    
     /// `UIStoryboard(name: "SettingsVC", bundle: ...)`
     static func settingsVC(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.settingsVC)
+    }
+    
+    /// `UIStoryboard(name: "StringsVC", bundle: ...)`
+    static func stringsVC(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.stringsVC)
     }
     
     fileprivate init() {}
@@ -140,7 +147,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 24 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 26 localization keys.
     struct localizable {
       /// uk translation: Firebase [UA] [BUNDLE]
       /// 
@@ -150,6 +157,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA
       static let menu_formated_strings_button_title = Rswift.StringResource(key: "menu_formated_strings_button_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk", "zh-Hans", "zh-Hans-CN", "zh-Hant", "uk-UA"], comment: nil)
+      /// uk translation: Plurals [BUNDLE]
+      /// 
+      /// Locales: uk
+      static let menu_plurals_button_title = Rswift.StringResource(key: "menu_plurals_button_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk"], comment: nil)
+      /// uk translation: Strings [BUNDLE]
+      /// 
+      /// Locales: uk
+      static let menu_strings_button_title = Rswift.StringResource(key: "menu_strings_button_title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["uk"], comment: nil)
       /// uk translation: Головна [BUNDLE]
       /// 
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA
@@ -251,6 +266,20 @@ struct R: Rswift.Validatable {
       /// Locales: uk, zh-Hans, zh-Hans-CN, zh-Hant, uk-UA
       static func menu_formated_strings_button_title(_: Void = ()) -> String {
         return NSLocalizedString("menu_formated_strings_button_title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// uk translation: Plurals [BUNDLE]
+      /// 
+      /// Locales: uk
+      static func menu_plurals_button_title(_: Void = ()) -> String {
+        return NSLocalizedString("menu_plurals_button_title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// uk translation: Strings [BUNDLE]
+      /// 
+      /// Locales: uk
+      static func menu_strings_button_title(_: Void = ()) -> String {
+        return NSLocalizedString("menu_strings_button_title", bundle: R.hostingBundle, comment: "")
       }
       
       /// uk translation: Головна [BUNDLE]
@@ -449,10 +478,11 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       try detailsVC.validate()
-      try formatedStringsVC.validate()
       try mainViewController.validate()
       try menuVC.validate()
+      try pluralsVC.validate()
       try settingsVC.validate()
+      try stringsVC.validate()
     }
     
     struct detailsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
@@ -468,24 +498,6 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, *) {
         }
         if _R.storyboard.detailsVC().detailsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'detailsVC' could not be loaded from storyboard 'DetailsVC' as 'DetailsVC'.") }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct formatedStringsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let formatedStringsVC = StoryboardViewControllerResource<StringsVC>(identifier: "StringsVC")
-      let name = "StringsVC"
-      
-      func formatedStringsVC(_: Void = ()) -> StringsVC? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: formatedStringsVC)
-      }
-      
-      static func validate() throws {
-        if #available(iOS 11.0, *) {
-        }
-        if _R.storyboard.formatedStringsVC().formatedStringsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'formatedStringsVC' could not be loaded from storyboard 'FormatedStringsVC' as 'FormatedStringsVC'.") }
       }
       
       fileprivate init() {}
@@ -527,6 +539,24 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
+    struct pluralsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "PluralsVC"
+      let pluralsVC = StoryboardViewControllerResource<PluralsVC>(identifier: "PluralsVC")
+      
+      func pluralsVC(_: Void = ()) -> PluralsVC? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: pluralsVC)
+      }
+      
+      static func validate() throws {
+        if #available(iOS 11.0, *) {
+        }
+        if _R.storyboard.pluralsVC().pluralsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pluralsVC' could not be loaded from storyboard 'PluralsVC' as 'PluralsVC'.") }
+      }
+      
+      fileprivate init() {}
+    }
+    
     struct settingsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "SettingsVC"
@@ -540,6 +570,24 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, *) {
         }
         if _R.storyboard.settingsVC().settingsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'settingsVC' could not be loaded from storyboard 'SettingsVC' as 'SettingsVC'.") }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct stringsVC: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "StringsVC"
+      let stringsVC = StoryboardViewControllerResource<StringsVC>(identifier: "StringsVC")
+      
+      func stringsVC(_: Void = ()) -> StringsVC? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: stringsVC)
+      }
+      
+      static func validate() throws {
+        if #available(iOS 11.0, *) {
+        }
+        if _R.storyboard.stringsVC().stringsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'stringsVC' could not be loaded from storyboard 'StringsVC' as 'StringsVC'.") }
       }
       
       fileprivate init() {}

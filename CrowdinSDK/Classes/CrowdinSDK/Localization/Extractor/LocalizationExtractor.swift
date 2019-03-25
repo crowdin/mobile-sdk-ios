@@ -23,7 +23,7 @@ class LocalizationExtractor {
         return self.localizationDict.isEmpty && self.localizationPluralsDict.isEmpty
     }
     
-    var files: [String] {
+    var stringsFiles: [String] {
         guard let filePath = Bundle.main.path(forResource: localization, ofType: FileType.lproj.rawValue) else { return [] }
         guard var files = try? FileManager.default.contentsOfDirectory(atPath: filePath) else { return [] }
         files = files.map({ filePath + String.pathDelimiter + $0 })
@@ -53,7 +53,7 @@ class LocalizationExtractor {
     }
     
     func extract() {
-        self.files.forEach { (file) in
+        self.stringsFiles.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
             self.localizationDict.merge(with: dict as? [String : String] ?? [:])
         }

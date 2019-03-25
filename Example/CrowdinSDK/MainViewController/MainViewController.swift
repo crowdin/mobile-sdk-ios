@@ -8,6 +8,7 @@
 
 import UIKit
 import CrowdinSDK
+import DateToolsSwift
 
 class MainViewController: BaseMenuVC {
     @IBOutlet weak var textLabel: UILabel! {
