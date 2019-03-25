@@ -73,7 +73,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
     }
 }
 
-fileprivate extension String {
+extension String {
     static func findValues(for string: String, with format: String) -> [Any]? {
         let parts = FormatPart.formatParts(formatString: format)
         let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))

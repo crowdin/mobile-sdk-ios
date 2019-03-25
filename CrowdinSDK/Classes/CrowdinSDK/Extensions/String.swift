@@ -8,18 +8,23 @@
 
 import Foundation
 
+// MARK: - Localization extension.
 extension String {
+    /// Extension method for simplifying strings localization.
 	public var localized: String {
 		return NSLocalizedString(self, comment: String.empty)
 	}
 }
 
+// MARK: - Formatting detection.
 extension String {
+    /// Detect whether current string is formated.
 	var isFormated: Bool {
 		return formatTypesRegEx.matches(in: self, options: [], range: NSRange(location: 0, length: self.count)).count > 0
 	}
 }
 
+// MARK: - Static strings.
 extension String {
     static let dot = "."
     static let empty = ""
@@ -28,44 +33,19 @@ extension String {
     static let pathDelimiter = "/"
 }
 
-extension NSString {
-	func splitBy(ranges: [NSRange]) -> [String] {
-		var values = [String]()
-		for index in 0...ranges.count - 1 {
-			let range = ranges[index]
-			guard range.location != NSNotFound else { continue }
-			if index == 0 {
-				if range.location == 0 { continue }
-				guard self.isValid(range: range) else { continue }
-				values.append(self.substring(with: NSRange(location: 0, length: range.location)))
-			} else {
-				let previousRange = ranges[index - 1]
-				let location = previousRange.location + previousRange.length
-				let substringRange = NSRange(location: location, length: range.location - location)
-				guard self.isValid(range: substringRange) else { continue }
-				values.append(self.substring(with: substringRange))
-			}
-			if index == ranges.count - 1 {
-				if range.location + range.length == self.length { continue }
-				let location = range.location + range.length
-				let substringRange = NSRange(location: location, length: self.length - location)
-				guard self.isValid(range: substringRange) else { continue }
-				values.append(self.substring(with: substringRange))
-			}
-		}
-		return values
-	}
-	
-	private func isValid(range: NSRange) -> Bool {
-		return range.location != NSNotFound && range.location + range.length <= length && range.length > 0
-	}
-}
-
-
+// MARK: - Match finding.
 extension String {
-    static func findMatch(for formatedString: String, with text: String) -> Bool {
+    /// Detect whether formated string mached to a given string.
+    /// Additional explentaion:
+    /// For example if we want to check whether formated string "my %@ value" is matchin to string "my awesome value". The result will be true as all strings parts from formated string("my ", " value") are included in string "my awesome value".
+    ///
+    /// - Parameters:
+    ///   - formatedString: Formated string.
+    ///   - string: String to check match.
+    /// - Returns: Bool value which indicates whether given string metches with formated string.
+    static func findMatch(for formatedString: String, with string: String) -> Bool {
         // Check is it equal:
-        if formatedString == text { return true }
+        if formatedString == string { return true }
         // If not try to parse localized string as formated:
         let matches = formatTypesRegEx.matches(in: formatedString, options: [], range: NSRange(location: 0, length: formatedString.count))
         // If it is not formated string return false.
@@ -74,10 +54,54 @@ extension String {
         let nsStringValue = formatedString as NSString
         let components = nsStringValue.splitBy(ranges: ranges)
         for component in components {
-            if !text.contains(component) {
+            if !string.contains(component) {
                 return false
             }
         }
         return true
+    }
+}
+
+// MARK: - NSString splitting.
+extension NSString {
+    /// Spit current string by a given ranges.
+    /// Additional explenation:
+    /// For example we have string "Awesome string" and we want to split it by range (7,1). Result arrayy will be: ["Awesome", "string"]
+    ///
+    /// - Parameter ranges: Array of renges to split by.
+    /// - Returns: Array of substrings
+    func splitBy(ranges: [NSRange]) -> [String] {
+        var values = [String]()
+        for index in 0...ranges.count - 1 {
+            let range = ranges[index]
+            guard range.location != NSNotFound else { continue }
+            if index == 0 {
+                if range.location == 0 { continue }
+                guard self.isValid(range: range) else { continue }
+                values.append(self.substring(with: NSRange(location: 0, length: range.location)))
+            } else {
+                let previousRange = ranges[index - 1]
+                let location = previousRange.location + previousRange.length
+                let substringRange = NSRange(location: location, length: range.location - location)
+                guard self.isValid(range: substringRange) else { continue }
+                values.append(self.substring(with: substringRange))
+            }
+            if index == ranges.count - 1 {
+                if range.location + range.length == self.length { continue }
+                let location = range.location + range.length
+                let substringRange = NSRange(location: location, length: self.length - location)
+                guard self.isValid(range: substringRange) else { continue }
+                values.append(self.substring(with: substringRange))
+            }
+        }
+        return values
+    }
+    
+    /// Detect whether given range is valid and is it avalaible to use for current string.
+    ///
+    /// - Parameter range: NSRange value for checking.
+    /// - Returns: Bool value which indicates whether passed range is valid for current string.
+    private func isValid(range: NSRange) -> Bool {
+        return range.location != NSNotFound && range.location + range.length <= length && range.length > 0
     }
 }

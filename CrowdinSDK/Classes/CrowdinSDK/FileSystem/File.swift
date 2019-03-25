@@ -90,7 +90,7 @@ class StringsFile: ReadWriteFile<Dictionary<String, String>> {
     override func save() throws {
         guard let file = self.file else { return }
         var string = ""
-        self.file?.forEach({ (key, value) in
+        file.forEach({ (key, value) in
             string += "\"\(key)\" = \"\(value)\";\n"
         })
         try? string.write(toFile: self.path, atomically: true, encoding: .utf8)

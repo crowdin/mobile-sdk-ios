@@ -11,7 +11,7 @@ protocol BundleProtocol {
     var bundle: Bundle { get }
 }
 
-protocol FolderBundleProtocol {
+protocol FolderBundleProtocol: BundleProtocol {
     var folder: FolderProtocol { get }
 }
 
