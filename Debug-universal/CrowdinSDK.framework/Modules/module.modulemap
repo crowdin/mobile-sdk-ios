@@ -1,4 +1,0 @@
-framework module CrowdinSDK {
-  header "CrowdinSDK.h"
-  requires objc
-}

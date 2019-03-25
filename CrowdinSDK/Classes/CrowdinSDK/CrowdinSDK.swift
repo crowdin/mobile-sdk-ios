@@ -113,7 +113,7 @@ import UIKit
         Localization.current = Localization(provider: localizationProvider)
     }
     
-    public class func extractAllLocalization() {
+    @objc public class func extractAllLocalization() {
         let folder = try! CrowdinFolder.shared.createFolder(with: "Extracted")
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
