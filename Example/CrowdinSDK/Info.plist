@@ -25,6 +25,7 @@
 	<key>CrowdinPluralsFileNames</key>
 	<array>
 		<string>Localizable.stringsdict</string>
+		<string>Base.stringsdict</string>
 	</array>
 	<key>CrowdinProjectIdentifier</key>
 	<string>content-er4</string>
@@ -33,6 +34,7 @@
 	<key>CrowdinStringsFileNames</key>
 	<array>
 		<string>Localizable.strings</string>
+		<string>Base.strings</string>
 	</array>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>

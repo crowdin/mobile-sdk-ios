@@ -515,7 +515,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/CrowdinSDK/R.generated.swift",
+				$SRCROOT/CrowdinSDK/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
