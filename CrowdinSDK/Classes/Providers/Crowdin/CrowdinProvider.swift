@@ -67,7 +67,8 @@ public class CrowdinProvider: BaseLocalizationProvider {
     }
     
     func downloadLocalization() {
-        self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, projectIdentifier: self.projectIdentifier, projectKey: self.projectKey, for: self.localization, success: { (strings, plurals, localizations) in
+        guard let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) else { return }
+        self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, projectIdentifier: self.projectIdentifier, projectKey: self.projectKey, for: crowdinLocalization, success: { (strings, plurals, localizations) in
             self.strings = strings
             self.plurals = plurals
             self.localizations = localizations

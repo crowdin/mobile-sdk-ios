@@ -72,7 +72,6 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
             self.localizations = projectInfo.languages?.compactMap({ $0.code }) ?? []
             print(self.localizations)
         }
-        
         completion.addDependency(infoOperation)
         operationQueue.addOperation(infoOperation)
         

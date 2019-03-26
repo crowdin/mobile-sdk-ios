@@ -76,7 +76,7 @@ class ReadWriteFile<T: ReadWriteProtocol>: File {
     
     func save() throws {
         guard let file = self.file else { return }
-        file.save(self.path)
+        file.write(to: self.path)
     }
 }
 

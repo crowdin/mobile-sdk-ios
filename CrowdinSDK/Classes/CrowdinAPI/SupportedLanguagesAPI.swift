@@ -16,7 +16,7 @@ class SupportedLanguagesAPI: CrowdinAPI {
         return "\(baseAPIPath)/\(apiPath)/"
     }
     
-    func getSupportedLanguages(completion: (SupportedLanguagesResponse?, Error?) -> Void) {
+    func getSupportedLanguages(completion: @escaping (SupportedLanguagesResponse?, Error?) -> Void) {
         let url = buildURL()
         self.cw_get(url: url, parameters: parameters, completion: completion)
     }
@@ -24,6 +24,5 @@ class SupportedLanguagesAPI: CrowdinAPI {
     func getSupportedLanguagesSync() -> (SupportedLanguagesResponse?, Error?) {
         let url = buildURL()
         return self.cw_get(url: url, parameters: parameters)
-        
     }
 }
