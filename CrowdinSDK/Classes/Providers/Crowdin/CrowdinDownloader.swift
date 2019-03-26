@@ -69,7 +69,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
                 print(error.localizedDescription)
             }
             guard let projectInfo = projectInfo else { return }
-            self.localizations = projectInfo.languages?.item?.compactMap({ $0.code }) ?? []
+            self.localizations = projectInfo.languages?.compactMap({ $0.code }) ?? []
             print(self.localizations)
         }
         

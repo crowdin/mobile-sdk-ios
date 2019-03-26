@@ -15,29 +15,14 @@ public class CrowdinAPI: BaseAPI {
         return ""
     }
     
-    func jsonDataFrom(xmlData: Data) -> Data? {
-        guard let dictionary = XMLDictionaryParser().dictionaryWithData(data: xmlData) else {
-            return nil
-        }
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted) else {
-            return nil
-        }
-        return jsonData
-    }
-    
-    
-    public func post<T:Decodable>(url: String, parameters: [String : String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
+    public func cw_post<T:Decodable>(url: String, parameters: [String : String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
         self.post(url: url, parameters: parameters, headers: headers, body: body, completion: { data, response, error in
             guard let data = data else {
                 completion(nil, error)
                 return
             }
-            guard let jsonData = self.jsonDataFrom(xmlData: data) else {
-                completion(nil, error)
-                return
-            }
             do {
-                let response = try JSONDecoder().decode(T.self, from: jsonData)
+                let response = try JSONDecoder().decode(T.self, from: data)
                 completion(response, error)
             } catch {
                 completion(nil, error)
@@ -45,16 +30,41 @@ public class CrowdinAPI: BaseAPI {
         })
     }
     
-    public func post<T:Decodable>(url: String, parameters: [String : String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
+    public func cw_post<T:Decodable>(url: String, parameters: [String : String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
         let result = self.post(url: url, parameters: parameters, headers: headers, body: body)
         guard let data = result.data else {
             return (nil, result.error)
         }
-        guard let jsonData = self.jsonDataFrom(xmlData: data) else {
+        do {
+            let response = try JSONDecoder().decode(T.self, from: data)
+            return (response, result.error)
+        } catch {
+            return (nil, error)
+        }
+    }
+    
+    public func cw_get<T:Decodable>(url: String, parameters: [String : String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
+        self.get(url: url, parameters: parameters, completion: { data, response, error in
+            guard let data = data else {
+                completion(nil, error)
+                return
+            }
+            do {
+                let response = try JSONDecoder().decode(T.self, from: data)
+                completion(response, error)
+            } catch {
+                completion(nil, error)
+            }
+        })
+    }
+    
+    public func cw_get<T:Decodable>(url: String, parameters: [String : String]? = nil) -> (T?, Error?) {
+        let result = self.get(url: url, parameters: parameters)
+        guard let data = result.data else {
             return (nil, result.error)
         }
         do {
-            let response = try JSONDecoder().decode(T.self, from: jsonData)
+            let response = try JSONDecoder().decode(T.self, from: data)
             return (response, result.error)
         } catch {
             return (nil, error)

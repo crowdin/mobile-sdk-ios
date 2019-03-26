@@ -13,10 +13,10 @@ protocol DownloadProjectInfoOperationProtocol {
 }
 
 class DownloadProjectInfoOperation: AsyncOperation, DownloadProjectInfoOperationProtocol {
-    var completion: ((ProjectDetailsInfo?, Error?) -> Void)? = nil
+    var completion: ((ProjectDetailsResponse?, Error?) -> Void)? = nil
     
     var error: Error?
-    var projectDetails: ProjectDetailsInfo?
+    var projectDetails: ProjectDetailsResponse?
     
     var projectIdentifier: String
     var projectKey: String
