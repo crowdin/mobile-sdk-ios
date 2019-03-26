@@ -25,7 +25,7 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
     
     required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
 		self.additionalWord = "[cw]"
-        super.init(localizations: localizations, strings: strings, plurals: plurals)
+        super.init()
         self.localizations = Bundle.main.localizations
     }
     

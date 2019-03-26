@@ -12,7 +12,6 @@ import Foundation
     var localizations: [String] { get set }
     var strings: [String : String] { get set }
     var plurals: [AnyHashable : Any] { get set }
-    init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any])
     func deintegrate()
     func set(localization: String?)
     func set(strings: [String: String])

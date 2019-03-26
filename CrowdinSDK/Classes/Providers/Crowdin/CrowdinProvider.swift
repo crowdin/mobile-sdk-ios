@@ -62,10 +62,6 @@ public class CrowdinProvider: BaseLocalizationProvider {
         self.downloadLocalization()
     }
     
-    public required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
-        fatalError("init(localizations:strings:plurals:) has not been implemented")
-    }
-    
     func downloadLocalization() {
         guard let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) else { return }
         self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, projectIdentifier: self.projectIdentifier, projectKey: self.projectKey, for: crowdinLocalization, success: { (strings, plurals, localizations) in

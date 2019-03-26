@@ -32,18 +32,6 @@ import Foundation
         self.setupPluralsBundle()
     }
     
-    public required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
-        self.strings = strings
-        self.plurals = plurals
-        self.localization = Bundle.main.preferredLanguage
-        self.localizations = localizations
-        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
-        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
-        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
-        super.init()
-        self.setupPluralsBundle()
-    }
-    
     public func deintegrate() {
         try? CrowdinFolder.shared.remove()
         try? pluralsFolder.remove()

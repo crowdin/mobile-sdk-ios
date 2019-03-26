@@ -31,14 +31,6 @@ import FirebaseDatabase
         self.subscribe()
     }
     
-    public required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
-        self.path = "localization"
-		self.firebaseFolder = try! crowdinFolder.createFolder(with: "Firebase")
-        super.init(localizations: localizations, strings: strings, plurals: plurals)
-		self.refresh()
-        self.subscribe()
-    }
-    
     public override func set(localization: String?) {
         super.set(localization: localization)
         self.refresh()
