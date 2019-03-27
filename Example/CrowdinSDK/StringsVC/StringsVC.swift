@@ -11,7 +11,7 @@ import UIKit
 import CrowdinSDK
 
 class StringsVC: BaseMenuVC {
-    let crowdinSDKTester = CrowdinSDKTester(localization: CrowdinSDK.currentLocalization ?? "en")
+    let crowdinSDKTester = CrowdinProviderTester(localization: CrowdinSDK.currentLocalization ?? "en")
     
 	@IBOutlet var tableView: UITableView! {
 		didSet {

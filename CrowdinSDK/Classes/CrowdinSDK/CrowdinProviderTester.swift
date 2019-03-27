@@ -1,5 +1,5 @@
 //
-//  CrowdinSDKTester.swift
+//  CrowdinProviderTester.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 3/24/19.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class CrowdinSDKTester {
+public class CrowdinProviderTester {
     var localization: String
     let localizationFile: DictionaryFile
     
