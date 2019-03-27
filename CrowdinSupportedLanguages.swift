@@ -71,7 +71,7 @@ class CrowdinSupportedLanguages {
     }
     
     func readSupportedLanguages() {
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath), options: Data.ReadingOptions.alwaysMapped) else { return }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else { return }
         self.supportedLanguages = try? JSONDecoder().decode(SupportedLanguagesResponse.self, from: data)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias CrowdinDownloaderSuccess = (_ strings: [String : String], _ plurals: [AnyHashable : Any], _ localizations: [String]) -> Void
+typealias CrowdinDownloaderSuccess = (_ localizations: [String], _ strings: [String : String], _ plurals: [AnyHashable : Any]) -> Void
 typealias CrowdinDownloaderError = (_ error: Error) -> Void
 
 protocol CrowdinDownloaderProtocol {
@@ -23,7 +23,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
     fileprivate var plurals: [AnyHashable : Any] = [:]
     fileprivate var localizations: [String] = []
     
-    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, success: @escaping ([String : String], [AnyHashable : Any], [String]) -> Void, error: @escaping (Error) -> Void) {
+    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, success: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void, error: @escaping (Error) -> Void) {
         self.strings = [:]
         self.plurals = [:]
         self.localizations = []
@@ -31,7 +31,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         self.success = success
         self.error = error
         let completion = BlockOperation {
-            self.success(self.strings, self.plurals, self.localizations)
+            self.success(self.localizations, self.strings, self.plurals)
         }
         
         strings.forEach { (string) in

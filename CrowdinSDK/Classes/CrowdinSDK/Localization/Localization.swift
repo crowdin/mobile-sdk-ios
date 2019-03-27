@@ -60,7 +60,7 @@ class Localization {
 			case .customBundle:
 				UserDefaults.standard.appleLanguage = newValue
 			}
-            self.provider.set(localization: newValue)
+            self.provider.localization = newValue ?? Bundle.main.preferredLanguage
 		}
 		get {
 			switch mode {
@@ -93,7 +93,7 @@ class Localization {
 	init(provider: LocalizationProvider) {
         self.extractor = LocalizationExtractor()
         self.provider = provider
-        self.provider.set(localization: currentLocalization)
+        self.provider.localization = currentLocalization ?? Bundle.main.preferredLanguage
         self.extractor.setLocalization(currentLocalization ?? defaultLocalization)
 	}
 	

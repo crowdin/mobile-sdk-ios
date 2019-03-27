@@ -49,6 +49,7 @@ class FileBundle: FolderBundle, FileBundleProtocol {
 protocol DictionaryBundleProtocol: BundleProtocol {
 	var dictionary: Dictionary<AnyHashable, Any> { get }
     var file: DictionaryFile { get }
+    func remove()
 }
 
 class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {

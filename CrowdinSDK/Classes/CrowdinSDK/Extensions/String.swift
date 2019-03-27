@@ -31,6 +31,7 @@ extension String {
     static let space = " "
     static let enter = "\n"
     static let pathDelimiter = "/"
+    static let minus = "-"
 }
 
 // MARK: - Match finding.
@@ -103,5 +104,54 @@ extension NSString {
     /// - Returns: Bool value which indicates whether passed range is valid for current string.
     private func isValid(range: NSRange) -> Bool {
         return range.location != NSNotFound && range.location + range.length <= length && range.length > 0
+    }
+}
+
+// MARK: - Values finding.
+extension String {
+    static func findValues(for string: String, with format: String) -> [Any]? {
+        let parts = FormatPart.formatParts(formatString: format)
+        let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
+        guard matches.count > 0 else { return nil }
+        let ranges = matches.compactMap({ $0.range })
+        let nsStringValue = format as NSString
+        let components = nsStringValue.splitBy(ranges: ranges)
+        
+        let nsStringText = string as NSString
+        
+        var valueRanges = [NSRange]()
+        components.forEach({ valueRanges.append(nsStringText.range(of: $0)) })
+        
+        guard valueRanges.count > 0 else { return nil }
+        
+        let values = nsStringText.splitBy(ranges: valueRanges)
+        
+        guard values.count == parts.count else { return nil }
+        
+        var result = [Any]()
+        
+        for index in 0...parts.count - 1 {
+            let part = parts[index]
+            let value = values[index]
+            guard let formatSpecifier = part.formatSpecifier else {
+                result.append(value)
+                continue
+            }
+            var formatValue: Any?
+            switch formatSpecifier {
+            case .object: formatValue = value
+            case .double: formatValue = Double(value)
+            case .int: formatValue = Int(value)
+            case .uInt: formatValue = UInt(value)
+            case .character: formatValue = Character(value)
+            case .cStringPointer: formatValue = value
+            case .voidPointer: formatValue = value
+            case .topType: formatValue = value
+            }
+            guard let nonNilFormatValue = formatValue else { return nil }
+            result.append(nonNilFormatValue)
+        }
+        
+        return result
     }
 }

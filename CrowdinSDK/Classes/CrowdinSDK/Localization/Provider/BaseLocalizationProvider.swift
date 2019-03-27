@@ -8,28 +8,38 @@
 import Foundation
 
 @objcMembers open class BaseLocalizationProvider: NSObject, LocalizationProvider {
+    private enum Strings: String {
+        case Plurals
+        case LocalizableStringsdict = "Localizable.stringsdict"
+    }
     // Public
-    public var localization: String
-    public var localizations: [String]
-    public var strings: [String : String]
-    public var plurals: [AnyHashable : Any]
+    public var localization: String {
+        didSet {
+            self.localStorage.localization = localization
+            self.remoteStorage.localization = localization
+            self.refreshLocalization()
+        }
+    }
+    public var localStorage: LocalLocalizationStorage
+    public var remoteStorage: RemoteLocalizationStorage
+    public var localizations: [String] { return localStorage.localizations }
+    // Internal
+    var strings: [String : String] { return localStorage.strings }
+    var plurals: [AnyHashable : Any] { return localStorage.plurals }
+    var pluralsFolder: FolderProtocol
+    var pluralsBundle: DictionaryBundleProtocol?
+    var stringsDataSource: LocalizationDataSourceProtocol
+    var pluralsDataSource: LocalizationDataSourceProtocol
     
-    // Private
-    var pluralsFolder: Folder
-    var pluralsBundle: DictionaryBundle?
-    var stringsDataSource: StringsLocalizationDataSource
-    var pluralsDataSource: PluralsLocalizationDataSource
-    
-    public override init() {
-        self.strings = [:]
-        self.plurals = [:]
-        self.localization = Bundle.main.preferredLanguage
-        self.localizations = []
-        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + "Plurals")
+    public required init(localization: String, localStorage: LocalLocalizationStorage, remoteStorage: RemoteLocalizationStorage) {
+        self.localization = localization
+        self.localStorage = localStorage
+        self.remoteStorage = remoteStorage
+        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.Plurals.rawValue)
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         super.init()
-        self.setupPluralsBundle()
+        self.refreshLocalization()
     }
     
     public func deintegrate() {
@@ -38,32 +48,43 @@ import Foundation
         pluralsBundle?.remove()
     }
     
-    // Setters
-    public func set(strings: [String: String]) {
-        self.strings = strings
-        self.setupLocalizationStrings()
+    // Private method
+    func refreshLocalization() {
+        self.loadLocalization()
+        self.fetchLocalization()
     }
     
-    public func set(plurals: [AnyHashable: Any]) {
-        self.plurals = plurals
+    func loadLocalization() {
+        self.localStorage.fetchData { (_, _, _) in
+            self.setupPlurals()
+            self.setupStrings()
+        }
+    }
+    
+    func fetchLocalization() {
+        self.remoteStorage.fetchData { (localizations, strings, plurals) in
+            self.localStorage.localizations = localizations
+            self.localStorage.strings = strings
+            self.localStorage.plurals = plurals
+            self.setupStrings()
+            self.setupPlurals()
+        }
+    }
+    
+    // Setup plurals
+    func setupPlurals() {
+        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
         self.setupPluralsBundle()
     }
     
-    public func set(localization: String?) {
-        self.localization = localization ?? Bundle.main.preferredLanguage
-        self.setupLocalizationStrings()
-    }
-    
-    // Setup plurals bundle
     func setupPluralsBundle() {
-        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
 		self.pluralsBundle?.remove()
 		pluralsFolder.directories.forEach({ try? $0.remove() })
-        let localizationFolderName = localization + "-" + UUID().uuidString
-        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: "Localizable.stringsdict", dictionary: self.plurals)
+        let localizationFolderName = localStorage.localization + String.minus + UUID().uuidString
+        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.plurals)
     }
-    
-    func setupLocalizationStrings() {
+    // Setup strings
+    func setupStrings() {
         self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
     }
     

@@ -23,12 +23,6 @@ public class LocalLocalizationProvider: BaseLocalizationProvider {
         self.localizations = Bundle.main.localizations
     }
     
-    required init(localizations: [String], strings: [String : String], plurals: [AnyHashable : Any]) {
-		self.additionalWord = "[cw]"
-        super.init()
-        self.localizations = Bundle.main.localizations
-    }
-    
     override public func set(localization: String?) {
         super.set(localization: localization)
         self.refresh()
