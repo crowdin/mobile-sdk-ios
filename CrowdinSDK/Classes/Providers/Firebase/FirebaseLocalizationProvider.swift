@@ -6,80 +6,31 @@
 //
 
 import Foundation
-import FirebaseDatabase
 
 @objcMembers public class FirebaseLocalizationProvider: BaseLocalizationProvider {
-    let crowdinFolder: FolderProtocol = CrowdinFolder.shared
-	let firebaseFolder: FolderProtocol
-    let database: DatabaseReference = Database.database().reference()
-    
-    public var path: String
-    
-    public required override init() {
-        self.path = "localization"
-		self.firebaseFolder = try! crowdinFolder.createFolder(with: "Firebase")
-        super.init()
-		self.refresh()
-        self.subscribe()
-    }
-    
     public init(path: String) {
-        self.path = path
-		self.firebaseFolder = try! crowdinFolder.createFolder(with: "Firebase")
-        super.init()
-		self.refresh()
-        self.subscribe()
+        let localization = Bundle.main.preferredLanguage
+        let localStorage = FirebaseLocalLocalizationStorage(localization: localization)
+        let remoteStorage = FirebaseRemoteLocalizationStorage(localization: localization, path: path)
+        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     
-    public override func set(localization: String?) {
-        super.set(localization: localization)
-        self.refresh()
+    public init() {
+        let localization = Bundle.main.preferredLanguage
+        let localStorage = FirebaseLocalLocalizationStorage(localization: localization)
+        let remoteStorage = FirebaseRemoteLocalizationStorage(localization: localization)
+        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     
-    func refresh() {
-        guard let sdkFile = firebaseFolder.files.filter({ $0.name == localization }).first else { return }
-        guard let dictionary = NSDictionary(contentsOfFile: sdkFile.path)  else { return }
-        if let strings = dictionary[Keys.strings.rawValue] as? [String: String] {
-            self.set(strings: strings)
-        }
-        if let plurals = dictionary[Keys.plurals.rawValue] as? [AnyHashable: Any] {
-            self.set(plurals: plurals)
-        }
-    }
-	
-    func removeFolders() {
-        if crowdinFolder.isCreated { try? crowdinFolder.remove() }
-		if firebaseFolder.isCreated { try? firebaseFolder.remove() }
+    public required init(localization: String, localStorage: LocalLocalizationStorage, remoteStorage: RemoteLocalizationStorage) {
+        let localStorage = FirebaseLocalLocalizationStorage(localization: localization)
+        let remoteStorage = FirebaseRemoteLocalizationStorage(localization: localization)
+        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     
-    public override func deintegrate() {
-        self.removeFolders()
+    public init(path: String, localization: String, localStorage: LocalLocalizationStorage, remoteStorage: RemoteLocalizationStorage) {
+        let localStorage = FirebaseLocalLocalizationStorage(localization: localization)
+        let remoteStorage = FirebaseRemoteLocalizationStorage(localization: localization, path: path)
+        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
-    
-    func subscribe() {
-        let reference = self.database.child(path)
-        reference.observe(DataEventType.value) { (snapshot: DataSnapshot) in
-            if var dictionary = snapshot.value as? [String: Any] {
-				dictionary = dictionary.decodeFirebase()
-				self.localizations = [String](dictionary.keys)
-                dictionary.keys.forEach({ (key) in
-                    let strings = dictionary[key] as! [String: Any]
-                    let stringsFile = DictionaryFile(path: self.firebaseFolder.path + String.pathDelimiter + key + FileType.plist.extension)
-                    stringsFile.file = strings
-                    try? stringsFile.save()
-                })
-                self.refresh()
-                CrowdinSDK.reloadUI()
-			} else {
-				// Upload localization.
-				self.uploadLocalization()
-			}
-        }
-    }
-	
-	func uploadLocalization() {
-		let json = LocalizationExtractor.extractLocalizationJSON().encodeFirebase()
-		let reference = self.database.child(path)
-		reference.setValue(json)
-	}
 }
