@@ -14,12 +14,16 @@ extension Notification.Name {
 public class CrowdinProvider: BaseLocalizationProvider {    
     public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
         let localization = Bundle.main.preferredLanguage
-        super.init(localization: localization, localStorage: CrowdinLocalLocalizationStorage(localization: localization), remoteStorage: CrowdinRemoteLocalizationStorage(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey, localization: localization))
+        let localStorage = CrowdinLocalLocalizationStorage(localization: localization)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey, localization: localization)
+        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     
     public init() {
         let localization = Bundle.main.preferredLanguage
-        super.init(localization: localization, localStorage: CrowdinLocalLocalizationStorage(localization: localization), remoteStorage: CrowdinRemoteLocalizationStorage(localization: localization))
+        let localStorage = CrowdinLocalLocalizationStorage(localization: localization)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization)
+        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     
     public required init(localization: String, localStorage: LocalLocalizationStorage, remoteStorage: RemoteLocalizationStorage) {
