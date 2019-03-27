@@ -28,6 +28,7 @@
 		9268149821FCD60E0052F778 /* MenuVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9268149621FCD60E0052F778 /* MenuVC.storyboard */; };
 		9268149921FCD60E0052F778 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268149721FCD60E0052F778 /* MenuVC.swift */; };
 		9268149E21FCE9350052F778 /* BaseMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268149D21FCE9350052F778 /* BaseMenuVC.swift */; };
+		927159BC224BDB8B00E8B567 /* StringsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927159BB224BDB8B00E8B567 /* StringsCell.swift */; };
 		92A1BCDB2210A3C70086B3AC /* Localizable.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A1BCDA2210A3C70086B3AC /* Localizable.plist */; };
 		92A1BCE52210C7CD0086B3AC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1BCE42210C7CC0086B3AC /* R.generated.swift */; };
 		92ECA8E422495E3A000DD994 /* PluralsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECA8E322495E3A000DD994 /* PluralsVC.swift */; };
@@ -81,6 +82,7 @@
 		9268149621FCD60E0052F778 /* MenuVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuVC.storyboard; sourceTree = "<group>"; };
 		9268149721FCD60E0052F778 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		9268149D21FCE9350052F778 /* BaseMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMenuVC.swift; sourceTree = "<group>"; };
+		927159BB224BDB8B00E8B567 /* StringsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsCell.swift; sourceTree = "<group>"; };
 		9287522D2208E8D900BB9CB6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9287522E2208E8D900BB9CB6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		928752302208ECBA00BB9CB6 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 		C836C155221B1ECF006CEECF /* StringsVC */ = {
 			isa = PBXGroup;
 			children = (
+				927159BB224BDB8B00E8B567 /* StringsCell.swift */,
 				C836C156221B1EE4006CEECF /* StringsVC.swift */,
 				C836C158221B1EF2006CEECF /* StringsVC.storyboard */,
 			);
@@ -515,7 +518,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/CrowdinSDK/R.generated.swift",
+				$SRCROOT/CrowdinSDK/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -568,6 +571,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				927159BC224BDB8B00E8B567 /* StringsCell.swift in Sources */,
 				9255BF5B21FCC1F300C80A40 /* FireTiny.swift in Sources */,
 				92ECA8E422495E3A000DD994 /* PluralsVC.swift in Sources */,
 				923C62E02205EFBF001A6BC3 /* CustomProvider.swift in Sources */,

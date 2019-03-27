@@ -14,6 +14,14 @@ extension String {
 	public var localized: String {
 		return NSLocalizedString(self, comment: String.empty)
 	}
+    
+    public func localized(with arguments: [CVarArg]) -> String {
+        return String(format: NSLocalizedString(self, comment: String.empty), arguments: arguments)
+    }
+    
+    public func localized(with arguments: CVarArg...) -> String {
+        return String(format: NSLocalizedString(self, comment: String.empty), arguments)
+    }
 }
 
 // MARK: - Formatting detection.
