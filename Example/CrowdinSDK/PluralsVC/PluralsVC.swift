@@ -43,30 +43,11 @@ extension PluralsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        /*
-        let cell = UITableViewCell()
-        var text: String
-        let index = Int(indexPath.row / 5)
-        let rule = indexPath.row % 5
-        if rule == 0 {
-            text = String.localizedStringWithFormat(NSLocalizedString(filteredResults[index], comment: ""), 0, 100)
-        } else if rule == 1 {
-            text = String.localizedStringWithFormat(NSLocalizedString(filteredResults[index], comment: ""), 1, 100)
-        } else if rule == 2 {
-            text = String.localizedStringWithFormat(NSLocalizedString(filteredResults[index], comment: ""), 2, 100)
-        } else if rule == 3 {
-            text = String.localizedStringWithFormat(NSLocalizedString(filteredResults[index], comment: ""), 3, 100)
-        } else {
-            text = String.localizedStringWithFormat(NSLocalizedString(filteredResults[index], comment: ""), 100, 100)
-        }
-        
-        cell.textLabel?.text = text
-        cell.textLabel?.numberOfLines = 0
-        */
         let key = filteredResults[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "PluralsCell") as! PluralsCell
         cell.keyValueLabel.text = key
         cell.stringValueLabel.text = String.localizedStringWithFormat(NSLocalizedString(key, comment: ""), 0)
+        cell.selectionStyle = .none
         return cell
     }
     

@@ -69,6 +69,16 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
+  struct reuseIdentifier {
+    /// Reuse identifier `PluralsCell`.
+    static let pluralsCell: Rswift.ReuseIdentifier<PluralsCell> = Rswift.ReuseIdentifier(identifier: "PluralsCell")
+    /// Reuse identifier `StringsCell`.
+    static let stringsCell: Rswift.ReuseIdentifier<StringsCell> = Rswift.ReuseIdentifier(identifier: "StringsCell")
+    
+    fileprivate init() {}
+  }
+  
   /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
   struct storyboard {
     /// Storyboard `DetailsVC`.
