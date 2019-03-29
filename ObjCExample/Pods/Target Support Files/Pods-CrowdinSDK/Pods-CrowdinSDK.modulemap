@@ -1,0 +1,6 @@
+framework module Pods_CrowdinSDK {
+  umbrella header "Pods-CrowdinSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

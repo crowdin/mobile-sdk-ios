@@ -12,12 +12,13 @@ class CrowdinSupportedLanguages {
     
     fileprivate enum Strings: String {
         case SupportedLanguages
+        case Crowdin
     }
     fileprivate enum Keys: String {
         case lastUpdatedDate = "CrowdinSupportedLanguages.lastUpdatedDate"
     }
     fileprivate var filePath: String {
-        return CrowdinFolder.shared.path + String.pathDelimiter + Strings.SupportedLanguages.rawValue
+        return CrowdinFolder.shared.path + String.pathDelimiter + Strings.Crowdin.rawValue + String.pathDelimiter + Strings.SupportedLanguages.rawValue + FileType.json.extension
     }
     
     var lastUpdatedDate: Date? {
@@ -46,7 +47,6 @@ class CrowdinSupportedLanguages {
     }
     
     func updateSupportedLanguagesIfNeeded() {
-        print(Date().timeIntervalSince(lastUpdatedDate ?? Date()))
         guard let lastUpdatedDate = lastUpdatedDate else {
             self.updateSupportedLanguages()
             return
