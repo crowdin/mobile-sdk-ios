@@ -146,7 +146,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 			return (char, nil)
 		} else {
 			// Remove the "$" at the end of the positional specifier, and convert to Int
-			let posRange1 = NSRange(location: posRange.location, length: posRange.length-1)
+			let posRange1 = NSRange(location: posRange.location, length: posRange.length - 1)
 			let pos = nsString.substring(with: posRange1)
 			return (char, Int(pos))
 		}

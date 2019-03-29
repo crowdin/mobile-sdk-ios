@@ -15,7 +15,7 @@ public class CrowdinAPI: BaseAPI {
         return ""
     }
     
-    public func cw_post<T:Decodable>(url: String, parameters: [String : String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
+    public func cw_post<T:Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
         self.post(url: url, parameters: parameters, headers: headers, body: body, completion: { data, response, error in
             guard let data = data else {
                 completion(nil, error)
@@ -30,7 +30,7 @@ public class CrowdinAPI: BaseAPI {
         })
     }
     
-    public func cw_post<T:Decodable>(url: String, parameters: [String : String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
+    public func cw_post<T:Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
         let result = self.post(url: url, parameters: parameters, headers: headers, body: body)
         guard let data = result.data else {
             return (nil, result.error)
@@ -43,7 +43,7 @@ public class CrowdinAPI: BaseAPI {
         }
     }
     
-    public func cw_get<T:Decodable>(url: String, parameters: [String : String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
+    public func cw_get<T:Decodable>(url: String, parameters: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
         self.get(url: url, parameters: parameters, completion: { data, response, error in
             guard let data = data else {
                 completion(nil, error)
@@ -58,7 +58,7 @@ public class CrowdinAPI: BaseAPI {
         })
     }
     
-    public func cw_get<T:Decodable>(url: String, parameters: [String : String]? = nil) -> (T?, Error?) {
+    public func cw_get<T:Decodable>(url: String, parameters: [String: String]? = nil) -> (T?, Error?) {
         let result = self.get(url: url, parameters: parameters)
         guard let data = result.data else {
             return (nil, result.error)

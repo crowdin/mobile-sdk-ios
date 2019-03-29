@@ -22,12 +22,12 @@ public class CrowdinProviderTester {
     }
     
     public var inSDKStringsKeys: [String] {
-        guard let strings = localizationFile.file?[Keys.strings.rawValue] as? [String : String] else { return [] }
+        guard let strings = localizationFile.file?[Keys.strings.rawValue] as? [String: String] else { return [] }
         return strings.keys.map({ $0 })
     }
     
     public var inSDKPluralsKeys: [String] {
-        guard let strings = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable : Any] else { return [] }
-        return strings.keys.map({ $0 as! String })
+        guard let strings = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable: Any] else { return [] }
+        return strings.keys.compactMap({ $0 as? String })
     }
 }

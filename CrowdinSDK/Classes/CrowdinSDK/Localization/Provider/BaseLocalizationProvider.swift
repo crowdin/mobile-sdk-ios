@@ -24,8 +24,8 @@ import Foundation
     public var remoteStorage: RemoteLocalizationStorage
     public var localizations: [String] { return localStorage.localizations }
     // Internal
-    var strings: [String : String] { return localStorage.strings }
-    var plurals: [AnyHashable : Any] { return localStorage.plurals }
+    var strings: [String: String] { return localStorage.strings }
+    var plurals: [AnyHashable: Any] { return localStorage.plurals }
     var pluralsFolder: FolderProtocol
     var pluralsBundle: DictionaryBundleProtocol?
     var stringsDataSource: LocalizationDataSourceProtocol

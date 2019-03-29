@@ -9,7 +9,7 @@ import Foundation
 
 class EmptyRemoteStorage: RemoteLocalizationStorage {
     var localization: String
-    func fetchData(completion: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void) { }
+    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) { }
     required init(localization: String) {
         self.localization = localization
     }
@@ -23,11 +23,10 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
         }
     }
     var localizations: [String] = Bundle.main.localizations
-    var strings: [String : String] = [:]
-    var plurals: [AnyHashable : Any] = [:]
+    var strings: [String: String] = [:]
+    var plurals: [AnyHashable: Any] = [:]
     
-    
-    func fetchData(completion: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void) {
+    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) {
         self.refresh()
         completion(localizations, strings, plurals)
     }
@@ -59,17 +58,18 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
     func addAdditionalWordTo(plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
         var dict = plurals
         dict.keys.forEach({ (key) in
-            var localized = dict[key] as! [AnyHashable: Any]
+            guard var localized = dict[key] as? [AnyHashable: Any] else { return }
             localized.keys.forEach({ (key1) in
-                if key1 as! String == "NSStringLocalizedFormatKey" { return }
-                var value = localized[key1] as! [String: String]
+                guard let strinKey = key1 as? String else { return }
+                if strinKey == "NSStringLocalizedFormatKey" { return }
+                guard var value = localized[strinKey] as? [String: String] else { return }
                 value.keys.forEach({ (key) in
                     guard key != "NSStringFormatSpecTypeKey" else { return }
                     guard key != "NSStringFormatValueTypeKey" else { return }
                     
                     value[key] = value[key]! + "[\(localization)][\(additionalWord)]"
                 })
-                localized[key1 as! String] = value
+                localized[strinKey] = value
             })
             dict[key] = localized
         })

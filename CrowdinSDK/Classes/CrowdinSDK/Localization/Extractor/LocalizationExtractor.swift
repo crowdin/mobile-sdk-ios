@@ -55,12 +55,12 @@ class LocalizationExtractor {
     func extract() {
         self.stringsFiles.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
-            self.localizationDict.merge(with: dict as? [String : String] ?? [:])
+            self.localizationDict.merge(with: dict as? [String: String] ?? [:])
         }
         
         self.stringsdictFiles.forEach { (file) in
             guard let dict = NSMutableDictionary (contentsOfFile: file) else { return }
-			guard let strings = dict as? [AnyHashable : Any] else { return }
+			guard let strings = dict as? [AnyHashable: Any] else { return }
 			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }
     }
