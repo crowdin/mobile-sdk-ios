@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import BaseAPI
 
 public class CrowdinAPI: BaseAPI {
     let baseAPIPath = "https://api.crowdin.com/api"
