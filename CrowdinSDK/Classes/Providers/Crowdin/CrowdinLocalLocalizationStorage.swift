@@ -29,14 +29,24 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    var strings: [String : String] = [:] {
-        didSet {
+    private var _strings: Atomic<[String : String]> = Atomic([:])
+    var strings: [String : String] {
+        get {
+            return _strings.value
+        }
+        set {
+            _strings.mutate({ $0 = newValue })
             saveLocalization()
         }
     }
     
-    var plurals: [AnyHashable : Any] = [:] {
-        didSet {
+    private var _plurals: Atomic<[AnyHashable : Any]> = Atomic([:])
+    var plurals: [AnyHashable : Any] {
+        get {
+            return _plurals.value
+        }
+        set {
+            _plurals.mutate({ $0 = newValue })
             saveLocalization()
         }
     }

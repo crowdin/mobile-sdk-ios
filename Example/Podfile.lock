@@ -6,18 +6,13 @@ PODS:
   - CrowdinSDK/Core (0.1.0)
   - CrowdinSDK/CrowdinAPI (0.1.0):
     - BaseAPI
-    - CrowdinSDK/Operations
-  - CrowdinSDK/CrowdinContentDeliveryAPI (0.1.0):
-    - CrowdinSDK/Operations
   - CrowdinSDK/CrowdinProvider (0.1.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinContentDeliveryAPI
   - CrowdinSDK/FirebaseProvider (0.1.0):
     - CrowdinSDK/Core
     - Firebase
     - FirebaseDatabase
-  - CrowdinSDK/Operations (0.1.0)
   - DateToolsSwift (4.0.0)
   - FAPanels (1.0.2)
   - FileBrowser (1.0.0)
@@ -126,7 +121,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BaseAPI: 9248feed65933cd20283514e7a9917ecba1b69c0
-  CrowdinSDK: 6e325ab9acfbb58ff8e9b6a45772055d38f1309c
+  CrowdinSDK: 604a94caa2399768caa913801d24f4da98b085da
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
@@ -144,6 +139,6 @@ SPEC CHECKSUMS:
   R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
 
-PODFILE CHECKSUM: 02c67f4adee69a3d68afc6d96a3ce13bc88519ad
+PODFILE CHECKSUM: 8ab72f596949247404a6fe7a160927716a5e5060
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

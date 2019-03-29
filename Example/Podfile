@@ -10,6 +10,7 @@ target 'CrowdinSDK_Example' do
   pod 'FAPanels'
   pod 'R.swift'
   pod 'DateToolsSwift'
+  
   target 'CrowdinSDK_Tests' do
     inherit! :search_paths
   end

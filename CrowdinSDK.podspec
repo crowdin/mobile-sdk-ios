@@ -53,25 +53,12 @@ TODO: Add long description of the pod here.
       provider.name = 'CrowdinProvider'
       provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/*.swift'
       provider.dependency 'CrowdinSDK/Core'
-      provider.dependency 'CrowdinSDK/CrowdinContentDeliveryAPI'
       provider.dependency 'CrowdinSDK/CrowdinAPI'
-  end
-  
-  spec.subspec 'CrowdinContentDeliveryAPI' do |subspec|
-      subspec.name = 'CrowdinContentDeliveryAPI'
-      subspec.source_files = 'CrowdinSDK/Classes/CrowdinContentDeliveryAPI/**/*'
-      subspec.dependency 'CrowdinSDK/Operations'
   end
   
   spec.subspec 'CrowdinAPI' do |subspec|
       subspec.name = 'CrowdinAPI'
       subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
       subspec.dependency 'BaseAPI'
-      subspec.dependency 'CrowdinSDK/Operations'
-  end
-  
-  spec.subspec 'Operations' do |subspec|
-      subspec.name = 'Operations'
-      subspec.source_files = 'CrowdinSDK/Classes/Operations/**/*'
   end
 end
