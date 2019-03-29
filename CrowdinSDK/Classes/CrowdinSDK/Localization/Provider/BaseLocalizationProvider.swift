@@ -39,7 +39,6 @@ import Foundation
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         super.init()
-        self.refreshLocalization()
     }
     
     public func deintegrate() {
