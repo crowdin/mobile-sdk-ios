@@ -538,11 +538,10 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/[YOUR_PATH]/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#cd ../CrowdinSDK/Classes\n#${PODS_ROOT}/SwiftLint/swiftlint\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd ../CrowdinSDK/Classes\n${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		EAA41BE1D8C1ACE6461BC04B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

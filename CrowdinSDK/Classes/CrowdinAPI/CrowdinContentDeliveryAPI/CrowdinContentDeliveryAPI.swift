@@ -14,11 +14,11 @@ enum CrowdinContentDeliveryAPIError: Error {
     case error(error: Error?)
 }
 
-typealias CrowdinAPIStringsResult = (strings: [String : String]?, error: CrowdinContentDeliveryAPIError?)
-typealias CrowdinAPIPluralsResult = (plurapls: [AnyHashable : Any]?, error: CrowdinContentDeliveryAPIError?)
+typealias CrowdinAPIStringsResult = (strings: [String: String]?, error: CrowdinContentDeliveryAPIError?)
+typealias CrowdinAPIPluralsResult = (plurapls: [AnyHashable: Any]?, error: CrowdinContentDeliveryAPIError?)
 
-typealias CrowdinAPIStringsCompletion = (([String : String]?, CrowdinContentDeliveryAPIError?) -> Void)
-typealias CrowdinAPIPluralsCompletion = (([AnyHashable : Any]?, CrowdinContentDeliveryAPIError?) -> Void)
+typealias CrowdinAPIStringsCompletion = (([String: String]?, CrowdinContentDeliveryAPIError?) -> Void)
+typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, CrowdinContentDeliveryAPIError?) -> Void)
 
 protocol CrowdinContentDeliveryProtolol {
     func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion)
@@ -47,14 +47,14 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
             completion(nil, CrowdinContentDeliveryAPIError.badUrl(url: stringURL))
             return
         }
-        let task = self.session.dataTask(with: url) { (data, response, error) in
+        let task = self.session.dataTask(with: url) { (data, _, error) in
             completion(data, CrowdinContentDeliveryAPIError.error(error: error))
         }
         task.resume()
     }
     
-    func parse(data: Data) -> [AnyHashable : Any]? {
-        var propertyListForamat =  PropertyListSerialization.PropertyListFormat.xml
+    func parse(data: Data) -> [AnyHashable: Any]? {
+        var propertyListForamat = PropertyListSerialization.PropertyListFormat.xml
         guard let dictionary = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: &propertyListForamat) as? [AnyHashable: Any] else {
             return nil
         }
@@ -67,14 +67,14 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
             completion(nil, CrowdinContentDeliveryAPIError.badUrl(url: stringURL))
             return
         }
-        let task = self.session.dataTask(with: url) { (data, response, error) in
+        let task = self.session.dataTask(with: url) { (data, _, error) in
             completion(data, CrowdinContentDeliveryAPIError.error(error: error))
         }
         task.resume()
     }
     
     func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion) {
-        self.get(file: file, for: localization) { (data, error) in
+        self.get(file: file, for: localization) { (data, _) in
             guard let data = data else {
                 completion(nil, CrowdinContentDeliveryAPIError.dataError)
                 return
@@ -83,12 +83,12 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
                 completion(nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
                 return
             }
-            completion(dictionary as? [String : String], nil)
+            completion(dictionary as? [String: String], nil)
         }
     }
     
     func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion) {
-        self.get(file: file, for: localization) { (data, error) in
+        self.get(file: file, for: localization) { (data, _) in
             guard let data = data else {
                 completion(nil, CrowdinContentDeliveryAPIError.dataError)
                 return
@@ -120,7 +120,7 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
         guard let dictionary = self.parse(data: data) else {
             return (nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
         }
-        return (dictionary as? [String : String], nil)
+        return (dictionary as? [String: String], nil)
     }
     
     func getPlurals(file: String, for localization: String) -> CrowdinAPIPluralsResult {

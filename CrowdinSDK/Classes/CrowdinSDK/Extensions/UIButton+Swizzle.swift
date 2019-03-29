@@ -34,9 +34,10 @@ extension UIButton {
     func localizationValues(for state: UIControl.State) -> [Any]? {
         return localizationValues?[state.rawValue]
     }
-    
+    // swiftlint:disable implicitly_unwrapped_optional
     static var original: Method!
     static var swizzled: Method!
+    
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
         guard let nonNilTitle = title else {
             swizzled_setTitle(title, for: state)
@@ -73,6 +74,7 @@ extension UIButton {
     }
     
     public class func swizzle() {
+        // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(UIButton.setTitle(_:for:)))!
         swizzled = class_getInstanceMethod(self, #selector(UIButton.swizzled_setTitle(_:for:)))!
         method_exchangeImplementations(original, swizzled)

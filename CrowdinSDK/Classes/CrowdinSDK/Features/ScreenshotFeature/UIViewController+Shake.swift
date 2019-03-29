@@ -12,7 +12,7 @@ extension UIViewController {
         if ScreenshotFeature.shared?.type == .shake {
             guard let screnshot = ScreenshotFeature.shared?.captureScreenshot() else { return }
             let storyboard = UIStoryboard(name: "SaveScreenshotVC", bundle: Bundle(for: SaveScreenshotVC.self))
-            let vc = storyboard.instantiateViewController(withIdentifier: "SaveScreenshotVC") as! SaveScreenshotVC
+            guard let vc = storyboard.instantiateViewController(withIdentifier: "SaveScreenshotVC") as? SaveScreenshotVC else { return }
             vc.screenshot = screnshot
             // TODO: Add screenshot VC as subview to avoid issues with already presented VC.
             ScreenshotFeature.shared?.window?.rootViewController?.present(vc, animated: true, completion: { })

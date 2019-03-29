@@ -22,15 +22,15 @@ class FirebaseRemoteLocalizationStorage: RemoteLocalizationStorage {
         self.path = path
     }
     
-    func fetchData(completion: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void) {
+    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) {
         let reference = self.database.child(path)
         reference.observe(DataEventType.value) { (snapshot: DataSnapshot) in
             if var dictionary = snapshot.value as? [String: Any] {
                 dictionary = dictionary.decodeFirebase()
                 let localizations = [String](dictionary.keys)
-                let lolcaizationDict = dictionary[self.localization] as! [String: Any]
-                let strings = lolcaizationDict[Keys.strings.rawValue] as? [String : String] ?? [:]
-                let plurals = lolcaizationDict[Keys.plurals.rawValue] as? [AnyHashable : Any] ?? [:]
+                let lolcaizationDict = dictionary[self.localization] as? [String: Any] ?? [:]
+                let strings = lolcaizationDict[Keys.strings.rawValue] as? [String: String] ?? [:]
+                let plurals = lolcaizationDict[Keys.plurals.rawValue] as? [AnyHashable: Any] ?? [:]
                 completion(localizations, strings, plurals)
             } else {
                 self.uploadLocalization()

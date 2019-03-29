@@ -35,10 +35,10 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
 }
 
 class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([AnyHashable : Any]?, Error?) -> Void)? = nil
-    var plurals: [AnyHashable : Any]?
+    var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
+    var plurals: [AnyHashable: Any]?
     
-    init(hash: String, file: String, localization: String, completion: (([AnyHashable : Any]?, Error?) -> Void)?) {
+    init(hash: String, file: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         super.init(hash: hash, file: file, localization: localization)
         self.completion = completion
     }
@@ -56,12 +56,11 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     }
 }
 
-
 class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([String : String]?, Error?) -> Void)? = nil
-    var strings: [String : String]?
+    var completion: (([String: String]?, Error?) -> Void)? = nil
+    var strings: [String: String]?
     
-    init(hash: String, file: String, localization: String, completion: (([AnyHashable : Any]?, Error?) -> Void)?) {
+    init(hash: String, file: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         super.init(hash: hash, file: file, localization: localization)
         self.completion = completion
     }

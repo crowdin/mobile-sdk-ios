@@ -53,7 +53,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
         
     }
     
-    func fetchData(completion: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void) {
+    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) {
          let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
         self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, projectIdentifier: projectIdentifier, projectKey: projectKey, for: crowdinLocalization, success: completion) { (error) in
             print(error.localizedDescription)
