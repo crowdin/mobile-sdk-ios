@@ -87,7 +87,6 @@ class LocalizationExtractor {
 		return result
 	}
     
-    
     func extractLocalizationStrings(to path: String) -> StringsFile {
         let file = StringsFile(path: path + String.pathDelimiter + localization + FileType.strings.extension)
         file.file = self.localizationDict
@@ -101,7 +100,6 @@ class LocalizationExtractor {
             _ = ectractor.extractLocalizationStrings(to: path)
         }
     }
-    
     
     func extractLocalizationPlurals(to path: String) -> DictionaryFile {
         let file = DictionaryFile(path: path + String.pathDelimiter + localization + FileType.stringsdict.extension)

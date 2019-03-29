@@ -51,7 +51,7 @@ class CrowdinSupportedLanguages {
             self.updateSupportedLanguages()
             return
         }
-        if Date().timeIntervalSince(lastUpdatedDate) > 7 * 24 * 60  * 60 {
+        if Date().timeIntervalSince(lastUpdatedDate) > 7 * 24 * 60 * 60 {
             self.updateSupportedLanguages()
         }
     }

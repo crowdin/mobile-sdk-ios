@@ -56,7 +56,6 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     }
 }
 
-
 class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?

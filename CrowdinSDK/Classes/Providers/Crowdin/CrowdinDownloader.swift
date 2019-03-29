@@ -15,6 +15,7 @@ protocol CrowdinDownloaderProtocol {
 }
 
 class CrowdinDownloader: CrowdinDownloaderProtocol {
+    // swiftlint:disable implicitly_unwrapped_optional
     var success: CrowdinDownloaderSuccess!
     var error: CrowdinDownloaderError!
     

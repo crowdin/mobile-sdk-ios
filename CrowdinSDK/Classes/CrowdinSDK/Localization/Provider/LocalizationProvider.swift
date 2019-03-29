@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 @objc public protocol LocalizationStorage {
     var localization: String { get set }
     func fetchData(completion: @escaping (_ localizations: [String], _ strings: [String: String], _ plurals: [AnyHashable: Any]) -> Void)

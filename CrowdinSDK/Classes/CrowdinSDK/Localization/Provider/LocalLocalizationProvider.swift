@@ -49,8 +49,8 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
     
     func addAdditionalWordTo(strings: [String: String]) -> [String: String] {
         var dict = strings
-        dict.keys.forEach { (key) in
-            dict[key] = dict[key]! + "[\(localization)][\(additionalWord)]"
+        for (key, value) in dict {
+            dict[key] = value + "[\(localization)][\(additionalWord)]"
         }
         return dict
     }
@@ -66,7 +66,7 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
                 value.keys.forEach({ (key) in
                     guard key != "NSStringFormatSpecTypeKey" else { return }
                     guard key != "NSStringFormatValueTypeKey" else { return }
-                    
+                     // swiftlint:disable force_unwrapping
                     value[key] = value[key]! + "[\(localization)][\(additionalWord)]"
                 })
                 localized[strinKey] = value

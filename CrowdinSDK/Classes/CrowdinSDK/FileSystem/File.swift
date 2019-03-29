@@ -8,9 +8,8 @@
 
 import UIKit
 
-
 protocol PathProtocol {
-    var path: String { get set}
+    var path: String { get set }
 }
 
 protocol FileProtocol: PathProtocol {
@@ -42,11 +41,15 @@ class File: FileProtocol, FileStatsProtocol {
             //Hidden file f.e. .DS_Store
             name = ""
             type = String(components[0])
-        } else {
+        } else if components.count > 1 {
+            // swiftlint:disable force_unwrapping
             type = String(components.last!)
             var fileName = lastPathComponent.replacingOccurrences(of: type, with: "")
             fileName.removeLast()
             name = fileName
+        } else {
+            name = ""
+            type = ""
         }
     }
     

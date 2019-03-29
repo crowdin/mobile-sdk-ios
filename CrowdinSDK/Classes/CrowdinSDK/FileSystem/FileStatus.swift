@@ -17,10 +17,10 @@ protocol FileStatsProtocol {
     var status: FileStatus { get }
 }
 
-extension FileStatsProtocol where Self : PathProtocol {
+extension FileStatsProtocol where Self: PathProtocol {
     var status: FileStatus {
         let fileManager = FileManager.default
-        var isDir : ObjCBool = false
+        var isDir: ObjCBool = false
         if fileManager.fileExists(atPath: path, isDirectory:&isDir) {
             if isDir.boolValue {
                 return .directory

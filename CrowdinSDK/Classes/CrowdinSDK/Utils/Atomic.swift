@@ -20,7 +20,7 @@ final class Atomic<A> {
         }
     }
     
-    func mutate(_ transform: (inout A) -> ()) {
+    func mutate(_ transform: (inout A) -> Void) {
         queue.sync {
             transform(&self._value)
         }

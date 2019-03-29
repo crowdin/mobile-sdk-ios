@@ -13,9 +13,9 @@ public class ProjectDetailsResponse: Codable {
     public let details: ProjectDetailsResponseDetails?
     
     enum CodingKeys: String, CodingKey {
-        case languages = "languages"
-        case files = "files"
-        case details = "details"
+        case languages
+        case files
+        case details
     }
     
     public init(languages: [ProjectDetailsResponseLanguage]?, files: [ProjectDetailsResponseFile]?, details: ProjectDetailsResponseDetails?) {
@@ -44,10 +44,10 @@ public class ProjectDetailsResponseDetails: Codable {
     
     enum CodingKeys: String, CodingKey {
         case sourceLanguage = "source_language"
-        case name = "name"
-        case identifier = "identifier"
-        case created = "created"
-        case description = "description"
+        case name
+        case identifier
+        case created
+        case description
         case joinPolicy = "join_policy"
         case lastBuild = "last_build"
         case lastActivity = "last_activity"
@@ -84,8 +84,8 @@ public class ProjectDetailsResponseInviteurl: Codable {
     public let proofreader: String?
     
     enum CodingKeys: String, CodingKey {
-        case translator = "translator"
-        case proofreader = "proofreader"
+        case translator
+        case proofreader
     }
     
     public init(translator: String?, proofreader: String?) {
@@ -99,8 +99,8 @@ public class ProjectDetailsResponseSourceLanguage: Codable {
     public let code: String?
     
     enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case code = "code"
+        case name
+        case code
     }
     
     public init(name: String?, code: String?) {
@@ -120,9 +120,9 @@ public class ProjectDetailsResponseFile: Codable {
     
     enum CodingKeys: String, CodingKey {
         case nodeType = "node_type"
-        case id = "id"
-        case name = "name"
-        case created = "created"
+        case id
+        case name
+        case created
         case lastUpdated = "last_updated"
         case lastAccessed = "last_accessed"
         case lastRevision = "last_revision"
@@ -146,8 +146,8 @@ public class ProjectDetailsResponseLanguage: Codable {
     public let canApprove: Int?
     
     enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case code = "code"
+        case name
+        case code
         case canTranslate = "can_translate"
         case canApprove = "can_approve"
     }

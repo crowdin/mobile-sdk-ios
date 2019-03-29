@@ -91,4 +91,3 @@ extension Folder {
         return (try? fileManager.contentsOfDirectory(atPath: path)) ?? []
     }
 }
-

@@ -12,7 +12,6 @@ protocol LocalizationDataSourceProtocol {
     func findValues(for string: String, with format: String) -> [Any]?
 }
 
-
 class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
     var strings: [String: String]
     

@@ -8,6 +8,7 @@
 import Foundation
 
 class LocalizationUpdateVC: UIViewController {
+    // swiftlint:disable implicitly_unwrapped_optional
     var control: UILabel!
     
     @IBOutlet var localizationKeyLabel: UILabel!
