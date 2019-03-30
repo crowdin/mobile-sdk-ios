@@ -1,6 +1,6 @@
 # CrowdinSDK
 
-[![CI Status](https://img.shields.io/travis/Serhii Londar/CrowdinSDK.svg?style=flat)](https://travis-ci.org/Serhii Londar/CrowdinSDK)
+[![CI Status](https://img.shields.io/travis/Serhii-Londar/CrowdinSDK.svg?style=flat)](https://travis-ci.org/Serhii Londar/CrowdinSDK)
 [![Version](https://img.shields.io/cocoapods/v/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
 [![License](https://img.shields.io/cocoapods/l/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
 [![Platform](https://img.shields.io/cocoapods/p/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
@@ -86,7 +86,6 @@ If you have pure Objective-C project than you will need to do some additional st
 
 - ```$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)``` to your Library Search Paths.
 - Add ```use_frameworks!``` to your Podfile.
-
 
 ## Author
 
