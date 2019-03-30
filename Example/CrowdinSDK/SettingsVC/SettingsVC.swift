@@ -14,8 +14,17 @@ class SettingsVC: BaseMenuVC {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: Notification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
+    }
+    
+    @IBAction func reloadUI(_ sender: AnyObject) {
+        self.tableView.reloadData()
     }
 }
 
@@ -77,7 +86,6 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             } else {
                 CrowdinSDK.enableSDKLocalization(true, localization: localization)
             }
-            CrowdinSDK.reloadUI()
         }
         self.tableView.reloadData()
     }
