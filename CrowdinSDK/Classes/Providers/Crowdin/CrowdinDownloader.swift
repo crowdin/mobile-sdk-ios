@@ -33,6 +33,8 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         self.error = error
         let completion = BlockOperation {
             self.success(self.localizations, self.strings, self.plurals)
+            print(self.strings)
+            print(self.plurals)
         }
         
         strings.forEach { (string) in

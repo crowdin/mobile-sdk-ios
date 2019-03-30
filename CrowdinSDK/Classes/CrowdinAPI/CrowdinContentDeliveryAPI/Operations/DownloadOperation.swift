@@ -19,6 +19,7 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
     var hashString: String
     var file: String
     var localization: String
+    var session: URLSession
     
     fileprivate var expectedContentLength: Int64 = 0
     fileprivate var currentContentLength: Int64 = 0
@@ -27,6 +28,9 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
         self.hashString = hash
         self.file = file
         self.localization = localization
+//        let configuration = URLSessionConfiguration()
+//        configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        self.session = URLSession(configuration: .ephemeral)
     }
     
     override func main() {
@@ -48,7 +52,7 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     }
     
     override func main() {
-        let result = CrowdinContentDeliveryAPI(hash: self.hashString).getPlurals(file: self.file, for: localization)
+        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getPlurals(file: self.file, for: localization)
         self.plurals = result.plurapls
         self.error = result.error
         self.completion?(self.plurals, self.error)
@@ -70,7 +74,7 @@ class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     }
     
     override func main() {
-        let result = CrowdinContentDeliveryAPI(hash: self.hashString).getStrings(file: self.file, for: localization)
+        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getStrings(file: self.file, for: localization)
         self.strings = result.strings
         self.error = result.error
         self.completion?(self.strings, self.error)

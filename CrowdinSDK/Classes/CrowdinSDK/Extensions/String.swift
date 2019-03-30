@@ -19,7 +19,7 @@ extension String {
         return String(format: NSLocalizedString(self, comment: String.empty), arguments: arguments)
     }
     
-    public func localized(with arguments: CVarArg...) -> String {
+    public func localized1(with arguments: CVarArg...) -> String {
         return String(format: NSLocalizedString(self, comment: String.empty), arguments)
     }
 }

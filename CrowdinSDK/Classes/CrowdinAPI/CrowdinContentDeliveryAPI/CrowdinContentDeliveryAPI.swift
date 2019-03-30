@@ -32,6 +32,11 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
     private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
     private let session: URLSession
     
+    init(hash: String, session: URLSession) {
+        self.hash = hash
+        self.session = session
+    }
+    
     init(hash: String) {
         self.hash = hash
         session = URLSession.shared
@@ -106,9 +111,9 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
     func getSync(file: String, for localization: String) -> (data: Data?, error: CrowdinContentDeliveryAPIError?) {
         let stringURL = buildURL(localization: localization, file: file)
         guard let url = URL(string: stringURL) else {
-            return (nil, nil)
+            return (nil, CrowdinContentDeliveryAPIError.badUrl(url: stringURL))
         }
-        let response = URLSession.shared.synchronousDataTask(url: url)
+        let response = self.session.synchronousDataTask(url: url)
         return (response.data, CrowdinContentDeliveryAPIError.error(error: response.error))
     }
     
