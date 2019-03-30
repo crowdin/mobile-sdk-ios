@@ -62,9 +62,9 @@ After you've add CrowdinSDK to your Podfile, please run ```pod install``` in you
 
 ## Setup SDK
 
-To start use CrowdinSDK you will need to import and initialize it your AppDelegate. By default CrowdinSDK uses Crowdin localization provider. To properly setup please read [providers documentation](/Documetation/Providers.md). 
+To start use CrowdinSDK you will need to import and initialize it your AppDelegate. By default CrowdinSDK uses Crowdin localization provider. To properly setup please read [providers documentation](Documentation/Providers.md). 
 
-Also you can use your own provider implementation to get detailed istructions please read [providers documentation](/Documetation/Providers.md) or look on 'CustomLocalizationProvider in Example project'.
+Also you can use your own provider implementation to get detailed istructions please read [providers documentation](Documentation/Providers.md) or look on 'CustomLocalizationProvider in Example project'.
 
 ##### Swift
 
