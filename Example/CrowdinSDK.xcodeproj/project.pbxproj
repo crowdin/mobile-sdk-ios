@@ -29,7 +29,7 @@
 		927159BE224BDF3400E8B567 /* PluralsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927159BD224BDF3400E8B567 /* PluralsCell.swift */; };
 		92A1BCDB2210A3C70086B3AC /* Localizable.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A1BCDA2210A3C70086B3AC /* Localizable.plist */; };
 		92A1BCE52210C7CD0086B3AC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1BCE42210C7CC0086B3AC /* R.generated.swift */; };
-		92E6543B224F7E87009178C6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92E6543A224F7E87009178C6 /* LaunchScreen.xib */; };
+		92AFC6C0224FA2E7008029F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92AFC6BF224FA2E7008029F3 /* LaunchScreen.storyboard */; };
 		92E65440224F8090009178C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92E65442224F8090009178C6 /* Localizable.strings */; };
 		92E65443224F8093009178C6 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 92E65445224F8093009178C6 /* Localizable.stringsdict */; };
 		92ECA8E422495E3A000DD994 /* PluralsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECA8E322495E3A000DD994 /* PluralsVC.swift */; };
@@ -78,7 +78,7 @@
 		927159BD224BDF3400E8B567 /* PluralsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralsCell.swift; sourceTree = "<group>"; };
 		92A1BCDA2210A3C70086B3AC /* Localizable.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Localizable.plist; sourceTree = "<group>"; };
 		92A1BCE42210C7CC0086B3AC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
-		92E6543A224F7E87009178C6 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = ../../../../../.Trash/LaunchScreen.xib; sourceTree = "<group>"; };
+		92AFC6BF224FA2E7008029F3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92E65441224F8090009178C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		92E65444224F8093009178C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		92ECA8E322495E3A000DD994 /* PluralsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralsVC.swift; sourceTree = "<group>"; };
@@ -148,11 +148,11 @@
 				9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */,
 				920F09BC21F9136A00078558 /* Resources */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				92E6543A224F7E87009178C6 /* LaunchScreen.xib */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				9268149D21FCE9350052F778 /* BaseMenuVC.swift */,
 				923C62DF2205EFBF001A6BC3 /* CustomProvider.swift */,
+				92AFC6BF224FA2E7008029F3 /* LaunchScreen.storyboard */,
 			);
 			name = "Example for CrowdinSDK";
 			path = CrowdinSDK;
@@ -360,6 +360,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -384,11 +385,11 @@
 				9255BF4C21FCBE2D00C80A40 /* GoogleService-Info.plist in Resources */,
 				C836C159221B1EF2006CEECF /* StringsVC.storyboard in Resources */,
 				92E65443224F8093009178C6 /* Localizable.stringsdict in Resources */,
-				92E6543B224F7E87009178C6 /* LaunchScreen.xib in Resources */,
 				9268149821FCD60E0052F778 /* MenuVC.storyboard in Resources */,
 				9232187221FE059F009F8339 /* DetailsVC.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 				92A1BCDB2210A3C70086B3AC /* Localizable.plist in Resources */,
+				92AFC6C0224FA2E7008029F3 /* LaunchScreen.storyboard in Resources */,
 				9232188421FE21E0009F8339 /* SettingsVC.storyboard in Resources */,
 				92ECA8E622495E41000DD994 /* PluralsVC.storyboard in Resources */,
 			);

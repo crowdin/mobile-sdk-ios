@@ -6,7 +6,7 @@ Default localization provider for CrowdinSDK. This class works with Crowdin cont
 
 There are two ways to setup CrowdinLocalizationProvider. 
 
-###Info.plist
+### Info.plist
 
 To setup CrowdinProvider you should add following keys to Info.plist file:
 
@@ -23,9 +23,9 @@ Example:
 In this case after you setup your SDK with CrowdinSDK start method, SDK will read all this values from Info.plist file and download all needed localization files from provided crowdin project.
 
 
-###AppDelegate:
+### AppDelegate:
 
-####Swift:
+#### Swift:
 
 In AppDelegate.swift file add:
 
@@ -39,7 +39,7 @@ In ```func application(_ application: UIApplication, didFinishLaunchingWithOptio
 CrowdinSDK.start(with: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings", "Base.strings"], pluralsFileNames: ["Localizable.stringsdict", "Base.stringsdict"], projectIdentifier: "content-er4", projectKey: "af3d3deb8d45b7f7ac4e58c83ca2bc0c")
 ```
 
-####Objective-C:
+#### Objective-C:
 In AppDelegate.m file add:
 
 ```@import CrowdinSDK``` or ```#import<CrowdinSDK/CrowdinSDK.h>```.
@@ -65,7 +65,7 @@ This provider recomended using only for testing purposes.
 
 To use this localization provider you should setup CrowdinSDK with custom provider:
 
-####Swift:
+#### Swift:
 
 In AppDelegate.swift file add:
 
@@ -79,7 +79,7 @@ In ```func application(_ application: UIApplication, didFinishLaunchingWithOptio
 CrowdinSDK.start(LocalLocalizationProvider())
 ```
 
-####Objective-C:
+#### Objective-C:
 In AppDelegate.m file add:
 
 ```@import CrowdinSDK``` or ```#import<CrowdinSDK/CrowdinSDK.h>```.

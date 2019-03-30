@@ -20,6 +20,7 @@ class PluralsVC: BaseMenuVC {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
     }
     
@@ -27,7 +28,7 @@ class PluralsVC: BaseMenuVC {
         return crowdinSDKTester.inSDKPluralsKeys
     }
     
-    var filteredResults: [String]!
+    var filteredResults: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
