@@ -71,14 +71,14 @@ import UIKit
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
     public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
-        let crowdinProvider = CrowdinProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey)
+        let crowdinProvider = CrowdinLocalizationProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey)
         self.setProvider(crowdinProvider)
         self.initializeLib()
     }
     
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
-        let crowdinProvider = CrowdinProvider()
+        let crowdinProvider = CrowdinLocalizationProvider()
         self.setProvider(crowdinProvider)
         self.initializeLib()
     }

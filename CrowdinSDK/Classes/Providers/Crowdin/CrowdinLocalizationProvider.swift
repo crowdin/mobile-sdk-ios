@@ -1,5 +1,5 @@
 //
-//  CrowdinProvider.swift
+//  CrowdinLocalizationProvider.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 2/2/19.
@@ -13,7 +13,7 @@ extension Notification.Name {
     public static let CrowdinProviderDidDownloadLocalization = Notification.Name(Notifications.CrowdinProviderDidDownloadLocalization.rawValue)
 }
 
-public class CrowdinProvider: BaseLocalizationProvider {    
+public class CrowdinLocalizationProvider: BaseLocalizationProvider {    
     public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
         let localization = Bundle.main.preferredLanguage
         let localStorage = CrowdinLocalLocalizationStorage(localization: localization)

@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
 [![Platform](https://img.shields.io/cocoapods/p/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
 
-## Example
+## Example Project
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project, clone the repo, and run `pod install` from the Example directory first. All functionality desctibed in [here](Documentation/TestApplication.md)
 
 
 ## Requirenments
@@ -28,7 +28,7 @@ To install CrowdinSDK via [cocoapods](https://cocoapods.org), please make shure 
 pod 'CrowdinSDK'
 ```
 
-To install from cocoapods spec repository (will be avalaible after publishing.):
+To install from cocoapods spec repository (will be avalaible after publishing to cocoapods.):
 
 ```
 target 'MyApp' do
@@ -49,7 +49,7 @@ To install from local sources (This option will be removed from this document in
 
 ```
 target 'MyApp' do
-  pod 'CrowdinSDK', :path => 'path to local sources'
+  pod 'CrowdinSDK', :path => '../../CrowdinSDK' - where '../../CrowdinSDK' is path to local sources.
 end
 ```
 
@@ -57,14 +57,14 @@ After you've add CrowdinSDK to your Podfile, please run ```pod install``` in you
 
 ### Carthage [TBA]
 
-### Swift Package Manager [TBA]
-
-### Manual
+### Manual [TBA]
 
 
 ## Setup SDK
 
-To start use CrowdinSDK you will need to import and initialize it your AppDelegate. 
+To start use CrowdinSDK you will need to import and initialize it your AppDelegate. By default CrowdinSDK uses Crowdin localization provider. To properly setup please read [providers documentation](./Documetation/Providers.md). 
+
+Also you can use your own provider implementation to get detailed istructions please read [providers documentation](./Documetation/Providers.md) or look on 'CustomLocalizationProvider in Example project'.
 
 ##### Swift
 
@@ -75,6 +75,7 @@ In ```func application(_ application: UIApplication, didFinishLaunchingWithOptio
 ```CrowdinSDK.start()```
 
 ##### Objective-C
+
 In AppDelegate.m add ```@import CrowdinSDK``` or ```#import<CrowdinSDK/CrowdinSDK.h>```.
 
 In ```- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions``` method add: 
@@ -86,15 +87,6 @@ If you have pure Objective-C project than you will need to do some additional st
 - ```$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)``` to your Library Search Paths.
 - Add ```use_frameworks!``` to your Podfile.
 
-## Set localization strings provider.
-
-### Crowdin [TBA]
-
-### Local
-
-### Custom strings
-
-### Firebase
 
 ## Author
 
