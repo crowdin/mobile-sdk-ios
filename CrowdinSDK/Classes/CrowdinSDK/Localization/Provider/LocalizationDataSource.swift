@@ -12,7 +12,6 @@ protocol LocalizationDataSourceProtocol {
     func findValues(for string: String, with format: String) -> [Any]?
 }
 
-
 class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
     var strings: [String: String]
     
@@ -55,7 +54,8 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         for (key, plural) in plurals {
             guard let plural = plural as? [AnyHashable: Any] else { continue }
             for(key1, value) in plural {
-                if key1 as! String == "NSStringLocalizedFormatKey" { continue }
+                guard let strinKey = key1 as? String else { continue }
+                if strinKey == "NSStringLocalizedFormatKey" { continue }
                 guard let value = value as? [String: String] else { continue }
                 for (key2, formatedString) in value {
                     guard key2 != "NSStringFormatSpecTypeKey" else { continue }

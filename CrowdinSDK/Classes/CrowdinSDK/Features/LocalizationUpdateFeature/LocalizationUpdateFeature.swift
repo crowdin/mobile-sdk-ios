@@ -50,7 +50,7 @@ extension UILabel: Updatable {
     
     @objc func editButtonHandler(_ sender: Any) {
         let storyboard = UIStoryboard(name: "LocalizationUpdateVC", bundle: Bundle(for: LocalizationUpdateVC.self))
-        let localizationUpdateVC = storyboard.instantiateViewController(withIdentifier: "LocalizationUpdateVC") as! LocalizationUpdateVC
+        guard let localizationUpdateVC = storyboard.instantiateViewController(withIdentifier: "LocalizationUpdateVC") as? LocalizationUpdateVC else { return }
         localizationUpdateVC.control = self
         UIApplication.shared.keyWindow?.rootViewController?.present(localizationUpdateVC, animated: true, completion: nil)
     }

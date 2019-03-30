@@ -11,7 +11,7 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
     required init(localization: String) {
         self.localization = localization
     }
-    
+    // swiftlint:disable force_try
     let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     
     var localization: String {
@@ -29,8 +29,8 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    private var _strings: Atomic<[String : String]> = Atomic([:])
-    var strings: [String : String] {
+    private var _strings: Atomic<[String: String]> = Atomic([:])
+    var strings: [String: String] {
         get {
             return _strings.value
         }
@@ -40,8 +40,8 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    private var _plurals: Atomic<[AnyHashable : Any]> = Atomic([:])
-    var plurals: [AnyHashable : Any] {
+    private var _plurals: Atomic<[AnyHashable: Any]> = Atomic([:])
+    var plurals: [AnyHashable: Any] {
         get {
             return _plurals.value
         }
@@ -54,10 +54,10 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
     func fetchData() {
         let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: localizationFilePath)
-        if let strings = localizationFile.file?[Keys.strings.rawValue] as? [String : String] {
+        if let strings = localizationFile.file?[Keys.strings.rawValue] as? [String: String] {
             self.strings = strings
         }
-        if let plurals = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable : Any] {
+        if let plurals = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable: Any] {
             self.plurals = plurals
         }
         let localizationsFilePath = self.localizationFolder.path + String.pathDelimiter + "localizations" + FileType.plist.extension
@@ -67,7 +67,7 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    func fetchData(completion: ([String], [String : String], [AnyHashable : Any]) -> Void) {
+    func fetchData(completion: ([String], [String: String], [AnyHashable: Any]) -> Void) {
         self.fetchData()
         completion(self.localizations, self.strings, self.plurals)
     }

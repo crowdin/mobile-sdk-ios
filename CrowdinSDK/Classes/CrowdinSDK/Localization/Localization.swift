@@ -28,6 +28,7 @@ class Localization {
     fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
     
     /// Instance of shared @Localization class instance.
+    // swiftlint:disable implicitly_unwrapped_optional
     static var current: Localization! = nil
 	
     /// Property for detecting and storing current SDK mode value.
@@ -77,7 +78,7 @@ class Localization {
 	}
 	
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
-    private var customLocalization : String? {
+    private var customLocalization: String? {
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.customLocalization.rawValue)
             UserDefaults.standard.synchronize()

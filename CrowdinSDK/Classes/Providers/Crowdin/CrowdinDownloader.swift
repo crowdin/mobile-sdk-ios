@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias CrowdinDownloaderSuccess = (_ localizations: [String], _ strings: [String : String], _ plurals: [AnyHashable : Any]) -> Void
+typealias CrowdinDownloaderSuccess = (_ localizations: [String], _ strings: [String: String], _ plurals: [AnyHashable: Any]) -> Void
 typealias CrowdinDownloaderError = (_ error: Error) -> Void
 
 protocol CrowdinDownloaderProtocol {
@@ -15,15 +15,16 @@ protocol CrowdinDownloaderProtocol {
 }
 
 class CrowdinDownloader: CrowdinDownloaderProtocol {
+    // swiftlint:disable implicitly_unwrapped_optional
     var success: CrowdinDownloaderSuccess!
     var error: CrowdinDownloaderError!
     
     fileprivate let operationQueue = OperationQueue()
-    fileprivate var strings: [String : String] = [:]
-    fileprivate var plurals: [AnyHashable : Any] = [:]
+    fileprivate var strings: [String: String] = [:]
+    fileprivate var plurals: [AnyHashable: Any] = [:]
     fileprivate var localizations: [String] = []
     
-    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, success: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void, error: @escaping (Error) -> Void) {
+    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, success: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void, error: @escaping (Error) -> Void) {
         self.strings = [:]
         self.plurals = [:]
         self.localizations = []
@@ -32,6 +33,8 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         self.error = error
         let completion = BlockOperation {
             self.success(self.localizations, self.strings, self.plurals)
+            print(self.strings)
+            print(self.plurals)
         }
         
         strings.forEach { (string) in

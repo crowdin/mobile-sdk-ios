@@ -27,4 +27,8 @@ extension PluralsCell: UITextFieldDelegate {
         let intArguments = arguments.map({ UInt($0) ?? 0 })
         stringValueLabel.text = keyValueLabel.text?.localized(with: intArguments)        
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
 }

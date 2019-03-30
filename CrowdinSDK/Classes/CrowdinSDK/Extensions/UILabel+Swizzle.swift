@@ -22,7 +22,7 @@ extension UILabel {
 		get { return UILabel.localizationValuesAssociation[self] }
 		set { UILabel.localizationValuesAssociation[self] = newValue }
 	}
-    
+    // swiftlint:disable implicitly_unwrapped_optional
     static var original: Method!
     static var swizzled: Method!
 
@@ -41,8 +41,8 @@ extension UILabel {
         swizzled_setText(text)
     }
 
-
     public class func swizzle() {
+        // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(setter: UILabel.text))!
         swizzled = class_getInstanceMethod(self, #selector(UILabel.swizzled_setText(_:)))!
         method_exchangeImplementations(original, swizzled)
@@ -53,4 +53,3 @@ extension UILabel {
         method_exchangeImplementations(swizzled, original)
     }
 }
-

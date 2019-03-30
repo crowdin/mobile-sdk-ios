@@ -22,12 +22,14 @@ class FolderBundle: FolderBundleProtocol {
     // TODO: Find way to remove forse  unwraping.
     init(folder: FolderProtocol) {
         self.folder = folder
+        // swiftlint:disable force_unwrapping
         self.bundle = Bundle(path: folder.path)!
     }
     
     init(path: String) {
         self.folder = Folder(path: path)
         try? self.folder.create()
+        // swiftlint:disable force_unwrapping
         self.bundle = Bundle(path: folder.path)!
     }
 }

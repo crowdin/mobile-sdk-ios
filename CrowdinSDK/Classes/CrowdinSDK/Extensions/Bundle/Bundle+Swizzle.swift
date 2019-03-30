@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension Bundle {
+    // swiftlint:disable implicitly_unwrapped_optional
     static var original: Method!
     static var swizzled: Method!
     
@@ -20,8 +21,8 @@ extension Bundle {
         return translation ?? key
     }
 
-    
     public class func swizzle() {
+        // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(Bundle.localizedString(forKey:value:table:)))!
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!
         method_exchangeImplementations(original, swizzled)

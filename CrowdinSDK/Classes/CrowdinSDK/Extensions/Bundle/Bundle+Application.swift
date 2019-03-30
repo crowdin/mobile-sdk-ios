@@ -9,18 +9,22 @@ import Foundation
 
 extension Bundle {
     var appName: String {
+        // swiftlint:disable force_cast
         return infoDictionary?["CFBundleName"] as! String
     }
     
     var bundleId: String {
+        // swiftlint:disable force_unwrapping
         return bundleIdentifier!
     }
     
     var versionNumber: String {
+        // swiftlint:disable force_cast
         return infoDictionary?["CFBundleShortVersionString"] as! String
     }
     
     var buildNumber: String {
+        // swiftlint:disable force_cast
         return infoDictionary?["CFBundleVersion"] as! String
     }
     

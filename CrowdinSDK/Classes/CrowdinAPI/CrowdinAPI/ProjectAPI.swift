@@ -23,7 +23,7 @@ public class ProjectAPI: CrowdinAPI {
         return "\(baseAPIPath)/\(apiPath)/\(projectIdentifier)/\(method)/"
     }
     
-    func buildParameters(with parameters: [String : String]? = nil) -> [String : String] {
+    func buildParameters(with parameters: [String: String]? = nil) -> [String: String] {
         var resultParameters = ["key" : projectKey]
         resultParameters["json"] = ""
         if let parameters = parameters {
