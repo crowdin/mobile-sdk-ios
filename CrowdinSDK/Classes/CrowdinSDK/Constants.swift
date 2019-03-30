@@ -19,3 +19,7 @@ enum Keys: String {
     case plurals
     case localizations
 }
+
+enum Notifications: String {
+    case CrowdinProviderDidDownloadLocalization
+}
