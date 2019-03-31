@@ -20,7 +20,7 @@ Example:
 
 <img src='./Providers/Infoplist.png' width="600"/>
 
-In this case after you setup your SDK with CrowdinSDK start method, SDK will read all this values from Info.plist file and download all needed localization files from provided crowdin project.
+In this case, after you set up your SDK with CrowdinSDK start method, SDK will read all these values from Info.plist file and download all needed localization files from the provided Crowdin project.
 
 
 ### AppDelegate:
@@ -59,9 +59,9 @@ After application will start it SDK will detect current device localization and 
 
 ## LocalLocalizationProvider
 
-Provider implementation will extract localization strings from application bundle and add append it with following format: "'local string' [cw]". 
+Provider implementation will extract localization strings from application bundle and add append it with the following format: "'local string' [cw]". 
 
-This provider recomended using only for testing purposes. 
+This provider recommended using only for testing purposes. 
 
 To use this localization provider you should setup CrowdinSDK with custom provider:
 
