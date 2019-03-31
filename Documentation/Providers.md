@@ -2,7 +2,7 @@
 
 ## CrowdinLocalizationProvider
 
-Default localization provider for CrowdinSDK. This class works with Crowdin content delivery API, downloads localization files and substitude device localization with downloaded.
+Default localization provider for CrowdinSDK. This class works with Crowdin content delivery API, downloads localization files and substitute device localization with downloaded.
 
 There are two ways to setup CrowdinLocalizationProvider. 
 
