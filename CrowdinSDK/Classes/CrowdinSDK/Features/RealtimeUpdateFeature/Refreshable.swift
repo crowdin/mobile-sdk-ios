@@ -15,12 +15,10 @@ extension UILabel: Refreshable {
     func refresh() {
         guard let key = self.localizationKey else { return }
         if let values = self.localizationValues as? [CVarArg] {
-            self.text = String(format: NSLocalizedString(key, comment: ""), arguments: values)
+            self.text = key.localized(with: values)
         } else if let key = self.localizationKey {
-            self.text = NSLocalizedString(key, comment: "")
+            self.text = key.localized
         }
-        // TODO: Check whether we need this for force redrawing.
-        self.setNeedsDisplay()
     }
 }
 
@@ -29,12 +27,10 @@ extension UIButton: Refreshable {
         UIControl.State.all.forEach { (state) in
             guard let key = self.localizationKeys?[state.rawValue] else { return }
             if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
-                self.setTitle( String(format: NSLocalizedString(key, comment: ""), arguments: values), for: state)
+                self.setTitle(key.localized(with: values), for: state)
             } else {
-                self.setTitle(NSLocalizedString(key, comment: ""), for: state)
+                self.setTitle(key.localized, for: state)
             }
         }
-        // TODO: Check whether we need this for force redrawing.
-        self.setNeedsDisplay()
     }
 }

@@ -67,6 +67,8 @@ import Foundation
             self.localStorage.plurals = plurals
             self.setupStrings()
             self.setupPlurals()
+            
+            CrowdinSDK.reloadUI()
         }
     }
     

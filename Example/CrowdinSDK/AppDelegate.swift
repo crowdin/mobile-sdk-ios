@@ -18,11 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-//        CrowdinSDK.start(with: FirebaseLocalizationProvider(path: "extracted_example"))
+        CrowdinSDK.start(with: FirebaseLocalizationProvider(path: "extracted_example"))
 //        CrowdinSDK.start(with: LocalLocalizationProvider())
         
         // Setup CrowdinSDK with crowdin localization provider.
-        CrowdinSDK.start(with: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings", "Base.strings"], pluralsFileNames: ["Localizable.stringsdict", "Base.stringsdict"], projectIdentifier: "content-er4", projectKey: "af3d3deb8d45b7f7ac4e58c83ca2bc0c")
+//        CrowdinSDK.start(with: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings", "Base.strings"], pluralsFileNames: ["Localizable.stringsdict", "Base.stringsdict"], projectIdentifier: "content-er4", projectKey: "af3d3deb8d45b7f7ac4e58c83ca2bc0c")
         
         CrowdinSDK.extractAllLocalization()
         

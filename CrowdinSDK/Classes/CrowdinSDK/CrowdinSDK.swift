@@ -160,5 +160,6 @@ extension CrowdinSDK {
             CrowdinSDK.unswizzle()
         }
         ScreenshotFeature.shared = ScreenshotFeature()
+        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
     }
 }
