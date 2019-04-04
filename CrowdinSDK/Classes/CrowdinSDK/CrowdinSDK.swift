@@ -149,6 +149,12 @@ extension CrowdinSDK {
         UILabel.unswizzle()
         UIButton.unswizzle()
     }
+    
+    public class func showSettings() {
+        let view = SettingsView.loadFromNib()!
+        view.center = CGPoint(x: 100, y: 100)
+        UIApplication.shared.keyWindow?.addSubview(view)
+    }
 }
 
 extension CrowdinSDK {
@@ -161,6 +167,5 @@ extension CrowdinSDK {
         }
         ScreenshotFeature.shared = ScreenshotFeature()
         RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
-        UIApplication.shared.keyWindow?.addSubview(SettingsView.loadFromNib()!)
     }
 }
