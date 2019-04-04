@@ -161,5 +161,6 @@ extension CrowdinSDK {
         }
         ScreenshotFeature.shared = ScreenshotFeature()
         RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
+        UIApplication.shared.keyWindow?.addSubview(SettingsView.loadFromNib()!)
     }
 }
