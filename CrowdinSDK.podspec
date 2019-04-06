@@ -22,11 +22,10 @@ TODO: Add long description of the pod here.
                        DESC
 
   spec.homepage         = 'https://github.com/Serhii Londar/CrowdinSDK'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
   spec.source           = { :git => 'https://github.com/Serhii Londar/CrowdinSDK.git', :tag => spec.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  spec.social_media_url    = 'https://twitter.com/serhii_londar'
 
   spec.ios.deployment_target = '9.0'
 
