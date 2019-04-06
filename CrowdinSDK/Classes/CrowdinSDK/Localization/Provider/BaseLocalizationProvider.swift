@@ -54,14 +54,19 @@ import Foundation
     }
     
     func loadLocalization() {
-        self.localStorage.fetchData { (_, _, _) in
-            self.setupPlurals()
-            self.setupStrings()
+        self.localStorage.fetchData { localizations, strings, plurals, errors in
+            self.setup(with: localizations, strings: strings, plurals: plurals, errors: errors)
         }
     }
     
     func fetchLocalization() {
-        self.remoteStorage.fetchData { (localizations, strings, plurals) in
+        self.remoteStorage.fetchData { localizations, strings, plurals, errors in
+            self.setup(with: localizations, strings: strings, plurals: plurals, errors: errors)
+        }
+    }
+    
+    func setup(with localizations: [String], strings: [String: String], plurals: [AnyHashable: Any], errors: [Error]) {
+        if errors.isEmpty {
             self.localStorage.localizations = localizations
             self.localStorage.strings = strings
             self.localStorage.plurals = plurals
@@ -69,6 +74,8 @@ import Foundation
             self.setupPlurals()
             
             CrowdinSDK.reloadUI()
+        } else {
+            errors.forEach({ print($0.localizedDescription) })
         }
     }
     

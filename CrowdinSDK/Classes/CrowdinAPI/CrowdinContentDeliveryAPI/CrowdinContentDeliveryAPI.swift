@@ -117,7 +117,7 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
         return (response.data, CrowdinContentDeliveryAPIError.error(error: response.error))
     }
     
-    func getStrings(file: String, for localization: String) -> CrowdinAPIStringsResult {
+    func getStringsSync(file: String, for localization: String) -> CrowdinAPIStringsResult {
         let response = self.getSync(file: file, for: localization)
         guard let data = response.data else {
             return (nil, CrowdinContentDeliveryAPIError.dataError)
@@ -128,7 +128,7 @@ class CrowdinContentDeliveryAPI: CrowdinContentDeliveryProtolol {
         return (dictionary as? [String: String], nil)
     }
     
-    func getPlurals(file: String, for localization: String) -> CrowdinAPIPluralsResult {
+    func getPluralsSync(file: String, for localization: String) -> CrowdinAPIPluralsResult {
         let response = self.getSync(file: file, for: localization)
         guard let data = response.data else {
             return (nil, CrowdinContentDeliveryAPIError.dataError)
