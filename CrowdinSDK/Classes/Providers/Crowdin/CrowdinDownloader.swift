@@ -31,8 +31,6 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         self.completion = completion
         let completionBlock = BlockOperation {
             self.completion(self.localizations, self.strings, self.plurals, self.errors)
-            print(self.strings)
-            print(self.plurals)
         }
         
         strings.forEach { (string) in
@@ -40,7 +38,6 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
             download.completion = { (strings, error) in
                 if let error = error {
                     self.errors.append(error)
-                    print(error.localizedDescription)
                 }
                 guard let strings = strings else { return }
                 self.strings.merge(with: strings)
@@ -54,7 +51,6 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
             download.completion = { (plurals, error) in
                 if let error = error {
                     self.errors.append(error)
-                    print(error.localizedDescription)
                 }
                 guard let plurals = plurals else { return }
                 self.plurals.merge(with: plurals)
@@ -67,7 +63,6 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         infoOperation.completion = { projectInfo, error in
             if let error = error {
                 self.errors.append(error)
-                print(error.localizedDescription)
             }
             guard let projectInfo = projectInfo else { return }
             self.localizations = projectInfo.languages?.compactMap({ $0.code }) ?? []
