@@ -67,9 +67,9 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    func fetchData(completion: ([String], [String: String], [AnyHashable: Any]) -> Void) {
+    func fetchData(completion: LocalizationStorageCompletion) {
         self.fetchData()
-        completion(self.localizations, self.strings, self.plurals)
+        completion(self.localizations, self.strings, self.plurals, [])
     }
     
     func saveLocalization() {
