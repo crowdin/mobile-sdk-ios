@@ -54,21 +54,25 @@ import Foundation
     }
     
     func loadLocalization() {
-        self.localStorage.fetchData { (_, _, _) in
+        self.localStorage.fetchData { (_, _, _, _) in
             self.setupPlurals()
             self.setupStrings()
         }
     }
     
     func fetchLocalization() {
-        self.remoteStorage.fetchData { (localizations, strings, plurals) in
-            self.localStorage.localizations = localizations
-            self.localStorage.strings = strings
-            self.localStorage.plurals = plurals
-            self.setupStrings()
-            self.setupPlurals()
-            
-            CrowdinSDK.reloadUI()
+        self.remoteStorage.fetchData { localizations, strings, plurals, errors in
+            if errors.isEmpty {
+                self.localStorage.localizations = localizations
+                self.localStorage.strings = strings
+                self.localStorage.plurals = plurals
+                self.setupStrings()
+                self.setupPlurals()
+                
+                CrowdinSDK.reloadUI()
+            } else {
+                errors.forEach({ print($0.localizedDescription) })
+            }
         }
     }
     
