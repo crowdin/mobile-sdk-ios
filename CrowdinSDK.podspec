@@ -58,6 +58,5 @@ TODO: Add long description of the pod here.
   spec.subspec 'CrowdinAPI' do |subspec|
       subspec.name = 'CrowdinAPI'
       subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
-      subspec.dependency 'BaseAPI'
   end
 end
