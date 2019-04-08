@@ -133,6 +133,10 @@ import UIKit
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
+    
+    public class func forceRefreshLocalization() {
+        ForceRefreshLocalizationFeature.refreshLocalization()
+    }
 }
 
 extension CrowdinSDK {

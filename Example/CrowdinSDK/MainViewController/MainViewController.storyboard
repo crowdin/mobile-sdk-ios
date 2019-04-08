@@ -53,15 +53,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdt-0Y-QJK">
+                                <rect key="frame" x="123.5" y="517" width="128" height="30"/>
+                                <state key="normal" title="Reload localization"/>
+                                <connections>
+                                    <action selector="reloadLocalization:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WhN-oz-MgD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cs6-rN-TmL" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="0Fy-ui-ff2"/>
+                            <constraint firstItem="Sdt-0Y-QJK" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="22f-0R-9vb"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="A75-9d-qXn" secondAttribute="trailing" constant="16" id="2Cb-sr-1AF"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GhZ-W1-hZc" secondAttribute="bottom" constant="20" id="3ES-pC-wrE"/>
                             <constraint firstItem="Ghv-FW-TCv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4M9-Ds-eMg"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4c4-xr-WTm"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="5MJ-Nu-Ygj"/>
+                            <constraint firstItem="Cs6-rN-TmL" firstAttribute="top" secondItem="Sdt-0Y-QJK" secondAttribute="bottom" constant="20" id="7ru-7i-fe3"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="hgT-Re-Azx" secondAttribute="trailing" constant="16" id="8lJ-SU-rIN"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="TC2-7j-Ca2"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="top" secondItem="Cs6-rN-TmL" secondAttribute="bottom" constant="20" id="U0X-ez-xmr"/>

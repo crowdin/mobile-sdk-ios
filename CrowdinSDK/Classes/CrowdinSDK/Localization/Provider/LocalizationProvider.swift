@@ -30,6 +30,8 @@ public typealias LocalizationStorageCompletion = (_ localizations: [String]?, _ 
     var localization: String { get set }
     var localizations: [String] { get }
     
+    func refreshLocalization()
+    
     func deintegrate()
     func localizedString(for key: String) -> String?
     func key(for string: String) -> String?

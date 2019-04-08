@@ -47,13 +47,13 @@ import Foundation
         pluralsBundle?.remove()
     }
     
-    // Private method
-    func refreshLocalization() {
-        self.loadLocalization()
+    public func refreshLocalization() {
+        self.loadLocalLocalization()
         self.fetchLocalization()
     }
     
-    func loadLocalization() {
+    // Private method
+    func loadLocalLocalization() {
         self.localStorage.fetchData { localizations, strings, plurals in
             self.setup(with: localizations, strings: strings, plurals: plurals)
         }
