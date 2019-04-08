@@ -37,7 +37,7 @@ TODO: Add long description of the pod here.
   
   spec.subspec 'Core' do |core|
       core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
-      core.resources = 'CrowdinSDK/Assets/**/*.{storyboard}'
+      core.resources = ['CrowdinSDK/Assets/**/*.{storyboard}', 'CrowdinSDK/Assets/**/*.{xib}']
   end
   
   spec.subspec 'FirebaseProvider' do |provider|
@@ -58,6 +58,5 @@ TODO: Add long description of the pod here.
   spec.subspec 'CrowdinAPI' do |subspec|
       subspec.name = 'CrowdinAPI'
       subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
-      subspec.dependency 'BaseAPI'
   end
 end
