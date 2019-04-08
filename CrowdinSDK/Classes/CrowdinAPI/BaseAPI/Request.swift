@@ -10,11 +10,11 @@ import Foundation
 public class Request {
     public var url: String
     public var method: RequestMethod
-    public var parameters: [String : String]?
-    public var headers: [String : String]?
+    public var parameters: [String: String]?
+    public var headers: [String: String]?
     public var body: Data?
     
-    public init(url: String, method: RequestMethod, parameters: [String : String]? = nil, headers: [String : String]? = nil, body: Data? = nil) {
+    public init(url: String, method: RequestMethod, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil) {
         self.url = url
         self.method = method
         self.parameters = parameters
@@ -28,6 +28,7 @@ public class Request {
             var request = URLRequest(url: url)
             if let headers = headers {
                 for headerKey in headers.keys {
+                    // swiftlint:disable force_unwrapping
                     request.addValue(headers[headerKey]!, forHTTPHeaderField: headerKey)
                 }
             }
