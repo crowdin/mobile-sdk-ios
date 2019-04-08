@@ -31,3 +31,5 @@
 "test_format_key_with_3_parameters" = "First parameter - %@, second parameter - %@, third parameter - %@ [BUNDLE]";
 
 "menu_formated_strings_button_title" = "Formated Strings [BUNDLE]";
+"strings_title" = "Strings [BUNDLE]";
+"plurals_title" = "Plurals [BUNDLE]";

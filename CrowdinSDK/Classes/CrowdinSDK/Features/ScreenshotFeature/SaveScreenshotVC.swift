@@ -9,6 +9,7 @@
 import UIKit
 
 class SaveScreenshotVC: UIViewController {
+    // swiftlint:disable implicitly_unwrapped_optional
     var screenshot: UIImage!
     
     @IBOutlet weak var imageView: UIImageView! {
@@ -41,5 +42,4 @@ class SaveScreenshotVC: UIViewController {
         try? screenshotFile.save()
         self.dismiss(self)
     }
-    
 }

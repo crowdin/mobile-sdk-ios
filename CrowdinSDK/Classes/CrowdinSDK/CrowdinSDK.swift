@@ -9,6 +9,15 @@ import UIKit
 
 /// Main interface For working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
+    /// Enum representing available SDK modes.
+    ///
+    /// autoSDK - Automaticly detect current localization and change localized strings to crowdin strings.
+    ///
+    /// customSDK - Enable user defined localization from crowdin supported languages.
+    ///
+    /// autoBundle - Does not enable crowdin localization. In this mode will be used bundle localization detected by system.
+    ///
+    /// customBundle - Set user defined localization from bundle supported languages.
 	public enum Mode: Int {
 		case autoSDK
 		case customSDK
@@ -24,6 +33,7 @@ import UIKit
         }
 	}
 	
+    /// Current SDK mode.
 	public class var mode: Mode {
 		get {
 			return Localization.current.mode
@@ -33,7 +43,7 @@ import UIKit
 		}
 	}
 	
-    /// Property for getting and setting localization language code.
+    /// Current localization language code.
 	public class var currentLocalization: String? {
 		get {
 			return Localization.current.currentLocalization
@@ -60,15 +70,15 @@ import UIKit
     ///   - hashString: Distribution hash value.
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
-    public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
-        let crowdinProvider = CrowdinProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey)
+    public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String]) {
+        let crowdinProvider = CrowdinLocalizationProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, localizations: localizations)
         self.setProvider(crowdinProvider)
         self.initializeLib()
     }
     
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
-        let crowdinProvider = CrowdinProvider()
+        let crowdinProvider = CrowdinLocalizationProvider()
         self.setProvider(crowdinProvider)
         self.initializeLib()
     }
@@ -119,7 +129,7 @@ import UIKit
     
     /// Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
     public class func extractAllLocalization() {
-        let folder = try! CrowdinFolder.shared.createFolder(with: "Extracted")
+        guard let folder = try? CrowdinFolder.shared.createFolder(with: "Extracted") else { return }
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
@@ -150,5 +160,6 @@ extension CrowdinSDK {
             CrowdinSDK.unswizzle()
         }
         ScreenshotFeature.shared = ScreenshotFeature()
+        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
     }
 }

@@ -13,13 +13,13 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
     
     var localizations: [String] = []
     
-    var strings: [String : String] = [:]{
+    var strings: [String: String] = [:] {
         didSet {
             self.save()
         }
     }
     
-    var plurals: [AnyHashable : Any] = [:] {
+    var plurals: [AnyHashable: Any] = [:] {
         didSet {
             self.save()
         }
@@ -31,13 +31,14 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    func fetchData(completion: @escaping ([String], [String : String], [AnyHashable : Any]) -> Void) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.refresh()
         completion([], strings, plurals)
     }
     
     required init(localization: String) {
         self.localization = localization
+        // swiftlint:disable force_try
         self.firebaseFolder = try! crowdinFolder.createFolder(with: "Firebase")
     }
     
@@ -54,7 +55,8 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
     
     func save() {
         let localizationDict = [Keys.strings.rawValue : strings, Keys.plurals.rawValue : plurals]
-        let stringsFile = DictionaryFile(path: self.firebaseFolder.path + String.pathDelimiter + localization + FileType.plist.extension)
+        let path = self.firebaseFolder.path + String.pathDelimiter + localization + FileType.plist.extension
+        let stringsFile = DictionaryFile(path: path)
         stringsFile.file = localizationDict
         try? stringsFile.save()
     }

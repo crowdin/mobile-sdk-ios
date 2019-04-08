@@ -1,0 +1,71 @@
+{
+  "name": "CrowdinSDK",
+  "version": "0.1.0",
+  "summary": "A short description of CrowdinSDK.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Serhii Londar/CrowdinSDK",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Serhii Londar": "serhii.londar@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Serhii Londar/CrowdinSDK.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "frameworks": "UIKit",
+  "static_framework": true,
+  "swift_version": "4.2",
+  "default_subspecs": [
+    "Core",
+    "CrowdinProvider"
+  ],
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "CrowdinSDK/Classes/CrowdinSDK/**/*",
+      "resources": "CrowdinSDK/Assets/**/*.{storyboard}"
+    },
+    {
+      "name": "FirebaseProvider",
+      "dependencies": {
+        "Firebase": [
+
+        ],
+        "FirebaseDatabase": [
+
+        ],
+        "CrowdinSDK/Core": [
+
+        ]
+      },
+      "source_files": "CrowdinSDK/Classes/Providers/Firebase/**/*"
+    },
+    {
+      "name": "CrowdinProvider",
+      "source_files": "CrowdinSDK/Classes/Providers/Crowdin/*.swift",
+      "dependencies": {
+        "CrowdinSDK/Core": [
+
+        ],
+        "CrowdinSDK/CrowdinAPI": [
+
+        ]
+      }
+    },
+    {
+      "name": "CrowdinAPI",
+      "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*",
+      "dependencies": {
+        "BaseAPI": [
+
+        ]
+      }
+    }
+  ]
+}

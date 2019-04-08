@@ -12,6 +12,7 @@ import CrowdinSDK
 
 class StringsVC: BaseMenuVC {
     let crowdinSDKTester = CrowdinProviderTester(localization: CrowdinSDK.currentLocalization ?? "en")
+    
     @IBOutlet var searchBar: UISearchBar! {
         didSet {
             searchBar.delegate = self
@@ -21,6 +22,7 @@ class StringsVC: BaseMenuVC {
 		didSet {
 			tableView.delegate = self
 			tableView.dataSource = self
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
 		}
 	}
 	
@@ -28,7 +30,7 @@ class StringsVC: BaseMenuVC {
         return crowdinSDKTester.inSDKStringsKeys
     }
     
-    var filteredResults: [String]!
+    var filteredResults: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

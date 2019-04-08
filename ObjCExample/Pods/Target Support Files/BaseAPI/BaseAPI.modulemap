@@ -1,0 +1,6 @@
+framework module BaseAPI {
+  umbrella header "BaseAPI-umbrella.h"
+
+  export *
+  module * { export * }
+}

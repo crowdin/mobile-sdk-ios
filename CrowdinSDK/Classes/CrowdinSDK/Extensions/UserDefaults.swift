@@ -27,7 +27,11 @@ extension UserDefaults {
 			return self.appleLanguages?.first
 		}
 		set {
-			self.appleLanguages = newValue != nil ? [newValue!] : nil
+            if let value = newValue {
+                self.appleLanguages = [value]
+            } else {
+                self.appleLanguages = nil
+            }
 		}
 	}
 	

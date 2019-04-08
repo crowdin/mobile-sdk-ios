@@ -80,7 +80,7 @@ extension FormatSpecifier {
 	}
 	
 	init?(formatChar char: Swift.Character) {
-		let lcChar = Swift.String(char).lowercased().first!
+        guard let lcChar = Swift.String(char).lowercased().first else { return nil }
 		switch lcChar {
 		case "@":
 			self = .object
@@ -146,7 +146,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 			return (char, nil)
 		} else {
 			// Remove the "$" at the end of the positional specifier, and convert to Int
-			let posRange1 = NSRange(location: posRange.location, length: posRange.length-1)
+			let posRange1 = NSRange(location: posRange.location, length: posRange.length - 1)
 			let pos = nsString.substring(with: posRange1)
 			return (char, Int(pos))
 		}
@@ -191,7 +191,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 extension NSRegularExpression {
 	fileprivate func firstSubstring(input: String) -> String? {
 		let nsInput = input as NSString
-		let inputRange = NSMakeRange(0, nsInput.length)
+		let inputRange = NSRange(location: 0, length: nsInput.length)
 		
 		guard let match = self.firstMatch(in: input, options: [], range: inputRange) else {
 			return nil

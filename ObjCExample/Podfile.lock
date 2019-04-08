@@ -1,0 +1,30 @@
+PODS:
+  - BaseAPI (0.1.5)
+  - CrowdinSDK (0.1.0):
+    - CrowdinSDK/Core (= 0.1.0)
+    - CrowdinSDK/CrowdinProvider (= 0.1.0)
+  - CrowdinSDK/Core (0.1.0)
+  - CrowdinSDK/CrowdinAPI (0.1.0):
+    - BaseAPI
+  - CrowdinSDK/CrowdinProvider (0.1.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+
+DEPENDENCIES:
+  - CrowdinSDK (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BaseAPI
+
+EXTERNAL SOURCES:
+  CrowdinSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BaseAPI: 9248feed65933cd20283514e7a9917ecba1b69c0
+  CrowdinSDK: 604a94caa2399768caa913801d24f4da98b085da
+
+PODFILE CHECKSUM: f3277f5a7ea93e9aea586360c382e16466237cd2
+
+COCOAPODS: 1.6.1
