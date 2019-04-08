@@ -8,6 +8,10 @@
 import Foundation
 
 protocol Feature {
-    var enabled: Bool { get set }
-    init(enabled: Bool)
+    static var shared: Self? { get set }
+    static var enabled: Bool { get set }
+}
+
+protocol ActionFeature: Feature {
+    func action()
 }

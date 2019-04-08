@@ -133,6 +133,20 @@ import UIKit
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
+    
+    public class func forceRefreshLocalization() {
+        ForceRefreshLocalizationFeature.refreshLocalization()
+    }
+    
+    public class func startIntervalUpdates(interval: TimeInterval) {
+        IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+        IntervalUpdateFeature.shared?.start()
+    }
+    
+    public class func stopIntervalUpdates() {
+        IntervalUpdateFeature.shared?.stop()
+        IntervalUpdateFeature.shared = nil
+    }
 }
 
 extension CrowdinSDK {
