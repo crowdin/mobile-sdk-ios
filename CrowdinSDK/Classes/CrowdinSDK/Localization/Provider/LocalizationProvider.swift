@@ -7,10 +7,11 @@
 
 import Foundation
 
+public typealias LocalizationStorageCompletion = (_ localizations: [String]?, _ strings: [String: String]?, _ plurals: [AnyHashable: Any]?) -> Void
+
 @objc public protocol LocalizationStorage {
     var localization: String { get set }
-    func fetchData(completion: @escaping (_ localizations: [String], _ strings: [String: String], _ plurals: [AnyHashable: Any]) -> Void)
-    init(localization: String)
+    func fetchData(completion: @escaping LocalizationStorageCompletion)
 }
 
 @objc public protocol RemoteLocalizationStorage: LocalizationStorage { }

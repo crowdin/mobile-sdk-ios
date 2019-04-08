@@ -22,7 +22,7 @@ class FirebaseRemoteLocalizationStorage: RemoteLocalizationStorage {
         self.path = path
     }
     
-    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion) {
         let reference = self.database.child(path)
         reference.observe(DataEventType.value) { (snapshot: DataSnapshot) in
             if var dictionary = snapshot.value as? [String: Any] {
