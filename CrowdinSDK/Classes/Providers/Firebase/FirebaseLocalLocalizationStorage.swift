@@ -31,7 +31,7 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.refresh()
         completion([], strings, plurals)
     }

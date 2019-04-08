@@ -42,5 +42,4 @@ class SaveScreenshotVC: UIViewController {
         try? screenshotFile.save()
         self.dismiss(self)
     }
-    
 }

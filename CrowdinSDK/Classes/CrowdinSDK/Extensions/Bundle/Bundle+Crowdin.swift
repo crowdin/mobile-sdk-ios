@@ -12,8 +12,8 @@ extension Bundle {
         return infoDictionary?["CrowdinHash"] as? String
     }
     
-    var projectIdentifier: String? {
-        return infoDictionary?["CrowdinProjectIdentifier"] as? String
+    var cw_localizations: [String]? {
+        return infoDictionary?["CrowdinLocalizations"] as? [String]
     }
     
     var projectKey: String? {

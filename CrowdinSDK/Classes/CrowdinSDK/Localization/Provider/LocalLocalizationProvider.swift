@@ -9,7 +9,7 @@ import Foundation
 
 class EmptyRemoteStorage: RemoteLocalizationStorage {
     var localization: String
-    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) { }
+    func fetchData(completion: @escaping LocalizationStorageCompletion) { }
     required init(localization: String) {
         self.localization = localization
     }
@@ -26,7 +26,7 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
     var strings: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
-    func fetchData(completion: @escaping ([String], [String: String], [AnyHashable: Any]) -> Void) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.refresh()
         completion(localizations, strings, plurals)
     }
