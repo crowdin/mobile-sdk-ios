@@ -10,7 +10,7 @@ import Foundation
 typealias CrowdinDownloaderCompletion = (_ strings: [String: String]?, _ plurals: [AnyHashable: Any]?, _ errors: [Error]?) -> Void
 
 protocol CrowdinDownloaderProtocol {
-    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion)
+    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion)
 }
 
 class CrowdinDownloader: CrowdinDownloaderProtocol {
@@ -22,7 +22,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
     
-    func download(strings: [String], plurals: [String], with hash: String, projectIdentifier: String, projectKey: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
         let completionBlock = BlockOperation {
             self.completion(self.strings, self.plurals, self.errors)

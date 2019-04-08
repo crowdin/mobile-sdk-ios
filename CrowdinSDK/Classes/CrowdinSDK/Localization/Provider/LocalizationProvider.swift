@@ -12,7 +12,6 @@ public typealias LocalizationStorageCompletion = (_ localizations: [String]?, _ 
 @objc public protocol LocalizationStorage {
     var localization: String { get set }
     func fetchData(completion: @escaping LocalizationStorageCompletion)
-    init(localization: String)
 }
 
 @objc public protocol RemoteLocalizationStorage: LocalizationStorage { }
