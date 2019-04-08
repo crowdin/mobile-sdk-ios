@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias LocalizationStorageCompletion = (_ localizations: [String], _ strings: [String: String], _ plurals: [AnyHashable: Any], _ errors: [Error]) -> Void
+public typealias LocalizationStorageCompletion = (_ localizations: [String], _ strings: [String: String], _ plurals: [AnyHashable: Any]) -> Void
 
 @objc public protocol LocalizationStorage {
     var localization: String { get set }
