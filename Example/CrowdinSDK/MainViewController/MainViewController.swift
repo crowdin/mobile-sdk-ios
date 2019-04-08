@@ -70,7 +70,9 @@
         }
         
         @IBAction func reloadLocalization(_ sender: AnyObject) {
-            CrowdinSDK.forceRefreshLocalization()
+//            CrowdinSDK.forceRefreshLocalization()
+            
+            CrowdinSDK.startIntervalUpdates(interval: 60)
         }
     }
 
