@@ -54,20 +54,31 @@ import Foundation
     }
     
     func loadLocalization() {
-        self.localStorage.fetchData { (_, _, _) in
-            self.setupPlurals()
-            self.setupStrings()
+        self.localStorage.fetchData { localizations, strings, plurals in
+            self.setup(with: localizations, strings: strings, plurals: plurals)
         }
     }
     
     func fetchLocalization() {
-        self.remoteStorage.fetchData { (localizations, strings, plurals) in
-            self.localStorage.localizations = localizations
-            self.localStorage.strings = strings
-            self.localStorage.plurals = plurals
-            self.setupStrings()
-            self.setupPlurals()
+        self.remoteStorage.fetchData { localizations, strings, plurals in
+            self.setup(with: localizations, strings: strings, plurals: plurals)
         }
+    }
+    
+    func setup(with localizations: [String]?, strings: [String: String]?, plurals: [AnyHashable: Any]?) {
+        if let strings = strings {
+            self.localStorage.strings = strings
+        }
+        if let plurals = plurals {
+            self.localStorage.plurals = plurals
+        }
+        if let localizations = localizations {
+            self.localStorage.localizations = localizations
+        }
+        self.setupStrings()
+        self.setupPlurals()
+        
+        CrowdinSDK.reloadUI()
     }
     
     // Setup plurals

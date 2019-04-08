@@ -70,8 +70,8 @@ import UIKit
     ///   - hashString: Distribution hash value.
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
-    public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
-        let crowdinProvider = CrowdinLocalizationProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey)
+    public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String]) {
+        let crowdinProvider = CrowdinLocalizationProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, localizations: localizations)
         self.setProvider(crowdinProvider)
         self.initializeLib()
     }
@@ -160,5 +160,6 @@ extension CrowdinSDK {
             CrowdinSDK.unswizzle()
         }
         ScreenshotFeature.shared = ScreenshotFeature()
+        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
     }
 }
