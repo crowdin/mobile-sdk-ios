@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrowdinSDK.start(with: CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true))
 //        CrowdinSDK.start()
         
-         CrowdinSDK.start(with: CrowdinSDKConfig.config().with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true))
+//         CrowdinSDK.start(with: CrowdinSDKConfig.config().with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true))
         
         CrowdinSDK.extractAllLocalization()
         
