@@ -14,10 +14,10 @@ extension Notification.Name {
 }
 
 public class CrowdinLocalizationProvider: BaseLocalizationProvider {    
-    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String]) {
+    public init(config: CrowdinProviderConfig) {
         let localization = Bundle.main.preferredLanguage
-        let localStorage = CrowdinLocalLocalizationStorage(localization: localization, localizations: localizations)
-        let remoteStorage = CrowdinRemoteLocalizationStorage(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, localization: localization, localizations: localizations)
+        let localStorage = CrowdinLocalLocalizationStorage(localization: localization, localizations: config.localizations)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(hashString: config.hashString, stringsFileNames: config.stringsFileNames, pluralsFileNames: config.pluralsFileNames, localization: localization, localizations: config.localizations)
         super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     

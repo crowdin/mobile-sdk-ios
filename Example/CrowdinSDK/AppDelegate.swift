@@ -22,8 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        CrowdinSDK.start(with: LocalLocalizationProvider())
         
         // Setup CrowdinSDK with crowdin localization provider.
-//        CrowdinSDK.start(with: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"])
-        CrowdinSDK.start()
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"])
+        CrowdinSDK.start(with: CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true))
+//        CrowdinSDK.start()
+        
+         CrowdinSDK.start(with: CrowdinSDKConfig.config().with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true))
         
         CrowdinSDK.extractAllLocalization()
         
