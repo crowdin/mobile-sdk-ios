@@ -471,6 +471,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh",
 				"${PODS_ROOT}/../../CrowdinSDK/Assets/LocalizationUpdateVC.storyboard",
 				"${PODS_ROOT}/../../CrowdinSDK/Assets/SaveScreenshotVC.storyboard",
+				"${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsView.xib",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
@@ -478,6 +479,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LocalizationUpdateVC.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SaveScreenshotVC.storyboardc",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SettingsView.nib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -498,7 +500,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/CrowdinSDK/R.generated.swift,
+				"$SRCROOT/CrowdinSDK/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
