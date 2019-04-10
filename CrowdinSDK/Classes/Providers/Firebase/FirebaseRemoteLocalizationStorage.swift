@@ -31,7 +31,7 @@ class FirebaseRemoteLocalizationStorage: RemoteLocalizationStorage {
                 let lolcaizationDict = dictionary[self.localization] as? [String: Any] ?? [:]
                 let strings = lolcaizationDict[Keys.strings.rawValue] as? [String: String] ?? [:]
                 let plurals = lolcaizationDict[Keys.plurals.rawValue] as? [AnyHashable: Any] ?? [:]
-                completion(localizations, strings, plurals, [])
+                completion(localizations, strings, plurals)
             } else {
                 self.uploadLocalization()
                 self.fetchData(completion: completion)

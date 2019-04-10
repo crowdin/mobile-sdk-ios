@@ -22,15 +22,16 @@
 	<string>1</string>
 	<key>CrowdinHash</key>
 	<string>66f02b964afeb77aea8d191e68748abc</string>
+	<key>CrowdinLocalizations</key>
+	<array>
+		<string>de</string>
+		<string>en</string>
+	</array>
 	<key>CrowdinPluralsFileNames</key>
 	<array>
 		<string>Localizable.stringsdict</string>
 		<string>Base.stringsdict</string>
 	</array>
-	<key>CrowdinProjectIdentifier</key>
-	<string>content-er4</string>
-	<key>CrowdinProjectKey</key>
-	<string>af3d3deb8d45b7f7ac4e58c83ca2bc0c</string>
 	<key>CrowdinStringsFileNames</key>
 	<array>
 		<string>Localizable.strings</string>

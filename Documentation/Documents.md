@@ -19,6 +19,6 @@ Used for plurals localization.
 
 <img src='./Documents/PluralsFilder.png' width="600"/>
 
-#Screenshots folder
+## Screenshots folder
 
 Here sdk will save all the screenshots.

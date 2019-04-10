@@ -9,6 +9,7 @@ import Foundation
 
 public typealias BaseAPICompletion = (Data?, URLResponse?, Error?) -> Swift.Void
 public typealias BaseAPIResult = SynchronousDataTaskResult
+
 open class BaseAPI {
     var session: URLSession
     
@@ -82,7 +83,7 @@ open class BaseAPI {
             return (nil, nil, buildRequest.error)
         }
     }
-
+    
     public func patch(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .PATCH, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()

@@ -7,10 +7,6 @@
 
 import Foundation
 
-enum Errors: Error {
-    case badUrl(url: String)
-}
-
 public class Request {
     public var url: String
     public var method: RequestMethod
@@ -31,15 +27,16 @@ public class Request {
         if let url = url {
             var request = URLRequest(url: url)
             if let headers = headers {
-                for (headerKey, headerheaderVaslue) in headers {
-                    request.addValue(headerheaderVaslue, forHTTPHeaderField: headerKey)
+                for headerKey in headers.keys {
+                    // swiftlint:disable force_unwrapping
+                    request.addValue(headers[headerKey]!, forHTTPHeaderField: headerKey)
                 }
             }
             request.httpMethod = method.rawValue
             request.httpBody = body
             return (request, nil)
         } else {
-            return (nil, Errors.badUrl(url: self.urlWithParameters()))
+            return (nil, NSError(domain:"Unable to create URL", code:999, userInfo:nil) )
         }
     }
     

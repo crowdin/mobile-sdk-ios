@@ -8,7 +8,8 @@
 import Foundation
 
 class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
-    required init(localization: String) {
+    required init(localization: String, localizations: [String]) {
+        self.localizations = localizations
         self.localization = localization
     }
     // swiftlint:disable force_try
@@ -19,15 +20,8 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
             self.fetchData()
         }
     }
-    
-    var localizations: [String] = [] {
-        didSet {
-            let localizationsFilePath = self.localizationFolder.path + String.pathDelimiter + "localizations" + FileType.plist.extension
-            let localizationsFile = DictionaryFile(path: localizationsFilePath)
-            localizationsFile.file = [Keys.localizations.rawValue : localizations]
-            try? localizationsFile.save()
-        }
-    }
+
+    var localizations: [String]
     
     private var _strings: Atomic<[String: String]> = Atomic([:])
     var strings: [String: String] {
@@ -60,16 +54,11 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         if let plurals = localizationFile.file?[Keys.plurals.rawValue] as? [AnyHashable: Any] {
             self.plurals = plurals
         }
-        let localizationsFilePath = self.localizationFolder.path + String.pathDelimiter + "localizations" + FileType.plist.extension
-        let localizationsFile = DictionaryFile(path: localizationsFilePath)
-        if let localizations = localizationsFile.file?[Keys.localizations.rawValue] as? [String] {
-            self.localizations = localizations
-        }
     }
     
     func fetchData(completion: LocalizationStorageCompletion) {
         self.fetchData()
-        completion(self.localizations, self.strings, self.plurals, [])
+        completion(self.localizations, self.strings, self.plurals)
     }
     
     func saveLocalization() {

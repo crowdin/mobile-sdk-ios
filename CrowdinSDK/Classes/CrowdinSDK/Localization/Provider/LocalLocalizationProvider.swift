@@ -28,7 +28,7 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.refresh()
-        completion(localizations, strings, plurals, [])
+        completion(localizations, strings, plurals)
     }
     
     convenience init(additionalWord: String, localization: String) {

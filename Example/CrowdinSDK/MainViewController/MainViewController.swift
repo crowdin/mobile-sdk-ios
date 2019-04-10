@@ -59,11 +59,21 @@ class MainViewController: BaseMenuVC {
         textLabel.text = NSLocalizedString("test_key", comment: "")
         textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
         textLabel2.text = pineapplesCountUniversal(count: 0)
+        
+        let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func showDetaildVC(_ sender: AnyObject) {
         let detailsVC = UIStoryboard(name: "DetailsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
         self.navigationController?.pushViewController(detailsVC, animated: true)
+    }
+    
+    @IBAction func reloadLocalization(_ sender: AnyObject) {
+//            CrowdinSDK.forceRefreshLocalization()
+        
+        CrowdinSDK.startIntervalUpdates(interval: 60)
     }
 }
 

@@ -70,16 +70,30 @@ import UIKit
     ///   - hashString: Distribution hash value.
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
-    public class func start(with hashString: String, stringsFileNames: [String], pluralsFileNames: [String], projectIdentifier: String, projectKey: String) {
-        let crowdinProvider = CrowdinLocalizationProvider(hashString: hashString, stringsFileNames: stringsFileNames, pluralsFileNames: pluralsFileNames, projectIdentifier: projectIdentifier, projectKey: projectKey)
-        self.setProvider(crowdinProvider)
+    public class func start(with config: CrowdinSDKConfig) {
+        if let crowdinProviderConfig = config.crowdinProviderConfig {
+            let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
+            self.setProvider(crowdinProvider)
+        }
+        
+        if config.screnshotsEnabled {
+            ScreenshotFeature.shared = ScreenshotFeature()
+        }
+        
+        if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
+            IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+        }
+        
+        if config.reatimeUpdatesEnabled {
+            RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
+        }
+        
         self.initializeLib()
     }
     
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
-        let crowdinProvider = CrowdinLocalizationProvider()
-        self.setProvider(crowdinProvider)
+        self.setProvider(CrowdinLocalizationProvider())
         self.initializeLib()
     }
 	
@@ -132,6 +146,20 @@ import UIKit
         guard let folder = try? CrowdinFolder.shared.createFolder(with: "Extracted") else { return }
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
+    }
+    
+    public class func forceRefreshLocalization() {
+        ForceRefreshLocalizationFeature.refreshLocalization()
+    }
+    
+    public class func startIntervalUpdates(interval: TimeInterval) {
+        IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+        IntervalUpdateFeature.shared?.start()
+    }
+    
+    public class func stopIntervalUpdates() {
+        IntervalUpdateFeature.shared?.stop()
+        IntervalUpdateFeature.shared = nil
     }
 }
 
