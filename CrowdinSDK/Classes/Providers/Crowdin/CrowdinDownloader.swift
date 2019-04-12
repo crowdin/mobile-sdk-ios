@@ -29,7 +29,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsDownloadOperation(hash: hash, file: string, localization: localization)
+            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string)
             download.completion = { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
@@ -50,7 +50,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsDownloadOperation(hash: hash, file: plural, localization: localization)
+            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural)
             download.completion = { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {
