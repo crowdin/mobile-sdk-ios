@@ -11,11 +11,22 @@ import UIKit
 class SaveScreenshotVC: UIViewController {
     // swiftlint:disable implicitly_unwrapped_optional
     var screenshot: UIImage!
+    var descriptionText: String!
+    
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    @IBOutlet weak var textView: UITextView! {
+        didSet {
+            textView.text = descriptionText
+            textView.isHidden = true
+        }
+    }
     
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
             imageView.image = screenshot
             imageView.contentMode = .scaleAspectFit
+            imageView.isHidden = false
         }
     }
     
@@ -41,5 +52,15 @@ class SaveScreenshotVC: UIViewController {
         screenshotFile.file = screenshot
         try? screenshotFile.save()
         self.dismiss(self)
+    }
+    
+    @IBAction func segmentedControlAction(sender: AnyObject) {
+        if(segmentControl.selectedSegmentIndex == 0) {
+            self.imageView.isHidden = false
+            self.textView.isHidden = true
+        } else if(segmentControl.selectedSegmentIndex == 1) {
+            self.imageView.isHidden = true
+            self.textView.isHidden = false
+        }
     }
 }
