@@ -42,6 +42,24 @@ class ScreenshotFeature {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
     
+    func captureDescription() -> String {
+        guard let window = self.window else { return "" }
+        return self.getDescription(from: window)
+    }
+    
+    func getDescription(from view: UIView) -> String {
+        var description = ""
+        view.subviews.forEach { (view) in
+            if let label = view as? UILabel, let localizationKey = label.localizationKey {
+                if let frame = label.superview?.convert(label.frame, to: window), let text = label.text {
+                    description +=  "\(localizationKey) :\nText - \(text)\nFrame - \(frame.debugDescription)\n\n"
+                }
+            }
+            description += getDescription(from: view)
+        }
+        return description
+    }
+    
     func addBorders(to view: UIView) {
         view.subviews.forEach { (view) in
             if let label = view as? UILabel, label.localizationKey != nil {

@@ -48,20 +48,26 @@ class MainViewController: BaseMenuVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: Notification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didDownloadLocalization), name: Notification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
         
         self.title = NSLocalizedString("main_title", comment: "")
     }
     
+    @objc func didDownloadLocalization() {
+        self.showLocalizationUpdateAlert()
+    }
+    
     @IBAction func reloadUI(_ sender: AnyObject) {
-        self.title = NSLocalizedString("main_title", comment: "")
-        textLabel.text = NSLocalizedString("test_key", comment: "")
-        textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
-        textLabel2.text = pineapplesCountUniversal(count: 0)
-        
         let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showLocalizationUpdateAlert() {
+        self.title = NSLocalizedString("main_title", comment: "")
+        textLabel.text = NSLocalizedString("test_key", comment: "")
+        textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
+        textLabel2.text = pineapplesCountUniversal(count: 10)
     }
     
     @IBAction func showDetaildVC(_ sender: AnyObject) {

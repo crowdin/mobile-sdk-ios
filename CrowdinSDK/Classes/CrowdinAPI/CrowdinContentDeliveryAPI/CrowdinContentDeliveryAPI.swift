@@ -9,7 +9,7 @@ import Foundation
 
 enum CrowdinContentDeliveryAPIError: Error {
     case badUrl(url: String)
-    case parsingError(file: String)
+    case parsingError(filePath: String)
     case dataError
     case error(error: Error?)
 }
@@ -21,8 +21,8 @@ typealias CrowdinAPIStringsCompletion = (([String: String]?, CrowdinContentDeliv
 typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, CrowdinContentDeliveryAPIError?) -> Void)
 
 protocol CrowdinContentDeliveryProtolol {
-    func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion)
-    func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion)
+    func getPlurals(filePath: String, completion: @escaping CrowdinAPIPluralsCompletion)
+    func getStrings(filePath: String, completion: @escaping CrowdinAPIStringsCompletion)
 }
 
 class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
@@ -41,39 +41,39 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
         super.init(session: URLSession.shared)
     }
     
-    private func buildURL(localization: String, file: String) -> String {
-        return baseURL + String.pathDelimiter + hash + String.pathDelimiter + localization + String.pathDelimiter + file
+    private func buildURL(filePath: String) -> String {
+        return baseURL + String.pathDelimiter + hash + filePath
     }
     
-    private func get(file: String, for localization: String, completion: @escaping CrowdinAPIDataCompletion) {
-        let stringURL = buildURL(localization: localization, file: file)
+    private func get(filePath: String, completion: @escaping CrowdinAPIDataCompletion) {
+        let stringURL = buildURL(filePath: filePath)
         super.get(url: stringURL) { (data, _, error) in
             completion(data, CrowdinContentDeliveryAPIError.error(error: error))
         }
     }
     
-    func getStrings(file: String, for localization: String, completion: @escaping CrowdinAPIStringsCompletion) {
-        self.get(file: file, for: localization) { (data, _) in
+    func getStrings(filePath: String, completion: @escaping CrowdinAPIStringsCompletion) {
+        self.get(filePath: filePath) { (data, _) in
             guard let data = data else {
                 completion(nil, CrowdinContentDeliveryAPIError.dataError)
                 return
             }
             guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
-                completion(nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
+                completion(nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
                 return
             }
             completion(dictionary as? [String: String], nil)
         }
     }
     
-    func getPlurals(file: String, for localization: String, completion: @escaping CrowdinAPIPluralsCompletion) {
-        self.get(file: file, for: localization) { (data, _) in
+    func getPlurals(filePath: String, completion: @escaping CrowdinAPIPluralsCompletion) {
+        self.get(filePath: filePath) { (data, _) in
             guard let data = data else {
                 completion(nil, CrowdinContentDeliveryAPIError.dataError)
                 return
             }
             guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
-                completion(nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
+                completion(nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
                 return
             }
             completion(dictionary, nil)
@@ -82,12 +82,12 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     
     // MARK: - Sync methods
     
-    func getFileSync(file: String, for localization: String) -> (data: Data?, error: CrowdinContentDeliveryAPIError?) {
-        let stringURL = buildURL(localization: localization, file: file)
+    func getFileSync(filePath: String) -> (data: Data?, error: CrowdinContentDeliveryAPIError?) {
+        let stringURL = buildURL(filePath: filePath)
         let response = self.get(url: stringURL, parameters: nil, headers: nil)
         if let httpURLResponse = response.response as? HTTPURLResponse {
             let etag = httpURLResponse.allHeaderFields["Etag"]
-            UserDefaults.standard.setValue(etag, forKey: file)
+            UserDefaults.standard.setValue(etag, forKey: filePath)
             UserDefaults.standard.synchronize()
         }
         if let error = response.error {
@@ -97,9 +97,9 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
         }
     }
     
-    func checkFileSync(file: String, for localization: String) -> Bool {
-        let stringURL = buildURL(localization: localization, file: file)
-        if let etag = UserDefaults.standard.string(forKey: file) {
+    func checkFileSync(filePath: String) -> Bool {
+        let stringURL = buildURL(filePath: filePath)
+        if let etag = UserDefaults.standard.string(forKey: filePath) {
             let response = self.get(url: stringURL, parameters: nil, headers: ["If-None-Match": etag])
             var download = true
             if let httpURLResponse = response.response as? HTTPURLResponse {
@@ -111,28 +111,28 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
         }
     }
     
-    func getStringsSync(file: String, for localization: String) -> CrowdinAPIStringsResult {
-        if self.checkFileSync(file: file, for: localization) {
-            let response = self.getFileSync(file: file, for: localization)
+    func getStringsSync(filePath: String) -> CrowdinAPIStringsResult {
+        if self.checkFileSync(filePath: filePath) {
+            let response = self.getFileSync(filePath: filePath)
             guard let data = response.data else {
                 return (nil, CrowdinContentDeliveryAPIError.dataError)
             }
             guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
-                return (nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
+                return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
             }
             return (dictionary as? [String: String], nil)
         }
         return (nil, nil)
     }
     
-    func getPluralsSync(file: String, for localization: String) -> CrowdinAPIPluralsResult {
-        if self.checkFileSync(file: file, for: localization) {
-            let response = self.getFileSync(file: file, for: localization)
+    func getPluralsSync(filePath: String) -> CrowdinAPIPluralsResult {
+        if self.checkFileSync(filePath: filePath) {
+            let response = self.getFileSync(filePath: filePath)
             guard let data = response.data else {
                 return (nil, CrowdinContentDeliveryAPIError.dataError)
             }
             guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
-                return (nil, CrowdinContentDeliveryAPIError.parsingError(file: file))
+                return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
             }
             return (dictionary, nil)
         }
