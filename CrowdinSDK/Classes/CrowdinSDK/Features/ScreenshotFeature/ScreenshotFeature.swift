@@ -20,7 +20,16 @@ class ScreenshotFeature {
     
     var window: UIWindow? { return UIApplication.shared.keyWindow }
     
-    func captureScreenshot() -> UIImage? {
+    func captureScreenshot() {
+        guard let screenshot = self.screenshot else { return }
+        let storyboard = UIStoryboard(name: "SaveScreenshotVC", bundle: Bundle(for: SaveScreenshotVC.self))
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SaveScreenshotVC") as? SaveScreenshotVC else { return }
+        vc.screenshot = screenshot
+        // TODO: Add screenshot VC as subview to avoid issues with already presented VC.
+        ScreenshotFeature.shared?.window?.rootViewController?.present(vc, animated: true, completion: { })
+    }
+    
+    var screenshot: UIImage? {
         guard let window = self.window else { return nil }
         self.addBorders(to: window)
         

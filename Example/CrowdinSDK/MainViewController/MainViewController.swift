@@ -54,7 +54,6 @@ class MainViewController: BaseMenuVC {
     }
     
     @IBAction func reloadUI(_ sender: AnyObject) {
-        CrowdinSDK.showSettings()
         self.title = NSLocalizedString("main_title", comment: "")
         textLabel.text = NSLocalizedString("test_key", comment: "")
         textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
@@ -71,9 +70,7 @@ class MainViewController: BaseMenuVC {
     }
     
     @IBAction func reloadLocalization(_ sender: AnyObject) {
-//            CrowdinSDK.forceRefreshLocalization()
-        
-        CrowdinSDK.startIntervalUpdates(interval: 60)
+        CrowdinSDK.forceRefreshLocalization()
     }
 }
 

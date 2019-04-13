@@ -8,27 +8,25 @@
 import Foundation
 
 class SettingsView: UIView {
-    @IBOutlet weak var tableHeight: NSLayoutConstraint!
-    @IBOutlet weak var buttonLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var buttonRightConstraint: NSLayoutConstraint!
+    static let shared: SettingsView = SettingsView.loadFromNib()!
+    
+    var cells = [SettingsItemCell]()
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
+            tableView.delegate = self
+            tableView.dataSource = self
+            registerCells()
+            setupCells()
         }
     }
     var open: Bool = false {
         didSet {
-            if open == false {
-                tableHeight.constant = 0
-                buttonLeftConstraint.constant = 0
-                buttonLeftConstraint.constant = 0
+            if open == true {
+                self.frame.size.height = CGFloat(60 + cells.count * 60);
             } else {
-                tableHeight.constant = 100
-                buttonLeftConstraint.constant = 50
-                buttonLeftConstraint.constant = 50
+                self.frame.size.height = 60;
             }
-            self.window?.layoutIfNeeded()
         }
     }
     
