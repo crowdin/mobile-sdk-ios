@@ -8,6 +8,7 @@
 import Foundation
 
 class SettingsView: UIView {
+    // swiftlint:disable force_unwrapping
     static let shared: SettingsView = SettingsView.loadFromNib()!
     
     var cells = [SettingsItemCell]()

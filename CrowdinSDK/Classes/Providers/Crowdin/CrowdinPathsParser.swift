@@ -21,6 +21,7 @@ fileprivate enum Paths: String {
     var value: String {
         switch self {
         case .language:
+            // swiftlint:disable force_unwrapping
             let languageCode = Locale.current.languageCode!
             return enLocale.localizedString(forLanguageCode: languageCode) ?? ""
         case .locale:
