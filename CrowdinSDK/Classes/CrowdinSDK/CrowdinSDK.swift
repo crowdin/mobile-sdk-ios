@@ -70,7 +70,7 @@ import UIKit
     ///   - hashString: Distribution hash value.
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
-    public class func start(with config: CrowdinSDKConfig) {
+    public class func startWithConfig(_ config: CrowdinSDKConfig) {
         if let crowdinProviderConfig = config.crowdinProviderConfig {
             let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
             self.setProvider(crowdinProvider)
@@ -104,7 +104,7 @@ import UIKit
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    public class func start(with provider: LocalizationProvider) {
+    public class func startWithProvider(_ provider: LocalizationProvider) {
         self.setProvider(provider)
         self.initializeLib()
     }

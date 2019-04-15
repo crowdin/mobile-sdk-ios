@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objcMembers public class CrowdinSDKConfig {
+@objcMembers public class CrowdinSDKConfig: NSObject {
     // Crowdin provider configuration
     var crowdinProviderConfig: CrowdinProviderConfig? = nil
     
