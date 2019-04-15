@@ -25,6 +25,7 @@ class ScreenshotFeature {
         let storyboard = UIStoryboard(name: "SaveScreenshotVC", bundle: Bundle(for: SaveScreenshotVC.self))
         guard let vc = storyboard.instantiateViewController(withIdentifier: "SaveScreenshotVC") as? SaveScreenshotVC else { return }
         vc.screenshot = screenshot
+        vc.descriptionText = captureDescription()
         // TODO: Add screenshot VC as subview to avoid issues with already presented VC.
         ScreenshotFeature.shared?.window?.rootViewController?.present(vc, animated: true, completion: { })
     }
@@ -80,5 +81,48 @@ class ScreenshotFeature {
             }
             removeBorders(from: view)
         }
+    }
+}
+
+extension UIViewController {
+    fileprivate func findTopViewController(_ base: UIViewController?) -> UIViewController? {
+        
+        guard let base = base else {
+            return nil
+        }
+        
+        if let nav = base as? UINavigationController {
+            return findTopViewController(nav.visibleViewController)
+        }
+        else if let tab = base as? UITabBarController {
+            if let selectedViewController = tab.selectedViewController {
+                return findTopViewController(selectedViewController)
+            }
+        }
+        else if let presentedViewController = base.presentedViewController {
+            return findTopViewController(presentedViewController);
+        }
+        else if base.children.isEmpty == false {
+            if let lastViewController = base.children.reversed().filter({ (vc) -> Bool in
+                return vc.isViewLoaded
+                    && (vc.view.isHidden == false)
+                    && (vc.view.alpha >= 0.05)
+                    && (base.view.bounds == vc.view.frame)
+            }).first {
+                return findTopViewController(lastViewController);
+            }
+        }
+        
+        return base
+    }
+    
+    fileprivate func topViewController() -> UIViewController? {
+        return findTopViewController(self)
+    }
+}
+
+extension UIWindow {
+    open func topViewController() -> UIViewController? {
+        return self.rootViewController?.topViewController()
     }
 }
