@@ -54,12 +54,14 @@ import Foundation
     
     // Private method
     func loadLocalLocalization() {
+        self.localStorage.localization = localization
         self.localStorage.fetchData { localizations, strings, plurals in
             self.setup(with: localizations, strings: strings, plurals: plurals)
         }
     }
     
     func fetchLocalization() {
+        self.remoteStorage.localization = localization
         self.remoteStorage.fetchData { localizations, strings, plurals in
             self.setup(with: localizations, strings: strings, plurals: plurals)
         }
