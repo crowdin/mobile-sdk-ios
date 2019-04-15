@@ -21,6 +21,9 @@ import Foundation
     var intervalUpdatesEnabled: Bool = false
     var intervalUpdatesInterval: TimeInterval? = nil
     
+    // Settings view
+    var settingsEnabled: Bool = false
+    
     public static func config() -> CrowdinSDKConfig {
         return CrowdinSDKConfig()
     }
@@ -43,6 +46,11 @@ import Foundation
     public func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
         self.intervalUpdatesEnabled = intervalUpdatesEnabled
         self.intervalUpdatesInterval = interval
+        return self
+    }
+    
+    public func with(settingsEnabled: Bool) -> Self {
+        self.settingsEnabled = settingsEnabled
         return self
     }
 }

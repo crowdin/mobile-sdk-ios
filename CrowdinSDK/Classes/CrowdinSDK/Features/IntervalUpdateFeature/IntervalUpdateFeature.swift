@@ -21,7 +21,9 @@ final class IntervalUpdateFeature: IntervalUpdateFeatureProtocol {
         set {
             if newValue {
                 shared = IntervalUpdateFeature()
+                shared?.start()
             } else {
+                shared?.stop()
                 shared = nil
             }
         }

@@ -88,6 +88,10 @@ import UIKit
             RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
         }
         
+        if config.settingsEnabled {
+            self.showSettings()
+        }
+        
         self.initializeLib()
     }
     
@@ -176,6 +180,13 @@ extension CrowdinSDK {
         Bundle.unswizzle()
         UILabel.unswizzle()
         UIButton.unswizzle()
+    }
+    
+    public class func showSettings() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            SettingsView.shared.center = CGPoint(x: 100, y: 100)
+            UIApplication.shared.keyWindow?.addSubview(SettingsView.shared)
+        }
     }
 }
 
