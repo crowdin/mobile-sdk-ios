@@ -58,16 +58,16 @@ class MainViewController: BaseMenuVC {
     }
     
     @IBAction func reloadUI(_ sender: AnyObject) {
-        let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func showLocalizationUpdateAlert() {
         self.title = NSLocalizedString("main_title", comment: "")
         textLabel.text = NSLocalizedString("test_key", comment: "")
         textLabel1.text =  String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter")
         textLabel2.text = pineapplesCountUniversal(count: 10)
+    }
+    
+    func showLocalizationUpdateAlert() {
+        let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func showDetaildVC(_ sender: AnyObject) {
