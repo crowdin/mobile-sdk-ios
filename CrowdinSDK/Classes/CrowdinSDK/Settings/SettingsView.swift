@@ -9,9 +9,15 @@ import Foundation
 
 class SettingsView: UIView {
     // swiftlint:disable force_unwrapping
-    static let shared: SettingsView = SettingsView.loadFromNib()!
+    static let shared: SettingsView? = SettingsView.loadFromNib()
     
     var cells = [SettingsItemCell]()
+    
+    @IBOutlet weak var settingsButton: UIButton! {
+        didSet {
+            settingsButton.setImage(UIImage(named: "settings-button", in: Bundle(for: SettingsView.self), compatibleWith: nil), for: .normal)
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {

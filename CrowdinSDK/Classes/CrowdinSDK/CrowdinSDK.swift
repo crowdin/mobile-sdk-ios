@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 /// Main interface For working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
@@ -82,6 +83,7 @@ import UIKit
         
         if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
             IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+            IntervalUpdateFeature.shared?.start()
         }
         
         if config.reatimeUpdatesEnabled {
@@ -184,8 +186,10 @@ extension CrowdinSDK {
     
     public class func showSettings() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            SettingsView.shared.center = CGPoint(x: 100, y: 100)
-            UIApplication.shared.keyWindow?.addSubview(SettingsView.shared)
+            if let settingsView = SettingsView.shared {
+                settingsView.center = CGPoint(x: 100, y: 100)
+                UIApplication.shared.keyWindow?.addSubview(settingsView)
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension SettingsView {    
+extension SettingsView {
     func registerCells() {
         let bundle = Bundle(for: SettingsView.self)
         let nib = UINib(nibName: "SettingsItemCell", bundle: bundle)
@@ -15,22 +15,23 @@ extension SettingsView {
     }
     
     func setupCells() {
+        let bundle = Bundle(for: SettingsView.self)
         if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             reloadCell.action = {
                 self.open = false
                 ForceRefreshLocalizationFeature.refreshLocalization()
             }
-            reloadCell.icon.image = UIImage(named: "reload")
+            reloadCell.icon.image = UIImage(named: "reload", in: bundle, compatibleWith: nil)
             reloadCell.selectionStyle = .none
             cells.append(reloadCell)
         }
         if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             autoreloadCell.action = {
                 IntervalUpdateFeature.enabled = !IntervalUpdateFeature.enabled
-                autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off")
+                autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
                 self.tableView.reloadData()
             }
-            autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off")
+            autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
             autoreloadCell.selectionStyle = .none
             cells.append(autoreloadCell)
         }
@@ -41,7 +42,7 @@ extension SettingsView {
                 ScreenshotFeature().captureScreenshot()
                 self.isHidden = false
             }
-            screenshotCell.icon.image = UIImage(named: "screenshot")
+            screenshotCell.icon.image = UIImage(named: "screenshot", in: bundle, compatibleWith: nil)
             screenshotCell.selectionStyle = .none
             cells.append(screenshotCell)
         }

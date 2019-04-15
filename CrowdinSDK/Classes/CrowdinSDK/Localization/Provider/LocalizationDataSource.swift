@@ -27,7 +27,13 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
         }
         // Formated strings
         for (key, value) in strings {
-            if String.findMatch(for: value, with: string) { return key }
+            if String.findMatch(for: value, with: string), let values = String.findValues(for: value, with: string) {
+                // Check if localized strign is equal to text.
+                // swiftlint:disable force_cast
+                if key.localized(with: values as! [CVarArg]) == string {
+                    return key
+                }
+            }
         }
         return nil
     }

@@ -23,7 +23,7 @@
                         <constraint firstAttribute="width" constant="60" id="3TV-v0-Rtk"/>
                         <constraint firstAttribute="height" constant="60" id="veK-Zs-1Ef"/>
                     </constraints>
-                    <state key="normal" title="Settings" image="settings-button">
+                    <state key="normal" title="Settings">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -49,12 +49,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="settingsButton" destination="RNh-Ab-bb1" id="m6e-iv-b88"/>
                 <outlet property="tableView" destination="upo-VE-mtW" id="R6u-Vd-fHd"/>
             </connections>
             <point key="canvasLocation" x="80" y="-208.69565217391306"/>
         </view>
     </objects>
-    <resources>
-        <image name="settings-button" width="100" height="100"/>
-    </resources>
 </document>
