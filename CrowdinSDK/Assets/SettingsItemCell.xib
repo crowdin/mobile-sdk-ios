@@ -22,6 +22,7 @@
                         <rect key="frame" x="10" y="10" width="24" height="22.5"/>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="cXr-Pc-x5q" secondAttribute="bottom" constant="10" id="Kve-r7-yVj"/>
                     <constraint firstItem="cXr-Pc-x5q" firstAttribute="leading" secondItem="IpP-Dg-7xq" secondAttribute="leading" constant="10" id="q4h-3d-3Fa"/>
@@ -29,10 +30,11 @@
                     <constraint firstItem="cXr-Pc-x5q" firstAttribute="top" secondItem="IpP-Dg-7xq" secondAttribute="top" constant="10" id="uKp-Hc-r9S"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="icon" destination="cXr-Pc-x5q" id="1fo-GL-j68"/>
             </connections>
-            <point key="canvasLocation" x="152" y="103"/>
+            <point key="canvasLocation" x="150.72463768115944" y="102.79017857142857"/>
         </tableViewCell>
     </objects>
 </document>

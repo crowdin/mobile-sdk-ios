@@ -16,18 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        // Firebase
         FirebaseApp.configure()
-//        CrowdinSDK.start(with: FirebaseLocalizationProvider(path: "extracted_example"))
+        CrowdinSDK.startWithProvider(FirebaseLocalizationProvider(path: "extracted_example"))
+        
+        // Local
 //        CrowdinSDK.start(with: LocalLocalizationProvider())
         
         // Setup CrowdinSDK with crowdin localization provider.
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"])
-        CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true).with(settingsEnabled: true))
+//        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "66f02b964afeb77aea8d191e68748abc", stringsFileNames: ["Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"])
+//        CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true).with(settingsEnabled: true))
+        
+        // Info.plist setup
 //        CrowdinSDK.start()
         
-//         CrowdinSDK.start(with: CrowdinSDKConfig.config().with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(screnshotsEnabled: true))
-        
+        // Localization extraction
         CrowdinSDK.extractAllLocalization()
         
         self.window = UIWindow(frame: UIScreen.main.bounds)

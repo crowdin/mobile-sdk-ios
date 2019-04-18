@@ -16,6 +16,9 @@ class SettingsView: UIView {
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.setImage(UIImage(named: "settings-button", in: Bundle(for: SettingsView.self), compatibleWith: nil), for: .normal)
+            settingsButton.backgroundColor = .white
+            settingsButton.layer.cornerRadius = 30
+            settingsButton.clipsToBounds = true
         }
     }
     
@@ -38,7 +41,7 @@ class SettingsView: UIView {
     }
     
     class func loadFromNib() -> SettingsView? {
-        return UINib(nibName: "SettingsView", bundle: Bundle(for: SettingsView.self)).instantiate(withOwner: nil, options: nil)[0] as? SettingsView
+        return UINib(nibName: "SettingsView", bundle: Bundle(for: SettingsView.self)).instantiate(withOwner: self, options: nil)[0] as? SettingsView
     }
     
     override func awakeFromNib() {
