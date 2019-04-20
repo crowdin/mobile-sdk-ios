@@ -23,7 +23,7 @@
                         <constraint firstAttribute="width" constant="60" id="3TV-v0-Rtk"/>
                         <constraint firstAttribute="height" constant="60" id="veK-Zs-1Ef"/>
                     </constraints>
-                    <state key="normal" title="Settings">
+                    <state key="normal">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -32,10 +32,10 @@
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="upo-VE-mtW">
                     <rect key="frame" x="0.0" y="60" width="60" height="0.0"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="upo-VE-mtW" secondAttribute="trailing" id="BQA-Pg-h7E"/>
                 <constraint firstItem="RNh-Ab-bb1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="PR4-5V-wE6"/>

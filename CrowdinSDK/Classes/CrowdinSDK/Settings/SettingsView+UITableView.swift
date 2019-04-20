@@ -23,6 +23,8 @@ extension SettingsView {
             }
             reloadCell.icon.image = UIImage(named: "reload", in: bundle, compatibleWith: nil)
             reloadCell.selectionStyle = .none
+            reloadCell.contentView.layer.cornerRadius = 30.0
+            reloadCell.contentView.clipsToBounds = true
             cells.append(reloadCell)
         }
         if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
@@ -33,6 +35,8 @@ extension SettingsView {
             }
             autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
             autoreloadCell.selectionStyle = .none
+            autoreloadCell.contentView.layer.cornerRadius = 30.0
+            autoreloadCell.contentView.clipsToBounds = true
             cells.append(autoreloadCell)
         }
         if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
@@ -44,6 +48,8 @@ extension SettingsView {
             }
             screenshotCell.icon.image = UIImage(named: "screenshot", in: bundle, compatibleWith: nil)
             screenshotCell.selectionStyle = .none
+            screenshotCell.layer.cornerRadius = 30.0
+            screenshotCell.clipsToBounds = true
             cells.append(screenshotCell)
         }
     }

@@ -65,9 +65,10 @@ class MainViewController: BaseMenuVC {
     }
     
     func showLocalizationUpdateAlert() {
-        let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        print("Localization Updated")
+//        let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func showDetaildVC(_ sender: AnyObject) {
