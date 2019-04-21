@@ -138,4 +138,31 @@ class Localization {
 	func findValues(for string: String, with format: String) -> [Any]? {
 		return provider.values(for:string, with:format)
 	}
+    
+    // MARK: Download observer
+    var localizationUpdateObserver = LocalizationUpdateObserver()
+    
+    func addDownloadHandler(_ handler: @escaping () -> Void) -> UInt {
+        return localizationUpdateObserver.addDownloadHandler(handler)
+    }
+    
+    func removeDownloadHandler(_ id: UInt) {
+        localizationUpdateObserver.removeDownloadHandler(id)
+    }
+    
+    func removeAllDownloadHandlers() {
+        localizationUpdateObserver.removeAllDownloadHandlers()
+    }
+    
+    func addErrorUpdateHandler(_ handler: @escaping ([Error]) -> Void) -> UInt {
+        return localizationUpdateObserver.addErrorHandler(handler)
+    }
+    
+    func removeErrorHandler(_ id: UInt) {
+        localizationUpdateObserver.removeErrorHandler(id)
+    }
+    
+    func removeAllErrorHandlers() {
+        localizationUpdateObserver.removeAllErrorHandlers()
+    }
 }

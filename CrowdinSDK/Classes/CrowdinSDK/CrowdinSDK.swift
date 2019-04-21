@@ -8,6 +8,9 @@
 import UIKit
 import Foundation
 
+public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void
+public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
+
 /// Main interface For working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
     /// Enum representing available SDK modes.
@@ -166,6 +169,31 @@ import Foundation
     public class func stopIntervalUpdates() {
         IntervalUpdateFeature.shared?.stop()
         IntervalUpdateFeature.shared = nil
+    }
+    
+    // Observer
+    public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> UInt {
+        return Localization.current.addDownloadHandler(handler)
+    }
+    
+    public class func removeDownloadHandler(_ id: UInt) {
+        Localization.current.removeDownloadHandler(id)
+    }
+    
+    public class func removeAllDownloadHandlers() {
+        Localization.current.removeAllDownloadHandlers()
+    }
+    
+    public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> UInt {
+        return Localization.current.addErrorUpdateHandler(handler)
+    }
+    
+    public class func removeErrorHandler(_ id: UInt) {
+        Localization.current.removeErrorHandler(id)
+    }
+    
+    public class func removeAllErrorHandlers() {
+        Localization.current.removeAllErrorHandlers()
     }
 }
 

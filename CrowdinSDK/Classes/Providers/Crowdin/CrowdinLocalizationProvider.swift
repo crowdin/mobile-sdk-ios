@@ -8,9 +8,11 @@
 import Foundation
 
 public let CrowdinProviderDidDownloadLocalization = Notifications.CrowdinProviderDidDownloadLocalization.rawValue
+public let CrowdinProviderDownloadError = Notifications.CrowdinProviderDownloadError.rawValue
 
 extension Notification.Name {
     public static let CrowdinProviderDidDownloadLocalization = Notification.Name(Notifications.CrowdinProviderDidDownloadLocalization.rawValue)
+    public static let CrowdinProviderDownloadError = Notification.Name(Notifications.CrowdinProviderDownloadError.rawValue)
 }
 
 public class CrowdinLocalizationProvider: BaseLocalizationProvider {    

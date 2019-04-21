@@ -50,10 +50,17 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
         
         let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
-        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization, completion: { strings, plurals, _ in
+        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization, completion: { strings, plurals, errors in
             completion(self.localizations, strings, plurals)
+            
+            // TODO: add comment here:
+            // TODO: add notification about failure:
             DispatchQueue.main.async {
                 NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
+                
+                if let errors = errors {
+                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                }
             }
         })
     }

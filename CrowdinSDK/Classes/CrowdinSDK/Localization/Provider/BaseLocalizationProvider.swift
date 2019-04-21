@@ -69,10 +69,10 @@ import Foundation
     
     func setup(with localizations: [String]?, strings: [String: String]?, plurals: [AnyHashable: Any]?) {
         if let strings = strings {
-            self.localStorage.strings = strings
+            self.localStorage.strings.merge(with: strings)
         }
         if let plurals = plurals {
-            self.localStorage.plurals = plurals
+            self.localStorage.plurals.merge(with: plurals)
         }
         if let localizations = localizations {
             self.localStorage.localizations = localizations
