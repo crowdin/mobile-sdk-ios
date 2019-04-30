@@ -38,6 +38,7 @@ TODO: Add long description of the pod here.
   spec.subspec 'Core' do |core|
       core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
       core.resources = ['CrowdinSDK/Assets/**/*.{storyboard}', 'CrowdinSDK/Assets/**/*.{xib,xcassets}']
+      core.dependency 'Socket.IO-Client-Swift'
   end
   
   spec.subspec 'FirebaseProvider' do |provider|

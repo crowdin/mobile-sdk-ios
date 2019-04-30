@@ -77,7 +77,7 @@ class MainViewController: BaseMenuVC {
     }
     
     @IBAction func reloadLocalization(_ sender: AnyObject) {
-        CrowdinSDK.forceRefreshLocalization()
+        CrowdinSDK.showLogin()
     }
 }
 

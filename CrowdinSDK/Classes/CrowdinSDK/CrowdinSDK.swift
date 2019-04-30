@@ -195,6 +195,10 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
     }
+    
+    public class func showLogin() {
+        RealtimeUpdateFeature.shared?.login()
+    }
 }
 
 extension CrowdinSDK {

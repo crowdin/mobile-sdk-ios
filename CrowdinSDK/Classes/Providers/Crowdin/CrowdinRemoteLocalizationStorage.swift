@@ -15,6 +15,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
     var pluralsFileNames: [String]
     
     private let crowdinDownloader: CrowdinDownloaderProtocol
+    private let crowdinMappingDownloader: CrowdinDownloaderProtocol
     
     init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localization: String, localizations: [String]) {
         self.hashString = hashString
@@ -23,11 +24,13 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
         self.localization = localization
         self.localizations = localizations
         self.crowdinDownloader = CrowdinDownloader()
+        self.crowdinMappingDownloader = CrowdinMappingDownloader()
     }
     
     required init(localization: String) {
         self.localization = localization
         self.crowdinDownloader = CrowdinDownloader()
+        self.crowdinMappingDownloader = CrowdinMappingDownloader()
         guard let hashString = Bundle.main.crowdinHash else {
             fatalError("Please add CrowdinHash key to your Info.plist file")
         }
@@ -44,7 +47,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
             fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
         }
         self.pluralsFileNames = crowdinPluralsFileNames
-        
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
@@ -59,9 +61,13 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
                 NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
                 
                 if let errors = errors {
-                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                    print("Error - \(errors)")
+//                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
                 }
             }
         })
+        self.crowdinMappingDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization) { (strings, plurals, errors) in
+            
+        }
     }
 }

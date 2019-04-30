@@ -19,12 +19,9 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
     var filePath: String
     var session: URLSession
     
-    fileprivate var expectedContentLength: Int64 = 0
-    fileprivate var currentContentLength: Int64 = 0
-    
     required init(hash: String, filePath: String) {
         self.hashString = hash
-        self.filePath = CrowdinPathsParser.shared.parse(filePath)
+        self.filePath = filePath
         self.session = URLSession(configuration: .ephemeral)
     }
     
@@ -37,13 +34,13 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
     var plurals: [AnyHashable: Any]?
     
-    init(hash: String, file: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        super.init(hash: hash, filePath: file)
+    init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
         self.completion = completion
     }
     
     required init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: filePath)
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
     }
     
     override func main() {
@@ -60,16 +57,60 @@ class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     var strings: [String: String]?
     
     init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        super.init(hash: hash, filePath: filePath)
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
         self.completion = completion
     }
     
     required init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: filePath)
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
     }
     
     override func main() {
         let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getStringsSync(filePath: filePath)
+        self.strings = result.strings
+        self.error = result.error
+        self.completion?(self.strings, self.error)
+        self.finish(with: result.error != nil)
+    }
+}
+
+class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
+    var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
+    var plurals: [AnyHashable: Any]?
+    
+    init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+        super.init(hash: hash, filePath: filePath) // TODO: file name from file path
+        self.completion = completion
+    }
+    
+    required init(hash: String, filePath: String) {
+        super.init(hash: hash, filePath: filePath) // TODO: file name from file path
+    }
+    
+    override func main() {
+        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getPluralsMappingSync(filePath: self.filePath)
+        self.plurals = result.plurapls
+        self.error = result.error
+        self.completion?(self.plurals, self.error)
+        self.finish(with: result.error != nil)
+    }
+}
+
+class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
+    var completion: (([String: String]?, Error?) -> Void)? = nil
+    var strings: [String: String]?
+    
+    init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+        super.init(hash: hash, filePath: filePath) // TODO: file name from file path
+        self.completion = completion
+    }
+    
+    required init(hash: String, filePath: String) {
+        super.init(hash: hash, filePath: filePath) // TODO: file name from file path
+    }
+    
+    override func main() {
+        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getStringsMappingSync(filePath: filePath)
         self.strings = result.strings
         self.error = result.error
         self.completion?(self.strings, self.error)
