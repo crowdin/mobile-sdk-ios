@@ -1,35 +1,32 @@
 //
-//  CrowdinDownloader.swift
+//  CrowdinMappingDownloader.swift
 //  CrowdinSDK
 //
-//  Created by Serhii Londar on 3/24/19.
+//  Created by Serhii Londar on 4/30/19.
 //
 
 import Foundation
 
-typealias CrowdinDownloaderCompletion = (_ strings: [String: String]?, _ plurals: [AnyHashable: Any]?, _ errors: [Error]?) -> Void
-
-protocol CrowdinDownloaderProtocol {
-    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion)
+protocol CrowdinMappingDownloaderProtocol {
+    func download(strings: [String], plurals: [String], with hash: String, completion: @escaping CrowdinDownloaderCompletion)
 }
 
-class CrowdinDownloader: CrowdinDownloaderProtocol {
-    // swiftlint:disable implicitly_unwrapped_optional
-    var completion: CrowdinDownloaderCompletion!
+class CrowdinMappingDownloader: CrowdinMappingDownloaderProtocol {
+    fileprivate var completion: CrowdinDownloaderCompletion? = nil
     
     fileprivate let operationQueue = OperationQueue()
     fileprivate var strings: [String: String]? = nil
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
     
-    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+    func download(strings: [String], plurals: [String], with hash: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
         let completionBlock = BlockOperation {
-            self.completion(self.strings, self.plurals, self.errors)
+            self.completion?(self.strings, self.plurals, self.errors)
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string)
+            let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string)
             download.completion = { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
@@ -50,7 +47,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural)
+            let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural)
             download.completion = { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {

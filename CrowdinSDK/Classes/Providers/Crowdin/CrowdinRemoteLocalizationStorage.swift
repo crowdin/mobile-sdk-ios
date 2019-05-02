@@ -15,7 +15,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
     var pluralsFileNames: [String]
     
     private let crowdinDownloader: CrowdinDownloaderProtocol
-    private let crowdinMappingDownloader: CrowdinDownloaderProtocol
+    private let crowdinMappingDownloader: CrowdinMappingDownloaderProtocol
     
     init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localization: String, localizations: [String]) {
         self.hashString = hashString
@@ -66,7 +66,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorage {
                 }
             }
         })
-        self.crowdinMappingDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization) { (strings, plurals, errors) in
+        self.crowdinMappingDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString) { (strings, plurals, errors) in
             
         }
     }
