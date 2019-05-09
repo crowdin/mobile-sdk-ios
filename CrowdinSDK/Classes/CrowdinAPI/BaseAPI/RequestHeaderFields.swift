@@ -12,6 +12,7 @@ public enum RequestHeaderFields: String {
     case acceptEncoding = "Accept-Encoding"
     case acceptLanguage = "Accept-Language"
     case authorization = "Authorization"
+    case contentType = "Content-Type"
     case expect = "Expect"
     case from = "From"
     case host = "Host"

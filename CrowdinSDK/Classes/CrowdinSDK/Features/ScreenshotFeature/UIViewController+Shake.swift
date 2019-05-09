@@ -9,8 +9,6 @@ import UIKit
 
 extension UIViewController {
     override open func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if ScreenshotFeature.shared?.type == .shake {
-            ScreenshotFeature.shared?.captureScreenshot()
-        }
+        ScreenshotFeature.shared?.captureScreenshot()
     }
 }

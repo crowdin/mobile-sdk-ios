@@ -78,19 +78,19 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         if let crowdinProviderConfig = config.crowdinProviderConfig {
             let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
             self.setProvider(crowdinProvider)
-        }
-        
-        if config.screnshotsEnabled {
-            ScreenshotFeature.shared = ScreenshotFeature()
+            
+            if config.screnshotsEnabled {
+                ScreenshotFeature.shared = ScreenshotFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString)
+            }
+            
+            if config.reatimeUpdatesEnabled {
+                RealtimeUpdateFeature.shared = RealtimeUpdateFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString)
+            }
         }
         
         if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
             IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
             IntervalUpdateFeature.shared?.start()
-        }
-        
-        if config.reatimeUpdatesEnabled {
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
         }
         
         if config.settingsEnabled {
@@ -234,7 +234,5 @@ extension CrowdinSDK {
         } else {
             CrowdinSDK.unswizzle()
         }
-        ScreenshotFeature.shared = ScreenshotFeature()
-        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
     }
 }
