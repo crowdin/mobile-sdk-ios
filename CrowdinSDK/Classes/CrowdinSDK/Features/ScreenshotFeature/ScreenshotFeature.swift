@@ -105,6 +105,7 @@ extension UIWindow {
 
 extension ScreenshotFeature: SaveScreenshotVCDelegate {
     func saveButtonPressed(_ sender: SaveScreenshotVC) {
+        let values = self.captureValues()
         if let screenshot = sender.screenshot, let data = screenshot.pngData() {
             let credentials = "api-tester:VmpFqTyXPq3ebAyNksUxHwhC".data(using: .utf8)!.base64EncodedString()
             let screenshotsAPI = ScreenshotsAPI(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
@@ -113,7 +114,6 @@ extension ScreenshotFeature: SaveScreenshotVCDelegate {
                 guard let storageId = response?.data.id else { return }
                 screenshotsAPI.createScreenshot(projectId: 352187, storageId: storageId, name: "NewScreenshot\(storageId)", completion: { response, error in
                     guard let screenshotId = response?.data.id else { return }
-                    let values = self.captureValues()
                     screenshotsAPI.createScreenshotTags(projectId: 352187, screenshotId: screenshotId, frames: values, completion: { (response, error) in
                         
                     })
