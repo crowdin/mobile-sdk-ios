@@ -14,8 +14,8 @@ class RealtimeUpdateFeature {
     private var socketManger: CrowdinSocketManager!
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    init(strings: [String], plurals: [String], hash: String) {
-        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash)
+    init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
     }
     
     func subscribe(control: Refreshable) {

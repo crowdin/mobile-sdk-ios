@@ -7,14 +7,20 @@
 
 import UIKit
 
+
+
 class ScreenshotFeature {
     static var shared: ScreenshotFeature?
     var windows: [UIWindow] { return UIApplication.shared.windows }
     var window: UIWindow? { return UIApplication.shared.keyWindow }
     var mappingManager: CrowdinMappingManagerProtocol
     
-    init(strings: [String], plurals: [String], hash: String) {
-        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash)
+    init(strings: [String], plurals: [String], sourceLanguage: String, hash: String) {
+        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
+    }
+    
+    func captureScreenshot(completion: @escaping ((Bool) -> Void), error: @escaping ((Error) -> Void)) {
+    
     }
     
     func captureScreenshot() {
@@ -61,59 +67,17 @@ class ScreenshotFeature {
     }
 }
 
-extension UIViewController {
-    fileprivate func findTopViewController(_ base: UIViewController?) -> UIViewController? {
-        guard let base = base else {
-            return nil
-        }
-        
-        if let nav = base as? UINavigationController {
-            return findTopViewController(nav.visibleViewController)
-        }
-        else if let tab = base as? UITabBarController {
-            if let selectedViewController = tab.selectedViewController {
-                return findTopViewController(selectedViewController)
-            }
-        }
-        else if let presentedViewController = base.presentedViewController {
-            return findTopViewController(presentedViewController);
-        }
-        else if base.children.isEmpty == false {
-            if let lastViewController = base.children.reversed().filter({ (vc) -> Bool in
-                return vc.isViewLoaded
-                    && (vc.view.isHidden == false)
-                    && (vc.view.alpha >= 0.05)
-                    && (base.view.bounds == vc.view.frame)
-            }).first {
-                return findTopViewController(lastViewController);
-            }
-        }
-        
-        return base
-    }
-    
-    fileprivate func topViewController() -> UIViewController? {
-        return findTopViewController(self)
-    }
-}
-
-extension UIWindow {
-    open func topViewController() -> UIViewController? {
-        return self.rootViewController?.topViewController()
-    }
-}
-
 extension ScreenshotFeature: SaveScreenshotVCDelegate {
     func saveButtonPressed(_ sender: SaveScreenshotVC) {
         let values = self.captureValues()
-        if let screenshot = sender.screenshot, let data = screenshot.pngData() {
-            let credentials = "api-tester:VmpFqTyXPq3ebAyNksUxHwhC".data(using: .utf8)!.base64EncodedString()
+        if let screenshot = sender.screenshot, let data = screenshot.pngData(), let credentials = "api-tester:VmpFqTyXPq3ebAyNksUxHwhC".data(using: .utf8)?.base64EncodedString() {
             let screenshotsAPI = ScreenshotsAPI(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
             let storageAPI = StorageAPI(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
             storageAPI.uploadNewFile(data: data, completion: { response, error in
                 guard let storageId = response?.data.id else { return }
                 screenshotsAPI.createScreenshot(projectId: 352187, storageId: storageId, name: "NewScreenshot\(storageId)", completion: { response, error in
                     guard let screenshotId = response?.data.id else { return }
+                    guard values.count > 0 else { return }
                     screenshotsAPI.createScreenshotTags(projectId: 352187, screenshotId: screenshotId, frames: values, completion: { (response, error) in
                         
                     })

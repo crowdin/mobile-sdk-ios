@@ -27,6 +27,10 @@ class CrowdinLoginVC: UIViewController {
 }
 
 extension CrowdinLoginVC: UIWebViewDelegate {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func webViewDidFinishLoad(_ webView: UIWebView) {
         guard let cookies = HTTPCookieStorage.shared.cookies else { return }
         for cookie in cookies {

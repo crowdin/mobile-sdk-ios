@@ -25,7 +25,7 @@ class CrowdinSocketManager: NSObject {
     
     func start() {
         var request = URLRequest(url: URL(string:"https://crowdin.com/backend/distributions/get_info?distribution_hash=66f02b964afeb77aea8d191e68748abc")!)
-        request.addValue(csrf_token, forHTTPHeaderField: "csrf_token") // X-Csrf-Token
+        request.addValue(csrf_token, forHTTPHeaderField: "X-Csrf-Token")// csrf_token
         let ws = SRWebSocket(urlRequest: request)
         ws?.delegate = self
         ws?.open()

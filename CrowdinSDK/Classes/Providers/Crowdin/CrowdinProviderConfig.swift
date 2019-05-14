@@ -12,11 +12,13 @@ import Foundation
     var stringsFileNames: [String]
     var pluralsFileNames: [String]
     var localizations: [String]
+    var sourceLanguage: String
     
-    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String]) {
+    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String], sourceLanguage: String) {
         self.hashString = hashString
         self.stringsFileNames = stringsFileNames
         self.pluralsFileNames = pluralsFileNames
         self.localizations = localizations
+        self.sourceLanguage = sourceLanguage
     }
 }

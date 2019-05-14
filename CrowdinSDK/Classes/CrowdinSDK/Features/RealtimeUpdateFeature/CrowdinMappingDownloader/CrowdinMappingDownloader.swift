@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol CrowdinMappingDownloaderProtocol {
-    func download(strings: [String], plurals: [String], with hash: String, completion: @escaping CrowdinDownloaderCompletion)
-}
-
-class CrowdinMappingDownloader: CrowdinMappingDownloaderProtocol {
+class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var completion: CrowdinDownloaderCompletion? = nil
     
     fileprivate let operationQueue = OperationQueue()
@@ -19,7 +15,7 @@ class CrowdinMappingDownloader: CrowdinMappingDownloaderProtocol {
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
     
-    func download(strings: [String], plurals: [String], with hash: String, completion: @escaping CrowdinDownloaderCompletion) {
+    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
         let completionBlock = BlockOperation {
             self.completion?(self.strings, self.plurals, self.errors)

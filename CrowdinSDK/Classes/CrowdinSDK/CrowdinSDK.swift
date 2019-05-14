@@ -80,11 +80,11 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
             self.setProvider(crowdinProvider)
             
             if config.screnshotsEnabled {
-                ScreenshotFeature.shared = ScreenshotFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString)
+                ScreenshotFeature.shared = ScreenshotFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, sourceLanguage: crowdinProviderConfig.sourceLanguage, hash: crowdinProviderConfig.hashString)
             }
             
             if config.reatimeUpdatesEnabled {
-                RealtimeUpdateFeature.shared = RealtimeUpdateFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString)
+                RealtimeUpdateFeature.shared = RealtimeUpdateFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
             }
         }
         

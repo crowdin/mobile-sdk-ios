@@ -78,14 +78,14 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
     var plurals: [AnyHashable: Any]?
     
-    init(hash: String, filePath: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+    init(hash: String, filePath: String, sourceLanguage: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: fileName) // TODO: file name from file path
+        super.init(hash: hash, filePath: "\(sourceLanguage)\(fileName)") // TODO: file name from file path, use sourceLanguage
         self.completion = completion
     }
     
     required init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: filePath) // TODO: file name from file path
+        super.init(hash: hash, filePath: filePath)
     }
     
     override func main() {
@@ -101,14 +101,14 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?
     
-    init(hash: String, filePath: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+    init(hash: String, filePath: String, sourceLanguage: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: fileName) // TODO: file name from file path
+        super.init(hash: hash, filePath: "\(sourceLanguage)\(fileName)") // TODO: file name from file path, use sourceLanguage
         self.completion = completion
     }
     
     required init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: filePath) // TODO: file name from file path
+        super.init(hash: hash, filePath: filePath)
     }
     
     override func main() {
