@@ -9,6 +9,10 @@ import UIKit
 
 extension UIViewController {
     override open func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        ScreenshotFeature.shared?.captureScreenshot()
+        ScreenshotFeature.shared?.captureScreenshot(success: {
+            
+        }, errorHandler: { (error) in
+            
+        })
     }
 }

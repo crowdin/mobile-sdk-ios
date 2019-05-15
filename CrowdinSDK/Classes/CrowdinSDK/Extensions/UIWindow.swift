@@ -12,3 +12,12 @@ extension UIWindow {
         return self.rootViewController?.topViewController()
     }
 }
+
+extension UIWindow {
+    var screenshot: UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, true, self.screen.scale)
+        defer { UIGraphicsEndImageContext() }
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+}
