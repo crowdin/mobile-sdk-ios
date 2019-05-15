@@ -7,33 +7,38 @@
 
 import UIKit
 
+struct ScreenshotFeatureConfig {
+    var projectId: Int
+    var login: String
+    var credentials: String
+    var accountKey: String
+    var strings: [String]
+    var plurals: [String]
+    var hash: String
+    var sourceLanguage: String
+}
+
 class ScreenshotFeature {
     static var shared: ScreenshotFeature?
     
-    var windows: [UIWindow] { return UIApplication.shared.windows }
-    var window: UIWindow? { return UIApplication.shared.keyWindow }
     var mappingManager: CrowdinMappingManagerProtocol
-    var projectId: Int
-    var login: String
-    var accountKey: String
+    var config: ScreenshotFeatureConfig
     
     enum Errors: String {
         case storageIdIsMissing = "Storage id is missing."
     }
     
-    init(projectId: Int, login: String, accountKey: String, mappingManager: CrowdinMappingManagerProtocol) {
-        self.projectId = projectId
-        self.login = login
-        self.accountKey = accountKey
-        self.mappingManager = mappingManager
+    init(config: ScreenshotFeatureConfig) {
+        self.config = config
+        self.mappingManager = CrowdinMappingManager(strings: config.strings, plurals: config.plurals, hash: config.hash, sourceLanguage: config.sourceLanguage)
     }
     
-    func captureScreenshot(success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshot = self.window?.screenshot else { return }
         let values = self.captureValues()
-        guard let data = screenshot.pngData(), let credentials = "api-tester:VmpFqTyXPq3ebAyNksUxHwhC".data(using: .utf8)?.base64EncodedString() else { return }
-        let screenshotsAPI = ScreenshotsAPI(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
-        let storageAPI = StorageAPI(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
+        guard let data = screenshot.pngData() else { return }
+        let screenshotsAPI = ScreenshotsAPI(login: config.login, accountKey: config.accountKey, credentials: config.credentials)
+        let storageAPI = StorageAPI(login: config.login, accountKey: config.accountKey, credentials: config.credentials)
         storageAPI.uploadNewFile(data: data, completion: { response, error in
             if let error = error {
                 errorHandler(error)
@@ -43,8 +48,7 @@ class ScreenshotFeature {
                 errorHandler(NSError(domain: Errors.storageIdIsMissing.rawValue, code: 9999, userInfo: nil))
                 return
             }
-            let screenshotName = "NewScreenshot\(storageId)" // TODO: find a better way for screnshot naming.
-            screenshotsAPI.createScreenshot(projectId: 352187, storageId: storageId, name: screenshotName, completion: { response, error in
+            screenshotsAPI.createScreenshot(projectId: self.config.projectId, storageId: storageId, name: name, completion: { response, error in
                 if let error = error {
                     errorHandler(error)
                     return
@@ -54,7 +58,7 @@ class ScreenshotFeature {
                     return
                 }
                 guard values.count > 0 else { return }
-                screenshotsAPI.createScreenshotTags(projectId: 352187, screenshotId: screenshotId, frames: values, completion: { (_, error) in
+                screenshotsAPI.createScreenshotTags(projectId: self.config.projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
                     if let error = error {
                         errorHandler(error)
                     } else {
@@ -90,4 +94,9 @@ extension ScreenshotFeature {
         }
         return description
     }
+}
+
+extension ScreenshotFeature {
+    var windows: [UIWindow] { return UIApplication.shared.windows }
+    var window: UIWindow? { return UIApplication.shared.keyWindow }
 }

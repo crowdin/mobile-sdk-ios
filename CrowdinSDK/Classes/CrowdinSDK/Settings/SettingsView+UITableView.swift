@@ -43,10 +43,10 @@ extension SettingsView {
             screenshotCell.action = {
                 self.open = false
                 self.isHidden = true
-                ScreenshotFeature.shared?.captureScreenshot(success: {
-                    
+                ScreenshotFeature.shared?.captureScreenshot(name: "NewScreenhot", success: {
+                    print("Success")
                 }, errorHandler: { (error) in
-                    
+                    print("Error uploading screenshot - \(error?.localizedDescription ?? "Unknown")")
                 })
                 self.isHidden = false
             }

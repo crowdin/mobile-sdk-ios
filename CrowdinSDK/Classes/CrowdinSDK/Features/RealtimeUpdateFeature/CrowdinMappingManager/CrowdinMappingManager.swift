@@ -25,7 +25,6 @@ class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     
     init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
         self.downloader = CrowdinMappingDownloader()
-        // TODO: for: ""
         self.downloader.download(strings: strings, plurals: plurals, with: hash, for: sourceLanguage) { (strings, plurals, errors) in
             self.strings = strings ?? [:]
             self.plurals = plurals ?? [:]

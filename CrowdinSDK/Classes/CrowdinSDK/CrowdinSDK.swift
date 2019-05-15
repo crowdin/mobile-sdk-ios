@@ -80,7 +80,9 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
             self.setProvider(crowdinProvider)
             
             if config.screnshotsEnabled {
-                ScreenshotFeature.shared = ScreenshotFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, sourceLanguage: crowdinProviderConfig.sourceLanguage, hash: crowdinProviderConfig.hashString, projectId: 352187) // TODO: Add projectId to config.
+                let credentials = "api-tester:VmpFqTyXPq3ebAyNksUxHwhC".data(using: .utf8)!.base64EncodedString()
+                let screnshotsConfig = ScreenshotFeatureConfig(projectId: 352187, login: "serhii.londar", credentials: credentials, accountKey: "1267e86b748b600eb851f1c45f8c44ce", strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+                ScreenshotFeature.shared = ScreenshotFeature(config: screnshotsConfig)
             }
             
             if config.reatimeUpdatesEnabled {
