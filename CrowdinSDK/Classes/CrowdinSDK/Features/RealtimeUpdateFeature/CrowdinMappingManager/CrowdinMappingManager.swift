@@ -80,7 +80,7 @@ extension CrowdinMappingManager {
         }
     }
     
-    private enum Rules: String {
+    private enum PluralRules: String {
         case zero
         case one
         case two
@@ -88,14 +88,14 @@ extension CrowdinMappingManager {
         case many
         case other
         
-        static var all: [Rules] {
+        static var all: [PluralRules] {
             return [.zero, .one, .two, .few, .many, .other]
         }
     }
     
     func idFromDict(_ dict: [AnyHashable: Any]) -> String? {
-        for rule in Rules.all {
-            if let id = dict[rule.rawValue] as? String {
+        for pluralRule in PluralRules.all {
+            if let id = dict[pluralRule.rawValue] as? String {
                 return id
             }
         }
