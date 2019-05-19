@@ -199,7 +199,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     }
     
     public class func showLogin() {
-        RealtimeUpdateFeature.shared?.login()
+        RealtimeUpdateFeature.shared?.start()
     }
 }
 

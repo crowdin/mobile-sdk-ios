@@ -40,6 +40,11 @@ extension UILabel {
         
         swizzled_setText(text)
     }
+    
+    func original_setText(_ text: String) {
+        guard UILabel.swizzled != nil else { return }
+        swizzled_setText(text)
+    }
 
     public class func swizzle() {
         // swiftlint:disable force_unwrapping

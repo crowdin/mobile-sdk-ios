@@ -6,53 +6,96 @@
 //
 
 import Foundation
-import SocketRocket
+import Starscream
 
 class CrowdinSocketManager: NSObject {
-    let csrf_token: String
+    let hashString: String
+    let csrfToken: String
+    let userAgent: String
+    let cookies: [HTTPCookie]
     
-    var open: (() -> Void)? = nil
+    var ws: WebSocket
+    
     var error: ((Error) -> Void)? = nil
-    var close: (() -> Void)? = nil
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     
-    init(csrf_token: String) {
-        self.csrf_token = csrf_token
+    init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+        self.hashString = hashString
+        self.csrfToken = csrfToken
+        self.userAgent = userAgent
+        self.cookies = cookies
+        self.ws = WebSocket(url: URL(string: "wss://ws-lb.crowdin.com/")!)
         super.init()
-        self.start()
+        self.ws.delegate = self
+        self.ws.connect()
+        
+        let api = DistributionsAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        api.getDistribution { (response, _) in
+            self.distributionResponse = response
+        }
+    }
+
+    var distributionResponse: DistributionsResponse?
+    
+    func subscribeUpdateDraft(localization: String, stringId: Int) {
+        guard let projectId = distributionResponse?.data.project.id else { return }
+        guard let projectWsHash = distributionResponse?.data.project.wsHash else { return }
+        guard let userId = distributionResponse?.data.user.id else { return }
+        
+        guard let data = "{\"action\":\"subscribe\",\"event\": \"update-draft:\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
+        
+        self.ws.write(data: data)
     }
     
-    func start() {
-        var request = URLRequest(url: URL(string:"https://crowdin.com/backend/distributions/get_info?distribution_hash=66f02b964afeb77aea8d191e68748abc")!)
-        request.addValue(csrf_token, forHTTPHeaderField: "X-Csrf-Token")// csrf_token
-        let ws = SRWebSocket(urlRequest: request)
-        ws?.delegate = self
-        ws?.open()
+    func subscribeTopSuggestion(localization: String, stringId: Int) {
+        guard let projectId = distributionResponse?.data.project.id else { return }
+        guard let projectWsHash = distributionResponse?.data.project.wsHash else { return }
+        
+        guard let data = "{\"action\":\"subscribe\",\"event\": \"top-suggestion:\(projectWsHash):\(projectId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
+        
+        self.ws.write(data: data)
+    }
+    
+    func updateDraft(_ draft: UpdateDraftResponse) {
+        guard let event = draft.event else { return }
+        let data = event.split(separator: ":").map({ String($0) })
+        guard data.count == 6 else { return }
+        guard let id = Int(data[5]) else { return }
+        guard let newText = draft.data?.text else { return }
+        guard let pluralForm = draft.data?.pluralForm else { return }
+        if pluralForm == "none" {
+            self.didChangeString?(id, newText)
+        } else {
+            self.didChangePlural?(id, newText)
+        }
+    }
+    
+    func updateTopSuggestion(_ topSuggestion: TopSuggestionResponse) {
+        
     }
 }
 
-extension CrowdinSocketManager: SRWebSocketDelegate {
-    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
-        print(message)
+extension CrowdinSocketManager: WebSocketDelegate {
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("websocketDidConnect")
     }
     
-    func webSocketDidOpen(_ webSocket: SRWebSocket!) {
-        print("OPEN")
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("websocketDidDisconnect error - \(error)")
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: Error!) {
-        print(error)
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        print("websocketDidReceiveMessage text - \(text)")
+        guard let data = text.data(using: .utf8) else { return }
+        if let response = try? JSONDecoder().decode(UpdateDraftResponse.self, from: data) {
+            self.updateDraft(response)
+        } else if let response = try? JSONDecoder().decode(TopSuggestionResponse.self, from: data) {
+            self.updateTopSuggestion(response)
+        }
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didReceivePong pongPayload: Data!) {
-        print("didReceivePong")
-    }
-    
-    func webSocketShouldConvertTextFrame(toString webSocket: SRWebSocket!) -> Bool {
-        return true
-    }
-    func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        print("CLOSE")
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("websocketDidReceiveData")
     }
 }

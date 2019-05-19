@@ -45,7 +45,7 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     
     override func main() {
         let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getPluralsSync(filePath: self.filePath)
-        self.plurals = result.plurapls
+        self.plurals = result.plurals
         self.error = result.error
         self.completion?(self.plurals, self.error)
         self.finish(with: result.error != nil)
@@ -80,7 +80,7 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     
     init(hash: String, filePath: String, sourceLanguage: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "\(sourceLanguage)\(fileName)")
+        super.init(hash: hash, filePath: "\(sourceLanguage)/\(fileName)")
         self.completion = completion
     }
     
@@ -90,7 +90,7 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     
     override func main() {
         let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getPluralsMappingSync(filePath: self.filePath)
-        self.plurals = result.plurapls
+        self.plurals = result.plurals
         self.error = result.error
         self.completion?(self.plurals, self.error)
         self.finish(with: result.error != nil)
@@ -101,9 +101,9 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?
     
-    init(hash: String, filePath: String, sourceLanguage: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+    init(hash: String, filePath: String, sourceLanguage: String, completion: (([String: String]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "\(sourceLanguage)\(fileName)")
+        super.init(hash: hash, filePath: "\(sourceLanguage)/\(fileName)")
         self.completion = completion
     }
     

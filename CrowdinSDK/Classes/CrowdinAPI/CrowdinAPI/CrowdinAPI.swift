@@ -42,8 +42,8 @@ public class CrowdinAPI: BaseAPI {
         }
     }
     
-    public func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
-        self.get(url: url, parameters: parameters, completion: { data, response, error in
+    public func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
+        self.get(url: url, parameters: parameters, headers: headers, completion: { data, response, error in
             guard let data = data else {
                 completion(nil, error)
                 return
@@ -57,8 +57,8 @@ public class CrowdinAPI: BaseAPI {
         })
     }
     
-    public func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil) -> (T?, Error?) {
-        let result = self.get(url: url, parameters: parameters)
+    public func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> (T?, Error?) {
+        let result = self.get(url: url, parameters: parameters, headers: headers)
         guard let data = result.data else {
             return (nil, result.error)
         }
