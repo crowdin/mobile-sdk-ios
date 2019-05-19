@@ -80,7 +80,7 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     
     init(hash: String, filePath: String, sourceLanguage: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "\(sourceLanguage)/\(fileName)")
+        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)")
         self.completion = completion
     }
     
@@ -103,7 +103,7 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     
     init(hash: String, filePath: String, sourceLanguage: String, completion: (([String: String]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "\(sourceLanguage)/\(fileName)")
+        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)")
         self.completion = completion
     }
     
