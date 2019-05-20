@@ -45,7 +45,6 @@ class DistributionsAPI: CrowdinAPI {
         self.cw_get(url: baseURL(), headers: headers, completion: completion)
     }
     
-    
     func getDistributionSync(completion: @escaping (DistributionsResponse?, Error?) -> Void) {
         let headers = [ParameterKeys.userAgent.rawValue: userAgent, ParameterKeys.cookie.rawValue: cookiesString, ParameterKeys.xCsrfToken.rawValue: csrfToken]
         self.cw_get(url: baseURL(), headers: headers, completion: completion)

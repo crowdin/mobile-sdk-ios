@@ -13,7 +13,7 @@ class RealtimeUpdateFeature {
     var hashString: String
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
-    private var socketManger: CrowdinSocketManager!
+    private var socketManger: CrowdinSocketManager?
     private var mappingManager: CrowdinMappingManagerProtocol
     
     init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
@@ -24,8 +24,8 @@ class RealtimeUpdateFeature {
     func subscribe(control: Refreshable) {
         guard let localizationKey = control.key else { return }
         guard let id = self.mappingManager.id(for: localizationKey) else { return }
-        socketManger.subscribeUpdateDraft(localization: "en", stringId: id)
-        socketManger.subscribeTopSuggestion(localization: "en", stringId: id)
+        socketManger?.subscribeUpdateDraft(localization: "en", stringId: id)
+        socketManger?.subscribeTopSuggestion(localization: "en", stringId: id)
         controls.add(control)
     }
     
@@ -48,21 +48,24 @@ class RealtimeUpdateFeature {
     }
     
     func start() {
-        guard let loginVC = CrowdinLoginVC.instantiateVC else { return }
-        loginVC.completion = { token, userAgent, cookies in
-            self.start(with: token, userAgent: userAgent, cookies: cookies)
+        if let loginInfo = LoginFeature.loginInfo {
+            self.start(with: loginInfo.csrfToken, userAgent: loginInfo.userAgent, cookies: loginInfo.cookies)
+        } else {
+            LoginFeature.login(completion: { (csrfToken, userAgent, cookies) in
+                self.start(with: csrfToken, userAgent: userAgent, cookies: cookies)
+            }) { error in
+                print(error.localizedDescription)
+            }
         }
-        // TODO: Change screen presentation.
-        UIApplication.shared.keyWindow?.rootViewController?.present(loginVC, animated: true, completion: { })
     }
     
-    func start(with token: String, userAgent: String, cookies: [HTTPCookie]) {
-        self.socketManger = CrowdinSocketManager(hashString: hashString, csrfToken: token, userAgent: userAgent, cookies: cookies)
-        self.socketManger.didChangeString = { id, newValue in
+    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+        self.socketManger = CrowdinSocketManager(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }
         
-        self.socketManger.didChangePlural = { id, newValue in
+        self.socketManger?.didChangePlural = { id, newValue in
             self.didChangePlural(with: id, to: newValue)
         }
     }

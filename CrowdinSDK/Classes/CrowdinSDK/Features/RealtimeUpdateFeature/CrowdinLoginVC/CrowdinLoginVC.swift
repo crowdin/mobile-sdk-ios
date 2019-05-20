@@ -7,8 +7,10 @@
 
 import Foundation
 
-class CrowdinLoginVC: UIViewController {
+class CrowdinLoginVC: UIViewController {    
     var baseURL = "https://crowdin.com/login"
+    
+    var error: ((_ error: Error) -> Void)? = nil
     var completion: ((_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void)? = nil
     
     @IBOutlet var webView: UIWebView! {
@@ -28,6 +30,7 @@ class CrowdinLoginVC: UIViewController {
 
 extension CrowdinLoginVC: UIWebViewDelegate {
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.error?(error)
         self.dismiss(animated: true, completion: nil)
     }
     
