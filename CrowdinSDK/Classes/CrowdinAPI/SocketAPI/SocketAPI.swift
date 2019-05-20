@@ -15,8 +15,10 @@ class SocketAPI: NSObject {
     let cookies: [HTTPCookie]
     
     var distributionResponse: DistributionsResponse?
-    
     var ws: WebSocket
+    var isConnected: Bool {
+        return ws.isConnected
+    }
     
     var onError: ((Error) -> Void)? = nil
     var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)? = nil

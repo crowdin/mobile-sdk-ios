@@ -30,6 +30,7 @@ class SettingsView: UIView {
             setupCells()
         }
     }
+    
     var open: Bool = false {
         didSet {
             if open == true {

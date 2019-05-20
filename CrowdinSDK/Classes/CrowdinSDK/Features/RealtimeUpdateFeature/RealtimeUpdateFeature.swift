@@ -9,9 +9,22 @@ import Foundation
 
 class RealtimeUpdateFeature {
     static var shared: RealtimeUpdateFeature?
+    static var enabled: Bool {
+        set {
+            if newValue {
+                shared?.start()
+            } else {
+                shared?.stop()
+            }
+        }
+        get {
+            return shared?.active ?? false
+        }
+    }
     
     var localization: String
     var hashString: String
+    var active: Bool { return socketManger?.active ?? false }
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
     private var socketManger: CrowdinSocketManager?
@@ -70,6 +83,7 @@ class RealtimeUpdateFeature {
         self.socketManger?.didChangePlural = { id, newValue in
             self.didChangePlural(with: id, to: newValue)
         }
+        self.socketManger?.start()
     }
     
     func stop() {

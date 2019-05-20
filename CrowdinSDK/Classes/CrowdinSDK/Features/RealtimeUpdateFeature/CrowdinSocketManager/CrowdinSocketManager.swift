@@ -15,6 +15,9 @@ class CrowdinSocketManager: NSObject {
     let cookies: [HTTPCookie]
     
     var socketAPI: SocketAPI
+    var active: Bool {
+        return socketAPI.isConnected
+    }
     
     var error: ((Error) -> Void)? = nil
     var didChangeString: ((Int, String) -> Void)? = nil
