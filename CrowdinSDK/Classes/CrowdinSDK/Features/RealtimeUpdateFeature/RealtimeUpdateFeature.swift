@@ -10,13 +10,15 @@ import Foundation
 class RealtimeUpdateFeature {
     static var shared: RealtimeUpdateFeature?
     
+    var localization: String
     var hashString: String
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
     private var socketManger: CrowdinSocketManager?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+    init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+        self.localization = localization
         self.hashString = hash
         self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
     }
@@ -24,8 +26,8 @@ class RealtimeUpdateFeature {
     func subscribe(control: Refreshable) {
         guard let localizationKey = control.key else { return }
         guard let id = self.mappingManager.id(for: localizationKey) else { return }
-        socketManger?.subscribeUpdateDraft(localization: "en", stringId: id)
-        socketManger?.subscribeTopSuggestion(localization: "en", stringId: id)
+        socketManger?.subscribeOnUpdateDraft(localization: localization, stringId: id)
+        socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
     }
     
@@ -68,6 +70,13 @@ class RealtimeUpdateFeature {
         self.socketManger?.didChangePlural = { id, newValue in
             self.didChangePlural(with: id, to: newValue)
         }
+    }
+    
+    func stop() {
+        self.socketManger?.stop()
+        self.socketManger?.didChangeString = nil
+        self.socketManger?.didChangePlural = nil
+        self.socketManger = nil
     }
     
     func didChangeString(with id: Int, to newValue: String) {

@@ -17,7 +17,7 @@ extension Notification.Name {
 
 public class CrowdinLocalizationProvider: BaseLocalizationProvider {    
     public init(config: CrowdinProviderConfig) {
-        let localization = Bundle.main.preferredLanguage
+        let localization = Bundle.main.preferredLanguage(with: config.localizations)
         let localStorage = CrowdinLocalLocalizationStorage(localization: localization, localizations: config.localizations)
         let remoteStorage = CrowdinRemoteLocalizationStorage(hashString: config.hashString, stringsFileNames: config.stringsFileNames, pluralsFileNames: config.pluralsFileNames, localization: localization, localizations: config.localizations)
         super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)

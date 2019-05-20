@@ -14,7 +14,7 @@ class CrowdinSocketManager: NSObject {
     let userAgent: String
     let cookies: [HTTPCookie]
     
-    var ws: WebSocket
+    var socketAPI: SocketAPI
     
     var error: ((Error) -> Void)? = nil
     var didChangeString: ((Int, String) -> Void)? = nil
@@ -25,36 +25,29 @@ class CrowdinSocketManager: NSObject {
         self.csrfToken = csrfToken
         self.userAgent = userAgent
         self.cookies = cookies
-        self.ws = WebSocket(url: URL(string: "wss://ws-lb.crowdin.com/")!)
+        self.socketAPI = SocketAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
         super.init()
-        self.ws.delegate = self
-        self.ws.connect()
         
-        let api = DistributionsAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
-        api.getDistribution { (response, _) in
-            self.distributionResponse = response
-        }
+        self.socketAPI.didReceiveUpdateTopSuggestion = updateTopSuggestion(_:)
+        self.socketAPI.didReceiveUpdateDraft = updateDraft(_:)
     }
-
+    
+    func start() {
+        self.socketAPI.connect()
+    }
+    
+    func stop() {
+        self.socketAPI.disconect()
+    }
+    
     var distributionResponse: DistributionsResponse?
     
-    func subscribeUpdateDraft(localization: String, stringId: Int) {
-        guard let projectId = distributionResponse?.data.project.id else { return }
-        guard let projectWsHash = distributionResponse?.data.project.wsHash else { return }
-        guard let userId = distributionResponse?.data.user.id else { return }
-        
-        guard let data = "{\"action\":\"subscribe\",\"event\": \"update-draft:\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
-        
-        self.ws.write(data: data)
+    func subscribeOnUpdateDraft(localization: String, stringId: Int) {
+        self.socketAPI.subscribeOnUpdateDraft(localization: localization, stringId: stringId)
     }
     
-    func subscribeTopSuggestion(localization: String, stringId: Int) {
-        guard let projectId = distributionResponse?.data.project.id else { return }
-        guard let projectWsHash = distributionResponse?.data.project.wsHash else { return }
-        
-        guard let data = "{\"action\":\"subscribe\",\"event\": \"top-suggestion:\(projectWsHash):\(projectId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
-        
-        self.ws.write(data: data)
+    func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
+        self.socketAPI.subscribeOnUpdateTopSuggestion(localization: localization, stringId: stringId)
     }
     
     func updateDraft(_ draft: UpdateDraftResponse) {
@@ -77,35 +70,10 @@ class CrowdinSocketManager: NSObject {
         guard data.count == 5 else { return }
         guard let id = Int(data[4]) else { return }
         guard let newText = topSuggestion.data?.text else { return }
-//        guard let pluralForm = topSuggestion.data?. else { return }
-//        if pluralForm == "none" {
-//            self.didChangeString?(id, newText)
-//        } else {
-            self.didChangePlural?(id, newText)
-//        }
-    }
-}
-
-extension CrowdinSocketManager: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("websocketDidConnect")
-    }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("websocketDidDisconnect error - \(error)")
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        print("websocketDidReceiveMessage text - \(text)")
-        guard let data = text.data(using: .utf8) else { return }
-        if let response = try? JSONDecoder().decode(UpdateDraftResponse.self, from: data) {
-            self.updateDraft(response)
-        } else if let response = try? JSONDecoder().decode(TopSuggestionResponse.self, from: data) {
-            self.updateTopSuggestion(response)
-        }
-    }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("websocketDidReceiveData")
+        
+        // TODO: Fix in future.
+        // We're unable to detect what exact was changed string or plural. Send two callbacks.
+        self.didChangeString?(id, newText)
+        self.didChangePlural?(id, newText)
     }
 }

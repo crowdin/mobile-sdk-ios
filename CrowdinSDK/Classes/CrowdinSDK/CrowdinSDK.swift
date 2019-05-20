@@ -86,7 +86,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
             }
             
             if config.reatimeUpdatesEnabled {
-                RealtimeUpdateFeature.shared = RealtimeUpdateFeature(strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+                let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+                RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
             }
         }
         
