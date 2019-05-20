@@ -33,8 +33,8 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     private typealias CrowdinAPIDataCompletion = ((Data?, CrowdinContentDeliveryAPIError?) -> Void)
     
     private let hash: String
-//    private let baseURL = "distribution.crowdin.net"
-    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
+    private let baseURL = "https://distribution.crowdin.net"
+//    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
     
     init(hash: String, session: URLSession) {
         self.hash = hash
@@ -109,7 +109,6 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     // MARK: - Localization downloading sync methods
     
     func checkFileSync(filePath: String) -> Bool {
-        return true
         let stringURL = buildURL(fileType: .content, filePath: filePath)
         if let etag = UserDefaults.standard.string(forKey: filePath) {
             let response = self.get(url: stringURL, parameters: nil, headers: ["If-None-Match": etag])

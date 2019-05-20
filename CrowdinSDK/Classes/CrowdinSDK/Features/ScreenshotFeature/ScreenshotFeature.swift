@@ -60,7 +60,9 @@ class ScreenshotFeature {
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let projectId = self.projectId else {
             self.loginAndGetProjectId(success: {
-                self.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+                DispatchQueue.main.async {
+                    self.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+                }
             }, errorHandler: errorHandler)
             return
         }
