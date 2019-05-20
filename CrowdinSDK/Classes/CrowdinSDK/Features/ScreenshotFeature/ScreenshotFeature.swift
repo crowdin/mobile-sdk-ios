@@ -35,30 +35,33 @@ class ScreenshotFeature {
         self.loginAndGetProjectId()
     }
     
-    func loginAndGetProjectId(errorHandler: ((Error) -> Void)? = nil) {
+    func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         LoginFeature.login(completion: { csrfToken, userAgent, cookies in
-            self.getProjectId(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+            self.getProjectId(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies, success: success)
         }) { (error) in
             errorHandler?(error)
         }
     }
     
-    func getProjectId(csrfToken: String, userAgent: String, cookies: [HTTPCookie], errorHandler: ((Error) -> Void)? = nil) {
+    func getProjectId(csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         let distrinbutionsAPI = DistributionsAPI(hashString: config.hash, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
         distrinbutionsAPI.getDistribution { (response, error) in
             if let error = error {
                 errorHandler?(error)
+            } else if let id = response?.data.project.id, let projectId = Int(id) {
+                self.projectId = projectId
+                success?()
             } else {
-                if let id = response?.data.project.id, let projectId = Int(id) {
-                    self.projectId = projectId
-                }
+                errorHandler?(NSError(domain: "Unknown error", code: 9999, userInfo: nil))
             }
         }
     }
     
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let projectId = self.projectId else {
-            self.loginAndGetProjectId(errorHandler: errorHandler)
+            self.loginAndGetProjectId(success: {
+                self.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+            }, errorHandler: errorHandler)
             return
         }
         guard let screenshot = self.window?.screenshot else { return }

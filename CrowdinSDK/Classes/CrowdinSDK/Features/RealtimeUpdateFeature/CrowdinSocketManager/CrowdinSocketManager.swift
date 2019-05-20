@@ -72,7 +72,17 @@ class CrowdinSocketManager: NSObject {
     }
     
     func updateTopSuggestion(_ topSuggestion: TopSuggestionResponse) {
-        
+        guard let event = topSuggestion.event else { return }
+        let data = event.split(separator: ":").map({ String($0) })
+        guard data.count == 5 else { return }
+        guard let id = Int(data[4]) else { return }
+        guard let newText = topSuggestion.data?.text else { return }
+//        guard let pluralForm = topSuggestion.data?. else { return }
+//        if pluralForm == "none" {
+//            self.didChangeString?(id, newText)
+//        } else {
+            self.didChangePlural?(id, newText)
+//        }
     }
 }
 

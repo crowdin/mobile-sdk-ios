@@ -50,7 +50,7 @@ class CrowdinPathsParser {
             // Add localization code to file name
             let localization = Bundle.main.preferredLanguage
             let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
-            resultPath = "\(crowdinLocalization)/\(path)"
+            resultPath = "/\(crowdinLocalization)/\(path)"
         }
         return resultPath
     }
