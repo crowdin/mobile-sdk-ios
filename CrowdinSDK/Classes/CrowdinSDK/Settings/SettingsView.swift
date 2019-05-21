@@ -33,6 +33,7 @@ class SettingsView: UIView {
     
     var open: Bool = false {
         didSet {
+            setupCells()
             if open == true {
                 self.frame.size.height = CGFloat(60 + cells.count * 60);
             } else {

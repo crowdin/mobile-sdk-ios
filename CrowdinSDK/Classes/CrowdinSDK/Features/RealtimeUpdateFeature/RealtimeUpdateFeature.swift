@@ -9,16 +9,16 @@ import Foundation
 
 class RealtimeUpdateFeature {
     static var shared: RealtimeUpdateFeature?
-    static var enabled: Bool {
+    var enabled: Bool {
         set {
             if newValue {
-                shared?.start()
+                start()
             } else {
-                shared?.stop()
+                stop()
             }
         }
         get {
-            return shared?.active ?? false
+            return active
         }
     }
     
