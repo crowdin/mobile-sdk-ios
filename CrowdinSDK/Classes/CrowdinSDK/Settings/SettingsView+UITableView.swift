@@ -29,11 +29,12 @@ extension SettingsView {
         }
         if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             autoreloadCell.action = {
-                IntervalUpdateFeature.enabled = !IntervalUpdateFeature.enabled
-                autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
+                self.open = false
+                RealtimeUpdateFeature.enabled = !RealtimeUpdateFeature.enabled
+                autoreloadCell.icon.image = UIImage(named: RealtimeUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
                 self.tableView.reloadData()
             }
-            autoreloadCell.icon.image = UIImage(named: IntervalUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
+            autoreloadCell.icon.image = UIImage(named: RealtimeUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
             autoreloadCell.selectionStyle = .none
             autoreloadCell.contentView.layer.cornerRadius = 30.0
             autoreloadCell.contentView.clipsToBounds = true

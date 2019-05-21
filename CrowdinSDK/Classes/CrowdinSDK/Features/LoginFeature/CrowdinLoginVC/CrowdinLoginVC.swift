@@ -7,9 +7,11 @@
 
 import Foundation
 
-class CrowdinLoginVC: UIViewController {
+class CrowdinLoginVC: UIViewController {    
     var baseURL = "https://crowdin.com/login"
-    var csrfTokenCompletion: ((String) -> Void)? = nil
+    
+    var error: ((_ error: Error) -> Void)? = nil
+    var completion: ((_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void)? = nil
     
     @IBOutlet var webView: UIWebView! {
         didSet {
@@ -28,15 +30,16 @@ class CrowdinLoginVC: UIViewController {
 
 extension CrowdinLoginVC: UIWebViewDelegate {
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.error?(error)
         self.dismiss(animated: true, completion: nil)
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        guard let userAgent = webView.request?.allHTTPHeaderFields?["User-Agent"] else { return }
         guard let cookies = HTTPCookieStorage.shared.cookies else { return }
         for cookie in cookies {
             if cookie.name == "csrf_token" {
-                print(cookie.value)
-                self.csrfTokenCompletion?(cookie.value)
+                self.completion?(cookie.value, userAgent, cookies)
                 self.dismiss(animated: true, completion: nil)
             }
         }

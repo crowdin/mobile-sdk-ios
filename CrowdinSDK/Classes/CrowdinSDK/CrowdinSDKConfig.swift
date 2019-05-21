@@ -11,8 +11,8 @@ import Foundation
     // Crowdin provider configuration
     var crowdinProviderConfig: CrowdinProviderConfig? = nil
     
-    // Screenshot feature
-    var screnshotsEnabled: Bool = false
+    // Screenshot feature config
+    var crowdinScreenshotsConfig: CrowdinScreenshotsConfig? = nil
     
     // Realtime updates
     var reatimeUpdatesEnabled: Bool = false
@@ -33,8 +33,8 @@ import Foundation
         return self
     }
     
-    public func with(screnshotsEnabled: Bool) -> Self {
-        self.screnshotsEnabled = screnshotsEnabled
+    public func with(crowdinScreenshotsConfig: CrowdinScreenshotsConfig) -> Self {
+        self.crowdinScreenshotsConfig = crowdinScreenshotsConfig
         return self
     }
     

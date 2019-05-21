@@ -3,7 +3,7 @@ PODS:
     - CrowdinSDK/Core (= 0.1.0)
     - CrowdinSDK/CrowdinProvider (= 0.1.0)
   - CrowdinSDK/Core (0.1.0):
-    - SocketRocket
+    - Starscream
   - CrowdinSDK/CrowdinAPI (0.1.0)
   - CrowdinSDK/CrowdinProvider (0.1.0):
     - CrowdinSDK/Core
@@ -76,7 +76,7 @@ PODS:
   - R.swift (5.0.1):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.0)
-  - SocketRocket (0.5.1)
+  - Starscream (3.1.0)
   - SwiftLint (0.31.0)
 
 DEPENDENCIES:
@@ -106,7 +106,7 @@ SPEC REPOS:
     - nanopb
     - R.swift
     - R.swift.Library
-    - SocketRocket
+    - Starscream
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -121,7 +121,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 87d80dd23c723c82c535614dc15fde08a356e2d9
+  CrowdinSDK: 34c74f796d8a47c8283cb085f8383e423ce73e71
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
@@ -137,7 +137,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   R.swift: a8e1a7e7f38441282fbcb7a3c266076eb38b77ba
   R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
-  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
 PODFILE CHECKSUM: 8ab72f596949247404a6fe7a160927716a5e5060

@@ -7,38 +7,87 @@
 
 import UIKit
 
-struct ScreenshotFeatureConfig {
-    var projectId: Int
+@objcMembers public class CrowdinScreenshotsConfig: NSObject {
     var login: String
-    var credentials: String
     var accountKey: String
-    var strings: [String]
-    var plurals: [String]
-    var hash: String
-    var sourceLanguage: String
+    var credentials: String
+    
+    public init(login: String, accountKey: String, credentials: String) {
+        self.login = login
+        self.accountKey = accountKey
+        self.credentials = credentials
+        super.init()
+    }
 }
 
 class ScreenshotFeature {
     static var shared: ScreenshotFeature?
     
+    var login: String
+    var accountKey: String
+    var hash: String
+    var credentials: String
+    var strings: [String]
+    var plurals: [String]
+    var sourceLanguage: String
+    
     var mappingManager: CrowdinMappingManagerProtocol
-    var config: ScreenshotFeatureConfig
+    var projectId: Int? = nil
     
     enum Errors: String {
         case storageIdIsMissing = "Storage id is missing."
+        case screenshotIdIsMissing = "Screenshot id is missing."
+        case unknownError = "Unknown error"
     }
     
-    init(config: ScreenshotFeatureConfig) {
-        self.config = config
-        self.mappingManager = CrowdinMappingManager(strings: config.strings, plurals: config.plurals, hash: config.hash, sourceLanguage: config.sourceLanguage)
+    init(login: String, accountKey: String, credentials: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+        self.login = login
+        self.accountKey = accountKey
+        self.credentials = credentials
+        self.strings = strings
+        self.plurals = plurals
+        self.hash = hash
+        self.sourceLanguage = sourceLanguage
+        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
+        self.loginAndGetProjectId()
+    }
+    
+    func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+        LoginFeature.login(completion: { csrfToken, userAgent, cookies in
+            self.getProjectId(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies, success: success, errorHandler: errorHandler)
+        }) { (error) in
+            errorHandler?(error)
+        }
+    }
+    
+    func getProjectId(csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+        let distrinbutionsAPI = DistributionsAPI(hashString: hash, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        distrinbutionsAPI.getDistribution { (response, error) in
+            if let error = error {
+                errorHandler?(error)
+            } else if let id = response?.data.project.id, let projectId = Int(id) {
+                self.projectId = projectId
+                success?()
+            } else {
+                errorHandler?(NSError(domain: Errors.unknownError.rawValue, code: 9999, userInfo: nil))
+            }
+        }
     }
     
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard let projectId = self.projectId else {
+            self.loginAndGetProjectId(success: {
+                DispatchQueue.main.async {
+                    self.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+                }
+            }, errorHandler: errorHandler)
+            return
+        }
         guard let screenshot = self.window?.screenshot else { return }
         let values = self.captureValues()
         guard let data = screenshot.pngData() else { return }
-        let screenshotsAPI = ScreenshotsAPI(login: config.login, accountKey: config.accountKey, credentials: config.credentials)
-        let storageAPI = StorageAPI(login: config.login, accountKey: config.accountKey, credentials: config.credentials)
+        let screenshotsAPI = ScreenshotsAPI(login: login, accountKey: accountKey, credentials: credentials)
+        let storageAPI = StorageAPI(login: login, accountKey: accountKey, credentials: credentials)
         storageAPI.uploadNewFile(data: data, completion: { response, error in
             if let error = error {
                 errorHandler(error)
@@ -48,17 +97,17 @@ class ScreenshotFeature {
                 errorHandler(NSError(domain: Errors.storageIdIsMissing.rawValue, code: 9999, userInfo: nil))
                 return
             }
-            screenshotsAPI.createScreenshot(projectId: self.config.projectId, storageId: storageId, name: name, completion: { response, error in
+            screenshotsAPI.createScreenshot(projectId: projectId, storageId: storageId, name: name, completion: { response, error in
                 if let error = error {
                     errorHandler(error)
                     return
                 }
                 guard let screenshotId = response?.data.id else {
-                    errorHandler(NSError(domain: "Screenshot id is missing.", code: 9999, userInfo: nil))
+                    errorHandler(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: 9999, userInfo: nil))
                     return
                 }
                 guard values.count > 0 else { return }
-                screenshotsAPI.createScreenshotTags(projectId: self.config.projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
+                screenshotsAPI.createScreenshotTags(projectId: projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
                     if let error = error {
                         errorHandler(error)
                     } else {

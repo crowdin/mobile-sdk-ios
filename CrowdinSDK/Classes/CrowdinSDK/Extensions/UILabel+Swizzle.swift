@@ -31,13 +31,17 @@ extension UILabel {
 		
         if self.localizationKey != nil {
             RealtimeUpdateFeature.shared?.subscribe(control: self)
-            LocalizationUpdateFeature.shared?.subscribe(control: self)
         }
         
 		if let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
 			self.localizationValues = Localization.current.findValues(for: text, with: string)
 		}
         
+        swizzled_setText(text)
+    }
+    
+    func original_setText(_ text: String) {
+        guard UILabel.swizzled != nil else { return }
         swizzled_setText(text)
     }
 

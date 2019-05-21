@@ -15,7 +15,7 @@ enum CrowdinContentDeliveryAPIError: Error {
 }
 
 typealias CrowdinAPIStringsResult = (strings: [String: String]?, error: CrowdinContentDeliveryAPIError?)
-typealias CrowdinAPIPluralsResult = (plurapls: [AnyHashable: Any]?, error: CrowdinContentDeliveryAPIError?)
+typealias CrowdinAPIPluralsResult = (plurals: [AnyHashable: Any]?, error: CrowdinContentDeliveryAPIError?)
 
 typealias CrowdinAPIStringsCompletion = (([String: String]?, CrowdinContentDeliveryAPIError?) -> Void)
 typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, CrowdinContentDeliveryAPIError?) -> Void)
@@ -33,8 +33,8 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     private typealias CrowdinAPIDataCompletion = ((Data?, CrowdinContentDeliveryAPIError?) -> Void)
     
     private let hash: String
-//    private let baseURL = "distribution.crowdin.net"
-    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
+    private let baseURL = "https://distribution.crowdin.net"
+//    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
     
     init(hash: String, session: URLSession) {
         self.hash = hash
@@ -47,7 +47,7 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     }
     
     private func buildURL(fileType: FileType, filePath: String) -> String {
-        return baseURL + String.pathDelimiter + hash + String.pathDelimiter + fileType.rawValue + String.pathDelimiter + filePath
+        return baseURL + String.pathDelimiter + hash + String.pathDelimiter + fileType.rawValue + filePath
     }
     
     // MARK - General download methods
@@ -109,7 +109,6 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     // MARK: - Localization downloading sync methods
     
     func checkFileSync(filePath: String) -> Bool {
-        return true
         let stringURL = buildURL(fileType: .content, filePath: filePath)
         if let etag = UserDefaults.standard.string(forKey: filePath) {
             let response = self.get(url: stringURL, parameters: nil, headers: ["If-None-Match": etag])
@@ -152,47 +151,25 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     }
     
     // MARK - Mapping sync downloading methods
-    
-    func checkMappingFileSync(filePath: String) -> Bool {
-        return true
-        let stringURL = buildURL(fileType: .mapping, filePath: filePath)
-        if let etag = UserDefaults.standard.string(forKey: filePath) {
-            let response = self.get(url: stringURL, parameters: nil, headers: ["If-None-Match": etag])
-            var download = true
-            if let httpURLResponse = response.response as? HTTPURLResponse {
-                download = httpURLResponse.statusCode != 304
-            }
-            return download
-        } else {
-            return true
-        }
-    }
-    
     func getStringsMappingSync(filePath: String) -> CrowdinAPIStringsResult {
-        if self.checkMappingFileSync(filePath: filePath) {
-            let response = self.getFileSync(fileType: .mapping, filePath: filePath)
-            guard let data = response.data else {
-                return (nil, CrowdinContentDeliveryAPIError.dataError)
-            }
-            guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
-                return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
-            }
-            return (dictionary as? [String: String], nil)
+        let response = self.getFileSync(fileType: .mapping, filePath: filePath)
+        guard let data = response.data else {
+            return (nil, CrowdinContentDeliveryAPIError.dataError)
         }
-        return (nil, nil)
+        guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
+            return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
+        }
+        return (dictionary as? [String: String], nil)
     }
     
     func getPluralsMappingSync(filePath: String) -> CrowdinAPIPluralsResult {
-        if self.checkMappingFileSync(filePath: filePath) {
-            let response = self.getFileSync(fileType: .mapping, filePath: filePath)
-            guard let data = response.data else {
-                return (nil, CrowdinContentDeliveryAPIError.dataError)
-            }
-            guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
-                return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
-            }
-            return (dictionary, nil)
+        let response = self.getFileSync(fileType: .mapping, filePath: filePath)
+        guard let data = response.data else {
+            return (nil, CrowdinContentDeliveryAPIError.dataError)
         }
-        return (nil, nil)
+        guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
+            return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
+        }
+        return (dictionary, nil)
     }
 }

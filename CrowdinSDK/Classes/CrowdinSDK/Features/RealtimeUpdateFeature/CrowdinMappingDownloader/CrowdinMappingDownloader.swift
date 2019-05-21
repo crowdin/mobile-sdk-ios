@@ -22,8 +22,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string)
-            download.completion = { (strings, error) in
+            let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string, sourceLanguage: localization, completion: { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
                         self.errors?.append(error)
@@ -37,14 +36,13 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
                 } else {
                     self.strings = strings
                 }
-            }
+            })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural)
-            download.completion = { (plurals, error) in
+            let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural, sourceLanguage: localization, completion: { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {
                         self.errors?.append(error)
@@ -58,7 +56,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
                 } else {
                     self.plurals = plurals
                 }
-            }
+            })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }

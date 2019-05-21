@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+@import  CrowdinSDK;
 
 @interface ViewController ()
 
@@ -17,6 +18,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [CrowdinSDK captureScreenshotWithName:@"Test Screnshot" success:^{
+        
+    } errorHandler:^(NSError * _Nullable error) {
+        
+    }];
+}
+
+- (IBAction)screenshot:(id)sender {
+    [CrowdinSDK captureScreenshotWithName:@"Test Screnshot" success:^{
+        
+    } errorHandler:^(NSError * _Nullable error) {
+        
+    }];
 }
 
 

@@ -97,12 +97,16 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/LocalizationUpdateVC.storyboard"
-  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/SaveScreenshotVC.storyboard"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/CrowdinLoginVC.storyboard"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsItemCell.xib"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsView.xib"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/Images.xcassets"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/LocalizationUpdateVC.storyboard"
-  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/SaveScreenshotVC.storyboard"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/CrowdinLoginVC.storyboard"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsItemCell.xib"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsView.xib"
+  install_resource "${PODS_ROOT}/../../CrowdinSDK/Assets/Images.xcassets"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

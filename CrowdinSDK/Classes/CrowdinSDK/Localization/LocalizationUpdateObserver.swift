@@ -32,7 +32,7 @@ class LocalizationUpdateObserver {
     
     func subscribe() {
         NotificationCenter.default.addObserver(self, selector: #selector(didDownloadLocalization), name: NSNotification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(downloadError(_:)), name: NSNotification.Name.CrowdinProviderDownloadError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(downloadError(with:)), name: NSNotification.Name.CrowdinProviderDownloadError, object: nil)
     }
     
     func unsubscribe() {
@@ -71,7 +71,8 @@ class LocalizationUpdateObserver {
         downloadHandlers.forEach({ $1() })
     }
     
-    @objc func downloadError(_ errors: [Error]) {
+    @objc func downloadError(with notification: Notification) {
+        guard let errors = notification.object as? [Error] else { return }
         errorHandlers.forEach({ $1(errors) })
     }
 }

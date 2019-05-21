@@ -9,16 +9,38 @@ import Foundation
 
 class RealtimeUpdateFeature {
     static var shared: RealtimeUpdateFeature?
+    static var enabled: Bool {
+        set {
+            if newValue {
+                shared?.start()
+            } else {
+                shared?.stop()
+            }
+        }
+        get {
+            return shared?.active ?? false
+        }
+    }
+    
+    var localization: String
+    var hashString: String
+    var active: Bool { return socketManger?.active ?? false }
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
-    private var socketManger: CrowdinSocketManager!
+    private var socketManger: CrowdinSocketManager?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+    init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+        self.localization = localization
+        self.hashString = hash
         self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
     }
     
     func subscribe(control: Refreshable) {
+        guard let localizationKey = control.key else { return }
+        guard let id = self.mappingManager.id(for: localizationKey) else { return }
+        socketManger?.subscribeOnUpdateDraft(localization: localization, stringId: id)
+        socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
     }
     
@@ -30,33 +52,54 @@ class RealtimeUpdateFeature {
         }
     }
     
-    func login() {
-        guard let loginVC = CrowdinLoginVC.instantiateVC else { return }
-        loginVC.csrfTokenCompletion = { token in
-            self.subscribe(with: token)
+    func refreshControl(with localizationKey: String, newText: String) {
+        self.controls.allObjects.forEach { (control) in
+            if let refreshable = control as? Refreshable {
+                if let key = refreshable.key, key == localizationKey {
+                    refreshable.refresh(text: newText)
+                }
+            }
         }
-        
-        UIApplication.shared.keyWindow?.rootViewController?.present(loginVC, animated: true, completion: { })
     }
     
-    func subscribe(with token: String) {
-        self.socketManger = CrowdinSocketManager(csrf_token: token)
-        self.socketManger.didChangeString = { id, newValue in
-            
+    func start() {
+        if let loginInfo = LoginFeature.loginInfo {
+            self.start(with: loginInfo.csrfToken, userAgent: loginInfo.userAgent, cookies: loginInfo.cookies)
+        } else {
+            LoginFeature.login(completion: { (csrfToken, userAgent, cookies) in
+                self.start(with: csrfToken, userAgent: userAgent, cookies: cookies)
+            }) { error in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+        self.socketManger = CrowdinSocketManager(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        self.socketManger?.didChangeString = { id, newValue in
+            self.didChangeString(with: id, to: newValue)
         }
         
-        self.socketManger.didChangeString = { id, newValue in
-            
+        self.socketManger?.didChangePlural = { id, newValue in
+            self.didChangePlural(with: id, to: newValue)
         }
-        
-        self.socketManger.start()
+        self.socketManger?.start()
+    }
+    
+    func stop() {
+        self.socketManger?.stop()
+        self.socketManger?.didChangeString = nil
+        self.socketManger?.didChangePlural = nil
+        self.socketManger = nil
     }
     
     func didChangeString(with id: Int, to newValue: String) {
-        let key = mappingManager.stringLocalizationKey(for: id)
+        guard let key = mappingManager.stringLocalizationKey(for: id) else { return }
+        self.refreshControl(with: key, newText: newValue)
     }
     
     func didChangePlural(with id: Int, to newValue: String) {
-        let key = mappingManager.stringLocalizationKey(for: id)
+        guard let key = mappingManager.stringLocalizationKey(for: id) else { return }
+        self.refreshControl(with: key, newText: newValue)
     }
 }
