@@ -19,7 +19,16 @@ class CrowdinSocketManager: NSObject {
         return socketAPI.isConnected
     }
     
-    var error: ((Error) -> Void)? = nil
+    var connect: (() -> Void)? = nil {
+        didSet {
+            self.socketAPI.onConnect = connect
+        }
+    }
+    var error: ((Error) -> Void)? = nil {
+        didSet {
+            self.socketAPI.onError = error
+        }
+    }
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     

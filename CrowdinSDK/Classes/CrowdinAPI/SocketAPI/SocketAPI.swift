@@ -20,6 +20,7 @@ class SocketAPI: NSObject {
         return ws.isConnected
     }
     
+    var onConnect: (() -> Void)? = nil
     var onError: ((Error) -> Void)? = nil
     var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)? = nil
     var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)? = nil
@@ -71,7 +72,9 @@ class SocketAPI: NSObject {
 }
 
 extension SocketAPI: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocketClient) { }
+    func websocketDidConnect(socket: WebSocketClient) {
+        self.onConnect?()
+    }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         if let error = error {

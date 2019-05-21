@@ -11,11 +11,7 @@ class RealtimeUpdateFeature {
     static var shared: RealtimeUpdateFeature?
     var enabled: Bool {
         set {
-            if newValue {
-                start()
-            } else {
-                stop()
-            }
+            newValue ? start() : stop()
         }
         get {
             return active
@@ -62,6 +58,20 @@ class RealtimeUpdateFeature {
         }
     }
     
+    func subscribeAllVisibleConrols() {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        subscribeAllControls(from: window)
+    }
+    
+    func subscribeAllControls(from view: UIView) {
+        view.subviews.forEach { (subview) in
+            if let refreshable = subview as? Refreshable {
+                self.subscribe(control: refreshable)
+            }
+            subscribeAllControls(from: subview)
+        }
+    }
+    
     func start() {
         if let loginInfo = LoginFeature.loginInfo {
             self.start(with: loginInfo.csrfToken, userAgent: loginInfo.userAgent, cookies: loginInfo.cookies)
@@ -83,6 +93,9 @@ class RealtimeUpdateFeature {
         self.socketManger?.didChangePlural = { id, newValue in
             self.didChangePlural(with: id, to: newValue)
         }
+        
+        self.socketManger?.connect = subscribeAllVisibleConrols
+        
         self.socketManger?.start()
     }
     
