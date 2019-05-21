@@ -27,9 +27,8 @@ public class Request {
         if let url = url {
             var request = URLRequest(url: url)
             if let headers = headers {
-                for headerKey in headers.keys {
-                    // swiftlint:disable force_unwrapping
-                    request.addValue(headers[headerKey]!, forHTTPHeaderField: headerKey)
+                for (key, value) in headers {
+                    request.addValue(value, forHTTPHeaderField: key)
                 }
             }
             request.httpMethod = method.rawValue
@@ -47,7 +46,7 @@ public class Request {
                 retUrl.append("?")
 				parameters.keys.forEach {
 					guard let value = parameters[$0] else { return }
-					let escapedValue = value.addingPercentEncoding(withAllowedCharacters: CharacterSet.BaseAPI_URLQueryAllowedCharacterSet())
+					let escapedValue = value.addingPercentEncoding(withAllowedCharacters: CharacterSet.ba_URLQueryAllowedCharacterSet())
 					if let escapedValue = escapedValue {
 						retUrl.append("\($0)=\(escapedValue)&")
 					}

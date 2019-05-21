@@ -6,12 +6,17 @@
 //
 
 import Foundation
-import SocketIO
 
 class RealtimeUpdateFeature {
     static var shared: RealtimeUpdateFeature?
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
+    private var socketManger: CrowdinSocketManager!
+    private var mappingManager: CrowdinMappingManagerProtocol
+    
+    init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
+    }
     
     func subscribe(control: Refreshable) {
         controls.add(control)
@@ -28,25 +33,30 @@ class RealtimeUpdateFeature {
     func login() {
         guard let loginVC = CrowdinLoginVC.instantiateVC else { return }
         loginVC.csrfTokenCompletion = { token in
-            self.start(with: token)
+            self.subscribe(with: token)
         }
+        
         UIApplication.shared.keyWindow?.rootViewController?.present(loginVC, animated: true, completion: { })
     }
-    var manager: SocketManager!
-    var socket: SocketIOClient!
     
-    func start(with token: String) {
-        manager = SocketManager(socketURL: URL(string: "https://crowdin.com/backend/distributions/get_info?distribution_hash=66f02b964afeb77aea8d191e68748abc&X-Csrf-Token=\(token)")!, config: [.log(true), .compress])
-        socket = manager.defaultSocket
-        
-        socket.on(clientEvent: .connect) {_, _ in
-            print("socket connected")
+    func subscribe(with token: String) {
+        self.socketManger = CrowdinSocketManager(csrf_token: token)
+        self.socketManger.didChangeString = { id, newValue in
+            
         }
         
-        socket.onAny { (event) in
-            print(event.description)
+        self.socketManger.didChangeString = { id, newValue in
+            
         }
         
-        socket.connect()
+        self.socketManger.start()
+    }
+    
+    func didChangeString(with id: Int, to newValue: String) {
+        let key = mappingManager.stringLocalizationKey(for: id)
+    }
+    
+    func didChangePlural(with id: Int, to newValue: String) {
+        let key = mappingManager.stringLocalizationKey(for: id)
     }
 }

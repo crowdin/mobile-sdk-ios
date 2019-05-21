@@ -7,122 +7,96 @@
 
 import UIKit
 
-enum ScreenshotFeatureType {
-    case shake
+struct ScreenshotFeatureConfig {
+    var projectId: Int
+    var login: String
+    var credentials: String
+    var accountKey: String
+    var strings: [String]
+    var plurals: [String]
+    var hash: String
+    var sourceLanguage: String
 }
 
 class ScreenshotFeature {
-    var type: ScreenshotFeatureType = .shake
-    
     static var shared: ScreenshotFeature?
     
-    var windows: [UIWindow] { return UIApplication.shared.windows }
+    var mappingManager: CrowdinMappingManagerProtocol
+    var config: ScreenshotFeatureConfig
     
-    var window: UIWindow? { return UIApplication.shared.keyWindow }
-    
-    func captureScreenshot() {
-        guard let screenshot = self.screenshot else { return }
-        let storyboard = UIStoryboard(name: "SaveScreenshotVC", bundle: Bundle(for: SaveScreenshotVC.self))
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "SaveScreenshotVC") as? SaveScreenshotVC else { return }
-        vc.screenshot = screenshot
-        vc.descriptionText = captureDescription()
-        // TODO: Add screenshot VC as subview to avoid issues with already presented VC.
-        ScreenshotFeature.shared?.window?.rootViewController?.present(vc, animated: true, completion: { })
+    enum Errors: String {
+        case storageIdIsMissing = "Storage id is missing."
     }
     
-    var screenshot: UIImage? {
-        guard let window = self.window else { return nil }
-        self.addBorders(to: window)
-        
-        UIGraphicsBeginImageContextWithOptions(window.frame.size, true, window.screen.scale)
-        defer { UIGraphicsEndImageContext() }
-        window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
-        
-        self.removeBorders(from: window)
-        
-        return UIGraphicsGetImageFromCurrentImageContext()
+    init(config: ScreenshotFeatureConfig) {
+        self.config = config
+        self.mappingManager = CrowdinMappingManager(strings: config.strings, plurals: config.plurals, hash: config.hash, sourceLanguage: config.sourceLanguage)
     }
     
-    func captureDescription() -> String {
-        guard let window = self.window else { return "" }
-        return self.getDescription(from: window)
+    func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard let screenshot = self.window?.screenshot else { return }
+        let values = self.captureValues()
+        guard let data = screenshot.pngData() else { return }
+        let screenshotsAPI = ScreenshotsAPI(login: config.login, accountKey: config.accountKey, credentials: config.credentials)
+        let storageAPI = StorageAPI(login: config.login, accountKey: config.accountKey, credentials: config.credentials)
+        storageAPI.uploadNewFile(data: data, completion: { response, error in
+            if let error = error {
+                errorHandler(error)
+                return
+            }
+            guard let storageId = response?.data.id else {
+                errorHandler(NSError(domain: Errors.storageIdIsMissing.rawValue, code: 9999, userInfo: nil))
+                return
+            }
+            screenshotsAPI.createScreenshot(projectId: self.config.projectId, storageId: storageId, name: name, completion: { response, error in
+                if let error = error {
+                    errorHandler(error)
+                    return
+                }
+                guard let screenshotId = response?.data.id else {
+                    errorHandler(NSError(domain: "Screenshot id is missing.", code: 9999, userInfo: nil))
+                    return
+                }
+                guard values.count > 0 else { return }
+                screenshotsAPI.createScreenshotTags(projectId: self.config.projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
+                    if let error = error {
+                        errorHandler(error)
+                    } else {
+                        success()
+                    }
+                })
+            })
+        })
+    }
+}
+
+extension ScreenshotFeature {
+    fileprivate func captureValues() -> [Int: CGRect] {
+        guard let window = self.window else { return [Int: CGRect]() }
+        let values = self.getValues(from: window)
+        let koef = window.screen.scale
+        var returnValue = [Int: CGRect]()
+        values.forEach { (key: Int, value: CGRect) in
+            returnValue[key] = CGRect(x: value.origin.x * koef, y: value.origin.y * koef, width: value.size.width * koef, height: value.size.height * koef)
+        }
+        return returnValue
     }
     
-    func getDescription(from view: UIView) -> String {
-        var description = ""
+    fileprivate func getValues(from view: UIView) -> [Int: CGRect] {
+        var description = [Int: CGRect]()
         view.subviews.forEach { (view) in
-            if let label = view as? UILabel, let localizationKey = label.localizationKey {
-                if let frame = label.superview?.convert(label.frame, to: window), let text = label.text {
-                    description +=  "\(localizationKey) :\nText - \(text)\nFrame - \(frame.debugDescription)\n\n"
+            if let label = view as? UILabel, let localizationKey = label.localizationKey, let id = mappingManager.id(for: localizationKey) {
+                if let frame = label.superview?.convert(label.frame, to: window) {
+                    description[id] = frame
                 }
             }
-            description += getDescription(from: view)
+            description.merge(with: getValues(from: view))
         }
         return description
     }
-    
-    func addBorders(to view: UIView) {
-        view.subviews.forEach { (view) in
-            if let label = view as? UILabel, label.localizationKey != nil {
-                label.layer.borderColor = UIColor.red.cgColor
-                label.layer.borderWidth = 2
-                label.setNeedsDisplay()
-            }
-            addBorders(to: view)
-        }
-    }
-    
-    func removeBorders(from view: UIView) {
-        view.subviews.forEach { (view) in
-            if let label = view as? UILabel, label.localizationKey != nil {
-                label.layer.borderColor = UIColor.clear.cgColor
-                label.layer.borderWidth = 0
-                label.setNeedsDisplay()
-            }
-            removeBorders(from: view)
-        }
-    }
 }
 
-extension UIViewController {
-    fileprivate func findTopViewController(_ base: UIViewController?) -> UIViewController? {
-        
-        guard let base = base else {
-            return nil
-        }
-        
-        if let nav = base as? UINavigationController {
-            return findTopViewController(nav.visibleViewController)
-        }
-        else if let tab = base as? UITabBarController {
-            if let selectedViewController = tab.selectedViewController {
-                return findTopViewController(selectedViewController)
-            }
-        }
-        else if let presentedViewController = base.presentedViewController {
-            return findTopViewController(presentedViewController);
-        }
-        else if base.children.isEmpty == false {
-            if let lastViewController = base.children.reversed().filter({ (vc) -> Bool in
-                return vc.isViewLoaded
-                    && (vc.view.isHidden == false)
-                    && (vc.view.alpha >= 0.05)
-                    && (base.view.bounds == vc.view.frame)
-            }).first {
-                return findTopViewController(lastViewController);
-            }
-        }
-        
-        return base
-    }
-    
-    fileprivate func topViewController() -> UIViewController? {
-        return findTopViewController(self)
-    }
-}
-
-extension UIWindow {
-    open func topViewController() -> UIViewController? {
-        return self.rootViewController?.topViewController()
-    }
+extension ScreenshotFeature {
+    var windows: [UIWindow] { return UIApplication.shared.windows }
+    var window: UIWindow? { return UIApplication.shared.keyWindow }
 }

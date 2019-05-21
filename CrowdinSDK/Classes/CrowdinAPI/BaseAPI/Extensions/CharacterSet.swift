@@ -8,7 +8,7 @@
 import Foundation
 
 extension CharacterSet {
-    static func BaseAPI_URLQueryAllowedCharacterSet() -> CharacterSet {
+    static func ba_URLQueryAllowedCharacterSet() -> CharacterSet {
         let generalDelimitersToEncode = ":#[]@"
         let subDelimitersToEncode = "!$&'()*+,;="
         var allowedCharacterSet = CharacterSet.urlQueryAllowed

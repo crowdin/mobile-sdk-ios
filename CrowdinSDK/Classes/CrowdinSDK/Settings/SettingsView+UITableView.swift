@@ -43,7 +43,11 @@ extension SettingsView {
             screenshotCell.action = {
                 self.open = false
                 self.isHidden = true
-                ScreenshotFeature().captureScreenshot()
+                ScreenshotFeature.shared?.captureScreenshot(name: "NewScreenhot", success: {
+                    print("Success")
+                }, errorHandler: { (error) in
+                    print("Error uploading screenshot - \(error?.localizedDescription ?? "Unknown")")
+                })
                 self.isHidden = false
             }
             screenshotCell.icon.image = UIImage(named: "screenshot", in: bundle, compatibleWith: nil)
