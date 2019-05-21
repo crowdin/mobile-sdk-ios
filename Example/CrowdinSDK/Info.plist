@@ -32,6 +32,8 @@
 		<string>Localizable.stringsdict</string>
 		<string>Base.stringsdict</string>
 	</array>
+	<key>CrowdinSourceLanguage</key>
+	<string>en</string>
 	<key>CrowdinStringsFileNames</key>
 	<array>
 		<string>Localizable.strings</string>
