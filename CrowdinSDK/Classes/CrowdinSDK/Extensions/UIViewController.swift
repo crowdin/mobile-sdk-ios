@@ -9,12 +9,15 @@ import Foundation
 
 extension UIViewController {
     func cw_present(viewController: UIViewController) {
+        viewController.loadViewIfNeeded()
+        self.addChild(viewController)
         self.view.addSubview(viewController.view)
         viewController.view.frame = self.view.frame
         self.view.bringSubviewToFront(viewController.view)
     }
     
     func cw_dismiss() {
+        self.removeFromParent()
         self.view.removeFromSuperview()
     }
 }

@@ -32,7 +32,7 @@ class LoginFeature {
         }
         loginVC.error = error
         // TODO: Change screen presentation.
-        UIApplication.shared.keyWindow?.rootViewController?.present(loginVC, animated: true, completion: { })
+        UIApplication.shared.keyWindow?.rootViewController?.cw_present(viewController: loginVC)
     }
     
     static func relogin(completion: @escaping (_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void, error: @escaping (Error) -> Void) {

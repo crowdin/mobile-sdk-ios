@@ -31,7 +31,7 @@ class CrowdinLoginVC: UIViewController {
 extension CrowdinLoginVC: UIWebViewDelegate {
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         self.error?(error)
-        self.dismiss(animated: true, completion: nil)
+        self.cw_dismiss()
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
@@ -40,7 +40,7 @@ extension CrowdinLoginVC: UIWebViewDelegate {
         for cookie in cookies {
             if cookie.name == "csrf_token" {
                 self.completion?(cookie.value, userAgent, cookies)
-                self.dismiss(animated: true, completion: nil)
+                self.cw_dismiss()
             }
         }
     }
