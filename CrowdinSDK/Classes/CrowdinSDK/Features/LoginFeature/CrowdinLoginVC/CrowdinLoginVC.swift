@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import SafariServices
 
 class CrowdinLoginVC: UIViewController {    
     var baseURL = "https://crowdin.com/login"
+    var window: UIWindow?
     
     var error: ((_ error: Error) -> Void)? = nil
     var completion: ((_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void)? = nil
@@ -21,6 +23,18 @@ class CrowdinLoginVC: UIViewController {
         }
     }
     
+    func present() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = self
+        window?.makeKeyAndVisible()
+    }
+    
+    func dismiss() {
+        self.window?.resignKey()
+        self.window?.isHidden = true
+        self.window = nil
+    }
+    
     static var instantiateVC: CrowdinLoginVC? {
         let storyboard = UIStoryboard(name: "CrowdinLoginVC", bundle: Bundle(for: CrowdinLoginVC.self))
         guard let vc = storyboard.instantiateViewController(withIdentifier: "CrowdinLoginVC") as? CrowdinLoginVC else { return nil }
@@ -31,7 +45,7 @@ class CrowdinLoginVC: UIViewController {
 extension CrowdinLoginVC: UIWebViewDelegate {
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         self.error?(error)
-        self.cw_dismiss()
+        self.dismiss()
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
@@ -40,7 +54,7 @@ extension CrowdinLoginVC: UIWebViewDelegate {
         for cookie in cookies {
             if cookie.name == "csrf_token" {
                 self.completion?(cookie.value, userAgent, cookies)
-                self.cw_dismiss()
+                self.dismiss()
             }
         }
     }

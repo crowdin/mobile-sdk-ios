@@ -31,8 +31,7 @@ class LoginFeature {
             loginInfo = CrowdinLoginInfo(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
         }
         loginVC.error = error
-        // TODO: Change screen presentation.
-        UIApplication.shared.keyWindow?.rootViewController?.cw_present(viewController: loginVC)
+        loginVC.present()
     }
     
     static func relogin(completion: @escaping (_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void, error: @escaping (Error) -> Void) {

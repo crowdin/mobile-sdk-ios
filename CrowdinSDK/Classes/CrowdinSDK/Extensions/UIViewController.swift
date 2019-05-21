@@ -12,7 +12,7 @@ extension UIViewController {
         viewController.loadViewIfNeeded()
         self.addChild(viewController)
         self.view.addSubview(viewController.view)
-        viewController.view.frame = self.view.frame
+        viewController.view.frame = self.view.bounds
         self.view.bringSubviewToFront(viewController.view)
     }
     
