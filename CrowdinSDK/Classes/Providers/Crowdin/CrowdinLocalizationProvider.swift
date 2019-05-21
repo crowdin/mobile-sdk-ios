@@ -23,13 +23,6 @@ public class CrowdinLocalizationProvider: BaseLocalizationProvider {
         super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
     
-    public init() {
-        let localization = Bundle.main.preferredLanguage
-        let localStorage = CrowdinLocalLocalizationStorage(localization: localization, localizations: [])
-        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization)
-        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
-    }
-    
     public required init(localization: String, localStorage: LocalLocalizationStorage, remoteStorage: RemoteLocalizationStorage) {
         super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }

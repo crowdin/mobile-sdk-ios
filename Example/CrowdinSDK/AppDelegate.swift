@@ -32,15 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Info.plist setup
 //        CrowdinSDK.start()
         
-        // Localization extraction
-        CrowdinSDK.extractAllLocalization()
         
-        let download = CrowdinSDK.addDownloadHandler {
-//            CrowdinSDK.removeAllDownloadHandlers()
+        _ = CrowdinSDK.addDownloadHandler {
+            print("Localization downloaded")
         }
         
-        let error = CrowdinSDK.addErrorUpdateHandler { (errors) in
-//            CrowdinSDK.removeAllErrorHandlers()
+        _ = CrowdinSDK.addErrorUpdateHandler { (errors) in
+            print("Localization download failed with errors:")
+            errors.forEach({ print($0.localizedDescription) })
         }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)

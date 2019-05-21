@@ -75,18 +75,23 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
     public class func startWithConfig(_ config: CrowdinSDKConfig) {
-        if let crowdinProviderConfig = config.crowdinProviderConfig {
-            let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
-            self.setProvider(crowdinProvider)
-            
-            if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
-                ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-            }
-            
-            if config.reatimeUpdatesEnabled {
-                let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-                RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-            }
+        let crowdinProviderConfig: CrowdinProviderConfig
+        if let config = config.crowdinProviderConfig {
+            crowdinProviderConfig = config
+        } else {
+            crowdinProviderConfig = CrowdinProviderConfig()
+        }
+        
+        let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
+        self.setProvider(crowdinProvider)
+        
+        if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
+            ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+        }
+        
+        if config.reatimeUpdatesEnabled {
+            let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
         }
         
         if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
@@ -103,8 +108,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
-        self.setProvider(CrowdinLocalizationProvider())
-        self.initializeLib()
+        self.startWithConfig(CrowdinSDKConfig.config())
     }
 	
     /// Initialization method. Initialize library with passed localization provider.
@@ -146,7 +150,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
-    public class func setProvider(_ provider: LocalizationProvider) {
+    class func setProvider(_ provider: LocalizationProvider) {
 		let localizationProvider = provider
         Localization.current = Localization(provider: localizationProvider)
     }
