@@ -15,6 +15,7 @@ extension SettingsView {
     }
     
     func setupCells() {
+        cells = []
         let bundle = Bundle(for: SettingsView.self)
         if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             reloadCell.action = {
