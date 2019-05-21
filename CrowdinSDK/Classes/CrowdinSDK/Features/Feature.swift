@@ -11,7 +11,3 @@ protocol Feature {
     static var shared: Self? { get set }
     static var enabled: Bool { get set }
 }
-
-protocol ActionFeature: Feature {
-    func action()
-}

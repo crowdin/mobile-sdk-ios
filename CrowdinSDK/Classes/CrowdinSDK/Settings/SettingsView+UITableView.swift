@@ -17,10 +17,11 @@ extension SettingsView {
     func setupCells() {
         cells = []
         let bundle = Bundle(for: SettingsView.self)
+        
         if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             reloadCell.action = {
-                self.open = false
                 ForceRefreshLocalizationFeature.refreshLocalization()
+                self.open = false
             }
             reloadCell.icon.image = UIImage(named: "reload", in: bundle, compatibleWith: nil)
             reloadCell.selectionStyle = .none
@@ -28,35 +29,57 @@ extension SettingsView {
             reloadCell.contentView.clipsToBounds = true
             cells.append(reloadCell)
         }
-        if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-            autoreloadCell.action = {
-                self.open = false
-                RealtimeUpdateFeature.enabled = !RealtimeUpdateFeature.enabled
-                autoreloadCell.icon.image = UIImage(named: RealtimeUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
-                self.tableView.reloadData()
+        
+        if let feature = IntervalUpdateFeature.shared {
+            if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+                autoreloadCell.action = {
+                    feature.enabled = !feature.enabled
+                    autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
+                    self.tableView.reloadData()
+                    self.open = false
+                }
+                autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
+                autoreloadCell.selectionStyle = .none
+                autoreloadCell.contentView.layer.cornerRadius = 30.0
+                autoreloadCell.contentView.clipsToBounds = true
+                cells.append(autoreloadCell)
             }
-            autoreloadCell.icon.image = UIImage(named: RealtimeUpdateFeature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
-            autoreloadCell.selectionStyle = .none
-            autoreloadCell.contentView.layer.cornerRadius = 30.0
-            autoreloadCell.contentView.clipsToBounds = true
-            cells.append(autoreloadCell)
         }
-        if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-            screenshotCell.action = {
-                self.open = false
-                self.isHidden = true
-                ScreenshotFeature.shared?.captureScreenshot(name: "NewScreenhot", success: {
-                    print("Success")
-                }, errorHandler: { (error) in
-                    print("Error uploading screenshot - \(error?.localizedDescription ?? "Unknown")")
-                })
-                self.isHidden = false
+        
+        if let feature = RealtimeUpdateFeature.shared {
+            if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+                realtimeUpdateCell.action = {
+                    feature.enabled = !feature.enabled
+                    realtimeUpdateCell.icon.image = UIImage(named: feature.enabled ? "realtime-updates-on" : "realtime-updates-off", in: bundle, compatibleWith: nil)
+                    self.tableView.reloadData()
+                    self.open = false
+                }
+                realtimeUpdateCell.icon.image = UIImage(named: feature.enabled ? "realtime-updates-on" : "realtime-updates-off", in: bundle, compatibleWith: nil)
+                realtimeUpdateCell.selectionStyle = .none
+                realtimeUpdateCell.contentView.layer.cornerRadius = 30.0
+                realtimeUpdateCell.contentView.clipsToBounds = true
+                cells.append(realtimeUpdateCell)
             }
-            screenshotCell.icon.image = UIImage(named: "screenshot", in: bundle, compatibleWith: nil)
-            screenshotCell.selectionStyle = .none
-            screenshotCell.layer.cornerRadius = 30.0
-            screenshotCell.clipsToBounds = true
-            cells.append(screenshotCell)
+        }
+        
+        if let feature = ScreenshotFeature.shared {
+            if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+                screenshotCell.action = {
+                    self.isHidden = true
+                    feature.captureScreenshot(name: "NewScreenhot", success: {
+                        print("Success")
+                    }, errorHandler: { (error) in
+                        print("Error uploading screenshot - \(error?.localizedDescription ?? "Unknown")")
+                    })
+                    self.isHidden = false
+                    self.open = false
+                }
+                screenshotCell.icon.image = UIImage(named: "screenshot", in: bundle, compatibleWith: nil)
+                screenshotCell.selectionStyle = .none
+                screenshotCell.layer.cornerRadius = 30.0
+                screenshotCell.clipsToBounds = true
+                cells.append(screenshotCell)
+            }
         }
     }
 }
