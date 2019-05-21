@@ -12,6 +12,15 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
         self.localizations = localizations
         self.localization = localization
     }
+    
+    init(localization: String) {
+        guard let localizations = Bundle.main.cw_localizations else {
+            fatalError("Please add CrowdinLocalizations key to your Info.plist file")
+        }
+        self.localizations = localizations
+        self.localization = localization
+    }
+    
     // swiftlint:disable force_try
     let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     

@@ -18,11 +18,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [CrowdinSDK startWith:@"66f02b964afeb77aea8d191e68748abc"
-         stringsFileNames:@[@"Localizable.strings", @"Base.strings"]
-         pluralsFileNames:@[@"Localizable.stringsdict", @"Base.stringsdict"]
-        projectIdentifier:@"content-er4"
-               projectKey:@"af3d3deb8d45b7f7ac4e58c83ca2bc0c"];
+    
+    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"66f02b964afeb77aea8d191e68748abc" stringsFileNames:@[@"Localizable.strings"] pluralsFileNames:@[@"Localizable.stringsdict"] localizations:@[@"en", @"de"] sourceLanguage:@"en"];
+    NSString *credentials = [[@"api-tester:VmpFqTyXPq3ebAyNksUxHwhC" dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    CrowdinScreenshotsConfig *screenshotsConfig = [[CrowdinScreenshotsConfig alloc] initWithLogin:@"serhii.londar" accountKey:@"1267e86b748b600eb851f1c45f8c44ce" credentials:credentials];
+    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withCrowdinScreenshotsConfig: screenshotsConfig];
+    [CrowdinSDK startWithConfig:config];
+    
+    [CrowdinSDK addDownloadHandler:^{
+        
+    }];
+    
+    [CrowdinSDK addErrorUpdateHandler:^(NSArray<NSError *> * _Nonnull errors) {
+        
+    }];
+    
     return YES;
 }
 

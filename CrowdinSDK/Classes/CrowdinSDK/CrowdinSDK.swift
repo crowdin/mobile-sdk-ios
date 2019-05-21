@@ -79,10 +79,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
             let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
             self.setProvider(crowdinProvider)
             
-            if config.screnshotsEnabled {
-                let credentials = "api-tester:VmpFqTyXPq3ebAyNksUxHwhC".data(using: .utf8)!.base64EncodedString()
-                let screnshotsConfig = ScreenshotFeatureConfig(login: "serhii.londar", credentials: credentials, accountKey: "1267e86b748b600eb851f1c45f8c44ce", strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-                ScreenshotFeature.shared = ScreenshotFeature(config: screnshotsConfig)
+            if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
+                ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
             }
             
             if config.reatimeUpdatesEnabled {
@@ -112,7 +110,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    public class func startWithProvider(_ provider: LocalizationProvider) {
+    class func startWithProvider(_ provider: LocalizationProvider) {
         self.setProvider(provider)
         self.initializeLib()
     }
@@ -201,6 +199,14 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     
     public class func showLogin() {
         RealtimeUpdateFeature.shared?.start()
+    }
+    
+    public class func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard let screenshotFeature = ScreenshotFeature.shared else {
+            errorHandler(NSError(domain: "Screenshots feature disabled", code: 9999, userInfo: nil))
+            return
+        }
+        screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
     }
 }
 

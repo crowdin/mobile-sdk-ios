@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objcMembers public class CrowdinProviderConfig {
+@objcMembers public class CrowdinProviderConfig: NSObject {
     var hashString: String
     var stringsFileNames: [String]
     var pluralsFileNames: [String]
