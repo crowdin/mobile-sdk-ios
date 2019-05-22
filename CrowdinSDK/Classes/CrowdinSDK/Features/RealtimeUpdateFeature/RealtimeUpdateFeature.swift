@@ -73,14 +73,10 @@ class RealtimeUpdateFeature {
     }
     
     func start() {
-        if let loginInfo = LoginFeature.loginInfo {
-            self.start(with: loginInfo.csrfToken, userAgent: loginInfo.userAgent, cookies: loginInfo.cookies)
-        } else {
-            LoginFeature.login(completion: { (csrfToken, userAgent, cookies) in
-                self.start(with: csrfToken, userAgent: userAgent, cookies: cookies)
-            }) { error in
-                print(error.localizedDescription)
-            }
+        LoginFeature.login(completion: { (csrfToken, userAgent, cookies) in
+            self.start(with: csrfToken, userAgent: userAgent, cookies: cookies)
+        }) { error in
+            print(error.localizedDescription)
         }
     }
     

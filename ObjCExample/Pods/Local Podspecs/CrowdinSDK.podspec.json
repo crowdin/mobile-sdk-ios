@@ -31,13 +31,15 @@
       "name": "Core",
       "source_files": "CrowdinSDK/Classes/CrowdinSDK/**/*",
       "resources": [
-        "CrowdinSDK/Assets/**/*.{storyboard}",
-        "CrowdinSDK/Assets/**/*.{xib,xcassets}"
+        "CrowdinSDK/Assets/**/*.{storyboard,xib,xcassets}"
       ],
       "dependencies": {
         "Starscream": [
 
         ]
+      },
+      "resource_bundles": {
+        "CrowdinSDK": "CrowdinSDK/Assets/**/*.{storyboard,xib,xcassets}"
       }
     },
     {
