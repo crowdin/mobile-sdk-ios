@@ -9,21 +9,19 @@ import Foundation
 
 extension SettingsView {
     func registerCells() {
-        let bundle = Bundle(for: SettingsView.self)
-        let nib = UINib(nibName: "SettingsItemCell", bundle: bundle)
+        let nib = UINib(nibName: "SettingsItemCell", bundle: Bundle.resourceBundle)
         tableView.register(nib, forCellReuseIdentifier: "SettingsItemCell")
     }
     
     func setupCells() {
         cells = []
-        let bundle = Bundle(for: SettingsView.self)
         
         if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             reloadCell.action = {
                 ForceRefreshLocalizationFeature.refreshLocalization()
                 self.open = false
             }
-            reloadCell.icon.image = UIImage(named: "reload", in: bundle, compatibleWith: nil)
+            reloadCell.icon.image = UIImage(named: "reload", in: Bundle.resourceBundle, compatibleWith: nil)
             reloadCell.selectionStyle = .none
             reloadCell.contentView.layer.cornerRadius = 30.0
             reloadCell.contentView.clipsToBounds = true
@@ -34,11 +32,11 @@ extension SettingsView {
             if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                 autoreloadCell.action = {
                     feature.enabled = !feature.enabled
-                    autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
+                    autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: Bundle.resourceBundle, compatibleWith: nil)
                     self.tableView.reloadData()
                     self.open = false
                 }
-                autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: bundle, compatibleWith: nil)
+                autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: Bundle.resourceBundle, compatibleWith: nil)
                 autoreloadCell.selectionStyle = .none
                 autoreloadCell.contentView.layer.cornerRadius = 30.0
                 autoreloadCell.contentView.clipsToBounds = true
@@ -50,11 +48,11 @@ extension SettingsView {
             if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                 realtimeUpdateCell.action = {
                     feature.enabled = !feature.enabled
-                    realtimeUpdateCell.icon.image = UIImage(named: feature.enabled ? "realtime-updates-on" : "realtime-updates-off", in: bundle, compatibleWith: nil)
+                    realtimeUpdateCell.icon.image = UIImage(named: feature.enabled ? "realtime-updates-on" : "realtime-updates-off", in: Bundle.resourceBundle, compatibleWith: nil)
                     self.tableView.reloadData()
                     self.open = false
                 }
-                realtimeUpdateCell.icon.image = UIImage(named: feature.enabled ? "realtime-updates-on" : "realtime-updates-off", in: bundle, compatibleWith: nil)
+                realtimeUpdateCell.icon.image = UIImage(named: feature.enabled ? "realtime-updates-on" : "realtime-updates-off", in: Bundle.resourceBundle, compatibleWith: nil)
                 realtimeUpdateCell.selectionStyle = .none
                 realtimeUpdateCell.contentView.layer.cornerRadius = 30.0
                 realtimeUpdateCell.contentView.clipsToBounds = true
@@ -74,7 +72,7 @@ extension SettingsView {
                     self.isHidden = false
                     self.open = false
                 }
-                screenshotCell.icon.image = UIImage(named: "screenshot", in: bundle, compatibleWith: nil)
+                screenshotCell.icon.image = UIImage(named: "screenshot", in: Bundle.resourceBundle, compatibleWith: nil)
                 screenshotCell.selectionStyle = .none
                 screenshotCell.layer.cornerRadius = 30.0
                 screenshotCell.clipsToBounds = true
