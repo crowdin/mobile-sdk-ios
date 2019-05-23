@@ -15,6 +15,7 @@
     "git": "https://github.com/Serhii Londar/CrowdinSDK.git",
     "tag": "0.1.0"
   },
+  "social_media_url": "https://twitter.com/serhii_londar",
   "platforms": {
     "ios": "9.0"
   },
@@ -29,7 +30,17 @@
     {
       "name": "Core",
       "source_files": "CrowdinSDK/Classes/CrowdinSDK/**/*",
-      "resources": "CrowdinSDK/Assets/**/*.{storyboard}"
+      "resources": [
+        "CrowdinSDK/Assets/**/*.{storyboard,xib,xcassets}"
+      ],
+      "dependencies": {
+        "Starscream": [
+
+        ]
+      },
+      "resource_bundles": {
+        "CrowdinSDK": "CrowdinSDK/Assets/**/*.{storyboard,xib,xcassets}"
+      }
     },
     {
       "name": "FirebaseProvider",
@@ -60,12 +71,7 @@
     },
     {
       "name": "CrowdinAPI",
-      "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*",
-      "dependencies": {
-        "BaseAPI": [
-
-        ]
-      }
+      "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*"
     }
   ]
 }

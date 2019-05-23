@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import Foundation
+
+public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void
+public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 
 /// Main interface For working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
@@ -70,22 +74,33 @@ import UIKit
     ///   - hashString: Distribution hash value.
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
-    public class func start(with config: CrowdinSDKConfig) {
-        if let crowdinProviderConfig = config.crowdinProviderConfig {
-            let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
-            self.setProvider(crowdinProvider)
+    public class func startWithConfig(_ config: CrowdinSDKConfig) {
+        let crowdinProviderConfig: CrowdinProviderConfig
+        if let config = config.crowdinProviderConfig {
+            crowdinProviderConfig = config
+        } else {
+            crowdinProviderConfig = CrowdinProviderConfig()
         }
         
-        if config.screnshotsEnabled {
-            ScreenshotFeature.shared = ScreenshotFeature()
+        let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
+        self.setProvider(crowdinProvider)
+        
+        if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
+            ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+        }
+        
+        if config.reatimeUpdatesEnabled {
+            let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
         }
         
         if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
             IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+            IntervalUpdateFeature.shared?.start()
         }
         
-        if config.reatimeUpdatesEnabled {
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
+        if config.settingsEnabled {
+            self.showSettings()
         }
         
         self.initializeLib()
@@ -93,14 +108,13 @@ import UIKit
     
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
-        self.setProvider(CrowdinLocalizationProvider())
-        self.initializeLib()
+        self.startWithConfig(CrowdinSDKConfig.config())
     }
 	
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    public class func start(with provider: LocalizationProvider) {
+    class func startWithProvider(_ provider: LocalizationProvider) {
         self.setProvider(provider)
         self.initializeLib()
     }
@@ -136,7 +150,7 @@ import UIKit
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
-    public class func setProvider(_ provider: LocalizationProvider) {
+    class func setProvider(_ provider: LocalizationProvider) {
 		let localizationProvider = provider
         Localization.current = Localization(provider: localizationProvider)
     }
@@ -161,6 +175,43 @@ import UIKit
         IntervalUpdateFeature.shared?.stop()
         IntervalUpdateFeature.shared = nil
     }
+    
+    // Observer
+    public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> UInt {
+        return Localization.current.addDownloadHandler(handler)
+    }
+    
+    public class func removeDownloadHandler(_ id: UInt) {
+        Localization.current.removeDownloadHandler(id)
+    }
+    
+    public class func removeAllDownloadHandlers() {
+        Localization.current.removeAllDownloadHandlers()
+    }
+    
+    public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> UInt {
+        return Localization.current.addErrorUpdateHandler(handler)
+    }
+    
+    public class func removeErrorHandler(_ id: UInt) {
+        Localization.current.removeErrorHandler(id)
+    }
+    
+    public class func removeAllErrorHandlers() {
+        Localization.current.removeAllErrorHandlers()
+    }
+    
+    public class func showLogin() {
+        RealtimeUpdateFeature.shared?.start()
+    }
+    
+    public class func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard let screenshotFeature = ScreenshotFeature.shared else {
+            errorHandler(NSError(domain: "Screenshots feature disabled", code: 9999, userInfo: nil))
+            return
+        }
+        screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+    }
 }
 
 extension CrowdinSDK {
@@ -177,6 +228,15 @@ extension CrowdinSDK {
         UILabel.unswizzle()
         UIButton.unswizzle()
     }
+    
+    public class func showSettings() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if let settingsView = SettingsView.shared {
+                settingsView.center = CGPoint(x: 100, y: 100)
+                UIApplication.shared.keyWindow?.addSubview(settingsView)
+            }
+        }
+    }
 }
 
 extension CrowdinSDK {
@@ -187,7 +247,5 @@ extension CrowdinSDK {
         } else {
             CrowdinSDK.unswizzle()
         }
-        ScreenshotFeature.shared = ScreenshotFeature()
-        RealtimeUpdateFeature.shared = RealtimeUpdateFeature()
     }
 }

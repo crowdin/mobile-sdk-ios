@@ -73,6 +73,11 @@ extension UIButton {
         swizzled_setTitle(nonNilTitle, for: state)
     }
     
+    func original_setTitle(_ title: String?, for state: UIControl.State) {
+        guard UILabel.swizzled != nil else { return }
+        swizzled_setTitle(title, for: state)
+    }
+
     public class func swizzle() {
         // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(UIButton.setTitle(_:for:)))!

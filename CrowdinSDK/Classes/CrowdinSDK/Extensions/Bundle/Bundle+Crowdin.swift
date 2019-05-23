@@ -28,4 +28,8 @@ extension Bundle {
         return infoDictionary?["CrowdinPluralsFileNames"] as? [String]
     }
     
+    var crowdinSourceLanguage: String? {
+        return infoDictionary?["CrowdinSourceLanguage"] as? String
+    }
+    
 }

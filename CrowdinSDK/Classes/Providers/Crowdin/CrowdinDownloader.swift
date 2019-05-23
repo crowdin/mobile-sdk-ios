@@ -29,7 +29,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsDownloadOperation(hash: hash, file: string, localization: localization)
+            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string)
             download.completion = { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
@@ -50,7 +50,7 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsDownloadOperation(hash: hash, file: plural, localization: localization)
+            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural)
             download.completion = { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {
@@ -69,20 +69,6 @@ class CrowdinDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
-        /*
-        let infoOperation = DownloadProjectInfoOperation(projectIdentifier: projectIdentifier, projectKey: projectKey)
-        infoOperation.completion = { projectInfo, error in
-            if let error = error {
-                self.errors.append(error)
-            }
-            guard let projectInfo = projectInfo else { return }
-            self.localizations = projectInfo.languages?.compactMap({ $0.code }) ?? []
-            print(self.localizations)
-        }
-        completionBlock.addDependency(infoOperation)
-        operationQueue.addOperation(infoOperation)
-        */
         operationQueue.addOperation(completionBlock)
     }
-    
 }

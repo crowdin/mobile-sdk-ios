@@ -7,21 +7,7 @@
 
 import Foundation
 
-final class ForceRefreshLocalizationFeature: Feature {
-    static var enabled: Bool {
-        get {
-            return shared != nil
-        }
-        set {
-            if newValue {
-                shared = ForceRefreshLocalizationFeature()
-            } else {
-                shared = nil
-            }
-        }
-    }
-    static var shared: ForceRefreshLocalizationFeature?
-    
+final class ForceRefreshLocalizationFeature {
     static func refreshLocalization() {
         Localization.current.provider.refreshLocalization()
     }

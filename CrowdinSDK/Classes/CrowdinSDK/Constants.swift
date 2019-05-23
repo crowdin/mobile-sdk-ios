@@ -22,4 +22,5 @@ enum Keys: String {
 
 enum Notifications: String {
     case CrowdinProviderDidDownloadLocalization
+    case CrowdinProviderDownloadError
 }

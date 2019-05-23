@@ -7,16 +7,41 @@
 
 import Foundation
 
-@objcMembers public class CrowdinProviderConfig {
+@objcMembers public class CrowdinProviderConfig: NSObject {
     var hashString: String
     var stringsFileNames: [String]
     var pluralsFileNames: [String]
     var localizations: [String]
+    var sourceLanguage: String
     
-    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String]) {
+    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String], sourceLanguage: String) {
         self.hashString = hashString
         self.stringsFileNames = stringsFileNames
         self.pluralsFileNames = pluralsFileNames
         self.localizations = localizations
+        self.sourceLanguage = sourceLanguage
+    }
+    
+    public override init() {
+        guard let hashString = Bundle.main.crowdinHash else {
+            fatalError("Please add CrowdinHash key to your Info.plist file")
+        }
+        self.hashString = hashString
+        guard let localizations = Bundle.main.cw_localizations else {
+            fatalError("Please add CrowdinLocalizations key to your Info.plist file")
+        }
+        self.localizations = localizations
+        guard let crowdinStringsFileNames = Bundle.main.crowdinStringsFileNames else {
+            fatalError("Please add CrowdinStringsFileNames key to your Info.plist file")
+        }
+        self.stringsFileNames = crowdinStringsFileNames
+        guard let crowdinPluralsFileNames = Bundle.main.crowdinPluralsFileNames else {
+            fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
+        }
+        self.pluralsFileNames = crowdinPluralsFileNames
+        guard let crowdinSourceLanguage = Bundle.main.crowdinSourceLanguage else {
+            fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
+        }
+        self.sourceLanguage = crowdinSourceLanguage
     }
 }
