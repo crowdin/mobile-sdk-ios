@@ -212,6 +212,16 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         }
         screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
     }
+    
+    public class func startRealtimeUpdates() {
+        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
+        realtimeUpdateFeature.start()
+    }
+    
+    public class func stopRealtimeUpdates() {
+        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
+        realtimeUpdateFeature.stop()
+    }
 }
 
 extension CrowdinSDK {

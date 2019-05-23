@@ -22,6 +22,7 @@ To install from cocoapods spec repository (!!!Will be available after publishing
 
 ```
 target 'MyApp' do
+  use_frameworks!
   pod 'CrowdinSDK'
 end
 ```
@@ -30,6 +31,7 @@ To install from gitlab repository (This option will be removed from this documen
 
 ```
 target 'MyApp' do
+  use_frameworks!
   pod 'CrowdinSDK', :git => 'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
 end
 ```
@@ -39,6 +41,7 @@ To install from local sources (This option will be removed from this document in
 
 ```
 target 'MyApp' do
+  use_frameworks!
   pod 'CrowdinSDK', :path => '../../CrowdinSDK' - where '../../CrowdinSDK' is path to local sources.
 end
 ```

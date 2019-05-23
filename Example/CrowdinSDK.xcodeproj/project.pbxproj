@@ -471,20 +471,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/CrowdinLoginVC.storyboard",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsItemCell.xib",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsView.xib",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/Images.xcassets",
 				"${PODS_CONFIGURATION_BUILD_DIR}/CrowdinSDK/CrowdinSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinLoginVC.storyboardc",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SettingsItemCell.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SettingsView.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.car",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

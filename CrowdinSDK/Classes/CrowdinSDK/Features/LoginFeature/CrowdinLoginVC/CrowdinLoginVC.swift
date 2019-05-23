@@ -36,7 +36,7 @@ class CrowdinLoginVC: UIViewController {
     }
     
     static var instantiateVC: CrowdinLoginVC? {
-        let storyboard = UIStoryboard(name: "CrowdinLoginVC", bundle: Bundle(for: CrowdinLoginVC.self))
+        let storyboard = UIStoryboard(name: "CrowdinLoginVC", bundle: Bundle.resourceBundle)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "CrowdinLoginVC") as? CrowdinLoginVC else { return nil }
         return vc
     }

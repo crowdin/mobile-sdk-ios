@@ -37,7 +37,6 @@ TODO: Add long description of the pod here.
   
   spec.subspec 'Core' do |core|
       core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
-      core.resources = ['CrowdinSDK/Assets/**/*.{storyboard,xib,xcassets}']
       core.dependency 'Starscream'
       core.resource_bundle = { 'CrowdinSDK' => 'CrowdinSDK/Assets/**/*.{storyboard,xib,xcassets}'}
   end
