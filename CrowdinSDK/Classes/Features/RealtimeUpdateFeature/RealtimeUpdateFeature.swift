@@ -18,6 +18,7 @@ protocol RealtimeUpdateFeatureProtocol {
     func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie])
     func stop()
     func subscribe(control: Refreshable)
+    func unsubscribe(control: Refreshable)
     func refreshAllControls()
 }
 
@@ -53,6 +54,10 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         socketManger?.subscribeOnUpdateDraft(localization: localization, stringId: id)
         socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
+    }
+    
+    func unsubscribe(control: Refreshable) {
+        controls.remove(control)
     }
     
     func start() {

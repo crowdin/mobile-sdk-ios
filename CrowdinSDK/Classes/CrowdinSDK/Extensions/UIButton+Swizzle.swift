@@ -74,7 +74,7 @@ extension UIButton {
     }
     
     func original_setTitle(_ title: String?, for state: UIControl.State) {
-        guard UILabel.swizzled != nil else { return }
+        guard UIButton.swizzled != nil else { return }
         swizzled_setTitle(title, for: state)
     }
 

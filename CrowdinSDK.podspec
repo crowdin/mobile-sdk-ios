@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '0.1.0'
+  spec.version          = '0.0.5'
   spec.summary          = 'A short description of CrowdinSDK.'
   
   # This description is used to generate tags and improve search results.

@@ -22,7 +22,8 @@ class DetailsVC: UIViewController {
     }
     @IBOutlet weak var textField: UITextField! {
         didSet {
-            textField.placeholder =  NSLocalizedString("details_textfield_placeholder", comment: "")
+//            textField.placeholder =  NSLocalizedString("details_textfield_placeholder", comment: "")
+            textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("details_textfield_placeholder", comment: ""), attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
         }
     }
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
