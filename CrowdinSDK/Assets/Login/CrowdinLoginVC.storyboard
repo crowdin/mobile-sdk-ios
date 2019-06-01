@@ -13,7 +13,7 @@
         <!--Crowdin LoginVC-->
         <scene sceneID="aGk-ik-rs9">
             <objects>
-                <viewController storyboardIdentifier="CrowdinLoginVC" id="YRo-XE-3xP" customClass="CrowdinLoginVC" customModule="CrowdinSDK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CrowdinLoginVC" id="YRo-XE-3xP" customClass="CrowdinLoginVC" customModule="CrowdinSDK" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A2I-83-oQg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

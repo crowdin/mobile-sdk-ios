@@ -8,6 +8,14 @@
 import Foundation
 import SafariServices
 
+extension Bundle {
+    class var loginBundle: Bundle {
+        // swiftlint:disable force_unwrapping
+        let assetPath = Bundle(for: CrowdinLoginVC.self).resourcePath!
+        return Bundle(path: assetPath + String.pathDelimiter + "CrowdinSDKLogin.bundle")!
+    }
+}
+
 class CrowdinLoginVC: UIViewController {    
     var baseURL = "https://crowdin.com/login"
     var window: UIWindow?
@@ -36,7 +44,7 @@ class CrowdinLoginVC: UIViewController {
     }
     
     static var instantiateVC: CrowdinLoginVC? {
-        let storyboard = UIStoryboard(name: "CrowdinLoginVC", bundle: Bundle.resourceBundle)
+        let storyboard = UIStoryboard(name: "CrowdinLoginVC", bundle: Bundle.loginBundle)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "CrowdinLoginVC") as? CrowdinLoginVC else { return nil }
         return vc
     }
