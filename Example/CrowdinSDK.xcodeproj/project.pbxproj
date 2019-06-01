@@ -465,12 +465,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/CrowdinSDK/CrowdinSDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/CrowdinSDK/CrowdinSDKLogin.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinSDKLogin.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

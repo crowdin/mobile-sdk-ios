@@ -6,6 +6,7 @@ target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK/IntervalUpdate', :path => '../'
   pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
   pod 'CrowdinSDK/RefreshLocalization', :path => '../'
+#  pod 'CrowdinSDK/Settings', :path => '../'
   pod 'SwiftLint'
   pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
   pod 'Firebase'

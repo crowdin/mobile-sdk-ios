@@ -38,7 +38,6 @@ Pod::Spec.new do |spec|
   spec.subspec 'Core' do |core|
     core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
     core.dependency 'Starscream'
-    core.resource_bundle = { 'CrowdinSDK' => 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'}
   end
   
   spec.subspec 'FirebaseProvider' do |provider|
@@ -94,5 +93,15 @@ Pod::Spec.new do |spec|
     feature.name = 'IntervalUpdate'
     feature.source_files = 'CrowdinSDK/Classes/Features/IntervalUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
+  end
+  
+  spec.subspec 'Settings' do |settings|
+    settings.name = 'Settings'
+    settings.source_files = 'CrowdinSDK/Classes/Settings/**/*.swift'
+    settings.resource_bundle = { 'CrowdinSDK' => 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'}
+    settings.dependency 'CrowdinSDK/Screenshots'
+    settings.dependency 'CrowdinSDK/RealtimeUpdate'
+    settings.dependency 'CrowdinSDK/RefreshLocalization'
+    settings.dependency 'CrowdinSDK/IntervalUpdate'
   end
 end

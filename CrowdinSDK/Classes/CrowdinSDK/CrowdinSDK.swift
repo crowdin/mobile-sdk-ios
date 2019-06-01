@@ -83,15 +83,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
         self.setProvider(crowdinProvider)
         
-        if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
-            IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
-            IntervalUpdateFeature.shared?.start()
-        }
-        
-        if config.settingsEnabled {
-            self.showSettings()
-        }
-        
         self.initializeLib()
     }
     
@@ -227,15 +218,6 @@ extension CrowdinSDK {
         UILabel.unswizzle()
         UIButton.unswizzle()
     }
-    
-    public class func showSettings() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let settingsView = SettingsView.shared {
-                settingsView.center = CGPoint(x: 100, y: 100)
-                UIApplication.shared.keyWindow?.addSubview(settingsView)
-            }
-        }
-    }
 }
 
 extension CrowdinSDK {
@@ -257,6 +239,9 @@ extension CrowdinSDK {
             CrowdinSDK .perform(Selector(("initializeIntervalUpdateFeature")))
         }
         
+        if CrowdinSDK.responds(to: Selector(("initializeSettings"))) {
+            CrowdinSDK .perform(Selector(("initializeSettings")))
+        }
     }
     
 }
