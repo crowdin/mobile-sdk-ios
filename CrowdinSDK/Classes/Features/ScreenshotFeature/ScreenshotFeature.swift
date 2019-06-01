@@ -112,9 +112,9 @@ extension ScreenshotFeature {
         let values = self.getValues(from: window)
         let koef = window.screen.scale
         var returnValue = [Int: CGRect]()
-        values.forEach { (key: Int, value: CGRect) in
-            if window.bounds.contains(value), !value.isValid { // Check wheather control frame is visible on screen.
-                returnValue[key] = CGRect(x: value.origin.x * koef, y: value.origin.y * koef, width: value.size.width * koef, height: value.size.height * koef)
+        values.forEach { (key: Int, rect: CGRect) in
+            if window.bounds.contains(rect), rect.isValid { // Check wheather control frame is visible on screen.
+                returnValue[key] = CGRect(x: rect.origin.x * koef, y: rect.origin.y * koef, width: rect.size.width * koef, height: rect.size.height * koef)
             }
         }
         return returnValue
@@ -144,11 +144,11 @@ extension CGRect {
         return origin.x == CGFloat.infinity || origin.y == CGFloat.infinity
     }
     
-    var validSize: Bool {
-        return size.width != 0.0 && size.height != 0
+    var hasValidSize: Bool {
+        return size.width != 0.0 && size.height != 0.0
     }
     
     var isValid: Bool {
-        return !isInfinite && !isOriginInfinite && validSize
+        return !isInfinite && !isOriginInfinite && hasValidSize
     }
 }
