@@ -113,7 +113,7 @@ extension ScreenshotFeature {
         let koef = window.screen.scale
         var returnValue = [Int: CGRect]()
         values.forEach { (key: Int, value: CGRect) in
-            if window.bounds.contains(value), !value.isInfinite { // Check wheather control frame is visible on screen.
+            if window.bounds.contains(value), !value.isValid { // Check wheather control frame is visible on screen.
                 returnValue[key] = CGRect(x: value.origin.x * koef, y: value.origin.y * koef, width: value.size.width * koef, height: value.size.height * koef)
             }
         }
@@ -137,4 +137,18 @@ extension ScreenshotFeature {
 extension ScreenshotFeature {
     var windows: [UIWindow] { return UIApplication.shared.windows }
     var window: UIWindow? { return UIApplication.shared.keyWindow }
+}
+
+extension CGRect {
+    var isOriginInfinite: Bool {
+        return origin.x == CGFloat.infinity || origin.y == CGFloat.infinity
+    }
+    
+    var validSize: Bool {
+        return size.width != 0.0 && size.height != 0
+    }
+    
+    var isValid: Bool {
+        return !isInfinite && !isOriginInfinite && validSize
+    }
 }
