@@ -8,11 +8,28 @@
 import Foundation
 import Starscream
 
-class CrowdinSocketManager: NSObject {
+protocol CrowdinSocketManagerProtocol {
+    init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie])
+
+    var active: Bool { get }
+    var connect: (() -> Void)? { set get }
+    var error: ((Error) -> Void)? { set get }
+    var didChangeString: ((Int, String) -> Void)? { set get }
+    var didChangePlural: ((Int, String) -> Void)? { set get }
+    
+    func start()
+    func stop()
+    
+    func subscribeOnUpdateDraft(localization: String, stringId: Int)
+    func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int)
+}
+
+class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     let hashString: String
     let csrfToken: String
     let userAgent: String
     let cookies: [HTTPCookie]
+    var distributionResponse: DistributionsResponse?
     
     var socketAPI: SocketAPI
     var active: Bool {
@@ -32,7 +49,7 @@ class CrowdinSocketManager: NSObject {
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     
-    init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+    required init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
         self.hashString = hashString
         self.csrfToken = csrfToken
         self.userAgent = userAgent
@@ -51,8 +68,6 @@ class CrowdinSocketManager: NSObject {
     func stop() {
         self.socketAPI.disconect()
     }
-    
-    var distributionResponse: DistributionsResponse?
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
         self.socketAPI.subscribeOnUpdateDraft(localization: localization, stringId: stringId)
@@ -83,7 +98,7 @@ class CrowdinSocketManager: NSObject {
         guard let id = Int(data[4]) else { return }
         guard let newText = topSuggestion.data?.text else { return }
         
-        // TODO: Fix in future.
+        // TODO: Fix in future:
         // We're unable to detect what exact was changed string or plural. Send two callbacks.
         self.didChangeString?(id, newText)
         self.didChangePlural?(id, newText)

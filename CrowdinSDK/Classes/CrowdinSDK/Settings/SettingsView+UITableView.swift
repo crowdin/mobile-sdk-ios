@@ -18,7 +18,7 @@ extension SettingsView {
         
         if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             reloadCell.action = {
-                ForceRefreshLocalizationFeature.refreshLocalization()
+                RefreshLocalizationFeature.refreshLocalization()
                 self.open = false
             }
             reloadCell.icon.image = UIImage(named: "reload", in: Bundle.resourceBundle, compatibleWith: nil)
@@ -28,7 +28,7 @@ extension SettingsView {
             cells.append(reloadCell)
         }
         
-        if let feature = IntervalUpdateFeature.shared {
+        if var feature = IntervalUpdateFeature.shared {
             if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                 autoreloadCell.action = {
                     feature.enabled = !feature.enabled
@@ -44,7 +44,7 @@ extension SettingsView {
             }
         }
         
-        if let feature = RealtimeUpdateFeature.shared {
+        if var feature = RealtimeUpdateFeature.shared {
             if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                 realtimeUpdateCell.action = {
                     feature.enabled = !feature.enabled

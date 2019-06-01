@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class ForceRefreshLocalizationFeature {
+protocol RefreshLocalizationFeatureProtocol {
+    static func refreshLocalization()
+}
+
+final class RefreshLocalizationFeature: RefreshLocalizationFeatureProtocol {
     static func refreshLocalization() {
         Localization.current.provider.refreshLocalization()
     }

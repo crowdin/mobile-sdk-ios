@@ -19,7 +19,7 @@ protocol CrowdinMappingManagerProtocol {
 }
 
 class CrowdinMappingManager: CrowdinMappingManagerProtocol {
-    let downloader: CrowdinMappingDownloader
+    let downloader: CrowdinDownloaderProtocol
     var pluralsMapping: [String: String] = [:]
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
@@ -61,12 +61,16 @@ class CrowdinMappingManager: CrowdinMappingManagerProtocol {
 }
 
 extension CrowdinMappingManager {
+    enum Keys: String {
+        case NSStringLocalizedFormatKey
+    }
+    
     func extractPluralsMapping() {
         pluralsMapping = [:]
         for (key, value) in plurals {
             guard let keyString = key as? String, let valueDict = value as? [AnyHashable: Any] else { continue }
             // Get main id for every key
-            if let idString = valueDict["NSStringLocalizedFormatKey"] as? String {
+            if let idString = valueDict[Keys.NSStringLocalizedFormatKey.rawValue] as? String {
                 pluralsMapping[keyString] = idString
             }
             

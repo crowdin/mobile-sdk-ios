@@ -11,16 +11,6 @@ import Foundation
     // Crowdin provider configuration
     var crowdinProviderConfig: CrowdinProviderConfig? = nil
     
-    // Screenshot feature config
-    var crowdinScreenshotsConfig: CrowdinScreenshotsConfig? = nil
-    
-    // Realtime updates
-    var reatimeUpdatesEnabled: Bool = false
-    
-    // Interval updates
-    var intervalUpdatesEnabled: Bool = false
-    var intervalUpdatesInterval: TimeInterval? = nil
-    
     // Settings view
     var settingsEnabled: Bool = false
     
@@ -30,22 +20,6 @@ import Foundation
     
     public func with(crowdinProviderConfig: CrowdinProviderConfig) -> Self {
         self.crowdinProviderConfig = crowdinProviderConfig
-        return self
-    }
-    
-    public func with(crowdinScreenshotsConfig: CrowdinScreenshotsConfig) -> Self {
-        self.crowdinScreenshotsConfig = crowdinScreenshotsConfig
-        return self
-    }
-    
-    public func with(reatimeUpdatesEnabled: Bool) -> Self {
-        self.reatimeUpdatesEnabled = reatimeUpdatesEnabled
-        return self
-    }
-    
-    public func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
-        self.intervalUpdatesEnabled = intervalUpdatesEnabled
-        self.intervalUpdatesInterval = interval
         return self
     }
     

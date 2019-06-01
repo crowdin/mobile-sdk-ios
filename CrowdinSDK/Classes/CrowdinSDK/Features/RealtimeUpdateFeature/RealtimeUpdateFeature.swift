@@ -7,8 +7,23 @@
 
 import Foundation
 
-class RealtimeUpdateFeature {
-    static var shared: RealtimeUpdateFeature?
+protocol RealtimeUpdateFeatureProtocol {
+    static var shared: RealtimeUpdateFeatureProtocol? { get set }
+    
+    var enabled: Bool { get set }
+    
+    init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String)
+    
+    func start()
+    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie])
+    func stop()
+    func subscribe(control: Refreshable)
+    func refreshAllControls()
+}
+
+class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {    
+    static var shared: RealtimeUpdateFeatureProtocol?
+    
     var enabled: Bool {
         set {
             newValue ? start() : stop()
@@ -23,10 +38,10 @@ class RealtimeUpdateFeature {
     var active: Bool { return socketManger?.active ?? false }
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
-    private var socketManger: CrowdinSocketManager?
+    private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+    required init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
         self.localization = localization
         self.hashString = hash
         self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
@@ -38,38 +53,6 @@ class RealtimeUpdateFeature {
         socketManger?.subscribeOnUpdateDraft(localization: localization, stringId: id)
         socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
-    }
-    
-    func refresh() {
-        self.controls.allObjects.forEach { (control) in
-            if let refreshable = control as? Refreshable {
-                refreshable.refresh()
-            }
-        }
-    }
-    
-    func refreshControl(with localizationKey: String, newText: String) {
-        self.controls.allObjects.forEach { (control) in
-            if let refreshable = control as? Refreshable {
-                if let key = refreshable.key, key == localizationKey {
-                    refreshable.refresh(text: newText)
-                }
-            }
-        }
-    }
-    
-    func subscribeAllVisibleConrols() {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        subscribeAllControls(from: window)
-    }
-    
-    func subscribeAllControls(from view: UIView) {
-        view.subviews.forEach { (subview) in
-            if let refreshable = subview as? Refreshable {
-                self.subscribe(control: refreshable)
-            }
-            subscribeAllControls(from: subview)
-        }
     }
     
     func start() {
@@ -100,6 +83,40 @@ class RealtimeUpdateFeature {
         self.socketManger?.didChangeString = nil
         self.socketManger?.didChangePlural = nil
         self.socketManger = nil
+    }
+    
+    func refreshAllControls() {
+        self.controls.allObjects.forEach { (control) in
+            if let refreshable = control as? Refreshable {
+                refreshable.refresh()
+            }
+        }
+    }
+}
+
+extension RealtimeUpdateFeature {
+    func refreshControl(with localizationKey: String, newText: String) {
+        self.controls.allObjects.forEach { (control) in
+            if let refreshable = control as? Refreshable {
+                if let key = refreshable.key, key == localizationKey {
+                    refreshable.refresh(text: newText)
+                }
+            }
+        }
+    }
+    
+    func subscribeAllVisibleConrols() {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        subscribeAllControls(from: window)
+    }
+    
+    func subscribeAllControls(from view: UIView) {
+        view.subviews.forEach { (subview) in
+            if let refreshable = subview as? Refreshable {
+                self.subscribe(control: refreshable)
+            }
+            subscribeAllControls(from: subview)
+        }
     }
     
     func didChangeString(with id: Int, to newValue: String) {

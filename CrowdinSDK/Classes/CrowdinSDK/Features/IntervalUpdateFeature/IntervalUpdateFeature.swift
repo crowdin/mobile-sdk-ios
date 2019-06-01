@@ -8,7 +8,9 @@
 import Foundation
 
 protocol IntervalUpdateFeatureProtocol {
+    static var shared: IntervalUpdateFeatureProtocol? { get set }
     var interval: TimeInterval { get set }
+    var enabled: Bool { get set }
     
     init(interval: TimeInterval)
     
@@ -30,7 +32,7 @@ final class IntervalUpdateFeature: IntervalUpdateFeatureProtocol {
         }
     }
     
-    static var shared: IntervalUpdateFeature?
+    static var shared: IntervalUpdateFeatureProtocol?
     
     var interval: TimeInterval
     var timer: Timer? = nil

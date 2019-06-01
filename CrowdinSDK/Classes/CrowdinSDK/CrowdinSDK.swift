@@ -65,8 +65,10 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	
     /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
     public class func reloadUI() {
-        DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refresh() }
+         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
     }
+    
+    static var config: CrowdinSDKConfig!
     
     /// Initialization method. Initialize CrowdinProvider with passed parameters.
     ///
@@ -75,24 +77,11 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
     public class func startWithConfig(_ config: CrowdinSDKConfig) {
-        let crowdinProviderConfig: CrowdinProviderConfig
-        if let config = config.crowdinProviderConfig {
-            crowdinProviderConfig = config
-        } else {
-            crowdinProviderConfig = CrowdinProviderConfig()
-        }
+        self.config = config
+        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         
         let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
         self.setProvider(crowdinProvider)
-        
-        if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
-            ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-        }
-        
-        if config.reatimeUpdatesEnabled {
-            let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-        }
         
         if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
             IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
@@ -163,7 +152,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     }
     
     public class func forceRefreshLocalization() {
-        ForceRefreshLocalizationFeature.refreshLocalization()
+        RefreshLocalizationFeature.refreshLocalization()
     }
     
     public class func startIntervalUpdates(interval: TimeInterval) {
@@ -257,5 +246,17 @@ extension CrowdinSDK {
         } else {
             CrowdinSDK.unswizzle()
         }
+        if CrowdinSDK.responds(to: Selector(("initializeScreenshotFeature"))) {
+            CrowdinSDK .perform(Selector(("initializeScreenshotFeature")))
+        }
+        if CrowdinSDK.responds(to: Selector(("initializeRealtimeUpdatesFeature"))) {
+            CrowdinSDK .perform(Selector(("initializeRealtimeUpdatesFeature")))
+        }
+        
+        if CrowdinSDK.responds(to: Selector(("initializeIntervalUpdateFeature"))) {
+            CrowdinSDK .perform(Selector(("initializeIntervalUpdateFeature")))
+        }
+        
     }
+    
 }
