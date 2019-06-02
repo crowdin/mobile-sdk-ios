@@ -35,9 +35,18 @@ class SocketAPI: NSObject {
         super.init()
         self.ws.delegate = self
         
+        self.getDistribution()
+    }
+    
+    func getDistribution(completion: (() -> Void)? = nil) {
         let api = DistributionsAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
-        api.getDistribution { (response, _) in
+        api.getDistribution { (response, error) in
             self.distributionResponse = response
+            if let error = error {
+                self.onError?(error)
+            } else {
+                completion?()
+            }
         }
     }
     
@@ -50,9 +59,15 @@ class SocketAPI: NSObject {
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
-        guard let projectId = distributionResponse?.data.project.id else { return }
-        guard let projectWsHash = distributionResponse?.data.project.wsHash else { return }
-        guard let userId = distributionResponse?.data.user.id else { return }
+        guard let distributionResponse = self.distributionResponse else {
+            self.getDistribution(completion: {
+                self.subscribeOnUpdateDraft(localization: localization, stringId: stringId)
+            })
+            return
+        }
+        let projectId = distributionResponse.data.project.id
+        let projectWsHash = distributionResponse.data.project.wsHash
+        let userId = distributionResponse.data.user.id
         
         // TODO: Rewrite to codable models:
         guard let data = "{\"action\":\"subscribe\",\"event\": \"update-draft:\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
@@ -61,8 +76,14 @@ class SocketAPI: NSObject {
     }
     
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
-        guard let projectId = distributionResponse?.data.project.id else { return }
-        guard let projectWsHash = distributionResponse?.data.project.wsHash else { return }
+        guard let distributionResponse = self.distributionResponse else {
+            self.getDistribution(completion: {
+                self.subscribeOnUpdateTopSuggestion(localization: localization, stringId: stringId)
+            })
+            return
+        }
+        let projectId = distributionResponse.data.project.id
+        let projectWsHash = distributionResponse.data.project.wsHash
         
         // TODO: Rewrite to codable models:
         guard let data = "{\"action\":\"subscribe\",\"event\": \"top-suggestion:\(projectWsHash):\(projectId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
