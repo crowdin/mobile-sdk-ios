@@ -8,9 +8,13 @@
 import Foundation
 
 class SupportedLanguagesAPI: CrowdinAPI {
-    let parameters = ["json" : ""]
+    enum Strings: String {
+        case json
+        case supportedLanguages = "supported-languages"
+    }
+    let parameters = [Strings.json.rawValue: String.empty]
     
-    override var apiPath: String { return "supported-languages" }
+    override var apiPath: String { return Strings.supportedLanguages.rawValue }
     
     func buildURL() -> String {
         return "\(baseAPIPath)/\(apiPath)/"

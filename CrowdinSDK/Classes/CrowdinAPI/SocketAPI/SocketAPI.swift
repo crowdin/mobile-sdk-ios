@@ -9,21 +9,21 @@ import Foundation
 import Starscream
 
 class SocketAPI: NSObject {
+    let urlString = "wss://ws-lb.crowdin.com/"
     let hashString: String
     let csrfToken: String
     let userAgent: String
     let cookies: [HTTPCookie]
-    
     var distributionResponse: DistributionsResponse?
     var ws: WebSocket
-    var isConnected: Bool {
-        return ws.isConnected
-    }
-    
     var onConnect: (() -> Void)? = nil
     var onError: ((Error) -> Void)? = nil
     var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)? = nil
     var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)? = nil
+    
+    var isConnected: Bool {
+        return ws.isConnected
+    }
     
     init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
         self.hashString = hashString
@@ -31,7 +31,7 @@ class SocketAPI: NSObject {
         self.userAgent = userAgent
         self.cookies = cookies
         // swiftlint:disable force_unwrapping
-        self.ws = WebSocket(url: URL(string: "wss://ws-lb.crowdin.com/")!)
+        self.ws = WebSocket(url: URL(string: urlString)!)
         super.init()
         self.ws.delegate = self
         
@@ -69,8 +69,9 @@ class SocketAPI: NSObject {
         let projectWsHash = distributionResponse.data.project.wsHash
         let userId = distributionResponse.data.user.id
         
-        // TODO: Rewrite to codable models:
-        guard let data = "{\"action\":\"subscribe\",\"event\": \"update-draft:\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
+        let event = "\(Events.updateDraft.rawValue):\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)"
+        let action = ActionRequest.subscribeAction(with: event)
+        guard let data = action.data else { return }
         
         self.ws.write(data: data)
     }
@@ -85,8 +86,9 @@ class SocketAPI: NSObject {
         let projectId = distributionResponse.data.project.id
         let projectWsHash = distributionResponse.data.project.wsHash
         
-        // TODO: Rewrite to codable models:
-        guard let data = "{\"action\":\"subscribe\",\"event\": \"top-suggestion:\(projectWsHash):\(projectId):\(localization):\(stringId)\"}".data(using: .utf8) else { return }
+        let event = "\(Events.topSuggestion.rawValue):\(projectWsHash):\(projectId):\(localization):\(stringId)"
+        let action = ActionRequest.subscribeAction(with: event)
+        guard let data = action.data else { return }
         
         self.ws.write(data: data)
     }
@@ -101,7 +103,7 @@ extension SocketAPI: WebSocketDelegate {
         if let error = error {
             self.onError?(error)
         } else {
-            self.onError?(NSError(domain: "Websocket did disconnect with unknown error", code: 9999, userInfo: nil))
+            self.onError?(NSError(domain: Errors.didDisconect.rawValue, code: 9999, userInfo: nil))
         }
     }
     
@@ -115,4 +117,15 @@ extension SocketAPI: WebSocketDelegate {
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
+}
+
+extension SocketAPI {
+    enum Events: String {
+        case topSuggestion = "top-suggestion"
+        case updateDraft = "update-draft"
+    }
+    
+    enum Errors: String {
+        case didDisconect = "Websocket did disconnect with unknown error"
+    }
 }
