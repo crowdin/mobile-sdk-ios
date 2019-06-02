@@ -19,7 +19,6 @@ class FolderBundle: FolderBundleProtocol {
     var bundle: Bundle
     var folder: FolderProtocol
     
-    // TODO: Find way to remove forse  unwraping.
     init(folder: FolderProtocol) {
         self.folder = folder
         // swiftlint:disable force_unwrapping

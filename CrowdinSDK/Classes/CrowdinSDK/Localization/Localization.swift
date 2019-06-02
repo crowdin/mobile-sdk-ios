@@ -44,7 +44,6 @@ class Localization {
                 UserDefaults.standard.cleanAppleLanguages()
             case .customBundle: break
             }
-			// TODO: Add changes after switching mode. f.e. cleanAppleLanguages.
 			UserDefaults.standard.set(newValue.rawValue, forKey: Keys.mode.rawValue)
 			UserDefaults.standard.synchronize()
 		}

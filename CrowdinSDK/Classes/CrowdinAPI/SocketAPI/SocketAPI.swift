@@ -43,6 +43,7 @@ class SocketAPI: NSObject {
         api.getDistribution { (response, error) in
             self.distributionResponse = response
             if let error = error {
+                self.disconect()
                 self.onError?(error)
             } else {
                 completion?()
