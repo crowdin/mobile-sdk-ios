@@ -9,7 +9,7 @@
 import Foundation
 import CrowdinSDK
 
-class CustomProvider: BaseLocalizationProvider {
+class CustomProvider: LocalizationProvider {
     /*
     func set(localization: String?) {
         self.localization = localization ?? "en"

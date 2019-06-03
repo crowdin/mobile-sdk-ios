@@ -1,5 +1,5 @@
 //
-//  LocalLocalizationProvider.swift
+//  InBundleLocalizationStorage.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 2/13/19.
@@ -7,15 +7,9 @@
 
 import Foundation
 
-class EmptyRemoteStorage: RemoteLocalizationStorage {
-    var localization: String
-    func fetchData(completion: @escaping LocalizationStorageCompletion) { }
-    required init(localization: String) {
-        self.localization = localization
-    }
-}
-
-class InBundleLocalizationStorage: LocalLocalizationStorage {
+/// Example of using RemoteLocalizationStorageProtocol.
+class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
+    var name: String = "Empty"
     var additionalWord: String
     var localization: String {
         didSet {
@@ -74,25 +68,5 @@ class InBundleLocalizationStorage: LocalLocalizationStorage {
             dict[key] = localized
         })
         return dict
-    }
-}
-
-public class LocalLocalizationProvider: BaseLocalizationProvider {
-    public init() {
-        let localization = Bundle.main.preferredLanguage
-        let localStorage = InBundleLocalizationStorage(localization: localization)
-        let remoteStorage = EmptyRemoteStorage(localization: localization)
-        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
-    }
-    
-    public init(additionalWord: String) {
-        let localization = Bundle.main.preferredLanguage
-        let localStorage = InBundleLocalizationStorage(additionalWord: additionalWord, localization: localization)
-        let remoteStorage = EmptyRemoteStorage(localization: localization)
-        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
-    }
-    
-    public required init(localization: String, localStorage: LocalLocalizationStorage, remoteStorage: RemoteLocalizationStorage) {
-        super.init(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
     }
 }

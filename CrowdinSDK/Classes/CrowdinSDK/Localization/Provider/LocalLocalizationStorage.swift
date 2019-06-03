@@ -1,13 +1,19 @@
 //
-//  CrowdinLocalLocalizationStorage.swift
+//  LocalLocalizationStorage.swift
 //  CrowdinSDK
 //
-//  Created by Serhii Londar on 3/27/19.
+//  Created by Serhii Londar on 6/3/19.
 //
 
 import Foundation
 
-class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
+@objc public protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
+    var localizations: [String] { get set }
+    var strings: [String: String] { get set }
+    var plurals: [AnyHashable: Any] { get set }
+}
+
+class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     required init(localization: String, localizations: [String]) {
         self.localizations = localizations
         self.localization = localization
@@ -29,7 +35,7 @@ class CrowdinLocalLocalizationStorage: LocalLocalizationStorage {
             self.fetchData()
         }
     }
-
+    
     var localizations: [String]
     
     private var _strings: Atomic<[String: String]> = Atomic([:])

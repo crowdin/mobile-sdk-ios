@@ -19,7 +19,7 @@ class Localization {
     }
     
     /// Current localization provider.
-	var provider: LocalizationProvider
+	var provider: LocalizationProviderProtocol
     
     /// Localization extractor.
     var extractor: LocalizationExtractor
@@ -90,7 +90,7 @@ class Localization {
     /// Initialize object with specific localization provider.
     ///
     /// - Parameter provider: Localization provider implementation.
-	init(provider: LocalizationProvider) {
+	init(provider: LocalizationProviderProtocol) {
         self.extractor = LocalizationExtractor()
         self.provider = provider
         self.provider.localization = currentLocalization ?? Bundle.main.preferredLanguage

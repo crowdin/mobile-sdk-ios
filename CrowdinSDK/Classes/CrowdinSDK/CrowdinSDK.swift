@@ -79,10 +79,9 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func startWithConfig(_ config: CrowdinSDKConfig) {
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
-        
-        let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
-        self.setProvider(crowdinProvider)
-        
+        let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        self.setRemoteStorage(remoteStorage)
         self.initializeLib()
     }
     
@@ -94,8 +93,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    class func startWithProvider(_ provider: LocalizationProvider) {
-        self.setProvider(provider)
+    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+        self.setRemoteStorage(remoteStorage)
         self.initializeLib()
     }
     
@@ -130,8 +129,10 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
-    class func setProvider(_ provider: LocalizationProvider) {
-		let localizationProvider = provider
+    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
+        let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+		let localizationProvider = LocalizationProvider(localization: localization, localizations: crowdinProviderConfig.localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
     }
     
