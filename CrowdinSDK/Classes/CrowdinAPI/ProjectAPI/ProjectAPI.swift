@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ProjectAPI: CrowdinAPI {
+class ProjectAPI: CrowdinAPI {
     enum Strings: String {
         case project
         case key
@@ -20,7 +20,7 @@ public class ProjectAPI: CrowdinAPI {
     var projectKey: String
     var projectIdentifier: String
     
-    public init(projectIdentifier: String, projectKey: String) {
+    init(projectIdentifier: String, projectKey: String) {
         self.projectIdentifier = projectIdentifier
         self.projectKey = projectKey
         super.init()
@@ -39,13 +39,13 @@ public class ProjectAPI: CrowdinAPI {
         return resultParameters
     }
     
-    public func projectDetails(completion: @escaping (ProjectDetailsResponse?, Error?) -> Void) {
+    func projectDetails(completion: @escaping (ProjectDetailsResponse?, Error?) -> Void) {
         let method = Strings.info.rawValue
         let url = self.buildURL(method: method)
         self.cw_post(url: url, parameters: self.buildParameters(), headers: nil, body: nil, completion: completion)
     }
     
-    public func projectDetailsSync() -> (ProjectDetailsResponse?, Error?) {
+    func projectDetailsSync() -> (ProjectDetailsResponse?, Error?) {
         let method = Strings.info.rawValue
         let url = self.buildURL(method: method)
         return self.cw_post(url: url, parameters: self.buildParameters(), headers: nil, body: nil)

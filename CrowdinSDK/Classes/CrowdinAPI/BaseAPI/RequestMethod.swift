@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum RequestMethod: String {
+enum RequestMethod: String {
     case OPTIONS
     case GET
     case HEAD

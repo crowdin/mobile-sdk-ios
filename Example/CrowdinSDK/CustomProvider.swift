@@ -9,7 +9,15 @@
 import Foundation
 import CrowdinSDK
 
-class CustomProvider: LocalizationProvider {
+class CustomProvider: RemoteLocalizationStorageProtocol {
+    var name: String = "CustomProvider"
+    
+    var localization: String = "en"
+    
+    func fetchData(completion: @escaping LocalizationStorageCompletion) {
+        
+    }
+    
     /*
     func set(localization: String?) {
         self.localization = localization ?? "en"

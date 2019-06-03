@@ -10,7 +10,7 @@ import Foundation
 import CrowdinSDK
 
 class PluralsVC: BaseMenuVC {
-    let crowdinSDKTester = CrowdinProviderTester(localization: CrowdinSDK.currentLocalization ?? "en")
+    let crowdinSDKTester = CrowdinTester(localization: CrowdinSDK.currentLocalization ?? "en")
     @IBOutlet var searchBar: UISearchBar! {
         didSet {
             searchBar.delegate = self
@@ -32,7 +32,7 @@ class PluralsVC: BaseMenuVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "plurals_title".localized
+        self.title = "plurals_title".cw_localized
         self.filteredResults = localizationKeys
         tableView.reloadData()
     }

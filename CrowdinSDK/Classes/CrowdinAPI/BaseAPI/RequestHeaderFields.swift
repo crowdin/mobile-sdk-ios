@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum RequestHeaderFields: String {
+enum RequestHeaderFields: String {
     case acceptCharset = "Accept-Charset"
     case acceptEncoding = "Accept-Encoding"
     case acceptLanguage = "Accept-Language"

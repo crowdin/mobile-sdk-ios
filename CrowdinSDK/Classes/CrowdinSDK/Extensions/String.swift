@@ -11,16 +11,16 @@ import Foundation
 // MARK: - Localization extension.
 extension String {
     /// Extension method for simplifying strings localization.
-	public var localized: String {
+	public var cw_localized: String {
 		return NSLocalizedString(self, comment: String.empty)
 	}
     
-    public func localized(with arguments: [CVarArg]) -> String {
+    public func cw_localized(with arguments: [CVarArg]) -> String {
         return String(format: NSLocalizedString(self, comment: String.empty), arguments: arguments)
     }
     
-    public func localized1(with arguments: CVarArg...) -> String {
-        return String(format: NSLocalizedString(self, comment: String.empty), arguments)
+    public func cw_localized(with args: CVarArg...) -> String {
+        return String(format: NSLocalizedString(self, comment: String.empty), args)
     }
 }
 

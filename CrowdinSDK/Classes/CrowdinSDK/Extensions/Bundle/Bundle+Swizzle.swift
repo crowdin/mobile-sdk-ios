@@ -21,14 +21,14 @@ extension Bundle {
         return translation ?? key
     }
 
-    public class func swizzle() {
+    class func swizzle() {
         // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(Bundle.localizedString(forKey:value:table:)))!
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!
         method_exchangeImplementations(original, swizzled)
     }
     
-    public class func unswizzle() {
+    class func unswizzle() {
         guard original != nil && swizzled != nil else { return }
         method_exchangeImplementations(swizzled, original)
     }

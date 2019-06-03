@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
+protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
     var localizations: [String] { get set }
     var strings: [String: String] { get set }
     var plurals: [AnyHashable: Any] { get set }

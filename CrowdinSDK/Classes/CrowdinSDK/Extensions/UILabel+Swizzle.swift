@@ -68,7 +68,7 @@ extension UILabel {
         swizzled_setAttributedText(attributedText)
     }
 
-    public class func swizzle() {
+    class func swizzle() {
         // swiftlint:disable force_unwrapping
         originalText = class_getInstanceMethod(self, #selector(setter: UILabel.text))!
         swizzledText = class_getInstanceMethod(self, #selector(UILabel.swizzled_setText(_:)))!
@@ -79,7 +79,7 @@ extension UILabel {
         method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
     }
     
-    public class func unswizzle() {
+    class func unswizzle() {
         if originalText != nil && swizzledText != nil {
             method_exchangeImplementations(swizzledText, originalText)
         }

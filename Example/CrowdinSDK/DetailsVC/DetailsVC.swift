@@ -34,7 +34,7 @@ class DetailsVC: UIViewController {
     }
     @IBOutlet weak var reloadUIButton: UIButton! {
         didSet {
-            let string = "test_with_format_key".localized(with: ["Test parameter"])
+            let string = "test_with_format_key".cw_localized(with: ["Test parameter"])
             let normalAttributedTitle = NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor : UIColor.yellow])
             reloadUIButton.setAttributedTitle(normalAttributedTitle, for: .normal)
             let highlightedAttributedTitle = NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor : UIColor.green])

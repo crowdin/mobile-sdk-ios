@@ -97,7 +97,7 @@ extension UIButton {
         swizzled_setAttributedTitle(title, for: state)
     }
 
-    public class func swizzle() {
+    class func swizzle() {
         // swiftlint:disable force_unwrapping
         originalSetTitle = class_getInstanceMethod(self, #selector(UIButton.setTitle(_:for:)))!
         swizzledSetTitle = class_getInstanceMethod(self, #selector(UIButton.swizzled_setTitle(_:for:)))!
@@ -108,8 +108,11 @@ extension UIButton {
         method_exchangeImplementations(originalSetTitle, swizzledSetTitle)
     }
     
-    public class func unswizzle() {
+    class func unswizzle() {
         guard originalSetTitle != nil && swizzledSetTitle != nil else { return }
         method_exchangeImplementations(swizzledSetTitle, originalSetTitle)
+        
+        guard originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil else { return }
+        method_exchangeImplementations(swizzledSetAttributedTitle, originalSetAttributedTitle)
     }
 }

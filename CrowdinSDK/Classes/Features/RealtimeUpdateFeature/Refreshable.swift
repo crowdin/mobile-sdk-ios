@@ -30,9 +30,9 @@ extension UILabel: Refreshable {
     func refresh() {
         guard let key = self.localizationKey else { return }
         if let values = self.localizationValues as? [CVarArg] {
-            self.text = key.localized(with: values)
+            self.text = key.cw_localized(with: values)
         } else if let key = self.localizationKey {
-            self.text = key.localized
+            self.text = key.cw_localized
         }
     }
 }
@@ -55,9 +55,9 @@ extension UIButton: Refreshable {
         UIControl.State.all.forEach { (state) in
             guard let key = self.localizationKeys?[state.rawValue] else { return }
             if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
-                self.setTitle(key.localized(with: values), for: state)
+                self.setTitle(key.cw_localized(with: values), for: state)
             } else {
-                self.setTitle(key.localized, for: state)
+                self.setTitle(key.cw_localized, for: state)
             }
         }
     }

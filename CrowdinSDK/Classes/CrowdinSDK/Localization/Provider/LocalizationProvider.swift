@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public protocol LocalizationProviderProtocol {
+protocol LocalizationProviderProtocol {
     init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol)
     var localStorage: LocalLocalizationStorageProtocol { get }
     var remoteStorage: RemoteLocalizationStorageProtocol { get }
@@ -23,22 +23,22 @@ import Foundation
     func values(for string: String, with format: String) -> [Any]?
 }
 
-@objcMembers open class LocalizationProvider: NSObject, LocalizationProviderProtocol {
+class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     private enum Strings: String {
         case Plurals
         case LocalizableStringsdict = "Localizable.stringsdict"
     }
     // Public
-    public var localization: String {
+    var localization: String {
         didSet {
             self.localStorage.localization = localization
             self.remoteStorage.localization = localization
             self.refreshLocalization()
         }
     }
-    public var localStorage: LocalLocalizationStorageProtocol
-    public var remoteStorage: RemoteLocalizationStorageProtocol
-    public var localizations: [String] { return localStorage.localizations }
+    var localStorage: LocalLocalizationStorageProtocol
+    var remoteStorage: RemoteLocalizationStorageProtocol
+    var localizations: [String] { return localStorage.localizations }
     // Internal
     var strings: [String: String] { return localStorage.strings }
     var plurals: [AnyHashable: Any] { return localStorage.plurals }
@@ -47,7 +47,7 @@ import Foundation
     var stringsDataSource: LocalizationDataSourceProtocol
     var pluralsDataSource: LocalizationDataSourceProtocol
     
-    public required init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol) {
+    required init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol) {
         self.localization = localization
         self.localStorage = localStorage
         self.remoteStorage = remoteStorage
@@ -67,13 +67,13 @@ import Foundation
         super.init()
     }
     
-    public func deintegrate() {
+    func deintegrate() {
         try? CrowdinFolder.shared.remove()
         try? pluralsFolder.remove()
         pluralsBundle?.remove()
     }
     
-    public func refreshLocalization() {
+    func refreshLocalization() {
         self.loadLocalLocalization()
         self.fetchLocalization()
     }
@@ -127,7 +127,7 @@ import Foundation
     }
     
     // Localization methods
-    public func localizedString(for key: String) -> String? {
+    func localizedString(for key: String) -> String? {
         var string = self.strings[key]
         if string == nil {
 			string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
@@ -135,14 +135,14 @@ import Foundation
         return string
     }
     
-    public func key(for string: String) -> String? {
+    func key(for string: String) -> String? {
         var key = stringsDataSource.findKey(for: string)
         guard key == nil else { return key }
         key = pluralsDataSource.findKey(for: string)
         return key
     }
 
-    public func values(for string: String, with format: String) -> [Any]? {
+    func values(for string: String, with format: String) -> [Any]? {
         var values = self.stringsDataSource.findValues(for: string, with: format)
         if values == nil {
             values = self.pluralsDataSource.findValues(for: string, with: format)

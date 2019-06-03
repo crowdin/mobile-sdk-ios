@@ -12,15 +12,15 @@ protocol AnyAsyncOperation {
     func finish(with fail: Bool)
 }
 
-public class AsyncOperation: Operation, AnyAsyncOperation {
-    public var failed: Bool = false
-    public enum State: String {
+class AsyncOperation: Operation, AnyAsyncOperation {
+    var failed: Bool = false
+    enum State: String {
         case ready, executing, finished
         fileprivate var keyPath: String {
             return "is" + self.rawValue.capitalized
         }
     }
-    public var state = State.ready {
+    var state = State.ready {
         willSet {
             willChangeValue(forKey: newValue.keyPath)
             willChangeValue(forKey: state.keyPath)
@@ -30,31 +30,31 @@ public class AsyncOperation: Operation, AnyAsyncOperation {
             didChangeValue(forKey: state.keyPath)
         }
     }
-    public override var isReady: Bool {
+    override var isReady: Bool {
         return super.isReady && state == .ready
     }
-    public override var isExecuting: Bool {
+    override var isExecuting: Bool {
         return state == .executing
     }
-    public override var isFinished: Bool {
+    override var isFinished: Bool {
         return state == .finished
     }
-    public override var isAsynchronous: Bool {
+    override var isAsynchronous: Bool {
         return true
     }
-    public override func start() {
+    override func start() {
         if isCancelled { state = .finished; return }
         guard !hasCancelledDependencies else{ cancel(); return }
         state = .executing
         main()
     }
-    public override func main() {
+    override func main() {
         fatalError("Should be overriden in child class")
     }
-    public override func cancel() {
+    override func cancel() {
         state = .finished
     }
-    public func finish(with fail: Bool) {
+    func finish(with fail: Bool) {
         self.failed = fail
         state = .finished
     }

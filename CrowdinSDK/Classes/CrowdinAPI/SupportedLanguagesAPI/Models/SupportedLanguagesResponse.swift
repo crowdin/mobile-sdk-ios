@@ -9,16 +9,16 @@ import Foundation
 
 typealias SupportedLanguagesResponse = [SupportedLanguagesLanguage]
 
-public class SupportedLanguagesLanguage: Codable {
-    public let name: String?
-    public let crowdinCode: String?
-    public let editorCode: String?
-    public let iso639_1: String?
-    public let iso639_3: String?
-    public let locale: String?
-    public let androidCode: String?
-    public let osxCode: String?
-    public let osxLocale: String?
+class SupportedLanguagesLanguage: Codable {
+    let name: String?
+    let crowdinCode: String?
+    let editorCode: String?
+    let iso639_1: String?
+    let iso639_3: String?
+    let locale: String?
+    let androidCode: String?
+    let osxCode: String?
+    let osxLocale: String?
     
     enum CodingKeys: String, CodingKey {
         case name = "name"
@@ -32,7 +32,7 @@ public class SupportedLanguagesLanguage: Codable {
         case osxLocale = "osx_locale"
     }
     
-    public init(name: String?, crowdinCode: String?, editorCode: String?, iso639_1: String?, iso639_3: String?, locale: String?, androidCode: String?, osxCode: String?, osxLocale: String?) {
+    init(name: String?, crowdinCode: String?, editorCode: String?, iso639_1: String?, iso639_3: String?, locale: String?, androidCode: String?, osxCode: String?, osxLocale: String?) {
         self.name = name
         self.crowdinCode = crowdinCode
         self.editorCode = editorCode

@@ -7,10 +7,10 @@
 
 import Foundation
 
-public class ProjectDetailsResponse: Codable {
-    public let languages: [ProjectDetailsResponseLanguage]?
-    public let files: [ProjectDetailsResponseFile]?
-    public let details: ProjectDetailsResponseDetails?
+class ProjectDetailsResponse: Codable {
+    let languages: [ProjectDetailsResponseLanguage]?
+    let files: [ProjectDetailsResponseFile]?
+    let details: ProjectDetailsResponseDetails?
     
     enum CodingKeys: String, CodingKey {
         case languages
@@ -18,29 +18,29 @@ public class ProjectDetailsResponse: Codable {
         case details
     }
     
-    public init(languages: [ProjectDetailsResponseLanguage]?, files: [ProjectDetailsResponseFile]?, details: ProjectDetailsResponseDetails?) {
+    init(languages: [ProjectDetailsResponseLanguage]?, files: [ProjectDetailsResponseFile]?, details: ProjectDetailsResponseDetails?) {
         self.languages = languages
         self.files = files
         self.details = details
     }
 }
 
-public class ProjectDetailsResponseDetails: Codable {
-    public let sourceLanguage: ProjectDetailsResponseSourceLanguage?
-    public let name: String?
-    public let identifier: String?
-    public let created: String?
-    public let description: String?
-    public let joinPolicy: String?
-    public let lastBuild: String?
-    public let lastActivity: String?
-    public let participantsCount: String?
-    public let logourl: String?
-    public let totalStringsCount: String?
-    public let totalWordsCount: String?
-    public let duplicateStringsCount: Int?
-    public let duplicateWordsCount: Int?
-    public let inviteurl: ProjectDetailsResponseInviteurl?
+class ProjectDetailsResponseDetails: Codable {
+    let sourceLanguage: ProjectDetailsResponseSourceLanguage?
+    let name: String?
+    let identifier: String?
+    let created: String?
+    let description: String?
+    let joinPolicy: String?
+    let lastBuild: String?
+    let lastActivity: String?
+    let participantsCount: String?
+    let logourl: String?
+    let totalStringsCount: String?
+    let totalWordsCount: String?
+    let duplicateStringsCount: Int?
+    let duplicateWordsCount: Int?
+    let inviteurl: ProjectDetailsResponseInviteurl?
     
     enum CodingKeys: String, CodingKey {
         case sourceLanguage = "source_language"
@@ -60,7 +60,7 @@ public class ProjectDetailsResponseDetails: Codable {
         case inviteurl = "invite_url"
     }
     
-    public init(sourceLanguage: ProjectDetailsResponseSourceLanguage?, name: String?, identifier: String?, created: String?, description: String?, joinPolicy: String?, lastBuild: String?, lastActivity: String?, participantsCount: String?, logourl: String?, totalStringsCount: String?, totalWordsCount: String?, duplicateStringsCount: Int?, duplicateWordsCount: Int?, inviteurl: ProjectDetailsResponseInviteurl?) {
+    init(sourceLanguage: ProjectDetailsResponseSourceLanguage?, name: String?, identifier: String?, created: String?, description: String?, joinPolicy: String?, lastBuild: String?, lastActivity: String?, participantsCount: String?, logourl: String?, totalStringsCount: String?, totalWordsCount: String?, duplicateStringsCount: Int?, duplicateWordsCount: Int?, inviteurl: ProjectDetailsResponseInviteurl?) {
         self.sourceLanguage = sourceLanguage
         self.name = name
         self.identifier = identifier
@@ -79,44 +79,44 @@ public class ProjectDetailsResponseDetails: Codable {
     }
 }
 
-public class ProjectDetailsResponseInviteurl: Codable {
-    public let translator: String?
-    public let proofreader: String?
+class ProjectDetailsResponseInviteurl: Codable {
+    let translator: String?
+    let proofreader: String?
     
     enum CodingKeys: String, CodingKey {
         case translator
         case proofreader
     }
     
-    public init(translator: String?, proofreader: String?) {
+    init(translator: String?, proofreader: String?) {
         self.translator = translator
         self.proofreader = proofreader
     }
 }
 
-public class ProjectDetailsResponseSourceLanguage: Codable {
-    public let name: String?
-    public let code: String?
+class ProjectDetailsResponseSourceLanguage: Codable {
+    let name: String?
+    let code: String?
     
     enum CodingKeys: String, CodingKey {
         case name
         case code
     }
     
-    public init(name: String?, code: String?) {
+    init(name: String?, code: String?) {
         self.name = name
         self.code = code
     }
 }
 
-public class ProjectDetailsResponseFile: Codable {
-    public let nodeType: String?
-    public let id: String?
-    public let name: String?
-    public let created: String?
-    public let lastUpdated: String?
-    public let lastAccessed: String?
-    public let lastRevision: String?
+class ProjectDetailsResponseFile: Codable {
+    let nodeType: String?
+    let id: String?
+    let name: String?
+    let created: String?
+    let lastUpdated: String?
+    let lastAccessed: String?
+    let lastRevision: String?
     
     enum CodingKeys: String, CodingKey {
         case nodeType = "node_type"
@@ -128,7 +128,7 @@ public class ProjectDetailsResponseFile: Codable {
         case lastRevision = "last_revision"
     }
     
-    public init(nodeType: String?, id: String?, name: String?, created: String?, lastUpdated: String?, lastAccessed: String?, lastRevision: String?) {
+    init(nodeType: String?, id: String?, name: String?, created: String?, lastUpdated: String?, lastAccessed: String?, lastRevision: String?) {
         self.nodeType = nodeType
         self.id = id
         self.name = name
@@ -139,11 +139,11 @@ public class ProjectDetailsResponseFile: Codable {
     }
 }
 
-public class ProjectDetailsResponseLanguage: Codable {
-    public let name: String?
-    public let code: String?
-    public let canTranslate: Int?
-    public let canApprove: Int?
+class ProjectDetailsResponseLanguage: Codable {
+    let name: String?
+    let code: String?
+    let canTranslate: Int?
+    let canApprove: Int?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -152,7 +152,7 @@ public class ProjectDetailsResponseLanguage: Codable {
         case canApprove = "can_approve"
     }
     
-    public init(name: String?, code: String?, canTranslate: Int?, canApprove: Int?) {
+    init(name: String?, code: String?, canTranslate: Int?, canApprove: Int?) {
         self.name = name
         self.code = code
         self.canTranslate = canTranslate
