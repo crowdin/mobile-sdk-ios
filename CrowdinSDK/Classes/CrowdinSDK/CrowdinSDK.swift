@@ -181,28 +181,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
     }
-    
-    public class func showLogin() {
-        RealtimeUpdateFeature.shared?.start()
-    }
-    
-    public class func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
-        guard let screenshotFeature = ScreenshotFeature.shared else {
-            errorHandler(NSError(domain: "Screenshots feature disabled", code: 9999, userInfo: nil))
-            return
-        }
-        screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
-    }
-    
-    public class func startRealtimeUpdates() {
-        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
-        realtimeUpdateFeature.start()
-    }
-    
-    public class func stopRealtimeUpdates() {
-        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
-        realtimeUpdateFeature.stop()
-    }
 }
 
 extension CrowdinSDK {

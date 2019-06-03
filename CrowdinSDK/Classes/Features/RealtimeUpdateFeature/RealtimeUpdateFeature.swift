@@ -10,21 +10,29 @@ import Foundation
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
     
+    var success: (() -> Void)? { get set }
+    var error: ((Error) -> Void)? { set get }
     var enabled: Bool { get set }
     
     init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String)
     
-    func start()
-    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie])
+    func start(success: (() -> Void)?, error: ((Error) -> Void)?)
+    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)?, error: ((Error) -> Void)?)
     func stop()
     func subscribe(control: Refreshable)
     func unsubscribe(control: Refreshable)
     func refreshAllControls()
 }
 
-class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {    
+class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol?
     
+    var success: (() -> Void)?
+    var error: ((Error) -> Void)?
+    var localization: String
+    var hashString: String
+    
+    var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
             newValue ? start() : stop()
@@ -33,10 +41,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             return active
         }
     }
-    
-    var localization: String
-    var hashString: String
-    var active: Bool { return socketManger?.active ?? false }
     
     private var controls = NSHashTable<AnyObject>.weakObjects()
     private var socketManger: CrowdinSocketManagerProtocol?
@@ -60,15 +64,17 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         controls.remove(control)
     }
     
-    func start() {
+    func start(success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
         LoginFeature.login(completion: { (csrfToken, userAgent, cookies) in
-            self.start(with: csrfToken, userAgent: userAgent, cookies: cookies)
-        }) { error in
-            print(error.localizedDescription)
+            self.start(with: csrfToken, userAgent: userAgent, cookies: cookies, success: success, error: error)
+        }) { err in
+            error?(err)
         }
     }
     
-    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
+        self.success = success
+        self.error = error
         self.socketManger = CrowdinSocketManager(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
@@ -78,7 +84,11 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             self.didChangePlural(with: id, to: newValue)
         }
         
-        self.socketManger?.connect = subscribeAllVisibleConrols
+        self.socketManger?.error = error
+        self.socketManger?.connect = {
+            self.success?()
+            self.subscribeAllVisibleConrols()
+        }
         
         self.socketManger?.start()
     }

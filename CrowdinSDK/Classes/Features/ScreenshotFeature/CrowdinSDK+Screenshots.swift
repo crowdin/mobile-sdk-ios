@@ -15,4 +15,12 @@ extension CrowdinSDK {
             ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
         }
     }
+    
+    public class func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard let screenshotFeature = ScreenshotFeature.shared else {
+            errorHandler(NSError(domain: "Screenshots feature disabled", code: 9999, userInfo: nil))
+            return
+        }
+        screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+    }
 }

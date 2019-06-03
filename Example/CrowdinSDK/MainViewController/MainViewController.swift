@@ -75,9 +75,5 @@ class MainViewController: BaseMenuVC {
         let detailsVC = UIStoryboard(name: "DetailsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
-    
-    @IBAction func reloadLocalization(_ sender: AnyObject) {
-        CrowdinSDK.showLogin()
-    }
 }
 
