@@ -16,4 +16,14 @@ extension CrowdinSDK {
             RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
         }
     }
+    
+    public class func startRealtimeUpdates(success: (() -> Void)?, error: ((Error) -> Void)?) {
+        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
+        realtimeUpdateFeature.start(success: success, error: error)
+    }
+    
+    public class func stopRealtimeUpdates() {
+        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
+        realtimeUpdateFeature.stop()
+    }
 }
