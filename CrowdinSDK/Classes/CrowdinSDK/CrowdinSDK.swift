@@ -157,27 +157,43 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         IntervalUpdateFeature.shared = nil
     }
     
-    // Observer
+    
+    /// Add download handler closure. This closure will be called every time when new localization is downloaded.
+    ///
+    /// - Parameter handler: Download handler closure.
+    /// - Returns: Download handler id value. This value is used to remove this handler.
     public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> UInt {
         return Localization.current.addDownloadHandler(handler)
     }
     
+    /// Remove download handler by id.
+    ///
+    /// - Parameter id: Download handler id value.
     public class func removeDownloadHandler(_ id: UInt) {
         Localization.current.removeDownloadHandler(id)
     }
     
+    /// Remove all download handlers.
     public class func removeAllDownloadHandlers() {
         Localization.current.removeAllDownloadHandlers()
     }
     
+    /// Add error handler
+    ///
+    /// - Parameter handler: Error handler closure.
+    /// - Returns: Error handler id value. This value is used to remove this handler.
     public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> UInt {
         return Localization.current.addErrorUpdateHandler(handler)
     }
     
+    /// Remove error handler by id.
+    ///
+    /// - Parameter id: Error's handler id value.
     public class func removeErrorHandler(_ id: UInt) {
         Localization.current.removeErrorHandler(id)
     }
     
+    /// Remove all error handlers.
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
     }
@@ -191,7 +207,7 @@ extension CrowdinSDK {
         UIButton.swizzle()
     }
     
-    /// Method for unswizzling all methods.
+    /// Method for unswizzling all zwizzled methods.
     class func unswizzle() {
         Bundle.unswizzle()
         UILabel.unswizzle()
@@ -222,5 +238,4 @@ extension CrowdinSDK {
             CrowdinSDK .perform(Selector(("initializeSettings")))
         }
     }
-    
 }
