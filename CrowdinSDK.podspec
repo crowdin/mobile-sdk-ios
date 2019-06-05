@@ -50,7 +50,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'CrowdinProvider' do |provider|
     provider.name = 'CrowdinProvider'
-    provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/*.swift'
+    provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/**/*.swift'
     provider.dependency 'CrowdinSDK/Core'
     provider.dependency 'CrowdinSDK/CrowdinAPI'
   end

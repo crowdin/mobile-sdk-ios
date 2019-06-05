@@ -31,7 +31,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.pluralsFileNames = pluralsFileNames
         self.localization = localization
         self.localizations = localizations
-        self.crowdinDownloader = CrowdinDownloader()
+        self.crowdinDownloader = CrowdinLocalizationDownloader()
     }
     
     init(localization: String, config: CrowdinProviderConfig) {
@@ -40,12 +40,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.pluralsFileNames = config.pluralsFileNames
         self.localization = localization
         self.localizations = config.localizations
-        self.crowdinDownloader = CrowdinDownloader()
+        self.crowdinDownloader = CrowdinLocalizationDownloader()
     }
     
     required init(localization: String) {
         self.localization = localization
-        self.crowdinDownloader = CrowdinDownloader()
+        self.crowdinDownloader = CrowdinLocalizationDownloader()
         guard let hashString = Bundle.main.crowdinHash else {
             fatalError("Please add CrowdinHash key to your Info.plist file")
         }
@@ -69,7 +69,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization, completion: { strings, plurals, errors in
             completion(self.localizations, strings, plurals)
             
-            // TODO: add comments here:
             DispatchQueue.main.async {
                 NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
                 
