@@ -7,13 +7,7 @@
 
 import Foundation
 
-typealias CrowdinDownloaderCompletion = (_ strings: [String: String]?, _ plurals: [AnyHashable: Any]?, _ errors: [Error]?) -> Void
-
-protocol CrowdinDownloaderProtocol {
-    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion)
-}
-
-class CrowdinDownloader: CrowdinDownloaderProtocol {
+class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     // swiftlint:disable implicitly_unwrapped_optional
     var completion: CrowdinDownloaderCompletion!
     

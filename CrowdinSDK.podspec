@@ -50,7 +50,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'CrowdinProvider' do |provider|
     provider.name = 'CrowdinProvider'
-    provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/*.swift'
+    provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/**/*.swift'
     provider.dependency 'CrowdinSDK/Core'
     provider.dependency 'CrowdinSDK/CrowdinAPI'
   end
@@ -61,12 +61,20 @@ Pod::Spec.new do |spec|
     subspec.resource_bundle = { 'CrowdinSDKLogin' => 'CrowdinSDK/Assets/Login/CrowdinLoginVC.storyboard'}
   end
   
+  spec.subspec 'MappingManager' do |mapping|
+      mapping.name = 'MappingManager'
+      mapping.source_files = 'CrowdinSDK/Classes/MappingManager/*.swift'
+      mapping.dependency 'CrowdinSDK/Core'
+      mapping.dependency 'CrowdinSDK/CrowdinAPI'
+  end
+  
   spec.subspec 'Screenshots' do |feature|
     feature.name = 'Screenshots'
     feature.source_files = 'CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'CrowdinSDK/Login'
+    feature.dependency 'CrowdinSDK/MappingManager'
   end
   
   spec.subspec 'RealtimeUpdate' do |feature|
@@ -74,6 +82,7 @@ Pod::Spec.new do |spec|
     feature.source_files = 'CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
+    feature.dependency 'CrowdinSDK/MappingManager'
   end
   
   spec.subspec 'RefreshLocalization' do |feature|
