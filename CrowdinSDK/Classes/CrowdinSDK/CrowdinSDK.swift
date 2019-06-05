@@ -62,11 +62,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	
     /// List of supported in app localizations.
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
-	
-    /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
-    public class func reloadUI() {
-         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
-    }
     
     static var config: CrowdinSDKConfig!
     
@@ -142,21 +137,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
-    
-    public class func forceRefreshLocalization() {
-        RefreshLocalizationFeature.refreshLocalization()
-    }
-    
-    public class func startIntervalUpdates(interval: TimeInterval) {
-        IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
-        IntervalUpdateFeature.shared?.start()
-    }
-    
-    public class func stopIntervalUpdates() {
-        IntervalUpdateFeature.shared?.stop()
-        IntervalUpdateFeature.shared = nil
-    }
-    
     
     /// Add download handler closure. This closure will be called every time when new localization is downloaded.
     ///

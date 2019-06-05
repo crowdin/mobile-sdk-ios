@@ -2,11 +2,11 @@ use_frameworks!
 
 target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK', :path => '../'
-  pod 'CrowdinSDK/Screenshots', :path => '../'
-  pod 'CrowdinSDK/IntervalUpdate', :path => '../'
-  pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
-  pod 'CrowdinSDK/RefreshLocalization', :path => '../'
-  pod 'CrowdinSDK/Settings', :path => '../'
+#  pod 'CrowdinSDK/Screenshots', :path => '../'
+#  pod 'CrowdinSDK/IntervalUpdate', :path => '../'
+#  pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
+#  pod 'CrowdinSDK/RefreshLocalization', :path => '../'
+#  pod 'CrowdinSDK/Settings', :path => '../'
   pod 'SwiftLint'
   pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
   pod 'Firebase'

@@ -105,8 +105,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         }
         self.setupStrings()
         self.setupPlurals()
-        
-        CrowdinSDK.reloadUI()
     }
     
     // Setup plurals

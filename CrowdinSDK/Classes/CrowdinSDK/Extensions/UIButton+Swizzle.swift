@@ -75,14 +75,11 @@ extension UIButton {
                     self.localizationKeys = [state.rawValue: key]
                 }
             }
-            // Subscribe to realtime updates if needed.
-            if self.localizationKeys != nil {
-                RealtimeUpdateFeature.shared?.subscribe(control: self)
-            }
+            self.subscribeForRealtimeUpdatesIfNeeded()
         } else {
             self.localizationKeys?[state.rawValue] = nil
             self.localizationValues?[state.rawValue] = nil
-            RealtimeUpdateFeature.shared?.unsubscribe(control: self)
+            self.unsubscribeForRealtimeUpdatesIfNeeded()
         }
     }
     
@@ -114,5 +111,22 @@ extension UIButton {
         
         guard originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil else { return }
         method_exchangeImplementations(swizzledSetAttributedTitle, originalSetAttributedTitle)
+    }
+    
+    enum Selectors: Selector {
+        case subscribeForRealtimeUpdates
+        case unsubscribeForRealtimeUpdates
+    }
+    
+    func subscribeForRealtimeUpdatesIfNeeded() {
+        if self.responds(to: Selectors.subscribeForRealtimeUpdates.rawValue) {
+            self.perform(Selectors.subscribeForRealtimeUpdates.rawValue)
+        }
+    }
+    
+    func unsubscribeForRealtimeUpdatesIfNeeded() {
+        if self.responds(to: Selectors.unsubscribeForRealtimeUpdates.rawValue) {
+            self.perform(Selectors.unsubscribeForRealtimeUpdates.rawValue)
+        }
     }
 }

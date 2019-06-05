@@ -48,6 +48,6 @@ class DetailsVC: UIViewController {
     
     
     @IBAction func reloadUI(_ sender: AnyObject) {
-        CrowdinSDK.reloadUI()
+        
     }
 }

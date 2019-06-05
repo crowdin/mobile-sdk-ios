@@ -26,4 +26,9 @@ extension CrowdinSDK {
         guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
         realtimeUpdateFeature.stop()
     }
+    
+    /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
+    public class func reloadUI() {
+        DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
+    }
 }

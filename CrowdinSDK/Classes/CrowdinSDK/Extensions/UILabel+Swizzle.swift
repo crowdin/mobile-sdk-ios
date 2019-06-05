@@ -44,7 +44,7 @@ extension UILabel {
             self.localizationKey = Localization.current.keyForString(text)
             
             if self.localizationKey != nil {
-                RealtimeUpdateFeature.shared?.subscribe(control: self)
+                self.subscribeForRealtimeUpdatesIfNeeded()
             }
             
             if let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
@@ -53,7 +53,7 @@ extension UILabel {
         } else {
             self.localizationKey = nil
             self.localizationValues = nil
-            RealtimeUpdateFeature.shared?.unsubscribe(control: self)
+            self.unsubscribeForRealtimeUpdatesIfNeeded()
         }
     }
     
@@ -85,6 +85,23 @@ extension UILabel {
         }
         if originalAttributedText != nil && swizzledAttributedText != nil {
             method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
+        }
+    }
+    
+    enum Selectors: Selector {
+        case subscribeForRealtimeUpdates
+        case unsubscribeForRealtimeUpdates
+    }
+    
+    func subscribeForRealtimeUpdatesIfNeeded() {
+        if self.responds(to: Selectors.subscribeForRealtimeUpdates.rawValue) {
+            self.perform(Selectors.subscribeForRealtimeUpdates.rawValue)
+        }
+    }
+    
+    func unsubscribeForRealtimeUpdatesIfNeeded() {
+        if self.responds(to: Selectors.unsubscribeForRealtimeUpdates.rawValue) {
+            self.perform(Selectors.unsubscribeForRealtimeUpdates.rawValue)
         }
     }
 }
