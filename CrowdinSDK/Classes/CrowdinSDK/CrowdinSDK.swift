@@ -196,6 +196,13 @@ extension CrowdinSDK {
 }
 
 extension CrowdinSDK {
+    enum Selectors: Selector {
+        case initializeScreenshotFeature
+        case initializeRealtimeUpdatesFeature
+        case initializeIntervalUpdateFeature
+        case initializeSettings
+    }
+    
     /// Method for library initialization.
     private class func initializeLib() {
         if self.mode == .customSDK || self.mode == .autoSDK {
@@ -203,19 +210,37 @@ extension CrowdinSDK {
         } else {
             CrowdinSDK.unswizzle()
         }
-        if CrowdinSDK.responds(to: Selector(("initializeScreenshotFeature"))) {
-            CrowdinSDK .perform(Selector(("initializeScreenshotFeature")))
-        }
-        if CrowdinSDK.responds(to: Selector(("initializeRealtimeUpdatesFeature"))) {
-            CrowdinSDK .perform(Selector(("initializeRealtimeUpdatesFeature")))
-        }
         
-        if CrowdinSDK.responds(to: Selector(("initializeIntervalUpdateFeature"))) {
-            CrowdinSDK .perform(Selector(("initializeIntervalUpdateFeature")))
-        }
+        self.initializeScreenshotFeatureIfNeeded()
         
-        if CrowdinSDK.responds(to: Selector(("initializeSettings"))) {
-            CrowdinSDK .perform(Selector(("initializeSettings")))
+        self.initializeRealtimeUpdatesFeatureIfNeeded()
+        
+        self.initializeIntervalUpdateFeatureIfNeeded()
+        
+        self.initializeSettingsIfNeeded()
+    }
+    
+    private class func initializeScreenshotFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeScreenshotFeature.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeScreenshotFeature.rawValue)
+        }
+    }
+    
+    private class func initializeRealtimeUpdatesFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeRealtimeUpdatesFeature.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
+        }
+    }
+    
+    private class func initializeIntervalUpdateFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeIntervalUpdateFeature.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeIntervalUpdateFeature.rawValue)
+        }
+    }
+    
+    private class func initializeSettingsIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeSettings.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
         }
     }
 }
