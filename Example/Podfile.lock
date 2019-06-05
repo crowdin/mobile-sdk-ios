@@ -10,13 +10,14 @@ PODS:
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/Login (0.0.5):
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/RealtimeUpdate (0.0.5):
+  - CrowdinSDK/MappingManager (0.0.5):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/Screenshots (0.0.5):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/Login
+    - CrowdinSDK/MappingManager
   - DateToolsSwift (4.0.0)
   - FAPanels (1.0.2)
   - FileBrowser (1.0.0)
@@ -86,7 +87,6 @@ PODS:
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
-  - CrowdinSDK/RealtimeUpdate (from `../`)
   - CrowdinSDK/Screenshots (from `../`)
   - DateToolsSwift
   - FAPanels
@@ -127,7 +127,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 1daa7e064995f8c1b35ef6fdd6aff77d608278a3
+  CrowdinSDK: 73dd05963764d09d4baca3611f6ba36339dcbb63
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
@@ -146,6 +146,6 @@ SPEC CHECKSUMS:
   Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 22b09db6b507a7dc525508224975c3c95d45c643
+PODFILE CHECKSUM: 649dc01466d00f13aef522861a89773e46ea2ce0
 
 COCOAPODS: 1.6.1

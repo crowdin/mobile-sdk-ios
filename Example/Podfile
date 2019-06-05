@@ -4,7 +4,7 @@ target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK', :path => '../'
   pod 'CrowdinSDK/Screenshots', :path => '../'
 #  pod 'CrowdinSDK/IntervalUpdate', :path => '../'
-  pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
+#  pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
 #  pod 'CrowdinSDK/RefreshLocalization', :path => '../'
 #  pod 'CrowdinSDK/Settings', :path => '../'
   pod 'SwiftLint'
