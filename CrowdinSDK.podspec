@@ -58,7 +58,6 @@ Pod::Spec.new do |spec|
   spec.subspec 'CrowdinAPI' do |subspec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
-    subspec.resource_bundle = { 'CrowdinSDKLogin' => 'CrowdinSDK/Assets/Login/CrowdinLoginVC.storyboard'}
   end
   
   spec.subspec 'MappingManager' do |mapping|

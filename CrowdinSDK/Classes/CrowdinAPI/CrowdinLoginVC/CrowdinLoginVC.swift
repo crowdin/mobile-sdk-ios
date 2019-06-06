@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SafariServices
 
 extension Bundle {
     class var loginBundle: Bundle {
@@ -23,30 +22,36 @@ class CrowdinLoginVC: UIViewController {
     var error: ((_ error: Error) -> Void)? = nil
     var completion: ((_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void)? = nil
     
-    @IBOutlet var webView: UIWebView! {
+    var webView: UIWebView! {
         didSet {
             webView.delegate = self
-            guard let url = URL(string: baseURL) else { return }
-            webView.loadRequest(URLRequest(url: url))
         }
     }
     
     func present() {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = self
+        window?.rootViewController = UINavigationController(rootViewController: self)
         window?.makeKeyAndVisible()
     }
     
-    func dismiss() {
+    @objc func dismiss() {
         self.window?.resignKey()
         self.window?.isHidden = true
         self.window = nil
     }
     
-    static var instantiateVC: CrowdinLoginVC? {
-        let storyboard = UIStoryboard(name: "CrowdinLoginVC", bundle: Bundle.loginBundle)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "CrowdinLoginVC") as? CrowdinLoginVC else { return nil }
-        return vc
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.webView = UIWebView(frame: self.view.bounds)
+        self.view.addSubview(self.webView)
+        guard let url = URL(string: baseURL) else { return }
+        webView.loadRequest(URLRequest(url: url))
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(CrowdinLoginVC.doneButtonPressed))
+    }
+    
+    @objc func doneButtonPressed() {
+        self.dismiss()
     }
 }
 
@@ -55,7 +60,7 @@ extension CrowdinLoginVC: UIWebViewDelegate {
         self.error?(error)
         self.dismiss()
     }
-    
+
     func webViewDidFinishLoad(_ webView: UIWebView) {
         guard let userAgent = webView.request?.allHTTPHeaderFields?["User-Agent"] else { return }
         guard let cookies = HTTPCookieStorage.shared.cookies else { return }

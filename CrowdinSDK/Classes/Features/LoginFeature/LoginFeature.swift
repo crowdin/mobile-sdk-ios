@@ -27,10 +27,7 @@ class LoginFeature: LoginFeatureProtocol {
             completion(loginInfo.csrfToken, loginInfo.userAgent, loginInfo.cookies)
             return
         }
-        guard let loginVC = CrowdinLoginVC.instantiateVC else {
-            error(NSError(domain: "Unable to instantiate CrowdinLoginVC.", code: -9999, userInfo: nil))
-            return
-        }
+        let loginVC = CrowdinLoginVC()
         loginVC.completion = { csrfToken, userAgent, cookies in
             self.loginInfo = LoginInfo(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
             completion(csrfToken, userAgent, cookies)
