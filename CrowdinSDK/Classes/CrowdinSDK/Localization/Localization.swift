@@ -9,15 +9,6 @@ import Foundation
 
 /// Helper class for working with localization providers and extractors. Store all needed information such as: mode, current localization value, ect.
 class Localization {
-    /// Enum with simple key values which are used to save information in UserDefaults.
-    ///
-    /// - mode: Key for saving SDK mode value.
-    /// - customLocalization: Key for saving current localization language code.
-    private enum Keys: String {
-        case mode = "CrowdinSDK.Localization.mode"
-        case customLocalization = "CrowdinSDK.Localization.customLocalization"
-    }
-    
     /// Current localization provider.
 	var provider: LocalizationProviderProtocol
     
@@ -34,7 +25,7 @@ class Localization {
     /// Property for detecting and storing current SDK mode value.
 	var mode: CrowdinSDK.Mode {
 		get {
-			let value = UserDefaults.standard.integer(forKey: Keys.mode.rawValue)
+			let value = UserDefaults.standard.mode
 			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
 		}
 		set {
@@ -44,8 +35,7 @@ class Localization {
                 UserDefaults.standard.cleanAppleLanguages()
             case .customBundle: break
             }
-			UserDefaults.standard.set(newValue.rawValue, forKey: Keys.mode.rawValue)
-			UserDefaults.standard.synchronize()
+			UserDefaults.standard.mode = newValue.rawValue
 		}
 	}
 	
@@ -79,11 +69,10 @@ class Localization {
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
     private var customLocalization: String? {
         set {
-            UserDefaults.standard.set(newValue, forKey: Keys.customLocalization.rawValue)
-            UserDefaults.standard.synchronize()
+            UserDefaults.standard.customLocalization = newValue
         }
         get {
-            return UserDefaults.standard.string(forKey: Keys.customLocalization.rawValue)
+            return UserDefaults.standard.customLocalization
         }
     }
 	
