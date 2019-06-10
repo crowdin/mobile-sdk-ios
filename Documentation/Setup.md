@@ -21,7 +21,7 @@ pod 'CrowdinSDK'
 To install from cocoapods spec repository (**!!!Will be available after publishing repo to cocoapods podspecs repo!!!**):
 
 ```
-target 'MyApp' do
+target 'App' do
   use_frameworks!
   pod 'CrowdinSDK'
 end
@@ -30,7 +30,7 @@ end
 To install from gitlab repository (**This option will be removed from this document in the future. This option is needed only for testing.**):
 
 ```
-target 'MyApp' do
+target 'App' do
   use_frameworks!
   pod 'CrowdinSDK', :git => 'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
 end
@@ -40,13 +40,29 @@ end
 To install from local sources (**This option will be removed from this document in the future. This option is needed only for testing.**):
 
 ```
-target 'MyApp' do
+target 'App' do
   use_frameworks!
   pod 'CrowdinSDK', :path => '../../CrowdinSDK' - where '../../CrowdinSDK' is path to local sources.
 end
 ```
 
-After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open App.xcworkspace and build it. 
+To enable all available features of SDK you can add following lines to your pod file: 
+
+```
+target 'App' do
+  use_frameworks!
+  pod 'CrowdinSDK', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+  pod 'CrowdinSDK/Screenshots', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+  pod 'CrowdinSDK/IntervalUpdate', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+  pod 'CrowdinSDK/RealtimeUpdate', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+  pod 'CrowdinSDK/RefreshLocalization', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+  pod 'CrowdinSDK/Settings', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+end
+```
+Please read more detailed about every feature in [Subspecs section](#subspecs).
+
+
+After you've added CrowdinSDK and all needed features to your Podfile, please run ```pod install``` in your project directory, open App.xcworkspace and build it. 
 
 ## Subspecs
 
