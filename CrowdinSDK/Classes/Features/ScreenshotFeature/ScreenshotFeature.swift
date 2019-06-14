@@ -107,28 +107,32 @@ class ScreenshotFeature {
 }
 
 extension ScreenshotFeature {
-    fileprivate func captureValues() -> [Int: CGRect] {
-        guard let window = self.window else { return [Int: CGRect]() }
+    fileprivate func captureValues() -> [(id: Int, rect: CGRect)] {
+        guard let window = self.window else { return [(id: Int, rect: CGRect)]() }
         let values = self.getValues(from: window)
         let koef = window.screen.scale
-        var returnValue = [Int: CGRect]()
-        values.forEach { (key: Int, rect: CGRect) in
+        var returnValue = [(id: Int, rect: CGRect)]()
+        values.forEach { value in
+            let rect = value.rect
+            let key = value.id
             if window.bounds.contains(rect), rect.isValid { // Check wheather control frame is visible on screen.
-                returnValue[key] = CGRect(x: rect.origin.x * koef, y: rect.origin.y * koef, width: rect.size.width * koef, height: rect.size.height * koef)
+                let newRect = CGRect(x: rect.origin.x * koef, y: rect.origin.y * koef, width: rect.size.width * koef, height: rect.size.height * koef)
+                returnValue.append((id: key, rect: newRect))
             }
         }
         return returnValue
     }
     
-    fileprivate func getValues(from view: UIView) -> [Int: CGRect] {
-        var description = [Int: CGRect]()
+    fileprivate func getValues(from view: UIView) -> [(id: Int, rect: CGRect)] {
+        var description = [(id: Int, rect: CGRect)]()
         view.subviews.forEach { (view) in
+            guard !view.isHidden && view.alpha != 0.0 else { return }
             if let label = view as? UILabel, let localizationKey = label.localizationKey, let id = mappingManager.id(for: localizationKey) {
                 if let frame = label.superview?.convert(label.frame, to: window) {
-                    description[id] = frame
+                    description.append((id: id, rect: frame))
                 }
             }
-            description.merge(with: getValues(from: view))
+            description.append(contentsOf: getValues(from: view))
         }
         return description
     }

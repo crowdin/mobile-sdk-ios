@@ -6,6 +6,12 @@
   Copyright © 2019 CocoaPods. All rights reserved.
 */
 
+"details_present" = "Deetails (Present)";
+"details_present_highlighted" = "Deetails (Present) H";
+
+"details_push" = "Deetails (Push)";
+"details_push_highlighted" = "Deetails (Push) H";
+
 "details_button" = "Button [BUNDLE]";
 "details_label" = "Label 123 [BUNDLE]";
 "details_segmentedControl_0" = "Value [BUNDLE]";
@@ -33,3 +39,4 @@
 "menu_formated_strings_button_title" = "Formated Strings [BUNDLE]";
 "strings_title" = "Strings [BUNDLE]";
 "plurals_title" = "Plurals [BUNDLE]";
+"back_button" = "Back";

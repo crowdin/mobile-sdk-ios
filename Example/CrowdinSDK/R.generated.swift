@@ -118,7 +118,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 26 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 27 localization keys.
     struct localizable {
       /// en translation: %#@v1_pineapples_count@
       /// 
@@ -128,6 +128,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let lu_completed_runs = Rswift.StringResource(key: "lu_completed_runs", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Back
+      /// 
+      /// Locales: en
+      static let back_button = Rswift.StringResource(key: "back_button", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Button [BUNDLE]
       /// 
       /// Locales: en
@@ -237,6 +241,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func lu_completed_runs(lu_completed_runs value1: UInt, lu_total_runs value2: UInt) -> String {
         return String(format: NSLocalizedString("lu_completed_runs", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: Back
+      /// 
+      /// Locales: en
+      static func back_button(_: Void = ()) -> String {
+        return NSLocalizedString("back_button", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Button [BUNDLE]

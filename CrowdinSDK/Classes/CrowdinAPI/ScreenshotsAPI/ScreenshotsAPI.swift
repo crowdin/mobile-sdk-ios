@@ -37,9 +37,11 @@ class ScreenshotsAPI: CrowdinAPI {
         self.cw_post(url: url, parameters: parameters, headers: headers, body: requestData, completion: completion)
     }
     
-    func createScreenshotTags(projectId: Int, screenshotId: Int, frames: [Int: CGRect], completion: @escaping (CreateScreenshotTagResponse?, Error?) -> Void) {
+    func createScreenshotTags(projectId: Int, screenshotId: Int, frames: [(id: Int, rect: CGRect)], completion: @escaping (CreateScreenshotTagResponse?, Error?) -> Void) {
         var elements = [CreateScreenshotTagRequestElement]()
-        for (key, value) in frames {
+        for frame in frames {
+            let key = frame.id
+            let value = frame.rect
             elements.append(CreateScreenshotTagRequestElement(stringId: key, position: CreateScreenshotTagPosition(x: Int(value.origin.x), y: Int(value.origin.y), width: Int(value.size.width), height: Int(value.size.height))))
         }
         let request = elements
