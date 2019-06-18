@@ -60,34 +60,29 @@ Pod::Spec.new do |spec|
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
   end
   
-  spec.subspec 'MappingManager' do |mapping|
-      mapping.name = 'MappingManager'
-      mapping.source_files = 'CrowdinSDK/Classes/MappingManager/*.swift'
-      mapping.dependency 'CrowdinSDK/Core'
+  spec.subspec 'Mapping' do |mapping|
+      mapping.name = 'Mapping'
+      mapping.source_files = 'CrowdinSDK/Classes/Mapping/*.swift'
       mapping.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
   spec.subspec 'Screenshots' do |feature|
     feature.name = 'Screenshots'
     feature.source_files = 'CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/Core'
-    feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'CrowdinSDK/Login'
-    feature.dependency 'CrowdinSDK/MappingManager'
+    feature.dependency 'CrowdinSDK/Mapping'
   end
   
   spec.subspec 'RealtimeUpdate' do |feature|
     feature.name = 'RealtimeUpdate'
     feature.source_files = 'CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/Core'
-    feature.dependency 'CrowdinSDK/CrowdinAPI'
-    feature.dependency 'CrowdinSDK/MappingManager'
+    feature.dependency 'CrowdinSDK/Login'
+    feature.dependency 'CrowdinSDK/Mapping'
   end
   
   spec.subspec 'RefreshLocalization' do |feature|
     feature.name = 'RefreshLocalization'
     feature.source_files = 'CrowdinSDK/Classes/Features/RefreshLocalizationFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/Core'
   end
   
   spec.subspec 'Login' do |feature|
@@ -100,7 +95,6 @@ Pod::Spec.new do |spec|
   spec.subspec 'IntervalUpdate' do |feature|
     feature.name = 'IntervalUpdate'
     feature.source_files = 'CrowdinSDK/Classes/Features/IntervalUpdateFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
   spec.subspec 'Settings' do |settings|

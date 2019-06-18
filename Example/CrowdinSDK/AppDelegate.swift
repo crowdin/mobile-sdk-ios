@@ -26,10 +26,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // Setup CrowdinSDK with crowdin sdk with all features:
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i", stringsFileNames: ["/%osx_locale%/Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"], sourceLanguage: "en")
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
+                                                          stringsFileNames: ["Localizable.strings"],
+                                                          pluralsFileNames: ["Localizable.stringsdict"],
+                                                          localizations: ["en", "de"],
+                                                          sourceLanguage: "en")
         let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
-        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
-        CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(crowdinScreenshotsConfig: crowdinScreenshotsConfig).with(settingsEnabled: true).with(reatimeUpdatesEnabled: true).with(intervalUpdatesEnabled: true, interval: 5 * 60))
+        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
+                                                                accountKey: "1267e86b748b600eb851f1c45f8c44ce",
+                                                                credentials: credentials)
+        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+                                                        .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+                                                        .with(settingsEnabled: true)
+                                                        .with(reatimeUpdatesEnabled: true)
+                                                        .with(intervalUpdatesEnabled: true, interval: 5 * 60)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig)
         
         // Info.plist setup
 //        CrowdinSDK.start()
