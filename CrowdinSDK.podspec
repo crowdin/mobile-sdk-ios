@@ -37,7 +37,6 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'Core' do |core|
     core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
-    core.dependency 'Starscream'
   end
   
   spec.subspec 'FirebaseProvider' do |provider|
@@ -58,6 +57,7 @@ Pod::Spec.new do |spec|
   spec.subspec 'CrowdinAPI' do |subspec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
+    subspec.dependency 'Starscream'
   end
   
   spec.subspec 'Mapping' do |mapping|
