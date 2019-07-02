@@ -36,7 +36,6 @@ class ScreenshotFeature {
         self.hash = hash
         self.sourceLanguage = sourceLanguage
         self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
-        self.loginAndGetProjectId()
     }
     
     func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
@@ -139,7 +138,6 @@ extension ScreenshotFeature {
 }
 
 extension ScreenshotFeature {
-    var windows: [UIWindow] { return UIApplication.shared.windows }
     var window: UIWindow? { return UIApplication.shared.keyWindow }
 }
 
