@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
                                                         .with(settingsEnabled: true)
                                                         .with(reatimeUpdatesEnabled: true)
-                                                        .with(intervalUpdatesEnabled: true, interval: 5 * 60)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)
         
         // Info.plist setup

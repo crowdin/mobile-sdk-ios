@@ -9,14 +9,14 @@ import UIKit
 
 extension UILabel {
     /// Subscribe UILabel for realtime updates if it has localization key and realtime updates feature enabled.
-    func subscribeForRealtimeUpdates() {
+    @objc func subscribeForRealtimeUpdates() {
         if self.localizationKey != nil {
             RealtimeUpdateFeature.shared?.subscribe(control: self)
         }
     }
     
     /// Unsubscribe UILabel for realtime updates.
-    func unsubscribeForRealtimeUpdates() {
+    @objc func unsubscribeForRealtimeUpdates() {
         RealtimeUpdateFeature.shared?.unsubscribe(control: self)
     }
 }
