@@ -35,58 +35,98 @@ extension UIButton {
         return localizationValues?[state.rawValue]
     }
     // swiftlint:disable implicitly_unwrapped_optional
-    static var original: Method!
-    static var swizzled: Method!
+    static var originalSetTitle: Method!
+    static var swizzledSetTitle: Method!
+    static var originalSetAttributedTitle: Method!
+    static var swizzledSetAttributedTitle: Method!
     
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
-        guard let nonNilTitle = title else {
-            swizzled_setTitle(title, for: state)
-            return
-        }
-        
-        if let key = Localization.current.keyForString(nonNilTitle) {
-            // Try to find values for key (formated strings, plurals)
-            if let string = Localization.current.localizedString(for: key), string.isFormated {
-                if let values = Localization.current.findValues(for: nonNilTitle, with: string) {
-                    // Store values in localizationValues
-                    if var localizationValues = self.localizationValues {
-                        localizationValues.merge(with: [state.rawValue: values])
-                        self.localizationValues = localizationValues
-                    } else {
-                        self.localizationValues = [state.rawValue: values]
+        proceed(title: title, for: state)
+        swizzled_setTitle(title, for: state)
+    }
+    
+    @objc func swizzled_setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
+        // TODO: Add saving attributes.
+        let titleString = title?.string
+        proceed(title: titleString, for: state)
+        swizzled_setAttributedTitle(title, for: state)
+    }
+    
+    func proceed(title: String?, for state: UIControl.State) {
+        if let title = title {
+            if let key = Localization.current.keyForString(title) {
+                // Try to find values for key (formated strings, plurals)
+                if let string = Localization.current.localizedString(for: key), string.isFormated {
+                    if let values = Localization.current.findValues(for: title, with: string) {
+                        // Store values in localizationValues
+                        if var localizationValues = self.localizationValues {
+                            localizationValues.merge(with: [state.rawValue: values])
+                            self.localizationValues = localizationValues
+                        } else {
+                            self.localizationValues = [state.rawValue: values]
+                        }
                     }
                 }
+                // Store key in localizationKeys
+                if var localizationKeys = self.localizationKeys {
+                    localizationKeys.merge(with: [state.rawValue: key])
+                    self.localizationKeys = localizationKeys
+                } else {
+                    self.localizationKeys = [state.rawValue: key]
+                }
             }
-            // Store key in localizationKeys
-            if var localizationKeys = self.localizationKeys {
-                localizationKeys.merge(with: [state.rawValue: key])
-                self.localizationKeys = localizationKeys
-            } else {
-                self.localizationKeys = [state.rawValue: key]
-            }
+            self.subscribeForRealtimeUpdatesIfNeeded()
+        } else {
+            self.localizationKeys?[state.rawValue] = nil
+            self.localizationValues?[state.rawValue] = nil
+            self.unsubscribeForRealtimeUpdatesIfNeeded()
         }
-        // Subscribe to realtime updates if needed.
-        if self.localizationKeys != nil {
-            RealtimeUpdateFeature.shared?.subscribe(control: self)
-        }
-        
-        swizzled_setTitle(nonNilTitle, for: state)
     }
     
     func original_setTitle(_ title: String?, for state: UIControl.State) {
-        guard UILabel.swizzled != nil else { return }
+        guard UIButton.swizzledSetTitle != nil else { return }
         swizzled_setTitle(title, for: state)
     }
+    
+    func original_setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
+        // TODO: Add saving attributes.
+        guard UIButton.swizzledSetAttributedTitle != nil else { return }
+        swizzled_setAttributedTitle(title, for: state)
+    }
 
-    public class func swizzle() {
+    class func swizzle() {
         // swiftlint:disable force_unwrapping
-        original = class_getInstanceMethod(self, #selector(UIButton.setTitle(_:for:)))!
-        swizzled = class_getInstanceMethod(self, #selector(UIButton.swizzled_setTitle(_:for:)))!
-        method_exchangeImplementations(original, swizzled)
+        originalSetTitle = class_getInstanceMethod(self, #selector(UIButton.setTitle(_:for:)))!
+        swizzledSetTitle = class_getInstanceMethod(self, #selector(UIButton.swizzled_setTitle(_:for:)))!
+        method_exchangeImplementations(originalSetTitle, swizzledSetTitle)
+        
+        originalSetAttributedTitle = class_getInstanceMethod(self, #selector(UIButton.setAttributedTitle(_:for:)))!
+        swizzledSetAttributedTitle = class_getInstanceMethod(self, #selector(UIButton.swizzled_setAttributedTitle(_:for:)))!
+        method_exchangeImplementations(originalSetTitle, swizzledSetTitle)
     }
     
-    public class func unswizzle() {
-        guard original != nil && swizzled != nil else { return }
-        method_exchangeImplementations(swizzled, original)
+    class func unswizzle() {
+        guard originalSetTitle != nil && swizzledSetTitle != nil else { return }
+        method_exchangeImplementations(swizzledSetTitle, originalSetTitle)
+        
+        guard originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil else { return }
+        method_exchangeImplementations(swizzledSetAttributedTitle, originalSetAttributedTitle)
+    }
+    
+    enum Selectors: Selector {
+        case subscribeForRealtimeUpdates
+        case unsubscribeForRealtimeUpdates
+    }
+    
+    func subscribeForRealtimeUpdatesIfNeeded() {
+        if self.responds(to: Selectors.subscribeForRealtimeUpdates.rawValue) {
+            self.perform(Selectors.subscribeForRealtimeUpdates.rawValue)
+        }
+    }
+    
+    func unsubscribeForRealtimeUpdatesIfNeeded() {
+        if self.responds(to: Selectors.unsubscribeForRealtimeUpdates.rawValue) {
+            self.perform(Selectors.unsubscribeForRealtimeUpdates.rawValue)
+        }
     }
 }

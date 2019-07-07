@@ -7,21 +7,21 @@
 
 import Foundation
 
-public typealias BaseAPICompletion = (Data?, URLResponse?, Error?) -> Swift.Void
-public typealias BaseAPIResult = SynchronousDataTaskResult
+typealias BaseAPICompletion = (Data?, URLResponse?, Error?) -> Swift.Void
+typealias BaseAPIResult = SynchronousDataTaskResult
 
 open class BaseAPI {
     var session: URLSession
     
-    public init() {
+    init() {
         self.session = URLSession(configuration: URLSessionConfiguration.default)
     }
     
-    public init(session: URLSession) {
+    init(session: URLSession) {
         self.session = session
     }
     
-    public func get(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping BaseAPICompletion) {
+    func get(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .GET, parameters: parameters, headers: headers, body: nil)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -32,7 +32,7 @@ open class BaseAPI {
         }
     }
     
-    public func get(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> BaseAPIResult {
+    func get(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> BaseAPIResult {
         let request = Request(url: url, method: .GET, parameters: parameters, headers: headers, body: nil)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -42,7 +42,7 @@ open class BaseAPI {
         }
     }
     
-    public func head(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping BaseAPICompletion) {
+    func head(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .HEAD, parameters: parameters, headers: headers, body: nil)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -53,7 +53,7 @@ open class BaseAPI {
         }
     }
     
-    public func head(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> BaseAPIResult {
+    func head(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> BaseAPIResult {
         let request = Request(url: url, method: .HEAD, parameters: parameters, headers: headers, body: nil)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -63,7 +63,7 @@ open class BaseAPI {
         }
     }
     
-    public func post(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
+    func post(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .POST, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -74,7 +74,7 @@ open class BaseAPI {
         }
     }
     
-    public func post(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> BaseAPIResult {
+    func post(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> BaseAPIResult {
         let request = Request(url: url, method: .POST, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -84,7 +84,7 @@ open class BaseAPI {
         }
     }
     
-    public func patch(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
+    func patch(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .PATCH, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -95,7 +95,7 @@ open class BaseAPI {
         }
     }
     
-    public func patch(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> BaseAPIResult {
+    func patch(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> BaseAPIResult {
         let request = Request(url: url, method: .PATCH, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -105,7 +105,7 @@ open class BaseAPI {
         }
     }
     
-    public func put(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
+    func put(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .PUT, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -116,7 +116,7 @@ open class BaseAPI {
         }
     }
     
-    public func put(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> BaseAPIResult {
+    func put(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> BaseAPIResult {
         let request = Request(url: url, method: .PUT, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -126,7 +126,7 @@ open class BaseAPI {
         }
     }
     
-    public func delete(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil, completion: @escaping BaseAPICompletion) {
+    func delete(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .DELETE, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {
@@ -137,7 +137,7 @@ open class BaseAPI {
         }
     }
     
-    public func delete(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil) -> BaseAPIResult {
+    func delete(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil) -> BaseAPIResult {
         let request = Request(url: url, method: .DELETE, parameters: parameters, headers: headers, body: body)
         let buildRequest = request.request()
         if let urlRequest = buildRequest.request {

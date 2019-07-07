@@ -7,14 +7,11 @@
 
 import Foundation
 
-// MARK: - UpdateDraftResponse
 struct UpdateDraftResponse: Codable {
     let event: String?
     let data: UpdateDraftResponseData?
 }
 
-// MARK: - UpdateDraftResponseData
 struct UpdateDraftResponseData: Codable {
     let text, pluralForm: String?
 }
-

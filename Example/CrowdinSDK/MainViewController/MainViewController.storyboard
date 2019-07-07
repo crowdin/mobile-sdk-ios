@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,17 +34,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhZ-W1-hZc">
-                                <rect key="frame" x="165.5" y="617" width="44" height="30"/>
-                                <state key="normal" title="Detals"/>
+                                <rect key="frame" x="139.5" y="617" width="96" height="30"/>
+                                <state key="normal" title="Details (Push)"/>
                                 <connections>
-                                    <action selector="showDetaildVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="90C-dQ-2qm"/>
+                                    <action selector="pushDetaildVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Qk9-KB-T6s"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cs6-rN-TmL">
-                                <rect key="frame" x="154.5" y="567" width="66" height="30"/>
-                                <state key="normal" title="Reload UI"/>
+                                <rect key="frame" x="130" y="567" width="115" height="30"/>
+                                <state key="normal" title="Details (Present)"/>
                                 <connections>
-                                    <action selector="reloadUI:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bds-XB-3Hc"/>
+                                    <action selector="presentDetaildVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fJ8-os-5cF"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghv-FW-TCv">
@@ -53,29 +53,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdt-0Y-QJK">
-                                <rect key="frame" x="123.5" y="517" width="128" height="30"/>
-                                <state key="normal" title="Reload localization"/>
-                                <connections>
-                                    <action selector="reloadLocalization:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WhN-oz-MgD"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWa-8Y-Cdg">
+                                <rect key="frame" x="166.5" y="243.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cs6-rN-TmL" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="0Fy-ui-ff2"/>
-                            <constraint firstItem="Sdt-0Y-QJK" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="22f-0R-9vb"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="A75-9d-qXn" secondAttribute="trailing" constant="16" id="2Cb-sr-1AF"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GhZ-W1-hZc" secondAttribute="bottom" constant="20" id="3ES-pC-wrE"/>
                             <constraint firstItem="Ghv-FW-TCv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4M9-Ds-eMg"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="4c4-xr-WTm"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="5MJ-Nu-Ygj"/>
-                            <constraint firstItem="Cs6-rN-TmL" firstAttribute="top" secondItem="Sdt-0Y-QJK" secondAttribute="bottom" constant="20" id="7ru-7i-fe3"/>
+                            <constraint firstItem="uWa-8Y-Cdg" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="6mF-ko-dgT"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="hgT-Re-Azx" secondAttribute="trailing" constant="16" id="8lJ-SU-rIN"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="15" id="TC2-7j-Ca2"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="top" secondItem="Cs6-rN-TmL" secondAttribute="bottom" constant="20" id="U0X-ez-xmr"/>
                             <constraint firstItem="Ghv-FW-TCv" firstAttribute="top" secondItem="hgT-Re-Azx" secondAttribute="bottom" constant="41" id="VzZ-PU-fB8"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="WDe-c9-zj9"/>
+                            <constraint firstItem="uWa-8Y-Cdg" firstAttribute="top" secondItem="Ghv-FW-TCv" secondAttribute="bottom" constant="40" id="cUd-1L-oWN"/>
                             <constraint firstItem="hgT-Re-Azx" firstAttribute="top" secondItem="A75-9d-qXn" secondAttribute="bottom" constant="41" id="eaf-43-G7L"/>
                             <constraint firstItem="GhZ-W1-hZc" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="huG-1H-1hX"/>
                             <constraint firstItem="A75-9d-qXn" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="qCF-D5-diq"/>
@@ -87,11 +86,12 @@
                         <barButtonItem key="leftBarButtonItem" title="Firebase" id="9Vr-H2-jOb"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="reloadUIButton" destination="Cs6-rN-TmL" id="2jB-vB-vRc"/>
-                        <outlet property="showDetailsButton" destination="GhZ-W1-hZc" id="K6c-n0-kmj"/>
+                        <outlet property="presentDetailsButton" destination="Cs6-rN-TmL" id="wU4-nq-H0o"/>
+                        <outlet property="pushDetailsButton" destination="GhZ-W1-hZc" id="VR1-J0-dME"/>
                         <outlet property="textLabel" destination="A75-9d-qXn" id="4AQ-9B-Mr6"/>
                         <outlet property="textLabel1" destination="hgT-Re-Azx" id="eU6-rC-r6x"/>
                         <outlet property="textLabel2" destination="Ghv-FW-TCv" id="m8j-N6-lS7"/>
+                        <outlet property="textLabel3" destination="uWa-8Y-Cdg" id="v1N-96-Kgf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

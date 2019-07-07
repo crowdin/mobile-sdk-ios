@@ -30,6 +30,12 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
         case content
         case mapping
     }
+    
+    fileprivate enum Strings: String {
+        case etag = "Etag"
+        case ifNoneMatch = "If-None-Match"
+    }
+    
     private typealias CrowdinAPIDataCompletion = ((Data?, CrowdinContentDeliveryAPIError?) -> Void)
     
     private let hash: String
@@ -63,7 +69,7 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
         let stringURL = buildURL(fileType: fileType, filePath: filePath)
         let response = self.get(url: stringURL, parameters: nil, headers: nil)
         if let httpURLResponse = response.response as? HTTPURLResponse {
-            let etag = httpURLResponse.allHeaderFields["Etag"]
+            let etag = httpURLResponse.allHeaderFields[Strings.etag.rawValue]
             UserDefaults.standard.setValue(etag, forKey: filePath)
             UserDefaults.standard.synchronize()
         }
@@ -111,7 +117,7 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     func checkFileSync(filePath: String) -> Bool {
         let stringURL = buildURL(fileType: .content, filePath: filePath)
         if let etag = UserDefaults.standard.string(forKey: filePath) {
-            let response = self.get(url: stringURL, parameters: nil, headers: ["If-None-Match": etag])
+            let response = self.get(url: stringURL, parameters: nil, headers: [Strings.ifNoneMatch.rawValue: etag])
             var download = true
             if let httpURLResponse = response.response as? HTTPURLResponse {
                 download = httpURLResponse.statusCode != 304

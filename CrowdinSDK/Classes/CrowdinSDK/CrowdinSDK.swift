@@ -62,11 +62,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	
     /// List of supported in app localizations.
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
-	
-    /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
-    public class func reloadUI() {
-        DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refresh() }
-    }
+    
+    static var config: CrowdinSDKConfig!
     
     /// Initialization method. Initialize CrowdinProvider with passed parameters.
     ///
@@ -75,34 +72,11 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///   - stringsFileNames: Array of names of strings files.
     ///   - pluralsFileNames: Array of names of plurals files.
     public class func startWithConfig(_ config: CrowdinSDKConfig) {
-        let crowdinProviderConfig: CrowdinProviderConfig
-        if let config = config.crowdinProviderConfig {
-            crowdinProviderConfig = config
-        } else {
-            crowdinProviderConfig = CrowdinProviderConfig()
-        }
-        
-        let crowdinProvider = CrowdinLocalizationProvider(config: crowdinProviderConfig)
-        self.setProvider(crowdinProvider)
-        
-        if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
-            ScreenshotFeature.shared = ScreenshotFeature(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-        }
-        
-        if config.reatimeUpdatesEnabled {
-            let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-        }
-        
-        if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
-            IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
-            IntervalUpdateFeature.shared?.start()
-        }
-        
-        if config.settingsEnabled {
-            self.showSettings()
-        }
-        
+        self.config = config
+        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
+        let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        self.setRemoteStorage(remoteStorage)
         self.initializeLib()
     }
     
@@ -114,8 +88,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    class func startWithProvider(_ provider: LocalizationProvider) {
-        self.setProvider(provider)
+    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+        self.setRemoteStorage(remoteStorage)
         self.initializeLib()
     }
     
@@ -150,8 +124,10 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
-    class func setProvider(_ provider: LocalizationProvider) {
-		let localizationProvider = provider
+    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
+        let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
+		let localizationProvider = LocalizationProvider(localization: localization, localizations: crowdinProviderConfig.localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
     }
     
@@ -162,65 +138,44 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
     
-    public class func forceRefreshLocalization() {
-        ForceRefreshLocalizationFeature.refreshLocalization()
-    }
-    
-    public class func startIntervalUpdates(interval: TimeInterval) {
-        IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
-        IntervalUpdateFeature.shared?.start()
-    }
-    
-    public class func stopIntervalUpdates() {
-        IntervalUpdateFeature.shared?.stop()
-        IntervalUpdateFeature.shared = nil
-    }
-    
-    // Observer
+    /// Add download handler closure. This closure will be called every time when new localization is downloaded.
+    ///
+    /// - Parameter handler: Download handler closure.
+    /// - Returns: Download handler id value. This value is used to remove this handler.
     public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> UInt {
         return Localization.current.addDownloadHandler(handler)
     }
     
+    /// Remove download handler by id.
+    ///
+    /// - Parameter id: Download handler id value.
     public class func removeDownloadHandler(_ id: UInt) {
         Localization.current.removeDownloadHandler(id)
     }
     
+    /// Remove all download handlers.
     public class func removeAllDownloadHandlers() {
         Localization.current.removeAllDownloadHandlers()
     }
     
+    /// Add error handler
+    ///
+    /// - Parameter handler: Error handler closure.
+    /// - Returns: Error handler id value. This value is used to remove this handler.
     public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> UInt {
         return Localization.current.addErrorUpdateHandler(handler)
     }
     
+    /// Remove error handler by id.
+    ///
+    /// - Parameter id: Error's handler id value.
     public class func removeErrorHandler(_ id: UInt) {
         Localization.current.removeErrorHandler(id)
     }
     
+    /// Remove all error handlers.
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
-    }
-    
-    public class func showLogin() {
-        RealtimeUpdateFeature.shared?.start()
-    }
-    
-    public class func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
-        guard let screenshotFeature = ScreenshotFeature.shared else {
-            errorHandler(NSError(domain: "Screenshots feature disabled", code: 9999, userInfo: nil))
-            return
-        }
-        screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
-    }
-    
-    public class func startRealtimeUpdates() {
-        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
-        realtimeUpdateFeature.start()
-    }
-    
-    public class func stopRealtimeUpdates() {
-        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
-        realtimeUpdateFeature.stop()
     }
 }
 
@@ -232,30 +187,60 @@ extension CrowdinSDK {
         UIButton.swizzle()
     }
     
-    /// Method for unswizzling all methods.
+    /// Method for unswizzling all zwizzled methods.
     class func unswizzle() {
         Bundle.unswizzle()
         UILabel.unswizzle()
         UIButton.unswizzle()
     }
-    
-    public class func showSettings() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let settingsView = SettingsView.shared {
-                settingsView.center = CGPoint(x: 100, y: 100)
-                UIApplication.shared.keyWindow?.addSubview(settingsView)
-            }
-        }
-    }
 }
 
 extension CrowdinSDK {
+    enum Selectors: Selector {
+        case initializeScreenshotFeature
+        case initializeRealtimeUpdatesFeature
+        case initializeIntervalUpdateFeature
+        case initializeSettings
+    }
+    
     /// Method for library initialization.
     private class func initializeLib() {
         if self.mode == .customSDK || self.mode == .autoSDK {
             CrowdinSDK.swizzle()
         } else {
             CrowdinSDK.unswizzle()
+        }
+        
+        self.initializeScreenshotFeatureIfNeeded()
+        
+        self.initializeRealtimeUpdatesFeatureIfNeeded()
+        
+        self.initializeIntervalUpdateFeatureIfNeeded()
+        
+        self.initializeSettingsIfNeeded()
+    }
+    
+    private class func initializeScreenshotFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeScreenshotFeature.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeScreenshotFeature.rawValue)
+        }
+    }
+    
+    private class func initializeRealtimeUpdatesFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeRealtimeUpdatesFeature.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
+        }
+    }
+    
+    private class func initializeIntervalUpdateFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeIntervalUpdateFeature.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeIntervalUpdateFeature.rawValue)
+        }
+    }
+    
+    private class func initializeSettingsIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.initializeSettings.rawValue) {
+            CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
         }
     }
 }

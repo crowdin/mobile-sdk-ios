@@ -31,7 +31,7 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
                 if let values = String.findValues(for: string, with: value) {
                     // Check if localized strign is equal to text.
                     // swiftlint:disable force_cast
-                    if key.localized(with: values as! [CVarArg]) == string {
+                    if key.cw_localized(with: values as! [CVarArg]) == string {
                         return key
                     }
                 }
@@ -96,7 +96,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
                     if String.findMatch(for: formatedString, with: text), let values = String.findValues(for: text, with: formatedString) {
                         // Check if localized strign is equal to text.
                         // swiftlint:disable force_cast
-                        if key.localized(with: values as! [CVarArg]) == text {
+                        if key.cw_localized(with: values as! [CVarArg]) == text {
                             return (key, values)
                         }
                     }

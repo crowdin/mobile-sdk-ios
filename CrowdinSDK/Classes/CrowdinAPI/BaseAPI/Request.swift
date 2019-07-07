@@ -7,14 +7,14 @@
 
 import Foundation
 
-public class Request {
-    public var url: String
-    public var method: RequestMethod
-    public var parameters: [String: String]?
-    public var headers: [String: String]?
-    public var body: Data?
+class Request {
+    var url: String
+    var method: RequestMethod
+    var parameters: [String: String]?
+    var headers: [String: String]?
+    var body: Data?
     
-    public init(url: String, method: RequestMethod, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil) {
+    init(url: String, method: RequestMethod, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil) {
         self.url = url
         self.method = method
         self.parameters = parameters
@@ -22,7 +22,7 @@ public class Request {
         self.body = body
     }
     
-    public func request() -> (request: URLRequest?, error: Error?) {
+    func request() -> (request: URLRequest?, error: Error?) {
         let url = URL(string: self.urlWithParameters())
         if let url = url {
             var request = URLRequest(url: url)

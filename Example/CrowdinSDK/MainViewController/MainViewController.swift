@@ -26,16 +26,21 @@ class MainViewController: BaseMenuVC {
             textLabel2.text = pineapplesCountUniversal(count: 0)
         }
     }
-    @IBOutlet weak var reloadUIButton: UIButton! {
+    @IBOutlet weak var textLabel3: UILabel! {
         didSet {
-            reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button", comment: ""), for: .normal)
-            reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button_highlighted", comment: ""), for: .highlighted)
+            textLabel3.text = String.localizedStringWithFormat(NSLocalizedString("test_with_format_key", comment: ""), "Parameter 21")
         }
     }
-    @IBOutlet weak var showDetailsButton: UIButton! {
+    @IBOutlet weak var presentDetailsButton: UIButton! {
         didSet {
-            showDetailsButton.setTitle(NSLocalizedString("main_show_details_button", comment: ""), for: .normal)
-            showDetailsButton.setTitle(NSLocalizedString("main_show_details_button_highlighted", comment: ""), for: .highlighted)
+            presentDetailsButton.setTitle(NSLocalizedString("details_present", comment: ""), for: .normal)
+            presentDetailsButton.setTitle(NSLocalizedString("details_present_highlighted", comment: ""), for: .highlighted)
+        }
+    }
+    @IBOutlet weak var pushDetailsButton: UIButton! {
+        didSet {
+            pushDetailsButton.setTitle(NSLocalizedString("details_push", comment: ""), for: .normal)
+            pushDetailsButton.setTitle(NSLocalizedString("details_push_highlighted", comment: ""), for: .highlighted)
         }
     }
     
@@ -54,7 +59,7 @@ class MainViewController: BaseMenuVC {
     }
     
     @objc func didDownloadLocalization() {
-        self.showLocalizationUpdateAlert()
+        print("!!!!!!!! Localization Updated !!!!!!!!!!!")
     }
     
     @IBAction func reloadUI(_ sender: AnyObject) {
@@ -64,20 +69,15 @@ class MainViewController: BaseMenuVC {
         textLabel2.text = pineapplesCountUniversal(count: 10)
     }
     
-    func showLocalizationUpdateAlert() {
-        print("Localization Updated")
-//        let alert = UIAlertController(title: "Localization Updated", message: nil, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func showDetaildVC(_ sender: AnyObject) {
+    @IBAction func pushDetaildVC(_ sender: AnyObject) {
         let detailsVC = UIStoryboard(name: "DetailsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     
-    @IBAction func reloadLocalization(_ sender: AnyObject) {
-        CrowdinSDK.showLogin()
+    @IBAction func presentDetaildVC(_ sender: AnyObject) {
+        let detailsVC = UIStoryboard(name: "DetailsVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
+        let nc = UINavigationController(rootViewController: detailsVC)
+        self.navigationController?.present(nc, animated: true, completion: nil)
     }
 }
 

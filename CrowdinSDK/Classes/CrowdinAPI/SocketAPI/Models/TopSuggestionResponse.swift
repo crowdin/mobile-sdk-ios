@@ -7,14 +7,11 @@
 
 import Foundation
 
-// MARK: - TopSuggestionResponse
 struct TopSuggestionResponse: Codable {
     let event: String?
     let data: TopSuggestionResponseData?
 }
 
-
-// MARK: - TopSuggestionResponseData
 struct TopSuggestionResponseData: Codable {
     let id, userID, time, text: String?
     let wordsCount: String?

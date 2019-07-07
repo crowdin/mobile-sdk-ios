@@ -118,7 +118,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 26 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 31 localization keys.
     struct localizable {
       /// en translation: %#@v1_pineapples_count@
       /// 
@@ -128,10 +128,30 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let lu_completed_runs = Rswift.StringResource(key: "lu_completed_runs", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Back
+      /// 
+      /// Locales: en
+      static let back_button = Rswift.StringResource(key: "back_button", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Button [BUNDLE]
       /// 
       /// Locales: en
       static let details_button = Rswift.StringResource(key: "details_button", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Deetails (Present)
+      /// 
+      /// Locales: en
+      static let details_present = Rswift.StringResource(key: "details_present", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Deetails (Present) H
+      /// 
+      /// Locales: en
+      static let details_present_highlighted = Rswift.StringResource(key: "details_present_highlighted", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Deetails (Push)
+      /// 
+      /// Locales: en
+      static let details_push = Rswift.StringResource(key: "details_push", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Deetails (Push) H
+      /// 
+      /// Locales: en
+      static let details_push_highlighted = Rswift.StringResource(key: "details_push_highlighted", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Details Screen [BUNDLE]
       /// 
       /// Locales: en
@@ -239,11 +259,46 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("lu_completed_runs", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: Back
+      /// 
+      /// Locales: en
+      static func back_button(_: Void = ()) -> String {
+        return NSLocalizedString("back_button", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Button [BUNDLE]
       /// 
       /// Locales: en
       static func details_button(_: Void = ()) -> String {
         return NSLocalizedString("details_button", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Deetails (Present)
+      /// 
+      /// Locales: en
+      static func details_present(_: Void = ()) -> String {
+        return NSLocalizedString("details_present", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Deetails (Present) H
+      /// 
+      /// Locales: en
+      static func details_present_highlighted(_: Void = ()) -> String {
+        return NSLocalizedString("details_present_highlighted", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Deetails (Push)
+      /// 
+      /// Locales: en
+      static func details_push(_: Void = ()) -> String {
+        return NSLocalizedString("details_push", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Deetails (Push) H
+      /// 
+      /// Locales: en
+      static func details_push_highlighted(_: Void = ()) -> String {
+        return NSLocalizedString("details_push_highlighted", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Details Screen [BUNDLE]

@@ -22,7 +22,8 @@ class DetailsVC: UIViewController {
     }
     @IBOutlet weak var textField: UITextField! {
         didSet {
-            textField.placeholder =  NSLocalizedString("details_textfield_placeholder", comment: "")
+//            textField.placeholder =  NSLocalizedString("details_textfield_placeholder", comment: "")
+            textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("details_textfield_placeholder", comment: ""), attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
         }
     }
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
@@ -33,16 +34,43 @@ class DetailsVC: UIViewController {
     }
     @IBOutlet weak var reloadUIButton: UIButton! {
         didSet {
-            reloadUIButton.setTitle(NSLocalizedString("main_reload_ui_button", comment: ""), for: .normal)
+            let string = "test_with_format_key".cw_localized(with: ["Test parameter"])
+            let normalAttributedTitle = NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor : UIColor.yellow])
+            reloadUIButton.setAttributedTitle(normalAttributedTitle, for: .normal)
+            let highlightedAttributedTitle = NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor : UIColor.green])
+            reloadUIButton.setAttributedTitle(highlightedAttributedTitle, for: .highlighted)
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("details_title", comment: "")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("back_button", comment: ""), style: UIBarButtonItem.Style.done, target: self, action: #selector(back))
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        }
     }
     
+    @objc func back() {
+        if isModal {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
     
     @IBAction func reloadUI(_ sender: AnyObject) {
-        CrowdinSDK.reloadUI()
+        
+    }
+}
+
+extension UIViewController {
+    
+    var isModal: Bool {
+        
+        let presentingIsModal = presentingViewController != nil
+        let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
+        let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
+        
+        return presentingIsModal || presentingIsNavigation || presentingIsTabBar
     }
 }

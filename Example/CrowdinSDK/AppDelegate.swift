@@ -18,16 +18,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Firebase
         FirebaseApp.configure()
-//        CrowdinSDK.startWithProvider(FirebaseLocalizationProvider(path: "extracted_example"))
+
+        // Setup only crowdin provider:
+//        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "1c2f58c7c711435295d2408106i", stringsFileNames: ["/%osx_locale%/Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"], sourceLanguage: "en")
+//        CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig))
+
         
-        // Local
-//        CrowdinSDK.start(with: LocalLocalizationProvider())
         
-        // Setup CrowdinSDK with crowdin localization provider.
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "1c2f58c7c711435295d2408106i", stringsFileNames: ["/%osx_locale%/Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"], sourceLanguage: "en")
+        // Setup CrowdinSDK with crowdin sdk with all features:
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
+                                                          stringsFileNames: ["Localizable.strings"],
+                                                          pluralsFileNames: ["Localizable.stringsdict"],
+                                                          localizations: ["en", "de"],
+                                                          sourceLanguage: "en")
         let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
-        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
-        CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(crowdinScreenshotsConfig: crowdinScreenshotsConfig).with(settingsEnabled: true))
+        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
+                                                                accountKey: "1267e86b748b600eb851f1c45f8c44ce",
+                                                                credentials: credentials)
+        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+                                                        .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+                                                        .with(settingsEnabled: true)
+                                                        .with(reatimeUpdatesEnabled: true)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig)
         
         // Info.plist setup
 //        CrowdinSDK.start()

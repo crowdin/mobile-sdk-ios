@@ -11,7 +11,7 @@ import UIKit
 import CrowdinSDK
 
 class StringsVC: BaseMenuVC {
-    let crowdinSDKTester = CrowdinProviderTester(localization: CrowdinSDK.currentLocalization ?? "en")
+    let crowdinSDKTester = CrowdinTester(localization: CrowdinSDK.currentLocalization ?? "en")
     
     @IBOutlet var searchBar: UISearchBar! {
         didSet {
@@ -34,7 +34,7 @@ class StringsVC: BaseMenuVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "strings_title".localized
+        self.title = "strings_title".cw_localized
         
         self.filteredResults = localizationKeys
         tableView.reloadData()
