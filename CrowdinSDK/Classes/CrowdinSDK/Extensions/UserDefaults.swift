@@ -20,6 +20,7 @@ extension UserDefaults {
         case customLocalization = "CrowdinSDK.Localization.customLocalization"
 	}
 	
+    /// Store custom languages priorities for in-app localization.
 	var appleLanguages: [String]? {
 		get {
 			return UserDefaults.standard.array(forKey: Keys.AppleLanguages.rawValue) as? [String]
@@ -30,6 +31,7 @@ extension UserDefaults {
 		}
 	}
 	
+    /// Custom language in-app localization.
 	var appleLanguage: String? {
 		get {
 			return self.appleLanguages?.first
@@ -44,6 +46,7 @@ extension UserDefaults {
 		}
 	}
     
+    /// Property for storing SDK mode.
     var mode: Int {
         get {
             return UserDefaults.standard.integer(forKey: Keys.mode.rawValue)
@@ -54,7 +57,7 @@ extension UserDefaults {
         }
     }
     
-    
+    /// Store custom localization for crowdin provider.
     var customLocalization: String? {
         get {
             return UserDefaults.standard.string(forKey: Keys.customLocalization.rawValue)
@@ -65,6 +68,7 @@ extension UserDefaults {
         }
     }
 	
+    /// Clean custom priorities for in-app localizations.
 	func cleanAppleLanguages() {
 		self.appleLanguage = nil
 	}

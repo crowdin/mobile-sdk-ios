@@ -14,7 +14,7 @@ extension Locale {
 		case kCFLocaleScriptCodeKey
 	}
     
-    /// Return ordered list of prefferd localization language codes detected from iOS language settings.
+    /// Returns ordered list of preffered language codes detected from iOS language settings.
 	static var preferredLocalizations: [String] {
 		return Locale.preferredLanguages.compactMap ({
 			var components = Locale.components(fromIdentifier: $0)

@@ -7,13 +7,9 @@
 
 import Foundation
 
+// MARK: - Extension for window screenshot creation.
 extension UIWindow {
-    var topViewController: UIViewController? {
-        return self.rootViewController?.topViewController()
-    }
-}
-
-extension UIWindow {
+    /// Current window screenshot.
     var screenshot: UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, true, self.screen.scale)
         defer { UIGraphicsEndImageContext() }
