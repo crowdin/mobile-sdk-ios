@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Class for SDK testing.
 public class CrowdinTester {
     var localization: String
     let localizationFile: DictionaryFile

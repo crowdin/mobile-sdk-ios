@@ -8,10 +8,13 @@
 import UIKit
 import Foundation
 
+/// Closure type for localization update download handlers.
 public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void
+
+/// Closure type for localization update error handlers.
 public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 
-/// Main interface For working with CrowdinSDK library.
+/// Main interface for working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
     /// Enum representing available SDK modes.
     ///
@@ -196,6 +199,12 @@ extension CrowdinSDK {
 }
 
 extension CrowdinSDK {
+    /// Selectors for all feature initialization.
+    ///
+    /// - initializeScreenshotFeature: Selector for Screenshots feature initialization.
+	/// - initializeRealtimeUpdatesFeature: Selector for RealtimeUpdates feature initialization.
+	/// - initializeIntervalUpdateFeature: Selector for IntervalUpdate feature initialization.
+	/// - initializeSettings: Selector for Settings feature initialization.
     enum Selectors: Selector {
         case initializeScreenshotFeature
         case initializeRealtimeUpdatesFeature
@@ -220,24 +229,28 @@ extension CrowdinSDK {
         self.initializeSettingsIfNeeded()
     }
     
+    /// Method for screenshot feature initialization if Screenshot submodule is added.
     private class func initializeScreenshotFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeScreenshotFeature.rawValue) {
             CrowdinSDK .perform(Selectors.initializeScreenshotFeature.rawValue)
         }
     }
-    
+	
+    /// Method for real-time updates feature initialization if RealtimeUpdate submodule is added.
     private class func initializeRealtimeUpdatesFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeRealtimeUpdatesFeature.rawValue) {
             CrowdinSDK .perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
         }
     }
-    
+	
+	/// Method for interval updates feature initialization if IntervalUpdate submodule is added.
     private class func initializeIntervalUpdateFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeIntervalUpdateFeature.rawValue) {
             CrowdinSDK .perform(Selectors.initializeIntervalUpdateFeature.rawValue)
         }
     }
-    
+	
+	/// Method for Settings view feature initialization if Screenshots submodule is added.
     private class func initializeSettingsIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeSettings.rawValue) {
             CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
