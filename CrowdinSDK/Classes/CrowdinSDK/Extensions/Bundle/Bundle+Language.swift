@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Extension 
+// MARK: - Extension for preffered localization detection.
 extension Bundle {
     /// Returns detected preffered language from device settings and bundle localizations. If bundle localizations is empty then return default locazation - "en".
     var preferredLanguage: String {

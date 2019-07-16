@@ -8,19 +8,23 @@
 
 import Foundation
 
-// MARK: - Localization extension.
+// MARK: - String localization extension.
 extension String {
     /// Extension method for simplifying strings localization.
 	public var cw_localized: String {
-		return NSLocalizedString(self, comment: String.empty)
+		return NSLocalizedString(self, comment: .empty)
 	}
     
+    /// <#Description#>
+    ///
+    /// - Parameter arguments: <#arguments description#>
+    /// - Returns: <#return value description#>
     public func cw_localized(with arguments: [CVarArg]) -> String {
-        return String(format: NSLocalizedString(self, comment: String.empty), arguments: arguments)
+        return String(format: NSLocalizedString(self, comment: .empty), arguments: arguments)
     }
     
     public func cw_localized(with args: CVarArg...) -> String {
-        return String(format: NSLocalizedString(self, comment: String.empty), args)
+        return String(format: NSLocalizedString(self, comment: .empty), args)
     }
 }
 
@@ -117,6 +121,14 @@ extension NSString {
 
 // MARK: - Values finding.
 extension String {
+    /// Method for values detection passed for localization string creation for given string and format string.
+    /// Additional explenation:
+    /// For example, we have a string "String with string parameter - test, and an integer parameter - 2". The format string is "String with string parameter - %@, and integer parameter - %llu". Result of this method will be an array of two objects - ["test", 2].
+    ///
+    /// - Parameters:
+    ///   - string: String for searching values.
+    ///   - format: Format string.
+    /// - Returns: An array of detected values in a given string with a given format. If passed format doesn't match with string nil will be returned.
     static func findValues(for string: String, with format: String) -> [Any]? {
         let parts = FormatPart.formatParts(formatString: format)
         let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))

@@ -135,7 +135,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 8780351cf287507624a60ed58c0fc643bad7153b
+  CrowdinSDK: 6258f871828a16bb83e78fac4db3e3c1289dfcb8
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
@@ -156,4 +156,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8dd9cb6bf6bd7116cc5eff605f86926f3f7a94f1
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.0

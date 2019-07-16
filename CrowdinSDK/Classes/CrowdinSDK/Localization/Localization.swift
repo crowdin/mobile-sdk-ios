@@ -130,26 +130,42 @@ class Localization {
     // MARK: Download observer
     var localizationUpdateObserver = LocalizationUpdateObserver()
     
+    /// Method for adding localization download completion handler.
+    ///
+    /// - Parameter handler: Download completion closure.
+    /// - Returns: Handler id needed to unsubscribe.
     func addDownloadHandler(_ handler: @escaping () -> Void) -> UInt {
         return localizationUpdateObserver.addDownloadHandler(handler)
     }
     
+    /// Method for removing localization download completion handler by id.
+    ///
+    /// - Parameter id: Handler id returned from addDownloadHandler(_:) method.
     func removeDownloadHandler(_ id: UInt) {
         localizationUpdateObserver.removeDownloadHandler(id)
     }
     
+    /// Remove all download completion handlers.
     func removeAllDownloadHandlers() {
         localizationUpdateObserver.removeAllDownloadHandlers()
     }
     
+    /// Method for adding localization download error handler.
+    ///
+    /// - Parameter handler: Download error closure.
+    /// - Returns: Handler id needed to unsubscribe.
     func addErrorUpdateHandler(_ handler: @escaping ([Error]) -> Void) -> UInt {
         return localizationUpdateObserver.addErrorHandler(handler)
     }
     
+    /// Method for removing localization download error handler.
+    ///
+    /// - Parameter id: Handler id returned from addErrorUpdateHandler(_:) method.
     func removeErrorHandler(_ id: UInt) {
         localizationUpdateObserver.removeErrorHandler(id)
     }
     
+    /// Method for removing all localization download error handlers.
     func removeAllErrorHandlers() {
         localizationUpdateObserver.removeAllErrorHandlers()
     }
