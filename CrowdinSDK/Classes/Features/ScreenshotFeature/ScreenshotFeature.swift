@@ -55,7 +55,7 @@ class ScreenshotFeature {
                 self.projectId = projectId
                 success?()
             } else {
-                errorHandler?(NSError(domain: Errors.unknownError.rawValue, code: 9999, userInfo: nil))
+                errorHandler?(NSError(domain: Errors.unknownError.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
             }
         }
     }
@@ -69,7 +69,7 @@ class ScreenshotFeature {
             }, errorHandler: errorHandler)
             return
         }
-        guard let screenshot = self.window?.screenshot else { return }
+        guard let screenshot = UIApplication.shared.keyWindow?.screenshot else { return }
         let values = self.captureValues()
         guard let data = screenshot.pngData() else { return }
         let screenshotsAPI = ScreenshotsAPI(login: login, accountKey: accountKey, credentials: credentials)
@@ -80,7 +80,7 @@ class ScreenshotFeature {
                 return
             }
             guard let storageId = response?.data.id else {
-                errorHandler(NSError(domain: Errors.storageIdIsMissing.rawValue, code: 9999, userInfo: nil))
+                errorHandler(NSError(domain: Errors.storageIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                 return
             }
             screenshotsAPI.createScreenshot(projectId: projectId, storageId: storageId, name: name, completion: { response, error in
@@ -89,7 +89,7 @@ class ScreenshotFeature {
                     return
                 }
                 guard let screenshotId = response?.data.id else {
-                    errorHandler(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: 9999, userInfo: nil))
+                    errorHandler(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                     return
                 }
                 guard values.count > 0 else { return }
@@ -107,7 +107,7 @@ class ScreenshotFeature {
 
 extension ScreenshotFeature {
     fileprivate func captureValues() -> [(id: Int, rect: CGRect)] {
-        guard let window = self.window else { return [(id: Int, rect: CGRect)]() }
+        guard let window = UIApplication.shared.keyWindow else { return [(id: Int, rect: CGRect)]() }
         let values = self.getValues(from: window)
         let koef = window.screen.scale
         var returnValue = [(id: Int, rect: CGRect)]()
@@ -127,30 +127,12 @@ extension ScreenshotFeature {
         view.subviews.forEach { (view) in
             guard !view.isHidden && view.alpha != 0.0 else { return }
             if let label = view as? UILabel, let localizationKey = label.localizationKey, let id = mappingManager.id(for: localizationKey) {
-                if let frame = label.superview?.convert(label.frame, to: window) {
+                if let frame = label.superview?.convert(label.frame, to: UIApplication.shared.keyWindow) {
                     description.append((id: id, rect: frame))
                 }
             }
             description.append(contentsOf: getValues(from: view))
         }
         return description
-    }
-}
-
-extension ScreenshotFeature {
-    var window: UIWindow? { return UIApplication.shared.keyWindow }
-}
-
-extension CGRect {
-    var isOriginInfinite: Bool {
-        return origin.x == CGFloat.infinity || origin.y == CGFloat.infinity
-    }
-    
-    var hasValidSize: Bool {
-        return size.width != 0.0 && size.height != 0.0
-    }
-    
-    var isValid: Bool {
-        return !isInfinite && !isOriginInfinite && hasValidSize
     }
 }

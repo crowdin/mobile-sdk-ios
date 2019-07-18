@@ -104,7 +104,7 @@ extension SocketAPI: WebSocketDelegate {
         if let error = error {
             self.onError?(error)
         } else {
-            self.onError?(NSError(domain: Errors.didDisconect.rawValue, code: 9999, userInfo: nil))
+            self.onError?(NSError(domain: Errors.didDisconect.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
         }
     }
     
