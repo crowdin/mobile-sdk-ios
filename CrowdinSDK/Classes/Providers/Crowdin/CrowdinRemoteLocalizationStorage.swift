@@ -73,7 +73,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
                 NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
                 
                 if let errors = errors {
-                    print("Error - \(errors)")
                     NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
                 }
             }

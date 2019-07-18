@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Protocol for remote storage with localization files.
 @objc public protocol RemoteLocalizationStorageProtocol: LocalizationStorageProtocol {
+    /// Storage name.
     var name: String { get set }
 }

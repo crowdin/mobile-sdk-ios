@@ -11,7 +11,7 @@ class CrowdinAPI: BaseAPI {
     let baseAPIPath = "https://api.crowdin.com/api"
     
     var apiPath: String {
-        return ""
+        return .empty
     }
     
     func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
