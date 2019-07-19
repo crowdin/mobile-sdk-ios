@@ -9,11 +9,11 @@
 import Foundation
 
 public protocol ScreenshotProcessor {
-	func process(screenshot: UIImage) -> UIImage
+	func process(screenshot: UIImage, with controlsInfo: [ControlInformation]) -> UIImage
 }
 
-class CrowdinScreenshotProcessor {
-	func process(screenshot: UIImage) -> UIImage {
+class CrowdinScreenshotProcessor: ScreenshotProcessor {
+	func process(screenshot: UIImage, with controlsInfo: [ControlInformation]) -> UIImage {
 		return screenshot
 	}
 }

@@ -10,9 +10,11 @@ import UIKit
 class ScreenshotFeature {
     static var shared: ScreenshotFeature?
 	var screenshotUploader: ScreenshotUploader
+	var screenshotProcessor: ScreenshotProcessor
 	
-	init(screenshotUploader: ScreenshotUploader) {
+	init(screenshotUploader: ScreenshotUploader, screenshotProcessor: ScreenshotProcessor) {
 		self.screenshotUploader = screenshotUploader
+		self.screenshotProcessor = screenshotProcessor
 	}
 	
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
