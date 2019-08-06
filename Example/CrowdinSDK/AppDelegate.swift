@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
 		print("URL - \(url)")
 		print("options - \(options)")
-		return true
+		return CrowdinSDK.handle(url: url)
 	}
 }
 

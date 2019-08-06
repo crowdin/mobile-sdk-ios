@@ -46,4 +46,41 @@ class LoginFeature: LoginFeatureProtocol {
         HTTPCookieStorage.shared.removeCookies(since: Date(timeIntervalSinceNow: 24 * 60 * 60))
         loginInfo = nil
     }
+	
+	static var code: String? = nil
+	
+	static func hadle(url: URL) -> Bool {
+		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+		guard let queryItems = components?.queryItems else { return false }
+		guard let code = queryItems.first(where: { $0.name == "code" })?.value else { return false }
+		self.code = code
+		self.getAutorizationToken(with: code)
+		return true
+	}
+	static let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"
+	static var accessToken: String? = nil
+	
+	enum Params: String {
+		case grant_type
+		case client_id
+		case client_secret
+		case code
+	}
+	
+	static func getAutorizationToken(with code: String) {
+		var request = URLRequest(url: URL(string: tokenStringURL)!)
+		
+		let tokenRequest = TokenRequest(code: code)
+		request.httpBody = try? JSONEncoder().encode(tokenRequest)
+		request.allHTTPHeaderFields = [:]
+		request.allHTTPHeaderFields?["Content-Type"] = "application/json"
+		request.httpMethod = "POST"
+		
+		URLSession.shared.dataTask(with: request) { (data, response, error) in
+			if let data = data {
+				print(String(data: data, encoding: .utf8))
+			}
+			print(response)
+		}.resume()
+	}
 }

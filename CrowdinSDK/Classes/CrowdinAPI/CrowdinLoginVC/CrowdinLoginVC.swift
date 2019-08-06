@@ -16,12 +16,12 @@ extension Bundle {
 }
 
 class CrowdinLoginVC: UIViewController {    
-    var baseURL = "https://crowdin.com/login"
+    var baseURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=test-sdk&response_type=code&scope=project.content.screenshots&redirect_uri=crowdintest://"
     var window: UIWindow?
     
     var error: ((_ error: Error) -> Void)? = nil
     var completion: ((_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void)? = nil
-    
+    // swiftlint:disable implicitly_unwrapped_optional
     var webView: UIWebView! {
         didSet {
             webView.delegate = self
