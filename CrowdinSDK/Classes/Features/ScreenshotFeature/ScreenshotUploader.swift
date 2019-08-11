@@ -41,15 +41,15 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-		LoginFeature.login(completion: { csrfToken, userAgent, cookies in
-			self.getProjectId(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies, success: success, errorHandler: errorHandler)
+		LoginFeature.login(completion: {
+            self.getProjectId(success: success, errorHandler: errorHandler)
 		}) { (error) in
 			errorHandler?(error)
 		}
 	}
 	
-	func getProjectId(csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-		let distrinbutionsAPI = DistributionsAPI(hashString: hash, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+		let distrinbutionsAPI = DistributionsAPI(hashString: hash)
 		distrinbutionsAPI.getDistribution { (response, error) in
 			if let error = error {
 				errorHandler?(error)

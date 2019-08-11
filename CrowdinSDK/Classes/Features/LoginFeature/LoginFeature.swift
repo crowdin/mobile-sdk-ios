@@ -8,43 +8,46 @@
 import Foundation
 
 protocol LoginFeatureProtocol {
-    static func login(completion: @escaping (_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void, error: @escaping (Error) -> Void)
-    static func relogin(completion: @escaping (_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void, error: @escaping (Error) -> Void)
+    static var isLogined: Bool { get }
+    static func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
+    static func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
     static func logout()
 }
 
-struct LoginInfo {
-    var csrfToken: String
-    var userAgent: String
-    var cookies: [HTTPCookie]
-}
-
 class LoginFeature: LoginFeatureProtocol {
-    static var loginInfo: LoginInfo? = nil
+    static var loginURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=test-sdk&response_type=code&scope=project.content.screenshots&redirect_uri=crowdintest://"
     
-    static func login(completion: @escaping (_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void, error: @escaping (Error) -> Void) {
-        if let loginInfo = loginInfo {
-            completion(loginInfo.csrfToken, loginInfo.userAgent, loginInfo.cookies)
-            return
+    static var tokenResponse: TokenResponse? {
+        set {
+            guard let data = try? JSONEncoder().encode(newValue) else { return }
+            UserDefaults.standard.set(data, forKey: "crowdin.tokenResponse.key")
+            UserDefaults.standard.synchronize()
         }
-        let loginVC = CrowdinLoginVC()
-        loginVC.completion = { csrfToken, userAgent, cookies in
-            self.loginInfo = LoginInfo(csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
-            completion(csrfToken, userAgent, cookies)
+        get {
+            guard let data = UserDefaults.standard.data(forKey: "crowdin.tokenResponse.key") else { return nil }
+            return try? JSONDecoder().decode(TokenResponse.self, from: data)
         }
-        loginVC.error = error
-        loginVC.present()
+    }
+    static var completion: (() -> Void)?  = nil
+    static var error: ((Error) -> Void)?  = nil
+    
+    static var isLogined: Bool {
+        return self.tokenResponse?.accessToken != nil
     }
     
-    static func relogin(completion: @escaping (_ csrfToken: String, _ userAgent: String, _ cookies: [HTTPCookie]) -> Void, error: @escaping (Error) -> Void) {
-        HTTPCookieStorage.shared.removeCookies(since: Date(timeIntervalSinceNow: 60 * 60))
-        self.loginInfo = nil
+    static func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
+        self.completion = completion
+        self.error = error
+        UIApplication.shared.openURL(URL(string: self.loginURL)!)
+    }
+    
+    static func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
+        self.logout()
         login(completion: completion, error: error)
     }
     
     static func logout() {
-        HTTPCookieStorage.shared.removeCookies(since: Date(timeIntervalSinceNow: 24 * 60 * 60))
-        loginInfo = nil
+        // TODO:
     }
 	
 	static var code: String? = nil
@@ -58,7 +61,6 @@ class LoginFeature: LoginFeatureProtocol {
 		return true
 	}
 	static let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"
-	static var accessToken: String? = nil
 	
 	enum Params: String {
 		case grant_type
@@ -70,7 +72,7 @@ class LoginFeature: LoginFeatureProtocol {
 	static func getAutorizationToken(with code: String) {
 		var request = URLRequest(url: URL(string: tokenStringURL)!)
 		
-		let tokenRequest = TokenRequest(code: code)
+        let tokenRequest = TokenRequest(code: code, redirect_uri: "crowdintest://")
 		request.httpBody = try? JSONEncoder().encode(tokenRequest)
 		request.allHTTPHeaderFields = [:]
 		request.allHTTPHeaderFields?["Content-Type"] = "application/json"
@@ -78,9 +80,17 @@ class LoginFeature: LoginFeatureProtocol {
 		
 		URLSession.shared.dataTask(with: request) { (data, response, error) in
 			if let data = data {
-				print(String(data: data, encoding: .utf8))
-			}
-			print(response)
+                do {
+                    self.tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
+                    self.completion?()
+                } catch {
+                    self.error?(error)
+                }
+            } else if let error = error {
+                self.error?(error)
+            } else {
+                self.error?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
+            }
 		}.resume()
 	}
 }

@@ -17,7 +17,6 @@ protocol RealtimeUpdateFeatureProtocol {
     init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String)
     
     func start(success: (() -> Void)?, error: ((Error) -> Void)?)
-    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)?, error: ((Error) -> Void)?)
     func stop()
     func subscribe(control: Refreshable)
     func unsubscribe(control: Refreshable)
@@ -35,7 +34,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
-            newValue ? start() : stop()
+            newValue ? _start() : stop()
         }
         get {
             return active
@@ -65,17 +64,17 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func start(success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-        LoginFeature.login(completion: { (csrfToken, userAgent, cookies) in
-            self.start(with: csrfToken, userAgent: userAgent, cookies: cookies, success: success, error: error)
+        LoginFeature.login(completion: {
+            self.start(success: success, error: error)
         }) { err in
             error?(err)
         }
     }
     
-    func start(with csrfToken: String, userAgent: String, cookies: [HTTPCookie], success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
+    func _start(with success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
         self.success = success
         self.error = error
-        self.socketManger = CrowdinSocketManager(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        self.socketManger = CrowdinSocketManager(hashString: hashString)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }

@@ -9,7 +9,7 @@ import Foundation
 import Starscream
 
 protocol CrowdinSocketManagerProtocol {
-    init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie])
+    init(hashString: String)
 
     var active: Bool { get }
     var connect: (() -> Void)? { set get }
@@ -26,9 +26,6 @@ protocol CrowdinSocketManagerProtocol {
 
 class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     let hashString: String
-    let csrfToken: String
-    let userAgent: String
-    let cookies: [HTTPCookie]
     var distributionResponse: DistributionsResponse?
     
     var socketAPI: SocketAPI
@@ -49,12 +46,9 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     
-    required init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+    required init(hashString: String) {
         self.hashString = hashString
-        self.csrfToken = csrfToken
-        self.userAgent = userAgent
-        self.cookies = cookies
-        self.socketAPI = SocketAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        self.socketAPI = SocketAPI(hashString: hashString)
         super.init()
         
         self.socketAPI.didReceiveUpdateTopSuggestion = updateTopSuggestion(_:)
