@@ -52,6 +52,7 @@ class CrowdinAPI: BaseAPI {
                 let response = try JSONDecoder().decode(T.self, from: data)
                 completion(response, error)
             } catch {
+				print(String(data: data, encoding: .utf8))
                 completion(nil, error)
             }
         })

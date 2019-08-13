@@ -41,10 +41,14 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-		LoginFeature.login(completion: {
-            self.getProjectId(success: success, errorHandler: errorHandler)
-		}) { (error) in
-			errorHandler?(error)
+		if !LoginFeature.isLogined {
+			LoginFeature.login(completion: {
+				self.getProjectId(success: success, errorHandler: errorHandler)
+			}) { err in
+				errorHandler?(err)
+			}
+		} else {
+			self.getProjectId(success: success, errorHandler: errorHandler)
 		}
 	}
 	

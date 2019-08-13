@@ -64,11 +64,15 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func start(success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-        LoginFeature.login(completion: {
-            self.start(success: success, error: error)
-        }) { err in
-            error?(err)
-        }
+		if !LoginFeature.isLogined {
+			LoginFeature.login(completion: {
+				self.start(success: success, error: error)
+			}) { err in
+				error?(err)
+			}
+		} else {
+			self.start(success: success, error: error)
+		}
     }
     
     func _start(with success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {

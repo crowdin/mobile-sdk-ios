@@ -22,7 +22,7 @@ class DistributionsAPI: CrowdinAPI {
     }
     
     func baseURL() -> String {
-        return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/api/v2/distributions/metadata?hash=\(hashString)"
+        return "https://api.crowdin.com/api/v2/distributions/metadata?hash=\(hashString)"
     }
 
     func getDistribution(completion: @escaping (DistributionsResponse?, Error?) -> Void) {
@@ -34,7 +34,7 @@ class DistributionsAPI: CrowdinAPI {
     }
     
     var headers: [String: String] {
-        guard let accessToken = LoginFeature.tokenResponse?.accessToken else { return [:] }
+        guard let accessToken = LoginFeature.accessToken else { return [:] }
         return ["Authorization": "Bearer \(accessToken)"]
     }
 }
