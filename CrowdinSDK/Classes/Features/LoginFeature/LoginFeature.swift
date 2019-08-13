@@ -42,8 +42,7 @@ class LoginFeature: LoginFeatureProtocol {
     static var error: ((Error) -> Void)?  = nil
     
     static var isLogined: Bool {
-		guard let tokenExpirationDate = tokenExpirationDate else { return false }
-		return tokenExpirationDate > Date() && tokenResponse?.accessToken != nil
+		return tokenResponse?.accessToken != nil && tokenResponse?.refreshToken != nil
     }
 	
 	static var accessToken: String? {
