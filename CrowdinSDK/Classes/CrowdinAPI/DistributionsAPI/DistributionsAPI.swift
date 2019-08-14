@@ -22,7 +22,7 @@ class DistributionsAPI: CrowdinAPI {
     }
     
     func baseURL() -> String {
-        return "https://api.crowdin.com/api/v2/distributions/metadata?hash=\(hashString)"
+        return "https://crowdin.com/api/v2/distributions/metadata?hash=\(hashString)"
     }
 
     func getDistribution(completion: @escaping (DistributionsResponse?, Error?) -> Void) {
