@@ -15,7 +15,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	var login: String
 	var accountKey: String
 	var hash: String
-	var credentials: String
 	var strings: [String]
 	var plurals: [String]
 	var sourceLanguage: String
@@ -29,10 +28,9 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		case unknownError = "Unknown error"
 	}
 	
-	init(login: String, accountKey: String, credentials: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+	init(login: String, accountKey: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
 		self.login = login
 		self.accountKey = accountKey
-		self.credentials = credentials
 		self.strings = strings
 		self.plurals = plurals
 		self.hash = hash
@@ -42,7 +40,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
 		if !LoginFeature.isLogined {
-			LoginFeature.login(completion: {
+			LoginFeature.shared?.login(completion: {
 				self.getProjectId(success: success, errorHandler: errorHandler)
 			}) { err in
 				errorHandler?(err)
@@ -78,8 +76,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		
 		let values = self.proceed(controlsInformation: controlsInformation)
 		guard let data = screenshot.pngData() else { return }
-		let screenshotsAPI = ScreenshotsAPI(login: login, accountKey: accountKey, credentials: credentials)
-		let storageAPI = StorageAPI(login: login, accountKey: accountKey, credentials: credentials)
+		let screenshotsAPI = ScreenshotsAPI(login: login, accountKey: accountKey)
+		let storageAPI = StorageAPI(login: login, accountKey: accountKey)
 		storageAPI.uploadNewFile(data: data, completion: { response, error in
 			if let error = error {
 				errorHandler?(error)

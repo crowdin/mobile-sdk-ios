@@ -31,10 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                           pluralsFileNames: ["Localizable.stringsdict"],
                                                           localizations: ["en", "de"],
                                                           sourceLanguage: "en")
-        let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
         let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
-                                                                accountKey: "1267e86b748b600eb851f1c45f8c44ce",
-                                                                credentials: credentials)
+                                                                accountKey: "1267e86b748b600eb851f1c45f8c44ce")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
                                                         .with(settingsEnabled: true)

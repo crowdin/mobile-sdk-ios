@@ -9,13 +9,15 @@ import Foundation
 
 struct TokenRequest: Codable {
 	var grant_type: String = "authorization_code"
-	var client_id: String = "test-sdk"
-	var client_secret: String = "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts"
+	var client_id: String
+	var client_secret: String
 	var code: String
     var redirect_uri: String
 	
-	init(code: String, redirect_uri: String) {
+	init(code: String, client_id: String, client_secret: String, redirect_uri: String) {
 		self.code = code
+		self.client_id = client_id
+		self.client_secret = client_secret
         self.redirect_uri = redirect_uri
 	}
 }

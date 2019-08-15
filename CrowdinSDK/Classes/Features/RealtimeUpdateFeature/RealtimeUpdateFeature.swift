@@ -65,7 +65,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     func start(success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
 		if !LoginFeature.isLogined {
-			LoginFeature.login(completion: {
+			LoginFeature.shared?.login(completion: {
 				self.start(success: success, error: error)
 			}) { err in
 				error?(err)

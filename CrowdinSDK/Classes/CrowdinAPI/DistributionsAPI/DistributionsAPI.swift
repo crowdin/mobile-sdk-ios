@@ -34,7 +34,7 @@ class DistributionsAPI: CrowdinAPI {
     }
     
     var headers: [String: String] {
-        guard let accessToken = LoginFeature.accessToken else { return [:] }
+        guard let accessToken = LoginFeature.shared?.accessToken else { return [:] }
         return ["Authorization": "Bearer \(accessToken)"]
     }
 }

@@ -182,7 +182,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     }
 	
 	public class func handle(url: URL) -> Bool {
-		return LoginFeature.hadle(url: url)
+		return LoginFeature.shared?.hadle(url: url) ?? false
 	}
 }
 

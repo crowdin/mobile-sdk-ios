@@ -8,16 +8,44 @@
 import Foundation
 
 protocol LoginFeatureProtocol {
+	static var shared: Self? { get }
     static var isLogined: Bool { get }
-    static func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
-    static func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
-    static func logout()
+	static func configureWith(clientId: String, secret: String, scope: String, redirectURI: String)
+	
+    func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
+    func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
+    func logout()
 }
 
-class LoginFeature: LoginFeatureProtocol {
-    static var loginURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=test-sdk&response_type=code&scope=project.content.screenshots&redirect_uri=crowdintest://"
+final class LoginFeature: LoginFeatureProtocol {
+	var clientId: String
+	var secret: String
+	var scope: String
+	var redirectURI: String
 	
-	static var tokenExpirationDate: Date? {
+	static var shared: LoginFeature?
+	
+	private var code: String? = nil
+	private var loginURL: String {
+//		test-sdk
+//		project.content.screenshots
+//		crowdintest://
+		return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=\(clientId)&response_type=code&scope=\(scope)&redirect_uri=\(redirectURI)"
+	}
+	private let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"
+	
+	init(clientId: String, secret: String, scope: String, redirectURI: String) {
+		self.clientId = clientId
+		self.secret = secret
+		self.scope = scope
+		self.redirectURI = redirectURI
+	}
+	
+	static func configureWith(clientId: String, secret: String, scope: String, redirectURI: String) {
+		LoginFeature.shared = LoginFeature(clientId: clientId, secret: secret, scope: scope, redirectURI: redirectURI)
+	}
+	
+	var tokenExpirationDate: Date? {
 		set {
 			UserDefaults.standard.set(newValue, forKey: "crowdin.tokenExpirationDate.key")
 			UserDefaults.standard.synchronize()
@@ -27,7 +55,7 @@ class LoginFeature: LoginFeatureProtocol {
 		}
 	}
 	
-    static var tokenResponse: TokenResponse? {
+    var tokenResponse: TokenResponse? {
         set {
             guard let data = try? JSONEncoder().encode(newValue) else { return }
             UserDefaults.standard.set(data, forKey: "crowdin.tokenResponse.key")
@@ -38,14 +66,14 @@ class LoginFeature: LoginFeatureProtocol {
             return try? JSONDecoder().decode(TokenResponse.self, from: data)
         }
     }
-    static var completion: (() -> Void)?  = nil
-    static var error: ((Error) -> Void)?  = nil
+    var completion: (() -> Void)?  = nil
+    var error: ((Error) -> Void)?  = nil
     
     static var isLogined: Bool {
-		return tokenResponse?.accessToken != nil && tokenResponse?.refreshToken != nil
+		return shared?.tokenResponse?.accessToken != nil && shared?.tokenResponse?.refreshToken != nil
     }
 	
-	static var accessToken: String? {
+	var accessToken: String? {
 		guard let tokenExpirationDate = tokenExpirationDate else { return nil }
 		if tokenExpirationDate < Date() {
 			_ = refreshTokenSync()
@@ -53,24 +81,23 @@ class LoginFeature: LoginFeatureProtocol {
 		return tokenResponse?.accessToken
 	}
     
-    static func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
+    func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
         self.completion = completion
         self.error = error
         UIApplication.shared.openURL(URL(string: self.loginURL)!)
     }
     
-    static func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
+    func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
         self.logout()
         login(completion: completion, error: error)
     }
     
-    static func logout() {
-        // TODO:
+    func logout() {
+        tokenResponse = nil
+		LoginFeature.shared = nil
     }
 	
-	static var code: String? = nil
-	
-	static func hadle(url: URL) -> Bool {
+	func hadle(url: URL) -> Bool {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
 		guard let queryItems = components?.queryItems else { return false }
 		guard let code = queryItems.first(where: { $0.name == "code" })?.value else { return false }
@@ -78,19 +105,16 @@ class LoginFeature: LoginFeatureProtocol {
 		self.getAutorizationToken(with: code)
 		return true
 	}
-	static let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"
-	
-	enum Params: String {
-		case grant_type
-		case client_id
-		case client_secret
-		case code
-	}
-	
-	static func getAutorizationToken(with code: String) {
-		var request = URLRequest(url: URL(string: tokenStringURL)!)
-		
-        let tokenRequest = TokenRequest(code: code, redirect_uri: "crowdintest://")
+}
+
+extension LoginFeature {
+	func getAutorizationToken(with code: String) {
+		guard let url = URL(string: tokenStringURL) else {
+			error?(NSError(domain: "Unable to create url from - \(tokenStringURL)", code: defaultCrowdinErrorCode, userInfo: nil))
+			return
+		}
+		var request = URLRequest(url: url)
+		let tokenRequest = TokenRequest(code: code, client_id: clientId, client_secret: secret, redirect_uri: redirectURI)
 		request.httpBody = try? JSONEncoder().encode(tokenRequest)
 		request.allHTTPHeaderFields = [:]
 		request.allHTTPHeaderFields?["Content-Type"] = "application/json"
@@ -98,27 +122,27 @@ class LoginFeature: LoginFeatureProtocol {
 		
 		URLSession.shared.dataTask(with: request) { (data, response, error) in
 			if let data = data {
-                do {
-                    let response = try JSONDecoder().decode(TokenResponse.self, from: data)
+				do {
+					let response = try JSONDecoder().decode(TokenResponse.self, from: data)
 					self.tokenExpirationDate = Date(timeIntervalSinceNow: TimeInterval(response.expiresIn))
 					self.tokenResponse = response
-                    self.completion?()
-                } catch {
-                    self.error?(error)
-                }
-            } else if let error = error {
-                self.error?(error)
-            } else {
-                self.error?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
-            }
+					self.completion?()
+				} catch {
+					self.error?(error)
+				}
+			} else if let error = error {
+				self.error?(error)
+			} else {
+				self.error?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
+			}
 		}.resume()
 	}
 	
-	static func refreshToken(completion: @escaping () -> Void, errorHandler: @escaping (Error) -> Void) {
+	func refreshToken(completion: @escaping () -> Void, errorHandler: @escaping (Error) -> Void) {
 		var request = URLRequest(url: URL(string: tokenStringURL)!)
 		guard let refresh_token = tokenResponse?.refreshToken else { return }
 		
-		let tokenRequest = RefreshTokenRequest(refresh_token: refresh_token, redirect_uri: "crowdintest://")
+		let tokenRequest = RefreshTokenRequest(refresh_token: refresh_token, client_id: clientId, client_secret: secret, redirect_uri: redirectURI)
 		request.httpBody = try? JSONEncoder().encode(tokenRequest)
 		request.allHTTPHeaderFields = [:]
 		request.allHTTPHeaderFields?["Content-Type"] = "application/json"
@@ -139,10 +163,10 @@ class LoginFeature: LoginFeatureProtocol {
 			} else {
 				errorHandler(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
 			}
-		}.resume()
+			}.resume()
 	}
 	
-	static func refreshTokenSync() -> Bool {
+	func refreshTokenSync() -> Bool {
 		var result = false
 		let semaphore = DispatchSemaphore(value: 0)
 		refreshToken (completion: {

@@ -24,7 +24,7 @@ class CrowdinAPI: BaseAPI {
                 let response = try JSONDecoder().decode(T.self, from: data)
                 completion(response, error)
             } catch {
-				print(String(data: data, encoding: .utf8))
+				print(String(data: data, encoding: .utf8) ?? "Data is empty")
                 completion(nil, error)
             }
         })
@@ -39,7 +39,7 @@ class CrowdinAPI: BaseAPI {
             let response = try JSONDecoder().decode(T.self, from: data)
             return (response, result.error)
         } catch {
-			print(String(data: data, encoding: .utf8))
+			print(String(data: data, encoding: .utf8) ?? "Data is empty")
             return (nil, error)
         }
     }
@@ -54,7 +54,7 @@ class CrowdinAPI: BaseAPI {
                 let response = try JSONDecoder().decode(T.self, from: data)
                 completion(response, error)
             } catch {
-				print(String(data: data, encoding: .utf8))
+				print(String(data: data, encoding: .utf8) ?? "Data is empty")
                 completion(nil, error)
             }
         })
@@ -69,14 +69,14 @@ class CrowdinAPI: BaseAPI {
             let response = try JSONDecoder().decode(T.self, from: data)
             return (response, result.error)
         } catch {
-			print(String(data: data, encoding: .utf8))
+			print(String(data: data, encoding: .utf8) ?? "Data is empty")
             return (nil, error)
         }
     }
 	
 	func authorized(_ headers: [String: String]?) -> [String: String] {
 		var result = headers ?? [:]
-		guard let accessToken = LoginFeature.accessToken else { return result }
+		guard let accessToken = LoginFeature.shared?.accessToken else { return result }
 		result["Authorization"] = "Bearer \(accessToken)"
 		return result
 	}
