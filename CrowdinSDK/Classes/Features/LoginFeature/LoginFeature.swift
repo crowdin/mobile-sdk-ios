@@ -9,40 +9,35 @@ import Foundation
 
 protocol LoginFeatureProtocol {
 	static var shared: Self? { get }
-    static var isLogined: Bool { get }
-	static func configureWith(clientId: String, secret: String, scope: String, redirectURI: String)
+	static var isLogined: Bool { get }
+	static func configureWith(with config: LoginConfig)
 	
-    func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
-    func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
-    func logout()
+	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
+	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
+	func logout()
 }
 
 final class LoginFeature: LoginFeatureProtocol {
-	var clientId: String
-	var secret: String
-	var scope: String
-	var redirectURI: String
+	var config: CrowdinLoginConfig
 	
 	static var shared: LoginFeature?
 	
 	private var code: String? = nil
 	private var loginURL: String {
-//		test-sdk
-//		project.content.screenshots
-//		crowdintest://
-		return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=\(clientId)&response_type=code&scope=\(scope)&redirect_uri=\(redirectURI)"
+		//		test-sdk
+		//		project.content.screenshots
+		//		crowdintest://
+		return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=\(config.clientId)&response_type=code&scope=\(config.scope)&redirect_uri=\(config.redirectURI)"
 	}
 	private let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"
 	
-	init(clientId: String, secret: String, scope: String, redirectURI: String) {
-		self.clientId = clientId
-		self.secret = secret
-		self.scope = scope
-		self.redirectURI = redirectURI
+	init(config: CrowdinLoginConfig) {
+		self.config = config
 	}
 	
-	static func configureWith(clientId: String, secret: String, scope: String, redirectURI: String) {
-		LoginFeature.shared = LoginFeature(clientId: clientId, secret: secret, scope: scope, redirectURI: redirectURI)
+	static func configureWith(with config: LoginConfig) {
+		guard let crowdinConfig = config as? CrowdinLoginConfig else { return }
+		LoginFeature.shared = LoginFeature(config: crowdinConfig)
 	}
 	
 	var tokenExpirationDate: Date? {
@@ -55,23 +50,23 @@ final class LoginFeature: LoginFeatureProtocol {
 		}
 	}
 	
-    var tokenResponse: TokenResponse? {
-        set {
-            guard let data = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(data, forKey: "crowdin.tokenResponse.key")
-            UserDefaults.standard.synchronize()
-        }
-        get {
-            guard let data = UserDefaults.standard.data(forKey: "crowdin.tokenResponse.key") else { return nil }
-            return try? JSONDecoder().decode(TokenResponse.self, from: data)
-        }
-    }
-    var completion: (() -> Void)?  = nil
-    var error: ((Error) -> Void)?  = nil
-    
-    static var isLogined: Bool {
+	var tokenResponse: TokenResponse? {
+		set {
+			guard let data = try? JSONEncoder().encode(newValue) else { return }
+			UserDefaults.standard.set(data, forKey: "crowdin.tokenResponse.key")
+			UserDefaults.standard.synchronize()
+		}
+		get {
+			guard let data = UserDefaults.standard.data(forKey: "crowdin.tokenResponse.key") else { return nil }
+			return try? JSONDecoder().decode(TokenResponse.self, from: data)
+		}
+	}
+	var completion: (() -> Void)?  = nil
+	var error: ((Error) -> Void)?  = nil
+	
+	static var isLogined: Bool {
 		return shared?.tokenResponse?.accessToken != nil && shared?.tokenResponse?.refreshToken != nil
-    }
+	}
 	
 	var accessToken: String? {
 		guard let tokenExpirationDate = tokenExpirationDate else { return nil }
@@ -80,22 +75,22 @@ final class LoginFeature: LoginFeatureProtocol {
 		}
 		return tokenResponse?.accessToken
 	}
-    
-    func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
-        self.completion = completion
-        self.error = error
-        UIApplication.shared.openURL(URL(string: self.loginURL)!)
-    }
-    
-    func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
-        self.logout()
-        login(completion: completion, error: error)
-    }
-    
-    func logout() {
-        tokenResponse = nil
+	
+	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
+		self.completion = completion
+		self.error = error
+		UIApplication.shared.openURL(URL(string: self.loginURL)!)
+	}
+	
+	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
+		self.logout()
+		login(completion: completion, error: error)
+	}
+	
+	func logout() {
+		tokenResponse = nil
 		LoginFeature.shared = nil
-    }
+	}
 	
 	func hadle(url: URL) -> Bool {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
@@ -114,7 +109,7 @@ extension LoginFeature {
 			return
 		}
 		var request = URLRequest(url: url)
-		let tokenRequest = TokenRequest(code: code, client_id: clientId, client_secret: secret, redirect_uri: redirectURI)
+		let tokenRequest = TokenRequest(code: code, client_id: config.clientId, client_secret: config.clientSecret, redirect_uri: config.redirectURI)
 		request.httpBody = try? JSONEncoder().encode(tokenRequest)
 		request.allHTTPHeaderFields = [:]
 		request.allHTTPHeaderFields?["Content-Type"] = "application/json"
@@ -135,14 +130,14 @@ extension LoginFeature {
 			} else {
 				self.error?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
 			}
-		}.resume()
+			}.resume()
 	}
 	
 	func refreshToken(completion: @escaping () -> Void, errorHandler: @escaping (Error) -> Void) {
 		var request = URLRequest(url: URL(string: tokenStringURL)!)
 		guard let refresh_token = tokenResponse?.refreshToken else { return }
 		
-		let tokenRequest = RefreshTokenRequest(refresh_token: refresh_token, client_id: clientId, client_secret: secret, redirect_uri: redirectURI)
+		let tokenRequest = RefreshTokenRequest(refresh_token: refresh_token, client_id: config.clientId, client_secret: config.clientSecret, redirect_uri: config.redirectURI)
 		request.httpBody = try? JSONEncoder().encode(tokenRequest)
 		request.allHTTPHeaderFields = [:]
 		request.allHTTPHeaderFields?["Content-Type"] = "application/json"

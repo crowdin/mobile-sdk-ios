@@ -12,12 +12,12 @@ struct TokenRequest: Codable {
 	var client_id: String
 	var client_secret: String
 	var code: String
-    var redirect_uri: String
+	var redirect_uri: String
 	
 	init(code: String, client_id: String, client_secret: String, redirect_uri: String) {
 		self.code = code
 		self.client_id = client_id
 		self.client_secret = client_secret
-        self.redirect_uri = redirect_uri
+		self.redirect_uri = redirect_uri
 	}
 }

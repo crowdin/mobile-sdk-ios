@@ -10,10 +10,12 @@ import Foundation
 @objcMembers public class CrowdinScreenshotsConfig: NSObject {
     var login: String
     var accountKey: String
+	var loginConfig: CrowdinLoginConfig
     
-    public init(login: String, accountKey: String) {
+    public init(login: String, accountKey: String, loginConfig: CrowdinLoginConfig) {
         self.login = login
         self.accountKey = accountKey
+		self.loginConfig = loginConfig
         super.init()
     }
 }

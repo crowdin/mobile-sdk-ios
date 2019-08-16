@@ -8,22 +8,22 @@
 import Foundation
 
 public struct TokenResponse: Codable {
-    public let tokenType: String
-    public let expiresIn: Int
-    public let accessToken: String
-    public let refreshToken: String
-    
-    enum CodingKeys: String, CodingKey {
-        case tokenType = "token_type"
-        case expiresIn = "expires_in"
-        case accessToken = "access_token"
-        case refreshToken = "refresh_token"
-    }
-    
-    public init(tokenType: String, expiresIn: Int, accessToken: String, refreshToken: String) {
-        self.tokenType = tokenType
-        self.expiresIn = expiresIn
-        self.accessToken = accessToken
-        self.refreshToken = refreshToken
-    }
+	public let tokenType: String
+	public let expiresIn: Int
+	public let accessToken: String
+	public let refreshToken: String
+	
+	enum CodingKeys: String, CodingKey {
+		case tokenType = "token_type"
+		case expiresIn = "expires_in"
+		case accessToken = "access_token"
+		case refreshToken = "refresh_token"
+	}
+	
+	public init(tokenType: String, expiresIn: Int, accessToken: String, refreshToken: String) {
+		self.tokenType = tokenType
+		self.expiresIn = expiresIn
+		self.accessToken = accessToken
+		self.refreshToken = refreshToken
+	}
 }
