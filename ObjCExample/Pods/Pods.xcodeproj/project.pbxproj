@@ -7,293 +7,251 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0177E99BF535A664A74D1BAD1A2AB99B /* Bundle+Crowdin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB302967B1B725880EA890C6DDA86C6F /* Bundle+Crowdin.swift */; };
-		05D3C94D0B79619EAB7680C3F1C4E1C8 /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DA87B29C2FCD7D9E192090471420B /* DownloadOperation.swift */; };
-		07D90488D37278A706C6BF77B2934C0F /* CreateScreenshotRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9384E033C6B02F7B10400CC0D98E407D /* CreateScreenshotRequest.swift */; };
-		0A88ECD70DC13825967FF0F9965B31C4 /* CrowdinSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAFEDDB467F65A1672DBBEA149A5436 /* CrowdinSDK.swift */; };
-		0C4A4C93EC6A56BBE0BE2B5AD9A6C0DB /* SettingsItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AC3A484B7749C8AFCA92ECAA0857 /* SettingsItemCell.swift */; };
-		0C70EAE9278F11D63F040CEE05F16447 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171438DFF4159C14EE796DF2B19B270E /* UIViewController.swift */; };
-		0CAEEEFCE0F829B683657FD0560EA56B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
-		0CCDA28771B1E1B5A4C1F83D3DF5738B /* CrowdinSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB6FBD34A5288EDEFF4AAF91E6D8BE4 /* CrowdinSocketManager.swift */; };
-		17E9239311030085CD436CE548C103D5 /* LocalizationUpdateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FB594739E19DC84E814C62A04620CD /* LocalizationUpdateObserver.swift */; };
-		1AF3043EFCFC3890819EB63CE0ED4F40 /* UILabel+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6029B345D8932431E7351EDA6FEB5402 /* UILabel+Swizzle.swift */; };
-		1B3DF311A15C243686518419CA49DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
-		1BAB5CD1090FB3F7D4410CA9D28BAE26 /* CrowdinRemoteLocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880333442F638F884D323A636B7FC014 /* CrowdinRemoteLocalizationStorage.swift */; };
-		1EC10067197F30A725749EEF9B194912 /* CrowdinSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FC1522E5F081C32F85B93CE03FAD31 /* CrowdinSDK-dummy.m */; };
-		1F590BF3200AAE5AAB74518B12919C61 /* BaseLocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCD8E696779ECCFAFDE294D832F5D8 /* BaseLocalizationProvider.swift */; };
-		23F02ADF006C79F8F7F4D47D9891C8C2 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DEF76A74138DF8A7BDB589E33F859F /* Folder.swift */; };
-		2876473FC77A1FB6BAFB199E5D2D91F0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E619DFF386BC2709D5C7FAFAB571637F /* SettingsView.swift */; };
-		2A4FBDD75E2D5CAD49563DBDC1ED844A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5B28DC1226CD8564A22EC6FA1E4DBD /* Images.xcassets */; };
-		2DD555F759B99A46EE6E5B7EBBECAC7A /* CrowdinProviderConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684EE99C0AEB08ECC2B39A00AB242B97 /* CrowdinProviderConfig.swift */; };
-		3082CB534690981E6202FDDDADE3B3B4 /* CrowdinProviderTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA0F369754315615930225156F5CAFD /* CrowdinProviderTester.swift */; };
-		320D6A4349317A92B0F4432E28092992 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DDC7EC702A52D31ED534CF71C7B33F /* DataParser.swift */; };
-		36844B8EC41F3570E9975E527905B4E8 /* Bundle+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952B6EF9450BC3DA2A897A43ADCFEE14 /* Bundle+Swizzle.swift */; };
-		36B386B94518E834DDC910DD27C035B4 /* DocumentsFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE92458097233A76AE0A0D7B8003BC99 /* DocumentsFolder.swift */; };
-		39322949F016CEC3DE430F1147833A19 /* CreateScreenshotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129FFFD7C2682B95884A791126CBBD0 /* CreateScreenshotResponse.swift */; };
-		397E2D82D4348EAF3D11B070266DC12E /* Starscream-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 422FC3A568D63FF0BB46E80D19094979 /* Starscream-dummy.m */; };
-		3993490ADBE24480216B17DFA20552F1 /* ResponsetHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABE6F217585ED075248D88A068C83EF /* ResponsetHeaderFields.swift */; };
-		3A8E18EAA4F56ABA3924CD23AF63CE28 /* CreateScreenshotTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B1918ADC8EBE7584EFCE40A1F97E54 /* CreateScreenshotTagRequest.swift */; };
-		3C2F016227ADEF6D0372FDC988338615 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
-		3DFFF07D39A754E330A3FB0CBC260A9A /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26447B7ADEBBDF378B491806CC663A3D /* File.swift */; };
-		40461611D81ECE28B819FC2AA2E7ECB5 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E057170ECA65E2F05A5B595252784 /* Compression.swift */; };
-		4341847DA179B30A12626D5DB361E97B /* SupportedLanguagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9523C3DF303C219AE248965419547A /* SupportedLanguagesResponse.swift */; };
-		436D48F612F9EFC7F466CDCB5DFDA89E /* CrowdinSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DAC833F6705A4CC31114F1D654F3241E /* CrowdinSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47DEC1C3A1394776E2539A2036DCE760 /* RequestHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D00B89C37694A23E2FC0E86F7DFDDA /* RequestHeaderFields.swift */; };
-		48BB6AD87EF6F104639B0E45BD35563C /* SocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22421189CDFD74D79E6C05B18304CE /* SocketAPI.swift */; };
-		4C4B8B4751962FA2FAFB910A71C1140D /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AA0D25BD7BD2C495D776FC8B846DC /* WebSocket.swift */; };
-		51918B478AA86A504E8937E7FF4BFF1A /* Starscream-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FD42521DF07992BD6F716A727180E1AA /* Starscream-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		52A9B97AA8BB0CA18D255C0AB5A3F47E /* CrowdinFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D5BD13AA362608C921528AD8177FE /* CrowdinFolder.swift */; };
-		5B7BE3174552BCAE816ADC3D6A5F2A81 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CEB5F41E9EEC85FEF912A875A4794B /* URLSession.swift */; };
-		6132F3840208C2B52B5ADE9FE48E648D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD4EEA9DFCE9DBA9DF897EDE2069E0 /* Atomic.swift */; };
-		663DC4243B046D4FF8467C45E38E56CD /* UIButton+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF614C89176AC25E730AF879911AC59 /* UIButton+Swizzle.swift */; };
-		6B30845B7810D9A4F29D8B21F27E6F21 /* CrowdinMappingDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61C4123F8DADCA31364FA26B39DEE84 /* CrowdinMappingDownloader.swift */; };
-		6B582B1349B55C8EC4555F150D5B73AF /* CrowdinLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69E673D68F2CEDA7BD9699FB5AE0576 /* CrowdinLoginVC.swift */; };
-		6BC67802FA6B57E35D10B34EA09A63D1 /* CustomBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4914913854A91B5979C638E57FFBFE25 /* CustomBundle.swift */; };
-		6CA6AEB153173456912E538A7EE72F50 /* FileStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705CCF987459D28F4D8FC14D6CC28061 /* FileStatus.swift */; };
-		6D5B2C2994A0E56169C270F9783279A7 /* SupportedLanguagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74C74F28F1A4FFF2FC5F5CF8335EECD /* SupportedLanguagesAPI.swift */; };
-		6FB23CAD33BE11A9CAA8D674CA956B65 /* Pods-CrowdinSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E55193172DA995EEE0E84D447863C5 /* Pods-CrowdinSDK-dummy.m */; };
-		745C3867C89FC6EB6EE1C0EA30BC8CF7 /* ProjectDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A3426B15AE01E04D3EBE64159F79AF /* ProjectDetailsResponse.swift */; };
-		7600E01328A532E32FA2A9FD8F17338C /* ScreenshotsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A86DC456E29FD8396592DEB4FEE01 /* ScreenshotsAPI.swift */; };
-		7638055247A351E56B9ED5471F8CBE50 /* DistributionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2508ACBB56BC3A5A4320B4E7CC34B1 /* DistributionsAPI.swift */; };
-		77921FC86A500EB4EFA48D2BFF66334F /* StorageUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C99028CADB7ED0D0414C39DCE3821F /* StorageUploadResponse.swift */; };
-		7B55AD60FC5F1BA28F151DBF12BDF55E /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98B67375F8FF4CEF3F2D198E7BEF720 /* Locale.swift */; };
-		7B78A119EAD2B8CB896E1F09F4F0DF20 /* CrowdinLocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA431019634051F69727AE0590D941DF /* CrowdinLocalizationProvider.swift */; };
-		802DEC513A1D88B49CFDD594242480FD /* DownloadSupportedLanguagesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998686533186B687B611FDD52B9308C3 /* DownloadSupportedLanguagesOperation.swift */; };
-		810DD798E8565CCCFAC3D6F4A434E1A0 /* Refreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B21D922C7D760146976E0A6EE52721D /* Refreshable.swift */; };
-		824A4FD9B95A71A3FB7D86404431B7F0 /* ProjectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF95B47809BB7C15919FB77FE4AA4509 /* ProjectAPI.swift */; };
-		8540CA9A354932F3BA71D505F23620AF /* LoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABDD8B9F51CEDE498F5C3610A6D6CC8 /* LoginFeature.swift */; };
-		85AF0B862400EF27BDC34EB5EFD026BD /* LocalizationExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64E032794E43090FD08F16093A1143 /* LocalizationExtractor.swift */; };
-		86E838AEA2E798866A9CD44AA8538EB7 /* SettingsView+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEF6555B0405F55C1A9E37C7926CA48 /* SettingsView+Gesture.swift */; };
-		87621B7FE63B053E1EDE64D6B65BCB84 /* CrowdinLocalLocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801009B283FE5AF88517F579772798CA /* CrowdinLocalLocalizationStorage.swift */; };
-		89DB4B967C99965850408BA0899B82E7 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78FF2AFF3FBAF40E8D708D75CA7658 /* FileType.swift */; };
-		8E275DC751C977CA96369D11D1832112 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CBC5D8F8CE0BE144208EF1B692EA6BF /* SettingsView.xib */; };
-		9022E436F0FEE3E575541CDD3A9739C0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F5B28DC1226CD8564A22EC6FA1E4DBD /* Images.xcassets */; };
-		9652988B6805471A82729351E5DACAE3 /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59F921BA6434A655F9C82F0F81BE47A /* SSLSecurity.swift */; };
-		96CF43AC30B1C109F3E3A2F0CE77F469 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBACC93BFAEA571BDAF3A1E617250E90 /* RequestMethod.swift */; };
-		988F2D3154EE05C8B320F5DDF492F81A /* LocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EAA638E4487CFF7EDDC4159BF35B2A /* LocalizationProvider.swift */; };
-		99895542FEF77E490E299D4C619822A6 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB09D5B98EDFE262F841A2F49A1B3621 /* Localization.swift */; };
-		9A092F00D71AE1D0E33F6B50290B8258 /* CrowdinSDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6788598B8AD44B0449C5B21E8F90A79 /* CrowdinSDKConfig.swift */; };
-		9C3B6D6784DD6084E7B9E06C3281621A /* SettingsItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CF660BCFF08F03FE781A7B80449A799 /* SettingsItemCell.xib */; };
-		9E667C3CC901BA759A953257E1C99967 /* CrowdinPathsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D711AB0B49CC56FB96718661603AEC /* CrowdinPathsParser.swift */; };
-		A08EEAC5D7B43E3567BDF60989F06340 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D7C9D1E46B142CAFCD6014B2A4BBAF /* Request.swift */; };
-		ACCABAB369DA3D451F3AFED246F5D4E6 /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F7922C44A3645750BD18CCCF671B0 /* SSLClientCertificate.swift */; };
-		AD7E20B8E78811146C37CA1C71071388 /* BlockAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40E683E43E63923BEF4F788750B7E0B /* BlockAsyncOperation.swift */; };
-		ADE57D001AE050372FB2945A7B7782AD /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CBC5D8F8CE0BE144208EF1B692EA6BF /* SettingsView.xib */; };
-		AEBA88E77257CCA5D83A1B457FC6C717 /* LocalizationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF7C04159F39AC9E67A98079C4213B6 /* LocalizationDataSource.swift */; };
-		AF49177B121A51BEBCD84D789CF0F859 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10418B061D404AE30F2EBA345EF9C3B6 /* StorageAPI.swift */; };
-		AFE38A61F955ED7EA12EFC9B7862B2E7 /* ScreenshotFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F4B1A96371F2A34093A88D97ADDD7 /* ScreenshotFeature.swift */; };
-		B09964E633E60884FA8575420DC80637 /* CharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EF91A269BA86C38B49D206125B13A0 /* CharacterSet.swift */; };
-		B338B6A29C219EE2B2EB7CC10B18AA94 /* Pods-CrowdinSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D4AD5F71568698972D6550826BCF2C4 /* Pods-CrowdinSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B33A109B1555DA363734031719BF89CF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93105845A8543D7F2B7F45F713EC7F07 /* UserDefaults.swift */; };
-		B3F0134C08499DB8829C1745BF7B5010 /* CrowdinMappingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0E73FD95AF15D509A1D0C4AE3F8D3 /* CrowdinMappingManager.swift */; };
-		B40142A9C71C21F85C6486B394D86009 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D31CF2A5BEA823EFFB9CBF6CA66A6B /* Feature.swift */; };
-		B7D265672BA7DAFD144F8DEB9CA64101 /* IntervalUpdateFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F84A52D2224E10183DCEF12A6E440E9 /* IntervalUpdateFeature.swift */; };
-		B9343E01FB5076725382D926573EC525 /* CrowdinLoginVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8296FB0CF451F2DBF54E150958ED57C5 /* CrowdinLoginVC.storyboard */; };
-		B94F69E2FAAC1F1B71D22D96922959B2 /* CrowdinContentDeliveryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3485AD95CDAA60AE21CF6210EDAB3 /* CrowdinContentDeliveryAPI.swift */; };
-		BB0F836523AE452C43116B08DEE93E74 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2963DA5E1B701070B9D3484751E451 /* Dictionary.swift */; };
-		C16BEE11EA2D1FF4BC606236515E51C9 /* Bundle+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C891B72C44689B0F682FE1ECB1F94 /* Bundle+Language.swift */; };
-		C1840BF5AF07B138E106CCAB2207D043 /* DownloadProjectInfoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B947FEF541C5B6185CA7017AAADE1C /* DownloadProjectInfoOperation.swift */; };
-		C396269D63064AF6B71CBED2F3C28A4E /* CrowdinSupportedLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D62A67215FDB7E1FEF63D3683540E0 /* CrowdinSupportedLanguages.swift */; };
-		CACDAA8691E7441D9029CAB86C877B64 /* SettingsView+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E236E1D83C8FB34AAB8E2263D3F29BB /* SettingsView+UITableView.swift */; };
-		CAEEFB53389BD2261D0E128F5805DE33 /* StringParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF27BA69DCFAA847D8A4BF40B40954 /* StringParam.swift */; };
-		CC393E90620BCCFFBD80792EAE29E678 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E137EFE20C601FC7A74319C92CD9F5 /* UIWindow.swift */; };
-		CDA758946564E5380273D0AFE209744A /* RealtimeUpdateFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139BD593FE5EF77ABE9CBBD3808ABC36 /* RealtimeUpdateFeature.swift */; };
-		CFC97BDF6EAF9064F90A549C6E1FC59A /* Bundle+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B849612202814AD91108FDF5E1FE8D1 /* Bundle+Application.swift */; };
-		CFD9EA9E756B6BE1DBF1E26C765BE4AA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D9A5DB482D24AD7EE4AD7B760DE70 /* Constants.swift */; };
-		D301F4E4EA9A71A01362732BD77925B8 /* ForceRefreshLocalizationFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99348AACA35993378BD521CA3B9E7996 /* ForceRefreshLocalizationFeature.swift */; };
-		D3E995B80A48E6AC837C51535EA72525 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787E9D3DE5C28ADEA6A9C8ED607BD1FE /* AsyncOperation.swift */; };
-		D55E52197E71399A368FC8AA5CCDFDA6 /* CrowdinDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC569B60A080361AB9DC772F142045F /* CrowdinDownloader.swift */; };
-		D58C2F806CA10BD7EAA845359605730E /* CrowdinSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D642BF3BCBCCAE8FDDD95CA7F31C696D /* CrowdinSDK.bundle */; };
-		D7F026498B34A504AF6FFE7766D7E72F /* CrowdinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7ED0D2B83FD4DF28A80E79EE108398 /* CrowdinAPI.swift */; };
-		D9BE724EEC808D8221C857BC89B28EAD /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51639D235AA7C7C983B2A3D86D41E /* BaseAPI.swift */; };
-		DBD73C48DEB74B3E367E736EAB9E7F0B /* UpdateDraftResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5F8869B7B8A96459AAA23FE4DB159 /* UpdateDraftResponse.swift */; };
-		DC539AE1FE4508853262F6E288B34C94 /* CreateScreenshotTagResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FB0FEC0E4C2E2F70E66A7C8B3DC1D8 /* CreateScreenshotTagResponse.swift */; };
-		E2C662B4B8CE54FABB7D3027113E219B /* DistributionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7D7EF9F90FD41F858102349B97F021 /* DistributionsResponse.swift */; };
-		E380BD586D83B902A8E368741AF1D9E0 /* Bundle+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BBAD8611E1D38BD0D88B7AA8938DCD /* Bundle+Codable.swift */; };
-		EA1ED17EFB17F95E46D17210FE5C70E3 /* CrowdinLoginVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8296FB0CF451F2DBF54E150958ED57C5 /* CrowdinLoginVC.storyboard */; };
-		EC2CBE4D8CEF2659242CA3F5B552E609 /* TopSuggestionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD3946E41E94FCFD2A16C0FF8A5DF7 /* TopSuggestionResponse.swift */; };
-		ED5D22EDF49A21A5145B44DC60600785 /* SettingsItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CF660BCFF08F03FE781A7B80449A799 /* SettingsItemCell.xib */; };
-		F7589A8DDB66303CF5027EBEB67E75A7 /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEDB4AF1D619C371737C3A2ACCEFA19 /* ObjectAssociation.swift */; };
-		FE75005F7F0AE2C0273D59F9C76E6F09 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D7C4ECA016127FCDD0F280EA6926C /* String.swift */; };
-		FF6EB15AF2FC6F8C49BD15BA04FF8877 /* LocalLocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BC2E604C9126443BA86AFECAB0D6FF /* LocalLocalizationProvider.swift */; };
-		FFD391827E359DB4CA4D2B3DAAE57375 /* ReadWriteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84128302BC55D1B6D30C6872E9A42D4E /* ReadWriteProtocol.swift */; };
+		00A10720EF628AA66482740BD8FC8C14 /* InBundleLocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A40CD6B16D85417E01F5F2407DDF0A5 /* InBundleLocalizationStorage.swift */; };
+		013C4A29B2B816BDE9949DEE48FAC0A8 /* CrowdinContentDeliveryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9FBE348BD66ABB68B103EACE5FFC0 /* CrowdinContentDeliveryAPI.swift */; };
+		03D62EB9F098270BBEE5E0824D1BE5CF /* CreateScreenshotTagResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276950AEDCC58067B5F1067229D10FA9 /* CreateScreenshotTagResponse.swift */; };
+		040BC9557A9FACA2B04713BA14C027A3 /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6345542E9DAE942C8D79847F25C325E6 /* BaseAPI.swift */; };
+		04A7DD49F260E3E13322733A48C045A9 /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F7922C44A3645750BD18CCCF671B0 /* SSLClientCertificate.swift */; };
+		057410836C069311E211414EF0C30E81 /* Bundle+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53A467E1FBDE2A5B8313F01AC9F70CD /* Bundle+Swizzle.swift */; };
+		08D1962FAE41B534FDB7486FB0F9F4D0 /* DocumentsFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5273C54BE20A11191FAD4BA4F00A94DC /* DocumentsFolder.swift */; };
+		0F6147F94D86DA00F81A391A21403084 /* UILabel+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036D01EA9981227BA7360C52CE2E0EAB /* UILabel+Swizzle.swift */; };
+		11CFC7875CA9B7609700AD0A37EC3B62 /* DistributionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9DEE6FB6866475A643D62F17EA982C /* DistributionsResponse.swift */; };
+		1478A3EF4EBA5957A83F827551FE6E23 /* RemoteLocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6FEFFB20D1852AEF4660912C4E290 /* RemoteLocalizationStorage.swift */; };
+		1490F87A1816DCFB72698D6AD582AB67 /* CrowdinSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A6641043D33F7FC7356F538B34A712 /* CrowdinSDK.swift */; };
+		162F341354A378A2E26AB95BB58584CF /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3558BB7D0420734D4BEF85D0FB248F87 /* String.swift */; };
+		1665D3701CFB7FFB9273E9B8EA9B4AE4 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3B698E4FF14B8E5294856F09DDAC6 /* URLSession.swift */; };
+		16F13C131144FDF67420741B20BA22C6 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73F2450E49E44398F8958F446DA2CF8 /* StorageAPI.swift */; };
+		1EB094597626CCFBFDB2E56FAEF79BC4 /* ProjectDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C51C564AE98206AD45C47777CAD71 /* ProjectDetailsResponse.swift */; };
+		272933AA138F89328E8872985587AC16 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737C75E2F08FEEABF333F133CB4FACB /* Locale.swift */; };
+		27BDEBE8FFB14533E389FB3FE914FFEE /* CrowdinSDK+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34F82A4EA2BC866EE7AA439F632A59 /* CrowdinSDK+Login.swift */; };
+		29D8CC905A05065B2E226FC54C5D73BB /* CrowdinSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C4CD08BEF9631E61525FD39A630AF3C6 /* CrowdinSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A758350501B21E1C06BB6885A3248A1 /* SocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1792813D5DD1B3D75D342819F0507 /* SocketAPI.swift */; };
+		2AE21B507FDE2A22E87904323DA8BD63 /* RequestHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDC0D36836BCD53B3DFFA093CB797C /* RequestHeaderFields.swift */; };
+		3832A61F9E64B8F4C4EDA0380CBC5295 /* SupportedLanguagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DBE7DC0A548655774242A1638227D5 /* SupportedLanguagesResponse.swift */; };
+		3840265A3E077FB25D0B45B209AE2C51 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459CB3F8AC366EF013ECE445BA133CEA /* Localization.swift */; };
+		416D2AC8A0FA9917E58E08D0F5126BC5 /* CrowdinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E470688DBD0C1FE9C18100482A5C7493 /* CrowdinAPI.swift */; };
+		46734CE4D712D33FECEE3B69E929EC92 /* Bundle+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC3ED21B63162F97EF25C3AB36C2F6 /* Bundle+Language.swift */; };
+		495D439A5E1520D518F637A58B55C78B /* CreateScreenshotRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2A73B18032BED83CE72026189E86FB /* CreateScreenshotRequest.swift */; };
+		4CD365BFD02F84378F3EDA7EDDFA55A2 /* LocalLocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BE9F766FE723D9C8DF9487A7BDDABD /* LocalLocalizationStorage.swift */; };
+		4F9754778DD11B39485951CCDC4422C1 /* CrowdinPathsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFFE19A8B42312768130988B00FD023 /* CrowdinPathsParser.swift */; };
+		5091A1DE7B6D1E84FB7C77F1FE809DAD /* LocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDE1D91F1BC50F114C08CF5913B4F8E /* LocalizationProvider.swift */; };
+		50F1D8E85088881DECABE56B266C2673 /* SupportedLanguagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC447F92C60AB246DCC07B62FFBB3473 /* SupportedLanguagesAPI.swift */; };
+		52FC727D61AC45E42D099A0847249C75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		58305CB4EE01573E8927DD75960E5097 /* CustomBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16E4877B015B3DED0F074E8DF37E211 /* CustomBundle.swift */; };
+		6261E5E9153BB3C70C69C897C5D838C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		63728DF9F02A77C28FECB2844E0F9269 /* Starscream-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB5DEA2CF4E44263A62924A53A069E /* Starscream-dummy.m */; };
+		6384DD92FF22BBA9A30B0A5C1C50F33D /* Starscream-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7A2315DC555AEF64DA8D50B51DA7F1 /* Starscream-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C2C24899C64CC1C43609149CB212800 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E057170ECA65E2F05A5B595252784 /* Compression.swift */; };
+		6E9FDF8E11751DFC01340A10335E4DFD /* CrowdinFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680BA490E1A6611E0CADC9DC0645AD06 /* CrowdinFolder.swift */; };
+		6FB23CAD33BE11A9CAA8D674CA956B65 /* Pods-CrowdinSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FF80373360385AEBA33D1429497448 /* Pods-CrowdinSDK-dummy.m */; };
+		71655ED1ABDD7D88C7F816B7E25AE892 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79554709255C64345C616327FD8FD9 /* Atomic.swift */; };
+		747CDE0BAA31D5C13655E540530766A2 /* CreateScreenshotTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DDFAE0AB577D51630EDBD4BAB0269 /* CreateScreenshotTagRequest.swift */; };
+		75216923919C6F8C929979370DC550AC /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4209575DDCD8725A3C8DBEB19022A85 /* DataParser.swift */; };
+		784023F911C7A718F60B2EF49CE0E395 /* Bundle+URLScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B098218AD90B3E1E384A676178FAC0F2 /* Bundle+URLScheme.swift */; };
+		7D2B6620F0E36706ABB6BF3318176D9A /* LoginFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F541A0D3A3A267D2B40200A46778 /* LoginFeature.swift */; };
+		7DEAE02D0E56497E7CBD15C491C799DB /* BlockAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72241A3D6DCF9E4BF41716FBF4E9C488 /* BlockAsyncOperation.swift */; };
+		7F4E08394BE019895FA5CE1242FF8D12 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9129A5763C618206E56173CD83BB7 /* AsyncOperation.swift */; };
+		8006A538909677A781DE9D3A1B9CAB56 /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59F921BA6434A655F9C82F0F81BE47A /* SSLSecurity.swift */; };
+		843FBF593F9C934E3F01A55E855F44EB /* LocalizationExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA96B1BCCA441C4B43A2771AE2809C /* LocalizationExtractor.swift */; };
+		94B6574C51B79C5828FF62741C0DFB01 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C73BB04D2AEC23B878723D8C6C748B /* FileType.swift */; };
+		9C55C5E8C5A098DBCA6AAB7D185D1970 /* ResponsetHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B906729B89AAA15833F99B1E78F09 /* ResponsetHeaderFields.swift */; };
+		9CD73377D085BE5461EDF74DEB7D4443 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		9D26E1B54F4DB32ED3DEAB5B0691C1B9 /* CrowdinRemoteLocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37AC1AD8F8389147221662E0C073080 /* CrowdinRemoteLocalizationStorage.swift */; };
+		A1D163700BC7187AF145CB21E6C10D1F /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD69E827CB759DEF72FDC060F39F213 /* ObjectAssociation.swift */; };
+		A4FDF300F5F3A500CDCDF01604454898 /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38397FBF239F2450142CF92A646F6D43 /* DownloadOperation.swift */; };
+		A523C4342E00096FA52BB892FDB0C317 /* CrowdinLoginConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674619E03619ED32A3033E5FB30AFAC5 /* CrowdinLoginConfig.swift */; };
+		A71D89515248C66E8FE716EA0F10BE8D /* StorageUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F08F0F92062FCFA68EA438A9F9EC4D /* StorageUploadResponse.swift */; };
+		A9A7D9ECD256C3E3AA51B35F17716E42 /* Bundle+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1EE11AAB4E225ED484BA155F0334A3 /* Bundle+Application.swift */; };
+		A9DCFDA195BB7F14844B9E47ADFF27D2 /* CrowdinLocalizationDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323E8C427DD53A218127F0AE319B1487 /* CrowdinLocalizationDownloader.swift */; };
+		AB27514C54A4D364BF44997B9B9DE149 /* RefreshTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEF7BC855043F0BC50B207FB656392 /* RefreshTokenRequest.swift */; };
+		ABBAF0456D79F8F39F96E73F35C4DB3B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887E6BD1A695775BB991F126DCB05FA5 /* Request.swift */; };
+		AC50B8ECD070AF5B4616089BE646A9F3 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AA0D25BD7BD2C495D776FC8B846DC /* WebSocket.swift */; };
+		AEC50A96F054585CF6E39398781DF344 /* LocalizationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C754F804D7DD8761C7DBC37B6AD45C60 /* LocalizationDataSource.swift */; };
+		AF41BBD49FA494F64D16236F402C1753 /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238144EFA6E7FBDFDB6D40454CAB5F8 /* TokenRequest.swift */; };
+		B1C5201C2A6A3BBB7AF72B8182F2343F /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C656E7E9779A5C76A6815C2A1840B /* UIWindow.swift */; };
+		B32D384839ED64DF724BF0F8264504C9 /* DownloadSupportedLanguagesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A740FDC28F81A3684B02371EFE1C74 /* DownloadSupportedLanguagesOperation.swift */; };
+		B338B6A29C219EE2B2EB7CC10B18AA94 /* Pods-CrowdinSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ADB4E282D4AA50544BBD3F64E4F105EE /* Pods-CrowdinSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4235ACD08FBBF8A9B21183A000254E2 /* CreateScreenshotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9460B975EA8EFBE031BDE79CE2B22 /* CreateScreenshotResponse.swift */; };
+		BA105F9E529F46EFA2DF38A6088F6EA8 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76B72068FD6DEECAAE55408E9CA869D /* UIViewController.swift */; };
+		BC8994996C3371A10057718DF6797F7F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654717C09B9D2892442BE33E562D3FF5 /* Folder.swift */; };
+		BDFDF54417A02BA5E8F429CA65A9FFA9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59460597332E8E19B659619C849473D0 /* File.swift */; };
+		BEA7C8F31055B5478CD46F4CB908C6E9 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD54D5306EA1D6B20D5C46B6D680264 /* UserDefaults.swift */; };
+		C2C842C80458DEE5EE19DBC2DFF1125B /* StringParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97160514F50DC1C6F75D5D4AE969EDF /* StringParam.swift */; };
+		C53BA673A8771C1A164B794B2FCEB2F7 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DFE0E6A8FEAA4B905FD8591C0A4F2E /* RequestMethod.swift */; };
+		C78C51724B503ABBE69DCEEBE86EA04B /* CrowdinSDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B578F27841C80D2BB889A52A559E61B /* CrowdinSDKConfig.swift */; };
+		C7F2AEA007F995A366A1DA53EF8A389A /* ScreenshotsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EA25836813B3F8923BB61B265C9857 /* ScreenshotsAPI.swift */; };
+		CF83D93EB7078C9CF64974B637AE27FC /* DistributionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A717C2B219EC516769F8B40C4C7799 /* DistributionsAPI.swift */; };
+		D1B132DF6BB522F758C991A19D702370 /* ActionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C91C276D09C980E01A1B42EB939BD0 /* ActionRequest.swift */; };
+		D4860E1E81759E1C059D6F6293D33FE7 /* ProjectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9FD12E1D8DD9FBAB10B7783182FFC5 /* ProjectAPI.swift */; };
+		D6803A6C0DA5F8FD602A7DB5EDECA400 /* FileStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29F8C2DDAD149F8BA8251E760DD236E /* FileStatus.swift */; };
+		D7591CAE944490651B774B62F03B8314 /* Bundle+Crowdin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6D7508FBF5CC1EE6ED652E95CBBE1B /* Bundle+Crowdin.swift */; };
+		DB964C973B6AFF8D44E8AAC0D4C038E1 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606B3F4396E20331972110F37431670F /* Dictionary.swift */; };
+		DC9F335A38255E5403279B796D67E7CB /* CrowdinDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAC29D2E9AF99ACE42E119BE9E292 /* CrowdinDownloader.swift */; };
+		E08FDBF91221EBA61A7DA23843C00CDD /* CrowdinTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D7D6843EB093E49BD2C346CDCF1B2B /* CrowdinTester.swift */; };
+		E3297B771DF41D31484768E6EBA250B9 /* CharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A246BC24018C7197E947883FBFB289 /* CharacterSet.swift */; };
+		E46D65EA091FAC49B0D75D9FD86C54CF /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008291449B2C03D3A0B7E65F4B092C95 /* TokenResponse.swift */; };
+		E6381F99FEEDE049BB717AFBFC4A5105 /* LocalizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A102A5805E4520E80C3CB7FB9B1539D9 /* LocalizationStorage.swift */; };
+		EA60A65C96FC531BD6077CB87703F5EC /* CrowdinSDKConfig +Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4DD9DB01EF5241C958926DD634FA7 /* CrowdinSDKConfig +Login.swift */; };
+		EBAF7336A02285464C4CC83F9813CE5F /* UpdateDraftResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEB7B5414B127C59C7F54433ECFEC37 /* UpdateDraftResponse.swift */; };
+		EC4A04A8639D8A5E72CB2546EB90DD83 /* CrowdinSupportedLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F2BDC3A43316756DB750F6A7F8F0E /* CrowdinSupportedLanguages.swift */; };
+		F4012C6D18D3F67695A85B8C4FBF2783 /* ReadWriteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FA9FCBC7B76ECA7EEC41E2CA64CEB2 /* ReadWriteProtocol.swift */; };
+		F408F2FBF74FA1C0EF537BDF2902A5BF /* CrowdinSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B3EDAD0CA2AFB5C1DA593B59EECDA543 /* CrowdinSDK-dummy.m */; };
+		F50BCE3747074BEB91EAC85772F5E1BA /* TopSuggestionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D45583897F398DA8A803BD54B663B2 /* TopSuggestionResponse.swift */; };
+		FB1AA6052AFD6377FAF5B06575107A85 /* LocalizationUpdateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DF327ABD217B1E6CDDC23A802188E4 /* LocalizationUpdateObserver.swift */; };
+		FB9AA734AB0BBF886E86B9A797364A2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46145C541A1B6113DBA915BAC3A11C61 /* Constants.swift */; };
+		FCB05D559F9BD589319C0FC9871373D9 /* UIButton+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16352BF1C6D39584944FF15550A331A9 /* UIButton+Swizzle.swift */; };
+		FE6D8A5D8DF8A61A145C0EBBC042A6FC /* DownloadProjectInfoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB0D6B958AAD329A13C957655BEEA20 /* DownloadProjectInfoOperation.swift */; };
+		FFD2639184515886F312E8AF7263AC68 /* CrowdinProviderConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96931D7B1469C70FCB94D6BD60C028B5 /* CrowdinProviderConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0E89080CF2DF3876788F7975DEF977C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B78EE4AF6AE03E79D88886319853FF7;
+			remoteInfo = Starscream;
+		};
 		6C1525EC39F9614538F3A7AC9C040F92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9496580A310C1E9A27520A2079FDA645;
+			remoteGlobalIDString = 20FF00E99E182CBF49D5B4A881196748;
 			remoteInfo = CrowdinSDK;
-		};
-		CE46F1FC52D6BAD6ED94EBFEB985E77C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EB5277B8695724C4120E8F65401E2959;
-			remoteInfo = Starscream;
-		};
-		F760DBFDE4AA3AD812F5B3101FE186E2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5E11E4B78BF358AE782E17C326EB045D;
-			remoteInfo = "CrowdinSDK-CrowdinSDK";
 		};
 		FD6B731264B1AF3AEE0574E59269E1B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EB5277B8695724C4120E8F65401E2959;
+			remoteGlobalIDString = 9B78EE4AF6AE03E79D88886319853FF7;
 			remoteInfo = Starscream;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B7D5BD13AA362608C921528AD8177FE /* CrowdinFolder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinFolder.swift; sourceTree = "<group>"; };
-		0BF06CBF344FC4A2FF0C5932DCFE8A47 /* Pods_CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CrowdinSDK.framework; path = "Pods-CrowdinSDK.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F84A52D2224E10183DCEF12A6E440E9 /* IntervalUpdateFeature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntervalUpdateFeature.swift; sourceTree = "<group>"; };
-		10418B061D404AE30F2EBA345EF9C3B6 /* StorageAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
-		139BD593FE5EF77ABE9CBBD3808ABC36 /* RealtimeUpdateFeature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealtimeUpdateFeature.swift; sourceTree = "<group>"; };
-		171438DFF4159C14EE796DF2B19B270E /* UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		17DEF76A74138DF8A7BDB589E33F859F /* Folder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		18FFC2BA0ABF85A540DE328B8A6E29F7 /* ResourceBundle-CrowdinSDK-CrowdinSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CrowdinSDK-CrowdinSDK-Info.plist"; sourceTree = "<group>"; };
-		1ABDD8B9F51CEDE498F5C3610A6D6CC8 /* LoginFeature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoginFeature.swift; sourceTree = "<group>"; };
-		1BB3485AD95CDAA60AE21CF6210EDAB3 /* CrowdinContentDeliveryAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinContentDeliveryAPI.swift; sourceTree = "<group>"; };
-		1C2963DA5E1B701070B9D3484751E451 /* Dictionary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
-		1CBC5D8F8CE0BE144208EF1B692EA6BF /* SettingsView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = SettingsView.xib; path = CrowdinSDK/Assets/SettingsView.xib; sourceTree = "<group>"; };
-		1CE12535FB0DD2E97EB0042903094418 /* CrowdinSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CrowdinSDK.xcconfig; sourceTree = "<group>"; };
-		23EF91A269BA86C38B49D206125B13A0 /* CharacterSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CharacterSet.swift; sourceTree = "<group>"; };
-		26447B7ADEBBDF378B491806CC663A3D /* File.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		27CEB5F41E9EEC85FEF912A875A4794B /* URLSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
-		299DC0516EDEA413CEA9C59261FEA5B7 /* Pods-CrowdinSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CrowdinSDK.release.xcconfig"; sourceTree = "<group>"; };
-		2ABE6F217585ED075248D88A068C83EF /* ResponsetHeaderFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResponsetHeaderFields.swift; sourceTree = "<group>"; };
-		2C78FF2AFF3FBAF40E8D708D75CA7658 /* FileType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
-		2F4207106886B587B4A31098C4B9BB9A /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Starscream.framework; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2FE5F8869B7B8A96459AAA23FE4DB159 /* UpdateDraftResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateDraftResponse.swift; sourceTree = "<group>"; };
-		306F4B1A96371F2A34093A88D97ADDD7 /* ScreenshotFeature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotFeature.swift; sourceTree = "<group>"; };
-		31C99028CADB7ED0D0414C39DCE3821F /* StorageUploadResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageUploadResponse.swift; sourceTree = "<group>"; };
-		3472AC3A484B7749C8AFCA92ECAA0857 /* SettingsItemCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsItemCell.swift; sourceTree = "<group>"; };
-		34D31CF2A5BEA823EFFB9CBF6CA66A6B /* Feature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
-		34D711AB0B49CC56FB96718661603AEC /* CrowdinPathsParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinPathsParser.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinPathsParser.swift; sourceTree = "<group>"; };
-		34F22198E771D4F4776C047B9E361AB4 /* Pods-CrowdinSDK-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CrowdinSDK-frameworks.sh"; sourceTree = "<group>"; };
-		3AF51639D235AA7C7C983B2A3D86D41E /* BaseAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		008291449B2C03D3A0B7E65F4B092C95 /* TokenResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TokenResponse.swift; path = CrowdinSDK/Classes/Features/LoginFeature/TokenResponse.swift; sourceTree = "<group>"; };
+		01FB5DEA2CF4E44263A62924A53A069E /* Starscream-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Starscream-dummy.m"; sourceTree = "<group>"; };
+		036D01EA9981227BA7360C52CE2E0EAB /* UILabel+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UILabel+Swizzle.swift"; sourceTree = "<group>"; };
+		0B578F27841C80D2BB889A52A559E61B /* CrowdinSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDKConfig.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDKConfig.swift; sourceTree = "<group>"; };
+		13C85C6CFED68D216672685573D45047 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		16352BF1C6D39584944FF15550A331A9 /* UIButton+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Swizzle.swift"; sourceTree = "<group>"; };
+		1AD69E827CB759DEF72FDC060F39F213 /* ObjectAssociation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ObjectAssociation.swift; sourceTree = "<group>"; };
+		25DFE0E6A8FEAA4B905FD8591C0A4F2E /* RequestMethod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		276950AEDCC58067B5F1067229D10FA9 /* CreateScreenshotTagResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotTagResponse.swift; sourceTree = "<group>"; };
+		28FF80373360385AEBA33D1429497448 /* Pods-CrowdinSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CrowdinSDK-dummy.m"; sourceTree = "<group>"; };
+		2A40CD6B16D85417E01F5F2407DDF0A5 /* InBundleLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InBundleLocalizationStorage.swift; sourceTree = "<group>"; };
+		2EF130DB1D020533A3D8DDE0CB985BD3 /* Starscream.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Starscream.modulemap; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		323E8C427DD53A218127F0AE319B1487 /* CrowdinLocalizationDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinLocalizationDownloader.swift; sourceTree = "<group>"; };
+		32A246BC24018C7197E947883FBFB289 /* CharacterSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CharacterSet.swift; sourceTree = "<group>"; };
+		34BE9F766FE723D9C8DF9487A7BDDABD /* LocalLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalLocalizationStorage.swift; sourceTree = "<group>"; };
+		3558BB7D0420734D4BEF85D0FB248F87 /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		36DBE7DC0A548655774242A1638227D5 /* SupportedLanguagesResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportedLanguagesResponse.swift; sourceTree = "<group>"; };
+		37DC3ED21B63162F97EF25C3AB36C2F6 /* Bundle+Language.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Language.swift"; sourceTree = "<group>"; };
+		38397FBF239F2450142CF92A646F6D43 /* DownloadOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadOperation.swift; sourceTree = "<group>"; };
+		389F2BDC3A43316756DB750F6A7F8F0E /* CrowdinSupportedLanguages.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinSupportedLanguages.swift; sourceTree = "<group>"; };
+		3B3C51C564AE98206AD45C47777CAD71 /* ProjectDetailsResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectDetailsResponse.swift; sourceTree = "<group>"; };
 		3B9AA0D25BD7BD2C495D776FC8B846DC /* WebSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WebSocket.swift; path = Sources/Starscream/WebSocket.swift; sourceTree = "<group>"; };
-		3BF65AF71F018032BC484DF20523CEF2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		3D9A24A9BA3D76A5FD1BC31D2C9C9F13 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CrowdinSDK.framework; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		422FC3A568D63FF0BB46E80D19094979 /* Starscream-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Starscream-dummy.m"; sourceTree = "<group>"; };
-		43FB594739E19DC84E814C62A04620CD /* LocalizationUpdateObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationUpdateObserver.swift; sourceTree = "<group>"; };
-		44B1918ADC8EBE7584EFCE40A1F97E54 /* CreateScreenshotTagRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotTagRequest.swift; sourceTree = "<group>"; };
-		44CCB314E19052A6323DC255437778EE /* Starscream-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Starscream-Info.plist"; sourceTree = "<group>"; };
-		4914913854A91B5979C638E57FFBFE25 /* CustomBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CustomBundle.swift; sourceTree = "<group>"; };
-		4CFD4EEA9DFCE9DBA9DF897EDE2069E0 /* Atomic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
-		4D2F1909199BA71D5325F789F51FB013 /* CrowdinSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK-prefix.pch"; sourceTree = "<group>"; };
-		4D7D7EF9F90FD41F858102349B97F021 /* DistributionsResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DistributionsResponse.swift; sourceTree = "<group>"; };
-		5129FFFD7C2682B95884A791126CBBD0 /* CreateScreenshotResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotResponse.swift; sourceTree = "<group>"; };
-		53BBAD8611E1D38BD0D88B7AA8938DCD /* Bundle+Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Codable.swift"; sourceTree = "<group>"; };
-		5B1A86DC456E29FD8396592DEB4FEE01 /* ScreenshotsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotsAPI.swift; sourceTree = "<group>"; };
-		5EAFEDDB467F65A1672DBBEA149A5436 /* CrowdinSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDK.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift; sourceTree = "<group>"; };
-		6029B345D8932431E7351EDA6FEB5402 /* UILabel+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UILabel+Swizzle.swift"; sourceTree = "<group>"; };
-		62F632D7F53B97FD958020C8BDB1A28A /* CrowdinSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CrowdinSDK-Info.plist"; sourceTree = "<group>"; };
-		659B869F55A18CC3060F40704CAC8238 /* Starscream-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Starscream-prefix.pch"; sourceTree = "<group>"; };
-		65DDC7EC702A52D31ED534CF71C7B33F /* DataParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
-		684EE99C0AEB08ECC2B39A00AB242B97 /* CrowdinProviderConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinProviderConfig.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinProviderConfig.swift; sourceTree = "<group>"; };
-		6B21D922C7D760146976E0A6EE52721D /* Refreshable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Refreshable.swift; sourceTree = "<group>"; };
-		6E236E1D83C8FB34AAB8E2263D3F29BB /* SettingsView+UITableView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "SettingsView+UITableView.swift"; sourceTree = "<group>"; };
-		705CCF987459D28F4D8FC14D6CC28061 /* FileStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FileStatus.swift; sourceTree = "<group>"; };
-		73D7C9D1E46B142CAFCD6014B2A4BBAF /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		787E9D3DE5C28ADEA6A9C8ED607BD1FE /* AsyncOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
-		7A64E032794E43090FD08F16093A1143 /* LocalizationExtractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationExtractor.swift; sourceTree = "<group>"; };
-		7B849612202814AD91108FDF5E1FE8D1 /* Bundle+Application.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Application.swift"; sourceTree = "<group>"; };
-		7CF7C04159F39AC9E67A98079C4213B6 /* LocalizationDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationDataSource.swift; sourceTree = "<group>"; };
-		7F5B28DC1226CD8564A22EC6FA1E4DBD /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CrowdinSDK/Assets/Images.xcassets; sourceTree = "<group>"; };
-		801009B283FE5AF88517F579772798CA /* CrowdinLocalLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinLocalLocalizationStorage.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinLocalLocalizationStorage.swift; sourceTree = "<group>"; };
-		8296FB0CF451F2DBF54E150958ED57C5 /* CrowdinLoginVC.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = CrowdinLoginVC.storyboard; path = CrowdinSDK/Assets/CrowdinLoginVC.storyboard; sourceTree = "<group>"; };
-		84128302BC55D1B6D30C6872E9A42D4E /* ReadWriteProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReadWriteProtocol.swift; sourceTree = "<group>"; };
-		880333442F638F884D323A636B7FC014 /* CrowdinRemoteLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinRemoteLocalizationStorage.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinRemoteLocalizationStorage.swift; sourceTree = "<group>"; };
-		88E55193172DA995EEE0E84D447863C5 /* Pods-CrowdinSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CrowdinSDK-dummy.m"; sourceTree = "<group>"; };
-		8C00EA6CE384AF051ED1E194F46EA6B0 /* Pods-CrowdinSDK-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CrowdinSDK-acknowledgements.plist"; sourceTree = "<group>"; };
-		8CF660BCFF08F03FE781A7B80449A799 /* SettingsItemCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = SettingsItemCell.xib; path = CrowdinSDK/Assets/SettingsItemCell.xib; sourceTree = "<group>"; };
-		8D4AD5F71568698972D6550826BCF2C4 /* Pods-CrowdinSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CrowdinSDK-umbrella.h"; sourceTree = "<group>"; };
-		93105845A8543D7F2B7F45F713EC7F07 /* UserDefaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
-		9384E033C6B02F7B10400CC0D98E407D /* CreateScreenshotRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotRequest.swift; sourceTree = "<group>"; };
-		952B6EF9450BC3DA2A897A43ADCFEE14 /* Bundle+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Swizzle.swift"; sourceTree = "<group>"; };
-		95E137EFE20C601FC7A74319C92CD9F5 /* UIWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
-		99348AACA35993378BD521CA3B9E7996 /* ForceRefreshLocalizationFeature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ForceRefreshLocalizationFeature.swift; sourceTree = "<group>"; };
-		998686533186B687B611FDD52B9308C3 /* DownloadSupportedLanguagesOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadSupportedLanguagesOperation.swift; sourceTree = "<group>"; };
-		9D00DD55E0A8E25777FD10B549D2BA8D /* Pods-CrowdinSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CrowdinSDK-Info.plist"; sourceTree = "<group>"; };
+		3BE9129A5763C618206E56173CD83BB7 /* AsyncOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		3CB4DD9DB01EF5241C958926DD634FA7 /* CrowdinSDKConfig +Login.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CrowdinSDKConfig +Login.swift"; sourceTree = "<group>"; };
+		3D3B906729B89AAA15833F99B1E78F09 /* ResponsetHeaderFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResponsetHeaderFields.swift; sourceTree = "<group>"; };
+		3DB0D6B958AAD329A13C957655BEEA20 /* DownloadProjectInfoOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadProjectInfoOperation.swift; sourceTree = "<group>"; };
+		3DB676A2152AD00900D33C8A51F4C671 /* Pods_CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CrowdinSDK.framework; path = "Pods-CrowdinSDK.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DCEA6169B33E34F1E6E7128F65DC025 /* Starscream-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Starscream-prefix.pch"; sourceTree = "<group>"; };
+		3ED2E97A6126E1ECA41630D247676903 /* Pods-CrowdinSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CrowdinSDK.release.xcconfig"; sourceTree = "<group>"; };
+		44E219F4030CE498CF0D43505F1973F7 /* Starscream-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Starscream-Info.plist"; sourceTree = "<group>"; };
+		459CB3F8AC366EF013ECE445BA133CEA /* Localization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		45A6641043D33F7FC7356F538B34A712 /* CrowdinSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDK.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift; sourceTree = "<group>"; };
+		46145C541A1B6113DBA915BAC3A11C61 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = CrowdinSDK/Classes/CrowdinSDK/Constants.swift; sourceTree = "<group>"; };
+		470F5E9FB7FB3860271C41BF31687AF5 /* Pods-CrowdinSDK-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CrowdinSDK-frameworks.sh"; sourceTree = "<group>"; };
+		48D7D6843EB093E49BD2C346CDCF1B2B /* CrowdinTester.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinTester.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinTester.swift; sourceTree = "<group>"; };
+		4B6D7508FBF5CC1EE6ED652E95CBBE1B /* Bundle+Crowdin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Crowdin.swift"; sourceTree = "<group>"; };
+		4C1EE11AAB4E225ED484BA155F0334A3 /* Bundle+Application.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Application.swift"; sourceTree = "<group>"; };
+		4E3A4B2BC47036E53B5433B21A30B6E5 /* Pods-CrowdinSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CrowdinSDK.modulemap"; sourceTree = "<group>"; };
+		4EDDC0D36836BCD53B3DFFA093CB797C /* RequestHeaderFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RequestHeaderFields.swift; sourceTree = "<group>"; };
+		5238144EFA6E7FBDFDB6D40454CAB5F8 /* TokenRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TokenRequest.swift; path = CrowdinSDK/Classes/Features/LoginFeature/TokenRequest.swift; sourceTree = "<group>"; };
+		5273C54BE20A11191FAD4BA4F00A94DC /* DocumentsFolder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentsFolder.swift; sourceTree = "<group>"; };
+		53F0A863945E580878BC2CA159F39266 /* CrowdinSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CrowdinSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		572EFDD5D0827B2785BCC15C0E5DEFDC /* Pods-CrowdinSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CrowdinSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		59460597332E8E19B659619C849473D0 /* File.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		606B3F4396E20331972110F37431670F /* Dictionary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		61EA25836813B3F8923BB61B265C9857 /* ScreenshotsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotsAPI.swift; sourceTree = "<group>"; };
+		6345542E9DAE942C8D79847F25C325E6 /* BaseAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		64D5E391E11E3D9A03B0ACF80CFBA3B2 /* Starscream.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Starscream.xcconfig; sourceTree = "<group>"; };
+		654717C09B9D2892442BE33E562D3FF5 /* Folder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		674619E03619ED32A3033E5FB30AFAC5 /* CrowdinLoginConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinLoginConfig.swift; path = CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift; sourceTree = "<group>"; };
+		680BA490E1A6611E0CADC9DC0645AD06 /* CrowdinFolder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinFolder.swift; sourceTree = "<group>"; };
+		6883CD6E38F9D8000ADFB85961D8546A /* CrowdinSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CrowdinSDK-Info.plist"; sourceTree = "<group>"; };
+		68B9C9156E24C1484DE3C8A29FCC2A8B /* CrowdinSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CrowdinSDK.xcconfig; sourceTree = "<group>"; };
+		6F9FD12E1D8DD9FBAB10B7783182FFC5 /* ProjectAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectAPI.swift; sourceTree = "<group>"; };
+		70FA010FFA8E318126176E8202C18609 /* CrowdinSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK-prefix.pch"; sourceTree = "<group>"; };
+		72241A3D6DCF9E4BF41716FBF4E9C488 /* BlockAsyncOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlockAsyncOperation.swift; sourceTree = "<group>"; };
+		72A740FDC28F81A3684B02371EFE1C74 /* DownloadSupportedLanguagesOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadSupportedLanguagesOperation.swift; sourceTree = "<group>"; };
+		77BA77D6F4B9DB7F9FDC91DB337DC9CD /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Starscream.framework; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A2A73B18032BED83CE72026189E86FB /* CreateScreenshotRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotRequest.swift; sourceTree = "<group>"; };
+		7A5DDFAE0AB577D51630EDBD4BAB0269 /* CreateScreenshotTagRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotTagRequest.swift; sourceTree = "<group>"; };
+		7DEEF7BC855043F0BC50B207FB656392 /* RefreshTokenRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RefreshTokenRequest.swift; path = CrowdinSDK/Classes/Features/LoginFeature/RefreshTokenRequest.swift; sourceTree = "<group>"; };
+		7F7A2315DC555AEF64DA8D50B51DA7F1 /* Starscream-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Starscream-umbrella.h"; sourceTree = "<group>"; };
+		8110F541A0D3A3A267D2B40200A46778 /* LoginFeature.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginFeature.swift; path = CrowdinSDK/Classes/Features/LoginFeature/LoginFeature.swift; sourceTree = "<group>"; };
+		84D6FEFFB20D1852AEF4660912C4E290 /* RemoteLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RemoteLocalizationStorage.swift; sourceTree = "<group>"; };
+		85FA9FCBC7B76ECA7EEC41E2CA64CEB2 /* ReadWriteProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReadWriteProtocol.swift; sourceTree = "<group>"; };
+		887E6BD1A695775BB991F126DCB05FA5 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		8B6EAC29D2E9AF99ACE42E119BE9E292 /* CrowdinDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinDownloader.swift; sourceTree = "<group>"; };
+		8CD54D5306EA1D6B20D5C46B6D680264 /* UserDefaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		8EDE1D91F1BC50F114C08CF5913B4F8E /* LocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationProvider.swift; sourceTree = "<group>"; };
+		8F79554709255C64345C616327FD8FD9 /* Atomic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
+		8F8C656E7E9779A5C76A6815C2A1840B /* UIWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
+		95E1792813D5DD1B3D75D342819F0507 /* SocketAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SocketAPI.swift; sourceTree = "<group>"; };
+		96931D7B1469C70FCB94D6BD60C028B5 /* CrowdinProviderConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinProviderConfig.swift; sourceTree = "<group>"; };
+		9CFFE19A8B42312768130988B00FD023 /* CrowdinPathsParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinPathsParser.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9EA9BFAA7242DD563DD759FF221211DE /* Pods-CrowdinSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CrowdinSDK.modulemap"; sourceTree = "<group>"; };
-		9EF614C89176AC25E730AF879911AC59 /* UIButton+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Swizzle.swift"; sourceTree = "<group>"; };
-		A4F0E73FD95AF15D509A1D0C4AE3F8D3 /* CrowdinMappingManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinMappingManager.swift; sourceTree = "<group>"; };
-		A6788598B8AD44B0449C5B21E8F90A79 /* CrowdinSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDKConfig.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDKConfig.swift; sourceTree = "<group>"; };
-		A74C74F28F1A4FFF2FC5F5CF8335EECD /* SupportedLanguagesAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportedLanguagesAPI.swift; sourceTree = "<group>"; };
-		A7A3426B15AE01E04D3EBE64159F79AF /* ProjectDetailsResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectDetailsResponse.swift; sourceTree = "<group>"; };
-		A98B67375F8FF4CEF3F2D198E7BEF720 /* Locale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
-		AB09D5B98EDFE262F841A2F49A1B3621 /* Localization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		ADCCD8E696779ECCFAFDE294D832F5D8 /* BaseLocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseLocalizationProvider.swift; sourceTree = "<group>"; };
-		B3BD3946E41E94FCFD2A16C0FF8A5DF7 /* TopSuggestionResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TopSuggestionResponse.swift; sourceTree = "<group>"; };
-		B81E23B0B5E69CEAD1B271D4FDBEB0DF /* Pods-CrowdinSDK-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CrowdinSDK-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B95DA87B29C2FCD7D9E192090471420B /* DownloadOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadOperation.swift; sourceTree = "<group>"; };
+		9FD3B698E4FF14B8E5294856F09DDAC6 /* URLSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		A102A5805E4520E80C3CB7FB9B1539D9 /* LocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationStorage.swift; sourceTree = "<group>"; };
+		A37AC1AD8F8389147221662E0C073080 /* CrowdinRemoteLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinRemoteLocalizationStorage.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinRemoteLocalizationStorage.swift; sourceTree = "<group>"; };
+		A5A717C2B219EC516769F8B40C4C7799 /* DistributionsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DistributionsAPI.swift; sourceTree = "<group>"; };
+		A7A9460B975EA8EFBE031BDE79CE2B22 /* CreateScreenshotResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotResponse.swift; sourceTree = "<group>"; };
+		ADB4E282D4AA50544BBD3F64E4F105EE /* Pods-CrowdinSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CrowdinSDK-umbrella.h"; sourceTree = "<group>"; };
+		AF34F82A4EA2BC866EE7AA439F632A59 /* CrowdinSDK+Login.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CrowdinSDK+Login.swift"; sourceTree = "<group>"; };
+		B098218AD90B3E1E384A676178FAC0F2 /* Bundle+URLScheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+URLScheme.swift"; sourceTree = "<group>"; };
+		B3EDAD0CA2AFB5C1DA593B59EECDA543 /* CrowdinSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CrowdinSDK-dummy.m"; sourceTree = "<group>"; };
+		B4C73BB04D2AEC23B878723D8C6C748B /* FileType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
+		B7C91C276D09C980E01A1B42EB939BD0 /* ActionRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActionRequest.swift; sourceTree = "<group>"; };
 		BA2E057170ECA65E2F05A5B595252784 /* Compression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Compression.swift; path = Sources/Starscream/Compression.swift; sourceTree = "<group>"; };
-		BAEF6555B0405F55C1A9E37C7926CA48 /* SettingsView+Gesture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "SettingsView+Gesture.swift"; sourceTree = "<group>"; };
-		BEFC7D5FBCC29144DE5D1985A8D7B147 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		BF95B47809BB7C15919FB77FE4AA4509 /* ProjectAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectAPI.swift; sourceTree = "<group>"; };
-		C1EAA638E4487CFF7EDDC4159BF35B2A /* LocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationProvider.swift; sourceTree = "<group>"; };
-		C3D00B89C37694A23E2FC0E86F7DFDDA /* RequestHeaderFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RequestHeaderFields.swift; sourceTree = "<group>"; };
-		C40E683E43E63923BEF4F788750B7E0B /* BlockAsyncOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlockAsyncOperation.swift; sourceTree = "<group>"; };
-		C69E673D68F2CEDA7BD9699FB5AE0576 /* CrowdinLoginVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinLoginVC.swift; sourceTree = "<group>"; };
-		C74A935EC0C7D1B1823678B167482BB9 /* CrowdinSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CrowdinSDK.modulemap; sourceTree = "<group>"; };
-		CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		CBACC93BFAEA571BDAF3A1E617250E90 /* RequestMethod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
-		CC2508ACBB56BC3A5A4320B4E7CC34B1 /* DistributionsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DistributionsAPI.swift; sourceTree = "<group>"; };
-		CE92458097233A76AE0A0D7B8003BC99 /* DocumentsFolder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentsFolder.swift; sourceTree = "<group>"; };
-		D1B947FEF541C5B6185CA7017AAADE1C /* DownloadProjectInfoOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadProjectInfoOperation.swift; sourceTree = "<group>"; };
-		D2BC2E604C9126443BA86AFECAB0D6FF /* LocalLocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalLocalizationProvider.swift; sourceTree = "<group>"; };
-		D3FB0FEC0E4C2E2F70E66A7C8B3DC1D8 /* CreateScreenshotTagResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotTagResponse.swift; sourceTree = "<group>"; };
+		C29F8C2DDAD149F8BA8251E760DD236E /* FileStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FileStatus.swift; sourceTree = "<group>"; };
+		C4CD08BEF9631E61525FD39A630AF3C6 /* CrowdinSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK-umbrella.h"; sourceTree = "<group>"; };
+		C73F2450E49E44398F8958F446DA2CF8 /* StorageAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
+		C754F804D7DD8761C7DBC37B6AD45C60 /* LocalizationDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationDataSource.swift; sourceTree = "<group>"; };
+		C8AA96B1BCCA441C4B43A2771AE2809C /* LocalizationExtractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationExtractor.swift; sourceTree = "<group>"; };
+		C8DF327ABD217B1E6CDDC23A802188E4 /* LocalizationUpdateObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationUpdateObserver.swift; sourceTree = "<group>"; };
+		C97160514F50DC1C6F75D5D4AE969EDF /* StringParam.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringParam.swift; sourceTree = "<group>"; };
+		C997E919BC9FBE7F76D6F5D088C7ACB9 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CrowdinSDK.framework; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59F921BA6434A655F9C82F0F81BE47A /* SSLSecurity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SSLSecurity.swift; path = Sources/Starscream/SSLSecurity.swift; sourceTree = "<group>"; };
-		D61C4123F8DADCA31364FA26B39DEE84 /* CrowdinMappingDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinMappingDownloader.swift; sourceTree = "<group>"; };
-		D642BF3BCBCCAE8FDDD95CA7F31C696D /* CrowdinSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = CrowdinSDK.bundle; path = "CrowdinSDK-CrowdinSDK.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D70723D2804642EC9FEE28F3628C8807 /* Pods-CrowdinSDK-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CrowdinSDK-resources.sh"; sourceTree = "<group>"; };
-		D7432E1B0B005C91B6A451BEC672FCB4 /* CrowdinSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CrowdinSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		DAC833F6705A4CC31114F1D654F3241E /* CrowdinSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK-umbrella.h"; sourceTree = "<group>"; };
-		DD0E47939F584013A0E057C14A351B7A /* Pods-CrowdinSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CrowdinSDK.debug.xcconfig"; sourceTree = "<group>"; };
-		DE22421189CDFD74D79E6C05B18304CE /* SocketAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SocketAPI.swift; sourceTree = "<group>"; };
-		DEEDB4AF1D619C371737C3A2ACCEFA19 /* ObjectAssociation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ObjectAssociation.swift; sourceTree = "<group>"; };
-		DFB6FBD34A5288EDEFF4AAF91E6D8BE4 /* CrowdinSocketManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinSocketManager.swift; sourceTree = "<group>"; };
+		D737C75E2F08FEEABF333F133CB4FACB /* Locale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
+		D76B72068FD6DEECAAE55408E9CA869D /* UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		DC5DA5F6B5BF2F99BA0226D3AD265E60 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		DD89A687B2B7B4F5B044DE2C2586BB89 /* CrowdinSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CrowdinSDK.modulemap; sourceTree = "<group>"; };
+		DF9DEE6FB6866475A643D62F17EA982C /* DistributionsResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DistributionsResponse.swift; sourceTree = "<group>"; };
+		E11B8811F9FA5E07BC3DA95F3C9C9302 /* Pods-CrowdinSDK-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CrowdinSDK-acknowledgements.plist"; sourceTree = "<group>"; };
+		E16E4877B015B3DED0F074E8DF37E211 /* CustomBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CustomBundle.swift; sourceTree = "<group>"; };
+		E470688DBD0C1FE9C18100482A5C7493 /* CrowdinAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinAPI.swift; path = CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift; sourceTree = "<group>"; };
 		E48F7922C44A3645750BD18CCCF671B0 /* SSLClientCertificate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SSLClientCertificate.swift; path = Sources/Starscream/SSLClientCertificate.swift; sourceTree = "<group>"; };
-		E5FC1522E5F081C32F85B93CE03FAD31 /* CrowdinSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CrowdinSDK-dummy.m"; sourceTree = "<group>"; };
-		E619DFF386BC2709D5C7FAFAB571637F /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		E6E939CA01BCC72937D93A886112DFD5 /* Starscream.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Starscream.modulemap; sourceTree = "<group>"; };
-		EA431019634051F69727AE0590D941DF /* CrowdinLocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinLocalizationProvider.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinLocalizationProvider.swift; sourceTree = "<group>"; };
-		EAC569B60A080361AB9DC772F142045F /* CrowdinDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinDownloader.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinDownloader.swift; sourceTree = "<group>"; };
-		EB302967B1B725880EA890C6DDA86C6F /* Bundle+Crowdin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Crowdin.swift"; sourceTree = "<group>"; };
-		EB7ED0D2B83FD4DF28A80E79EE108398 /* CrowdinAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinAPI.swift; sourceTree = "<group>"; };
-		EDA0F369754315615930225156F5CAFD /* CrowdinProviderTester.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinProviderTester.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinProviderTester.swift; sourceTree = "<group>"; };
-		EE0D9A5DB482D24AD7EE4AD7B760DE70 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = CrowdinSDK/Classes/CrowdinSDK/Constants.swift; sourceTree = "<group>"; };
-		F18D7C4ECA016127FCDD0F280EA6926C /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		F3BF27BA69DCFAA847D8A4BF40B40954 /* StringParam.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringParam.swift; sourceTree = "<group>"; };
-		F3D62A67215FDB7E1FEF63D3683540E0 /* CrowdinSupportedLanguages.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSupportedLanguages.swift; path = CrowdinSDK/Classes/Providers/Crowdin/CrowdinSupportedLanguages.swift; sourceTree = "<group>"; };
-		FA9523C3DF303C219AE248965419547A /* SupportedLanguagesResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportedLanguagesResponse.swift; sourceTree = "<group>"; };
-		FAB2AA08214EC75AB5E3B2C147A9462A /* Starscream.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Starscream.xcconfig; sourceTree = "<group>"; };
-		FD3C891B72C44689B0F682FE1ECB1F94 /* Bundle+Language.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Language.swift"; sourceTree = "<group>"; };
-		FD42521DF07992BD6F716A727180E1AA /* Starscream-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Starscream-umbrella.h"; sourceTree = "<group>"; };
+		E53A467E1FBDE2A5B8313F01AC9F70CD /* Bundle+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Swizzle.swift"; sourceTree = "<group>"; };
+		E939F34227113173883603C14B56F9DB /* Pods-CrowdinSDK-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CrowdinSDK-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E9F08F0F92062FCFA68EA438A9F9EC4D /* StorageUploadResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageUploadResponse.swift; sourceTree = "<group>"; };
+		EC447F92C60AB246DCC07B62FFBB3473 /* SupportedLanguagesAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportedLanguagesAPI.swift; sourceTree = "<group>"; };
+		EEEB7B5414B127C59C7F54433ECFEC37 /* UpdateDraftResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateDraftResponse.swift; sourceTree = "<group>"; };
+		F0D45583897F398DA8A803BD54B663B2 /* TopSuggestionResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TopSuggestionResponse.swift; sourceTree = "<group>"; };
+		F4209575DDCD8725A3C8DBEB19022A85 /* DataParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
+		F8F9FBE348BD66ABB68B103EACE5FFC0 /* CrowdinContentDeliveryAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinContentDeliveryAPI.swift; sourceTree = "<group>"; };
+		FD1458044A8F550600DD8417094AC6FE /* Pods-CrowdinSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CrowdinSDK-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		198A1561DD8D57F338159F378D6FC366 /* Frameworks */ = {
+		3495474B2557B986362FA5EF8CADB476 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5CDB4A99E1A713CEB618A55EEAB5B360 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0CAEEEFCE0F829B683657FD0560EA56B /* Foundation.framework in Frameworks */,
+				6261E5E9153BB3C70C69C897C5D838C0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,277 +259,203 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C2F016227ADEF6D0372FDC988338615 /* Foundation.framework in Frameworks */,
+				52FC727D61AC45E42D099A0847249C75 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		95F48DA36C8508C49CA784399BCA4EDF /* Frameworks */ = {
+		F59345EBCF092E6A4DDAC7973EE172A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B3DF311A15C243686518419CA49DA1C /* Foundation.framework in Frameworks */,
+				9CD73377D085BE5461EDF74DEB7D4443 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		09FA02D890C860E1253477F8A71E5913 /* Features */ = {
+		09E4F4EAD286F3FED3C53170C5A7725D /* PathParser */ = {
 			isa = PBXGroup;
 			children = (
-				34D31CF2A5BEA823EFFB9CBF6CA66A6B /* Feature.swift */,
-				ADD9FE7DDA924BE2305075A847F87644 /* ForceRefreshLocalizationFeature */,
-				892405DE7C7BBEB80362C7A695CF659F /* IntervalUpdateFeature */,
-				9034D7822AED394E4CCAB5241D524F32 /* LoginFeature */,
-				712D4EEA2350FB9FC5616058C17E8489 /* RealtimeUpdateFeature */,
-				A5D1AD85EC72871910AA8E80FB858DDD /* ScreenshotFeature */,
+				9CFFE19A8B42312768130988B00FD023 /* CrowdinPathsParser.swift */,
 			);
-			name = Features;
-			path = CrowdinSDK/Classes/CrowdinSDK/Features;
+			name = PathParser;
+			path = CrowdinSDK/Classes/Providers/Crowdin/PathParser;
 			sourceTree = "<group>";
 		};
-		0B149945A6A715D36406489EC979B07F /* Products */ = {
+		0BD7BAD6177B7D757E5F096DD758CBF9 /* Extractor */ = {
 			isa = PBXGroup;
 			children = (
-				D642BF3BCBCCAE8FDDD95CA7F31C696D /* CrowdinSDK.bundle */,
-				3D9A24A9BA3D76A5FD1BC31D2C9C9F13 /* CrowdinSDK.framework */,
-				0BF06CBF344FC4A2FF0C5932DCFE8A47 /* Pods_CrowdinSDK.framework */,
-				2F4207106886B587B4A31098C4B9BB9A /* Starscream.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		12228919CF16A3CABE1EF190BE4533D3 /* DistributionsAPI */ = {
-			isa = PBXGroup;
-			children = (
-				CC2508ACBB56BC3A5A4320B4E7CC34B1 /* DistributionsAPI.swift */,
-				9B3B7E1968C5180D161161E0D4B0E6AA /* Models */,
-			);
-			name = DistributionsAPI;
-			path = CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI;
-			sourceTree = "<group>";
-		};
-		13F33F0679E83AC9BD16015818BCDBE7 /* CreateScreenshotTag */ = {
-			isa = PBXGroup;
-			children = (
-				44B1918ADC8EBE7584EFCE40A1F97E54 /* CreateScreenshotTagRequest.swift */,
-				D3FB0FEC0E4C2E2F70E66A7C8B3DC1D8 /* CreateScreenshotTagResponse.swift */,
-			);
-			name = CreateScreenshotTag;
-			path = CreateScreenshotTag;
-			sourceTree = "<group>";
-		};
-		1CBCD8944B305F7FE6514B0FFEAD17DD /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				65DDC7EC702A52D31ED534CF71C7B33F /* DataParser.swift */,
-			);
-			name = Parser;
-			path = Parser;
-			sourceTree = "<group>";
-		};
-		28747B24220CCF5F6F404CD38F588094 /* FileSystem */ = {
-			isa = PBXGroup;
-			children = (
-				0B7D5BD13AA362608C921528AD8177FE /* CrowdinFolder.swift */,
-				CE92458097233A76AE0A0D7B8003BC99 /* DocumentsFolder.swift */,
-				26447B7ADEBBDF378B491806CC663A3D /* File.swift */,
-				705CCF987459D28F4D8FC14D6CC28061 /* FileStatus.swift */,
-				2C78FF2AFF3FBAF40E8D708D75CA7658 /* FileType.swift */,
-				17DEF76A74138DF8A7BDB589E33F859F /* Folder.swift */,
-				84128302BC55D1B6D30C6872E9A42D4E /* ReadWriteProtocol.swift */,
-			);
-			name = FileSystem;
-			path = CrowdinSDK/Classes/CrowdinSDK/FileSystem;
-			sourceTree = "<group>";
-		};
-		2C624FEBD8E5B57A3BAE4B1E1E44DF5B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8296FB0CF451F2DBF54E150958ED57C5 /* CrowdinLoginVC.storyboard */,
-				7F5B28DC1226CD8564A22EC6FA1E4DBD /* Images.xcassets */,
-				8CF660BCFF08F03FE781A7B80449A799 /* SettingsItemCell.xib */,
-				1CBC5D8F8CE0BE144208EF1B692EA6BF /* SettingsView.xib */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		2DFBFF6B7038C332B31D95E6BAE7AE77 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				1C2963DA5E1B701070B9D3484751E451 /* Dictionary.swift */,
-				A98B67375F8FF4CEF3F2D198E7BEF720 /* Locale.swift */,
-				F18D7C4ECA016127FCDD0F280EA6926C /* String.swift */,
-				9EF614C89176AC25E730AF879911AC59 /* UIButton+Swizzle.swift */,
-				6029B345D8932431E7351EDA6FEB5402 /* UILabel+Swizzle.swift */,
-				171438DFF4159C14EE796DF2B19B270E /* UIViewController.swift */,
-				95E137EFE20C601FC7A74319C92CD9F5 /* UIWindow.swift */,
-				93105845A8543D7F2B7F45F713EC7F07 /* UserDefaults.swift */,
-				9FF88333D78829773A5F2B263F04AC77 /* Bundle */,
-			);
-			name = Extensions;
-			path = CrowdinSDK/Classes/CrowdinSDK/Extensions;
-			sourceTree = "<group>";
-		};
-		3096B872F59FED0FCE3FBBFD346B3CE9 /* CrowdinLoginVC */ = {
-			isa = PBXGroup;
-			children = (
-				C69E673D68F2CEDA7BD9699FB5AE0576 /* CrowdinLoginVC.swift */,
-			);
-			name = CrowdinLoginVC;
-			path = CrowdinLoginVC;
-			sourceTree = "<group>";
-		};
-		3112CD6B0BE53674E46EE5DA38E33537 /* StorageAPI */ = {
-			isa = PBXGroup;
-			children = (
-				10418B061D404AE30F2EBA345EF9C3B6 /* StorageAPI.swift */,
-				BBA09C29A051B718FD2F0B88EE28CC85 /* Models */,
-			);
-			name = StorageAPI;
-			path = CrowdinSDK/Classes/CrowdinAPI/StorageAPI;
-			sourceTree = "<group>";
-		};
-		37FC91F36E9056E47451CE13E67B2289 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				4CFD4EEA9DFCE9DBA9DF897EDE2069E0 /* Atomic.swift */,
-				DEEDB4AF1D619C371737C3A2ACCEFA19 /* ObjectAssociation.swift */,
-				B925A6DC652298BD153F4229233E3220 /* Operations */,
-			);
-			name = Utils;
-			path = CrowdinSDK/Classes/CrowdinSDK/Utils;
-			sourceTree = "<group>";
-		};
-		3AEACAAE56CB23707CF2DA47D71325B1 /* Provider */ = {
-			isa = PBXGroup;
-			children = (
-				ADCCD8E696779ECCFAFDE294D832F5D8 /* BaseLocalizationProvider.swift */,
-				7CF7C04159F39AC9E67A98079C4213B6 /* LocalizationDataSource.swift */,
-				C1EAA638E4487CFF7EDDC4159BF35B2A /* LocalizationProvider.swift */,
-				D2BC2E604C9126443BA86AFECAB0D6FF /* LocalLocalizationProvider.swift */,
-			);
-			name = Provider;
-			path = Provider;
-			sourceTree = "<group>";
-		};
-		418A47F4805E83AAA33ABFC1DE8C9471 /* Extractor */ = {
-			isa = PBXGroup;
-			children = (
-				7A64E032794E43090FD08F16093A1143 /* LocalizationExtractor.swift */,
+				C8AA96B1BCCA441C4B43A2771AE2809C /* LocalizationExtractor.swift */,
 			);
 			name = Extractor;
 			path = Extractor;
 			sourceTree = "<group>";
 		};
-		4A67C2ED13C06450283258119F127AD3 /* CrowdinMappingManager */ = {
+		2F87FAD9AF2CE3CC582B9A82D33211DB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A4F0E73FD95AF15D509A1D0C4AE3F8D3 /* CrowdinMappingManager.swift */,
+				36DBE7DC0A548655774242A1638227D5 /* SupportedLanguagesResponse.swift */,
 			);
-			name = CrowdinMappingManager;
-			path = CrowdinMappingManager;
+			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		4BA0916040F21C1C55AA83B409386BBC /* CrowdinProvider */ = {
+		33041F5084CE4F2169C2AD538BF0A428 /* SupportedLanguagesAPI */ = {
 			isa = PBXGroup;
 			children = (
-				EAC569B60A080361AB9DC772F142045F /* CrowdinDownloader.swift */,
-				EA431019634051F69727AE0590D941DF /* CrowdinLocalizationProvider.swift */,
-				801009B283FE5AF88517F579772798CA /* CrowdinLocalLocalizationStorage.swift */,
-				34D711AB0B49CC56FB96718661603AEC /* CrowdinPathsParser.swift */,
-				684EE99C0AEB08ECC2B39A00AB242B97 /* CrowdinProviderConfig.swift */,
-				880333442F638F884D323A636B7FC014 /* CrowdinRemoteLocalizationStorage.swift */,
-				F3D62A67215FDB7E1FEF63D3683540E0 /* CrowdinSupportedLanguages.swift */,
+				EC447F92C60AB246DCC07B62FFBB3473 /* SupportedLanguagesAPI.swift */,
+				2F87FAD9AF2CE3CC582B9A82D33211DB /* Models */,
+				DCC921DF97CEFFC4840B7FEDCD267072 /* Operations */,
 			);
-			name = CrowdinProvider;
+			name = SupportedLanguagesAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/SupportedLanguagesAPI;
 			sourceTree = "<group>";
 		};
-		4C0E92888E8C85FD4000EF190F824E6E /* Support Files */ = {
+		3BFC74CA84A1DC6883CA16E6732A66ED /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C74A935EC0C7D1B1823678B167482BB9 /* CrowdinSDK.modulemap */,
-				1CE12535FB0DD2E97EB0042903094418 /* CrowdinSDK.xcconfig */,
-				E5FC1522E5F081C32F85B93CE03FAD31 /* CrowdinSDK-dummy.m */,
-				62F632D7F53B97FD958020C8BDB1A28A /* CrowdinSDK-Info.plist */,
-				4D2F1909199BA71D5325F789F51FB013 /* CrowdinSDK-prefix.pch */,
-				DAC833F6705A4CC31114F1D654F3241E /* CrowdinSDK-umbrella.h */,
-				18FFC2BA0ABF85A540DE328B8A6E29F7 /* ResourceBundle-CrowdinSDK-CrowdinSDK-Info.plist */,
+				B098218AD90B3E1E384A676178FAC0F2 /* Bundle+URLScheme.swift */,
+				AF34F82A4EA2BC866EE7AA439F632A59 /* CrowdinSDK+Login.swift */,
+				3CB4DD9DB01EF5241C958926DD634FA7 /* CrowdinSDKConfig +Login.swift */,
+			);
+			name = Extensions;
+			path = CrowdinSDK/Classes/Features/LoginFeature/Extensions;
+			sourceTree = "<group>";
+		};
+		4161CDE14D2F1A6FA69D048D0DDC501C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				606B3F4396E20331972110F37431670F /* Dictionary.swift */,
+				D737C75E2F08FEEABF333F133CB4FACB /* Locale.swift */,
+				3558BB7D0420734D4BEF85D0FB248F87 /* String.swift */,
+				16352BF1C6D39584944FF15550A331A9 /* UIButton+Swizzle.swift */,
+				036D01EA9981227BA7360C52CE2E0EAB /* UILabel+Swizzle.swift */,
+				D76B72068FD6DEECAAE55408E9CA869D /* UIViewController.swift */,
+				8F8C656E7E9779A5C76A6815C2A1840B /* UIWindow.swift */,
+				8CD54D5306EA1D6B20D5C46B6D680264 /* UserDefaults.swift */,
+				5132CCB0F1D12EB8E972004F70827FE0 /* Bundle */,
+			);
+			name = Extensions;
+			path = CrowdinSDK/Classes/CrowdinSDK/Extensions;
+			sourceTree = "<group>";
+		};
+		4D6AE2D6E31A91CCDD9D771442F332CC /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				3BE9129A5763C618206E56173CD83BB7 /* AsyncOperation.swift */,
+				72241A3D6DCF9E4BF41716FBF4E9C488 /* BlockAsyncOperation.swift */,
+			);
+			name = Operations;
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		509FD4C0A2A017C6038367C596AAD79D /* CreateScreenshotTag */ = {
+			isa = PBXGroup;
+			children = (
+				7A5DDFAE0AB577D51630EDBD4BAB0269 /* CreateScreenshotTagRequest.swift */,
+				276950AEDCC58067B5F1067229D10FA9 /* CreateScreenshotTagResponse.swift */,
+			);
+			name = CreateScreenshotTag;
+			path = CreateScreenshotTag;
+			sourceTree = "<group>";
+		};
+		5132CCB0F1D12EB8E972004F70827FE0 /* Bundle */ = {
+			isa = PBXGroup;
+			children = (
+				4C1EE11AAB4E225ED484BA155F0334A3 /* Bundle+Application.swift */,
+				4B6D7508FBF5CC1EE6ED652E95CBBE1B /* Bundle+Crowdin.swift */,
+				37DC3ED21B63162F97EF25C3AB36C2F6 /* Bundle+Language.swift */,
+				E53A467E1FBDE2A5B8313F01AC9F70CD /* Bundle+Swizzle.swift */,
+			);
+			name = Bundle;
+			path = Bundle;
+			sourceTree = "<group>";
+		};
+		54B1B444551767FA30332182ED405402 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B26DEA7FC0A35FE783878040ABD47C04 /* Pods-CrowdinSDK */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		561A2029C1DEB246B480D155867319E9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD89A687B2B7B4F5B044DE2C2586BB89 /* CrowdinSDK.modulemap */,
+				68B9C9156E24C1484DE3C8A29FCC2A8B /* CrowdinSDK.xcconfig */,
+				B3EDAD0CA2AFB5C1DA593B59EECDA543 /* CrowdinSDK-dummy.m */,
+				6883CD6E38F9D8000ADFB85961D8546A /* CrowdinSDK-Info.plist */,
+				70FA010FFA8E318126176E8202C18609 /* CrowdinSDK-prefix.pch */,
+				C4CD08BEF9631E61525FD39A630AF3C6 /* CrowdinSDK-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "ObjCExample/Pods/Target Support Files/CrowdinSDK";
 			sourceTree = "<group>";
 		};
-		4ED75B91C340A2E1153DBA5C2D939968 /* Operations */ = {
+		578E0174C64A124219BC8FBF0FED24E8 /* BaseAPI */ = {
 			isa = PBXGroup;
 			children = (
-				B95DA87B29C2FCD7D9E192090471420B /* DownloadOperation.swift */,
+				6345542E9DAE942C8D79847F25C325E6 /* BaseAPI.swift */,
+				887E6BD1A695775BB991F126DCB05FA5 /* Request.swift */,
+				4EDDC0D36836BCD53B3DFFA093CB797C /* RequestHeaderFields.swift */,
+				25DFE0E6A8FEAA4B905FD8591C0A4F2E /* RequestMethod.swift */,
+				3D3B906729B89AAA15833F99B1E78F09 /* ResponsetHeaderFields.swift */,
+				9EF33CE4E273964C147E8CD79DF023F1 /* Extensions */,
 			);
-			name = Operations;
-			path = Operations;
+			name = BaseAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/BaseAPI;
 			sourceTree = "<group>";
 		};
-		67EC9484851419D0EAFB6D6C84F9C29B /* Pods-CrowdinSDK */ = {
+		65D68C2CB86635CB4A2155E9C11648FE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9EA9BFAA7242DD563DD759FF221211DE /* Pods-CrowdinSDK.modulemap */,
-				B81E23B0B5E69CEAD1B271D4FDBEB0DF /* Pods-CrowdinSDK-acknowledgements.markdown */,
-				8C00EA6CE384AF051ED1E194F46EA6B0 /* Pods-CrowdinSDK-acknowledgements.plist */,
-				88E55193172DA995EEE0E84D447863C5 /* Pods-CrowdinSDK-dummy.m */,
-				34F22198E771D4F4776C047B9E361AB4 /* Pods-CrowdinSDK-frameworks.sh */,
-				9D00DD55E0A8E25777FD10B549D2BA8D /* Pods-CrowdinSDK-Info.plist */,
-				D70723D2804642EC9FEE28F3628C8807 /* Pods-CrowdinSDK-resources.sh */,
-				8D4AD5F71568698972D6550826BCF2C4 /* Pods-CrowdinSDK-umbrella.h */,
-				DD0E47939F584013A0E057C14A351B7A /* Pods-CrowdinSDK.debug.xcconfig */,
-				299DC0516EDEA413CEA9C59261FEA5B7 /* Pods-CrowdinSDK.release.xcconfig */,
+				C997E919BC9FBE7F76D6F5D088C7ACB9 /* CrowdinSDK.framework */,
+				3DB676A2152AD00900D33C8A51F4C671 /* Pods_CrowdinSDK.framework */,
+				77BA77D6F4B9DB7F9FDC91DB337DC9CD /* Starscream.framework */,
 			);
-			name = "Pods-CrowdinSDK";
-			path = "Target Support Files/Pods-CrowdinSDK";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		6FA818DE2F1E67E14D8DF48102C55D33 /* Settings */ = {
+		663C041F536199949536C58444B07787 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				3472AC3A484B7749C8AFCA92ECAA0857 /* SettingsItemCell.swift */,
-				E619DFF386BC2709D5C7FAFAB571637F /* SettingsView.swift */,
-				BAEF6555B0405F55C1A9E37C7926CA48 /* SettingsView+Gesture.swift */,
-				6E236E1D83C8FB34AAB8E2263D3F29BB /* SettingsView+UITableView.swift */,
+				96931D7B1469C70FCB94D6BD60C028B5 /* CrowdinProviderConfig.swift */,
 			);
-			name = Settings;
-			path = CrowdinSDK/Classes/CrowdinSDK/Settings;
+			name = Config;
+			path = CrowdinSDK/Classes/Providers/Crowdin/Config;
 			sourceTree = "<group>";
 		};
-		712D4EEA2350FB9FC5616058C17E8489 /* RealtimeUpdateFeature */ = {
+		6696C4A11E7C6523EDCCCA701402FDFA /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				139BD593FE5EF77ABE9CBBD3808ABC36 /* RealtimeUpdateFeature.swift */,
-				6B21D922C7D760146976E0A6EE52721D /* Refreshable.swift */,
-				8378BE203BAEC2FE5014E57F4088D76A /* CrowdinMappingDownloader */,
-				4A67C2ED13C06450283258119F127AD3 /* CrowdinMappingManager */,
-				DA0562B977588DE9D1AD0860DABA6B22 /* CrowdinSocketManager */,
+				459CB3F8AC366EF013ECE445BA133CEA /* Localization.swift */,
+				C8DF327ABD217B1E6CDDC23A802188E4 /* LocalizationUpdateObserver.swift */,
+				CD8FDF53AA4CC160F6EB29597AA63797 /* Downloaders */,
+				0BD7BAD6177B7D757E5F096DD758CBF9 /* Extractor */,
+				806EE09BF8C7E5E64208402775881602 /* Provider */,
 			);
-			name = RealtimeUpdateFeature;
-			path = RealtimeUpdateFeature;
+			name = Localization;
+			path = CrowdinSDK/Classes/CrowdinSDK/Localization;
 			sourceTree = "<group>";
 		};
-		740B4FDACE60469C409D2099772316E5 /* ScreenshotsAPI */ = {
+		6F2C47E1AFF3CA4B8BEAF909E749B3C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5B1A86DC456E29FD8396592DEB4FEE01 /* ScreenshotsAPI.swift */,
-				BFE478A072D1F35DA7DB85929EE722D0 /* Models */,
+				DF9DEE6FB6866475A643D62F17EA982C /* DistributionsResponse.swift */,
 			);
-			name = ScreenshotsAPI;
-			path = CrowdinSDK/Classes/CrowdinAPI/ScreenshotsAPI;
+			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		7415B0A94DA3180C05C69E2576CBAF69 /* Operations */ = {
+		71099138C80DF38B7121FA82C9517585 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D1B947FEF541C5B6185CA7017AAADE1C /* DownloadProjectInfoOperation.swift */,
-				998686533186B687B611FDD52B9308C3 /* DownloadSupportedLanguagesOperation.swift */,
+				3B3C51C564AE98206AD45C47777CAD71 /* ProjectDetailsResponse.swift */,
 			);
-			name = Operations;
-			path = Operations;
+			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		74B354FEE42AB825E96690DF7F109CC3 /* Starscream */ = {
@@ -581,105 +465,74 @@
 				E48F7922C44A3645750BD18CCCF671B0 /* SSLClientCertificate.swift */,
 				D59F921BA6434A655F9C82F0F81BE47A /* SSLSecurity.swift */,
 				3B9AA0D25BD7BD2C495D776FC8B846DC /* WebSocket.swift */,
-				AC8B16F37C45CD8DF2210FA2B5D71632 /* Support Files */,
+				E1C262BC966EEAEBD1297175B34EF373 /* Support Files */,
 			);
 			name = Starscream;
 			path = Starscream;
 			sourceTree = "<group>";
 		};
-		7599964E428E6B627D885DC254938B60 /* Targets Support Files */ = {
+		7633529308ECABB5CBF233CD95B4F0A3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				67EC9484851419D0EAFB6D6C84F9C29B /* Pods-CrowdinSDK */,
+				8F79554709255C64345C616327FD8FD9 /* Atomic.swift */,
+				1AD69E827CB759DEF72FDC060F39F213 /* ObjectAssociation.swift */,
+				4D6AE2D6E31A91CCDD9D771442F332CC /* Operations */,
 			);
-			name = "Targets Support Files";
+			name = Utils;
+			path = CrowdinSDK/Classes/CrowdinSDK/Utils;
 			sourceTree = "<group>";
 		};
-		778062218FFAB286D339C4B01BDA19DC /* Development Pods */ = {
+		806EE09BF8C7E5E64208402775881602 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				EEADDCA317273318B4754E4DF13FE9E8 /* CrowdinSDK */,
+				2A40CD6B16D85417E01F5F2407DDF0A5 /* InBundleLocalizationStorage.swift */,
+				C754F804D7DD8761C7DBC37B6AD45C60 /* LocalizationDataSource.swift */,
+				8EDE1D91F1BC50F114C08CF5913B4F8E /* LocalizationProvider.swift */,
+				A102A5805E4520E80C3CB7FB9B1539D9 /* LocalizationStorage.swift */,
+				34BE9F766FE723D9C8DF9487A7BDDABD /* LocalLocalizationStorage.swift */,
+				84D6FEFFB20D1852AEF4660912C4E290 /* RemoteLocalizationStorage.swift */,
 			);
-			name = "Development Pods";
+			name = Provider;
+			path = Provider;
 			sourceTree = "<group>";
 		};
-		7EE041473A76EC31D5122A3DA13C14DA /* BaseAPI */ = {
+		80787DED0523775B390C583BBDD37885 /* ContentDeliveryAPI */ = {
 			isa = PBXGroup;
 			children = (
-				3AF51639D235AA7C7C983B2A3D86D41E /* BaseAPI.swift */,
-				73D7C9D1E46B142CAFCD6014B2A4BBAF /* Request.swift */,
-				C3D00B89C37694A23E2FC0E86F7DFDDA /* RequestHeaderFields.swift */,
-				CBACC93BFAEA571BDAF3A1E617250E90 /* RequestMethod.swift */,
-				2ABE6F217585ED075248D88A068C83EF /* ResponsetHeaderFields.swift */,
-				B2BEE4F6A3782B1943C44D37393A6CFB /* Extensions */,
+				F8F9FBE348BD66ABB68B103EACE5FFC0 /* CrowdinContentDeliveryAPI.swift */,
+				FF94C4B455C6D0F25086D8F47B743288 /* Operations */,
+				CA5C0D5F39295F7F135FCF1722A8D3F9 /* Parser */,
 			);
-			name = BaseAPI;
-			path = CrowdinSDK/Classes/CrowdinAPI/BaseAPI;
+			name = ContentDeliveryAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/ContentDeliveryAPI;
 			sourceTree = "<group>";
 		};
-		8378BE203BAEC2FE5014E57F4088D76A /* CrowdinMappingDownloader */ = {
+		8C5BA1E227DF467B06899EA82AA9700C /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				D61C4123F8DADCA31364FA26B39DEE84 /* CrowdinMappingDownloader.swift */,
+				53F0A863945E580878BC2CA159F39266 /* CrowdinSDK.podspec */,
+				13C85C6CFED68D216672685573D45047 /* LICENSE */,
+				DC5DA5F6B5BF2F99BA0226D3AD265E60 /* README.md */,
 			);
-			name = CrowdinMappingDownloader;
-			path = CrowdinMappingDownloader;
+			name = Pod;
 			sourceTree = "<group>";
 		};
-		839BE3DE6D7B89C0B8151FC721B99593 /* Core */ = {
+		902E6C421F4B5923B21E51418A480490 /* ScreenshotsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				EE0D9A5DB482D24AD7EE4AD7B760DE70 /* Constants.swift */,
-				EDA0F369754315615930225156F5CAFD /* CrowdinProviderTester.swift */,
-				5EAFEDDB467F65A1672DBBEA149A5436 /* CrowdinSDK.swift */,
-				A6788598B8AD44B0449C5B21E8F90A79 /* CrowdinSDKConfig.swift */,
-				ADAA087A53654B74B0B6E569FEA15C75 /* CustomBundle */,
-				2DFBFF6B7038C332B31D95E6BAE7AE77 /* Extensions */,
-				09FA02D890C860E1253477F8A71E5913 /* Features */,
-				28747B24220CCF5F6F404CD38F588094 /* FileSystem */,
-				D6DB8C2DEA34F34AEADD7D477DF4C2F3 /* Localization */,
-				B8D82A21C63BEF6AA52572B2FB6773B0 /* R.swift */,
-				2C624FEBD8E5B57A3BAE4B1E1E44DF5B /* Resources */,
-				6FA818DE2F1E67E14D8DF48102C55D33 /* Settings */,
-				37FC91F36E9056E47451CE13E67B2289 /* Utils */,
+				61EA25836813B3F8923BB61B265C9857 /* ScreenshotsAPI.swift */,
+				970C620A72BCB42C497ADA1254CF1A07 /* Models */,
 			);
-			name = Core;
+			name = ScreenshotsAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/ScreenshotsAPI;
 			sourceTree = "<group>";
 		};
-		858E2D0CBCCC239A2EDDD44D4D48C3AB /* Models */ = {
+		970C620A72BCB42C497ADA1254CF1A07 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A7A3426B15AE01E04D3EBE64159F79AF /* ProjectDetailsResponse.swift */,
-				FA9523C3DF303C219AE248965419547A /* SupportedLanguagesResponse.swift */,
-			);
-			name = Models;
-			path = Models;
-			sourceTree = "<group>";
-		};
-		892405DE7C7BBEB80362C7A695CF659F /* IntervalUpdateFeature */ = {
-			isa = PBXGroup;
-			children = (
-				0F84A52D2224E10183DCEF12A6E440E9 /* IntervalUpdateFeature.swift */,
-			);
-			name = IntervalUpdateFeature;
-			path = IntervalUpdateFeature;
-			sourceTree = "<group>";
-		};
-		9034D7822AED394E4CCAB5241D524F32 /* LoginFeature */ = {
-			isa = PBXGroup;
-			children = (
-				1ABDD8B9F51CEDE498F5C3610A6D6CC8 /* LoginFeature.swift */,
-				3096B872F59FED0FCE3FBBFD346B3CE9 /* CrowdinLoginVC */,
-			);
-			name = LoginFeature;
-			path = LoginFeature;
-			sourceTree = "<group>";
-		};
-		964A2F46DC9DD4F86C92347CC56445F5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B3BD3946E41E94FCFD2A16C0FF8A5DF7 /* TopSuggestionResponse.swift */,
-				2FE5F8869B7B8A96459AAA23FE4DB159 /* UpdateDraftResponse.swift */,
+				7A2A73B18032BED83CE72026189E86FB /* CreateScreenshotRequest.swift */,
+				A7A9460B975EA8EFBE031BDE79CE2B22 /* CreateScreenshotResponse.swift */,
+				509FD4C0A2A017C6038367C596AAD79D /* CreateScreenshotTag */,
 			);
 			name = Models;
 			path = Models;
@@ -693,249 +546,306 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		9B055D0CFEA43187E72B03DED11F5662 /* iOS */ = {
+		9919C0B5F20DCF5293BACCB03056E901 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		9B3B7E1968C5180D161161E0D4B0E6AA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4D7D7EF9F90FD41F858102349B97F021 /* DistributionsResponse.swift */,
+				B7C91C276D09C980E01A1B42EB939BD0 /* ActionRequest.swift */,
+				F0D45583897F398DA8A803BD54B663B2 /* TopSuggestionResponse.swift */,
+				EEEB7B5414B127C59C7F54433ECFEC37 /* UpdateDraftResponse.swift */,
 			);
 			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
-		9FF88333D78829773A5F2B263F04AC77 /* Bundle */ = {
+		9DE0BB0A4CA1D500F888245E525192A4 /* ProjectAPI */ = {
 			isa = PBXGroup;
 			children = (
-				7B849612202814AD91108FDF5E1FE8D1 /* Bundle+Application.swift */,
-				53BBAD8611E1D38BD0D88B7AA8938DCD /* Bundle+Codable.swift */,
-				EB302967B1B725880EA890C6DDA86C6F /* Bundle+Crowdin.swift */,
-				FD3C891B72C44689B0F682FE1ECB1F94 /* Bundle+Language.swift */,
-				952B6EF9450BC3DA2A897A43ADCFEE14 /* Bundle+Swizzle.swift */,
+				6F9FD12E1D8DD9FBAB10B7783182FFC5 /* ProjectAPI.swift */,
+				71099138C80DF38B7121FA82C9517585 /* Models */,
+				FDC9255739B808C516C4D5584E76880B /* Operations */,
 			);
-			name = Bundle;
-			path = Bundle;
+			name = ProjectAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/ProjectAPI;
 			sourceTree = "<group>";
 		};
-		A160AEAC185156632880042BB653432E /* CrowdinAPI */ = {
+		9EF33CE4E273964C147E8CD79DF023F1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7EE041473A76EC31D5122A3DA13C14DA /* BaseAPI */,
-				A165C757C2E3F2316C88746E87B76C44 /* ContentDeliveryAPI */,
-				B3229A6C5450350ABE61D9F15438F02E /* CrowdinAPI */,
-				12228919CF16A3CABE1EF190BE4533D3 /* DistributionsAPI */,
-				740B4FDACE60469C409D2099772316E5 /* ScreenshotsAPI */,
-				BA138A44C6D48A68984C05AB0AF3DC07 /* SocketAPI */,
-				3112CD6B0BE53674E46EE5DA38E33537 /* StorageAPI */,
-			);
-			name = CrowdinAPI;
-			sourceTree = "<group>";
-		};
-		A165C757C2E3F2316C88746E87B76C44 /* ContentDeliveryAPI */ = {
-			isa = PBXGroup;
-			children = (
-				1BB3485AD95CDAA60AE21CF6210EDAB3 /* CrowdinContentDeliveryAPI.swift */,
-				4ED75B91C340A2E1153DBA5C2D939968 /* Operations */,
-				1CBCD8944B305F7FE6514B0FFEAD17DD /* Parser */,
-			);
-			name = ContentDeliveryAPI;
-			path = CrowdinSDK/Classes/CrowdinAPI/ContentDeliveryAPI;
-			sourceTree = "<group>";
-		};
-		A5D1AD85EC72871910AA8E80FB858DDD /* ScreenshotFeature */ = {
-			isa = PBXGroup;
-			children = (
-				306F4B1A96371F2A34093A88D97ADDD7 /* ScreenshotFeature.swift */,
-			);
-			name = ScreenshotFeature;
-			path = ScreenshotFeature;
-			sourceTree = "<group>";
-		};
-		AC8B16F37C45CD8DF2210FA2B5D71632 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				E6E939CA01BCC72937D93A886112DFD5 /* Starscream.modulemap */,
-				FAB2AA08214EC75AB5E3B2C147A9462A /* Starscream.xcconfig */,
-				422FC3A568D63FF0BB46E80D19094979 /* Starscream-dummy.m */,
-				44CCB314E19052A6323DC255437778EE /* Starscream-Info.plist */,
-				659B869F55A18CC3060F40704CAC8238 /* Starscream-prefix.pch */,
-				FD42521DF07992BD6F716A727180E1AA /* Starscream-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Starscream";
-			sourceTree = "<group>";
-		};
-		ADAA087A53654B74B0B6E569FEA15C75 /* CustomBundle */ = {
-			isa = PBXGroup;
-			children = (
-				4914913854A91B5979C638E57FFBFE25 /* CustomBundle.swift */,
-			);
-			name = CustomBundle;
-			path = CrowdinSDK/Classes/CrowdinSDK/CustomBundle;
-			sourceTree = "<group>";
-		};
-		ADD9FE7DDA924BE2305075A847F87644 /* ForceRefreshLocalizationFeature */ = {
-			isa = PBXGroup;
-			children = (
-				99348AACA35993378BD521CA3B9E7996 /* ForceRefreshLocalizationFeature.swift */,
-			);
-			name = ForceRefreshLocalizationFeature;
-			path = ForceRefreshLocalizationFeature;
-			sourceTree = "<group>";
-		};
-		B2BEE4F6A3782B1943C44D37393A6CFB /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				23EF91A269BA86C38B49D206125B13A0 /* CharacterSet.swift */,
-				27CEB5F41E9EEC85FEF912A875A4794B /* URLSession.swift */,
+				32A246BC24018C7197E947883FBFB289 /* CharacterSet.swift */,
+				9FD3B698E4FF14B8E5294856F09DDAC6 /* URLSession.swift */,
 			);
 			name = Extensions;
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B3229A6C5450350ABE61D9F15438F02E /* CrowdinAPI */ = {
+		A03788EE75325AB589B63A7EDC5A5E9D /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EB7ED0D2B83FD4DF28A80E79EE108398 /* CrowdinAPI.swift */,
-				BF95B47809BB7C15919FB77FE4AA4509 /* ProjectAPI.swift */,
-				A74C74F28F1A4FFF2FC5F5CF8335EECD /* SupportedLanguagesAPI.swift */,
-				858E2D0CBCCC239A2EDDD44D4D48C3AB /* Models */,
-				7415B0A94DA3180C05C69E2576CBAF69 /* Operations */,
+				A7F57288CB551F1CB37B67D7C5E132EF /* CrowdinSDK */,
 			);
-			name = CrowdinAPI;
-			path = CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		B8D82A21C63BEF6AA52572B2FB6773B0 /* R.swift */ = {
+		A6864678C5A8C5172EAAB02BAD36D6C9 /* DistributionsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				F3BF27BA69DCFAA847D8A4BF40B40954 /* StringParam.swift */,
+				A5A717C2B219EC516769F8B40C4C7799 /* DistributionsAPI.swift */,
+				6F2C47E1AFF3CA4B8BEAF909E749B3C5 /* Models */,
 			);
-			name = R.swift;
-			path = CrowdinSDK/Classes/CrowdinSDK/R.swift;
+			name = DistributionsAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI;
 			sourceTree = "<group>";
 		};
-		B925A6DC652298BD153F4229233E3220 /* Operations */ = {
+		A7F57288CB551F1CB37B67D7C5E132EF /* CrowdinSDK */ = {
 			isa = PBXGroup;
 			children = (
-				787E9D3DE5C28ADEA6A9C8ED607BD1FE /* AsyncOperation.swift */,
-				C40E683E43E63923BEF4F788750B7E0B /* BlockAsyncOperation.swift */,
+				FE60B47B45791822523355CF200368ED /* Core */,
+				C47A0003E9C2145FAE5AABC88F9384AD /* CrowdinAPI */,
+				CCB2F81B95969EB4C4ABFE53A8E8D21A /* CrowdinProvider */,
+				AB472DC2B20163447EA14ABBB0874C19 /* Login */,
+				8C5BA1E227DF467B06899EA82AA9700C /* Pod */,
+				561A2029C1DEB246B480D155867319E9 /* Support Files */,
 			);
-			name = Operations;
-			path = Operations;
+			name = CrowdinSDK;
+			path = ../..;
 			sourceTree = "<group>";
 		};
-		BA138A44C6D48A68984C05AB0AF3DC07 /* SocketAPI */ = {
+		AB472DC2B20163447EA14ABBB0874C19 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				DE22421189CDFD74D79E6C05B18304CE /* SocketAPI.swift */,
-				964A2F46DC9DD4F86C92347CC56445F5 /* Models */,
+				674619E03619ED32A3033E5FB30AFAC5 /* CrowdinLoginConfig.swift */,
+				8110F541A0D3A3A267D2B40200A46778 /* LoginFeature.swift */,
+				7DEEF7BC855043F0BC50B207FB656392 /* RefreshTokenRequest.swift */,
+				5238144EFA6E7FBDFDB6D40454CAB5F8 /* TokenRequest.swift */,
+				008291449B2C03D3A0B7E65F4B092C95 /* TokenResponse.swift */,
+				3BFC74CA84A1DC6883CA16E6732A66ED /* Extensions */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		AC982441DAE486D0BD1E16ED738103F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E9F08F0F92062FCFA68EA438A9F9EC4D /* StorageUploadResponse.swift */,
+			);
+			name = Models;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B26DEA7FC0A35FE783878040ABD47C04 /* Pods-CrowdinSDK */ = {
+			isa = PBXGroup;
+			children = (
+				4E3A4B2BC47036E53B5433B21A30B6E5 /* Pods-CrowdinSDK.modulemap */,
+				E939F34227113173883603C14B56F9DB /* Pods-CrowdinSDK-acknowledgements.markdown */,
+				E11B8811F9FA5E07BC3DA95F3C9C9302 /* Pods-CrowdinSDK-acknowledgements.plist */,
+				28FF80373360385AEBA33D1429497448 /* Pods-CrowdinSDK-dummy.m */,
+				470F5E9FB7FB3860271C41BF31687AF5 /* Pods-CrowdinSDK-frameworks.sh */,
+				FD1458044A8F550600DD8417094AC6FE /* Pods-CrowdinSDK-Info.plist */,
+				ADB4E282D4AA50544BBD3F64E4F105EE /* Pods-CrowdinSDK-umbrella.h */,
+				572EFDD5D0827B2785BCC15C0E5DEFDC /* Pods-CrowdinSDK.debug.xcconfig */,
+				3ED2E97A6126E1ECA41630D247676903 /* Pods-CrowdinSDK.release.xcconfig */,
+			);
+			name = "Pods-CrowdinSDK";
+			path = "Target Support Files/Pods-CrowdinSDK";
+			sourceTree = "<group>";
+		};
+		B7D518D202CDA947681DBD5822D5B84A /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				680BA490E1A6611E0CADC9DC0645AD06 /* CrowdinFolder.swift */,
+				5273C54BE20A11191FAD4BA4F00A94DC /* DocumentsFolder.swift */,
+				59460597332E8E19B659619C849473D0 /* File.swift */,
+				C29F8C2DDAD149F8BA8251E760DD236E /* FileStatus.swift */,
+				B4C73BB04D2AEC23B878723D8C6C748B /* FileType.swift */,
+				654717C09B9D2892442BE33E562D3FF5 /* Folder.swift */,
+				85FA9FCBC7B76ECA7EEC41E2CA64CEB2 /* ReadWriteProtocol.swift */,
+				BCB7F270E138BEB31032FE4615F496AE /* CustomBundle */,
+			);
+			name = FileSystem;
+			path = CrowdinSDK/Classes/CrowdinSDK/FileSystem;
+			sourceTree = "<group>";
+		};
+		BCB7F270E138BEB31032FE4615F496AE /* CustomBundle */ = {
+			isa = PBXGroup;
+			children = (
+				E16E4877B015B3DED0F074E8DF37E211 /* CustomBundle.swift */,
+			);
+			name = CustomBundle;
+			path = CustomBundle;
+			sourceTree = "<group>";
+		};
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C122107827E68AD5161455A4637F86C7 /* SocketAPI */ = {
+			isa = PBXGroup;
+			children = (
+				95E1792813D5DD1B3D75D342819F0507 /* SocketAPI.swift */,
+				9919C0B5F20DCF5293BACCB03056E901 /* Models */,
 			);
 			name = SocketAPI;
 			path = CrowdinSDK/Classes/CrowdinAPI/SocketAPI;
 			sourceTree = "<group>";
 		};
-		BBA09C29A051B718FD2F0B88EE28CC85 /* Models */ = {
+		C47A0003E9C2145FAE5AABC88F9384AD /* CrowdinAPI */ = {
 			isa = PBXGroup;
 			children = (
-				31C99028CADB7ED0D0414C39DCE3821F /* StorageUploadResponse.swift */,
+				E470688DBD0C1FE9C18100482A5C7493 /* CrowdinAPI.swift */,
+				578E0174C64A124219BC8FBF0FED24E8 /* BaseAPI */,
+				80787DED0523775B390C583BBDD37885 /* ContentDeliveryAPI */,
+				A6864678C5A8C5172EAAB02BAD36D6C9 /* DistributionsAPI */,
+				9DE0BB0A4CA1D500F888245E525192A4 /* ProjectAPI */,
+				902E6C421F4B5923B21E51418A480490 /* ScreenshotsAPI */,
+				C122107827E68AD5161455A4637F86C7 /* SocketAPI */,
+				C6AF964B05D83C204ED59081A2229BFB /* StorageAPI */,
+				33041F5084CE4F2169C2AD538BF0A428 /* SupportedLanguagesAPI */,
 			);
-			name = Models;
-			path = Models;
+			name = CrowdinAPI;
 			sourceTree = "<group>";
 		};
-		BFE478A072D1F35DA7DB85929EE722D0 /* Models */ = {
+		C6AF964B05D83C204ED59081A2229BFB /* StorageAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9384E033C6B02F7B10400CC0D98E407D /* CreateScreenshotRequest.swift */,
-				5129FFFD7C2682B95884A791126CBBD0 /* CreateScreenshotResponse.swift */,
-				13F33F0679E83AC9BD16015818BCDBE7 /* CreateScreenshotTag */,
+				C73F2450E49E44398F8958F446DA2CF8 /* StorageAPI.swift */,
+				AC982441DAE486D0BD1E16ED738103F9 /* Models */,
 			);
-			name = Models;
-			path = Models;
+			name = StorageAPI;
+			path = CrowdinSDK/Classes/CrowdinAPI/StorageAPI;
+			sourceTree = "<group>";
+		};
+		C7E76CAFD05611F0A277C9EDDB10B62B /* R.swift */ = {
+			isa = PBXGroup;
+			children = (
+				C97160514F50DC1C6F75D5D4AE969EDF /* StringParam.swift */,
+			);
+			name = R.swift;
+			path = CrowdinSDK/Classes/CrowdinSDK/R.swift;
+			sourceTree = "<group>";
+		};
+		CA5C0D5F39295F7F135FCF1722A8D3F9 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				F4209575DDCD8725A3C8DBEB19022A85 /* DataParser.swift */,
+			);
+			name = Parser;
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		CCB2F81B95969EB4C4ABFE53A8E8D21A /* CrowdinProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A37AC1AD8F8389147221662E0C073080 /* CrowdinRemoteLocalizationStorage.swift */,
+				663C041F536199949536C58444B07787 /* Config */,
+				09E4F4EAD286F3FED3C53170C5A7725D /* PathParser */,
+				FF18B776F6AA73DAACBA5A391B0BFB80 /* SupportedLanguages */,
+			);
+			name = CrowdinProvider;
+			sourceTree = "<group>";
+		};
+		CD8FDF53AA4CC160F6EB29597AA63797 /* Downloaders */ = {
+			isa = PBXGroup;
+			children = (
+				8B6EAC29D2E9AF99ACE42E119BE9E292 /* CrowdinDownloader.swift */,
+				323E8C427DD53A218127F0AE319B1487 /* CrowdinLocalizationDownloader.swift */,
+			);
+			name = Downloaders;
+			path = Downloaders;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				778062218FFAB286D339C4B01BDA19DC /* Development Pods */,
+				A03788EE75325AB589B63A7EDC5A5E9D /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				97C5288770E1953BDB40F8F908E40D46 /* Pods */,
-				0B149945A6A715D36406489EC979B07F /* Products */,
-				7599964E428E6B627D885DC254938B60 /* Targets Support Files */,
+				65D68C2CB86635CB4A2155E9C11648FE /* Products */,
+				54B1B444551767FA30332182ED405402 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9B055D0CFEA43187E72B03DED11F5662 /* iOS */,
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D6DB8C2DEA34F34AEADD7D477DF4C2F3 /* Localization */ = {
+		DCC921DF97CEFFC4840B7FEDCD267072 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				AB09D5B98EDFE262F841A2F49A1B3621 /* Localization.swift */,
-				43FB594739E19DC84E814C62A04620CD /* LocalizationUpdateObserver.swift */,
-				418A47F4805E83AAA33ABFC1DE8C9471 /* Extractor */,
-				3AEACAAE56CB23707CF2DA47D71325B1 /* Provider */,
+				72A740FDC28F81A3684B02371EFE1C74 /* DownloadSupportedLanguagesOperation.swift */,
 			);
-			name = Localization;
-			path = CrowdinSDK/Classes/CrowdinSDK/Localization;
+			name = Operations;
+			path = Operations;
 			sourceTree = "<group>";
 		};
-		DA0562B977588DE9D1AD0860DABA6B22 /* CrowdinSocketManager */ = {
+		E1C262BC966EEAEBD1297175B34EF373 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				DFB6FBD34A5288EDEFF4AAF91E6D8BE4 /* CrowdinSocketManager.swift */,
+				2EF130DB1D020533A3D8DDE0CB985BD3 /* Starscream.modulemap */,
+				64D5E391E11E3D9A03B0ACF80CFBA3B2 /* Starscream.xcconfig */,
+				01FB5DEA2CF4E44263A62924A53A069E /* Starscream-dummy.m */,
+				44E219F4030CE498CF0D43505F1973F7 /* Starscream-Info.plist */,
+				3DCEA6169B33E34F1E6E7128F65DC025 /* Starscream-prefix.pch */,
+				7F7A2315DC555AEF64DA8D50B51DA7F1 /* Starscream-umbrella.h */,
 			);
-			name = CrowdinSocketManager;
-			path = CrowdinSocketManager;
+			name = "Support Files";
+			path = "../Target Support Files/Starscream";
 			sourceTree = "<group>";
 		};
-		EEADDCA317273318B4754E4DF13FE9E8 /* CrowdinSDK */ = {
+		FDC9255739B808C516C4D5584E76880B /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				839BE3DE6D7B89C0B8151FC721B99593 /* Core */,
-				A160AEAC185156632880042BB653432E /* CrowdinAPI */,
-				4BA0916040F21C1C55AA83B409386BBC /* CrowdinProvider */,
-				F06AE53A3C6F1C3BD0B2190DC79E97DA /* Pod */,
-				4C0E92888E8C85FD4000EF190F824E6E /* Support Files */,
+				3DB0D6B958AAD329A13C957655BEEA20 /* DownloadProjectInfoOperation.swift */,
 			);
-			name = CrowdinSDK;
-			path = ../..;
+			name = Operations;
+			path = Operations;
 			sourceTree = "<group>";
 		};
-		F06AE53A3C6F1C3BD0B2190DC79E97DA /* Pod */ = {
+		FE60B47B45791822523355CF200368ED /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D7432E1B0B005C91B6A451BEC672FCB4 /* CrowdinSDK.podspec */,
-				3BF65AF71F018032BC484DF20523CEF2 /* LICENSE */,
-				BEFC7D5FBCC29144DE5D1985A8D7B147 /* README.md */,
+				46145C541A1B6113DBA915BAC3A11C61 /* Constants.swift */,
+				45A6641043D33F7FC7356F538B34A712 /* CrowdinSDK.swift */,
+				0B578F27841C80D2BB889A52A559E61B /* CrowdinSDKConfig.swift */,
+				48D7D6843EB093E49BD2C346CDCF1B2B /* CrowdinTester.swift */,
+				4161CDE14D2F1A6FA69D048D0DDC501C /* Extensions */,
+				B7D518D202CDA947681DBD5822D5B84A /* FileSystem */,
+				6696C4A11E7C6523EDCCCA701402FDFA /* Localization */,
+				C7E76CAFD05611F0A277C9EDDB10B62B /* R.swift */,
+				7633529308ECABB5CBF233CD95B4F0A3 /* Utils */,
 			);
-			name = Pod;
+			name = Core;
+			sourceTree = "<group>";
+		};
+		FF18B776F6AA73DAACBA5A391B0BFB80 /* SupportedLanguages */ = {
+			isa = PBXGroup;
+			children = (
+				389F2BDC3A43316756DB750F6A7F8F0E /* CrowdinSupportedLanguages.swift */,
+			);
+			name = SupportedLanguages;
+			path = CrowdinSDK/Classes/Providers/Crowdin/SupportedLanguages;
+			sourceTree = "<group>";
+		};
+		FF94C4B455C6D0F25086D8F47B743288 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				38397FBF239F2450142CF92A646F6D43 /* DownloadOperation.swift */,
+			);
+			name = Operations;
+			path = Operations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		02360875E861C3B56795C42003C2B9B3 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				51918B478AA86A504E8937E7FF4BFF1A /* Starscream-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5504EBB5D21958AA47C25BE13F46C8DD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -944,73 +854,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		68F66E18A0B88D101F5D9BB3F8A7D481 /* Headers */ = {
+		CB98974970E62A1F800774D350B7D202 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				436D48F612F9EFC7F466CDCB5DFDA89E /* CrowdinSDK-umbrella.h in Headers */,
+				6384DD92FF22BBA9A30B0A5C1C50F33D /* Starscream-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E38FDE66C294647D87E936A90A5DCBFC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29D8CC905A05065B2E226FC54C5D73BB /* CrowdinSDK-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5E11E4B78BF358AE782E17C326EB045D /* CrowdinSDK-CrowdinSDK */ = {
+		20FF00E99E182CBF49D5B4A881196748 /* CrowdinSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF48DE289CA595AA6551F86BBCD65B9F /* Build configuration list for PBXNativeTarget "CrowdinSDK-CrowdinSDK" */;
+			buildConfigurationList = 0C767CD7CB3A92BB3A28E0D135F7C401 /* Build configuration list for PBXNativeTarget "CrowdinSDK" */;
 			buildPhases = (
-				FA666372E4CD2D78115770A766D30BFE /* Sources */,
-				198A1561DD8D57F338159F378D6FC366 /* Frameworks */,
-				CDBC0836163486C1EECE89DCFC305B9F /* Resources */,
+				E38FDE66C294647D87E936A90A5DCBFC /* Headers */,
+				46DD3A7C5D331C171ECF117673E43C8A /* Sources */,
+				3495474B2557B986362FA5EF8CADB476 /* Frameworks */,
+				CC3CA12506BEC317CF022639E280E877 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = "CrowdinSDK-CrowdinSDK";
-			productName = "CrowdinSDK-CrowdinSDK";
-			productReference = D642BF3BCBCCAE8FDDD95CA7F31C696D /* CrowdinSDK.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
-		9496580A310C1E9A27520A2079FDA645 /* CrowdinSDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 501302B6D92062A557A4289E5E8B8849 /* Build configuration list for PBXNativeTarget "CrowdinSDK" */;
-			buildPhases = (
-				68F66E18A0B88D101F5D9BB3F8A7D481 /* Headers */,
-				926766EF15351B6478E8299995695635 /* Sources */,
-				95F48DA36C8508C49CA784399BCA4EDF /* Frameworks */,
-				C9D8B6F6DE7089A3B2351E8FFD9ABF85 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8F36DAE0DB04E68B1BCAB601E7D01A10 /* PBXTargetDependency */,
-				F127C2556956412CC5D77287BA8A97F0 /* PBXTargetDependency */,
+				66B100CB8C81AE12126057DC86524C07 /* PBXTargetDependency */,
 			);
 			name = CrowdinSDK;
 			productName = CrowdinSDK;
-			productReference = 3D9A24A9BA3D76A5FD1BC31D2C9C9F13 /* CrowdinSDK.framework */;
+			productReference = C997E919BC9FBE7F76D6F5D088C7ACB9 /* CrowdinSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		EB5277B8695724C4120E8F65401E2959 /* Starscream */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F37F4825D5D07F9CAB3D7955868AE9FB /* Build configuration list for PBXNativeTarget "Starscream" */;
-			buildPhases = (
-				02360875E861C3B56795C42003C2B9B3 /* Headers */,
-				A30D944992297D08F6A4E5152BE38E07 /* Sources */,
-				5CDB4A99E1A713CEB618A55EEAB5B360 /* Frameworks */,
-				0971D8C1EB13AFF7A5301B7F03C2B675 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Starscream;
-			productName = Starscream;
-			productReference = 2F4207106886B587B4A31098C4B9BB9A /* Starscream.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		FB8D90228E1BC7D28DF4F8BB34172277 /* Pods-CrowdinSDK */ = {
+		227759FC044EF7271885CB2276859523 /* Pods-CrowdinSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 369E54E82851C5894490CCAA23AD19FB /* Build configuration list for PBXNativeTarget "Pods-CrowdinSDK" */;
 			buildPhases = (
@@ -1027,7 +909,25 @@
 			);
 			name = "Pods-CrowdinSDK";
 			productName = "Pods-CrowdinSDK";
-			productReference = 0BF06CBF344FC4A2FF0C5932DCFE8A47 /* Pods_CrowdinSDK.framework */;
+			productReference = 3DB676A2152AD00900D33C8A51F4C671 /* Pods_CrowdinSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9B78EE4AF6AE03E79D88886319853FF7 /* Starscream */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30A2203273A50F0274A47180408A43CC /* Build configuration list for PBXNativeTarget "Starscream" */;
+			buildPhases = (
+				CB98974970E62A1F800774D350B7D202 /* Headers */,
+				7B5184CD4D7695E061D77EBBD6591B1A /* Sources */,
+				F59345EBCF092E6A4DDAC7973EE172A3 /* Frameworks */,
+				334A9A94616381F07947E9C6781C5B24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Starscream;
+			productName = Starscream;
+			productReference = 77BA77D6F4B9DB7F9FDC91DB337DC9CD /* Starscream.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1036,31 +936,30 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 0B149945A6A715D36406489EC979B07F /* Products */;
+			productRefGroup = 65D68C2CB86635CB4A2155E9C11648FE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9496580A310C1E9A27520A2079FDA645 /* CrowdinSDK */,
-				5E11E4B78BF358AE782E17C326EB045D /* CrowdinSDK-CrowdinSDK */,
-				FB8D90228E1BC7D28DF4F8BB34172277 /* Pods-CrowdinSDK */,
-				EB5277B8695724C4120E8F65401E2959 /* Starscream */,
+				20FF00E99E182CBF49D5B4A881196748 /* CrowdinSDK */,
+				227759FC044EF7271885CB2276859523 /* Pods-CrowdinSDK */,
+				9B78EE4AF6AE03E79D88886319853FF7 /* Starscream */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0971D8C1EB13AFF7A5301B7F03C2B675 /* Resources */ = {
+		334A9A94616381F07947E9C6781C5B24 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1074,26 +973,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9D8B6F6DE7089A3B2351E8FFD9ABF85 /* Resources */ = {
+		CC3CA12506BEC317CF022639E280E877 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA1ED17EFB17F95E46D17210FE5C70E3 /* CrowdinLoginVC.storyboard in Resources */,
-				D58C2F806CA10BD7EAA845359605730E /* CrowdinSDK.bundle in Resources */,
-				2A4FBDD75E2D5CAD49563DBDC1ED844A /* Images.xcassets in Resources */,
-				9C3B6D6784DD6084E7B9E06C3281621A /* SettingsItemCell.xib in Resources */,
-				ADE57D001AE050372FB2945A7B7782AD /* SettingsView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDBC0836163486C1EECE89DCFC305B9F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B9343E01FB5076725382D926573EC525 /* CrowdinLoginVC.storyboard in Resources */,
-				9022E436F0FEE3E575541CDD3A9739C0 /* Images.xcassets in Resources */,
-				ED5D22EDF49A21A5145B44DC60600785 /* SettingsItemCell.xib in Resources */,
-				8E275DC751C977CA96369D11D1832112 /* SettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1108,118 +991,105 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		926766EF15351B6478E8299995695635 /* Sources */ = {
+		46DD3A7C5D331C171ECF117673E43C8A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3E995B80A48E6AC837C51535EA72525 /* AsyncOperation.swift in Sources */,
-				6132F3840208C2B52B5ADE9FE48E648D /* Atomic.swift in Sources */,
-				D9BE724EEC808D8221C857BC89B28EAD /* BaseAPI.swift in Sources */,
-				1F590BF3200AAE5AAB74518B12919C61 /* BaseLocalizationProvider.swift in Sources */,
-				AD7E20B8E78811146C37CA1C71071388 /* BlockAsyncOperation.swift in Sources */,
-				CFC97BDF6EAF9064F90A549C6E1FC59A /* Bundle+Application.swift in Sources */,
-				E380BD586D83B902A8E368741AF1D9E0 /* Bundle+Codable.swift in Sources */,
-				0177E99BF535A664A74D1BAD1A2AB99B /* Bundle+Crowdin.swift in Sources */,
-				C16BEE11EA2D1FF4BC606236515E51C9 /* Bundle+Language.swift in Sources */,
-				36844B8EC41F3570E9975E527905B4E8 /* Bundle+Swizzle.swift in Sources */,
-				B09964E633E60884FA8575420DC80637 /* CharacterSet.swift in Sources */,
-				CFD9EA9E756B6BE1DBF1E26C765BE4AA /* Constants.swift in Sources */,
-				07D90488D37278A706C6BF77B2934C0F /* CreateScreenshotRequest.swift in Sources */,
-				39322949F016CEC3DE430F1147833A19 /* CreateScreenshotResponse.swift in Sources */,
-				3A8E18EAA4F56ABA3924CD23AF63CE28 /* CreateScreenshotTagRequest.swift in Sources */,
-				DC539AE1FE4508853262F6E288B34C94 /* CreateScreenshotTagResponse.swift in Sources */,
-				D7F026498B34A504AF6FFE7766D7E72F /* CrowdinAPI.swift in Sources */,
-				B94F69E2FAAC1F1B71D22D96922959B2 /* CrowdinContentDeliveryAPI.swift in Sources */,
-				D55E52197E71399A368FC8AA5CCDFDA6 /* CrowdinDownloader.swift in Sources */,
-				52A9B97AA8BB0CA18D255C0AB5A3F47E /* CrowdinFolder.swift in Sources */,
-				7B78A119EAD2B8CB896E1F09F4F0DF20 /* CrowdinLocalizationProvider.swift in Sources */,
-				87621B7FE63B053E1EDE64D6B65BCB84 /* CrowdinLocalLocalizationStorage.swift in Sources */,
-				6B582B1349B55C8EC4555F150D5B73AF /* CrowdinLoginVC.swift in Sources */,
-				6B30845B7810D9A4F29D8B21F27E6F21 /* CrowdinMappingDownloader.swift in Sources */,
-				B3F0134C08499DB8829C1745BF7B5010 /* CrowdinMappingManager.swift in Sources */,
-				9E667C3CC901BA759A953257E1C99967 /* CrowdinPathsParser.swift in Sources */,
-				2DD555F759B99A46EE6E5B7EBBECAC7A /* CrowdinProviderConfig.swift in Sources */,
-				3082CB534690981E6202FDDDADE3B3B4 /* CrowdinProviderTester.swift in Sources */,
-				1BAB5CD1090FB3F7D4410CA9D28BAE26 /* CrowdinRemoteLocalizationStorage.swift in Sources */,
-				1EC10067197F30A725749EEF9B194912 /* CrowdinSDK-dummy.m in Sources */,
-				0A88ECD70DC13825967FF0F9965B31C4 /* CrowdinSDK.swift in Sources */,
-				9A092F00D71AE1D0E33F6B50290B8258 /* CrowdinSDKConfig.swift in Sources */,
-				0CCDA28771B1E1B5A4C1F83D3DF5738B /* CrowdinSocketManager.swift in Sources */,
-				C396269D63064AF6B71CBED2F3C28A4E /* CrowdinSupportedLanguages.swift in Sources */,
-				6BC67802FA6B57E35D10B34EA09A63D1 /* CustomBundle.swift in Sources */,
-				320D6A4349317A92B0F4432E28092992 /* DataParser.swift in Sources */,
-				BB0F836523AE452C43116B08DEE93E74 /* Dictionary.swift in Sources */,
-				7638055247A351E56B9ED5471F8CBE50 /* DistributionsAPI.swift in Sources */,
-				E2C662B4B8CE54FABB7D3027113E219B /* DistributionsResponse.swift in Sources */,
-				36B386B94518E834DDC910DD27C035B4 /* DocumentsFolder.swift in Sources */,
-				05D3C94D0B79619EAB7680C3F1C4E1C8 /* DownloadOperation.swift in Sources */,
-				C1840BF5AF07B138E106CCAB2207D043 /* DownloadProjectInfoOperation.swift in Sources */,
-				802DEC513A1D88B49CFDD594242480FD /* DownloadSupportedLanguagesOperation.swift in Sources */,
-				B40142A9C71C21F85C6486B394D86009 /* Feature.swift in Sources */,
-				3DFFF07D39A754E330A3FB0CBC260A9A /* File.swift in Sources */,
-				6CA6AEB153173456912E538A7EE72F50 /* FileStatus.swift in Sources */,
-				89DB4B967C99965850408BA0899B82E7 /* FileType.swift in Sources */,
-				23F02ADF006C79F8F7F4D47D9891C8C2 /* Folder.swift in Sources */,
-				D301F4E4EA9A71A01362732BD77925B8 /* ForceRefreshLocalizationFeature.swift in Sources */,
-				B7D265672BA7DAFD144F8DEB9CA64101 /* IntervalUpdateFeature.swift in Sources */,
-				7B55AD60FC5F1BA28F151DBF12BDF55E /* Locale.swift in Sources */,
-				99895542FEF77E490E299D4C619822A6 /* Localization.swift in Sources */,
-				AEBA88E77257CCA5D83A1B457FC6C717 /* LocalizationDataSource.swift in Sources */,
-				85AF0B862400EF27BDC34EB5EFD026BD /* LocalizationExtractor.swift in Sources */,
-				988F2D3154EE05C8B320F5DDF492F81A /* LocalizationProvider.swift in Sources */,
-				17E9239311030085CD436CE548C103D5 /* LocalizationUpdateObserver.swift in Sources */,
-				FF6EB15AF2FC6F8C49BD15BA04FF8877 /* LocalLocalizationProvider.swift in Sources */,
-				8540CA9A354932F3BA71D505F23620AF /* LoginFeature.swift in Sources */,
-				F7589A8DDB66303CF5027EBEB67E75A7 /* ObjectAssociation.swift in Sources */,
-				824A4FD9B95A71A3FB7D86404431B7F0 /* ProjectAPI.swift in Sources */,
-				745C3867C89FC6EB6EE1C0EA30BC8CF7 /* ProjectDetailsResponse.swift in Sources */,
-				FFD391827E359DB4CA4D2B3DAAE57375 /* ReadWriteProtocol.swift in Sources */,
-				CDA758946564E5380273D0AFE209744A /* RealtimeUpdateFeature.swift in Sources */,
-				810DD798E8565CCCFAC3D6F4A434E1A0 /* Refreshable.swift in Sources */,
-				A08EEAC5D7B43E3567BDF60989F06340 /* Request.swift in Sources */,
-				47DEC1C3A1394776E2539A2036DCE760 /* RequestHeaderFields.swift in Sources */,
-				96CF43AC30B1C109F3E3A2F0CE77F469 /* RequestMethod.swift in Sources */,
-				3993490ADBE24480216B17DFA20552F1 /* ResponsetHeaderFields.swift in Sources */,
-				AFE38A61F955ED7EA12EFC9B7862B2E7 /* ScreenshotFeature.swift in Sources */,
-				7600E01328A532E32FA2A9FD8F17338C /* ScreenshotsAPI.swift in Sources */,
-				0C4A4C93EC6A56BBE0BE2B5AD9A6C0DB /* SettingsItemCell.swift in Sources */,
-				86E838AEA2E798866A9CD44AA8538EB7 /* SettingsView+Gesture.swift in Sources */,
-				CACDAA8691E7441D9029CAB86C877B64 /* SettingsView+UITableView.swift in Sources */,
-				2876473FC77A1FB6BAFB199E5D2D91F0 /* SettingsView.swift in Sources */,
-				48BB6AD87EF6F104639B0E45BD35563C /* SocketAPI.swift in Sources */,
-				AF49177B121A51BEBCD84D789CF0F859 /* StorageAPI.swift in Sources */,
-				77921FC86A500EB4EFA48D2BFF66334F /* StorageUploadResponse.swift in Sources */,
-				FE75005F7F0AE2C0273D59F9C76E6F09 /* String.swift in Sources */,
-				CAEEFB53389BD2261D0E128F5805DE33 /* StringParam.swift in Sources */,
-				6D5B2C2994A0E56169C270F9783279A7 /* SupportedLanguagesAPI.swift in Sources */,
-				4341847DA179B30A12626D5DB361E97B /* SupportedLanguagesResponse.swift in Sources */,
-				EC2CBE4D8CEF2659242CA3F5B552E609 /* TopSuggestionResponse.swift in Sources */,
-				663DC4243B046D4FF8467C45E38E56CD /* UIButton+Swizzle.swift in Sources */,
-				1AF3043EFCFC3890819EB63CE0ED4F40 /* UILabel+Swizzle.swift in Sources */,
-				0C70EAE9278F11D63F040CEE05F16447 /* UIViewController.swift in Sources */,
-				CC393E90620BCCFFBD80792EAE29E678 /* UIWindow.swift in Sources */,
-				DBD73C48DEB74B3E367E736EAB9E7F0B /* UpdateDraftResponse.swift in Sources */,
-				5B7BE3174552BCAE816ADC3D6A5F2A81 /* URLSession.swift in Sources */,
-				B33A109B1555DA363734031719BF89CF /* UserDefaults.swift in Sources */,
+				D1B132DF6BB522F758C991A19D702370 /* ActionRequest.swift in Sources */,
+				7F4E08394BE019895FA5CE1242FF8D12 /* AsyncOperation.swift in Sources */,
+				71655ED1ABDD7D88C7F816B7E25AE892 /* Atomic.swift in Sources */,
+				040BC9557A9FACA2B04713BA14C027A3 /* BaseAPI.swift in Sources */,
+				7DEAE02D0E56497E7CBD15C491C799DB /* BlockAsyncOperation.swift in Sources */,
+				A9A7D9ECD256C3E3AA51B35F17716E42 /* Bundle+Application.swift in Sources */,
+				D7591CAE944490651B774B62F03B8314 /* Bundle+Crowdin.swift in Sources */,
+				46734CE4D712D33FECEE3B69E929EC92 /* Bundle+Language.swift in Sources */,
+				057410836C069311E211414EF0C30E81 /* Bundle+Swizzle.swift in Sources */,
+				784023F911C7A718F60B2EF49CE0E395 /* Bundle+URLScheme.swift in Sources */,
+				E3297B771DF41D31484768E6EBA250B9 /* CharacterSet.swift in Sources */,
+				FB9AA734AB0BBF886E86B9A797364A2F /* Constants.swift in Sources */,
+				495D439A5E1520D518F637A58B55C78B /* CreateScreenshotRequest.swift in Sources */,
+				B4235ACD08FBBF8A9B21183A000254E2 /* CreateScreenshotResponse.swift in Sources */,
+				747CDE0BAA31D5C13655E540530766A2 /* CreateScreenshotTagRequest.swift in Sources */,
+				03D62EB9F098270BBEE5E0824D1BE5CF /* CreateScreenshotTagResponse.swift in Sources */,
+				416D2AC8A0FA9917E58E08D0F5126BC5 /* CrowdinAPI.swift in Sources */,
+				013C4A29B2B816BDE9949DEE48FAC0A8 /* CrowdinContentDeliveryAPI.swift in Sources */,
+				DC9F335A38255E5403279B796D67E7CB /* CrowdinDownloader.swift in Sources */,
+				6E9FDF8E11751DFC01340A10335E4DFD /* CrowdinFolder.swift in Sources */,
+				A9DCFDA195BB7F14844B9E47ADFF27D2 /* CrowdinLocalizationDownloader.swift in Sources */,
+				A523C4342E00096FA52BB892FDB0C317 /* CrowdinLoginConfig.swift in Sources */,
+				4F9754778DD11B39485951CCDC4422C1 /* CrowdinPathsParser.swift in Sources */,
+				FFD2639184515886F312E8AF7263AC68 /* CrowdinProviderConfig.swift in Sources */,
+				9D26E1B54F4DB32ED3DEAB5B0691C1B9 /* CrowdinRemoteLocalizationStorage.swift in Sources */,
+				27BDEBE8FFB14533E389FB3FE914FFEE /* CrowdinSDK+Login.swift in Sources */,
+				F408F2FBF74FA1C0EF537BDF2902A5BF /* CrowdinSDK-dummy.m in Sources */,
+				1490F87A1816DCFB72698D6AD582AB67 /* CrowdinSDK.swift in Sources */,
+				EA60A65C96FC531BD6077CB87703F5EC /* CrowdinSDKConfig +Login.swift in Sources */,
+				C78C51724B503ABBE69DCEEBE86EA04B /* CrowdinSDKConfig.swift in Sources */,
+				EC4A04A8639D8A5E72CB2546EB90DD83 /* CrowdinSupportedLanguages.swift in Sources */,
+				E08FDBF91221EBA61A7DA23843C00CDD /* CrowdinTester.swift in Sources */,
+				58305CB4EE01573E8927DD75960E5097 /* CustomBundle.swift in Sources */,
+				75216923919C6F8C929979370DC550AC /* DataParser.swift in Sources */,
+				DB964C973B6AFF8D44E8AAC0D4C038E1 /* Dictionary.swift in Sources */,
+				CF83D93EB7078C9CF64974B637AE27FC /* DistributionsAPI.swift in Sources */,
+				11CFC7875CA9B7609700AD0A37EC3B62 /* DistributionsResponse.swift in Sources */,
+				08D1962FAE41B534FDB7486FB0F9F4D0 /* DocumentsFolder.swift in Sources */,
+				A4FDF300F5F3A500CDCDF01604454898 /* DownloadOperation.swift in Sources */,
+				FE6D8A5D8DF8A61A145C0EBBC042A6FC /* DownloadProjectInfoOperation.swift in Sources */,
+				B32D384839ED64DF724BF0F8264504C9 /* DownloadSupportedLanguagesOperation.swift in Sources */,
+				BDFDF54417A02BA5E8F429CA65A9FFA9 /* File.swift in Sources */,
+				D6803A6C0DA5F8FD602A7DB5EDECA400 /* FileStatus.swift in Sources */,
+				94B6574C51B79C5828FF62741C0DFB01 /* FileType.swift in Sources */,
+				BC8994996C3371A10057718DF6797F7F /* Folder.swift in Sources */,
+				00A10720EF628AA66482740BD8FC8C14 /* InBundleLocalizationStorage.swift in Sources */,
+				272933AA138F89328E8872985587AC16 /* Locale.swift in Sources */,
+				3840265A3E077FB25D0B45B209AE2C51 /* Localization.swift in Sources */,
+				AEC50A96F054585CF6E39398781DF344 /* LocalizationDataSource.swift in Sources */,
+				843FBF593F9C934E3F01A55E855F44EB /* LocalizationExtractor.swift in Sources */,
+				5091A1DE7B6D1E84FB7C77F1FE809DAD /* LocalizationProvider.swift in Sources */,
+				E6381F99FEEDE049BB717AFBFC4A5105 /* LocalizationStorage.swift in Sources */,
+				FB1AA6052AFD6377FAF5B06575107A85 /* LocalizationUpdateObserver.swift in Sources */,
+				4CD365BFD02F84378F3EDA7EDDFA55A2 /* LocalLocalizationStorage.swift in Sources */,
+				7D2B6620F0E36706ABB6BF3318176D9A /* LoginFeature.swift in Sources */,
+				A1D163700BC7187AF145CB21E6C10D1F /* ObjectAssociation.swift in Sources */,
+				D4860E1E81759E1C059D6F6293D33FE7 /* ProjectAPI.swift in Sources */,
+				1EB094597626CCFBFDB2E56FAEF79BC4 /* ProjectDetailsResponse.swift in Sources */,
+				F4012C6D18D3F67695A85B8C4FBF2783 /* ReadWriteProtocol.swift in Sources */,
+				AB27514C54A4D364BF44997B9B9DE149 /* RefreshTokenRequest.swift in Sources */,
+				1478A3EF4EBA5957A83F827551FE6E23 /* RemoteLocalizationStorage.swift in Sources */,
+				ABBAF0456D79F8F39F96E73F35C4DB3B /* Request.swift in Sources */,
+				2AE21B507FDE2A22E87904323DA8BD63 /* RequestHeaderFields.swift in Sources */,
+				C53BA673A8771C1A164B794B2FCEB2F7 /* RequestMethod.swift in Sources */,
+				9C55C5E8C5A098DBCA6AAB7D185D1970 /* ResponsetHeaderFields.swift in Sources */,
+				C7F2AEA007F995A366A1DA53EF8A389A /* ScreenshotsAPI.swift in Sources */,
+				2A758350501B21E1C06BB6885A3248A1 /* SocketAPI.swift in Sources */,
+				16F13C131144FDF67420741B20BA22C6 /* StorageAPI.swift in Sources */,
+				A71D89515248C66E8FE716EA0F10BE8D /* StorageUploadResponse.swift in Sources */,
+				162F341354A378A2E26AB95BB58584CF /* String.swift in Sources */,
+				C2C842C80458DEE5EE19DBC2DFF1125B /* StringParam.swift in Sources */,
+				50F1D8E85088881DECABE56B266C2673 /* SupportedLanguagesAPI.swift in Sources */,
+				3832A61F9E64B8F4C4EDA0380CBC5295 /* SupportedLanguagesResponse.swift in Sources */,
+				AF41BBD49FA494F64D16236F402C1753 /* TokenRequest.swift in Sources */,
+				E46D65EA091FAC49B0D75D9FD86C54CF /* TokenResponse.swift in Sources */,
+				F50BCE3747074BEB91EAC85772F5E1BA /* TopSuggestionResponse.swift in Sources */,
+				FCB05D559F9BD589319C0FC9871373D9 /* UIButton+Swizzle.swift in Sources */,
+				0F6147F94D86DA00F81A391A21403084 /* UILabel+Swizzle.swift in Sources */,
+				BA105F9E529F46EFA2DF38A6088F6EA8 /* UIViewController.swift in Sources */,
+				B1C5201C2A6A3BBB7AF72B8182F2343F /* UIWindow.swift in Sources */,
+				EBAF7336A02285464C4CC83F9813CE5F /* UpdateDraftResponse.swift in Sources */,
+				1665D3701CFB7FFB9273E9B8EA9B4AE4 /* URLSession.swift in Sources */,
+				BEA7C8F31055B5478CD46F4CB908C6E9 /* UserDefaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A30D944992297D08F6A4E5152BE38E07 /* Sources */ = {
+		7B5184CD4D7695E061D77EBBD6591B1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40461611D81ECE28B819FC2AA2E7ECB5 /* Compression.swift in Sources */,
-				ACCABAB369DA3D451F3AFED246F5D4E6 /* SSLClientCertificate.swift in Sources */,
-				9652988B6805471A82729351E5DACAE3 /* SSLSecurity.swift in Sources */,
-				397E2D82D4348EAF3D11B070266DC12E /* Starscream-dummy.m in Sources */,
-				4C4B8B4751962FA2FAFB910A71C1140D /* WebSocket.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FA666372E4CD2D78115770A766D30BFE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				6C2C24899C64CC1C43609149CB212800 /* Compression.swift in Sources */,
+				04A7DD49F260E3E13322733A48C045A9 /* SSLClientCertificate.swift in Sources */,
+				8006A538909677A781DE9D3A1B9CAB56 /* SSLSecurity.swift in Sources */,
+				63728DF9F02A77C28FECB2844E0F9269 /* Starscream-dummy.m in Sources */,
+				AC50B8ECD070AF5B4616089BE646A9F3 /* WebSocket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1229,31 +1099,196 @@
 		1DDCE204ECD33D8F3D522E0F33C5683B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Starscream;
-			target = EB5277B8695724C4120E8F65401E2959 /* Starscream */;
+			target = 9B78EE4AF6AE03E79D88886319853FF7 /* Starscream */;
 			targetProxy = FD6B731264B1AF3AEE0574E59269E1B8 /* PBXContainerItemProxy */;
 		};
 		645E86A8BBFD1A605EBACCB9F43199D3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CrowdinSDK;
-			target = 9496580A310C1E9A27520A2079FDA645 /* CrowdinSDK */;
+			target = 20FF00E99E182CBF49D5B4A881196748 /* CrowdinSDK */;
 			targetProxy = 6C1525EC39F9614538F3A7AC9C040F92 /* PBXContainerItemProxy */;
 		};
-		8F36DAE0DB04E68B1BCAB601E7D01A10 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CrowdinSDK-CrowdinSDK";
-			target = 5E11E4B78BF358AE782E17C326EB045D /* CrowdinSDK-CrowdinSDK */;
-			targetProxy = F760DBFDE4AA3AD812F5B3101FE186E2 /* PBXContainerItemProxy */;
-		};
-		F127C2556956412CC5D77287BA8A97F0 /* PBXTargetDependency */ = {
+		66B100CB8C81AE12126057DC86524C07 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Starscream;
-			target = EB5277B8695724C4120E8F65401E2959 /* Starscream */;
-			targetProxy = CE46F1FC52D6BAD6ED94EBFEB985E77C /* PBXContainerItemProxy */;
+			target = 9B78EE4AF6AE03E79D88886319853FF7 /* Starscream */;
+			targetProxy = 0E89080CF2DF3876788F7975DEF977C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		07488D4657FB0A78086563621D425F8A /* Debug */ = {
+		0E6A5B76CDD8A75493E1094548CE4AB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3ED2E97A6126E1ECA41630D247676903 /* Pods-CrowdinSDK.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7423138038BA53E5D622CA85C460EF3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68B9C9156E24C1484DE3C8A29FCC2A8B /* CrowdinSDK.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CrowdinSDK/CrowdinSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK.modulemap";
+				PRODUCT_MODULE_NAME = CrowdinSDK;
+				PRODUCT_NAME = CrowdinSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8F17DC3A99F99FBAD606CE6963886315 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		8FB5F9574EC158117B9FAFF189A1246B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68B9C9156E24C1484DE3C8A29FCC2A8B /* CrowdinSDK.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CrowdinSDK/CrowdinSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK.modulemap";
+				PRODUCT_MODULE_NAME = CrowdinSDK;
+				PRODUCT_NAME = CrowdinSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		916E0404255105F480DC4950B7625F7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1312,140 +1347,14 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
-		};
-		0E6A5B76CDD8A75493E1094548CE4AB2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 299DC0516EDEA413CEA9C59261FEA5B7 /* Pods-CrowdinSDK.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		230C6CBCF5EBB0F90738478AA784D1BA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CE12535FB0DD2E97EB0042903094418 /* CrowdinSDK.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CrowdinSDK";
-				INFOPLIST_FILE = "Target Support Files/CrowdinSDK/ResourceBundle-CrowdinSDK-CrowdinSDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = CrowdinSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		65D1FBB63DB984F15D9DBC3A5B454494 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAB2AA08214EC75AB5E3B2C147A9462A /* Starscream.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Starscream/Starscream-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Starscream/Starscream-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/Starscream/Starscream.modulemap";
-				PRODUCT_MODULE_NAME = Starscream;
-				PRODUCT_NAME = Starscream;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		81BE39B51E7DD37895B6C9B2F50AD781 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CE12535FB0DD2E97EB0042903094418 /* CrowdinSDK.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CrowdinSDK/CrowdinSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK.modulemap";
-				PRODUCT_MODULE_NAME = CrowdinSDK;
-				PRODUCT_NAME = CrowdinSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		92F84C48E935C8750D32E14E02664EA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD0E47939F584013A0E057C14A351B7A /* Pods-CrowdinSDK.debug.xcconfig */;
+			baseConfigurationReference = 572EFDD5D0827B2785BCC15C0E5DEFDC /* Pods-CrowdinSDK.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1480,69 +1389,44 @@
 			};
 			name = Debug;
 		};
-		A1962E6FF39BBAC201A2E5DDF99557DF /* Release */ = {
+		A7D2F7CC2E184ED33A232E7793EB4E36 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64D5E391E11E3D9A03B0ACF80CFBA3B2 /* Starscream.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Starscream/Starscream-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Starscream/Starscream-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
-				SYMROOT = "${SRCROOT}/../build";
+				MODULEMAP_FILE = "Target Support Files/Starscream/Starscream.modulemap";
+				PRODUCT_MODULE_NAME = Starscream;
+				PRODUCT_NAME = Starscream;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
-		B940AA9B266E1FF18A2E975BB08A79B2 /* Release */ = {
+		B7742F4B975BD24A473CA04BF096AF84 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAB2AA08214EC75AB5E3B2C147A9462A /* Starscream.xcconfig */;
+			baseConfigurationReference = 64D5E391E11E3D9A03B0ACF80CFBA3B2 /* Starscream.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1575,62 +1459,28 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		BEA24382015305DFE8768A41C45C647B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CE12535FB0DD2E97EB0042903094418 /* CrowdinSDK.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CrowdinSDK";
-				INFOPLIST_FILE = "Target Support Files/CrowdinSDK/ResourceBundle-CrowdinSDK-CrowdinSDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = CrowdinSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		D1228A8CB4BA620B373A9C05248CF002 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CE12535FB0DD2E97EB0042903094418 /* CrowdinSDK.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CrowdinSDK/CrowdinSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/CrowdinSDK/CrowdinSDK.modulemap";
-				PRODUCT_MODULE_NAME = CrowdinSDK;
-				PRODUCT_NAME = CrowdinSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0C767CD7CB3A92BB3A28E0D135F7C401 /* Build configuration list for PBXNativeTarget "CrowdinSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7423138038BA53E5D622CA85C460EF3E /* Debug */,
+				8FB5F9574EC158117B9FAFF189A1246B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30A2203273A50F0274A47180408A43CC /* Build configuration list for PBXNativeTarget "Starscream" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7D2F7CC2E184ED33A232E7793EB4E36 /* Debug */,
+				B7742F4B975BD24A473CA04BF096AF84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		369E54E82851C5894490CCAA23AD19FB /* Build configuration list for PBXNativeTarget "Pods-CrowdinSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1643,35 +1493,8 @@
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				07488D4657FB0A78086563621D425F8A /* Debug */,
-				A1962E6FF39BBAC201A2E5DDF99557DF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		501302B6D92062A557A4289E5E8B8849 /* Build configuration list for PBXNativeTarget "CrowdinSDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D1228A8CB4BA620B373A9C05248CF002 /* Debug */,
-				81BE39B51E7DD37895B6C9B2F50AD781 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F37F4825D5D07F9CAB3D7955868AE9FB /* Build configuration list for PBXNativeTarget "Starscream" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65D1FBB63DB984F15D9DBC3A5B454494 /* Debug */,
-				B940AA9B266E1FF18A2E975BB08A79B2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FF48DE289CA595AA6551F86BBCD65B9F /* Build configuration list for PBXNativeTarget "CrowdinSDK-CrowdinSDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BEA24382015305DFE8768A41C45C647B /* Debug */,
-				230C6CBCF5EBB0F90738478AA784D1BA /* Release */,
+				916E0404255105F480DC4950B7625F7A /* Debug */,
+				8F17DC3A99F99FBAD606CE6963886315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

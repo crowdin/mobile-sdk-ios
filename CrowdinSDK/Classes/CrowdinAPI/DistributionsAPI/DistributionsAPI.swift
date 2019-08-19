@@ -20,11 +20,6 @@ class DistributionsAPI: CrowdinAPI {
     }
 
     func getDistribution(completion: @escaping (DistributionsResponse?, Error?) -> Void) {
-        self.cw_get(url: baseURL(), headers: self.headers, completion: completion)
-    }
-    
-    var headers: [String: String] {
-        guard let accessToken = LoginFeature.shared?.accessToken else { return [:] }
-        return ["Authorization": "Bearer \(accessToken)"]
+        self.cw_get(url: baseURL(), completion: completion)
     }
 }

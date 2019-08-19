@@ -112,7 +112,6 @@
 				92DC535E224DB30E00431575 /* Frameworks */,
 				92DC535F224DB30E00431575 /* Resources */,
 				AE4492CFA5D541C5C6D62066 /* [CP] Embed Pods Frameworks */,
-				1A19A811F3BB534E235B670A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,36 +169,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1A19A811F3BB534E235B670A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-resources.sh",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/CrowdinLoginVC.storyboard",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsItemCell.xib",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/SettingsView.xib",
-				"${PODS_ROOT}/../../CrowdinSDK/Assets/Images.xcassets",
-				"${PODS_CONFIGURATION_BUILD_DIR}/CrowdinSDK/CrowdinSDK.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinLoginVC.storyboardc",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SettingsItemCell.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SettingsView.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.car",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinSDK.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		52C3BE9BF64652387290F1D9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -228,16 +197,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
