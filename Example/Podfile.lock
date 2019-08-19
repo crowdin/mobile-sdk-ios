@@ -4,13 +4,13 @@ PODS:
     - CrowdinSDK/CrowdinProvider (= 0.0.5)
   - CrowdinSDK/Core (0.0.5)
   - CrowdinSDK/CrowdinAPI (0.0.5):
+    - CrowdinSDK/Login
     - Starscream
   - CrowdinSDK/CrowdinProvider (0.0.5):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/IntervalUpdate (0.0.5)
-  - CrowdinSDK/Login (0.0.5):
-    - CrowdinSDK/CrowdinAPI
+  - CrowdinSDK/Login (0.0.5)
   - CrowdinSDK/Mapping (0.0.5):
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/RealtimeUpdate (0.0.5):
@@ -135,7 +135,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 6258f871828a16bb83e78fac4db3e3c1289dfcb8
+  CrowdinSDK: 79257f7d240f07747a2cbc868488cb1adecfb6af
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
