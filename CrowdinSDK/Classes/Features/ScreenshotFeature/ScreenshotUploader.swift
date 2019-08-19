@@ -18,6 +18,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	var strings: [String]
 	var plurals: [String]
 	var sourceLanguage: String
+    
+    let distrinbutionsAPI: DistributionsAPI
 	
 	var mappingManager: CrowdinMappingManagerProtocol
 	var projectId: Int? = nil
@@ -34,6 +36,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		self.strings = strings
 		self.plurals = plurals
 		self.hash = hash
+        self.distrinbutionsAPI = DistributionsAPI(hashString: hash)
 		self.sourceLanguage = sourceLanguage
 		self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
 	}
@@ -51,7 +54,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-		let distrinbutionsAPI = DistributionsAPI(hashString: hash)
 		distrinbutionsAPI.getDistribution { (response, error) in
 			if let error = error {
 				errorHandler?(error)
