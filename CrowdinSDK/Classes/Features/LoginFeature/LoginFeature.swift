@@ -24,9 +24,6 @@ final class LoginFeature: LoginFeatureProtocol {
 	
 	private var code: String? = nil
 	private var loginURL: String {
-		//		test-sdk
-		//		project.content.screenshots
-		//		crowdintest://
 		return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=\(config.clientId)&response_type=code&scope=\(config.scope)&redirect_uri=\(config.redirectURI)"
 	}
 	private let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"

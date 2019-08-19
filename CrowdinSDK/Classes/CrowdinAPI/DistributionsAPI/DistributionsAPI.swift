@@ -15,21 +15,11 @@ class DistributionsAPI: CrowdinAPI {
         super.init()
     }
     
-    enum ParameterKeys: String {
-        case userAgent = "User-Agent"
-        case cookie = "Cookie"
-        case xCsrfToken = "x-csrf-token"
-    }
-    
     func baseURL() -> String {
         return "https://crowdin.com/api/v2/distributions/metadata?hash=\(hashString)"
     }
 
     func getDistribution(completion: @escaping (DistributionsResponse?, Error?) -> Void) {
-        self.cw_get(url: baseURL(), headers: self.headers, completion: completion)
-    }
-    
-    func getDistributionSync(completion: @escaping (DistributionsResponse?, Error?) -> Void) {
         self.cw_get(url: baseURL(), headers: self.headers, completion: completion)
     }
     
