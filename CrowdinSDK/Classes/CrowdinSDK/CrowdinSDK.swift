@@ -182,7 +182,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     }
 	
 	public class func handle(url: URL) -> Bool {
-		return LoginFeature.hadle(url: url)
+		return LoginFeature.shared?.hadle(url: url) ?? false
 	}
 }
 
@@ -214,6 +214,7 @@ extension CrowdinSDK {
         case initializeRealtimeUpdatesFeature
         case initializeIntervalUpdateFeature
         case initializeSettings
+		case setupLogin
     }
     
     /// Method for library initialization.
@@ -231,6 +232,8 @@ extension CrowdinSDK {
         self.initializeIntervalUpdateFeatureIfNeeded()
         
         self.initializeSettingsIfNeeded()
+		
+		self.setupLoginIfNeeded()
     }
     
     /// Method for screenshot feature initialization if Screenshot submodule is added.
@@ -260,4 +263,10 @@ extension CrowdinSDK {
             CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
         }
     }
+	
+	private class func setupLoginIfNeeded() {
+		if CrowdinSDK.responds(to: Selectors.setupLogin.rawValue) {
+			CrowdinSDK .perform(Selectors.setupLogin.rawValue)
+		}
+	}
 }

@@ -11,9 +11,6 @@ import Starscream
 class SocketAPI: NSObject {
     let urlString = "wss://ws-lb.crowdin.com/"
     let hashString: String
-    let csrfToken: String
-    let userAgent: String
-    let cookies: [HTTPCookie]
     var distributionResponse: DistributionsResponse?
     var ws: WebSocket
     var onConnect: (() -> Void)? = nil
@@ -25,11 +22,8 @@ class SocketAPI: NSObject {
         return ws.isConnected
     }
     
-    init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
+    init(hashString: String) {
         self.hashString = hashString
-        self.csrfToken = csrfToken
-        self.userAgent = userAgent
-        self.cookies = cookies
         // swiftlint:disable force_unwrapping
         self.ws = WebSocket(url: URL(string: urlString)!)
         super.init()
@@ -39,7 +33,7 @@ class SocketAPI: NSObject {
     }
     
     func getDistribution(completion: (() -> Void)? = nil) {
-        let api = DistributionsAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+        let api = DistributionsAPI(hashString: hashString)
         api.getDistribution { (response, error) in
             self.distributionResponse = response
             if let error = error {

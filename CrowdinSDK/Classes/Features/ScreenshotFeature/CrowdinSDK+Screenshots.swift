@@ -12,7 +12,7 @@ extension CrowdinSDK {
         guard let config = CrowdinSDK.config else { return }
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
-			let screenshotUploader = CrowdinScreenshotUploader(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, credentials: crowdinScreenshotsConfig.credentials, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+			let screenshotUploader = CrowdinScreenshotUploader(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
 			ScreenshotFeature.shared = ScreenshotFeature(screenshotUploader: screenshotUploader, screenshotProcessor: CrowdinScreenshotProcessor())
         }
     }

@@ -31,12 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                           pluralsFileNames: ["Localizable.stringsdict"],
                                                           localizations: ["en", "de"],
                                                           sourceLanguage: "en")
-        let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
+		let loginConfig = CrowdinLoginConfig(clientId: "test-sdk", clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts", scope: "project.content.screenshots", redirectURI: "crowdintest://")
         let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
-                                                                accountKey: "1267e86b748b600eb851f1c45f8c44ce",
-                                                                credentials: credentials)
+																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
+																loginConfig: loginConfig)
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+														.with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)
                                                         .with(reatimeUpdatesEnabled: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)

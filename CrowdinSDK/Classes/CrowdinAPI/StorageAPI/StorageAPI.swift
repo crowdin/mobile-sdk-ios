@@ -10,12 +10,10 @@ import Foundation
 class StorageAPI: CrowdinAPI {
     let login: String
     let accountKey: String
-    let credentials: String
     
-    init(login: String, accountKey: String, credentials: String) {
+    init(login: String, accountKey: String) {
         self.login = login
         self.accountKey = accountKey
-        self.credentials = credentials
         super.init()
     }
     
@@ -28,7 +26,7 @@ class StorageAPI: CrowdinAPI {
     
     func uploadNewFile(data: Data, completion: @escaping (StorageUploadResponse?, Error?) -> Void) {
         let parameters = [ParameterKeys.login.rawValue: login, ParameterKeys.accountKey.rawValue: accountKey]
-        let headers = [RequestHeaderFields.authorization.rawValue: "Basic \(credentials)", RequestHeaderFields.contentType.rawValue: "image/png"]
+        let headers = [RequestHeaderFields.contentType.rawValue: "image/png"]
         self.cw_post(url: baseURL, parameters: parameters, headers: headers, body: data, completion: completion)
     }
 }

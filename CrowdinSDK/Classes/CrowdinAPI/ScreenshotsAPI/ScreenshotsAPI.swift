@@ -10,17 +10,15 @@ import Foundation
 class ScreenshotsAPI: CrowdinAPI {
     let login: String
     let accountKey: String
-    let credentials: String
     
     enum ParameterKeys: String {
         case login
         case accountKey = "account-key"
     }
     
-    init(login: String, accountKey: String, credentials: String) {
+    init(login: String, accountKey: String) {
         self.login = login
         self.accountKey = accountKey
-        self.credentials = credentials
         super.init()
     }
     
@@ -33,7 +31,7 @@ class ScreenshotsAPI: CrowdinAPI {
         let requestData = try? JSONEncoder().encode(request)
         let url = baseUrl(with: projectId)
         let parameters = [ParameterKeys.login.rawValue: login, ParameterKeys.accountKey.rawValue: accountKey]
-        let headers = ["Authorization": "Basic \(credentials)", RequestHeaderFields.contentType.rawValue: "application/json"]
+        let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
         self.cw_post(url: url, parameters: parameters, headers: headers, body: requestData, completion: completion)
     }
     
@@ -48,7 +46,7 @@ class ScreenshotsAPI: CrowdinAPI {
         let requestData = try? JSONEncoder().encode(request)
         let url = baseUrl(with: projectId) + "/\(screenshotId)/tags"
         let parameters = [ParameterKeys.login.rawValue: login, ParameterKeys.accountKey.rawValue: accountKey]
-        let headers = ["Authorization": "Basic \(credentials)", RequestHeaderFields.contentType.rawValue: "application/json"]
+        let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
         self.cw_post(url: url, parameters: parameters, headers: headers, body: requestData, completion: completion)
     }
 }
