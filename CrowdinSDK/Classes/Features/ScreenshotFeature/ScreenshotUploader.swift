@@ -42,15 +42,18 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-		if !LoginFeature.isLogined {
-			LoginFeature.shared?.login(completion: {
-				self.getProjectId(success: success, errorHandler: errorHandler)
-			}) { err in
-				errorHandler?(err)
-			}
-		} else {
-			self.getProjectId(success: success, errorHandler: errorHandler)
-		}
+        if LoginFeature.isLogined {
+            self.getProjectId(success: success, errorHandler: errorHandler)
+        } else if let loginFeature = LoginFeature.shared {
+            loginFeature.login(completion: {
+                self.getProjectId(success: success, errorHandler: errorHandler)
+            }) { err in
+                errorHandler?(err)
+            }
+        } else {
+            print("Login feature is not configured properly")
+            errorHandler?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
+        }
 	}
 	
 	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {

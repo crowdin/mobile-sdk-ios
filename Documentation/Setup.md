@@ -56,6 +56,7 @@ target 'App' do
   pod 'CrowdinSDK/IntervalUpdate', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
   pod 'CrowdinSDK/RealtimeUpdate', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
   pod 'CrowdinSDK/RefreshLocalization', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
+  pod 'CrowdinSDK/Login', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
   pod 'CrowdinSDK/Settings', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
 end
 ```
@@ -213,9 +214,22 @@ Contains functionality to force refresh localization strings. To enable this fea
 
 Contains login functionality. To enable this feature please add pod 'CrowdinSDK/Login' to your pod file.
 
-#### Dependencies:
-- [CrowdinSDK/CrowdinAPI](#CrowdinAPI)
+To set up this feature you need to setup create CrowdinLoginConfig object and pass it to CrowdinSDKConfig. 
 
+For configuration you should have client id, client secret, scopes, and redirect URL scheme. 
+
+``` swift
+let loginConfig = CrowdinLoginConfig(clientId: "test-sdk",
+                                 clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+                                      	scope: "project.content.screenshots",
+                                  redirectURI: "crowdintest://")
+                                             
+let crowdinSDKConfig = CrowdinSDKConfig.config().
+												...
+												.with(loginConfig: loginConfig)
+```
+
+Note: You should configure Authorization feature to use Almost any API calls, screenshots or realtime updates.
 
 ### IntervalUpdate
 

@@ -68,7 +68,9 @@ final class LoginFeature: LoginFeatureProtocol {
 	var accessToken: String? {
 		guard let tokenExpirationDate = tokenExpirationDate else { return nil }
 		if tokenExpirationDate < Date() {
-			_ = refreshTokenSync()
+            if(!refreshTokenSync()) {
+                self.logout()
+            }
 		}
 		return tokenResponse?.accessToken
 	}

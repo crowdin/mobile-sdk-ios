@@ -31,7 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                           pluralsFileNames: ["Localizable.stringsdict"],
                                                           localizations: ["en", "de"],
                                                           sourceLanguage: "en")
-        let loginConfig = CrowdinLoginConfig(clientId: "test-sdk", clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts", scope: "project.content.screenshots", redirectURI: "crowdintest://")
+        let loginConfig = CrowdinLoginConfig(clientId: "test-sdk",
+                                             clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+                                             scope: "project.content.screenshots",
+                                             redirectURI: "crowdintest://")
         let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
 																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
 																loginConfig: loginConfig)

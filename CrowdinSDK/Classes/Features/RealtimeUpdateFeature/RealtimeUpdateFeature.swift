@@ -34,7 +34,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
-            newValue ? _start() : stop()
+            newValue ? start() : stop()
         }
         get {
             return active
@@ -64,15 +64,18 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func start(success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-		if !LoginFeature.isLogined {
-			LoginFeature.shared?.login(completion: {
-				self.start(success: success, error: error)
-			}) { err in
-				error?(err)
-			}
-		} else {
-			self.start(success: success, error: error)
-		}
+        if LoginFeature.isLogined {
+            _start(with: success, error: error)
+        } else if let loginFeature = LoginFeature.shared {
+            loginFeature.login(completion: {
+                self.start(success: success, error: error)
+            }) { err in
+                error?(err)
+            }
+        } else {
+            print("Login feature is not configured properly")
+            error?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
+        }
     }
     
     func _start(with success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
