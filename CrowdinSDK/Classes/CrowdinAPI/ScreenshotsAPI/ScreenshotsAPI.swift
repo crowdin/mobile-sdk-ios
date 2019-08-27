@@ -16,14 +16,18 @@ class ScreenshotsAPI: CrowdinAPI {
         case accountKey = "account-key"
     }
     
-    init(login: String, accountKey: String) {
+    init(login: String, accountKey: String, organizationName: String? = nil) {
         self.login = login
         self.accountKey = accountKey
-        super.init()
+        super.init(organizationName: organizationName)
+    }
+    
+    override var apiPath: String {
+        return "projects"
     }
     
     func baseUrl(with projectId: Int) -> String{
-        return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@crowdin.com/api/v2/projects/\(projectId)/screenshots"
+        return "\(fullPath)/\(projectId)/screenshots"
     }
 
     func createScreenshot(projectId: Int, storageId: Int, name: String, completion: @escaping (CreateScreenshotResponse?, Error?) -> Void) {

@@ -8,10 +8,25 @@
 import Foundation
 
 class CrowdinAPI: BaseAPI {
-    let baseAPIPath = "https://api.crowdin.com/api"
+    let organizationName: String?
+    var baseURL: String {
+        if let organizationName = organizationName {
+            return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@\(organizationName).crowdin.com/api/v2/"
+        }
+        return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@crowdin.com/api/v2/"
+    }
     
     var apiPath: String {
         return .empty
+    }
+    
+    var fullPath: String {
+        return baseURL + apiPath
+    }
+    
+    init(organizationName: String? = nil) {
+        self.organizationName = organizationName
+        super.init()
     }
     
     func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {

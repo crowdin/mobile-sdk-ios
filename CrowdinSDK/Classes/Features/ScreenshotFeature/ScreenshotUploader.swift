@@ -14,6 +14,7 @@ public protocol ScreenshotUploader {
 class CrowdinScreenshotUploader: ScreenshotUploader {
 	var login: String
 	var accountKey: String
+    var organizationName: String? = nil
 	var hash: String
 	var strings: [String]
 	var plurals: [String]
@@ -30,9 +31,10 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		case unknownError = "Unknown error"
 	}
 	
-	init(login: String, accountKey: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+	init(login: String, accountKey: String, organizationName: String? = nil, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
 		self.login = login
 		self.accountKey = accountKey
+        self.organizationName = organizationName
 		self.strings = strings
 		self.plurals = plurals
 		self.hash = hash
@@ -81,8 +83,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		
 		let values = self.proceed(controlsInformation: controlsInformation)
 		guard let data = screenshot.pngData() else { return }
-		let screenshotsAPI = ScreenshotsAPI(login: login, accountKey: accountKey)
-		let storageAPI = StorageAPI(login: login, accountKey: accountKey)
+		let screenshotsAPI = ScreenshotsAPI(login: login, accountKey: accountKey, organizationName: organizationName)
+        let storageAPI = StorageAPI(login: login, accountKey: accountKey, organizationName: organizationName)
 		storageAPI.uploadNewFile(data: data, completion: { response, error in
 			if let error = error {
 				errorHandler?(error)

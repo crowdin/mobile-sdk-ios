@@ -11,10 +11,10 @@ class StorageAPI: CrowdinAPI {
     let login: String
     let accountKey: String
     
-    init(login: String, accountKey: String) {
+    init(login: String, accountKey: String, organizationName: String? = nil) {
         self.login = login
         self.accountKey = accountKey
-        super.init()
+        super.init(organizationName: organizationName)
     }
     
     enum ParameterKeys: String {
@@ -22,11 +22,13 @@ class StorageAPI: CrowdinAPI {
         case accountKey = "account-key"
     }
     
-    var baseURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@crowdin.com/api/v2/storages"
+    override var apiPath: String {
+        return "storages"
+    }
     
     func uploadNewFile(data: Data, completion: @escaping (StorageUploadResponse?, Error?) -> Void) {
         let parameters = [ParameterKeys.login.rawValue: login, ParameterKeys.accountKey.rawValue: accountKey]
         let headers = [RequestHeaderFields.contentType.rawValue: "image/png"]
-        self.cw_post(url: baseURL, parameters: parameters, headers: headers, body: data, completion: completion)
+        self.cw_post(url: fullPath, parameters: parameters, headers: headers, body: data, completion: completion)
     }
 }
