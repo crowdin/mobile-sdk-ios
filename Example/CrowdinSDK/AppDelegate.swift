@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                              redirectURI: "crowdintest://")
         let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
 																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
+                                                                organizationName: nil,
 																loginConfig: loginConfig)
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
