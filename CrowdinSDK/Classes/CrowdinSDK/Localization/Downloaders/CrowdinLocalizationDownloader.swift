@@ -23,7 +23,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string)
+            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string, localization: localization)
             download.completion = { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
@@ -44,7 +44,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural)
+            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural, localization: localization)
             download.completion = { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {

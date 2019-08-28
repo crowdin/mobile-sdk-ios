@@ -14,7 +14,7 @@ protocol RealtimeUpdateFeatureProtocol {
     var error: ((Error) -> Void)? { set get }
     var enabled: Bool { get set }
     
-    init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String)
+	init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String, organizationName: String?)
     
     func start(success: (() -> Void)?, error: ((Error) -> Void)?)
     func stop()
@@ -30,7 +30,11 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     var error: ((Error) -> Void)?
     var localization: String
     var hashString: String
-    
+    let organizationName: String?
+	
+	let distributionsAPI: DistributionsAPI
+	var distributionResponse: DistributionsResponse? = nil
+	
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
@@ -45,11 +49,22 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    required init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+    required init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String, organizationName: String? = nil) {
         self.localization = localization
         self.hashString = hash
+		self.organizationName = organizationName
+		self.distributionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
         self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
+		self.downloadDistribution()
     }
+	
+	func downloadDistribution(with completion: ((Bool) -> Void)? = nil) {
+		// TODO: Add better error handling.
+		self.distributionsAPI.getDistribution { (response, error) in
+			self.distributionResponse = response
+			completion?(error == nil && response != nil)
+		}
+	}
     
     func subscribe(control: Refreshable) {
         guard let localizationKey = control.key else { return }
@@ -81,7 +96,17 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     func _start(with success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
         self.success = success
         self.error = error
-        self.socketManger = CrowdinSocketManager(hashString: hashString)
+		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id else {
+			self.downloadDistribution { (downloaded) in
+				if downloaded {
+					self._start(with: success, error: error)
+				} else {
+					error?(NSError(domain: "Unable to download project distribution information.", code: defaultCrowdinErrorCode, userInfo: nil))
+				}
+			}
+			return
+		}
+		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }

@@ -13,7 +13,9 @@ extension CrowdinSDK {
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         if config.reatimeUpdatesEnabled {
             let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+			// TODO: Add error message when login is not configured:
+			guard let crowdinLoginConfig = config.loginConfig as? CrowdinLoginConfig else { return }
+            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: crowdinLoginConfig.organizationName)
         }
     }
     

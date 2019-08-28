@@ -19,7 +19,7 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
     var filePath: String
     var session: URLSession
     
-    required init(hash: String, filePath: String) {
+    init(hash: String, filePath: String) {
         self.hashString = hash
         self.filePath = filePath
         self.session = URLSession(configuration: .ephemeral)
@@ -35,12 +35,12 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     var plurals: [AnyHashable: Any]?
     
     init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
+		super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
+    required init(hash: String, filePath: String, localization: String) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
     }
     
     override func main() {
@@ -57,12 +57,12 @@ class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     var strings: [String: String]?
     
     init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath))
+    required init(hash: String, filePath: String, localization: String) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
     }
     
     override func main() {
@@ -84,7 +84,7 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String) {
+    override init(hash: String, filePath: String) {
         super.init(hash: hash, filePath: filePath)
     }
     
@@ -107,7 +107,7 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String) {
+    override init(hash: String, filePath: String) {
         super.init(hash: hash, filePath: filePath)
     }
     

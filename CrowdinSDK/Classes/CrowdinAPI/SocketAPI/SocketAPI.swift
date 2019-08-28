@@ -11,9 +11,10 @@ import Starscream
 class SocketAPI: NSObject {
     let urlString = "wss://ws-lb.crowdin.com/"
     let hashString: String
-    let distributionsAPI: DistributionsAPI
-    
-    var distributionResponse: DistributionsResponse?
+	let projectId: String
+	let projectWsHash: String
+	let userId: String
+	
     var ws: WebSocket
     var onConnect: (() -> Void)? = nil
     var onError: ((Error) -> Void)? = nil
@@ -24,26 +25,15 @@ class SocketAPI: NSObject {
         return ws.isConnected
     }
     
-    init(hashString: String) {
+	init(hashString: String, projectId: String, projectWsHash: String, userId: String) {
         self.hashString = hashString
-        self.distributionsAPI = DistributionsAPI(hashString: hashString)
+		self.projectId = projectId
+		self.projectWsHash = projectWsHash
+		self.userId = userId
         // swiftlint:disable force_unwrapping
         self.ws = WebSocket(url: URL(string: urlString)!)
         super.init()
         self.ws.delegate = self
-        self.getDistribution()
-    }
-    
-    func getDistribution(completion: (() -> Void)? = nil) {
-        distributionsAPI.getDistribution { (response, error) in
-            self.distributionResponse = response
-            if let error = error {
-                self.disconect()
-                self.onError?(error)
-            } else {
-                completion?()
-            }
-        }
     }
     
     func connect() {
@@ -55,16 +45,6 @@ class SocketAPI: NSObject {
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
-        guard let distributionResponse = self.distributionResponse else {
-            self.getDistribution(completion: {
-                self.subscribeOnUpdateDraft(localization: localization, stringId: stringId)
-            })
-            return
-        }
-        let projectId = distributionResponse.data.project.id
-        let projectWsHash = distributionResponse.data.project.wsHash
-        let userId = distributionResponse.data.user.id
-        
         let event = "\(Events.updateDraft.rawValue):\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)"
         let action = ActionRequest.subscribeAction(with: event)
         guard let data = action.data else { return }
@@ -73,15 +53,6 @@ class SocketAPI: NSObject {
     }
     
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
-        guard let distributionResponse = self.distributionResponse else {
-            self.getDistribution(completion: {
-                self.subscribeOnUpdateTopSuggestion(localization: localization, stringId: stringId)
-            })
-            return
-        }
-        let projectId = distributionResponse.data.project.id
-        let projectWsHash = distributionResponse.data.project.wsHash
-        
         let event = "\(Events.topSuggestion.rawValue):\(projectWsHash):\(projectId):\(localization):\(stringId)"
         let action = ActionRequest.subscribeAction(with: event)
         guard let data = action.data else { return }
