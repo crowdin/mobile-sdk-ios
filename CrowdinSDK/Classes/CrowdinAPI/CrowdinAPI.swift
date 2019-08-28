@@ -11,9 +11,9 @@ class CrowdinAPI: BaseAPI {
     let organizationName: String?
     var baseURL: String {
         if let organizationName = organizationName {
-            return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@\(organizationName).crowdin.com/api/v2/"
+            return "https://\(organizationName).crowdin.com/api/v2/"
         }
-        return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@crowdin.com/api/v2/"
+        return "https://crowdin.com/api/v2/"
     }
     
     var apiPath: String {

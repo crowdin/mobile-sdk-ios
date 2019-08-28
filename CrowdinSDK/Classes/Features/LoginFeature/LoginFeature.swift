@@ -24,9 +24,17 @@ final class LoginFeature: LoginFeatureProtocol {
 	
 	private var code: String? = nil
 	private var loginURL: String {
-		return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/authorize?client_id=\(config.clientId)&response_type=code&scope=\(config.scope)&redirect_uri=\(config.redirectURI)"
+		if let organizationName = config.organizationName {
+			return "https://accounts.crowdin.com/oauth/authorize?client_id=\(config.clientId)&response_type=code&scope=\(config.scope)&redirect_uri=\(config.redirectURI)&domain=\(organizationName)"
+		}
+		return "https://accounts.crowdin.com/oauth/authorize?client_id=\(config.clientId)&response_type=code&scope=\(config.scope)&redirect_uri=\(config.redirectURI)"
 	}
-	private let tokenStringURL = "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@accounts.crowdin.com/oauth/token"
+	private var tokenStringURL: String {
+		if let organizationName = config.organizationName {
+			return"https://accounts.crowdin.com/oauth/token?domain=\(organizationName)"
+		}
+		return "https://accounts.crowdin.com/oauth/token"
+	}
 	
 	init(config: CrowdinLoginConfig) {
 		self.config = config

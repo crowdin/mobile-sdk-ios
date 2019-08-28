@@ -9,6 +9,7 @@ import Foundation
 
 extension CrowdinSDK {
 	class func setupLogin() {
+		// TODO: Add error log if feature isn't configured.
 		guard let config = CrowdinSDK.config else { return }
 		guard let loginConfig = config.loginConfig else { return }
 		LoginFeature.configureWith(with: loginConfig)

@@ -38,7 +38,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		self.strings = strings
 		self.plurals = plurals
 		self.hash = hash
-        self.distrinbutionsAPI = DistributionsAPI(hashString: hash)
+		self.distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
 		self.sourceLanguage = sourceLanguage
 		self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
 	}
