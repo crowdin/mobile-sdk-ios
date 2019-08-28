@@ -39,9 +39,11 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     private typealias CrowdinAPIDataCompletion = ((Data?, CrowdinContentDeliveryAPIError?) -> Void)
     
     private let hash: String
-    private let baseURL = "https://distribution.crowdin.net"
+
 //    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
-    
+//    private let baseURL = "https://distribution.crowdin.net"
+	private let baseURL = "https://production-enterprise-distribution.s3.us-east-1.amazonaws.com"
+	
     init(hash: String, session: URLSession) {
         self.hash = hash
         super.init(session: session)
