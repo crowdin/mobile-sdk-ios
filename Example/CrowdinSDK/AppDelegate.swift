@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
                                              clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
                                              scope: "project.content.screenshots",
-                                             redirectURI: "crowdintest://",
+											 redirectURI: "crowdintest://",
 											 organizationName: "serhiy")
         let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
 																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //			.with(settingsEnabled: true)
 //			.with(reatimeUpdatesEnabled: true)
 //		CrowdinSDK.startWithConfig(crowdinSDKConfig)
-        
+		
         
         _ = CrowdinSDK.addDownloadHandler {
             print("Localization downloaded")

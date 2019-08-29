@@ -106,7 +106,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
 			}
 			return
 		}
-		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId)
+		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, enterprise: organizationName != nil)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }

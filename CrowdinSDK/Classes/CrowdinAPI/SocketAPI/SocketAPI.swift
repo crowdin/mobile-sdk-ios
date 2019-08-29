@@ -9,7 +9,8 @@ import Foundation
 import Starscream
 
 class SocketAPI: NSObject {
-    let urlString = "wss://ws-lb.crowdin.com/"
+	var enterprise: Bool
+	var urlString: String
     let hashString: String
 	let projectId: String
 	let projectWsHash: String
@@ -25,11 +26,13 @@ class SocketAPI: NSObject {
         return ws.isConnected
     }
     
-	init(hashString: String, projectId: String, projectWsHash: String, userId: String) {
+	init(hashString: String, projectId: String, projectWsHash: String, userId: String, enterprise: Bool) {
         self.hashString = hashString
 		self.projectId = projectId
 		self.projectWsHash = projectWsHash
 		self.userId = userId
+		self.enterprise = enterprise
+		self.urlString = enterprise ? "wss://enterprise.crowdin.com/wsproxy" : "wss://ws-lb.crowdin.com/"
         // swiftlint:disable force_unwrapping
         self.ws = WebSocket(url: URL(string: urlString)!)
         super.init()
