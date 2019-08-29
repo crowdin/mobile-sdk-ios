@@ -14,15 +14,28 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var strings: [String: String]? = nil
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
+    fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
+    fileprivate var enterprise: Bool
+    
+    init(enterprise: Bool) {
+        self.enterprise = enterprise
+    }
+    
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        
+        self.strings = nil
+        self.plurals = nil
+        self.errors = nil
+        
         self.completion = completion
         let completionBlock = BlockOperation {
             self.completion?(self.strings, self.plurals, self.errors)
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string, sourceLanguage: localization, completion: { (strings, error) in
+            let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
                         self.errors?.append(error)
@@ -42,7 +55,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural, sourceLanguage: localization, completion: { (plurals, error) in
+            let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {
                         self.errors?.append(error)

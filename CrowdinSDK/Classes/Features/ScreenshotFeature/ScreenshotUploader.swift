@@ -40,7 +40,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		self.hash = hash
 		self.distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
 		self.sourceLanguage = sourceLanguage
-		self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
+        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {

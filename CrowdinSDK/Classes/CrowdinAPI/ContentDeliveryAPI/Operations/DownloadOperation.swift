@@ -17,12 +17,12 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
     
     var hashString: String
     var filePath: String
-    var session: URLSession
+    var contentDeliveryAPI: CrowdinContentDeliveryAPI
     
-    init(hash: String, filePath: String) {
+    init(hash: String, filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.hashString = hash
         self.filePath = filePath
-        self.session = URLSession(configuration: .ephemeral)
+        self.contentDeliveryAPI = contentDeliveryAPI
     }
     
     override func main() {
@@ -33,18 +33,17 @@ class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol
 class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
     var plurals: [AnyHashable: Any]?
-    
-    init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-		super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
+    init(hash: String, filePath: String, localization: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String, localization: String) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
+    required init(hash: String, filePath: String, localization: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getPluralsSync(filePath: self.filePath)
+        let result = contentDeliveryAPI.getPluralsSync(filePath: self.filePath)
         self.plurals = result.plurals
         self.error = result.error
         self.completion?(self.plurals, self.error)
@@ -56,17 +55,17 @@ class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?
     
-    init(hash: String, filePath: String, localization: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
+    init(hash: String, filePath: String, localization: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String, localization: String) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization))
+    required init(hash: String, filePath: String, localization: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getStringsSync(filePath: filePath)
+        let result = contentDeliveryAPI.getStringsSync(filePath: filePath)
         self.strings = result.strings
         self.error = result.error
         self.completion?(self.strings, self.error)
@@ -78,18 +77,18 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
     var plurals: [AnyHashable: Any]?
     
-    init(hash: String, filePath: String, sourceLanguage: String, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+    init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)")
+        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)", contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    override init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: filePath)
+    override init(hash: String, filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getPluralsMappingSync(filePath: self.filePath)
+        let result = contentDeliveryAPI.getPluralsMappingSync(filePath: self.filePath)
         self.plurals = result.plurals
         self.error = result.error
         self.completion?(self.plurals, self.error)
@@ -101,18 +100,18 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?
     
-    init(hash: String, filePath: String, sourceLanguage: String, completion: (([String: String]?, Error?) -> Void)?) {
+    init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([String: String]?, Error?) -> Void)?) {
         let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)")
+        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)", contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    override init(hash: String, filePath: String) {
-        super.init(hash: hash, filePath: filePath)
+    override init(hash: String, filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let result = CrowdinContentDeliveryAPI(hash: self.hashString, session: self.session).getStringsMappingSync(filePath: filePath)
+        let result = contentDeliveryAPI.getStringsMappingSync(filePath: filePath)
         self.strings = result.strings
         self.error = result.error
         self.completion?(self.strings, self.error)

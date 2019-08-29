@@ -54,7 +54,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.hashString = hash
 		self.organizationName = organizationName
 		self.distributionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
-        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage)
+        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
 		self.downloadDistribution()
     }
 	
