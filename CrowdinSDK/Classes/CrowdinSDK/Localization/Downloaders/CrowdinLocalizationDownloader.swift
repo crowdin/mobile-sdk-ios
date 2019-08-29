@@ -17,6 +17,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var errors: [Error]? = nil
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+		self.strings = nil
+		self.plurals = nil
+		self.errors = nil
+		
         self.completion = completion
         let completionBlock = BlockOperation {
             self.completion(self.strings, self.plurals, self.errors)

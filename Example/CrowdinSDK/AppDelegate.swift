@@ -45,9 +45,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         .with(settingsEnabled: true)
                                                         .with(reatimeUpdatesEnabled: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)
-        
-        // Info.plist setup
-//        CrowdinSDK.start()
+		
+//		// Setup CrowdinSDK with crowdin sdk with all features:
+//		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
+//														  stringsFileNames: ["Localizable.strings"],
+//														  pluralsFileNames: ["Localizable.stringsdict"],
+//														  localizations: ["en", "de", "uk"],
+//														  sourceLanguage: "en")
+//		let loginConfig = CrowdinLoginConfig(clientId: "test-sdk",
+//											 clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+//											 scope: "project.content.screenshots",
+//											 redirectURI: "crowdintest://")
+//		let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
+//																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
+//																loginConfig: loginConfig)
+//		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+//			.with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+//			.with(loginConfig: loginConfig)
+//			.with(settingsEnabled: true)
+//			.with(reatimeUpdatesEnabled: true)
+//		CrowdinSDK.startWithConfig(crowdinSDKConfig)
         
         
         _ = CrowdinSDK.addDownloadHandler {
