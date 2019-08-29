@@ -10,7 +10,7 @@ import Foundation
 protocol LoginFeatureProtocol {
 	static var shared: Self? { get }
 	static var isLogined: Bool { get }
-	static func configureWith(with config: LoginConfig)
+	static func configureWith(with config: CrowdinLoginConfig)
 	
 	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
 	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
@@ -40,9 +40,8 @@ final class LoginFeature: LoginFeatureProtocol {
 		self.config = config
 	}
 	
-	static func configureWith(with config: LoginConfig) {
-		guard let crowdinConfig = config as? CrowdinLoginConfig else { return }
-		LoginFeature.shared = LoginFeature(config: crowdinConfig)
+	static func configureWith(with loginConfig: CrowdinLoginConfig) {
+		LoginFeature.shared = LoginFeature(config: loginConfig)
 	}
 	
 	var tokenExpirationDate: Date? {

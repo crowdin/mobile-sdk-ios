@@ -78,7 +78,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-        let enterprise = (config.loginConfig as? CrowdinLoginConfig)?.organizationName != nil
+        let enterprise = config.loginConfig?.organizationName != nil
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig, enterprise: enterprise)
         self.setRemoteStorage(remoteStorage)
         self.initializeLib()

@@ -7,9 +7,7 @@
 
 import Foundation
 
-public protocol LoginConfig { }
-
-@objcMembers public class CrowdinLoginConfig: NSObject, LoginConfig {
+@objcMembers public class CrowdinLoginConfig: NSObject {
 	var clientId: String
 	var clientSecret: String
 	var scope: String
