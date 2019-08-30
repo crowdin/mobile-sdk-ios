@@ -96,7 +96,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     func _start(with success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
         self.success = success
         self.error = error
-		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id else {
+		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id, let wsUrl = distributionResponse?.data.wsUrl else {
 			self.downloadDistribution { (downloaded) in
 				if downloaded {
 					self._start(with: success, error: error)
@@ -106,7 +106,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
 			}
 			return
 		}
-		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, enterprise: organizationName != nil)
+		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }

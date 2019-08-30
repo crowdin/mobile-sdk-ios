@@ -9,7 +9,7 @@ import Foundation
 import Starscream
 
 protocol CrowdinSocketManagerProtocol {
-    init(hashString: String, projectId: String, projectWsHash: String, userId: String, enterprise: Bool)
+    init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String)
 
     var active: Bool { get }
     var connect: (() -> Void)? { set get }
@@ -43,8 +43,8 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     
-	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, enterprise: Bool) {
-		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, enterprise: enterprise)
+	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
+		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
         super.init()
         self.socketAPI.didReceiveUpdateTopSuggestion = updateTopSuggestion(_:)
         self.socketAPI.didReceiveUpdateDraft = updateDraft(_:)
