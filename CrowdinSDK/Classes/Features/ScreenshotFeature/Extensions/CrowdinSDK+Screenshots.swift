@@ -10,10 +10,10 @@ import Foundation
 extension CrowdinSDK {
     @objc class func initializeScreenshotFeature() {
         guard let config = CrowdinSDK.config else { return }
-        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
-        if let crowdinScreenshotsConfig = config.crowdinScreenshotsConfig {
-			let screenshotUploader = CrowdinScreenshotUploader(login: crowdinScreenshotsConfig.login, accountKey: crowdinScreenshotsConfig.accountKey, organizationName: crowdinScreenshotsConfig.loginConfig.organizationName, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
-			ScreenshotFeature.shared = ScreenshotFeature(screenshotUploader: screenshotUploader, screenshotProcessor: CrowdinScreenshotProcessor())
+        if config.screenshotsEnabled {
+            let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
+            let screenshotUploader = CrowdinScreenshotUploader(organizationName: config.loginConfig?.organizationName, strings: crowdinProviderConfig.stringsFileNames, plurals: crowdinProviderConfig.pluralsFileNames, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+            ScreenshotFeature.shared = ScreenshotFeature(screenshotUploader: screenshotUploader, screenshotProcessor: CrowdinScreenshotProcessor())
         }
     }
     

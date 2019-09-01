@@ -36,11 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                              scope: "project.content.screenshots",
 											 redirectURI: "crowdintest://",
 											 organizationName: "serhiy")
-        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
-																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
-																loginConfig: loginConfig)
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+                                                        .with(screenshotsEnabled: true)
 														.with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)
                                                         .with(reatimeUpdatesEnabled: true)

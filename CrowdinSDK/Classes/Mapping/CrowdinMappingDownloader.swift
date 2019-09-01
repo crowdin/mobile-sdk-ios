@@ -21,7 +21,6 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         self.enterprise = enterprise
     }
     
-    
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
         

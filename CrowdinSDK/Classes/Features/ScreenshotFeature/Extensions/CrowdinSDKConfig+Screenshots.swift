@@ -9,19 +9,19 @@ import Foundation
 
 extension CrowdinSDKConfig {
     // Screenshot feature config
-    private static var crowdinScreenshotsConfig: CrowdinScreenshotsConfig? = nil
+    private static var screenshotsEnabled: Bool = false
     
-    var crowdinScreenshotsConfig: CrowdinScreenshotsConfig? {
+    var screenshotsEnabled: Bool {
         get {
-            return CrowdinSDKConfig.crowdinScreenshotsConfig
+            return CrowdinSDKConfig.screenshotsEnabled
         }
         set {
-            CrowdinSDKConfig.crowdinScreenshotsConfig = newValue
+            CrowdinSDKConfig.screenshotsEnabled = newValue
         }
     }
     
-    public func with(crowdinScreenshotsConfig: CrowdinScreenshotsConfig) -> Self {
-        self.crowdinScreenshotsConfig = crowdinScreenshotsConfig
+    public func with(screenshotsEnabled: Bool) -> Self {
+        self.screenshotsEnabled = screenshotsEnabled
         return self
     }
 }

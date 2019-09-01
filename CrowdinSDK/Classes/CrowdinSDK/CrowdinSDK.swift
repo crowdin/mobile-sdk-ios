@@ -226,6 +226,8 @@ extension CrowdinSDK {
             CrowdinSDK.unswizzle()
         }
         
+        self.setupLoginIfNeeded()
+        
         self.initializeScreenshotFeatureIfNeeded()
         
         self.initializeRealtimeUpdatesFeatureIfNeeded()
@@ -233,8 +235,6 @@ extension CrowdinSDK {
         self.initializeIntervalUpdateFeatureIfNeeded()
         
         self.initializeSettingsIfNeeded()
-		
-		self.setupLoginIfNeeded()
     }
     
     /// Method for screenshot feature initialization if Screenshot submodule is added.
