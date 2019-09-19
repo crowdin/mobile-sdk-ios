@@ -56,7 +56,7 @@ final class LoginFeature: LoginFeatureProtocol {
 	
 	var tokenResponse: TokenResponse? {
 		set {
-			guard let data = try? JSONEncoder().encode(newValue) else { return }
+			let data = try? JSONEncoder().encode(newValue)
 			UserDefaults.standard.set(data, forKey: "crowdin.tokenResponse.key")
 			UserDefaults.standard.synchronize()
 		}
@@ -85,7 +85,11 @@ final class LoginFeature: LoginFeatureProtocol {
 	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
 		self.completion = completion
 		self.error = error
-		UIApplication.shared.openURL(URL(string: self.loginURL)!)
+		guard let url = URL(string: self.loginURL) else {
+			self.error?(NSError(domain: "Unable to create URL for login", code: defaultCrowdinErrorCode, userInfo: nil))
+			return
+		}
+		UIApplication.shared.openURL(url)
 	}
 	
 	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
@@ -95,7 +99,8 @@ final class LoginFeature: LoginFeatureProtocol {
 	
 	func logout() {
 		tokenResponse = nil
-		LoginFeature.shared = nil
+		tokenExpirationDate = nil
+//		LoginFeature.shared = nil
 	}
 	
 	func hadle(url: URL) -> Bool {

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                           sourceLanguage: "en")
         let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
                                              clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
-                                             scope: "project.content.screenshots",
+                                             scope: "project.screenshot",
 											 redirectURI: "crowdintest://",
 											 organizationName: "serhiy")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
