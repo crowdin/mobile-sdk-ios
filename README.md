@@ -120,7 +120,7 @@ Serhii Londar, serhii.londar@gmail.com
 <pre>
 Copyright © 2019 Crowdin
 
-The Crowdin iOS SDK for is licensed under the MIT License. 
+The Crowdin iOS SDK is licensed under the MIT License. 
 See the LICENSE.md file distributed with this work for additional 
 information regarding copyright ownership.
 </pre>
