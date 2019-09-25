@@ -1,20 +1,30 @@
-# CrowdinSDK
+[<p align="center"><img src="https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png" data-canonical-src="https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png" width="200" height="200" align="center"/></p>](https://crowdin.com)
 
-[![CI Status](https://img.shields.io/travis/Serhii-Londar/CrowdinSDK.svg?style=flat)](https://travis-ci.org/Serhii Londar/CrowdinSDK)
-[![Version](https://img.shields.io/cocoapods/v/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
-[![License](https://img.shields.io/cocoapods/l/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
-[![Platform](https://img.shields.io/cocoapods/p/CrowdinSDK.svg?style=flat)](https://cocoapods.org/pods/CrowdinSDK)
+# Crowdin IOS SDK
 
-## Example Project
-
-To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in [here](Documentation/TestApplication.md)
+Crowdin IOS SDK delivers all new translations from Crowdin project to the application immediately. So there is no need to update this application via Google Play Store to get the new version with the localization.
 
 
-## Requirenments
+## Table of Contents
+* [Requirements](#requirements)
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Contribution](#contribution)
+* [Seeking Assistance](#seeking-assistance)
+* [Author](#author)
+* [License](#license)
 
-- Xcode 10.2 
-- Swift 4.2 
-- iOS 9.0
+## Requirements
+
+* Xcode 10.2 
+* Swift 4.2 
+* iOS 9.0
+
+## Dependencies
+
+* Firebase
+* Starscream
 
 ## Installation
 
@@ -59,14 +69,13 @@ After you've added CrowdinSDK to your Podfile, please run ```pod install``` in y
 
 ### Manual [TBA]
 
-
-## Setup SDK
+## Quick Start
 
 In order to start using CrowdinSDK you need to import and initialize it in your AppDelegate. By default, CrowdinSDK uses Crowdin localization provider. In order to properly setup it please read [providers documentation](Documentation/Providers.md). 
 
 Also you can use your own provider implementation. To get the detailed istructions please read [providers documentation](Documentation/Providers.md) or look at 'CustomLocalizationProvider in Example project'.
 
-##### Swift
+### Swift
 
 In AppDelegate.swift add ```import CrowdinSDK```.
 
@@ -74,7 +83,7 @@ In ```func application(_ application: UIApplication, didFinishLaunchingWithOptio
 
 ```CrowdinSDK.start()```
 
-##### Objective-C
+### Objective-C
 
 In AppDelegate.m add ```@import CrowdinSDK``` or ```#import<CrowdinSDK/CrowdinSDK.h>```.
 
@@ -87,10 +96,32 @@ If you have pure Objective-C project, then you will need to do some additional s
 - ```$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)``` to your Library Search Paths.
 - Add ```use_frameworks!``` to your Podfile.
 
+### Example Project
+
+To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in [here](Documentation/TestApplication.md)
+
+## Contribution
+We are happy to accept contributions to the Crowdin Android SDK. To contribute please do the following:
+1. Fork the repository on GitHub.
+2. Decide which code you want to submit. A submission should be a set of changes that addresses one issue in the issue tracker. Please file one change per issue, and address one issue per change. If you want to make a change that doesn't have a corresponding issue in the issue tracker, please file a new ticket!
+3. Ensure that your code adheres to standard conventions, as used in the rest of the library.
+4. Ensure that there are unit tests for your code.
+5. Submit a pull request with your patch on Github.
+
+## Seeking Assistance
+If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/mobile-sdk-android/issues).
+
+If you've found an error in these samples, please [contact](https://crowdin.com/contacts) our Support Team.
+
 ## Author
 
 Serhii Londar, serhii.londar@gmail.com
 
 ## License
+<pre>
+Copyright © 2019 Crowdin
 
-CrowdinSDK is available under the MIT license. See the LICENSE file for more info.
+The Crowdin Android SDK for is licensed under the MIT License. 
+See the LICENSE.md file distributed with this work for additional 
+information regarding copyright ownership.
+</pre>
