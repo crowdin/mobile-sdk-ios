@@ -2,7 +2,7 @@
 
 # Crowdin IOS SDK
 
-Crowdin IOS SDK delivers all new translations from Crowdin project to the application immediately. So there is no need to update this application via Google Play Store to get the new version with the localization.
+Crowdin IOS SDK delivers all new translations from Crowdin project to the application immediately. So there is no need to update this application via App Store to get the new version with the localization.
 
 
 ## Table of Contents
@@ -23,8 +23,7 @@ Crowdin IOS SDK delivers all new translations from Crowdin project to the applic
 
 ## Dependencies
 
-* Firebase
-* Starscream
+* [Starscream](https://github.com/daltoniam/Starscream) - Websockets in swift for iOS and OSX.
 
 ## Installation
 
@@ -52,7 +51,7 @@ To install from gitlab repository (This option will be removed from this documen
 
 ```
 target 'MyApp' do
-  pod 'CrowdinSDK', :git => 'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'
+  pod 'CrowdinSDK', :git => 'https://github.com/crowdin/mobile-sdk-ios.git'
 end
 ```
 
@@ -66,10 +65,6 @@ end
 ```
 
 After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open `App.xcworkspace` and build it. 
-
-### Carthage [TBA]
-
-### Manual [TBA]
 
 ## Quick Start
 
@@ -105,7 +100,7 @@ If you have pure Objective-C project, then you will need to do some additional s
 To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in this [article](Documentation/TestApplication.md).
 
 ## Contribution
-We are happy to accept contributions to the Crowdin Android SDK. To contribute please do the following:
+We are happy to accept contributions to the Crowdin iOS SDK. To contribute please do the following:
 1. Fork the repository on GitHub.
 2. Decide which code you want to submit. A submission should be a set of changes that addresses one issue in the issue tracker. Please file one change per issue, and address one issue per change. If you want to make a change that doesn't have a corresponding issue in the issue tracker, please file a new ticket!
 3. Ensure that your code adheres to standard conventions, as used in the rest of the library.
@@ -113,7 +108,7 @@ We are happy to accept contributions to the Crowdin Android SDK. To contribute p
 5. Submit a pull request with your patch on Github.
 
 ## Seeking Assistance
-If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/mobile-sdk-android/issues).
+If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/mobile-sdk-ios/issues).
 
 If you've found an error in these samples, please [contact](https://crowdin.com/contacts) our Support Team.
 
@@ -125,7 +120,7 @@ Serhii Londar, serhii.londar@gmail.com
 <pre>
 Copyright © 2019 Crowdin
 
-The Crowdin Android SDK for is licensed under the MIT License. 
+The Crowdin iOS SDK for is licensed under the MIT License. 
 See the LICENSE.md file distributed with this work for additional 
 information regarding copyright ownership.
 </pre>
