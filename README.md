@@ -30,7 +30,9 @@ Crowdin IOS SDK delivers all new translations from Crowdin project to the applic
 
 #### Cocoapods
 
-To install CrowdinSDK via [cocoapods](https://cocoapods.org), please make shure you have cocoapods installed locally. If not, please install it with following command: ```sudo gem install cocoapods```. Detailed instruction can be found [here](https://guides.cocoapods.org/using/getting-started.html).
+To install CrowdinSDK via [cocoapods](https://cocoapods.org), please make shure you have cocoapods installed locally. If not, please install it with following command: ```sudo gem install cocoapods```. 
+
+Detailed instruction can be found [here](https://guides.cocoapods.org/using/getting-started.html).
 
  To install it, simply add the following line to your Podfile:
 
@@ -63,7 +65,7 @@ target 'MyApp' do
 end
 ```
 
-After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open App.xcworkspace and build it. 
+After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open `App.xcworkspace` and build it. 
 
 ### Carthage [TBA]
 
@@ -71,7 +73,9 @@ After you've added CrowdinSDK to your Podfile, please run ```pod install``` in y
 
 ## Quick Start
 
-In order to start using CrowdinSDK you need to import and initialize it in your AppDelegate. By default, CrowdinSDK uses Crowdin localization provider. In order to properly setup it please read [providers documentation](Documentation/Providers.md). 
+In order to start using CrowdinSDK you need to import and initialize it in your AppDelegate. 
+
+By default, CrowdinSDK uses Crowdin localization provider. In order to properly setup it please read [providers documentation](Documentation/Providers.md). 
 
 Also you can use your own provider implementation. To get the detailed istructions please read [providers documentation](Documentation/Providers.md) or look at 'CustomLocalizationProvider in Example project'.
 
@@ -98,7 +102,7 @@ If you have pure Objective-C project, then you will need to do some additional s
 
 ### Example Project
 
-To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in [here](Documentation/TestApplication.md)
+To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in this [article](Documentation/TestApplication.md).
 
 ## Contribution
 We are happy to accept contributions to the Crowdin Android SDK. To contribute please do the following:
