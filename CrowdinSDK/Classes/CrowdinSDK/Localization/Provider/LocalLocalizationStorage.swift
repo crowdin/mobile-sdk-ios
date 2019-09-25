@@ -7,18 +7,31 @@
 
 import Foundation
 
+/// Protocol for local storage for localization data.
 protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
+    /// List of all available localizations.
     var localizations: [String] { get set }
+    /// Strings localization files content.
     var strings: [String: String] { get set }
+    /// Plurals localization files content.
     var plurals: [AnyHashable: Any] { get set }
 }
 
+/// Local localization storage default implementation. Include data fetching and saving locally.
 class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
+    /// Initialization method.
+    ///
+    /// - Parameters:
+    ///   - localization: Current localization.
+    ///   - localizations: List of all available localizations.
     required init(localization: String, localizations: [String]) {
         self.localizations = localizations
         self.localization = localization
     }
     
+    /// Initialization method.
+    ///
+    /// - Parameter localization: Current localization.
     init(localization: String) {
         guard let localizations = Bundle.main.cw_localizations else {
             fatalError("Please add CrowdinLocalizations key to your Info.plist file")
@@ -28,16 +41,20 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     }
     
     // swiftlint:disable force_try
+    /// Folder used for storing all localization files.
     let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     
+    /// Current localization.
     var localization: String {
         didSet {
             self.fetchData()
         }
     }
     
+    /// List of all available localizations.
     var localizations: [String]
     
+    /// <#Description#>
     private var _strings: Atomic<[String: String]> = Atomic([:])
     var strings: [String: String] {
         get {

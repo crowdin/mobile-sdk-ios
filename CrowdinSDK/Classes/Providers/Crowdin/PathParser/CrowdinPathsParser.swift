@@ -40,7 +40,7 @@ fileprivate enum Paths: String {
 class CrowdinPathsParser {
     static let shared = CrowdinPathsParser()
     
-    func parse(_ path: String) -> String {
+	func parse(_ path: String, localization: String) -> String {
         var resultPath = path
         if self.containsCustomPath(path) {
             Paths.all.forEach { (path) in
@@ -48,7 +48,6 @@ class CrowdinPathsParser {
             }
         } else {
             // Add localization code to file name
-            let localization = Bundle.main.preferredLanguage
             let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
             resultPath = "/\(crowdinLocalization)/\(path)"
         }

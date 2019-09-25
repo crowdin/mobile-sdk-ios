@@ -15,15 +15,26 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var strings: [String: String]? = nil
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
+    fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
+    fileprivate var enterprise: Bool
+    
+    init(enterprise: Bool) {
+        self.enterprise = enterprise
+    }
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+		self.strings = nil
+		self.plurals = nil
+		self.errors = nil
+		
         self.completion = completion
         let completionBlock = BlockOperation {
             self.completion(self.strings, self.plurals, self.errors)
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string)
+            let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string, localization: localization, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { (strings, error) in
                 if let error = error {
                     if self.errors != nil {
@@ -44,7 +55,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural)
+            let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural, localization: localization, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { (plurals, error) in
                 if let error = error {
                     if self.errors != nil {

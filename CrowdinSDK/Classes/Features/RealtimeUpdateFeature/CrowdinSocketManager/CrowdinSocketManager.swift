@@ -9,7 +9,7 @@ import Foundation
 import Starscream
 
 protocol CrowdinSocketManagerProtocol {
-    init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie])
+    init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String)
 
     var active: Bool { get }
     var connect: (() -> Void)? { set get }
@@ -25,12 +25,6 @@ protocol CrowdinSocketManagerProtocol {
 }
 
 class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
-    let hashString: String
-    let csrfToken: String
-    let userAgent: String
-    let cookies: [HTTPCookie]
-    var distributionResponse: DistributionsResponse?
-    
     var socketAPI: SocketAPI
     var active: Bool {
         return socketAPI.isConnected
@@ -49,14 +43,9 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     
-    required init(hashString: String, csrfToken: String, userAgent: String, cookies: [HTTPCookie]) {
-        self.hashString = hashString
-        self.csrfToken = csrfToken
-        self.userAgent = userAgent
-        self.cookies = cookies
-        self.socketAPI = SocketAPI(hashString: hashString, csrfToken: csrfToken, userAgent: userAgent, cookies: cookies)
+	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
+		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
         super.init()
-        
         self.socketAPI.didReceiveUpdateTopSuggestion = updateTopSuggestion(_:)
         self.socketAPI.didReceiveUpdateDraft = updateDraft(_:)
     }

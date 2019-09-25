@@ -35,7 +35,7 @@ class Request {
             request.httpBody = body
             return (request, nil)
         } else {
-            return (nil, NSError(domain:"Unable to create URL", code:999, userInfo:nil) )
+            return (nil, NSError(domain:"Unable to create URL", code:defaultCrowdinErrorCode, userInfo:nil) )
         }
     }
     

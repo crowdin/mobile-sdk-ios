@@ -78,8 +78,8 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         guard let plurals = plurals as? [String: Any] else { return (nil, nil) }
         for (key, plural) in plurals {
             guard let plural = plural as? [AnyHashable: Any] else { continue }
-            for(key1, value) in plural {
-                guard let strinKey = key1 as? String else { continue }
+            for(pluralKey, value) in plural {
+                guard let strinKey = pluralKey as? String else { continue }
                 if strinKey == Keys.NSStringLocalizedFormatKey.rawValue { continue }
                 guard let value = value as? [String: String] else { continue }
                 for (rule, formatedString) in value {
@@ -94,7 +94,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
                         }
                     }
                     if String.findMatch(for: formatedString, with: text), let values = String.findValues(for: text, with: formatedString) {
-                        // Check if localized strign is equal to text.
+                        // Check if localized string is equal to text.
                         // swiftlint:disable force_cast
                         if key.cw_localized(with: values as! [CVarArg]) == text {
                             return (key, values)

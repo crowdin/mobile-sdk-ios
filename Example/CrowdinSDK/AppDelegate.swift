@@ -26,24 +26,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // Setup CrowdinSDK with crowdin sdk with all features:
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "f78819e9fe3a5fe96d2a383b2ozt",
                                                           stringsFileNames: ["Localizable.strings"],
                                                           pluralsFileNames: ["Localizable.stringsdict"],
-                                                          localizations: ["en", "de"],
+                                                          localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
-        let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
-        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
-                                                                accountKey: "1267e86b748b600eb851f1c45f8c44ce",
-                                                                credentials: credentials)
+        let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
+                                             clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
+                                             scope: "project.screenshot",
+											 redirectURI: "crowdintest://",
+											 organizationName: "serhiy")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+                                                        .with(screenshotsEnabled: true)
+														.with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)
                                                         .with(reatimeUpdatesEnabled: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)
-        
-        // Info.plist setup
-//        CrowdinSDK.start()
-        
+		
+//		// Setup CrowdinSDK with crowdin sdk with all features:
+//		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
+//														  stringsFileNames: ["Localizable.strings"],
+//														  pluralsFileNames: ["Localizable.stringsdict"],
+//														  localizations: ["en", "de", "uk"],
+//														  sourceLanguage: "en")
+//		let loginConfig = CrowdinLoginConfig(clientId: "test-sdk",
+//											 clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+//											 scope: "project.content.screenshots",
+//											 redirectURI: "crowdintest://")
+//		let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar",
+//																accountKey: "1267e86b748b600eb851f1c45f8c44ce",
+//																loginConfig: loginConfig)
+//		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+//			.with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)
+//			.with(loginConfig: loginConfig)
+//			.with(settingsEnabled: true)
+//			.with(reatimeUpdatesEnabled: true)
+//		CrowdinSDK.startWithConfig(crowdinSDKConfig)
+		
         
         _ = CrowdinSDK.addDownloadHandler {
             print("Localization downloaded")
@@ -71,5 +90,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+	
+	func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+		print("URL - \(url)")
+		print("options - \(options)")
+		return CrowdinSDK.handle(url: url)
+	}
 }
 

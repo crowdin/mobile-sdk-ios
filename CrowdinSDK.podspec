@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '0.0.5'
+  spec.version          = '0.0.6'
   spec.summary          = 'A short description of CrowdinSDK.'
   
   # This description is used to generate tags and improve search results.
@@ -58,6 +58,7 @@ Pod::Spec.new do |spec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
     subspec.dependency 'Starscream'
+    subspec.dependency 'CrowdinSDK/Login'
   end
   
   spec.subspec 'Mapping' do |mapping|
@@ -88,7 +89,6 @@ Pod::Spec.new do |spec|
   spec.subspec 'Login' do |feature|
     feature.name = 'Login'
     feature.source_files = 'CrowdinSDK/Classes/Features/LoginFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
   

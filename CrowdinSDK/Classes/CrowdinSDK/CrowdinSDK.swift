@@ -78,7 +78,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        let enterprise = config.loginConfig?.organizationName != nil
+        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig, enterprise: enterprise)
         self.setRemoteStorage(remoteStorage)
         self.initializeLib()
     }
@@ -180,6 +181,10 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
     }
+	
+	public class func handle(url: URL) -> Bool {
+		return LoginFeature.shared?.hadle(url: url) ?? false
+	}
 }
 
 extension CrowdinSDK {
@@ -210,6 +215,7 @@ extension CrowdinSDK {
         case initializeRealtimeUpdatesFeature
         case initializeIntervalUpdateFeature
         case initializeSettings
+		case setupLogin
     }
     
     /// Method for library initialization.
@@ -219,6 +225,8 @@ extension CrowdinSDK {
         } else {
             CrowdinSDK.unswizzle()
         }
+        
+        self.setupLoginIfNeeded()
         
         self.initializeScreenshotFeatureIfNeeded()
         
@@ -256,4 +264,10 @@ extension CrowdinSDK {
             CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
         }
     }
+	
+	private class func setupLoginIfNeeded() {
+		if CrowdinSDK.responds(to: Selectors.setupLogin.rawValue) {
+			CrowdinSDK .perform(Selectors.setupLogin.rawValue)
+		}
+	}
 }

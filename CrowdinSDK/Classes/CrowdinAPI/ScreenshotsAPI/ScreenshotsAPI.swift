@@ -8,33 +8,21 @@
 import Foundation
 
 class ScreenshotsAPI: CrowdinAPI {
-    let login: String
-    let accountKey: String
-    let credentials: String
     
-    enum ParameterKeys: String {
-        case login
-        case accountKey = "account-key"
-    }
-    
-    init(login: String, accountKey: String, credentials: String) {
-        self.login = login
-        self.accountKey = accountKey
-        self.credentials = credentials
-        super.init()
+    override var apiPath: String {
+        return "projects"
     }
     
     func baseUrl(with projectId: Int) -> String{
-        return "https://api-tester:VmpFqTyXPq3ebAyNksUxHwhC@crowdin.com/api/v2/projects/\(projectId)/screenshots"
+        return "\(fullPath)/\(projectId)/screenshots"
     }
 
     func createScreenshot(projectId: Int, storageId: Int, name: String, completion: @escaping (CreateScreenshotResponse?, Error?) -> Void) {
         let request = CreateScreenshotRequest(storageId: storageId, name: name)
         let requestData = try? JSONEncoder().encode(request)
         let url = baseUrl(with: projectId)
-        let parameters = [ParameterKeys.login.rawValue: login, ParameterKeys.accountKey.rawValue: accountKey]
-        let headers = ["Authorization": "Basic \(credentials)", RequestHeaderFields.contentType.rawValue: "application/json"]
-        self.cw_post(url: url, parameters: parameters, headers: headers, body: requestData, completion: completion)
+        let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
+        self.cw_post(url: url, headers: headers, body: requestData, completion: completion)
     }
     
     func createScreenshotTags(projectId: Int, screenshotId: Int, frames: [(id: Int, rect: CGRect)], completion: @escaping (CreateScreenshotTagResponse?, Error?) -> Void) {
@@ -47,8 +35,7 @@ class ScreenshotsAPI: CrowdinAPI {
         let request = elements
         let requestData = try? JSONEncoder().encode(request)
         let url = baseUrl(with: projectId) + "/\(screenshotId)/tags"
-        let parameters = [ParameterKeys.login.rawValue: login, ParameterKeys.accountKey.rawValue: accountKey]
-        let headers = ["Authorization": "Basic \(credentials)", RequestHeaderFields.contentType.rawValue: "application/json"]
-        self.cw_post(url: url, parameters: parameters, headers: headers, body: requestData, completion: completion)
+        let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
+        self.cw_post(url: url, headers: headers, body: requestData, completion: completion)
     }
 }

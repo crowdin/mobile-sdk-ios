@@ -12,21 +12,20 @@ class SupportedLanguagesAPI: CrowdinAPI {
         case json
         case supportedLanguages = "supported-languages"
     }
+    
+    override var baseURL: String {
+        return "https://api.crowdin.com/api/"
+    }
+    
     let parameters = [Strings.json.rawValue: String.empty]
     
     override var apiPath: String { return Strings.supportedLanguages.rawValue }
     
-    func buildURL() -> String {
-        return "\(baseAPIPath)/\(apiPath)/"
-    }
-    
     func getSupportedLanguages(completion: @escaping (SupportedLanguagesResponse?, Error?) -> Void) {
-        let url = buildURL()
-        self.cw_get(url: url, parameters: parameters, completion: completion)
+        self.cw_get(url: fullPath, parameters: parameters, completion: completion)
     }
     
     func getSupportedLanguagesSync() -> (SupportedLanguagesResponse?, Error?) {
-        let url = buildURL()
-        return self.cw_get(url: url, parameters: parameters)
+        return self.cw_get(url: fullPath, parameters: parameters)
     }
 }

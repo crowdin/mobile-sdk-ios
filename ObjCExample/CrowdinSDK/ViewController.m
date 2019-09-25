@@ -23,20 +23,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [CrowdinSDK captureScreenshotWithName:@"Test Screnshot" success:^{
-        
-    } errorHandler:^(NSError * _Nullable error) {
-        
-    }];
 }
 
 - (IBAction)screenshot:(id)sender {
-    [CrowdinSDK captureScreenshotWithName:@"Test Screnshot" success:^{
-        
-    } errorHandler:^(NSError * _Nullable error) {
-        
-    }];
+//    [CrowdinSDK captureScreenshotWithName:@"Test Screnshot" success:^{
+//
+//    } errorHandler:^(NSError * _Nullable error) {
+//
+//    }];
 }
 
 

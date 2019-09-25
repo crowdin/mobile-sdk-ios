@@ -79,6 +79,10 @@
 		92A1BCDA2210A3C70086B3AC /* Localizable.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Localizable.plist; sourceTree = "<group>"; };
 		92A1BCE42210C7CC0086B3AC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		92AFC6BF224FA2E7008029F3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		92CCEF8C2317F44800F41CB4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		92CCEF8D2317F44800F41CB4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		92CCEF8E2317F44D00F41CB4 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		92CCEF8F2317F44D00F41CB4 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		92E65441224F8090009178C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		92E65444224F8093009178C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		92ECA8E322495E3A000DD994 /* PluralsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralsVC.swift; sourceTree = "<group>"; };
@@ -362,6 +366,8 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				uk,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
@@ -490,7 +496,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/CrowdinSDK/R.generated.swift",
+				$SRCROOT/CrowdinSDK/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -583,6 +589,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				92E65441224F8090009178C6 /* en */,
+				92CCEF8C2317F44800F41CB4 /* de */,
+				92CCEF8E2317F44D00F41CB4 /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -591,6 +599,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				92E65444224F8093009178C6 /* en */,
+				92CCEF8D2317F44800F41CB4 /* de */,
+				92CCEF8F2317F44D00F41CB4 /* uk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

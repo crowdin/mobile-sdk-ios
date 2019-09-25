@@ -26,8 +26,8 @@ class ProjectAPI: CrowdinAPI {
         super.init()
     }
     
-    func buildURL(method: String) -> String {
-        return "\(baseAPIPath)/\(apiPath)/\(projectIdentifier)/\(method)/"
+    override var fullPath: String {
+        return "\(baseURL)/\(apiPath)/\(projectIdentifier)/"
     }
     
     func buildParameters(with parameters: [String: String]? = nil) -> [String: String] {
@@ -41,13 +41,13 @@ class ProjectAPI: CrowdinAPI {
     
     func projectDetails(completion: @escaping (ProjectDetailsResponse?, Error?) -> Void) {
         let method = Strings.info.rawValue
-        let url = self.buildURL(method: method)
+        let url = "\(fullPath)\(method)/"
         self.cw_post(url: url, parameters: self.buildParameters(), headers: nil, body: nil, completion: completion)
     }
     
     func projectDetailsSync() -> (ProjectDetailsResponse?, Error?) {
         let method = Strings.info.rawValue
-        let url = self.buildURL(method: method)
+        let url = "\(fullPath)\(method)/"
         return self.cw_post(url: url, parameters: self.buildParameters(), headers: nil, body: nil)
     }
 }

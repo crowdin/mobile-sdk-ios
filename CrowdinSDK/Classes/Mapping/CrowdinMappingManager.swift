@@ -24,8 +24,8 @@ class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
-    init(strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
-        self.downloader = CrowdinMappingDownloader()
+    init(strings: [String], plurals: [String], hash: String, sourceLanguage: String, enterprise: Bool) {
+        self.downloader = CrowdinMappingDownloader(enterprise: enterprise)
         self.downloader.download(strings: strings, plurals: plurals, with: hash, for: sourceLanguage) { (strings, plurals, _) in
             self.stringsMapping = strings ?? [:]
             self.plurals = plurals ?? [:]
