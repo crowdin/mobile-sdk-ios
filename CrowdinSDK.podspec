@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
   DESC
   
   spec.homepage         = 'https://github.com/Serhii Londar/CrowdinSDK'
-  spec.license          = { :type => 'MIT', :file => 'LICENSE' }
+  spec.license          = { :type => 'MIT', :file => 'LICENSE.md' }
   spec.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
   spec.source           = { :git => 'https://github.com/Serhii Londar/CrowdinSDK.git', :tag => spec.version.to_s }
   spec.social_media_url    = 'https://twitter.com/serhii_londar'
@@ -106,4 +106,9 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/RefreshLocalization'
     settings.dependency 'CrowdinSDK/IntervalUpdate'
   end
+  
+  spec.test_spec 'CrowdinSDK_Tests' do |test_spec|
+    test_spec.source_files = './../Tests/*.swift'
+  end
+  
 end
