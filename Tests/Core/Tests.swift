@@ -29,16 +29,8 @@ class CrowdinSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        
-        XCTAssert(true, "Pass")
+    func testInSDKLocalizations() {
+		
+        XCTAssert(CrowdinSDK.inSDKLocalizations.count == 3, "Current SDK setup supports 3 localization.")
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
