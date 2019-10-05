@@ -60,6 +60,12 @@ Pod::Spec.new do |spec|
     provider.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
+  
+
+  spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
+    test_spec.source_files = 'Tests/CrowdinProvider/*.swift'
+  end
+  
   spec.subspec 'CrowdinAPI' do |subspec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'

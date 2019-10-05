@@ -18,6 +18,6 @@ class ConstantsTests: XCTestCase {
     }
     
     func testDefaultCrowdinErrorCodeValue() {
-        XCTAssert(defaultCrowdinErrorCode == 9999)
+        XCTAssert(defaultCrowdinErrorCode == 99999)
     }
 }
