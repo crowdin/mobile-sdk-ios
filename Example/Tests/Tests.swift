@@ -1,5 +1,5 @@
 import XCTest
-@testable import CrowdinSDK
+import CrowdinSDK
 
 class CrowdinSDKTests: XCTestCase {
     
@@ -11,16 +11,16 @@ class CrowdinSDKTests: XCTestCase {
                                                           pluralsFileNames: ["Localizable.stringsdict"],
                                                           localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
-        let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
-                                             clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
-                                             scope: "project.screenshot",
-											 redirectURI: "crowdintest://",
-											 organizationName: "serhiy")
+//        let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
+//                                             clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
+//                                             scope: "project.screenshot",
+//											 redirectURI: "crowdintest://",
+//											 organizationName: "serhiy")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(screenshotsEnabled: true)
-														.with(loginConfig: loginConfig)
-                                                        .with(settingsEnabled: true)
-                                                        .with(reatimeUpdatesEnabled: true)
+//                                                        .with(screenshotsEnabled: true)
+//														.with(loginConfig: loginConfig)
+//                                                        .with(settingsEnabled: true)
+//                                                        .with(reatimeUpdatesEnabled: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)
     }
     
@@ -32,12 +32,4 @@ class CrowdinSDKTests: XCTestCase {
     func testInSDKLocalizations() {
         XCTAssert(CrowdinSDK.inSDKLocalizations.count == 3, "Current SDK setup supports 3 localization.")
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

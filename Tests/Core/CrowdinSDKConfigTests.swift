@@ -2,20 +2,8 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinSDKConfigTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
-    func testEmptyConfig() {
+    func testConfigInitialization() {
         let config = CrowdinSDKConfig.config()
         XCTAssertNil(config.crowdinProviderConfig)
     }
-    
-    
 }

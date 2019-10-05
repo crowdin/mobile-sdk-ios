@@ -39,6 +39,12 @@ Pod::Spec.new do |spec|
     core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
   end
   
+
+  spec.test_spec 'Core_Tests' do |test_spec|
+    test_spec.source_files = 'Tests/Core/*.swift'
+  end
+  
+  
   spec.subspec 'FirebaseProvider' do |provider|
     provider.name = 'FirebaseProvider'
     provider.dependency 'Firebase'
@@ -106,9 +112,4 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/RefreshLocalization'
     settings.dependency 'CrowdinSDK/IntervalUpdate'
   end
-  
-  spec.test_spec 'CrowdinSDK_Tests' do |test_spec|
-	test_spec.source_files = 'Tests/**/*.swift'
-  end
-  
 end

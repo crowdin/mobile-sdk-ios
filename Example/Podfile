@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'CrowdinSDK_Example' do
-  pod 'CrowdinSDK', :path => '../', :testspecs => ['CrowdinSDK_Tests']
+  pod 'CrowdinSDK', :path => '../', :testspecs => ['Core_Tests']
   pod 'CrowdinSDK/Screenshots', :path => '../'
 #  pod 'CrowdinSDK/IntervalUpdate', :path => '../'
 #  pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
