@@ -41,7 +41,7 @@ Pod::Spec.new do |spec|
   
 
   spec.test_spec 'Core_Tests' do |test_spec|
-    test_spec.source_files = 'Tests/Core/*.swift'
+    test_spec.source_files = 'CrowdinSDK/Tests/Core/*.swift'
   end
   
   
@@ -63,7 +63,7 @@ Pod::Spec.new do |spec|
   
 
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
-    test_spec.source_files = 'Tests/CrowdinProvider/*.swift'
+    test_spec.source_files = 'CrowdinSDK/Tests/CrowdinProvider/*.swift'
   end
   
   spec.subspec 'CrowdinAPI' do |subspec|
