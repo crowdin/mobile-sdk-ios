@@ -17,12 +17,15 @@ extension String {
     
     /// Extension method for simplifying strings localization with argumets.
     ///
-    /// - Parameter arguments: Formatted string parameters.
+    /// - Parameter arguments: Formatted string arguments.
     /// - Returns: Localized formatted string.
     public func cw_localized(with arguments: [CVarArg]) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), arguments: arguments)
     }
     
+    /// Extension method for simplifying strings localization with argumets.
+    /// - Parameter args: Formatted string arguments.
+    /// - Returns: Localized formatted string. 
     public func cw_localized(with args: CVarArg...) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), args)
     }
@@ -89,9 +92,10 @@ extension NSString {
             let range = ranges[index]
             guard range.location != NSNotFound else { continue }
             if index == 0 {
-                if range.location == 0 { continue }
-                guard self.isValid(range: range) else { continue }
-                values.append(self.substring(with: NSRange(location: 0, length: range.location)))
+                if range.location != 0 {
+                    guard self.isValid(range: range) else { continue }
+                    values.append(self.substring(with: NSRange(location: 0, length: range.location)))
+                }
             } else {
                 let previousRange = ranges[index - 1]
                 let location = previousRange.location + previousRange.length
