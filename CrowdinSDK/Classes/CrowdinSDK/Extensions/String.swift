@@ -10,15 +10,15 @@ import Foundation
 
 // MARK: - String localization extension.
 extension String {
-    /// Extension method for simplifying strings localization.
+	/// Extension method for simplifying strings localization.
 	public var cw_localized: String {
 		return NSLocalizedString(self, comment: .empty)
 	}
     
-    /// <#Description#>
+    /// Extension method for simplifying strings localization with argumets.
     ///
-    /// - Parameter arguments: <#arguments description#>
-    /// - Returns: <#return value description#>
+    /// - Parameter arguments: Formatted string parameters.
+    /// - Returns: Localized formatted string.
     public func cw_localized(with arguments: [CVarArg]) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), arguments: arguments)
     }
