@@ -3,21 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		03889E2498BE76977E18B335 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB6E45C19D79AEF67CEC319 /* Pods_Tests.framework */; };
 		5BDB06CB673D1227873DEF28 /* Pods_TestsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A6DC0FB8A535F1AA2999A7 /* Pods_TestsUITests.framework */; };
+		920E2A19234F5A2200FD3E12 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */; };
 		AC134E62B46E8C4E451EA4CD /* Pods_TestsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A367693F1E2D6901F12CC78 /* Pods_TestsTests.framework */; };
 		E88AE264234D3F00000B6FC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE263234D3F00000B6FC0 /* AppDelegate.swift */; };
-		E88AE266234D3F00000B6FC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE265234D3F00000B6FC0 /* SceneDelegate.swift */; };
 		E88AE268234D3F00000B6FC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE267234D3F00000B6FC0 /* ViewController.swift */; };
 		E88AE26B234D3F00000B6FC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E88AE269234D3F00000B6FC0 /* Main.storyboard */; };
 		E88AE26D234D3F01000B6FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26C234D3F01000B6FC0 /* Assets.xcassets */; };
 		E88AE270234D3F01000B6FC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26E234D3F01000B6FC0 /* LaunchScreen.storyboard */; };
-		E88AE27B234D3F01000B6FC0 /* TestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE27A234D3F01000B6FC0 /* TestsTests.swift */; };
-		E88AE286234D3F01000B6FC0 /* TestsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE285234D3F01000B6FC0 /* TestsUITests.swift */; };
+		E88AE27B234D3F01000B6FC0 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE27A234D3F01000B6FC0 /* Tests.swift */; };
+		E88AE286234D3F01000B6FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE285234D3F01000B6FC0 /* UITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,22 +42,22 @@
 		1A367693F1E2D6901F12CC78 /* Pods_TestsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFAE53CCB0976C090655E6E /* Pods-TestsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsUITests.debug.xcconfig"; path = "Target Support Files/Pods-TestsUITests/Pods-TestsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		70A6DC0FB8A535F1AA2999A7 /* Pods_TestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A36A374768AF3AA6499401ED /* Pods-TestsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsTests.debug.xcconfig"; path = "Target Support Files/Pods-TestsTests/Pods-TestsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AAB6E45C19D79AEF67CEC319 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B316B4E1DE564564279B018B /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E88AE260234D3F00000B6FC0 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E88AE263234D3F00000B6FC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E88AE265234D3F00000B6FC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E88AE267234D3F00000B6FC0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E88AE26A234D3F00000B6FC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E88AE26C234D3F01000B6FC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E88AE26F234D3F01000B6FC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E88AE271234D3F01000B6FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E88AE276234D3F01000B6FC0 /* TestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E88AE27A234D3F01000B6FC0 /* TestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsTests.swift; sourceTree = "<group>"; };
+		E88AE27A234D3F01000B6FC0 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		E88AE27C234D3F01000B6FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E88AE281234D3F01000B6FC0 /* TestsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E88AE285234D3F01000B6FC0 /* TestsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsUITests.swift; sourceTree = "<group>"; };
+		E88AE285234D3F01000B6FC0 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
 		E88AE287234D3F01000B6FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3AE6A456EFA7110D586D3BC /* Pods-TestsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsUITests.release.xcconfig"; path = "Target Support Files/Pods-TestsUITests/Pods-TestsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F99CD79B743F54585E4A9CA5 /* Pods-TestsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsTests.release.xcconfig"; path = "Target Support Files/Pods-TestsTests/Pods-TestsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,7 +101,6 @@
 				5BFAE53CCB0976C090655E6E /* Pods-TestsUITests.debug.xcconfig */,
 				F3AE6A456EFA7110D586D3BC /* Pods-TestsUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -118,9 +117,10 @@
 		E88AE257234D3F00000B6FC0 = {
 			isa = PBXGroup;
 			children = (
-				E88AE262234D3F00000B6FC0 /* Tests */,
-				E88AE279234D3F01000B6FC0 /* TestsTests */,
-				E88AE284234D3F01000B6FC0 /* TestsUITests */,
+				920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */,
+				E88AE262234D3F00000B6FC0 /* App */,
+				E88AE279234D3F01000B6FC0 /* Tests */,
+				E88AE284234D3F01000B6FC0 /* UITests */,
 				E88AE261234D3F00000B6FC0 /* Products */,
 				862A5C7DAE8D195457C96A61 /* Pods */,
 				DAF7365E3AD0A725A7909C9A /* Frameworks */,
@@ -137,36 +137,35 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E88AE262234D3F00000B6FC0 /* Tests */ = {
+		E88AE262234D3F00000B6FC0 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				E88AE263234D3F00000B6FC0 /* AppDelegate.swift */,
-				E88AE265234D3F00000B6FC0 /* SceneDelegate.swift */,
 				E88AE267234D3F00000B6FC0 /* ViewController.swift */,
 				E88AE269234D3F00000B6FC0 /* Main.storyboard */,
 				E88AE26C234D3F01000B6FC0 /* Assets.xcassets */,
 				E88AE26E234D3F01000B6FC0 /* LaunchScreen.storyboard */,
 				E88AE271234D3F01000B6FC0 /* Info.plist */,
 			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E88AE279234D3F01000B6FC0 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E88AE27A234D3F01000B6FC0 /* Tests.swift */,
+				E88AE27C234D3F01000B6FC0 /* Info.plist */,
+			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		E88AE279234D3F01000B6FC0 /* TestsTests */ = {
+		E88AE284234D3F01000B6FC0 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
-				E88AE27A234D3F01000B6FC0 /* TestsTests.swift */,
-				E88AE27C234D3F01000B6FC0 /* Info.plist */,
-			);
-			path = TestsTests;
-			sourceTree = "<group>";
-		};
-		E88AE284234D3F01000B6FC0 /* TestsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E88AE285234D3F01000B6FC0 /* TestsUITests.swift */,
+				E88AE285234D3F01000B6FC0 /* UITests.swift */,
 				E88AE287234D3F01000B6FC0 /* Info.plist */,
 			);
-			path = TestsUITests;
+			path = UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E88AE270234D3F01000B6FC0 /* LaunchScreen.storyboard in Resources */,
+				920E2A19234F5A2200FD3E12 /* Default-568h@2x.png in Resources */,
 				E88AE26D234D3F01000B6FC0 /* Assets.xcassets in Resources */,
 				E88AE26B234D3F00000B6FC0 /* Main.storyboard in Resources */,
 			);
@@ -392,7 +392,6 @@
 			files = (
 				E88AE268234D3F00000B6FC0 /* ViewController.swift in Sources */,
 				E88AE264234D3F00000B6FC0 /* AppDelegate.swift in Sources */,
-				E88AE266234D3F00000B6FC0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E88AE27B234D3F01000B6FC0 /* TestsTests.swift in Sources */,
+				E88AE27B234D3F01000B6FC0 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,7 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E88AE286234D3F01000B6FC0 /* TestsUITests.swift in Sources */,
+				E88AE286234D3F01000B6FC0 /* UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +568,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22AFPHX3AU;
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -588,6 +588,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22AFPHX3AU;
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -607,8 +608,8 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22AFPHX3AU;
-				INFOPLIST_FILE = TestsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -630,8 +631,8 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22AFPHX3AU;
-				INFOPLIST_FILE = TestsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -652,7 +653,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22AFPHX3AU;
-				INFOPLIST_FILE = TestsUITests/Info.plist;
+				INFOPLIST_FILE = UITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -673,7 +675,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22AFPHX3AU;
-				INFOPLIST_FILE = TestsUITests/Info.plist;
+				INFOPLIST_FILE = UITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
