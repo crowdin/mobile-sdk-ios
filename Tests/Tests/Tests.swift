@@ -11,6 +11,7 @@ import XCTest
 
 class TestsTests: XCTestCase {
     override func setUp() {
+		super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
 		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "f78819e9fe3a5fe96d2a383b2ozt",
 														  stringsFileNames: ["Localizable.strings"],
@@ -23,6 +24,7 @@ class TestsTests: XCTestCase {
 //											 redirectURI: "crowdintest://",
 //											 organizationName: "serhiy")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+														.with(enterprise: true)
 //														.with(loginConfig: loginConfig)
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
     }
@@ -39,5 +41,12 @@ class TestsTests: XCTestCase {
 		XCTAssert(CrowdinSDK.inBundleLocalizations.count == 2, "Contains Base & English localizations.")
 	}
 	
+	func testCurrentLocalization() {
+		XCTAssert(CrowdinSDK.currentLocalization == "en")
+	}
+	
+	func testMode() {
+		XCTAssert(CrowdinSDK.mode == .autoSDK)
+	}
 	
 }
