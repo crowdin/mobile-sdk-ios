@@ -9,7 +9,17 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            
+        }
+    }
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
