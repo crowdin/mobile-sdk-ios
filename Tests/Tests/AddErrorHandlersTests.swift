@@ -14,7 +14,7 @@ class AddErrorHandlersTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "f78819e9fe3a5fe96d2a383b2ozt",
-                                                          stringsFileNames: ["test.strings"],
+                                                          stringsFileNames: ["test.strings", "error.strings"],
                                                           pluralsFileNames: ["test.stringsdict"],
                                                           localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
@@ -29,11 +29,10 @@ class AddErrorHandlersTests: XCTestCase {
         CrowdinSDK.removeAllErrorHandlers()
     }
     
-    func testAddDownloadHandler() {
+    func testAddErrorHandler() {
         let expectation = XCTestExpectation(description: "Error handler is called")
-        
         let hendlerId = CrowdinSDK.addErrorUpdateHandler {_ in
-            XCTAssert(true, "Handler called")
+            XCTAssert(true, "Error handler called")
             expectation.fulfill()
         }
         

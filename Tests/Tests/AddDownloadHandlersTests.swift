@@ -31,9 +31,8 @@ class AddDownloadHandlersTests: XCTestCase {
     
     func testAddDownloadHandler() {
         let expectation = XCTestExpectation(description: "Download handler is called")
-        
         let hendlerId = CrowdinSDK.addDownloadHandler {
-            XCTAssert(true, "Handler called")
+            XCTAssert(true, "Download handler called")
             expectation.fulfill()
         }
         
