@@ -18,12 +18,15 @@
 		E88AE270234D3F01000B6FC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26E234D3F01000B6FC0 /* LaunchScreen.storyboard */; };
 		E88AE27B234D3F01000B6FC0 /* CrowdinSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE27A234D3F01000B6FC0 /* CrowdinSDKTests.swift */; };
 		E88AE286234D3F01000B6FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE285234D3F01000B6FC0 /* UITests.swift */; };
+		E8A660472353644B00D560CF /* BundleStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A660462353644B00D560CF /* BundleStringTests.swift */; };
 		E8BD50C023527175006D77FD /* AddDownloadHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BD50BE235270B5006D77FD /* AddDownloadHandlersTests.swift */; };
 		E8BD50C223527250006D77FD /* AddErrorHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BD50C123527250006D77FD /* AddErrorHandlersTests.swift */; };
 		E8BD50CC23527390006D77FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50CE23527390006D77FD /* Localizable.strings */; };
 		E8BD50D62352EE81006D77FD /* SDKModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BD50D52352EE81006D77FD /* SDKModeTests.swift */; };
 		E8BD50D82352F17E006D77FD /* CrowdinTesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BD50D72352F17E006D77FD /* CrowdinTesterTests.swift */; };
 		E8BD50D92352F6C6006D77FD /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50DB2352F6C6006D77FD /* Localizable.stringsdict */; };
+		E8BD50DF235348F5006D77FD /* CrowdinStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BD50DE235348F5006D77FD /* CrowdinStringTests.swift */; };
+		E8BD50E123534A98006D77FD /* EnableSDKLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BD50E023534A98006D77FD /* EnableSDKLocalizationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,7 @@
 		E88AE281234D3F01000B6FC0 /* TestsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E88AE285234D3F01000B6FC0 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
 		E88AE287234D3F01000B6FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8A660462353644B00D560CF /* BundleStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStringTests.swift; sourceTree = "<group>"; };
 		E8BD50BE235270B5006D77FD /* AddDownloadHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDownloadHandlersTests.swift; sourceTree = "<group>"; };
 		E8BD50C123527250006D77FD /* AddErrorHandlersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddErrorHandlersTests.swift; sourceTree = "<group>"; };
 		E8BD50C42352735F006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 		E8BD50DA2352F6C6006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E8BD50DC2352F6CA006D77FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E8BD50DD2352F6CC006D77FD /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		E8BD50DE235348F5006D77FD /* CrowdinStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinStringTests.swift; sourceTree = "<group>"; };
+		E8BD50E023534A98006D77FD /* EnableSDKLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableSDKLocalizationTests.swift; sourceTree = "<group>"; };
 		F3AE6A456EFA7110D586D3BC /* Pods-TestsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsUITests.release.xcconfig"; path = "Target Support Files/Pods-TestsUITests/Pods-TestsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F99CD79B743F54585E4A9CA5 /* Pods-TestsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsTests.release.xcconfig"; path = "Target Support Files/Pods-TestsTests/Pods-TestsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +180,9 @@
 		E88AE279234D3F01000B6FC0 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				E8A660462353644B00D560CF /* BundleStringTests.swift */,
+				E8BD50DE235348F5006D77FD /* CrowdinStringTests.swift */,
+				E8BD50E023534A98006D77FD /* EnableSDKLocalizationTests.swift */,
 				E8BD50D72352F17E006D77FD /* CrowdinTesterTests.swift */,
 				E8BD50D52352EE81006D77FD /* SDKModeTests.swift */,
 				E88AE27A234D3F01000B6FC0 /* CrowdinSDKTests.swift */,
@@ -428,10 +437,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8BD50E123534A98006D77FD /* EnableSDKLocalizationTests.swift in Sources */,
+				E8BD50DF235348F5006D77FD /* CrowdinStringTests.swift in Sources */,
 				E8BD50C023527175006D77FD /* AddDownloadHandlersTests.swift in Sources */,
 				E88AE27B234D3F01000B6FC0 /* CrowdinSDKTests.swift in Sources */,
 				E8BD50D82352F17E006D77FD /* CrowdinTesterTests.swift in Sources */,
 				E8BD50C223527250006D77FD /* AddErrorHandlersTests.swift in Sources */,
+				E8A660472353644B00D560CF /* BundleStringTests.swift in Sources */,
 				E8BD50D62352EE81006D77FD /* SDKModeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

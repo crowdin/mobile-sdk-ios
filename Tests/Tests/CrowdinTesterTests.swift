@@ -25,21 +25,22 @@ class CrowdinTesterTests: XCTestCase {
     
     
     override func tearDown() {
+        CrowdinSDK.deintegrate()
         CrowdinSDK.removeAllDownloadHandlers()
     }
     
     func testDownloadedLocalizations() {
-        let expectation = XCTestExpectation(description: "Error handler is called")
-        let tester = CrowdinTester(localization: "en")
+        CrowdinSDK.mode = .customSDK
+        CrowdinSDK.currentLocalization = "en"
+        let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
+            let tester = CrowdinTester(localization: "en")
             XCTAssert(tester.inSDKPluralsKeys.count == 2, "Downloaded localization contains 2 plural keys")
             XCTAssert(tester.inSDKStringsKeys.count == 5, "Downloaded localization contains 5 string keys")
             
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 60.0)
-
-        XCTAssert(tester.localization == "en", "Localization should be en")
     }
     
     
@@ -47,16 +48,14 @@ class CrowdinTesterTests: XCTestCase {
         CrowdinSDK.mode = .customSDK
         CrowdinSDK.currentLocalization = "de"
         
-        let expectation = XCTestExpectation(description: "Error handler is called")
-        let tester = CrowdinTester(localization: "de")
+        let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
+            let tester = CrowdinTester(localization: "de")
             XCTAssert(tester.inSDKPluralsKeys.count == 2, "Downloaded localization contains 2 plural keys")
             XCTAssert(tester.inSDKStringsKeys.count == 5, "Downloaded localization contains 5 string keys")
             
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 60.0)
-
-        XCTAssert(tester.localization == "de", "Localization should be de")
     }
 }

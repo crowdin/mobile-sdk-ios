@@ -23,6 +23,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        operationQueue.cancelAllOperations()
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
 		self.strings = nil
 		self.plurals = nil

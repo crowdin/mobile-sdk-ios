@@ -113,15 +113,14 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
             } else {
                 self.mode = .autoSDK
             }
-			self.currentLocalization = localization
         } else {
             if localization != nil {
                 self.mode = .customBundle
             } else {
                 self.mode = .autoBundle
             }
-			self.currentLocalization = localization
         }
+        self.currentLocalization = localization
     }
 	
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.

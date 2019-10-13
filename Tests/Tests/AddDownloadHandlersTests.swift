@@ -19,7 +19,6 @@ class AddDownloadHandlersTests: XCTestCase {
                                                           localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(enterprise: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)
     }
     

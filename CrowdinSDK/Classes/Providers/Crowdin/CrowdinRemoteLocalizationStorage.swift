@@ -16,12 +16,13 @@ extension Notification.Name {
 }
 
 class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
-    public var localization: String
+    var localization: String
     var localizations: [String]
     var hashString: String
     var stringsFileNames: [String]
     var pluralsFileNames: [String]
     var name: String = "Crowdin"
+    private var loadingLocalization: String? = nil
     
     private let crowdinDownloader: CrowdinDownloaderProtocol
     
@@ -65,17 +66,37 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
-        let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
-        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization, completion: { strings, plurals, errors in
-            completion(self.localizations, strings, plurals)
-            
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
-                
-                if let errors = errors {
-                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+//        self.loadingLocalization = localization
+        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: loadingLocalization ?? localization, completion: { strings, plurals, errors in
+//            guard let loadingLocalization = self.loadingLocalization else {
+//                return
+//            }
+//            if loadingLocalization == self.localization {
+                completion(self.localizations, strings, plurals)
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
+                    
+                    if let errors = errors {
+                        NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                    }
                 }
-            }
+//                self.loadingLocalization = nil
+//            }
         })
+    }
+    
+    /// Remove add stored E-Tag headers for every file.
+    func deintegrate() {
+        for supportedLocalization in localizations {
+            self.stringsFileNames.forEach({
+                let filePath = CrowdinPathsParser.shared.parse($0, localization: supportedLocalization)
+                UserDefaults.standard.removeObject(forKey: filePath)
+            })
+            self.pluralsFileNames.forEach({
+                let filePath = CrowdinPathsParser.shared.parse($0, localization: supportedLocalization)
+                UserDefaults.standard.removeObject(forKey: filePath)
+            })
+        }
+        UserDefaults.standard.synchronize()
     }
 }

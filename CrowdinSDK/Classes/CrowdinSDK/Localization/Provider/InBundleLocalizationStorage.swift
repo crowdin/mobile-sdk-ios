@@ -69,4 +69,5 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
         })
         return dict
     }
+    func deintegrate() { }
 }

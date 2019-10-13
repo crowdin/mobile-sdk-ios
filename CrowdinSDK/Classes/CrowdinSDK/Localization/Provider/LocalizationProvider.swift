@@ -12,7 +12,7 @@ protocol LocalizationProviderProtocol {
     var localStorage: LocalLocalizationStorageProtocol { get }
     var remoteStorage: RemoteLocalizationStorageProtocol { get }
     
-    var localization: String { get set }
+    var localization: String { get  set }
     var localizations: [String] { get }
     
     func refreshLocalization()
@@ -71,11 +71,12 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         try? CrowdinFolder.shared.remove()
         try? pluralsFolder.remove()
         pluralsBundle?.remove()
+        remoteStorage.deintegrate()
     }
     
     func refreshLocalization() {
         self.loadLocalLocalization()
-        self.fetchLocalization()
+        self.fetchRemoteLocalization()
     }
     
     // Private method
@@ -86,7 +87,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         }
     }
     
-    func fetchLocalization() {
+    func fetchRemoteLocalization() {
         self.remoteStorage.localization = localization
         self.remoteStorage.fetchData { localizations, strings, plurals in
             self.setup(with: localizations, strings: strings, plurals: plurals)

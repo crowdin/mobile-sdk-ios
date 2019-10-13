@@ -18,12 +18,13 @@ class CrowdinSDKTests: XCTestCase {
 														  localizations: ["en", "de", "uk"],
 														  sourceLanguage: "en")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-														.with(enterprise: true)
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        CrowdinSDK.enableSDKLocalization(true, localization: nil)
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        CrowdinSDK.deintegrate()
     }
 
 	func testSupportedLocalizations() {
