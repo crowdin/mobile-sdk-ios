@@ -26,6 +26,8 @@ class AddDownloadHandlersTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         CrowdinSDK.removeAllDownloadHandlers()
+        CrowdinSDK.deintegrate()
+        CrowdinSDK.stop()
     }
     
     func testAddDownloadHandler() {

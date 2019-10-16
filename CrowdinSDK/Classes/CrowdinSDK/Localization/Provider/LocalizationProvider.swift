@@ -89,7 +89,8 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     
     func fetchRemoteLocalization() {
         self.remoteStorage.localization = localization
-        self.remoteStorage.fetchData { localizations, strings, plurals in
+        self.remoteStorage.fetchData { [weak self] localizations, strings, plurals in
+            guard let self = self else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
         }
     }

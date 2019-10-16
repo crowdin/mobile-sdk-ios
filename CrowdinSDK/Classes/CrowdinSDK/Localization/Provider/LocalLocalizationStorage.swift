@@ -54,7 +54,6 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     /// List of all available localizations.
     var localizations: [String]
     
-    /// <#Description#>
     private var _strings: Atomic<[String: String]> = Atomic([:])
     var strings: [String: String] {
         get {
@@ -97,6 +96,11 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: localizationFilePath)
         localizationFile.file = [Keys.strings.rawValue : strings, Keys.plurals.rawValue: plurals]
-        try? localizationFile.save()
+        do {
+            print("localizationFilePath - \(localizationFilePath)")
+            try localizationFile.save()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

@@ -21,6 +21,7 @@ class SDKModeTests: XCTestCase {
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(enterprise: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        CrowdinSDK.enableSDKLocalization(true, localization: nil)
     }
     
     
@@ -28,6 +29,7 @@ class SDKModeTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         CrowdinSDK.enableSDKLocalization(true, localization: nil)
         CrowdinSDK.deintegrate()
+        CrowdinSDK.stop()
     }
     
     func testInitialMode() {

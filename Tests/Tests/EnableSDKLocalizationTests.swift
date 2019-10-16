@@ -26,8 +26,8 @@ class EnableSDKLocalizationTests: XCTestCase {
     
     override func tearDown() {
         CrowdinSDK.removeAllDownloadHandlers()
-        CrowdinSDK.enableSDKLocalization(true, localization: nil)
         CrowdinSDK.deintegrate()
+        CrowdinSDK.stop()
     }
     
     func testAutoSDKModeEnabled() {

@@ -87,6 +87,12 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func start() {
         self.startWithConfig(CrowdinSDKConfig.config())
     }
+    
+    ///
+    public class func stop() {
+        self.unswizzle()
+        Localization.current = nil
+    }
 	
     /// Initialization method. Initialize library with passed localization provider.
     ///
@@ -188,9 +194,15 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 extension CrowdinSDK {
     /// Method for swizzling all needed methods.
     class func swizzle() {
-        Bundle.swizzle()
-        UILabel.swizzle()
-        UIButton.swizzle()
+        if !Bundle.isSwizzled {
+            Bundle.swizzle()
+        }
+        if !UILabel.isSwizzled {
+            UILabel.swizzle()
+        }
+        if !UIButton.isSwizzled {
+            UIButton.swizzle()
+        }
     }
     
     /// Method for unswizzling all zwizzled methods.

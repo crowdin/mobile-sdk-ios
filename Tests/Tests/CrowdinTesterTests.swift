@@ -25,8 +25,9 @@ class CrowdinTesterTests: XCTestCase {
     
     
     override func tearDown() {
-        CrowdinSDK.deintegrate()
         CrowdinSDK.removeAllDownloadHandlers()
+        CrowdinSDK.deintegrate()
+        CrowdinSDK.stop()
     }
     
     func testDownloadedLocalizations() {
