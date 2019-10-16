@@ -23,15 +23,10 @@ extension Bundle {
     var projectKey: String? {
         return infoDictionary?["CrowdinProjectKey"] as? String
     }
-    
-    /// Array of strigns file names.
-    var crowdinStringsFileNames: [String]? {
-        return infoDictionary?["CrowdinStringsFileNames"] as? [String]
-    }
-    
-    /// Array of plurals file names.
-    var crowdinPluralsFileNames: [String]? {
-        return infoDictionary?["CrowdinPluralsFileNames"] as? [String]
+
+    /// Array of all file names.
+    var crowdinFileNames: [String]? {
+        return infoDictionary?["CrowdinFileNames"] as? [String]
     }
     
     /// Source language for current project on crowdin server.

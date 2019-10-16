@@ -14,10 +14,10 @@ import Foundation
     var localizations: [String]
     var sourceLanguage: String
     
-    public init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localizations: [String], sourceLanguage: String) {
+    public init(hashString: String, files: [String], localizations: [String], sourceLanguage: String) {
         self.hashString = hashString
-        self.stringsFileNames = stringsFileNames
-        self.pluralsFileNames = pluralsFileNames
+        self.stringsFileNames = files.filter({ $0.isStrings })
+        self.pluralsFileNames = files.filter({ $0.isStringsDict })
         self.localizations = localizations
         self.sourceLanguage = sourceLanguage
     }
@@ -31,14 +31,12 @@ import Foundation
             fatalError("Please add CrowdinLocalizations key to your Info.plist file")
         }
         self.localizations = localizations
-        guard let crowdinStringsFileNames = Bundle.main.crowdinStringsFileNames else {
-            fatalError("Please add CrowdinStringsFileNames key to your Info.plist file")
+        guard let crowdinFileNames = Bundle.main.crowdinFileNames else {
+            fatalError("Please add CrowdinFileNames key to your Info.plist file")
         }
-        self.stringsFileNames = crowdinStringsFileNames
-        guard let crowdinPluralsFileNames = Bundle.main.crowdinPluralsFileNames else {
-            fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
-        }
-        self.pluralsFileNames = crowdinPluralsFileNames
+        self.stringsFileNames = crowdinFileNames.filter({ $0.isStrings })
+        self.pluralsFileNames = crowdinFileNames.filter({ $0.isStringsDict })
+        
         guard let crowdinSourceLanguage = Bundle.main.crowdinSourceLanguage else {
             fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
         }
