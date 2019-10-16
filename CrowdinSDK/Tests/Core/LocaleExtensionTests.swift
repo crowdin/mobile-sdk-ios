@@ -11,10 +11,6 @@ import XCTest
 class LocaleExtensionTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
-//		continueAfterFailure = false
-//		XCUIApplication().launchArguments += ["-AppleLanguages", "(fr)"]
-//		XCUIApplication().launchArguments += ["-AppleLocale", "fr_FR"]
-//		XCUIApplication().launch()
 	}
 	
 	func testPreferredLocalizations() {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-fileprivate let enLocale = Locale(identifier: "en_GB")
+fileprivate let enLocale = Locale(identifier: "en-GB")
 
 fileprivate enum Paths: String {
     case language = "%language%"
@@ -18,14 +18,14 @@ fileprivate enum Paths: String {
     
     static var all: [Paths] = [.language, .locale, .localeWithUnderscore, .osxCode, .osxLocale]
     
-    var value: String {
+    func value(for localization: String) -> String {
         switch self {
         case .language:
             // swiftlint:disable force_unwrapping
-            let languageCode = Locale.current.languageCode!
+            let languageCode = Locale(identifier: localization).languageCode!
             return enLocale.localizedString(forLanguageCode: languageCode) ?? .empty
         case .locale:
-            let localeWithUnderscore = Locale.current.identifier
+            let localeWithUnderscore = Locale(identifier: localization).identifier
             return localeWithUnderscore.replacingOccurrences(of: "_", with: "-")
         case .localeWithUnderscore:
             return Locale.current.identifier
@@ -44,7 +44,7 @@ class CrowdinPathsParser {
         var resultPath = path
         if self.containsCustomPath(path) {
             Paths.all.forEach { (path) in
-                resultPath = resultPath.replacingOccurrences(of: path.rawValue, with: path.value)
+                resultPath = resultPath.replacingOccurrences(of: path.rawValue, with: path.value(for: localization))
             }
         } else {
             // Add localization code to file name
