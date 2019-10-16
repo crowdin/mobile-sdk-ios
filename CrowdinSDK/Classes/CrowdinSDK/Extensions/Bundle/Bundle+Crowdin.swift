@@ -25,8 +25,8 @@ extension Bundle {
     }
 
     /// Array of all file names.
-    var crowdinFileNames: [String]? {
-        return infoDictionary?["CrowdinFileNames"] as? [String]
+    var crowdinFiles: [String]? {
+        return infoDictionary?["CrowdinFiles"] as? [String]
     }
     
     /// Source language for current project on crowdin server.
