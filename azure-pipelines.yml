@@ -28,6 +28,5 @@ steps:
       destinationTypeOption: 'simulators'
       destinationSimulators: 'iPhone 8'
   - bash: |
-      cd Tests
-      bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
+      cd Tests & bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
     displayName: 'Upload coverage to codecov.io'
