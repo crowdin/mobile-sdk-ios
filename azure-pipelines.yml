@@ -20,7 +20,7 @@ jobs:
         displayName: 'Running tests'
         inputs:
           actions: 'test'
-          sdk: 'iphonesimulator12.0'
+          sdk: 'iphonesimulator'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
           scheme: 'TestsTests'
           xcodeVersion: '10'
