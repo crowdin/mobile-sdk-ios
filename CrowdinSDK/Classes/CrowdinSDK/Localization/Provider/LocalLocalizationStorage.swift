@@ -97,7 +97,6 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         let localizationFile = DictionaryFile(path: localizationFilePath)
         localizationFile.file = [Keys.strings.rawValue : strings, Keys.plurals.rawValue: plurals]
         do {
-            print("localizationFilePath - \(localizationFilePath)")
             try localizationFile.save()
         } catch {
             print(error.localizedDescription)

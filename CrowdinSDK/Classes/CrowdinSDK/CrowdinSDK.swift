@@ -150,35 +150,35 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///
     /// - Parameter handler: Download handler closure.
     /// - Returns: Download handler id value. This value is used to remove this handler.
-    public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> UInt {
-        return Localization.current.addDownloadHandler(handler)
+    public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> Int {
+        return Localization.current?.addDownloadHandler(handler) ?? -1
     }
     
     /// Remove download handler by id.
     ///
     /// - Parameter id: Download handler id value.
-    public class func removeDownloadHandler(_ id: UInt) {
-        Localization.current.removeDownloadHandler(id)
+    public class func removeDownloadHandler(_ id: Int) {
+        Localization.current?.removeDownloadHandler(id)
     }
     
     /// Remove all download handlers.
     public class func removeAllDownloadHandlers() {
-        Localization.current.removeAllDownloadHandlers()
+        Localization.current?.removeAllDownloadHandlers()
     }
     
     /// Add error handler
     ///
     /// - Parameter handler: Error handler closure.
     /// - Returns: Error handler id value. This value is used to remove this handler.
-    public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> UInt {
-        return Localization.current.addErrorUpdateHandler(handler)
+    public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> Int {
+        return Localization.current?.addErrorUpdateHandler(handler) ?? -1
     }
     
     /// Remove error handler by id.
     ///
     /// - Parameter id: Error's handler id value.
-    public class func removeErrorHandler(_ id: UInt) {
-        Localization.current.removeErrorHandler(id)
+    public class func removeErrorHandler(_ id: Int) {
+        Localization.current?.removeErrorHandler(id)
     }
     
     /// Remove all error handlers.

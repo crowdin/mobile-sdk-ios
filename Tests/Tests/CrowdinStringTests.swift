@@ -36,7 +36,6 @@ class CrowdinStringTestsEnLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         _ = CrowdinSDK.addDownloadHandler {
-            print(#function)
             print("test_key".cw_localized)
             XCTAssert("test_key".cw_localized == "test_value [C]")
             XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "test value with parameter - value [C]")
@@ -51,7 +50,6 @@ class CrowdinStringTestsEnLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
 
         _ = CrowdinSDK.addDownloadHandler {
-            print(#function)
             print("test_key".cw_localized)
             XCTAssert("test_key".cw_localized == "Testwert [C]")
             XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "Testwert mit Parameter - value [C]")
@@ -67,7 +65,6 @@ class CrowdinStringTestsEnLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
 
         _ = CrowdinSDK.addDownloadHandler {
-            print(#function)
             print("test_key".cw_localized)
             XCTAssert("test_key".cw_localized == "Тестове значення [C]")
             XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "значення тесту з параметром - value [C]")
@@ -83,7 +80,6 @@ class CrowdinStringTestsEnLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
 
         _ = CrowdinSDK.addDownloadHandler {
-            print(#function)
             print("test_key".cw_localized)
             XCTAssert("test_key".cw_localized == "test_value [C]")
             XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "test value with parameter - value [C]")
