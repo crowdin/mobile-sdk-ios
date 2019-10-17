@@ -178,7 +178,7 @@
 		01EB9DB10A05424E81A1765E3D55A990 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		01FB5DEA2CF4E44263A62924A53A069E /* Starscream-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Starscream-dummy.m"; sourceTree = "<group>"; };
 		022272B57C1353598699DC255FDF2546 /* ActionRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActionRequest.swift; sourceTree = "<group>"; };
-		02482E72C1C577F9642C17391C92E3EB /* Pods_TestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TestsUITests.framework; path = "Pods-TestsUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02482E72C1C577F9642C17391C92E3EB /* Pods_TestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0968D2FF7348A7CACE2079C710AE67CC /* DownloadProjectInfoOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadProjectInfoOperation.swift; sourceTree = "<group>"; };
 		0A069EA0BA3CF51CE55C09B535F20776 /* CrowdinSupportedLanguages.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinSupportedLanguages.swift; sourceTree = "<group>"; };
 		0BB22C39A6EE182051571C680B3CFF76 /* StringsTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringsTests.swift; path = CrowdinSDK/Tests/Core/StringsTests.swift; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 		2363CA5EFAC74776C3166F491486296B /* CrowdinSDK-Unit-CrowdinProvider_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "CrowdinSDK-Unit-CrowdinProvider_Tests"; path = "CrowdinSDK-Unit-CrowdinProvider_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		241482B3B6A486AEDD52364E2EFCA215 /* UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		244475EE9452B0F0A121F701A3C4ED20 /* CrowdinSDKConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDKConfigTests.swift; path = CrowdinSDK/Tests/CrowdinProvider/CrowdinSDKConfigTests.swift; sourceTree = "<group>"; };
-		251C82076C9C016AF25E8A20F0753C82 /* CrowdinSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CrowdinSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		251C82076C9C016AF25E8A20F0753C82 /* CrowdinSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = CrowdinSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		25E27D14CF72C05FED5A73257B14F0D5 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = CrowdinSDK/Classes/CrowdinSDK/Constants.swift; sourceTree = "<group>"; };
 		273CFAB029F7E57BDA499D0A43E73CAB /* TokenResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TokenResponse.swift; path = CrowdinSDK/Classes/Features/LoginFeature/TokenResponse.swift; sourceTree = "<group>"; };
 		274B1F9FC4A0E05E90FF210502404ACA /* ProjectDetailsResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectDetailsResponse.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		59E0D91FD8CF2D877981968430F78D32 /* CrowdinSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CrowdinSDK-dummy.m"; sourceTree = "<group>"; };
 		5DD523142BBCC0E7AB58C0F5FE4F8EDF /* Bundle+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Swizzle.swift"; sourceTree = "<group>"; };
 		5E3862BC96209512540D0675102C4C27 /* CharacterSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CharacterSet.swift; sourceTree = "<group>"; };
-		5EF311CC066D3F4C1EC77001DBAAD2F9 /* LICENSE.md */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.md; sourceTree = "<group>"; };
+		5EF311CC066D3F4C1EC77001DBAAD2F9 /* LICENSE.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		5FB646898AFCFDCE9D589F755300FB8C /* CrowdinSDK-Unit-CrowdinProvider_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "CrowdinSDK-Unit-CrowdinProvider_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		5FCA44A2796180754F7D9A8BBEFE07AB /* CrowdinSDK-Unit-CrowdinProvider_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CrowdinSDK-Unit-CrowdinProvider_Tests-Info.plist"; sourceTree = "<group>"; };
 		6049F212E325CE44A064C1203A8309C7 /* UpdateDraftResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateDraftResponse.swift; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 		87D86CC81FDAF12DA416DB657C0EE15D /* CrowdinSDK-Unit-Core_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "CrowdinSDK-Unit-Core_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		88039616C5E0FE5FF3BF908C8F98E51C /* CrowdinSDK.unit-crowdinprovider_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CrowdinSDK.unit-crowdinprovider_tests.xcconfig"; sourceTree = "<group>"; };
 		88E2E79E3D4AF976E0DB925751324729 /* Pods-TestsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TestsTests.release.xcconfig"; sourceTree = "<group>"; };
-		891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Starscream.framework; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		899A6B8FB5B8F24C50EEFC044C6C8757 /* LocalizationExtractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationExtractor.swift; sourceTree = "<group>"; };
 		8BE13FE53DD601E930F8DD95B4248847 /* CrowdinAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinAPI.swift; path = CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift; sourceTree = "<group>"; };
 		8EE7A687FE09A103AEF5E5EB570F8B00 /* Pods-TestsTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TestsTests-umbrella.h"; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 		93852DC1704215A36F2ACD1996C60CEB /* CrowdinSDK-Unit-Core_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "CrowdinSDK-Unit-Core_Tests-resources.sh"; sourceTree = "<group>"; };
 		94EE2CED9CFB60D7D06C0902517A97A8 /* ProjectAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectAPI.swift; sourceTree = "<group>"; };
 		969D81398B995A5BA7CA3E5F7C437843 /* Pods-TestsTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TestsTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DACD23DFFDBEAFFADFAFBDDE9C26004 /* CrowdinLocalizationDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinLocalizationDownloader.swift; sourceTree = "<group>"; };
 		A2B869006EB365C0428AEB95F7108EB9 /* LocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationProvider.swift; sourceTree = "<group>"; };
 		A370C8782DEEF6C8E5D136D902353C89 /* RemoteLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RemoteLocalizationStorage.swift; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 		AEED4F4FE1BD33ABE1DF6DCC3C05A31E /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B1A6F4507D7B97D6DC2F0DABE17E78A0 /* CrowdinSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDKConfig.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDKConfig.swift; sourceTree = "<group>"; };
 		B2598195FEA317ACD06581DBBBA3C06F /* CrowdinSDK-Unit-CrowdinProvider_Tests-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK-Unit-CrowdinProvider_Tests-prefix.pch"; sourceTree = "<group>"; };
-		B3A41CEBBF22112DDF33BB49DEAF606E /* Pods_TestsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TestsTests.framework; path = "Pods-TestsTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3A41CEBBF22112DDF33BB49DEAF606E /* Pods_TestsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DC1E94759F180E8DC0E3435997426C /* Pods-TestsTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TestsTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B83D5E7C830FF9508D4CDE043F9404A0 /* FileStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FileStatus.swift; sourceTree = "<group>"; };
 		B8EE8162D7E5BCA95B99D1202F8A7EDE /* Pods-TestsUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TestsUITests.modulemap"; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 		CF59224364BBE2C24A86C76AC728E1A3 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		D0C7EF3A5F17286199B468FE0FB4E097 /* InBundleLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InBundleLocalizationStorage.swift; sourceTree = "<group>"; };
 		D17976DBDA8684B87B33045A6D730E8A /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
-		D21C29B21C40FC219D87C8017E2D3DC9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		D21C29B21C40FC219D87C8017E2D3DC9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3F5B48E35BC7F29A4B18B886405CA97 /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D59F921BA6434A655F9C82F0F81BE47A /* SSLSecurity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SSLSecurity.swift; path = Sources/Starscream/SSLSecurity.swift; sourceTree = "<group>"; };
 		D89E13E6D9B875FBC5954452FF12C30D /* SocketAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SocketAPI.swift; sourceTree = "<group>"; };
@@ -316,7 +316,7 @@
 		EA54458DBDDA34A0C62B4F13C7484583 /* CrowdinPathsParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinPathsParser.swift; sourceTree = "<group>"; };
 		EB294357AEA0641692A17CC8F453FCBA /* DistributionsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DistributionsAPI.swift; sourceTree = "<group>"; };
 		EC890BB2877710C39B48B997344520C7 /* RefreshTokenRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RefreshTokenRequest.swift; path = CrowdinSDK/Classes/Features/LoginFeature/RefreshTokenRequest.swift; sourceTree = "<group>"; };
-		EEC3E6D50F416DF170B4B131FDA33A39 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CrowdinSDK.framework; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEC3E6D50F416DF170B4B131FDA33A39 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEFC45E1C4D3B597D8DE4CE49462E20A /* SupportedLanguagesResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportedLanguagesResponse.swift; sourceTree = "<group>"; };
 		EF4D60F5203080314F7DA9A0BD927BA1 /* LocalizationUpdateObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationUpdateObserver.swift; sourceTree = "<group>"; };
 		F04126FC1ADCAAA2D91638271B050091 /* Pods-Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -324,7 +324,7 @@
 		F786CBBA32E3C18C42D6DBBD6641A631 /* CustomBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CustomBundle.swift; sourceTree = "<group>"; };
 		FB47A651F956E4BFD667B10E13511CCA /* Bundle+Application.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Application.swift"; sourceTree = "<group>"; };
 		FBE170264157460D117D4B008E327F9F /* CrowdinSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CrowdinSDK.modulemap; sourceTree = "<group>"; };
-		FC95D668E217CFBB25845AA15162348B /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Tests.framework; path = "Pods-Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC95D668E217CFBB25845AA15162348B /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC9483F6FEF1E0B663158A90B38B4B2 /* CrowdinSDKConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDKConfigTests.swift; path = CrowdinSDK/Tests/Core/CrowdinSDKConfigTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -409,7 +409,6 @@
 				DBE85AF57DC682D00CA175BCA6A036CF /* Bundle+Language.swift */,
 				5DD523142BBCC0E7AB58C0F5FE4F8EDF /* Bundle+Swizzle.swift */,
 			);
-			name = Bundle;
 			path = Bundle;
 			sourceTree = "<group>";
 		};
@@ -451,7 +450,6 @@
 			children = (
 				AC439AB68F6048E7945AE04D339C2438 /* DistributionsResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -461,7 +459,6 @@
 				F33762481289F8400ECA5A629532BFA5 /* AsyncOperation.swift */,
 				77C705DEBE8C80D9D8E22497E64870F2 /* BlockAsyncOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -530,7 +527,6 @@
 			children = (
 				6DC52A73F9EA13FE750AA6B48AD0F965 /* DownloadOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -539,7 +535,6 @@
 			children = (
 				EEFC45E1C4D3B597D8DE4CE49462E20A /* SupportedLanguagesResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -583,7 +578,6 @@
 			children = (
 				919F0D3C675B3D22A9022BF27650F742 /* DownloadSupportedLanguagesOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -622,7 +616,6 @@
 			children = (
 				F786CBBA32E3C18C42D6DBBD6641A631 /* CustomBundle.swift */,
 			);
-			name = CustomBundle;
 			path = CustomBundle;
 			sourceTree = "<group>";
 		};
@@ -644,7 +637,6 @@
 				3B9AA0D25BD7BD2C495D776FC8B846DC /* WebSocket.swift */,
 				E1C262BC966EEAEBD1297175B34EF373 /* Support Files */,
 			);
-			name = Starscream;
 			path = Starscream;
 			sourceTree = "<group>";
 		};
@@ -742,7 +734,6 @@
 				753DCE8340D61F45F6AF872C76F8FF1C /* LocalLocalizationStorage.swift */,
 				A370C8782DEEF6C8E5D136D902353C89 /* RemoteLocalizationStorage.swift */,
 			);
-			name = Provider;
 			path = Provider;
 			sourceTree = "<group>";
 		};
@@ -764,7 +755,6 @@
 				627B9D6CD85C1B19AE4DF5C554491EB0 /* CrowdinDownloader.swift */,
 				9DACD23DFFDBEAFFADFAFBDDE9C26004 /* CrowdinLocalizationDownloader.swift */,
 			);
-			name = Downloaders;
 			path = Downloaders;
 			sourceTree = "<group>";
 		};
@@ -773,7 +763,6 @@
 			children = (
 				899A6B8FB5B8F24C50EEFC044C6C8757 /* LocalizationExtractor.swift */,
 			);
-			name = Extractor;
 			path = Extractor;
 			sourceTree = "<group>";
 		};
@@ -803,7 +792,6 @@
 				66B25F88F7CFD6C71732C33D8DB19A22 /* TopSuggestionResponse.swift */,
 				6049F212E325CE44A064C1203A8309C7 /* UpdateDraftResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -821,7 +809,6 @@
 			children = (
 				0968D2FF7348A7CACE2079C710AE67CC /* DownloadProjectInfoOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -842,7 +829,6 @@
 				567AAA3F851EDC36D2404034646E719E /* CreateScreenshotTagRequest.swift */,
 				4FD5A9C14D94F1DFFD884F96C63DA3B8 /* CreateScreenshotTagResponse.swift */,
 			);
-			name = CreateScreenshotTag;
 			path = CreateScreenshotTag;
 			sourceTree = "<group>";
 		};
@@ -861,7 +847,6 @@
 				5E3862BC96209512540D0675102C4C27 /* CharacterSet.swift */,
 				3F1249419C18D51A84C05774F10BC525 /* URLSession.swift */,
 			);
-			name = Extensions;
 			path = Extensions;
 			sourceTree = "<group>";
 		};
@@ -945,7 +930,6 @@
 				456A5A89BA577A59F03F7AFDB762B928 /* CreateScreenshotResponse.swift */,
 				B35776327E2DE56EB27A9440AC79E8F4 /* CreateScreenshotTag */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -975,7 +959,6 @@
 			children = (
 				274B1F9FC4A0E05E90FF210502404ACA /* ProjectDetailsResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -998,7 +981,6 @@
 			children = (
 				49514D797F72C3BF01A26443BDF7763D /* DataParser.swift */,
 			);
-			name = Parser;
 			path = Parser;
 			sourceTree = "<group>";
 		};
@@ -1007,7 +989,6 @@
 			children = (
 				CC6E299262C94BA0C03269EC2A17289B /* StorageUploadResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -1598,6 +1579,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1636,6 +1618,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1673,6 +1656,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1708,7 +1692,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1746,6 +1730,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1780,7 +1765,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1916,6 +1901,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2041,6 +2027,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
