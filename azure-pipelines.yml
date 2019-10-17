@@ -1,0 +1,29 @@
+# Xcode
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute the app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+trigger:
+  branches:
+    include:
+      - refs/heads/*
+    exclude:
+      - refs/tags/*
+      - README.md
+      - LICENSE
+​
+jobs:
+  - job: Tests
+    pool:
+      vmImage: 'macOS 10.13'
+    steps:
+      - task: Xcode@5
+        displayName: 'Running tests'
+        inputs:
+          actions: 'test'
+          sdk: 'iphonesimulator12.0'
+          xcWorkspacePath: 'Tests/Tests.xcworkspace'
+          scheme: 'TestsTests'
+          xcodeVersion: '10'
+      - bash: |
+          bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
+        displayName: 'Upload coverage to codecov.io'
