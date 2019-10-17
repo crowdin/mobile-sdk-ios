@@ -26,7 +26,7 @@ steps:
       xcodeVersion: '10'
       destinationPlatformOption: 'iOS'
       destinationTypeOption: 'simulators'
-      destinationSimulators: 'iPhone 7'
+      destinationSimulators: 'iPhone 8'
   - bash: |
       bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
     displayName: 'Upload coverage to codecov.io'
