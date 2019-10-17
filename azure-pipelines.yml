@@ -20,7 +20,7 @@ steps:
     inputs:
       actions: 'test'
       sdk: 'iphonesimulator'
-      configuration: 'DEBUG'
+      configuration: 'Debug'
       xcWorkspacePath: 'Tests/Tests.xcworkspace'
       scheme: 'TestsTests'
       xcodeVersion: '10'
