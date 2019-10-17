@@ -10,20 +10,19 @@ trigger:
       - refs/tags/*
       - README.md
       - LICENSE
-​
-jobs:
-  - job: Tests
-    pool:
-      vmImage: 'macOS 10.13'
-    steps:
-      - task: Xcode@5
-        displayName: 'Running tests'
-        inputs:
-          actions: 'test'
-          sdk: 'iphonesimulator'
-          xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          scheme: 'TestsTests'
-          xcodeVersion: '10'
-      - bash: |
-          bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
-        displayName: 'Upload coverage to codecov.io'
+
+pool:
+  vmImage: 'macOS 10.13'
+
+steps:
+  - task: Xcode@5
+    displayName: 'Running tests'
+    inputs:
+      actions: 'test'
+      sdk: 'iphonesimulator'
+      xcWorkspacePath: 'Tests/Tests.xcworkspace'
+      scheme: 'TestsTests'
+      xcodeVersion: '10'
+  - bash: |
+      bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
+    displayName: 'Upload coverage to codecov.io'
