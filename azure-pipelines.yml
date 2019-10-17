@@ -23,6 +23,6 @@ steps:
       xcWorkspacePath: 'Tests/Tests.xcworkspace'
       scheme: 'TestsTests'
       xcodeVersion: '10'
-  - bash: |
+  - bash:
       bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
     displayName: 'Upload coverage to codecov.io'
