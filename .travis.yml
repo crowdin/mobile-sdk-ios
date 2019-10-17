@@ -1,0 +1,13 @@
+language: swift
+osx_image: xcode11
+before_script:
+  - gem install cocoapods
+  - gem install xcpretty
+  - cd Tests
+  - pod install
+script:
+  - xcodebuild -workspace Tests.xcworkspace -scheme Tests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8'  test | xcpretty --test --color
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+notifications:
+  email: true
