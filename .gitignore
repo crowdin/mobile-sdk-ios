@@ -36,3 +36,5 @@ Carthage/Build
 #
 Example/Pods/
 ObjCExample/Pods/
+
+.idea/
