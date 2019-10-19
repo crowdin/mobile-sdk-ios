@@ -31,6 +31,27 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CrowdinHash</key>
+	<string>5290b1cfa1eb44bf2581e78106i</string>
+	<key>CrowdinLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>uk</string>
+		<string>de</string>
+	</array>
+	<key>CrowdinPluralsFileNames</key>
+	<array>
+		<string>Localizable.stringsdict</string>
+	</array>
+	<key>CrowdinSourceLanguage</key>
+	<string>en</string>
+	<key>CrowdinStringsFileNames</key>
+	<array>
+		<string>Localizable.strings</string>
+		<string>Main.strings</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>
