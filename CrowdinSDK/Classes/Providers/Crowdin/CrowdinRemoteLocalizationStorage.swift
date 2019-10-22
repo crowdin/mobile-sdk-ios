@@ -25,15 +25,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     private let crowdinDownloader: CrowdinDownloaderProtocol
     
-    init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localization: String, localizations: [String], enterprise: Bool) {
-        self.hashString = hashString
-        self.stringsFileNames = stringsFileNames
-        self.pluralsFileNames = pluralsFileNames
-        self.localization = localization
-        self.localizations = localizations
-        self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
-    }
-    
     init(localization: String, config: CrowdinProviderConfig, enterprise: Bool) {
         self.hashString = config.hashString
         self.stringsFileNames = config.stringsFileNames
