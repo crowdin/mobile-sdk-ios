@@ -18,6 +18,12 @@ The SDK provides:
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
 
 
+[![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+[![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
+[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+
+
+
 ## Table of Contents
 * [Requirements](#requirements)
 * [Dependencies](#dependencies)
