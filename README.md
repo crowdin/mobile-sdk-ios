@@ -285,7 +285,9 @@ We are happy to accept contributions to the Crowdin iOS SDK. To contribute pleas
 ## Seeking Assistance
 If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/mobile-sdk-ios/issues).
 
-If you've found an error in these samples, please [contact](https://crowdin.com/contacts) our Support Team.
+Need help working with Crowdin iOS SDK or have any questions?
+[Contact Customer Success Service](https://crowdin.com/contacts).
+
 
 ## Author
 
