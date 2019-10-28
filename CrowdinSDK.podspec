@@ -60,8 +60,6 @@ Pod::Spec.new do |spec|
     provider.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
-  
-
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
     test_spec.source_files = 'CrowdinSDK/Tests/CrowdinProvider/*.swift'
   end
@@ -71,6 +69,10 @@ Pod::Spec.new do |spec|
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
     subspec.dependency 'Starscream'
     subspec.dependency 'CrowdinSDK/Login'
+  end
+  
+  spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
+    test_spec.source_files = 'CrowdinSDK/Tests/CrowdinAPI/*.swift'
   end
   
   spec.subspec 'Mapping' do |mapping|
@@ -103,6 +105,9 @@ Pod::Spec.new do |spec|
     feature.source_files = 'CrowdinSDK/Classes/Features/LoginFeature/**/*.swift'
   end
   
+  spec.test_spec 'Login_Tests' do |test_spec|
+    test_spec.source_files = 'CrowdinSDK/Tests/Login/*.swift'
+  end
   
   spec.subspec 'IntervalUpdate' do |feature|
     feature.name = 'IntervalUpdate'

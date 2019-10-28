@@ -27,7 +27,17 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "20FF00E99E182CBF49D5B4A881196748"
+            BuildableName = "CrowdinSDK.framework"
+            BlueprintName = "CrowdinSDK"
+            ReferencedContainer = "container:Pods/Pods.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -66,6 +76,26 @@
                BlueprintIdentifier = "FC8DB1A4FDD9F957BCC8337F68FA2B15"
                BuildableName = "CrowdinSDK-Unit-CrowdinProvider_Tests.xctest"
                BlueprintName = "CrowdinSDK-Unit-CrowdinProvider_Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5007CF8FC0DD564CEF2FF949718B8696"
+               BuildableName = "CrowdinSDK-Unit-Login_Tests.xctest"
+               BlueprintName = "CrowdinSDK-Unit-Login_Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D53D9865CDF15D2BDA588FBEF154678"
+               BuildableName = "CrowdinSDK-Unit-CrowdinAPI_Tests.xctest"
+               BlueprintName = "CrowdinSDK-Unit-CrowdinAPI_Tests"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>

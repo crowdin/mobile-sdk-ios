@@ -6,20 +6,6 @@
 	objectVersion = 51;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		924A523E235EFC750012D298 /* Periphery */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 924A5241235EFC750012D298 /* Build configuration list for PBXAggregateTarget "Periphery" */;
-			buildPhases = (
-				924A5242235EFC7C0012D298 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = Periphery;
-			productName = Periphery;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		03889E2498BE76977E18B335 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB6E45C19D79AEF67CEC319 /* Pods_Tests.framework */; };
 		5BDB06CB673D1227873DEF28 /* Pods_TestsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A6DC0FB8A535F1AA2999A7 /* Pods_TestsUITests.framework */; };
@@ -293,9 +279,6 @@
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Serhii Londar";
 				TargetAttributes = {
-					924A523E235EFC750012D298 = {
-						CreatedOnToolsVersion = 11.0;
-					};
 					E88AE25F234D3F00000B6FC0 = {
 						CreatedOnToolsVersion = 11.1;
 					};
@@ -327,7 +310,6 @@
 				E88AE25F234D3F00000B6FC0 /* Tests */,
 				E88AE275234D3F01000B6FC0 /* TestsTests */,
 				E88AE280234D3F01000B6FC0 /* TestsUITests */,
-				924A523E235EFC750012D298 /* Periphery */,
 			);
 		};
 /* End PBXProject section */
@@ -384,23 +366,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		924A5242235EFC7C0012D298 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nperiphery scan --workspace Tests.xcworkspace --targets CrowdinSDK --schemes CrowdinSDK --format xcode --retain-public\n";
 		};
 		A1CC72B22224D94E97D49531 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -558,24 +523,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		924A523F235EFC750012D298 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		924A5240235EFC750012D298 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		E88AE288234D3F01000B6FC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -831,15 +778,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		924A5241235EFC750012D298 /* Build configuration list for PBXAggregateTarget "Periphery" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				924A523F235EFC750012D298 /* Debug */,
-				924A5240235EFC750012D298 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		E88AE25B234D3F00000B6FC0 /* Build configuration list for PBXProject "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
