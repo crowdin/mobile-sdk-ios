@@ -9,7 +9,7 @@ class CrowdinLoginConfigTests: XCTestCase {
     }
     
     func testLoginConfigInit() {
-        loginConfig = CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://")
+        loginConfig = try? CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://")
         
         XCTAssertNotNil(loginConfig)
         XCTAssert(loginConfig.clientId == "clientId")
@@ -19,7 +19,7 @@ class CrowdinLoginConfigTests: XCTestCase {
     }
     
     func testLoginConfigOrganizationInit() {
-        loginConfig = CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://", organizationName: "organizationName")
+        loginConfig = try? CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://", organizationName: "organizationName")
         
         XCTAssertNotNil(loginConfig)
         XCTAssert(loginConfig.clientId == "clientId")
@@ -27,5 +27,41 @@ class CrowdinLoginConfigTests: XCTestCase {
         XCTAssert(loginConfig.scope == "scope")
         XCTAssert(loginConfig.redirectURI == "crowdintest://")
         XCTAssert(loginConfig.organizationName == "organizationName")
+    }
+    
+    func testLoginConfigInitWithEmptyClientId() {
+        do {
+            loginConfig = try CrowdinLoginConfig(clientId: "", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://", organizationName: "organizationName")
+        } catch {
+            XCTAssertNotNil(error)
+        }
+    }
+    func testLoginConfigInitWithEmptyClientSecret() {
+        do {
+            loginConfig = try CrowdinLoginConfig(clientId: "clientId", clientSecret: "", scope: "scope", redirectURI: "crowdintest://", organizationName: "organizationName")
+        } catch {
+            XCTAssertNotNil(error)
+        }
+    }
+    func testLoginConfigInitWithEmptyScope() {
+        do {
+            loginConfig = try CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "", redirectURI: "crowdintest://", organizationName: "organizationName")
+        } catch {
+            XCTAssertNotNil(error)
+        }
+    }
+    func testLoginConfigInitWithEmptyRedirectURI() {
+        do {
+            loginConfig = try CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "", organizationName: "organizationName")
+        } catch {
+            XCTAssertNotNil(error)
+        }
+    }
+    func testLoginConfigInitWithIcorrectRedirectURI() {
+        do {
+            loginConfig = try CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest", organizationName: "organizationName")
+        } catch {
+            XCTAssertNotNil(error)
+        }
     }
 }

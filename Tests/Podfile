@@ -4,7 +4,10 @@ target 'Tests' do
   use_frameworks!
 
   pod 'CrowdinSDK', :path => '../', :testspecs => ['Core_Tests', 'CrowdinProvider_Tests', 'CrowdinAPI_Tests', 'Login_Tests']
-
+  pod 'CrowdinSDK/CrowdinProvider', :path => '../'
+  pod 'CrowdinSDK/CrowdinAPI', :path => '../'
+  pod 'CrowdinSDK/Login', :path => '../'
+  
   target 'TestsTests' do
     inherit! :search_paths
   end
