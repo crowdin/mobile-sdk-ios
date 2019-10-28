@@ -105,9 +105,9 @@ Pod::Spec.new do |spec|
     feature.source_files = 'CrowdinSDK/Classes/Features/LoginFeature/**/*.swift'
   end
   
-  spec.test_spec 'Login_Tests' do |test_spec|
-    test_spec.source_files = 'CrowdinSDK/Tests/Login/*.swift'
-  end
+#  spec.test_spec 'Login_Tests' do |test_spec|
+#    test_spec.source_files = 'CrowdinSDK/Tests/Login/*.swift'
+#  end
   
   spec.subspec 'IntervalUpdate' do |feature|
     feature.name = 'IntervalUpdate'

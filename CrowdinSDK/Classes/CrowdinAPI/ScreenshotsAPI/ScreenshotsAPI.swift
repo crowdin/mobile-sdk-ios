@@ -8,7 +8,6 @@
 import Foundation
 
 class ScreenshotsAPI: CrowdinAPI {
-    
     override var apiPath: String {
         return "projects"
     }

@@ -19,11 +19,4 @@ public struct TokenResponse: Codable {
 		case accessToken = "access_token"
 		case refreshToken = "refresh_token"
 	}
-	
-	public init(tokenType: String, expiresIn: Int, accessToken: String, refreshToken: String) {
-		self.tokenType = tokenType
-		self.expiresIn = expiresIn
-		self.accessToken = accessToken
-		self.refreshToken = refreshToken
-	}
 }

@@ -41,11 +41,6 @@
       "name": "CrowdinAPI_Tests",
       "test_type": "unit",
       "source_files": "CrowdinSDK/Tests/CrowdinAPI/*.swift"
-    },
-    {
-      "name": "Login_Tests",
-      "test_type": "unit",
-      "source_files": "CrowdinSDK/Tests/Login/*.swift"
     }
   ],
   "subspecs": [
