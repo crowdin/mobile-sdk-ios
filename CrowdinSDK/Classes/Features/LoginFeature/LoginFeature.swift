@@ -22,8 +22,8 @@ final class LoginFeature: LoginFeatureProtocol {
 	
 	static var shared: LoginFeature?
 	
-	private var code: String? = nil
     private var loginAPI: LoginAPI
+    
 	init(config: CrowdinLoginConfig) {
 		self.config = config
         self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI)

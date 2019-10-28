@@ -70,7 +70,8 @@ class LoginAPI: BaseAPI {
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.httpMethod = "POST"
         let errorHandler = error
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        
+        self.send(request: request) { (data, response, error) in
             if let data = data {
                 do {
                     let response = try JSONDecoder().decode(TokenResponse.self, from: data)
@@ -83,7 +84,7 @@ class LoginAPI: BaseAPI {
             } else {
                 errorHandler?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
             }
-            }.resume()
+        }
     }
     
     func refreshToken(refreshToken: String, success: ((TokenResponse) -> Void)?, error: ((Error) -> Void)?) {
@@ -94,7 +95,7 @@ class LoginAPI: BaseAPI {
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.httpMethod = "POST"
         let errorHandler = error
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        self.send(request: request) { (data, response, error) in
             if let data = data {
                 do {
                     let response = try JSONDecoder().decode(TokenResponse.self, from: data)
@@ -107,7 +108,7 @@ class LoginAPI: BaseAPI {
             } else {
                 errorHandler?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
             }
-            }.resume()
+        }
     }
     
     func refreshTokenSync(refreshToken: String) -> TokenResponse? {
