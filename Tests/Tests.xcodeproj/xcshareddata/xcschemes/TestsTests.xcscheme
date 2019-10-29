@@ -57,6 +57,16 @@
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D53D9865CDF15D2BDA588FBEF154678"
+               BuildableName = "CrowdinSDK-Unit-CrowdinAPI_Tests.xctest"
+               BlueprintName = "CrowdinSDK-Unit-CrowdinAPI_Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
