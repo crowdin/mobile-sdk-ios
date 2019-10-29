@@ -26,7 +26,7 @@ final class LoginFeature: LoginFeatureProtocol {
     
 	init(config: CrowdinLoginConfig) {
 		self.config = config
-        self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI)
+        self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI, organizationName: config.organizationName)
 	}
 	
 	static func configureWith(with loginConfig: CrowdinLoginConfig) {
