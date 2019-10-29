@@ -21,4 +21,11 @@ struct TokenRequest: Codable {
         case code
         case redirectURI = "redirect_uri"
     }
+    
+    init(clientId: String, clientSecret: String, code: String, redirectURI: String) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.code = code
+        self.redirectURI = redirectURI
+    }
 }

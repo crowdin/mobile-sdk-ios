@@ -21,4 +21,11 @@ struct RefreshTokenRequest: Codable {
         case redirectURI = "redirect_uri"
         case refreshToken = "refresh_token"
     }
+    
+    init(clientId: String, clientSecret: String, redirectURI: String, refreshToken: String) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.redirectURI = redirectURI
+        self.refreshToken = refreshToken
+    }
 }
