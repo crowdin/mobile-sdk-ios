@@ -13,6 +13,9 @@ trigger:
       - LICENSE
 
 jobs:
+  - job: PodInstall
+    - bash: |
+      cd Tests & pod install
   - job: Build
     pool:
       vmImage: 'macOS 10.13'
