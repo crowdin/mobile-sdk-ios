@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
   DESC
   
   spec.homepage         = 'https://github.com/Serhii Londar/CrowdinSDK'
-  spec.license          = { :type => 'MIT', :file => 'LICENSE.md' }
+  spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
   spec.source           = { :git => 'https://github.com/Serhii Londar/CrowdinSDK.git', :tag => spec.version.to_s }
   spec.social_media_url    = 'https://twitter.com/serhii_londar'
