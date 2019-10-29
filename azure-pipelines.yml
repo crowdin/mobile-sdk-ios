@@ -19,6 +19,7 @@ jobs:
     steps:
       - bash: |
         cd Tests & pod install
+      displayName: 'Installing cocoapods'
   - job: Build
     dependsOn: PodInstall
     condition: succeeded()
