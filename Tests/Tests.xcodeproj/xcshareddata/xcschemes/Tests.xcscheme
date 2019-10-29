@@ -83,16 +83,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5007CF8FC0DD564CEF2FF949718B8696"
-               BuildableName = "CrowdinSDK-Unit-Login_Tests.xctest"
-               BlueprintName = "CrowdinSDK-Unit-Login_Tests"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D53D9865CDF15D2BDA588FBEF154678"
                BuildableName = "CrowdinSDK-Unit-CrowdinAPI_Tests.xctest"
                BlueprintName = "CrowdinSDK-Unit-CrowdinAPI_Tests"
