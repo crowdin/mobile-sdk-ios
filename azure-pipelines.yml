@@ -51,7 +51,7 @@ jobs:
           sdk: 'iphonesimulator'
           configuration: 'Debug'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          scheme: 'TestsTests'
+          scheme: 'Tests'
           xcodeVersion: '10'
           publishJUnitResults: true
           destinationPlatformOption: 'iOS'
