@@ -160,8 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */,
-				E88AE262234D3F00000B6FC0 /* App */,
-				E88AE279234D3F01000B6FC0 /* Tests */,
+				E88AE262234D3F00000B6FC0 /* Tests */,
+				E88AE279234D3F01000B6FC0 /* UnitTests */,
 				E88AE284234D3F01000B6FC0 /* UITests */,
 				E88AE261234D3F00000B6FC0 /* Products */,
 				862A5C7DAE8D195457C96A61 /* Pods */,
@@ -179,7 +179,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E88AE262234D3F00000B6FC0 /* App */ = {
+		E88AE262234D3F00000B6FC0 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				E88AE263234D3F00000B6FC0 /* AppDelegate.swift */,
@@ -191,10 +191,10 @@
 				E8BD50CE23527390006D77FD /* Localizable.strings */,
 				E8BD50DB2352F6C6006D77FD /* Localizable.stringsdict */,
 			);
-			path = App;
+			path = Tests;
 			sourceTree = "<group>";
 		};
-		E88AE279234D3F01000B6FC0 /* Tests */ = {
+		E88AE279234D3F01000B6FC0 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				E867607B2367A37D00AB9680 /* Login */,
@@ -210,7 +210,7 @@
 				E8BD50BE235270B5006D77FD /* AddDownloadHandlersTests.swift */,
 				E88AE27C234D3F01000B6FC0 /* Info.plist */,
 			);
-			path = Tests;
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 		E88AE284234D3F01000B6FC0 /* UITests */ = {
