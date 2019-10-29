@@ -111,6 +111,7 @@
 		E43446CAD26226D224D068C0785B7541 /* CrowdinSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F9869107447CB57FDF268F78243551AB /* CrowdinSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E54AB8A4A2F0C229E5AE2AE883230D3D /* ProjectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B061D4C6405E5636709C3782CE8C27 /* ProjectAPI.swift */; };
 		E758C00497A487107F04C042C0494A06 /* RefreshTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814CA1B495AAB5FD2B206BA8BF9A82EF /* RefreshTokenRequest.swift */; };
+		E87FE0142368C7C600AB071A /* CrowdinContentDeliveryAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87FE0132368C7C600AB071A /* CrowdinContentDeliveryAPITests.swift */; };
 		E89659B3AC2E820EC9E58EEF62D58D72 /* CrowdinAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BE8FC7210F8A20B93C85CD7429B97D /* CrowdinAPITests.swift */; };
 		E9A272328D6C44EF5B909CAFF3A921BB /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B922FAC419D871D401F48264E8FB668 /* RequestMethod.swift */; };
 		EF9F8D434CFA0DB3A702707313C17F48 /* Starscream-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7A2315DC555AEF64DA8D50B51DA7F1 /* Starscream-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -192,7 +193,7 @@
 		01E636F4DD246546E1E4F69579146C4E /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		01EB9DB10A05424E81A1765E3D55A990 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		01FB5DEA2CF4E44263A62924A53A069E /* Starscream-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Starscream-dummy.m"; sourceTree = "<group>"; };
-		02482E72C1C577F9642C17391C92E3EB /* Pods_TestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TestsUITests.framework; path = "Pods-TestsUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02482E72C1C577F9642C17391C92E3EB /* Pods_TestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		027796E802BACF2F1503C321479C0BF5 /* StringsTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringsTests.swift; path = CrowdinSDK/Tests/Core/StringsTests.swift; sourceTree = "<group>"; };
 		0284DE227AE303509D5137B51FB4C4F1 /* ProjectDetailsResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectDetailsResponse.swift; sourceTree = "<group>"; };
 		09E168BC0095678EE88F45F399A6FC52 /* CharacterSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CharacterSet.swift; sourceTree = "<group>"; };
@@ -213,7 +214,7 @@
 		27BD8ECFF5C4A8D4B0FA6846EB32010F /* Bundle+Swizzle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Swizzle.swift"; sourceTree = "<group>"; };
 		27C071D9C5D905F6BE54327CB27906C1 /* LocalizationExtractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationExtractor.swift; sourceTree = "<group>"; };
 		27DBFF6E5F237728B1C8459BFAEC34B2 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = CrowdinSDK/Classes/CrowdinSDK/Constants.swift; sourceTree = "<group>"; };
-		298F29311A2C38051235011B62034238 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		298F29311A2C38051235011B62034238 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2A0460CD20563FFB4EE8369F5B4A658A /* CrowdinSDK-Unit-Core_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "CrowdinSDK-Unit-Core_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		2AC34755576AFBD1B2C5892390CE7F3A /* Pods-TestsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TestsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C00EF213BE7ABCBF140EF88D6F8F899 /* CrowdinSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CrowdinSDK.xcconfig; sourceTree = "<group>"; };
@@ -255,7 +256,7 @@
 		64D5E391E11E3D9A03B0ACF80CFBA3B2 /* Starscream.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Starscream.xcconfig; sourceTree = "<group>"; };
 		6755BC1C45A5B7C492A0227671E64475 /* CrowdinSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDKConfig.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDKConfig.swift; sourceTree = "<group>"; };
 		6A375A282DE977C35292BCBC1E8C0DEF /* LoginAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
-		6AD2792335C097769155453258D881F3 /* CrowdinSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CrowdinSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6AD2792335C097769155453258D881F3 /* CrowdinSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = CrowdinSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6CDD635DA473782CADCE6B51C8DEB288 /* InBundleLocalizationStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InBundleLocalizationStorage.swift; sourceTree = "<group>"; };
 		6E2B81D781CEC8C3C24C67275C95E799 /* UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		6F0ECFEAE3D426A6D7E391F4AE281DCF /* BaseAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -271,7 +272,7 @@
 		8378198FA34F4BDF7EED8485DE43B1D6 /* StorageAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
 		84A340C79173E340C32BCA008AA0E119 /* CrowdinContentDeliveryAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinContentDeliveryAPI.swift; sourceTree = "<group>"; };
 		88E2E79E3D4AF976E0DB925751324729 /* Pods-TestsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TestsTests.release.xcconfig"; sourceTree = "<group>"; };
-		891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Starscream.framework; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C05C2A1D4DFEEF6A23EE86D721B658 /* CrowdinSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDK.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift; sourceTree = "<group>"; };
 		8A689725C2706A6569E0136561B4F3F9 /* Atomic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		8B1850C56AB610AFE116EEE9280CCF0C /* CrowdinSDK-Unit-CrowdinProvider_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CrowdinSDK-Unit-CrowdinProvider_Tests-Info.plist"; sourceTree = "<group>"; };
@@ -286,7 +287,7 @@
 		95580933773FEE368C3AA94518C4ABB5 /* LocalizationProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocalizationProvider.swift; sourceTree = "<group>"; };
 		969D81398B995A5BA7CA3E5F7C437843 /* Pods-TestsTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TestsTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9B922FAC419D871D401F48264E8FB668 /* RequestMethod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E4FF0D8D3D9F666C7BF7A3E31D6C9F2 /* Locale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		A13916DFF92958ABCC014F111470B0AB /* UpdateDraftResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateDraftResponse.swift; sourceTree = "<group>"; };
 		A191DD65C776B7FE5508530C7FCC1354 /* ResponsetHeaderFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResponsetHeaderFields.swift; sourceTree = "<group>"; };
@@ -300,7 +301,7 @@
 		AEED4F4FE1BD33ABE1DF6DCC3C05A31E /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		AFD978A131B003EE132DEB78863C75E8 /* CrowdinLoginAPITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinLoginAPITests.swift; path = CrowdinSDK/Tests/CrowdinAPI/CrowdinLoginAPITests.swift; sourceTree = "<group>"; };
 		B0E76FDC33346BE7E191F6CABA9AD83D /* ReadWriteProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReadWriteProtocol.swift; sourceTree = "<group>"; };
-		B3A41CEBBF22112DDF33BB49DEAF606E /* Pods_TestsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TestsTests.framework; path = "Pods-TestsTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3A41CEBBF22112DDF33BB49DEAF606E /* Pods_TestsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4D70CCDA8E8E57BB52C15A89AD2CFC1 /* DataParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		B6DC1E94759F180E8DC0E3435997426C /* Pods-TestsTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TestsTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B6EA479BF73149B110110756A7CE7EC5 /* Bundle+Crowdin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Crowdin.swift"; sourceTree = "<group>"; };
@@ -329,12 +330,13 @@
 		DA6A6C97383CAA7B30262F0137074381 /* CreateScreenshotTagRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateScreenshotTagRequest.swift; sourceTree = "<group>"; };
 		DCB1218D0F8E3B85FF0D570D58AC5033 /* DownloadProjectInfoOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DownloadProjectInfoOperation.swift; sourceTree = "<group>"; };
 		DEBE4BD7EFD40CC06E84E9F6583116F0 /* ActionRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActionRequest.swift; sourceTree = "<group>"; };
-		E0D433ABA5EB8B140736EB62B6084A14 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		E0D433ABA5EB8B140736EB62B6084A14 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E367FDDD8D1FBFDD62386AE803BFAF20 /* Pods-TestsTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TestsTests-Info.plist"; sourceTree = "<group>"; };
 		E48F7922C44A3645750BD18CCCF671B0 /* SSLClientCertificate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SSLClientCertificate.swift; path = Sources/Starscream/SSLClientCertificate.swift; sourceTree = "<group>"; };
 		E5E9D5D009554C9FD432F14A933E2720 /* StorageUploadResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StorageUploadResponse.swift; sourceTree = "<group>"; };
+		E87FE0132368C7C600AB071A /* CrowdinContentDeliveryAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CrowdinContentDeliveryAPITests.swift; path = CrowdinSDK/Tests/CrowdinAPI/CrowdinContentDeliveryAPITests.swift; sourceTree = "<group>"; };
 		ED2158FB9876986739F42A91E8507296 /* CrowdinFolder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrowdinFolder.swift; sourceTree = "<group>"; };
-		EEC3E6D50F416DF170B4B131FDA33A39 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CrowdinSDK.framework; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEC3E6D50F416DF170B4B131FDA33A39 /* CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F04126FC1ADCAAA2D91638271B050091 /* Pods-Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-umbrella.h"; sourceTree = "<group>"; };
 		F2B49D039A84EF28F6371B7537FB466D /* TokenResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		F6F83E64946BCBF279BC33A29868F230 /* CrowdinSDK+Login.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CrowdinSDK+Login.swift"; sourceTree = "<group>"; };
@@ -343,7 +345,7 @@
 		FABE78D0D36E52FB0CB75C462C6ABA29 /* ScreenshotsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotsAPI.swift; sourceTree = "<group>"; };
 		FAF64FD3876444F8327DD2C1BAA06B90 /* Bundle+Application.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bundle+Application.swift"; sourceTree = "<group>"; };
 		FC90FBF494DF2F7C1C37652473FEF334 /* TokenRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
-		FC95D668E217CFBB25845AA15162348B /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Tests.framework; path = "Pods-Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC95D668E217CFBB25845AA15162348B /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE7B949FBAEAA0D72DA62D12825BC86F /* CrowdinSDK.unit-crowdinapi_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CrowdinSDK.unit-crowdinapi_tests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -443,7 +445,6 @@
 			children = (
 				DCB1218D0F8E3B85FF0D570D58AC5033 /* DownloadProjectInfoOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -508,7 +509,6 @@
 			children = (
 				341645EB3C10C38C2644E2B05212F6A0 /* DownloadOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -518,7 +518,6 @@
 				C93C0D14BFBC39C27D128777C07D9221 /* CrowdinDownloader.swift */,
 				565E9F6CE3EA4C767520805597F6318E /* CrowdinLocalizationDownloader.swift */,
 			);
-			name = Downloaders;
 			path = Downloaders;
 			sourceTree = "<group>";
 		};
@@ -537,6 +536,7 @@
 				56BE8FC7210F8A20B93C85CD7429B97D /* CrowdinAPITests.swift */,
 				AFD978A131B003EE132DEB78863C75E8 /* CrowdinLoginAPITests.swift */,
 				192E8592D395E777704D47B0B5C2F9E5 /* URLSessionMock.swift */,
+				E87FE0132368C7C600AB071A /* CrowdinContentDeliveryAPITests.swift */,
 			);
 			name = CrowdinAPI_Tests;
 			sourceTree = "<group>";
@@ -563,7 +563,6 @@
 				C5A73BBB85E7F1E158CB53BC7D8302E9 /* LocalLocalizationStorage.swift */,
 				7EB2B2DFBA3EC49D030A8AA9D657A949 /* RemoteLocalizationStorage.swift */,
 			);
-			name = Provider;
 			path = Provider;
 			sourceTree = "<group>";
 		};
@@ -584,7 +583,6 @@
 				90989FB97D6901CE57B19D5561AF8BDE /* CreateScreenshotResponse.swift */,
 				EF7D3D80AA5B06736B925F23684EE8AE /* CreateScreenshotTag */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -614,7 +612,6 @@
 			children = (
 				0284DE227AE303509D5137B51FB4C4F1 /* ProjectDetailsResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -660,7 +657,6 @@
 				3B9AA0D25BD7BD2C495D776FC8B846DC /* WebSocket.swift */,
 				E1C262BC966EEAEBD1297175B34EF373 /* Support Files */,
 			);
-			name = Starscream;
 			path = Starscream;
 			sourceTree = "<group>";
 		};
@@ -763,7 +759,6 @@
 				184623BF805FAC5EE55DE6548F36E163 /* AsyncOperation.swift */,
 				30378DACC99786A14CC2887C6C0DBD83 /* BlockAsyncOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -772,7 +767,6 @@
 			children = (
 				27C071D9C5D905F6BE54327CB27906C1 /* LocalizationExtractor.swift */,
 			);
-			name = Extractor;
 			path = Extractor;
 			sourceTree = "<group>";
 		};
@@ -792,7 +786,6 @@
 			children = (
 				770B96DE480A6FBC81F14FB4A6FC003E /* DownloadSupportedLanguagesOperation.swift */,
 			);
-			name = Operations;
 			path = Operations;
 			sourceTree = "<group>";
 		};
@@ -834,7 +827,6 @@
 			children = (
 				78653211BDBE0AE85D7B0D2FF087C704 /* DistributionsResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -855,7 +847,6 @@
 				09E168BC0095678EE88F45F399A6FC52 /* CharacterSet.swift */,
 				35FC2FE1F449BE8B8A02A7DAED943E2B /* URLSession.swift */,
 			);
-			name = Extensions;
 			path = Extensions;
 			sourceTree = "<group>";
 		};
@@ -889,7 +880,6 @@
 				01B07D8DE0DB98C72EEBA74FA0AFCA7B /* TopSuggestionResponse.swift */,
 				A13916DFF92958ABCC014F111470B0AB /* UpdateDraftResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -973,7 +963,6 @@
 			children = (
 				E5E9D5D009554C9FD432F14A933E2720 /* StorageUploadResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -984,7 +973,6 @@
 				FC90FBF494DF2F7C1C37652473FEF334 /* TokenRequest.swift */,
 				F2B49D039A84EF28F6371B7537FB466D /* TokenResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -1035,7 +1023,6 @@
 			children = (
 				D79702F205E04BB686C8B23ACB918923 /* SupportedLanguagesResponse.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -1054,7 +1041,6 @@
 				DA6A6C97383CAA7B30262F0137074381 /* CreateScreenshotTagRequest.swift */,
 				ACE8C89E27B11FEBDB7497179FB3B8D1 /* CreateScreenshotTagResponse.swift */,
 			);
-			name = CreateScreenshotTag;
 			path = CreateScreenshotTag;
 			sourceTree = "<group>";
 		};
@@ -1063,7 +1049,6 @@
 			children = (
 				D05BD031D63BE7F0B65CDCF92C9B5BAC /* CustomBundle.swift */,
 			);
-			name = CustomBundle;
 			path = CustomBundle;
 			sourceTree = "<group>";
 		};
@@ -1082,7 +1067,6 @@
 			children = (
 				B4D70CCDA8E8E57BB52C15A89AD2CFC1 /* DataParser.swift */,
 			);
-			name = Parser;
 			path = Parser;
 			sourceTree = "<group>";
 		};
@@ -1094,7 +1078,6 @@
 				64774B81E187828ADE63B716151BD67C /* Bundle+Language.swift */,
 				27BD8ECFF5C4A8D4B0FA6846EB32010F /* Bundle+Swizzle.swift */,
 			);
-			name = Bundle;
 			path = Bundle;
 			sourceTree = "<group>";
 		};
@@ -1598,6 +1581,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E89659B3AC2E820EC9E58EEF62D58D72 /* CrowdinAPITests.swift in Sources */,
+				E87FE0142368C7C600AB071A /* CrowdinContentDeliveryAPITests.swift in Sources */,
 				5B40663A7AC6B473E8AAA80E1FC3B381 /* CrowdinLoginAPITests.swift in Sources */,
 				AA7CDC9F43A1E63FACC94FC5D2400DDA /* URLSessionMock.swift in Sources */,
 			);
