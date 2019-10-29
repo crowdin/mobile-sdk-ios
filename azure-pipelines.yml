@@ -18,7 +18,7 @@ jobs:
       vmImage: 'macOS 10.13'
     steps:
       - bash: |
-          cd Tests & pod install
+          cd Tests ; pod update Starscream; pod install
         displayName: 'Installing cocoapods'
 
   - job: Build
