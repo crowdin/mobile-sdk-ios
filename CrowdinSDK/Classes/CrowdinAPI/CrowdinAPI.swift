@@ -24,9 +24,9 @@ class CrowdinAPI: BaseAPI {
         return baseURL + apiPath
     }
     
-    init(organizationName: String? = nil) {
+    init(organizationName: String? = nil, session: URLSession = .shared) {
         self.organizationName = organizationName
-        super.init()
+        super.init(session: session)
     }
     
     func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
