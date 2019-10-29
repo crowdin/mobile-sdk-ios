@@ -14,10 +14,14 @@ trigger:
 
 jobs:
   - job: PodInstall
+    pool:
+      vmImage: 'macOS 10.13'
     steps:
       - bash: |
         cd Tests & pod install
   - job: Build
+    dependsOn: PodInstall
+    condition: succeeded()
     pool:
       vmImage: 'macOS 10.13'
     steps:
