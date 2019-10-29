@@ -135,7 +135,7 @@ public protocol WSStream {
 }
 
 open class FoundationStream : NSObject, WSStream, StreamDelegate  {
-    private let workQueue = DispatchQueue(label: "com.vluxe.starscream.websocket", attributes: [])
+    private static let sharedWorkQueue = DispatchQueue(label: "com.vluxe.starscream.websocket", attributes: [])
     private var inputStream: InputStream?
     private var outputStream: OutputStream?
     public weak var delegate: WSStreamDelegate?
@@ -210,13 +210,13 @@ open class FoundationStream : NSObject, WSStream, StreamDelegate  {
             #endif
         }
         
-        CFReadStreamSetDispatchQueue(inStream, workQueue)
-        CFWriteStreamSetDispatchQueue(outStream, workQueue)
+        CFReadStreamSetDispatchQueue(inStream, FoundationStream.sharedWorkQueue)
+        CFWriteStreamSetDispatchQueue(outStream, FoundationStream.sharedWorkQueue)
         inStream.open()
         outStream.open()
         
         var out = timeout// wait X seconds before giving up
-        workQueue.async { [weak self] in
+        FoundationStream.sharedWorkQueue.async { [weak self] in
             while !outStream.hasSpaceAvailable {
                 usleep(100) // wait until the socket is ready
                 out -= 100
@@ -475,7 +475,7 @@ open class WebSocket : NSObject, StreamDelegate, WebSocketClient, WSStreamDelega
             }
             self.request.setValue(origin, forHTTPHeaderField: headerOriginName)
         }
-        if let protocols = protocols, !protocols.isEmpty {
+        if let protocols = protocols {
             self.request.setValue(protocols.joined(separator: ","), forHTTPHeaderField: headerWSProtocolName)
         }
         writeQueue.maxConcurrentOperationCount = 1
