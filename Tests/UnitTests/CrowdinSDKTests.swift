@@ -13,8 +13,7 @@ class CrowdinSDKTests: XCTestCase {
     override func setUp() {
 		super.setUp()
 		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "f78819e9fe3a5fe96d2a383b2ozt",
-														  stringsFileNames: ["Localizable.strings"],
-														  pluralsFileNames: ["Localizable.stringsdict"],
+														  files: ["Localizable.strings", "Localizable.stringsdict"],
 														  localizations: ["en", "de", "uk"],
 														  sourceLanguage: "en")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)

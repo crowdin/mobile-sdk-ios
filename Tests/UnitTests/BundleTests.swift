@@ -60,17 +60,12 @@ class BundleTests: XCTestCase {
         XCTAssertNil(projectKey)
     }
     
-    func testCrowdinStringsFileNames() {
-        let crowdinStringsFileNames = Bundle.main.crowdinStringsFileNames
+    func testCrowdinFilesNames() {
+        let crowdinStringsFileNames = Bundle.main.crowdinFiles
         XCTAssertNotNil(crowdinStringsFileNames)
         XCTAssert(crowdinStringsFileNames!.contains("Localizable.strings"))
         XCTAssert(crowdinStringsFileNames!.contains("Main.strings"))
-    }
-    
-    func testCrowdinPluralsFileNames() {
-        let crowdinPluralsFileNames = Bundle.main.crowdinPluralsFileNames
-        XCTAssertNotNil(crowdinPluralsFileNames)
-        XCTAssert(crowdinPluralsFileNames!.contains("Localizable.stringsdict"))
+        XCTAssert(crowdinStringsFileNames!.contains("Localizable.stringsdict"))
     }
     
     func testCrowdinSourceLanguage() {

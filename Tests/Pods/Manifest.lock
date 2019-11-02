@@ -25,7 +25,7 @@ DEPENDENCIES:
   - CrowdinSDK/Login (from `../`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - Starscream
 
 EXTERNAL SOURCES:
@@ -38,4 +38,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 86c8fa3fca144d358ace73d52215298a21ff9cf2
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.5
