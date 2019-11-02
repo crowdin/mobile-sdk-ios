@@ -23,20 +23,21 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
-        operationQueue.cancelAllOperations()
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
 		self.strings = nil
 		self.plurals = nil
 		self.errors = nil
 		
         self.completion = completion
-        let completionBlock = BlockOperation {
+        let completionBlock = BlockOperation { [weak self] in
+            guard let self = self else { return }
             self.completion(self.strings, self.plurals, self.errors)
         }
         
         strings.forEach { (string) in
             let download = CrowdinStringsDownloadOperation(hash: hash, filePath: string, localization: localization, contentDeliveryAPI: contentDeliveryAPI)
-            download.completion = { (strings, error) in
+            download.completion = { [weak self] (strings, error) in
+            guard let self = self else { return }
                 if let error = error {
                     if self.errors != nil {
                         self.errors?.append(error)
@@ -57,7 +58,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         
         plurals.forEach { (plural) in
             let download = CrowdinPluralsDownloadOperation(hash: hash, filePath: plural, localization: localization, contentDeliveryAPI: contentDeliveryAPI)
-            download.completion = { (plurals, error) in
+            download.completion = { [weak self] (plurals, error) in
+            guard let self = self else { return }
                 if let error = error {
                     if self.errors != nil {
                         self.errors?.append(error)
