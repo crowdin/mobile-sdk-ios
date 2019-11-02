@@ -29,9 +29,9 @@ fileprivate enum Paths: String {
         case .localeWithUnderscore:
             return Locale(identifier: localization).identifier.replacingOccurrences(of: "-", with: "_")
         case .osxCode:
-            return Bundle.main.preferredLanguage + FileType.lproj.extension
+            return Locale(identifier: localization).identifier + FileType.lproj.extension
         case .osxLocale:
-            return Bundle.main.preferredLanguage
+            return Locale(identifier: localization).identifier
         }
     }
 }
