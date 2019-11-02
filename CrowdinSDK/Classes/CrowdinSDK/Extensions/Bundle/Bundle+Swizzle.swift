@@ -16,6 +16,10 @@ extension Bundle {
     /// Swizzled localizedString(forKey:value:table:) method.
     static var swizzled: Method!
     
+    static var isSwizzled: Bool {
+        return original != nil && swizzled != nil
+    }
+    
     /// Swizzled implementation for localizedString(forKey:value:table:) method.
     ///
     /// - Parameters:
@@ -43,5 +47,7 @@ extension Bundle {
     class func unswizzle() {
         guard original != nil && swizzled != nil else { return }
         method_exchangeImplementations(swizzled, original)
+        swizzled = nil
+        original = nil
     }
 }

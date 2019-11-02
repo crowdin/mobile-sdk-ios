@@ -16,23 +16,14 @@ extension Notification.Name {
 }
 
 class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
-    public var localization: String
+    var localization: String
     var localizations: [String]
     var hashString: String
     var stringsFileNames: [String]
     var pluralsFileNames: [String]
     var name: String = "Crowdin"
-    
-    private let crowdinDownloader: CrowdinDownloaderProtocol
-    
-    init(hashString: String, stringsFileNames: [String], pluralsFileNames: [String], localization: String, localizations: [String], enterprise: Bool) {
-        self.hashString = hashString
-        self.stringsFileNames = stringsFileNames
-        self.pluralsFileNames = pluralsFileNames
-        self.localization = localization
-        self.localizations = localizations
-        self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
-    }
+    var enterprise: Bool
+    private var crowdinDownloader: CrowdinDownloaderProtocol
     
     init(localization: String, config: CrowdinProviderConfig, enterprise: Bool) {
         self.hashString = config.hashString
@@ -41,11 +32,13 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.localization = localization
         self.localizations = config.localizations
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
+        self.enterprise = enterprise
     }
     
     required init(localization: String, enterprise: Bool) {
         self.localization = localization
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
+        self.enterprise = enterprise
         guard let hashString = Bundle.main.crowdinHash else {
             fatalError("Please add CrowdinHash key to your Info.plist file")
         }
@@ -65,10 +58,10 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
-        let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
-        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: crowdinLocalization, completion: { strings, plurals, errors in
+        self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: self.enterprise)
+        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: localization, completion: { [weak self] strings, plurals, errors in
+            guard let self = self else { return }
             completion(self.localizations, strings, plurals)
-            
             DispatchQueue.main.async {
                 NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
                 
@@ -77,5 +70,20 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
                 }
             }
         })
+    }
+    
+    /// Remove add stored E-Tag headers for every file.
+    func deintegrate() {
+        for supportedLocalization in localizations {
+            self.stringsFileNames.forEach({
+                let filePath = CrowdinPathsParser.shared.parse($0, localization: supportedLocalization)
+                UserDefaults.standard.removeObject(forKey: filePath)
+            })
+            self.pluralsFileNames.forEach({
+                let filePath = CrowdinPathsParser.shared.parse($0, localization: supportedLocalization)
+                UserDefaults.standard.removeObject(forKey: filePath)
+            })
+        }
+        UserDefaults.standard.synchronize()
     }
 }

@@ -31,11 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                           pluralsFileNames: ["Localizable.stringsdict"],
                                                           localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
-        let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
-                                             clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
-                                             scope: "project.screenshot",
-											 redirectURI: "crowdintest://",
-											 organizationName: "serhiy")
+        let loginConfig = try! CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",
+                                                  clientSecret: "Dw5TxCKvKQQRcPyAWEkTCZlxRGmcja6AFZNSld6U",
+                                                  scope: "project.screenshot",
+                                                  redirectURI: "crowdintest://",
+                                                  organizationName: "serhiy")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(screenshotsEnabled: true)
 														.with(loginConfig: loginConfig)
@@ -64,14 +64,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		CrowdinSDK.startWithConfig(crowdinSDKConfig)
 		
         
-        _ = CrowdinSDK.addDownloadHandler {
-            print("Localization downloaded")
-        }
-        
-        _ = CrowdinSDK.addErrorUpdateHandler { (errors) in
-            print("Localization download failed with errors:")
-            errors.forEach({ print($0.localizedDescription) })
-        }
+//        _ = CrowdinSDK.addDownloadHandler {
+//            print("Localization downloaded")
+//        }
+//        
+//        _ = CrowdinSDK.addErrorUpdateHandler { (errors) in
+//            print("Localization download failed with errors:")
+//            errors.forEach({ print($0.localizedDescription) })
+//        }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         

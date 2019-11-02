@@ -78,8 +78,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-        let enterprise = config.loginConfig?.organizationName != nil
-        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig, enterprise: enterprise)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig, enterprise: config.enterprise)
         self.setRemoteStorage(remoteStorage)
         self.initializeLib()
     }
@@ -87,6 +86,12 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
         self.startWithConfig(CrowdinSDKConfig.config())
+    }
+    
+    ///
+    public class func stop() {
+        self.unswizzle()
+        Localization.current = nil
     }
 	
     /// Initialization method. Initialize library with passed localization provider.
@@ -114,15 +119,14 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
             } else {
                 self.mode = .autoSDK
             }
-			self.currentLocalization = localization
         } else {
             if localization != nil {
                 self.mode = .customBundle
             } else {
                 self.mode = .autoBundle
             }
-			self.currentLocalization = localization
         }
+        self.currentLocalization = localization
     }
 	
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
@@ -146,35 +150,35 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///
     /// - Parameter handler: Download handler closure.
     /// - Returns: Download handler id value. This value is used to remove this handler.
-    public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> UInt {
-        return Localization.current.addDownloadHandler(handler)
+    public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> Int {
+        return Localization.current?.addDownloadHandler(handler) ?? -1
     }
     
     /// Remove download handler by id.
     ///
     /// - Parameter id: Download handler id value.
-    public class func removeDownloadHandler(_ id: UInt) {
-        Localization.current.removeDownloadHandler(id)
+    public class func removeDownloadHandler(_ id: Int) {
+        Localization.current?.removeDownloadHandler(id)
     }
     
     /// Remove all download handlers.
     public class func removeAllDownloadHandlers() {
-        Localization.current.removeAllDownloadHandlers()
+        Localization.current?.removeAllDownloadHandlers()
     }
     
     /// Add error handler
     ///
     /// - Parameter handler: Error handler closure.
     /// - Returns: Error handler id value. This value is used to remove this handler.
-    public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> UInt {
-        return Localization.current.addErrorUpdateHandler(handler)
+    public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> Int {
+        return Localization.current?.addErrorUpdateHandler(handler) ?? -1
     }
     
     /// Remove error handler by id.
     ///
     /// - Parameter id: Error's handler id value.
-    public class func removeErrorHandler(_ id: UInt) {
-        Localization.current.removeErrorHandler(id)
+    public class func removeErrorHandler(_ id: Int) {
+        Localization.current?.removeErrorHandler(id)
     }
     
     /// Remove all error handlers.
@@ -190,9 +194,15 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 extension CrowdinSDK {
     /// Method for swizzling all needed methods.
     class func swizzle() {
-        Bundle.swizzle()
-        UILabel.swizzle()
-        UIButton.swizzle()
+        if !Bundle.isSwizzled {
+            Bundle.swizzle()
+        }
+        if !UILabel.isSwizzled {
+            UILabel.swizzle()
+        }
+        if !UIButton.isSwizzled {
+            UIButton.swizzle()
+        }
     }
     
     /// Method for unswizzling all zwizzled methods.

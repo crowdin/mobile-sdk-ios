@@ -5,7 +5,7 @@ PODS:
   - CrowdinSDK/Core (0.0.6)
   - CrowdinSDK/CrowdinAPI (0.0.6):
     - CrowdinSDK/Login
-    - Starscream
+    - Starscream (= 3.0.6)
   - CrowdinSDK/CrowdinProvider (0.0.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
@@ -89,7 +89,7 @@ PODS:
   - R.swift (5.0.1):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.0)
-  - Starscream (3.1.0)
+  - Starscream (3.0.6)
   - SwiftLint (0.31.0)
 
 DEPENDENCIES:
@@ -105,7 +105,7 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - DateToolsSwift
     - FAPanels
     - Firebase
@@ -120,8 +120,9 @@ SPEC REPOS:
     - nanopb
     - R.swift
     - R.swift.Library
-    - Starscream
     - SwiftLint
+  trunk:
+    - Starscream
 
 EXTERNAL SOURCES:
   CrowdinSDK:
@@ -135,7 +136,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: a8c20cf4059df9ad29b1290683dc141f99065c18
+  CrowdinSDK: 59846d8bb48d224228646ae4ba22cc7f819a87e5
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
@@ -151,9 +152,9 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   R.swift: a8e1a7e7f38441282fbcb7a3c266076eb38b77ba
   R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
-  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
 PODFILE CHECKSUM: 8dd9cb6bf6bd7116cc5eff605f86926f3f7a94f1
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

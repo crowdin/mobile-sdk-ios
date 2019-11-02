@@ -11,4 +11,7 @@ import Foundation
 @objc public protocol RemoteLocalizationStorageProtocol: LocalizationStorageProtocol {
     /// Storage name.
     var name: String { get set }
+    
+    /// Shoud be called to remove cache data
+    func deintegrate()
 }

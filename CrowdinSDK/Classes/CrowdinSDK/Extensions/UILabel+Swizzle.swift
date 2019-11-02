@@ -40,7 +40,11 @@ extension UILabel {
     
     /// Swizzled attributedText method.
     static var swizzledAttributedText: Method!
-
+    
+    static var isSwizzled: Bool {
+        return originalText != nil && swizzledText != nil && originalAttributedText != nil && swizzledAttributedText != nil
+    }
+    
     /// Swizzled implementation for set text method.
     ///
     /// - Parameter text: Title string.
@@ -112,9 +116,13 @@ extension UILabel {
     class func unswizzle() {
         if originalText != nil && swizzledText != nil {
             method_exchangeImplementations(swizzledText, originalText)
+            originalText = nil
+            swizzledText = nil
         }
         if originalAttributedText != nil && swizzledAttributedText != nil {
             method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
+            originalAttributedText = nil
+            swizzledAttributedText = nil
         }
     }
     

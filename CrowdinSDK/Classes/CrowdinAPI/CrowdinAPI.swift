@@ -24,9 +24,9 @@ class CrowdinAPI: BaseAPI {
         return baseURL + apiPath
     }
     
-    init(organizationName: String? = nil) {
+    init(organizationName: String? = nil, session: URLSession = .shared) {
         self.organizationName = organizationName
-        super.init()
+        super.init(session: session)
     }
     
     func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
@@ -91,6 +91,7 @@ class CrowdinAPI: BaseAPI {
     
     func authorized(_ headers: [String: String]?) -> [String: String] {
         var result = headers ?? [:]
+        // TODO: Move LoginFeature as dependency.
         guard let accessToken = LoginFeature.shared?.accessToken else { return result }
         result["Authorization"] = "Bearer \(accessToken)"
         return result
