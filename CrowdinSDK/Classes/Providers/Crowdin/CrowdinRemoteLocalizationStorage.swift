@@ -47,14 +47,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             fatalError("Please add CrowdinLocalizations key to your Info.plist file")
         }
         self.localizations = localizations
-        guard let crowdinStringsFileNames = Bundle.main.crowdinStringsFileNames else {
-            fatalError("Please add CrowdinStringsFileNames key to your Info.plist file")
+        
+        guard let crowdinFiles = Bundle.main.crowdinFiles else {
+            fatalError("Please add CrowdinFiles key to your Info.plist file")
         }
-        self.stringsFileNames = crowdinStringsFileNames
-        guard let crowdinPluralsFileNames = Bundle.main.crowdinPluralsFileNames else {
-            fatalError("Please add CrowdinPluralsFileNames key to your Info.plist file")
-        }
-        self.pluralsFileNames = crowdinPluralsFileNames
+        self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
+        self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
