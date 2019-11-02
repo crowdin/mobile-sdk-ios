@@ -58,6 +58,10 @@ extension UIButton {
     /// Swizzled setAttributedTitle(_:for:) method.
     static var swizzledSetAttributedTitle: Method!
     
+    static var isSwizzled: Bool {
+        return originalSetTitle != nil && swizzledSetTitle != nil && originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil
+    }
+    
     /// Swizzled implementation for setTitle(_:for:) method.
     ///
     /// - Parameters:
@@ -151,11 +155,16 @@ extension UIButton {
     
     /// Method for swizzling implementations back for setTitle(_:for:) and setAttributedTitle(_:for:) methods.
     class func unswizzle() {
-        guard originalSetTitle != nil && swizzledSetTitle != nil else { return }
-        method_exchangeImplementations(swizzledSetTitle, originalSetTitle)
-        
-        guard originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil else { return }
-        method_exchangeImplementations(swizzledSetAttributedTitle, originalSetAttributedTitle)
+        if originalSetTitle != nil && swizzledSetTitle != nil {
+            method_exchangeImplementations(swizzledSetTitle, originalSetTitle)
+            swizzledSetTitle = nil
+            originalSetTitle = nil
+        }
+        if originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil {
+            method_exchangeImplementations(swizzledSetAttributedTitle, originalSetAttributedTitle)
+            swizzledSetAttributedTitle = nil
+            originalSetAttributedTitle = nil
+        }
     }
     
     /// Selectors for working with real-time updates.

@@ -134,14 +134,14 @@ class Localization {
     ///
     /// - Parameter handler: Download completion closure.
     /// - Returns: Handler id needed to unsubscribe.
-    func addDownloadHandler(_ handler: @escaping () -> Void) -> UInt {
+    func addDownloadHandler(_ handler: @escaping () -> Void) -> Int {
         return localizationUpdateObserver.addDownloadHandler(handler)
     }
     
     /// Method for removing localization download completion handler by id.
     ///
     /// - Parameter id: Handler id returned from addDownloadHandler(_:) method.
-    func removeDownloadHandler(_ id: UInt) {
+    func removeDownloadHandler(_ id: Int) {
         localizationUpdateObserver.removeDownloadHandler(id)
     }
     
@@ -154,14 +154,14 @@ class Localization {
     ///
     /// - Parameter handler: Download error closure.
     /// - Returns: Handler id needed to unsubscribe.
-    func addErrorUpdateHandler(_ handler: @escaping ([Error]) -> Void) -> UInt {
+    func addErrorUpdateHandler(_ handler: @escaping ([Error]) -> Void) -> Int {
         return localizationUpdateObserver.addErrorHandler(handler)
     }
     
     /// Method for removing localization download error handler.
     ///
     /// - Parameter id: Handler id returned from addErrorUpdateHandler(_:) method.
-    func removeErrorHandler(_ id: UInt) {
+    func removeErrorHandler(_ id: Int) {
         localizationUpdateObserver.removeErrorHandler(id)
     }
     

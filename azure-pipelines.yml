@@ -1,0 +1,66 @@
+# Xcode
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute the app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+
+trigger:
+  branches:
+    include:
+      - refs/heads/*
+    exclude:
+      - refs/tags/*
+      - README.md
+      - LICENSE
+
+jobs:
+  - job: PodInstall
+    pool:
+      vmImage: 'macOS 10.13'
+    steps:
+      - bash: |
+          cd Tests ; pod update Starscream; pod install
+        displayName: 'Installing cocoapods'
+
+  - job: Build
+    dependsOn: PodInstall
+    condition: succeeded()
+    pool:
+      vmImage: 'macOS 10.13'
+    steps:
+      - task: Xcode@5
+        displayName: 'Build Xcode App'
+        inputs:
+          actions: 'build'
+          sdk: 'iphonesimulator'
+          scheme: 'Tests'
+          configuration: 'Debug'
+          xcWorkspacePath: 'Tests/Tests.xcworkspace'
+          xcodeVersion: '10'
+          packageApp: false
+
+  - job: Test
+    dependsOn: Build
+    condition: succeeded()
+    pool:
+      vmImage: 'macOS 10.13'
+    steps:
+      - task: Xcode@5
+        displayName: 'Running tests'
+        inputs:
+          actions: 'test'
+          sdk: 'iphonesimulator'
+          configuration: 'Debug'
+          xcWorkspacePath: 'Tests/Tests.xcworkspace'
+          scheme: 'TestsTests'
+          xcodeVersion: '10'
+          publishJUnitResults: true
+          destinationPlatformOption: 'iOS'
+          destinationTypeOption: 'simulators'
+          destinationSimulators: 'iPhone 8'
+      - bash: |
+          cd Tests & bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
+        displayName: 'Upload coverage to codecov.io'
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFiles: '**/junit.xml'
+        displayName: 'Publish tests results'

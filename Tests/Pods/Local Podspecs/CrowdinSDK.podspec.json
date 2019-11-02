@@ -1,0 +1,158 @@
+{
+  "name": "CrowdinSDK",
+  "version": "0.0.6",
+  "summary": "A short description of CrowdinSDK.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Serhii Londar/CrowdinSDK",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Serhii Londar": "serhii.londar@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Serhii Londar/CrowdinSDK.git",
+    "tag": "0.0.6"
+  },
+  "social_media_url": "https://twitter.com/serhii_londar",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "frameworks": "UIKit",
+  "static_framework": true,
+  "swift_versions": "4.2",
+  "default_subspecs": [
+    "Core",
+    "CrowdinProvider"
+  ],
+  "testspecs": [
+    {
+      "name": "Core_Tests",
+      "test_type": "unit",
+      "source_files": "CrowdinSDK/Tests/Core/*.swift"
+    },
+    {
+      "name": "CrowdinProvider_Tests",
+      "test_type": "unit",
+      "source_files": "CrowdinSDK/Tests/CrowdinProvider/*.swift"
+    },
+    {
+      "name": "CrowdinAPI_Tests",
+      "test_type": "unit",
+      "source_files": "CrowdinSDK/Tests/CrowdinAPI/*.swift"
+    }
+  ],
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "CrowdinSDK/Classes/CrowdinSDK/**/*"
+    },
+    {
+      "name": "FirebaseProvider",
+      "dependencies": {
+        "Firebase": [
+
+        ],
+        "FirebaseDatabase": [
+
+        ],
+        "CrowdinSDK/Core": [
+
+        ]
+      },
+      "source_files": "CrowdinSDK/Classes/Providers/Firebase/**/*"
+    },
+    {
+      "name": "CrowdinProvider",
+      "source_files": "CrowdinSDK/Classes/Providers/Crowdin/**/*.swift",
+      "dependencies": {
+        "CrowdinSDK/Core": [
+
+        ],
+        "CrowdinSDK/CrowdinAPI": [
+
+        ]
+      }
+    },
+    {
+      "name": "CrowdinAPI",
+      "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*",
+      "dependencies": {
+        "Starscream": [
+          "3.0.6"
+        ],
+        "CrowdinSDK/Login": [
+
+        ]
+      }
+    },
+    {
+      "name": "Mapping",
+      "source_files": "CrowdinSDK/Classes/Mapping/*.swift",
+      "dependencies": {
+        "CrowdinSDK/CrowdinAPI": [
+
+        ]
+      }
+    },
+    {
+      "name": "Screenshots",
+      "source_files": "CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift",
+      "dependencies": {
+        "CrowdinSDK/Login": [
+
+        ],
+        "CrowdinSDK/Mapping": [
+
+        ]
+      }
+    },
+    {
+      "name": "RealtimeUpdate",
+      "source_files": "CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift",
+      "dependencies": {
+        "CrowdinSDK/Login": [
+
+        ],
+        "CrowdinSDK/Mapping": [
+
+        ]
+      }
+    },
+    {
+      "name": "RefreshLocalization",
+      "source_files": "CrowdinSDK/Classes/Features/RefreshLocalizationFeature/**/*.swift"
+    },
+    {
+      "name": "Login",
+      "source_files": "CrowdinSDK/Classes/Features/LoginFeature/**/*.swift"
+    },
+    {
+      "name": "IntervalUpdate",
+      "source_files": "CrowdinSDK/Classes/Features/IntervalUpdateFeature/**/*.swift"
+    },
+    {
+      "name": "Settings",
+      "source_files": "CrowdinSDK/Classes/Settings/**/*.swift",
+      "resource_bundles": {
+        "CrowdinSDK": "CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}"
+      },
+      "dependencies": {
+        "CrowdinSDK/Screenshots": [
+
+        ],
+        "CrowdinSDK/RealtimeUpdate": [
+
+        ],
+        "CrowdinSDK/RefreshLocalization": [
+
+        ],
+        "CrowdinSDK/IntervalUpdate": [
+
+        ]
+      }
+    }
+  ],
+  "swift_version": "4.2"
+}

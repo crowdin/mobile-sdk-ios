@@ -10,6 +10,10 @@ import Foundation
 import CrowdinSDK
 
 class CustomProvider: RemoteLocalizationStorageProtocol {
+	func deintegrate() {
+		
+	}
+	
     var name: String = "CustomProvider"
     
     var localization: String = "en"

@@ -12,8 +12,13 @@ class LocalizationExtractor {
         return Bundle.main.localizations
     }
     
-    var allKeys: [String] = []
-    var allValues: [String] = []
+    var allKeys: [String] {
+        return self.localizationDict.keys.map({ String($0) })
+    }
+    var allValues: [String] {
+        return self.localizationDict.values.map({ String($0) })
+    }
+    
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
     

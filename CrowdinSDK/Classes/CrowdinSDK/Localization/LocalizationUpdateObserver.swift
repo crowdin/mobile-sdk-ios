@@ -11,16 +11,16 @@ typealias LocalizationUpdateDownload = () -> Void
 typealias LocalizationUpdateError = ([Error]) -> Void
 
 protocol LocalizationUpdateObserverProtocol {
-    var downloadHandlers: [UInt: LocalizationUpdateDownload] { get }
-    var errorHandlers: [UInt: LocalizationUpdateError] { get }
+    var downloadHandlers: [Int: LocalizationUpdateDownload] { get }
+    var errorHandlers: [Int: LocalizationUpdateError] { get }
     
     func subscribe()
     func unsubscribe()
 }
 
 class LocalizationUpdateObserver {
-    var downloadHandlers: [UInt: LocalizationUpdateDownload] = [:]
-    var errorHandlers: [UInt: LocalizationUpdateError] = [:]
+    var downloadHandlers: [Int: LocalizationUpdateDownload] = [:]
+    var errorHandlers: [Int: LocalizationUpdateError] = [:]
     
     init() {
         subscribe()
@@ -39,13 +39,13 @@ class LocalizationUpdateObserver {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func addDownloadHandler(_ handler: @escaping LocalizationUpdateDownload) -> UInt {
+    func addDownloadHandler(_ handler: @escaping LocalizationUpdateDownload) -> Int {
         let newKey = (downloadHandlers.keys.max() ?? 0) + 1
         downloadHandlers[newKey] = handler
         return newKey
     }
     
-    func removeDownloadHandler(_ id: UInt) {
+    func removeDownloadHandler(_ id: Int) {
         downloadHandlers.removeValue(forKey: id)
     }
     
@@ -53,13 +53,13 @@ class LocalizationUpdateObserver {
         downloadHandlers.removeAll()
     }
     
-    func addErrorHandler(_ handler: @escaping LocalizationUpdateError) -> UInt {
+    func addErrorHandler(_ handler: @escaping LocalizationUpdateError) -> Int {
         let newKey = (errorHandlers.keys.max() ?? 0) + 1
         errorHandlers[newKey] = handler
         return newKey
     }
     
-    func removeErrorHandler(_ id: UInt) {
+    func removeErrorHandler(_ id: Int) {
         errorHandlers.removeValue(forKey: id)
     }
     

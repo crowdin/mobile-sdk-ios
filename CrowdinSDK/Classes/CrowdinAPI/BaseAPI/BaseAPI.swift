@@ -21,6 +21,15 @@ open class BaseAPI {
         self.session = session
     }
     
+    func send(request: URLRequest, completion: @escaping BaseAPICompletion) {
+        session.dataTask(with: request, completionHandler: completion).resume()
+    }
+    
+    
+    func send(request: URLRequest) -> BaseAPIResult {
+        return session.synchronousDataTask(request: request)
+    }
+    
     func get(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping BaseAPICompletion) {
         let request = Request(url: url, method: .GET, parameters: parameters, headers: headers, body: nil)
         let buildRequest = request.request()

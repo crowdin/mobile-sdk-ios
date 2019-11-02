@@ -14,15 +14,15 @@ import Foundation
 	var redirectURI: String
 	var organizationName: String?
 	
-	public init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String? = nil) {
-        guard !clientId.isEmpty else { fatalError("clientId could not be empty.") }
+	public init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String? = nil) throws {
+        guard !clientId.isEmpty else { throw NSError(domain: "clientId could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
 		self.clientId = clientId
-        guard !clientSecret.isEmpty else { fatalError("clientSecret could not be empty.") }
+        guard !clientSecret.isEmpty else { throw NSError(domain: "clientSecret could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
 		self.clientSecret = clientSecret
-        guard !scope.isEmpty else { fatalError("scope could not be empty.") }
+        guard !scope.isEmpty else { throw NSError(domain: "scope could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
 		self.scope = scope
-        guard !redirectURI.isEmpty else { fatalError("redirectURI could not be empty.") }
-        guard let urlSchemes = Bundle.main.urlSchemes, urlSchemes.contains(redirectURI) else { fatalError("Application supported url schemes should contain \(redirectURI)") }
+        guard !redirectURI.isEmpty else { throw NSError(domain: "redirectURI could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
+        guard let urlSchemes = Bundle.main.urlSchemes, urlSchemes.contains(redirectURI) else { throw NSError(domain: "Application supported url schemes should contain \(redirectURI)", code: defaultCrowdinErrorCode, userInfo: nil) }
 		self.redirectURI = redirectURI
 		self.organizationName = organizationName
 	}
