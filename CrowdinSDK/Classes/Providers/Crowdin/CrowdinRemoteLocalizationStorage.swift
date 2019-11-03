@@ -57,17 +57,37 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: self.enterprise)
-        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: localization, completion: { [weak self] strings, plurals, errors in
+        self.crowdinDownloader.getFiles(for: self.hashString) { [weak self] (files, error) in
             guard let self = self else { return }
-            completion(self.localizations, strings, plurals)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
+            if let crowdinFiles = files {
+                self.stringsFileNames = crowdinFiles.filter({ $0.isStrings }).map({
+                    var result = $0
+                    result.removeFirst()
+                    return result
+                })
+                self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict }).map({
+                    var result = $0
+                    result.removeFirst()
+                    return result
+                })
                 
-                if let errors = errors {
-                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, for: self.localization, completion: { [weak self] strings, plurals, errors in
+                    guard let self = self else { return }
+                    completion(self.localizations, strings, plurals)
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
+                        
+                        if let errors = errors {
+                            NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                        }
+                    }
+                })
+            } else if let error = error {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: [error])
                 }
             }
-        })
+        }
     }
     
     /// Remove add stored E-Tag headers for every file.

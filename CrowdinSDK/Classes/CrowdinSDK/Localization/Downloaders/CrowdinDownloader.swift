@@ -11,4 +11,5 @@ typealias CrowdinDownloaderCompletion = (_ strings: [String: String]?, _ plurals
 
 protocol CrowdinDownloaderProtocol {
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion)
+    func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void)
 }
