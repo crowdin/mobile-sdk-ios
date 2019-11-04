@@ -5,18 +5,18 @@ PODS:
   - CrowdinSDK/Core (0.0.6)
   - CrowdinSDK/CrowdinAPI (0.0.6):
     - CrowdinSDK/Login
-    - Starscream
+    - Starscream (= 3.0.6)
   - CrowdinSDK/CrowdinProvider (0.0.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/Login (0.0.6)
-  - Starscream (3.1.0)
+  - Starscream (3.0.6)
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Starscream
 
 EXTERNAL SOURCES:
@@ -24,9 +24,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrowdinSDK: a8c20cf4059df9ad29b1290683dc141f99065c18
-  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
+  CrowdinSDK: 59846d8bb48d224228646ae4ba22cc7f819a87e5
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
 PODFILE CHECKSUM: f3277f5a7ea93e9aea586360c382e16466237cd2
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

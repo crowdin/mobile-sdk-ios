@@ -36,5 +36,5 @@ Carthage/Build
 #
 Example/Pods/
 ObjCExample/Pods/
-
+Example/CrowdinSDK/GoogleService-Info.plist
 .idea/
