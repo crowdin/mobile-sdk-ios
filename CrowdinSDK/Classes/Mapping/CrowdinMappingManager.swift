@@ -24,12 +24,32 @@ class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
+    // TODO: Remove strings: [String], plurals: [String].
     init(strings: [String], plurals: [String], hash: String, sourceLanguage: String, enterprise: Bool) {
         self.downloader = CrowdinMappingDownloader(enterprise: enterprise)
-        self.downloader.download(strings: strings, plurals: plurals, with: hash, for: sourceLanguage) { (strings, plurals, _) in
-            self.stringsMapping = strings ?? [:]
-            self.plurals = plurals ?? [:]
-            self.extractPluralsMapping()
+        self.downloader.getFiles(for: hash) { (files, error) in
+            if let crowdinFiles = files {
+                let stringsFileNames = crowdinFiles.filter({ $0.isStrings }).map { (string) -> String in
+                    var result = string
+                    result.removeFirst()
+                    return result
+                }
+                
+                let pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict }).map { (string) -> String in
+                    var result = string
+                    result.removeFirst()
+                    return result
+                }
+
+                self.downloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hash, for: sourceLanguage) { (strings, plurals, _) in
+                    self.stringsMapping = strings ?? [:]
+                    self.plurals = plurals ?? [:]
+                    self.extractPluralsMapping()
+                }
+            } else if let error = error {
+                // TODO: Add proper error report:
+                print(error.localizedDescription)
+            }
         }
     }
     
