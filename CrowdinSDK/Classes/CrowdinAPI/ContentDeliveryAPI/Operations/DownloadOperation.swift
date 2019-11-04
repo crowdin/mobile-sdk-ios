@@ -78,8 +78,8 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     var plurals: [AnyHashable: Any]?
     
     init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)", contentDeliveryAPI: contentDeliveryAPI)
+        let filePath = CrowdinPathsParser.shared.parse(filePath, localization: sourceLanguage)
+        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
@@ -101,8 +101,8 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     var strings: [String: String]?
     
     init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([String: String]?, Error?) -> Void)?) {
-        let fileName = String(filePath.split(separator: "/").last ?? "")
-        super.init(hash: hash, filePath: "/\(sourceLanguage)/\(fileName)", contentDeliveryAPI: contentDeliveryAPI)
+        let filePath = CrowdinPathsParser.shared.parse(filePath, localization: sourceLanguage)
+        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     

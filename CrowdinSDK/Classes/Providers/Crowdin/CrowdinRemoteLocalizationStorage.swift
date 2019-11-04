@@ -60,17 +60,8 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.crowdinDownloader.getFiles(for: self.hashString) { [weak self] (files, error) in
             guard let self = self else { return }
             if let crowdinFiles = files {
-                self.stringsFileNames = crowdinFiles.filter({ $0.isStrings }).map({
-                    var result = $0
-                    result.removeFirst()
-                    return result
-                })
-                self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict }).map({
-                    var result = $0
-                    result.removeFirst()
-                    return result
-                })
-                
+                self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
+                self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
                 self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, for: self.localization, completion: { [weak self] strings, plurals, errors in
                     guard let self = self else { return }
                     completion(self.localizations, strings, plurals)

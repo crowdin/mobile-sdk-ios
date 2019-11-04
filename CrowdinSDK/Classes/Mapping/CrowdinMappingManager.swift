@@ -29,18 +29,8 @@ class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         self.downloader = CrowdinMappingDownloader(enterprise: enterprise)
         self.downloader.getFiles(for: hash) { (files, error) in
             if let crowdinFiles = files {
-                let stringsFileNames = crowdinFiles.filter({ $0.isStrings }).map { (string) -> String in
-                    var result = string
-                    result.removeFirst()
-                    return result
-                }
-                
-                let pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict }).map { (string) -> String in
-                    var result = string
-                    result.removeFirst()
-                    return result
-                }
-
+                let stringsFileNames = crowdinFiles.filter({ $0.isStrings })
+                let pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
                 self.downloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hash, for: sourceLanguage) { (strings, plurals, _) in
                     self.stringsMapping = strings ?? [:]
                     self.plurals = plurals ?? [:]
