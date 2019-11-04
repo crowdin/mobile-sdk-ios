@@ -114,8 +114,7 @@ Also you can use your own provider implementation. To get the detailed istructio
 
    ```swift
    let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-      stringsFileNames: ["{path_to_file_with_export_pattern}"], // only language codes are supported
-      pluralsFileNames: ["{path_to_file_with_plurals}"],
+      files: ["{path_to_file_with_export_pattern}"], // only language codes are supported in export pattern
       localizations: [target_languages],
       sourceLanguage: source_language)
 
@@ -124,9 +123,7 @@ Also you can use your own provider implementation. To get the detailed istructio
 
    `your_distribution_hash` - when distribution added you will get your unique hash.
 
-   `path_to_file_with_export_pattern` - files from Crowdin project, translations from which will be sent to the application. Example: `"core.strings", "arrays.strings"`
-
-   `path_to_file_with_plurals` - **plural** files from Crowdin project, translations from which will be sent to the application. Example: `"core.stringsdict"`
+   `path_to_file_with_export_pattern` - files from Crowdin project, translations from which will be sent to the application. Example: `"core.strings", "arrays.strings", "core.stringsdict"`
 
    `target_languages` - target languages are the ones you’re translating to. Example: `"fr","uk","de"`
 
@@ -190,8 +187,7 @@ Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method 
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    stringsFileNames: ["{path_to_file_with_export_pattern}"],
-    pluralsFileNames: ["{path_to_file_with_plurals}"],
+    files: ["{path_to_file_with_export_pattern}"],
     localizations: [{target_languages}],
     sourceLanguage: "{source_language}")
 
@@ -228,8 +224,7 @@ Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method 
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    stringsFileNames: ["{path_to_file_with_export_pattern}"],
-    pluralsFileNames: ["{path_to_file_with_plurals}"],
+    files: ["{path_to_file_with_export_pattern}"],
     localizations: [{target_languages}],
     sourceLanguage: "{source_language}")
 
@@ -265,8 +260,7 @@ Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method 
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-   stringsFileNames: ["{path_to_file_with_export_pattern}"],
-   pluralsFileNames: ["{path_to_file_with_plurals}"],
+   files: ["{path_to_file_with_export_pattern}"],
    localizations: [{target_languages}],
    sourceLanguage: "{source_language}")
 CrowdinSDK.startWithConfig(crowdinProviderConfig)
