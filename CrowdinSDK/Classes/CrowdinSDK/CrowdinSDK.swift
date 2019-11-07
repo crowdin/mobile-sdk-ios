@@ -72,8 +72,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///
     /// - Parameters:
     ///   - hashString: Distribution hash value.
-    ///   - stringsFileNames: Array of names of strings files.
-    ///   - pluralsFileNames: Array of names of plurals files.
     public class func startWithConfig(_ config: CrowdinSDKConfig) {
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()

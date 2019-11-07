@@ -19,16 +19,14 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var localization: String
     var localizations: [String]
     var hashString: String
-    var stringsFileNames: [String]
-    var pluralsFileNames: [String]
+    var stringsFileNames: [String] = []
+    var pluralsFileNames: [String] = []
     var name: String = "Crowdin"
     var enterprise: Bool
     private var crowdinDownloader: CrowdinDownloaderProtocol
     
     init(localization: String, config: CrowdinProviderConfig, enterprise: Bool) {
         self.hashString = config.hashString
-        self.stringsFileNames = config.stringsFileNames
-        self.pluralsFileNames = config.pluralsFileNames
         self.localization = localization
         self.localizations = config.localizations
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
@@ -47,12 +45,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             fatalError("Please add CrowdinLocalizations key to your Info.plist file")
         }
         self.localizations = localizations
-        
-        guard let crowdinFiles = Bundle.main.crowdinFiles else {
-            fatalError("Please add CrowdinFiles key to your Info.plist file")
-        }
-        self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
-        self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {

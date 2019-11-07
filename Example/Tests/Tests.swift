@@ -7,7 +7,6 @@ class CrowdinSDKTests: XCTestCase {
         super.setUp()
         // Setup CrowdinSDK with crowdin sdk with all features:
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "f78819e9fe3a5fe96d2a383b2ozt",
-                                                          files: ["Localizable.strings", "Localizable.stringsdict"],
                                                           localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
 //        let loginConfig = CrowdinLoginConfig(clientId: "XjNxVvoJh6XMf8NGnwuG",

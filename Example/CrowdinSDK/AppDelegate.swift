@@ -44,13 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// Setup CrowdinSDK with crowdin sdk with all features:
 		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
-														  files: ["Localizable.strings", "Localizable.stringsdict"],
 														  localizations: ["en", "de", "uk"],
 														  sourceLanguage: "en")
 		let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
-											 clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
-											 scope: "project.screenshot",
-											 redirectURI: "crowdintest://")
+                                                  clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+                                                  scope: "project.screenshot",
+                                                  redirectURI: "crowdintest://")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)

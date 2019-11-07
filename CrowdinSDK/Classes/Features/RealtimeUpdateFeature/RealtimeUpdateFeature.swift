@@ -14,7 +14,7 @@ protocol RealtimeUpdateFeatureProtocol {
     var error: ((Error) -> Void)? { set get }
     var enabled: Bool { get set }
     
-	init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String, organizationName: String?)
+	init(localization: String, hash: String, sourceLanguage: String, organizationName: String?)
     
     func start(success: (() -> Void)?, error: ((Error) -> Void)?)
     func stop()
@@ -49,12 +49,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    required init(localization: String, strings: [String], plurals: [String], hash: String, sourceLanguage: String, organizationName: String? = nil) {
+    required init(localization: String, hash: String, sourceLanguage: String, organizationName: String? = nil) {
         self.localization = localization
         self.hashString = hash
 		self.organizationName = organizationName
 		self.distributionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
-        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
 		self.downloadDistribution()
     }
 	
