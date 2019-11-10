@@ -192,7 +192,8 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     
     func getFiles(completion: @escaping CrowdinAPIFilesCompletion) {
         let stringURL = buildURL(fileType: .manifest, filePath: ".json")
-        super.get(url: stringURL) { (data, _, error) in
+        super.get(url: stringURL) { [weak self] (data, _, error) in
+            guard self != nil else { return }
             if let data = data {
                 do {
                     let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
