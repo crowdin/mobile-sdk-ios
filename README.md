@@ -10,12 +10,21 @@ The SDK provides:
 * Real-time Preview – all the translations that are done via Editor can be shown in the application in real-time
 * Screenshots – all screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings
 
+For more about Crowdin iOS SDK see the [documentation](https://support.crowdin.com/enterprise/sdk-ios/).
+
+## Status
 
 [![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/issues)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/graphs/commit-activity)
 [![GitHub last commit](https://img.shields.io/github/last-commit/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/commits/master)
 [![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
+
+
+[![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+[![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
+[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+
 
 
 ## Table of Contents
@@ -105,8 +114,7 @@ Also you can use your own provider implementation. To get the detailed istructio
 
    ```swift
    let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-      stringsFileNames: ["{path_to_file_with_export_pattern}"], // only language codes are supported
-      pluralsFileNames: ["{path_to_file_with_plurals}"],
+      files: ["{path_to_file_with_export_pattern}"], // only language codes are supported in export pattern
       localizations: [target_languages],
       sourceLanguage: source_language)
 
@@ -115,9 +123,7 @@ Also you can use your own provider implementation. To get the detailed istructio
 
    `your_distribution_hash` - when distribution added you will get your unique hash.
 
-   `path_to_file_with_export_pattern` - files from Crowdin project, translations from which will be sent to the application. Example: `"core.strings", "arrays.strings"`
-
-   `path_to_file_with_plurals` - **plural** files from Crowdin project, translations from which will be sent to the application. Example: `"core.stringsdict"`
+   `path_to_file_with_export_pattern` - files from Crowdin project, translations from which will be sent to the application. Example: `"core.strings", "arrays.strings", "core.stringsdict"`
 
    `target_languages` - target languages are the ones you’re translating to. Example: `"fr","uk","de"`
 
@@ -181,8 +187,7 @@ Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method 
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    stringsFileNames: ["{path_to_file_with_export_pattern}"],
-    pluralsFileNames: ["{path_to_file_with_plurals}"],
+    files: ["{path_to_file_with_export_pattern}"],
     localizations: [{target_languages}],
     sourceLanguage: "{source_language}")
 
@@ -219,8 +224,7 @@ Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method 
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    stringsFileNames: ["{path_to_file_with_export_pattern}"],
-    pluralsFileNames: ["{path_to_file_with_plurals}"],
+    files: ["{path_to_file_with_export_pattern}"],
     localizations: [{target_languages}],
     sourceLanguage: "{source_language}")
 
@@ -256,8 +260,7 @@ Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method 
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-   stringsFileNames: ["{path_to_file_with_export_pattern}"],
-   pluralsFileNames: ["{path_to_file_with_plurals}"],
+   files: ["{path_to_file_with_export_pattern}"],
    localizations: [{target_languages}],
    sourceLanguage: "{source_language}")
 CrowdinSDK.startWithConfig(crowdinProviderConfig)
@@ -276,7 +279,9 @@ We are happy to accept contributions to the Crowdin iOS SDK. To contribute pleas
 ## Seeking Assistance
 If you find any problems or would like to suggest a feature, please feel free to file an issue on Github at [Issues Page](https://github.com/crowdin/mobile-sdk-ios/issues).
 
-If you've found an error in these samples, please [contact](https://crowdin.com/contacts) our Support Team.
+Need help working with Crowdin iOS SDK or have any questions?
+[Contact Customer Success Service](https://crowdin.com/contacts).
+
 
 ## Author
 
