@@ -26,6 +26,23 @@
     "Core",
     "CrowdinProvider"
   ],
+  "testspecs": [
+    {
+      "name": "Core_Tests",
+      "test_type": "unit",
+      "source_files": "CrowdinSDK/Tests/Core/*.swift"
+    },
+    {
+      "name": "CrowdinProvider_Tests",
+      "test_type": "unit",
+      "source_files": "CrowdinSDK/Tests/CrowdinProvider/*.swift"
+    },
+    {
+      "name": "CrowdinAPI_Tests",
+      "test_type": "unit",
+      "source_files": "CrowdinSDK/Tests/CrowdinAPI/*.swift"
+    }
+  ],
   "subspecs": [
     {
       "name": "Core",
@@ -63,7 +80,7 @@
       "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*",
       "dependencies": {
         "Starscream": [
-
+          "3.0.6"
         ],
         "CrowdinSDK/Login": [
 
