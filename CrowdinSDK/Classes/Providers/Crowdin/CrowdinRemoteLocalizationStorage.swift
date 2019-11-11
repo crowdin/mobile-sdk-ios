@@ -19,16 +19,14 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var localization: String
     var localizations: [String]
     var hashString: String
-    var stringsFileNames: [String]
-    var pluralsFileNames: [String]
+    var stringsFileNames: [String] = []
+    var pluralsFileNames: [String] = []
     var name: String = "Crowdin"
     var enterprise: Bool
     private var crowdinDownloader: CrowdinDownloaderProtocol
     
     init(localization: String, config: CrowdinProviderConfig, enterprise: Bool) {
         self.hashString = config.hashString
-        self.stringsFileNames = config.stringsFileNames
-        self.pluralsFileNames = config.pluralsFileNames
         self.localization = localization
         self.localizations = config.localizations
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
@@ -47,27 +45,32 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             fatalError("Please add CrowdinLocalizations key to your Info.plist file")
         }
         self.localizations = localizations
-        
-        guard let crowdinFiles = Bundle.main.crowdinFiles else {
-            fatalError("Please add CrowdinFiles key to your Info.plist file")
-        }
-        self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
-        self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: self.enterprise)
-        self.crowdinDownloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hashString, for: localization, completion: { [weak self] strings, plurals, errors in
+        self.crowdinDownloader.getFiles(for: self.hashString) { [weak self] (files, error) in
             guard let self = self else { return }
-            completion(self.localizations, strings, plurals)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
-                
-                if let errors = errors {
-                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+            if let crowdinFiles = files {
+                self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
+                self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
+                self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, for: self.localization, completion: { [weak self] strings, plurals, errors in
+                    guard let self = self else { return }
+                    completion(self.localizations, strings, plurals)
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
+                        
+                        if let errors = errors {
+                            NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                        }
+                    }
+                })
+            } else if let error = error {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: [error])
                 }
             }
-        })
+        }
     }
     
     /// Remove add stored E-Tag headers for every file.

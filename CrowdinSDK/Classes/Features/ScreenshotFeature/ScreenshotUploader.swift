@@ -14,8 +14,6 @@ public protocol ScreenshotUploader {
 class CrowdinScreenshotUploader: ScreenshotUploader {
     var organizationName: String? = nil
 	var hash: String
-	var strings: [String]
-	var plurals: [String]
 	var sourceLanguage: String
     
     let distrinbutionsAPI: DistributionsAPI
@@ -29,14 +27,12 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		case unknownError = "Unknown error"
 	}
 	
-	init(organizationName: String? = nil, strings: [String], plurals: [String], hash: String, sourceLanguage: String) {
+	init(organizationName: String? = nil, hash: String, sourceLanguage: String) {
         self.organizationName = organizationName
-		self.strings = strings
-		self.plurals = plurals
 		self.hash = hash
 		self.distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
 		self.sourceLanguage = sourceLanguage
-        self.mappingManager = CrowdinMappingManager(strings: strings, plurals: plurals, hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {

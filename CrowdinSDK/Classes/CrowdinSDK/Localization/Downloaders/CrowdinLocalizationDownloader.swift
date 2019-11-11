@@ -79,4 +79,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         operationQueue.addOperation(completionBlock)
     }
+    
+    func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI.getFiles(completion: completion)
+    }
 }

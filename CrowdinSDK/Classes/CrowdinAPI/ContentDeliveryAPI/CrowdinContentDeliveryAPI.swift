@@ -16,9 +16,11 @@ enum CrowdinContentDeliveryAPIError: Error {
 
 typealias CrowdinAPIStringsResult = (strings: [String: String]?, error: CrowdinContentDeliveryAPIError?)
 typealias CrowdinAPIPluralsResult = (plurals: [AnyHashable: Any]?, error: CrowdinContentDeliveryAPIError?)
+typealias CrowdinAPIFilesResult = (files: [String]?, error: CrowdinContentDeliveryAPIError?)
 
 typealias CrowdinAPIStringsCompletion = (([String: String]?, CrowdinContentDeliveryAPIError?) -> Void)
 typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, CrowdinContentDeliveryAPIError?) -> Void)
+typealias CrowdinAPIFilesCompletion = (([String]?, CrowdinContentDeliveryAPIError?) -> Void)
 
 protocol CrowdinContentDeliveryProtolol {
     func getPlurals(filePath: String, completion: @escaping CrowdinAPIPluralsCompletion)
@@ -29,6 +31,7 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     fileprivate enum FileType: String {
         case content
         case mapping
+        case manifest
     }
     
     fileprivate enum Strings: String {
@@ -185,5 +188,22 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
             return (nil, CrowdinContentDeliveryAPIError.parsingError(filePath: filePath))
         }
         return (dictionary, nil)
+    }
+    
+    func getFiles(completion: @escaping CrowdinAPIFilesCompletion) {
+        let stringURL = buildURL(fileType: .manifest, filePath: ".json")
+        super.get(url: stringURL) { [weak self] (data, _, error) in
+            guard self != nil else { return }
+            if let data = data {
+                do {
+                    let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
+                    completion(response.files, nil)
+                } catch {
+                    completion(nil, .error(error: error))
+                }
+            } else {
+                completion(nil, .error(error: error))
+            }
+        }
     }
 }
