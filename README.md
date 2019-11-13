@@ -14,17 +14,15 @@ For more about Crowdin iOS SDK see the [documentation](https://support.crowdin.c
 
 ## Status
 
-[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/issues)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/graphs/commit-activity)
-[![GitHub last commit](https://img.shields.io/github/last-commit/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/commits/master)
-[![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
-[![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/commit-activity)
+[![GitHub last commit](https://img.shields.io/github/last-commit/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/commits/master)
+[![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
+[![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
 
-
-[![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+[![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines&cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
 [![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
-[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
-
+[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master?cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
 
 
 ## Table of Contents
