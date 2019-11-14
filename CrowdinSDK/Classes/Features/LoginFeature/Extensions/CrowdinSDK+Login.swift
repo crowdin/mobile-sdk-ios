@@ -12,6 +12,7 @@ extension CrowdinSDK {
 		// TODO: Add error log if feature isn't configured.
 		guard let config = CrowdinSDK.config else { return }
 		guard let loginConfig = config.loginConfig else { return }
-		LoginFeature.configureWith(with: loginConfig)
+        guard let hash = config.crowdinProviderConfig?.hashString else { return }
+        LoginFeature.configureWith(with: hash, loginConfig: loginConfig)
 	}
 }
