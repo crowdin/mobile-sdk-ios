@@ -10,7 +10,7 @@ import Foundation
 protocol LoginFeatureProtocol {
 	static var shared: Self? { get }
 	static var isLogined: Bool { get }
-	static func configureWith(with config: CrowdinLoginConfig)
+	static func configureWith(with hash: String, loginConfig: CrowdinLoginConfig)
 	
 	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
 	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
@@ -24,14 +24,28 @@ final class LoginFeature: LoginFeatureProtocol {
 	
     private var loginAPI: LoginAPI
     
-	init(config: CrowdinLoginConfig) {
+    init(hash: String, config: CrowdinLoginConfig) {
 		self.config = config
         self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI, organizationName: config.organizationName)
+        if self.hash != hash {
+            self.logout()
+        }
+        self.hash = hash
 	}
 	
-	static func configureWith(with loginConfig: CrowdinLoginConfig) {
-		LoginFeature.shared = LoginFeature(config: loginConfig)
+    static func configureWith(with hash: String, loginConfig: CrowdinLoginConfig) {
+        LoginFeature.shared = LoginFeature(hash: hash, config: loginConfig)
 	}
+    
+    var hash: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "crowdin.hash.key")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            return UserDefaults.standard.string(forKey: "crowdin.hash.key") ?? ""
+        }
+    }
 	
 	var tokenExpirationDate: Date? {
 		set {
@@ -93,5 +107,3 @@ final class LoginFeature: LoginFeatureProtocol {
         return loginAPI.hadle(url: url)
 	}
 }
-
-
