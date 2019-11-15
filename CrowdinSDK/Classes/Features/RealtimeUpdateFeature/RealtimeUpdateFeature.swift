@@ -55,7 +55,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
 		self.organizationName = organizationName
 		self.distributionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
-		self.downloadDistribution()
     }
 	
 	func downloadDistribution(with completion: ((Bool) -> Void)? = nil) {
