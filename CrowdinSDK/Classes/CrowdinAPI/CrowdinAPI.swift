@@ -7,8 +7,13 @@
 
 import Foundation
 
+protocol CrowdinAuth {
+    var accessToken: String? { get }
+}
+
 class CrowdinAPI: BaseAPI {
     let organizationName: String?
+    let auth: CrowdinAuth?
     var baseURL: String {
         if let organizationName = organizationName {
             return "https://\(organizationName).crowdin.com/api/v2/"
@@ -24,8 +29,9 @@ class CrowdinAPI: BaseAPI {
         return baseURL + apiPath
     }
     
-    init(organizationName: String? = nil, session: URLSession = .shared) {
+    init(organizationName: String? = nil, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
         self.organizationName = organizationName
+        self.auth = auth
         super.init(session: session)
     }
     
@@ -91,8 +97,7 @@ class CrowdinAPI: BaseAPI {
     
     func authorized(_ headers: [String: String]?) -> [String: String] {
         var result = headers ?? [:]
-        // TODO: Move LoginFeature as dependency.
-        guard let accessToken = LoginFeature.shared?.accessToken else { return result }
+        guard let accessToken = auth?.accessToken else { return result }
         result["Authorization"] = "Bearer \(accessToken)"
         return result
     }

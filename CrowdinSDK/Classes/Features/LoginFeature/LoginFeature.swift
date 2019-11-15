@@ -17,7 +17,7 @@ protocol LoginFeatureProtocol {
 	func logout()
 }
 
-final class LoginFeature: LoginFeatureProtocol {
+final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
 	var config: CrowdinLoginConfig
 	
 	static var shared: LoginFeature?
