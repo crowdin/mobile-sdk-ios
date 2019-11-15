@@ -20,7 +20,7 @@ pod 'CrowdinSDK'
 
 To install from cocoapods spec repository (**!!!Will be available after publishing repo to cocoapods podspecs repo!!!**):
 
-```
+```ruby
 target 'App' do
   use_frameworks!
   pod 'CrowdinSDK'
@@ -29,7 +29,7 @@ end
 
 To install from gitlab repository (**This option will be removed from this document in the future. This option is needed only for testing.**):
 
-```
+```ruby
 target 'App' do
   use_frameworks!
   pod 'CrowdinSDK', :git => 'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
@@ -39,7 +39,7 @@ end
 
 To install from local sources (**This option will be removed from this document in the future. This option is needed only for testing.**):
 
-```
+```ruby
 target 'App' do
   use_frameworks!
   pod 'CrowdinSDK', :path => '../../CrowdinSDK' - where '../../CrowdinSDK' is path to local sources.
@@ -48,7 +48,7 @@ end
 
 To enable all available features of SDK you can add following lines to your pod file: 
 
-```
+```ruby
 target 'App' do
   use_frameworks!
   pod 'CrowdinSDK', :git =>'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git', :branch => 'develop'
@@ -67,7 +67,11 @@ After you've added CrowdinSDK and all needed features to your Podfile, please ru
 
 ## Subspecs
 
-CrowdinSDK divided to separate parts called subspecs. To install some of these parts via cocoapods you'll need to add ```pod 'CrowdinSDK/Subspec_Name'``` in your pod file.
+CrowdinSDK divided to separate parts called subspecs. To install some of these parts via cocoapods you'll need to add 
+```ruby
+pod 'CrowdinSDK/Subspec_Name'
+``` 
+in your pod file.
 
 CrowdinSDK contains several submodules:
 
@@ -89,23 +93,29 @@ This is default submodule, that means if you setup SDK via cocapods with ```pod 
 
 
 To setup this feature you need to setup ```CrowdinProviderConfig``` object with the following parameters:
- - hashString - Crowdin content delivery hash.
- - stringsFileNames - array of all file names for files with .strings extension (files with strings). This names can contain custom file paths.
- - pluralsFileNames - array of all file names for files with .stringsdict extension (files with plurals). This names can contains custom file paths.
+ - hashString - Crowdin content delivery hash string.
  - localizations - list of all available localizations on crowdin server.
  - sourceLanguage - project source language on crowdin server.
 
-Example: 
+Example:
+
+```swift
+let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}, 
+                                                  localizations: [target_languages], 
+                                                  sourceLanguage: source_language)
 ```
-let crowdinProviderConfig = CrowdinProviderConfig(hashString: "1c2f58c7c711435295d2408106i", stringsFileNames: ["/%osx_locale%/Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"], sourceLanguage: "en")
-```
+
 Than you need to setup CrowdinSDKConfig with just created screenshots config object:
 
-```let config = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)```
+```swift
+let config = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+```
 
 And start SDK with this config:
 
-```CrowdinSDK.startWithConfig(config)```
+```swift
+CrowdinSDK.startWithConfig(config)
+```
 
 
 #### Dependencies:
@@ -114,7 +124,11 @@ And start SDK with this config:
 
 ### CrowdinAPI
 
-Crowdin API implementation to work with crowdin server. To enable this feature please add pod 'CrowdinSDK/CrowdinAPI' to your pod file.
+Crowdin API implementation to work with crowdin server. To enable this feature please add
+```ruby
+pod 'CrowdinSDK/CrowdinAPI'
+```
+to your pod file.
 
 ### MappingManager
 
@@ -125,30 +139,39 @@ All classes related to strings mapping downloading and parsing. This subspec is 
 
 Contains all functionality related to screenshots feature. To enable this feature please add pod 'CrowdinSDK/Screenshots' to your pod file.
 
-To setup this feature you need to setup CrowdinScreenshotsConfig object  with the following parameters:
+To setup this feature you need to setup LoginConfig object as this functionality requires autentification. Example:
 
-- login - user's login on crowdin server.
-- accountKey - user's account API key.
-- credentials - credentials constant which is basically base64 encoded string from test user login /password for basic authorization to for screenshots API.
+```swift
+let loginConfig = try! CrowdinLoginConfig(clientId: client_id,
+                                      clientSecret: client_secret,
+                                             scope: scope,
+                                       redirectURI: redirect_url,
+                                  organizationName: organization_name)
+```
 
-Example: 
-```
-let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
-let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
-```
+- client_id - 
+- client_secret -
+- scope - 
+- redirect_url - 
+
 Than you need to setup CrowdinSDKConfig with just created screenshots config object:
 
-```let config = CrowdinSDKConfig.config().with(crowdinScreenshotsConfig: crowdinScreenshotsConfig)```
+```swift
+let config = CrowdinSDKConfig.config().with(loginConfig: loginConfig)
+                                      .with(screenshotsEnabled: true)
+```
 
 And start SDK with this config:
 
-```CrowdinSDK.startWithConfig(config)```
+```swift
+CrowdinSDK.startWithConfig(config)
+```
 
 To create screenshot for currently displaing screen you need to call CrowdinSDK function ``` func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void))```
 
 Example:
 
-```
+```swift
 CrowdinSDK.captureScreenshot(name: "My awesome screenshot", success: {
             
 }) { (error) in
@@ -172,17 +195,24 @@ Contains all functionality related to real-time updates feature. To enable this 
 
 To setup this feature you need to setup CrowdinSDKConfig object. Example: 
 
-```let config = CrowdinSDKConfig.config().with(reatimeUpdatesEnabled: true)```
+```swift
+let config = CrowdinSDKConfig.config().with(reatimeUpdatesEnabled: true)
+```
 
 And start SDK with this config:
 
-```CrowdinSDK.startWithConfig(config)```
+```swift
+CrowdinSDK.startWithConfig(config)
+```
 
-To start realtime updates you can call CrowdinSDK function ```func startRealtimeUpdates(success: (() -> Void)?, error: ((Error) -> Void)?)```
+To start realtime updates you can call CrowdinSDK function 
+```swift
+func startRealtimeUpdates(success: (() -> Void)?, error: ((Error) -> Void)?)
+```
 
 Example:
 
-```
+```swift
 CrowdinSDK.startRealtimeUpdates(success: {
             
 }) { (error) in
@@ -194,7 +224,9 @@ To stop realtime updates you need to call CrowdinSDK function ```func stopRealti
 
 Example:
 
-```CrowdinSDK.stopRealtimeUpdates()```
+```swift
+CrowdinSDK.stopRealtimeUpdates()
+```
 
 #### Dependencies:
 - [CrowdinSDK/Core](#core)
@@ -204,7 +236,7 @@ Example:
 
 ### RefreshLocalization
 
-Contains functionality to force refresh localization strings. To enable this feature please add pod 'CrowdinSDK/RefreshLocalization' to your pod file.
+Contains functionality to force refresh localization strings. To enable this feature please add ```pod 'CrowdinSDK/RefreshLocalization'``` to your pod file.
 
 #### Dependencies:
 - [CrowdinSDK/Core](#core)
@@ -212,21 +244,21 @@ Contains functionality to force refresh localization strings. To enable this fea
 
 ### Login
 
-Contains login functionality. To enable this feature please add pod 'CrowdinSDK/Login' to your pod file.
+Contains login functionality. To enable this feature please add ```pod 'CrowdinSDK/Login'``` to your pod file.
 
-To set up this feature you need to setup create CrowdinLoginConfig object and pass it to CrowdinSDKConfig. 
+To set up this feature you need to setup create ```CrowdinLoginConfig``` object and pass it to CrowdinSDKConfig. 
 
 For configuration you should have client id, client secret, scopes, and redirect URL scheme. 
 
-``` swift
-let loginConfig = CrowdinLoginConfig(clientId: "test-sdk",
-                                 clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
-                                      	scope: "project.content.screenshots",
-                                  redirectURI: "crowdintest://")
+```swift
+let loginConfig = CrowdinLoginConfig(clientId: client_id,
+                                 clientSecret: client_secret,
+                                          scope: scope,
+                                  redirectURI: redirect_uri)
                                              
 let crowdinSDKConfig = CrowdinSDKConfig.config().
-												...
-												.with(loginConfig: loginConfig)
+                                                ...
+                                                .with(loginConfig: loginConfig)
 ```
 
 Note: You should configure Authorization feature to use Almost any API calls, screenshots or realtime updates.
@@ -237,13 +269,15 @@ Contains functionality for update localization strings every defined time interv
 
 To set up this feature you need to setup CrowdinSDKConfig object. Example: 
 
-with(reatimeUpdatesEnabled: true)
-
-```let config = CrowdinSDKConfig.config().with(intervalUpdatesEnabled: true, interval: 5 * 60))```
+```swift
+let config = CrowdinSDKConfig.config().with(intervalUpdatesEnabled: true, interval: 5 * 60))
+```
 
 And start SDK with this config:
 
-```CrowdinSDK.startWithConfig(config)```
+```swift
+CrowdinSDK.startWithConfig(config)
+```
 
 #### Dependencies:
 - [CrowdinSDK/CrowdinAPI](#CrowdinAPI)
@@ -277,8 +311,6 @@ Buttons and it's states explenation:
 - [CrowdinSDK/RefreshLocalization](#RefreshLocalization)
 - [CrowdinSDK/IntervalUpdate](#IntervalUpdate)
 
-
-
 ## Setup
 
 There are two ways to setup CrowdinSDK: 
@@ -298,10 +330,9 @@ In ```func application(_ application: UIApplication, didFinishLaunchingWithOptio
 launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool``` method add your setup code: 
 
 ```swift
-*1*        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "1c2f58c7c711435295d2408106i", stringsFileNames: ["/%osx_locale%/Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"], sourceLanguage: "en")
-*2*        let credentials = "YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM="
-*3*        let crowdinScreenshotsConfig = CrowdinScreenshotsConfig(login: "serhii.londar", accountKey: "1267e86b748b600eb851f1c45f8c44ce", credentials: credentials)
-*4*    CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(crowdinScreenshotsConfig: crowdinScreenshotsConfig).with(settingsEnabled: true))
+*1* let crowdinProviderConfig = CrowdinProviderConfig(...)
+*2* let loginConfig = LoginConfig(...)
+*3* CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig).with(intervalUpdatesEnabled: true, interval: 60).with(reatimeUpdatesEnabled: true).with(loginConfig: loginConfig).with(settingsEnabled: true).with(loginConfig: loginConfig))
 ```
 
 1. Initialize CrowdinProviderConfig with following parameters:
@@ -331,9 +362,7 @@ In AppDelegate.m file add:
 In ```- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions``` method add: 
 
 ```objective-c
-    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"53376706833043f14491518106i" stringsFileNames:@[@"Localizable.strings"] pluralsFileNames:@[@"Localizable.stringsdict"] localizations:@[@"en", @"de"] sourceLanguage:@"en"];
-    NSString *credentials = @"YXBpLXRlc3RlcjpWbXBGcVR5WFBxM2ViQXlOa3NVeEh3aEM=";
-    CrowdinScreenshotsConfig *screenshotsConfig = [[CrowdinScreenshotsConfig alloc] initWithLogin:@"serhii.londar" accountKey:@"1267e86b748b600eb851f1c45f8c44ce" credentials:credentials];
+    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" stringsFileNames:@[@""] pluralsFileNames:@[@""] localizations:@[] sourceLanguage:@""];
     CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withCrowdinScreenshotsConfig: screenshotsConfig];
     [CrowdinSDK startWithConfig:config];
 ```
