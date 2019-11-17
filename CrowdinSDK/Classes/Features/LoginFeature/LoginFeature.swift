@@ -31,6 +31,7 @@ final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
             self.logout()
         }
         self.hash = hash
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUnautorizedResponse), name: .CrowdinAPIUnautorizedNotification, object: nil)
 	}
 	
     static func configureWith(with hash: String, loginConfig: CrowdinLoginConfig) {
@@ -106,4 +107,12 @@ final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
 	func hadle(url: URL) -> Bool {
         return loginAPI.hadle(url: url)
 	}
+    
+    @objc func receiveUnautorizedResponse() {
+        logout()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
