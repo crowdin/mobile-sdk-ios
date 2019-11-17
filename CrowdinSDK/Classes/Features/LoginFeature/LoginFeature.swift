@@ -109,7 +109,13 @@ final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
 	}
     
     @objc func receiveUnautorizedResponse() {
-        logout()
+        // Try to refresh token.
+        if let refreshToken = tokenResponse?.refreshToken, let response = loginAPI.refreshTokenSync(refreshToken: refreshToken) {
+            self.tokenExpirationDate = Date(timeIntervalSinceNow: TimeInterval(response.expiresIn))
+            self.tokenResponse = response
+        } else {
+            logout()
+        }
     }
     
     deinit {
