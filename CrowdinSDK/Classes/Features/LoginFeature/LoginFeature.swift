@@ -17,7 +17,7 @@ protocol LoginFeatureProtocol {
 	func logout()
 }
 
-final class LoginFeature: LoginFeatureProtocol {
+final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
 	var config: CrowdinLoginConfig
 	
 	static var shared: LoginFeature?
@@ -31,6 +31,7 @@ final class LoginFeature: LoginFeatureProtocol {
             self.logout()
         }
         self.hash = hash
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUnautorizedResponse), name: .CrowdinAPIUnautorizedNotification, object: nil)
 	}
 	
     static func configureWith(with hash: String, loginConfig: CrowdinLoginConfig) {
@@ -106,4 +107,18 @@ final class LoginFeature: LoginFeatureProtocol {
 	func hadle(url: URL) -> Bool {
         return loginAPI.hadle(url: url)
 	}
+    
+    @objc func receiveUnautorizedResponse() {
+        // Try to refresh token.
+        if let refreshToken = tokenResponse?.refreshToken, let response = loginAPI.refreshTokenSync(refreshToken: refreshToken) {
+            self.tokenExpirationDate = Date(timeIntervalSinceNow: TimeInterval(response.expiresIn))
+            self.tokenResponse = response
+        } else {
+            logout()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }

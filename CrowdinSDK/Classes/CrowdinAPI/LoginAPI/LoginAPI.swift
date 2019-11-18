@@ -88,7 +88,8 @@ class LoginAPI: BaseAPI {
     }
     
     func refreshToken(refreshToken: String, success: ((TokenResponse) -> Void)?, error: ((Error) -> Void)?) {
-        var request = URLRequest(url: URL(string: tokenStringURL)!)
+        guard let url = URL(string: tokenStringURL) else { return }
+        var request = URLRequest(url: url)
         let tokenRequest = RefreshTokenRequest(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, refreshToken: refreshToken)
         request.httpBody = try? JSONEncoder().encode(tokenRequest)
         request.allHTTPHeaderFields = [:]

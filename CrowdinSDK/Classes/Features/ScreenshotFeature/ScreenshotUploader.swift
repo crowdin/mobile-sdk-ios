@@ -15,8 +15,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
     var organizationName: String? = nil
 	var hash: String
 	var sourceLanguage: String
-    
-    let distrinbutionsAPI: DistributionsAPI
 	
 	var mappingManager: CrowdinMappingManagerProtocol
 	var projectId: Int? = nil
@@ -30,7 +28,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	init(organizationName: String? = nil, hash: String, sourceLanguage: String) {
         self.organizationName = organizationName
 		self.hash = hash
-		self.distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
 		self.sourceLanguage = sourceLanguage
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
 	}
@@ -51,6 +48,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+        let distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName, auth: LoginFeature.shared)
 		distrinbutionsAPI.getDistribution { (response, error) in
 			if let error = error {
 				errorHandler?(error)
@@ -75,8 +73,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		
 		let values = self.proceed(controlsInformation: controlsInformation)
 		guard let data = screenshot.pngData() else { return }
-		let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName)
-        let storageAPI = StorageAPI(organizationName: organizationName)
+		let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: LoginFeature.shared)
+        let storageAPI = StorageAPI(organizationName: organizationName, auth: LoginFeature.shared)
 		storageAPI.uploadNewFile(data: data, completion: { response, error in
 			if let error = error {
 				errorHandler?(error)

@@ -32,7 +32,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     var hashString: String
     let organizationName: String?
 	
-	let distributionsAPI: DistributionsAPI
 	var distributionResponse: DistributionsResponse? = nil
 	
     var active: Bool { return socketManger?.active ?? false }
@@ -53,13 +52,13 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.localization = localization
         self.hashString = hash
 		self.organizationName = organizationName
-		self.distributionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName)
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
     }
 	
 	func downloadDistribution(with completion: ((Bool) -> Void)? = nil) {
 		// TODO: Add better error handling.
-		self.distributionsAPI.getDistribution { (response, error) in
+        let distributionsAPI = DistributionsAPI(hashString: self.hashString, organizationName: organizationName, auth: LoginFeature.shared)
+		distributionsAPI.getDistribution { (response, error) in
 			self.distributionResponse = response
 			completion?(error == nil && response != nil)
 		}
