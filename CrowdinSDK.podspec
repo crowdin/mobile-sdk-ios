@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '0.0.6'
-  spec.summary          = 'A short description of CrowdinSDK.'
+  spec.version          = '1.0.0'
+  spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,13 +18,21 @@ Pod::Spec.new do |spec|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   
   spec.description      = <<-DESC
-  TODO: Add long description of the pod here.
+  
+  Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately. So there is no need to update this application via App Store to get the new version with the localization.
+
+  The SDK provides:
+
+  Over-The-Air Content Delivery – the localized files can be sent to the application from the project whenever needed
+  Real-time Preview – all the translations that are done via Editor can be shown in the application in real-time
+  Screenshots – all screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings
+  
   DESC
   
-  spec.homepage         = 'https://github.com/Serhii Londar/CrowdinSDK'
+  spec.homepage         = 'https://github.com/crowdin/mobile-sdk-ios'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
-  spec.source           = { :git => 'https://github.com/Serhii Londar/CrowdinSDK.git', :tag => spec.version.to_s }
+  spec.source           = { :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :tag => spec.version.to_s }
   spec.social_media_url    = 'https://twitter.com/serhii_londar'
   
   spec.ios.deployment_target = '9.0'
