@@ -10,8 +10,6 @@ The SDK provides:
 * Real-time Preview – all the translations that are done via Editor can be shown in the application in real-time
 * Screenshots – all screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings
 
-For more about Crowdin iOS SDK see the [documentation](https://support.crowdin.com/enterprise/sdk-ios/).
-
 ## Status
 
 [![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
