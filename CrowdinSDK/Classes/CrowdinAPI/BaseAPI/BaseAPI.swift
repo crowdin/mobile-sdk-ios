@@ -25,7 +25,6 @@ open class BaseAPI {
         session.dataTask(with: request, completionHandler: completion).resume()
     }
     
-    
     func send(request: URLRequest) -> BaseAPIResult {
         return session.synchronousDataTask(request: request)
     }
