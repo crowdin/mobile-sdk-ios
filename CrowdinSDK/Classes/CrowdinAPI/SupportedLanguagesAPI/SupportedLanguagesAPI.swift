@@ -17,7 +17,7 @@ class SupportedLanguagesAPI: CrowdinAPI {
         return "https://api.crowdin.com/api/"
     }
     
-    let parameters = [Strings.json.rawValue: String.empty]
+    let parameters = [Strings.json.rawValue: ""]
     
     override var apiPath: String { return Strings.supportedLanguages.rawValue }
     

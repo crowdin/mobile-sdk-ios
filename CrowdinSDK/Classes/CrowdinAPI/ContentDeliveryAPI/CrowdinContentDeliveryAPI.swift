@@ -64,7 +64,7 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     }
     
     private func buildURL(fileType: FileType, filePath: String) -> String {
-        return baseURL + String.pathDelimiter + hash + String.pathDelimiter + fileType.rawValue + filePath
+        return baseURL + "/" + hash + "/" + fileType.rawValue + filePath
     }
     
     // MARK - General download methods

@@ -1,26 +1,45 @@
 PODS:
-  - CrowdinSDK (0.0.6):
-    - CrowdinSDK/Core (= 0.0.6)
-    - CrowdinSDK/CrowdinProvider (= 0.0.6)
-  - CrowdinSDK/Core (0.0.6)
-  - CrowdinSDK/CrowdinAPI (0.0.6):
+  - CrowdinSDK (1.0.0):
+    - CrowdinSDK/Core (= 1.0.0)
+    - CrowdinSDK/CrowdinProvider (= 1.0.0)
+  - CrowdinSDK/Core (1.0.0)
+  - CrowdinSDK/CrowdinAPI (1.0.0):
     - CrowdinSDK/Login
     - Starscream (= 3.0.6)
-  - CrowdinSDK/CrowdinProvider (0.0.6):
+  - CrowdinSDK/CrowdinProvider (1.0.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (0.0.6)
-  - CrowdinSDK/Login (0.0.6)
-  - CrowdinSDK/Mapping (0.0.6):
+    - CrowdinSDK/LocalizationDownloader
+  - CrowdinSDK/IntervalUpdate (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/LocalizationDownloader (1.0.0):
+    - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/RealtimeUpdate (0.0.6):
+  - CrowdinSDK/Login (1.0.0):
+    - CrowdinSDK/Core
+  - CrowdinSDK/MappingDownloader (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/RealtimeUpdate (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/Login
-    - CrowdinSDK/Mapping
-  - CrowdinSDK/RefreshLocalization (0.0.6)
-  - CrowdinSDK/Screenshots (0.0.6):
+    - CrowdinSDK/MappingDownloader
+  - CrowdinSDK/RefreshLocalization (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/Screenshots (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/Login
-    - CrowdinSDK/Mapping
-  - CrowdinSDK/Settings (0.0.6):
+    - CrowdinSDK/MappingDownloader
+  - CrowdinSDK/Settings (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/IntervalUpdate
     - CrowdinSDK/RealtimeUpdate
     - CrowdinSDK/RefreshLocalization
@@ -136,7 +155,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 59846d8bb48d224228646ae4ba22cc7f819a87e5
+  CrowdinSDK: b6a1db811f7b104e2ec62a81ff6d3f4be196222f
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0

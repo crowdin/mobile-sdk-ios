@@ -26,7 +26,7 @@ class CrowdinAPI: BaseAPI {
     }
     
     var apiPath: String {
-        return .empty
+        return ""
     }
     
     var fullPath: String {
