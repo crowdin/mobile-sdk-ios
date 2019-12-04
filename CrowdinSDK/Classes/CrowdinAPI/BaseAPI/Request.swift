@@ -8,6 +8,7 @@
 import Foundation
 
 class Request {
+    fileprivate let defaultCrowdinErrorCode = 9999
     var url: String
     var method: RequestMethod
     var parameters: [String: String]?

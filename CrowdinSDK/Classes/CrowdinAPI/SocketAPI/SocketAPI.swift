@@ -9,6 +9,7 @@ import Foundation
 import Starscream
 
 class SocketAPI: NSObject {
+    fileprivate let defaultCrowdinErrorCode = 9999
     let hashString: String
 	let projectId: String
 	let projectWsHash: String

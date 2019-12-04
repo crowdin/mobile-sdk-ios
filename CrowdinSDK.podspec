@@ -77,7 +77,6 @@ Pod::Spec.new do |spec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
     subspec.dependency 'Starscream', '3.0.6'
-    subspec.dependency 'CrowdinSDK/Login'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
@@ -87,9 +86,8 @@ Pod::Spec.new do |spec|
   spec.subspec 'MappingDownloader' do |mapping|
       mapping.name = 'MappingDownloader'
       mapping.source_files = 'CrowdinSDK/Classes/MappingDownloader/*.swift'
-      mapping.dependency 'CrowdinSDK/CrowdinAPI'
       mapping.dependency 'CrowdinSDK/Core'
-      mapping.dependency 'CrowdinSDK/CrowdinProvider'
+      mapping.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
   spec.subspec 'LocalizationDownloader' do |mapping|
@@ -102,21 +100,21 @@ Pod::Spec.new do |spec|
   spec.subspec 'Screenshots' do |feature|
     feature.name = 'Screenshots'
     feature.source_files = 'CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/Login'
     feature.dependency 'CrowdinSDK/MappingDownloader'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
+    feature.dependency 'CrowdinSDK/LoginFeature'
   end
   
   spec.subspec 'RealtimeUpdate' do |feature|
     feature.name = 'RealtimeUpdate'
     feature.source_files = 'CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift'
-    feature.dependency 'CrowdinSDK/Login'
     feature.dependency 'CrowdinSDK/MappingDownloader'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
+    feature.dependency 'CrowdinSDK/LoginFeature'
   end
   
   spec.subspec 'RefreshLocalization' do |feature|
@@ -124,10 +122,11 @@ Pod::Spec.new do |spec|
     feature.source_files = 'CrowdinSDK/Classes/Features/RefreshLocalizationFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
+    feature.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
-  spec.subspec 'Login' do |feature|
-    feature.name = 'Login'
+  spec.subspec 'LoginFeature' do |feature|
+    feature.name = 'LoginFeature'
     feature.source_files = 'CrowdinSDK/Classes/Features/LoginFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
   end
@@ -141,6 +140,7 @@ Pod::Spec.new do |spec|
     feature.source_files = 'CrowdinSDK/Classes/Features/IntervalUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
+    feature.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
   spec.subspec 'Settings' do |settings|
@@ -153,5 +153,7 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/IntervalUpdate'
     settings.dependency 'CrowdinSDK/Core'
     settings.dependency 'CrowdinSDK/CrowdinProvider'
+    settings.dependency 'CrowdinSDK/CrowdinAPI'
+    settings.dependency 'CrowdinSDK/LoginFeature'
   end
 end

@@ -8,6 +8,7 @@
 import Foundation
 
 class LoginAPI: BaseAPI {
+    fileprivate let defaultCrowdinErrorCode = 9999
     var organizationName: String?
     var clientId: String
     var clientSecret: String
@@ -82,7 +83,7 @@ class LoginAPI: BaseAPI {
             } else if let error = error {
                 errorHandler?(error)
             } else {
-                errorHandler?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
+                errorHandler?(NSError(domain: "Unknown error", code: self.defaultCrowdinErrorCode, userInfo: nil))
             }
         }
     }
@@ -107,7 +108,7 @@ class LoginAPI: BaseAPI {
             } else if let error = error {
                 errorHandler?(error)
             } else {
-                errorHandler?(NSError(domain: "Unknown error", code: defaultCrowdinErrorCode, userInfo: nil))
+                errorHandler?(NSError(domain: "Unknown error", code: self.defaultCrowdinErrorCode, userInfo: nil))
             }
         }
     }

@@ -184,10 +184,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
     }
-	
-	public class func handle(url: URL) -> Bool {
-		return LoginFeature.shared?.hadle(url: url) ?? false
-	}
 }
 
 extension CrowdinSDK {
