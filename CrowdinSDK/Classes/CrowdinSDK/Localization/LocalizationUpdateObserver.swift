@@ -31,8 +31,8 @@ class LocalizationUpdateObserver {
     }
     
     func subscribe() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didDownloadLocalization), name: NSNotification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(downloadError(with:)), name: NSNotification.Name.CrowdinProviderDownloadError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didDownloadLocalization), name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(downloadError(with:)), name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: nil)
     }
     
     func unsubscribe() {

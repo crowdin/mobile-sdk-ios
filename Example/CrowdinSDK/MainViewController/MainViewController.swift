@@ -53,8 +53,6 @@ class MainViewController: BaseMenuVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didDownloadLocalization), name: Notification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
-        
         self.title = NSLocalizedString("main_title", comment: "")
     }
     
