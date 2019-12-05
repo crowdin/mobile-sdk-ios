@@ -84,24 +84,9 @@ Pod::Spec.new do |spec|
     test_spec.source_files = 'CrowdinSDK/Tests/CrowdinAPI/*.swift'
   end
   
-#  spec.subspec 'MappingDownloader' do |mapping|
-#      mapping.name = 'MappingDownloader'
-#      mapping.source_files = 'CrowdinSDK/Classes/MappingDownloader/*.swift'
-#      mapping.dependency 'CrowdinSDK/Core'
-#      mapping.dependency 'CrowdinSDK/CrowdinAPI'
-#  end
-  
-#  spec.subspec 'LocalizationDownloader' do |mapping|
-#      mapping.name = 'LocalizationDownloader'
-#      mapping.source_files = 'CrowdinSDK/Classes/LocalizationDownloader/*.swift'
-#      mapping.dependency 'CrowdinSDK/Core'
-#      mapping.dependency 'CrowdinSDK/CrowdinAPI'
-#  end
-  
   spec.subspec 'Screenshots' do |feature|
     feature.name = 'Screenshots'
     feature.source_files = 'CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift'
-#    feature.dependency 'CrowdinSDK/MappingDownloader'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -111,7 +96,6 @@ Pod::Spec.new do |spec|
   spec.subspec 'RealtimeUpdate' do |feature|
     feature.name = 'RealtimeUpdate'
     feature.source_files = 'CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift'
-#    feature.dependency 'CrowdinSDK/MappingDownloader'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -130,12 +114,10 @@ Pod::Spec.new do |spec|
     feature.name = 'LoginFeature'
     feature.source_files = 'CrowdinSDK/Classes/Features/LoginFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
+    feature.dependency 'CrowdinSDK/CrowdinProvider'
+    feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'BaseAPI', '0.1.7'
   end
-  
-#  spec.test_spec 'Login_Tests' do |test_spec|
-#    test_spec.source_files = 'CrowdinSDK/Tests/Login/*.swift'
-#  end
   
   spec.subspec 'IntervalUpdate' do |feature|
     feature.name = 'IntervalUpdate'
