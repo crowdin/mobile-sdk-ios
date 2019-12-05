@@ -9,10 +9,10 @@
 import Foundation
 import Dispatch
 
-typealias SynchronousDataTaskResult = (data: Data?, response: URLResponse?, error: Error?)
+public typealias SynchronousDataTaskResult = (data: Data?, response: URLResponse?, error: Error?)
 
 extension URLSession {
-    func synchronousDataTask(request: URLRequest) -> SynchronousDataTaskResult {
+    public func synchronousDataTask(request: URLRequest) -> SynchronousDataTaskResult {
         var data: Data?
         var response: URLResponse?
         var error: Error?
@@ -32,7 +32,7 @@ extension URLSession {
         return (data, response, error)
     }
     
-    func synchronousDataTask(url: URL) -> SynchronousDataTaskResult {
+    public func synchronousDataTask(url: URL) -> SynchronousDataTaskResult {
         var data: Data?
         var response: URLResponse?
         var error: Error?

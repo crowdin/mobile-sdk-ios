@@ -32,7 +32,7 @@ class ProjectAPI: CrowdinAPI {
     
     func buildParameters(with parameters: [String: String]? = nil) -> [String: String] {
         var resultParameters = [Strings.key.rawValue : projectKey]
-        resultParameters[Strings.json.rawValue] = String.empty
+        resultParameters[Strings.json.rawValue] = ""
         if let parameters = parameters {
             parameters.forEach({ resultParameters[$0.key] = $0.value })
         }

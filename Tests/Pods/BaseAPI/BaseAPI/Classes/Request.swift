@@ -7,14 +7,14 @@
 
 import Foundation
 
-class Request {
-    var url: String
-    var method: RequestMethod
-    var parameters: [String: String]?
-    var headers: [String: String]?
-    var body: Data?
+public class Request {
+    public var url: String
+    public var method: RequestMethod
+    public var parameters: [String : String]?
+    public var headers: [String : String]?
+    public var body: Data?
     
-    init(url: String, method: RequestMethod, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data? = nil) {
+    public init(url: String, method: RequestMethod, parameters: [String : String]? = nil, headers: [String : String]? = nil, body: Data? = nil) {
         self.url = url
         self.method = method
         self.parameters = parameters
@@ -22,7 +22,7 @@ class Request {
         self.body = body
     }
     
-    func request() -> (request: URLRequest?, error: Error?) {
+    public func request() -> (request: URLRequest?, error: Error?) {
         let url = URL(string: self.urlWithParameters())
         if let url = url {
             var request = URLRequest(url: url)
@@ -35,7 +35,7 @@ class Request {
             request.httpBody = body
             return (request, nil)
         } else {
-            return (nil, NSError(domain:"Unable to create URL", code:defaultCrowdinErrorCode, userInfo:nil) )
+            return (nil, NSError(domain:"Unable to create URL", code:9999, userInfo:nil) )
         }
     }
     

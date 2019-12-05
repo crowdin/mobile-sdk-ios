@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum ResponseHeaderFields: String {
+public enum ResponseHeaderFields: String {
     case contentType = "Content-Type"
 }

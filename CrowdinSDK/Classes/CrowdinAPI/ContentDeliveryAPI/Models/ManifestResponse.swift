@@ -11,7 +11,7 @@ struct ManifestResponse: Codable {
     public let files: [String]
 
     enum CodingKeys: String, CodingKey {
-        case files = "files"
+        case files
     }
 
     public init(files: [String]) {

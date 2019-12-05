@@ -1,27 +1,44 @@
 PODS:
-  - CrowdinSDK (0.0.6):
-    - CrowdinSDK/Core (= 0.0.6)
-    - CrowdinSDK/CrowdinProvider (= 0.0.6)
-  - CrowdinSDK/Core (0.0.6)
-  - CrowdinSDK/CrowdinAPI (0.0.6):
-    - CrowdinSDK/Login
+  - BaseAPI (0.1.7)
+  - CrowdinSDK (1.0.0):
+    - CrowdinSDK/Core (= 1.0.0)
+    - CrowdinSDK/CrowdinProvider (= 1.0.0)
+  - CrowdinSDK/Core (1.0.0)
+  - CrowdinSDK/CrowdinAPI (1.0.0):
+    - BaseAPI (= 0.1.7)
     - Starscream (= 3.0.6)
-  - CrowdinSDK/CrowdinProvider (0.0.6):
+  - CrowdinSDK/CrowdinProvider (1.0.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (0.0.6)
-  - CrowdinSDK/Login (0.0.6)
-  - CrowdinSDK/Mapping (0.0.6):
+  - CrowdinSDK/IntervalUpdate (1.0.0):
+    - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/RealtimeUpdate (0.0.6):
-    - CrowdinSDK/Login
-    - CrowdinSDK/Mapping
-  - CrowdinSDK/RefreshLocalization (0.0.6)
-  - CrowdinSDK/Screenshots (0.0.6):
-    - CrowdinSDK/Login
-    - CrowdinSDK/Mapping
-  - CrowdinSDK/Settings (0.0.6):
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/LoginFeature (1.0.0):
+    - BaseAPI (= 0.1.7)
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/RealtimeUpdate (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+    - CrowdinSDK/LoginFeature
+  - CrowdinSDK/RefreshLocalization (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/Screenshots (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+    - CrowdinSDK/LoginFeature
+  - CrowdinSDK/Settings (1.0.0):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/IntervalUpdate
+    - CrowdinSDK/LoginFeature
     - CrowdinSDK/RealtimeUpdate
     - CrowdinSDK/RefreshLocalization
     - CrowdinSDK/Screenshots
@@ -94,6 +111,9 @@ PODS:
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
+  - CrowdinSDK/IntervalUpdate (from `../`)
+  - CrowdinSDK/RealtimeUpdate (from `../`)
+  - CrowdinSDK/RefreshLocalization (from `../`)
   - CrowdinSDK/Screenshots (from `../`)
   - CrowdinSDK/Settings (from `../`)
   - DateToolsSwift
@@ -122,6 +142,7 @@ SPEC REPOS:
     - R.swift.Library
     - SwiftLint
   trunk:
+    - BaseAPI
     - Starscream
 
 EXTERNAL SOURCES:
@@ -136,7 +157,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 59846d8bb48d224228646ae4ba22cc7f819a87e5
+  BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
+  CrowdinSDK: 45ddf279c6621e60faa4e1a2936faed2019d078d
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
@@ -155,6 +177,6 @@ SPEC CHECKSUMS:
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: d25a02b06b1ef026f7abe254809330208374ebec
+PODFILE CHECKSUM: 7c41e65f3d6288c430545b40733246ac8e51376e
 
 COCOAPODS: 1.8.4
