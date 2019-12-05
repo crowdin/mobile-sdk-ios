@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CrowdinMappingManagerProtocol {
+public protocol CrowdinMappingManagerProtocol {
     func stringLocalizationKey(for id: Int) -> String?
     func pluralLocalizationKey(for id: Int) -> String?
     
@@ -18,7 +18,7 @@ protocol CrowdinMappingManagerProtocol {
     func key(for id: Int) -> String?
 }
 
-class CrowdinMappingManager: CrowdinMappingManagerProtocol {
+public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     let downloader: CrowdinDownloaderProtocol
     var pluralsMapping: [String: String] = [:]
     var stringsMapping: [String: String] = [:]
@@ -42,29 +42,29 @@ class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         }
     }
     
-    func stringLocalizationKey(for id: Int) -> String? {
+    public func stringLocalizationKey(for id: Int) -> String? {
         return stringsMapping.first(where: { Int($0.value) == id })?.key
     }
     
-    func pluralLocalizationKey(for id: Int) -> String? {
+    public func pluralLocalizationKey(for id: Int) -> String? {
         return pluralsMapping.first(where: { Int($0.value) == id })?.key
     }
     
-    func idFor(string: String) -> Int? {
+    public func idFor(string: String) -> Int? {
         guard let stringId = stringsMapping.first(where: { $0.key == string })?.value else { return nil }
         return Int(stringId)
     }
     
-    func idFor(plural: String) -> Int? {
+    public func idFor(plural: String) -> Int? {
         guard let pluralId = pluralsMapping.first(where: { $0.key == plural })?.value else { return nil }
         return Int(pluralId)
     }
     
-    func key(for id: Int) -> String? {
+    public func key(for id: Int) -> String? {
         return self.stringLocalizationKey(for: id) ?? self.pluralLocalizationKey(for: id)
     }
     
-    func id(for string: String) -> Int? {
+    public func id(for string: String) -> Int? {
         return self.idFor(string: string) ?? self.idFor(plural: string)
     }
 }
