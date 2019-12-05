@@ -8,14 +8,8 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.0.1'
+  spec.version          = '1.0.2'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
-  
-  # This description is used to generate tags and improve search results.
-  #   * Think: What does it do? Why did you write it? What is the focus?
-  #   * Try to keep it short, snappy and to the point.
-  #   * Write the description between the DESC delimiters below.
-  #   * Finally, don't worry about the indent, CocoaPods strips it!
   
   spec.description      = <<-DESC
   
@@ -31,9 +25,9 @@ Pod::Spec.new do |spec|
   
   spec.homepage         = 'https://github.com/crowdin/mobile-sdk-ios'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
-  spec.author           = { 'Serhii Londar' => 'serhii.londar@gmail.com' }
+  spec.author           = { 'Crowdin' => 'support@crowdin.com' }
   spec.source           = { :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :tag => spec.version.to_s }
-  spec.social_media_url    = 'https://twitter.com/serhii_londar'
+  spec.social_media_url    = 'https://twitter.com/crowdin'
   
   spec.ios.deployment_target = '9.0'
   
@@ -52,21 +46,11 @@ Pod::Spec.new do |spec|
     test_spec.source_files = 'CrowdinSDK/Tests/Core/*.swift'
   end
   
-  
-#  spec.subspec 'FirebaseProvider' do |provider|
-#    provider.name = 'FirebaseProvider'
-#    provider.dependency 'Firebase'
-#    provider.dependency 'FirebaseDatabase'
-#    provider.source_files = 'CrowdinSDK/Classes/Providers/Firebase/**/*'
-#    provider.dependency 'CrowdinSDK/Core'
-#  end
-  
   spec.subspec 'CrowdinProvider' do |provider|
     provider.name = 'CrowdinProvider'
     provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/**/*.swift'
     provider.dependency 'CrowdinSDK/Core'
     provider.dependency 'CrowdinSDK/CrowdinAPI'
-#    provider.dependency 'CrowdinSDK/LocalizationDownloader'
   end
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
