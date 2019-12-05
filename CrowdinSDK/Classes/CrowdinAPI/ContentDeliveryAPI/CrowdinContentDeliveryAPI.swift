@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BaseAPI
 
 enum CrowdinContentDeliveryAPIError: Error {
     case badUrl(url: String)

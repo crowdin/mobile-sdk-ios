@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BaseAPI
 
 protocol CrowdinAuth {
     var accessToken: String? { get }

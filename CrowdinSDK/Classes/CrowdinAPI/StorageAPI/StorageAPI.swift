@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BaseAPI
 
 class StorageAPI: CrowdinAPI {
     override var apiPath: String {

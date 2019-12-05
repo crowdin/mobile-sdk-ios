@@ -1,9 +1,11 @@
 PODS:
+  - BaseAPI (0.1.7)
   - CrowdinSDK (1.0.0):
     - CrowdinSDK/Core (= 1.0.0)
     - CrowdinSDK/CrowdinProvider (= 1.0.0)
   - CrowdinSDK/Core (1.0.0)
   - CrowdinSDK/CrowdinAPI (1.0.0):
+    - BaseAPI (= 0.1.7)
     - Starscream (= 3.0.6)
   - CrowdinSDK/CrowdinProvider (1.0.0):
     - CrowdinSDK/Core
@@ -17,6 +19,7 @@ PODS:
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/LoginFeature (1.0.0):
+    - BaseAPI (= 0.1.7)
     - CrowdinSDK/Core
   - CrowdinSDK/MappingDownloader (1.0.0):
     - CrowdinSDK/Core
@@ -143,6 +146,7 @@ SPEC REPOS:
     - R.swift.Library
     - SwiftLint
   trunk:
+    - BaseAPI
     - Starscream
 
 EXTERNAL SOURCES:
@@ -157,7 +161,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  CrowdinSDK: a6f384fa20b91c9ce5550d63c64283fc1e4f9f92
+  BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
+  CrowdinSDK: c8a974e28cae9fe981074afccb010ab0f83f7f0f
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0

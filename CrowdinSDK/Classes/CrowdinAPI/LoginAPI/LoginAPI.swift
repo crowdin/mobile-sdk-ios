@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BaseAPI
 
 class LoginAPI: BaseAPI {
     fileprivate let defaultCrowdinErrorCode = 9999
