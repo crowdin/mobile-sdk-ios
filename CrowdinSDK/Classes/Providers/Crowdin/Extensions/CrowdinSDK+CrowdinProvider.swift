@@ -8,6 +8,11 @@
 import Foundation
 
 extension CrowdinSDK {
+    /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
+    public class func start() {
+        self.startWithConfig(CrowdinSDKConfig.config())
+    }
+    
     /// Initialization method. Initialize CrowdinProvider with passed parameters.
     ///
     /// - Parameters:

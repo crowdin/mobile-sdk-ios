@@ -69,11 +69,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     // swiftlint:disable implicitly_unwrapped_optional
     static var config: CrowdinSDKConfig!
     
-    /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
-    public class func start() {
-        self.startWithConfig(CrowdinSDKConfig.config())
-    }
-    
     ///
     public class func stop() {
         self.unswizzle()
