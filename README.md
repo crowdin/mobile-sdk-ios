@@ -12,10 +12,11 @@ The SDK provides:
 
 ## Status
 
-[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/commit-activity)
-[![GitHub last commit](https://img.shields.io/github/last-commit/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/commits/master)
+[![Cocoapods](https://img.shields.io/cocoapods/v/CrowdinSDK?logo=pods&cacheSeconds=3600)](https://cocoapods.org/pods/CrowdinSDK)
+[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CrowdinSDK?cacheSeconds=10000)](https://cocoapods.org/pods/CrowdinSDK)
+[![GitHub Release Date](https://img.shields.io/github/release-date/crowdin/mobile-sdk-ios?cacheSeconds=10000)](https://github.com/crowdin/mobile-sdk-ios/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
 
 [![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines&cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
@@ -63,31 +64,13 @@ The SDK provides:
    pod 'CrowdinSDK'
    ```
 
-2. Cocoapods spec repository [TBA] (will be avalaible after publishing to cocoapods):
+2. Cocoapods spec repository:
 
    ```swift
    target 'MyApp' do
      pod 'CrowdinSDK'
    end
    ```
-
-3. GitHub repository (This option will be removed from this document in the future):
-
-   ```swift
-   target 'MyApp' do
-     pod 'CrowdinSDK', :git => 'https://github.com/crowdin/mobile-sdk-ios.git'
-   end
-   ```
-
-4. Local sources (This option will be removed from this document in the future):
-
-   ```swift
-   target 'MyApp' do
-     pod 'CrowdinSDK', :path => '../../CrowdinSDK'
-   end
-   ```
-   
-   `'../../CrowdinSDK'` - path to local sources.
 
 After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open `App.xcworkspace` and build it. 
 
