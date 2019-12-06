@@ -167,8 +167,8 @@ Add the below code to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-pod 'CrowdinSDK', :git => 'git@github.com:crowdin/mobile-sdk-ios.git'
-pod 'CrowdinSDK/RealtimeUpdate', 'git@github.com:crowdin/mobile-sdk-ios.git'
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/RealtimeUpdate'
 end
 ```
 
@@ -202,9 +202,9 @@ Add the below code to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-pod 'CrowdinSDK', :git => 'git@github.com:crowdin/mobile-sdk-ios.git'
-pod 'CrowdinSDK/Screenshots', 'git@github.com:crowdin/mobile-sdk-ios.git' // required for screenshots
-pod 'CrowdinSDK/Settings', 'git@github.com:crowdin/mobile-sdk-ios.git' // optional: to add ‘settings’ button
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/Screenshots' // required for screenshots
+  pod 'CrowdinSDK/Settings' // optional: to add ‘settings’ button
 end
 ```
 
@@ -238,8 +238,8 @@ Add the below code to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-pod 'CrowdinSDK', :git => 'git@github.com:crowdin/mobile-sdk-ios.git'
-pod 'CrowdinSDK/RefereshLocalization', 'git@github.com:crowdin/mobile-sdk-ios.git'
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/RefereshLocalization'
 end
 ```
 
