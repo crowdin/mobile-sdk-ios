@@ -23,7 +23,7 @@ jobs:
         displayName: 'Danger SwiftLint'
 
   - job: PodInstall
-    dependsOn: Danger
+    dependsOn: DangerSwiftLint
     condition: succeeded()
     pool:
       vmImage: 'macOS-latest'
