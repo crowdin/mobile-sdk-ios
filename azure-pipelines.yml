@@ -15,7 +15,7 @@ trigger:
 jobs:
   - job: DangerInstall
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.15'
     steps:
       - bash: |
           npm install -g danger; brew install danger/tap/danger-swift; brew install swiftlint
@@ -24,7 +24,7 @@ jobs:
     dependsOn: DangerInstall
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.15'
     steps:
       - bash: |
             danger-swift
@@ -34,7 +34,7 @@ jobs:
     dependsOn: Danger
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.15'
     steps:
       - bash: |
           cd Tests ; pod update Starscream; pod install
@@ -44,7 +44,7 @@ jobs:
     dependsOn: PodInstall
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.15'
     steps:
       - task: Xcode@5
         displayName: 'Build Xcode App'
@@ -61,7 +61,7 @@ jobs:
     dependsOn: Build
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.15'
     steps:
       - task: Xcode@5
         displayName: 'Running tests'
