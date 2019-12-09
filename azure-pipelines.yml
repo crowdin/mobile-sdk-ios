@@ -20,13 +20,13 @@ jobs:
       - bash: |
           npm install -g danger; brew install danger/tap/danger-swift; brew install swiftlint
         displayName: 'Installing danger'
-    - job: Danger
-      dependsOn: DangerInstall
-      condition: succeeded()
-      pool:
-        vmImage: 'macOS 10.13'
-      steps:
-        - bash: |
+  - job: Danger
+    dependsOn: DangerInstall
+    condition: succeeded()
+    pool:
+      vmImage: 'macOS 10.13'
+    steps:
+      - bash: |
             danger-swift
           displayName: 'Run danger(Swiftlint)'
 
