@@ -28,7 +28,7 @@ jobs:
     steps:
       - bash: |
             danger-swift
-          displayName: 'Run danger(Swiftlint)'
+        displayName: 'Run danger(Swiftlint)'
 
   - job: PodInstall
     dependsOn: Danger
