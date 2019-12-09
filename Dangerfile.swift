@@ -2,7 +2,6 @@
 
 import Foundation
 import Danger
-import DangerSwiftLint // package: https://github.com/ashfurrow/DangerSwiftLint.git
 
 let danger = Danger()
 
