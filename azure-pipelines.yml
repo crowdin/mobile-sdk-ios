@@ -18,7 +18,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          npm install -g danger; brew tap danger/tap ; HOMEBREW_NO_AUTO_UPDATE=1 brew install danger-swift ; HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint ; danger-swift
+          HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint ; swiftlint
         displayName: 'Danger SwiftLint'
 
   - job: PodInstall
