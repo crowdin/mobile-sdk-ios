@@ -16,7 +16,6 @@ jobs:
   - job: DangerSwiftLint
     pool:
       vmImage: 'macOS-latest'
-    variables: { DANGER_GITHUB_API_TOKEN: 04e407a2ecaaf6b5741c2ca4825d1b45a2296e6f }
     steps:
       - bash: |
           npm install -g danger; brew install danger/tap/danger-swift; brew install swiftlint; danger-swift
