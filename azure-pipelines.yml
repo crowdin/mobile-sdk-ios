@@ -18,7 +18,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          npm install -g danger; brew install danger/tap/danger-swift -v; brew install swiftlint -v; danger-swift
+          npm install -g danger; brew install danger/tap/danger-swift; danger-swift
         displayName: 'Danger SwiftLint'
 
   - job: PodInstall
@@ -28,7 +28,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          cd Tests ; pod update Starscream; pod install
+          cd Tests ; pod update Starscream; pod update BaseAPI; pod install
         displayName: 'Installing cocoapods'
 
   - job: Build
