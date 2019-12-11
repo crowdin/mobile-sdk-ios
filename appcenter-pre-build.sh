@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 - cd $APPCENTER_SOURCE_DIRECTORY
+
+- brew install danger/tap/danger-swift
 - npm install -g danger
-- swift build
-- swift run danger-swift ci
+- brew install swiftlint
