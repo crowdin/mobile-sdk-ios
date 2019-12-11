@@ -66,11 +66,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// List of supported in app localizations.
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
     
-    
-    
-    
-    
-    
+    // swiftlint:disable implicitly_unwrapped_optional
     static var config: CrowdinSDKConfig!
     
     ///
