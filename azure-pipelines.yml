@@ -18,7 +18,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          brew install danger/tap/danger-swift ; danger-swift
+          danger-swift ci
         displayName: 'Danger SwiftLint'
 
   - job: PodInstall
