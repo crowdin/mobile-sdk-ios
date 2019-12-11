@@ -18,7 +18,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          danger-swift ci
+          npm install -g danger ; swift build ; swift run danger-swift ci;
         displayName: 'Danger SwiftLint'
 
   - job: PodInstall
