@@ -18,7 +18,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          chmod +x ./appcenter-pre-build.sh ; sh ./appcenter-pre-build.sh ; danger-swift ci
+          echo 'START INSTALLATION' ; brew install swiftlint ; brew install danger/tap/danger-swift ; npm install -g danger ; echo 'INSTALLATION IS DONE' echo 'danger-swift started' ; danger-swift ci ; echo 'danger-swift finished'
         displayName: 'Danger SwiftLint'
 
   - job: PodInstall
