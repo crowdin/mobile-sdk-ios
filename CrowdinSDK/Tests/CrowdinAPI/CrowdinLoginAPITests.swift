@@ -55,7 +55,7 @@ class CrowdinLoginAPITests: XCTestCase {
         
         loginAPI.login(completion: { (response) in
             tokenResponse = response
-        }) { (error) in
+        }) { _ in
             
         }
         guard let url = URL(string: "https://test?code=testcode") else { return }
@@ -77,7 +77,7 @@ class CrowdinLoginAPITests: XCTestCase {
         
         var loginError: Error? = nil
         
-        loginAPI.login(completion: { (response) in
+        loginAPI.login(completion: { _ in
             
         }) { (error) in
             loginError = error
@@ -106,7 +106,7 @@ class CrowdinLoginAPITests: XCTestCase {
         
         loginAPI.getAutorizationToken(with: "code", success: { (response) in
             tokenResponse = response
-        }) { (error) in
+        }) { _ in
             
         }
         
@@ -129,7 +129,7 @@ class CrowdinLoginAPITests: XCTestCase {
         
         loginAPI.refreshToken(refreshToken: "refreshToken", success: { (response) in
             tokenResponse = response
-        }) { (error) in
+        }) { _ in
             
         }
         

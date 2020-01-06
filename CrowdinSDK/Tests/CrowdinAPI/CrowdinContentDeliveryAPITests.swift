@@ -29,7 +29,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         session.data = fileString.data(using: .utf8)
         
         var result: [String: String]? = nil
-        crowdinContentDeliveryAPI.getStrings(filePath: "filePath") { (strings, error) in
+        crowdinContentDeliveryAPI.getStrings(filePath: "filePath") { (strings, _) in
             result = strings
         }
         
@@ -54,7 +54,6 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         }
     }
     
-    
     func testCrowdinContentDeliveryAPIGetStringsMappingSync() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
         let fileString = """
@@ -71,7 +70,6 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         }
     }
 
-    
     func testCrowdinContentDeliveryAPIGetPlurals() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
         let fileString = """
@@ -103,7 +101,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         session.data = fileString.data(using: .utf8)
         
         var result: [AnyHashable: Any]? = nil
-        crowdinContentDeliveryAPI.getPlurals(filePath: "filePath") { (response, error) in
+        crowdinContentDeliveryAPI.getPlurals(filePath: "filePath") { (response, _) in
             result = response
         }
         
@@ -113,7 +111,6 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
             XCTAssert(result["johns_pineapples_count"] != nil)
         }
     }
-    
     
     func testCrowdinContentDeliveryAPIGetPluralsSync() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)

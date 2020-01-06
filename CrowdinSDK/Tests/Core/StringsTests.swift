@@ -63,6 +63,7 @@ class StringsTests: XCTestCase {
         XCTAssertNotNil(result, "Expect non nil result")
         if let result = result {
             XCTAssert(result.count == 1, "Expect 1 string")
+            // swiftlint:disable force_cast
             XCTAssert(result[0] as! String == "value", "Expect 1 string")
         }
     }
@@ -74,9 +75,11 @@ class StringsTests: XCTestCase {
         let result = String.findValues(for: string, with: formatedString)
         
         XCTAssertNotNil(result, "Expect non nil result")
-        
-        XCTAssert(result!.count == 1, "Expect 1 result")
-        XCTAssert(result![0] as? UInt != nil, "Expect 1 UInt")
-        XCTAssert(result![0] as! UInt == 23, "Expect 23")
+        if let result = result {
+            XCTAssert(result.count == 1, "Expect 1 result")
+            XCTAssertNotNil(result[0] as? UInt, "Expect 1 UInt")
+            // swiftlint:disable force_cast
+            XCTAssert(result[0] as! UInt == 23, "Expect 23")
+        }
     }
 }
