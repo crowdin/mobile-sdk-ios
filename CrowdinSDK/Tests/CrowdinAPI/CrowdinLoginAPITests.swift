@@ -84,11 +84,11 @@ class CrowdinLoginAPITests: XCTestCase {
         
         XCTAssertNotNil(loginError)
         
-        let nsError = loginError as? NSError
+        let nsError = loginError! as NSError
         
         XCTAssertNotNil(nsError)
-        XCTAssert(nsError?.domain == "Failed to login")
-        XCTAssert(nsError!.code == 111111)
+        XCTAssert(nsError.domain == "Failed to login")
+        XCTAssert(nsError.code == 111111)
     }
     
     func testGetAutorizationToken() {
