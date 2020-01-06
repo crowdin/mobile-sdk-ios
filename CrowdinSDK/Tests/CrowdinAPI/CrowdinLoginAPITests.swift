@@ -9,6 +9,7 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinLoginAPITests: XCTestCase {
+    // swiftlint:disable implicitly_unwrapped_optional
     var loginAPI: LoginAPI!
 
     let session = URLSessionMock()
@@ -54,10 +55,11 @@ class CrowdinLoginAPITests: XCTestCase {
         
         loginAPI.login(completion: { (response) in
             tokenResponse = response
-        }) { (error) in
+        }) { _ in
             
         }
-        _ = loginAPI.hadle(url: URL(string: "https://test?code=testcode")!)
+        guard let url = URL(string: "https://test?code=testcode") else { return }
+        _ = loginAPI.hadle(url: url)
         
         XCTAssertNotNil(tokenResponse)
         XCTAssert(tokenResponse?.tokenType == "tokenType")
@@ -75,20 +77,21 @@ class CrowdinLoginAPITests: XCTestCase {
         
         var loginError: Error? = nil
         
-        loginAPI.login(completion: { (response) in
+        loginAPI.login(completion: { _ in
             
         }) { (error) in
             loginError = error
         }
-        _ = loginAPI.hadle(url: URL(string: "https://test?code=testcode")!)
+        guard let url = URL(string: "https://test?code=testcode") else { return }
+        _ = loginAPI.hadle(url: url)
         
         XCTAssertNotNil(loginError)
         
-        let nsError = loginError as? NSError
+        let nsError = loginError as NSError?
         
         XCTAssertNotNil(nsError)
         XCTAssert(nsError?.domain == "Failed to login")
-        XCTAssert(nsError!.code == 111111)
+        XCTAssert(nsError?.code == 111111)
     }
     
     func testGetAutorizationToken() {
@@ -98,12 +101,11 @@ class CrowdinLoginAPITests: XCTestCase {
         
         loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI", organizationName: "organizationName", session: session)
         
-        
         var tokenResponse: TokenResponse? = nil
         
         loginAPI.getAutorizationToken(with: "code", success: { (response) in
             tokenResponse = response
-        }) { (error) in
+        }) { _ in
             
         }
         
@@ -121,12 +123,11 @@ class CrowdinLoginAPITests: XCTestCase {
         
         loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI", organizationName: "organizationName", session: session)
         
-        
         var tokenResponse: TokenResponse? = nil
         
         loginAPI.refreshToken(refreshToken: "refreshToken", success: { (response) in
             tokenResponse = response
-        }) { (error) in
+        }) { _ in
             
         }
         
@@ -143,7 +144,6 @@ class CrowdinLoginAPITests: XCTestCase {
         session.data = try? JSONEncoder().encode(TokenResponse(tokenType: "tokenType", expiresIn: 111111, accessToken: "accessToken", refreshToken: "refreshToken"))
         
         loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI", organizationName: "organizationName", session: session)
-        
         
         let tokenResponse = loginAPI.refreshTokenSync(refreshToken: "refreshToken")
         

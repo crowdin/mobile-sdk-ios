@@ -1,39 +1,39 @@
 PODS:
   - BaseAPI (0.1.7)
-  - CrowdinSDK (1.0.0):
-    - CrowdinSDK/Core (= 1.0.0)
-    - CrowdinSDK/CrowdinProvider (= 1.0.0)
-  - CrowdinSDK/Core (1.0.0)
-  - CrowdinSDK/CrowdinAPI (1.0.0):
+  - CrowdinSDK (1.0.4):
+    - CrowdinSDK/Core (= 1.0.4)
+    - CrowdinSDK/CrowdinProvider (= 1.0.4)
+  - CrowdinSDK/Core (1.0.4)
+  - CrowdinSDK/CrowdinAPI (1.0.4):
     - BaseAPI (= 0.1.7)
-    - Starscream (= 3.0.6)
-  - CrowdinSDK/CrowdinProvider (1.0.0):
+    - Starscream (~> 3.0.6)
+  - CrowdinSDK/CrowdinProvider (1.0.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (1.0.0):
+  - CrowdinSDK/IntervalUpdate (1.0.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.0.0):
+  - CrowdinSDK/LoginFeature (1.0.4):
     - BaseAPI (= 0.1.7)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.0.0):
+  - CrowdinSDK/RealtimeUpdate (1.0.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.0.0):
+  - CrowdinSDK/RefreshLocalization (1.0.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.0.0):
+  - CrowdinSDK/Screenshots (1.0.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.0.0):
+  - CrowdinSDK/Settings (1.0.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -158,7 +158,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
-  CrowdinSDK: 45ddf279c6621e60faa4e1a2936faed2019d078d
+  CrowdinSDK: 35cdb7b29cc3a36a2ca5bbcf50b7505764cbc697
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
