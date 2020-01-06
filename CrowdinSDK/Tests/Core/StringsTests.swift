@@ -61,10 +61,10 @@ class StringsTests: XCTestCase {
         let result = String.findValues(for: string, with: formatedString)
         
         XCTAssertNotNil(result, "Expect non nil result")
-        
-        XCTAssert(result!.count == 1, "Expect 1 string")
-        XCTAssert(result![0] as? String != nil, "Expect 1 result")
-        XCTAssert(result![0] as! String == "value", "Expect 1 string")
+        if let result = result {
+            XCTAssert(result.count == 1, "Expect 1 string")
+            XCTAssert(result[0] as! String == "value", "Expect 1 string")
+        }
     }
     
     func testFindValuesForUInt() {

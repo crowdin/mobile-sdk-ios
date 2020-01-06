@@ -9,6 +9,7 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinLoginAPITests: XCTestCase {
+    // swiftlint:disable implicitly_unwrapped_optional
     var loginAPI: LoginAPI!
 
     let session = URLSessionMock()
@@ -57,7 +58,8 @@ class CrowdinLoginAPITests: XCTestCase {
         }) { (error) in
             
         }
-        _ = loginAPI.hadle(url: URL(string: "https://test?code=testcode")!)
+        guard let url = URL(string: "https://test?code=testcode") else { return }
+        _ = loginAPI.hadle(url: url)
         
         XCTAssertNotNil(tokenResponse)
         XCTAssert(tokenResponse?.tokenType == "tokenType")
@@ -80,7 +82,8 @@ class CrowdinLoginAPITests: XCTestCase {
         }) { (error) in
             loginError = error
         }
-        _ = loginAPI.hadle(url: URL(string: "https://test?code=testcode")!)
+        guard let url = URL(string: "https://test?code=testcode") else { return }
+        _ = loginAPI.hadle(url: url)
         
         XCTAssertNotNil(loginError)
         

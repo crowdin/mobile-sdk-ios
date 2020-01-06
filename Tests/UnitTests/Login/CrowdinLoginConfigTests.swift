@@ -2,6 +2,7 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinLoginConfigTests: XCTestCase {
+    // swiftlint:disable implicitly_unwrapped_optional
     var loginConfig: CrowdinLoginConfig!
     
     override func setUp() {

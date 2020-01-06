@@ -10,6 +10,7 @@ import XCTest
 
 class CrowdinContentDeliveryAPITests: XCTestCase {
     var session = URLSessionMock()
+    // swiftlint:disable implicitly_unwrapped_optional
     var crowdinContentDeliveryAPI: CrowdinContentDeliveryAPI!
     
     override func setUp() {
@@ -47,8 +48,10 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         let result: [String: String]? = crowdinContentDeliveryAPI.getStringsSync(filePath: "filePath").strings
         
         XCTAssertNotNil(result)
-        XCTAssert(result!.count == 1)
-        XCTAssert(result!.contains(where: { $0 == "key" && $1 == "value" }))
+        if let result = result {
+            XCTAssert(result.count == 1)
+            XCTAssert(result.contains(where: { $0 == "key" && $1 == "value" }))
+        }
     }
     
     
@@ -62,8 +65,10 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         let result: [String: String]? = crowdinContentDeliveryAPI.getStringsMappingSync(filePath: "filePath").strings
         
         XCTAssertNotNil(result)
-        XCTAssert(result!.count == 1)
-        XCTAssert(result!.contains(where: { $0 == "key" && $1 == "123" }))
+        if let result = result {
+            XCTAssert(result.count == 1)
+            XCTAssert(result.contains(where: { $0 == "key" && $1 == "123" }))
+        }
     }
 
     
@@ -103,8 +108,10 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         }
         
         XCTAssertNotNil(result)
-        XCTAssert(result!.isEmpty == false)
-        XCTAssert(result!["johns_pineapples_count"] != nil)
+        if let result = result {
+            XCTAssert(result.isEmpty == false)
+            XCTAssert(result["johns_pineapples_count"] != nil)
+        }
     }
     
     
@@ -141,8 +148,10 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         let result: [AnyHashable: Any]? = crowdinContentDeliveryAPI.getPluralsSync(filePath: "filePath").plurals
         
         XCTAssertNotNil(result)
-        XCTAssert(result!.isEmpty == false)
-        XCTAssert(result!["johns_pineapples_count"] != nil)
+        if let result = result {
+            XCTAssert(result.isEmpty == false)
+            XCTAssert(result["johns_pineapples_count"] != nil)
+        }
     }
     
     func testCrowdinContentDeliveryAPIGetPluralsMappingSync() {
@@ -178,7 +187,9 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         let result: [AnyHashable: Any]? = crowdinContentDeliveryAPI.getPluralsMappingSync(filePath: "filePath").plurals
         
         XCTAssertNotNil(result)
-        XCTAssert(result!.isEmpty == false)
-        XCTAssert(result!["johns_pineapples_count"] != nil)
+        if let result = result {
+            XCTAssert(result.isEmpty == false)
+            XCTAssert(result["johns_pineapples_count"] != nil)
+        }
     }
 }
