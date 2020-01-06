@@ -7,14 +7,6 @@
 
 import Foundation
 
-public let CrowdinProviderDidDownloadLocalization = Notifications.CrowdinProviderDidDownloadLocalization.rawValue
-public let CrowdinProviderDownloadError = Notifications.CrowdinProviderDownloadError.rawValue
-
-extension Notification.Name {
-    public static let CrowdinProviderDidDownloadLocalization = Notification.Name(Notifications.CrowdinProviderDidDownloadLocalization.rawValue)
-    public static let CrowdinProviderDownloadError = Notification.Name(Notifications.CrowdinProviderDownloadError.rawValue)
-}
-
 class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var localization: String
     var localizations: [String]
@@ -58,16 +50,16 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
                     guard let self = self else { return }
                     completion(self.localizations, strings, plurals)
                     DispatchQueue.main.async {
-                        NotificationCenter.default.post(Notification(name: Notification.Name.CrowdinProviderDidDownloadLocalization))
+                        NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue)))
                         
                         if let errors = errors {
-                            NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: errors)
+                            NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: errors)
                         }
                     }
                 })
             } else if let error = error {
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name.CrowdinProviderDownloadError, object: [error])
+                    NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: [error])
                 }
             }
         }

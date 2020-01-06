@@ -69,24 +69,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     // swiftlint:disable implicitly_unwrapped_optional
     static var config: CrowdinSDKConfig!
     
-    /// Initialization method. Initialize CrowdinProvider with passed parameters.
-    ///
-    /// - Parameters:
-    ///   - hashString: Distribution hash value.
-    public class func startWithConfig(_ config: CrowdinSDKConfig) {
-        self.config = config
-        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
-        let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig, enterprise: config.enterprise)
-        self.setRemoteStorage(remoteStorage)
-        self.initializeLib()
-    }
-    
-    /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
-    public class func start() {
-        self.startWithConfig(CrowdinSDKConfig.config())
-    }
-    
     ///
     public class func stop() {
         self.unswizzle()
@@ -96,8 +78,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
-        self.setRemoteStorage(remoteStorage)
+    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, localizations: [String]) {
+        self.setRemoteStorage(remoteStorage, localizations: localizations)
         self.initializeLib()
     }
     
@@ -131,10 +113,9 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
-    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
-        let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
-        let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-		let localizationProvider = LocalizationProvider(localization: localization, localizations: crowdinProviderConfig.localizations, remoteStorage: remoteStorage)
+    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, localizations: [String]) {
+        let localization = Bundle.main.preferredLanguage
+		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
     }
     
@@ -184,10 +165,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func removeAllErrorHandlers() {
         Localization.current.removeAllErrorHandlers()
     }
-	
-	public class func handle(url: URL) -> Bool {
-		return LoginFeature.shared?.hadle(url: url) ?? false
-	}
 }
 
 extension CrowdinSDK {
@@ -228,7 +205,7 @@ extension CrowdinSDK {
     }
     
     /// Method for library initialization.
-    private class func initializeLib() {
+    class func initializeLib() {
         if self.mode == .customSDK || self.mode == .autoSDK {
             CrowdinSDK.swizzle()
         } else {

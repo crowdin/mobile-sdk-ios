@@ -9,6 +9,7 @@ import Foundation
 
 class CrowdinSupportedLanguages {
     static let shared = CrowdinSupportedLanguages()
+    let api = SupportedLanguagesAPI()
     
     fileprivate enum Strings: String {
         case SupportedLanguages
@@ -57,7 +58,7 @@ class CrowdinSupportedLanguages {
     }
     
     func updateSupportedLanguages() {
-        SupportedLanguagesAPI().getSupportedLanguages { (supportedLanguages, error) in
+        api.getSupportedLanguages { (supportedLanguages, error) in
             guard error == nil else { return }
             guard let supportedLanguages = supportedLanguages else { return }
             self.supportedLanguages = supportedLanguages

@@ -13,19 +13,29 @@ trigger:
       - LICENSE
 
 jobs:
-  - job: PodInstall
+  - job: DangerSwiftLint
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          cd Tests ; pod update Starscream; pod install
+          brew install swiftlint ; brew install danger/tap/danger-swift ; export DANGER_GITHUB_API_TOKEN='$(DANGER_GITHUB_API_TOKEN)' ; danger-swift ci 
+        displayName: 'Danger SwiftLint'
+
+  - job: PodInstall
+    dependsOn: DangerSwiftLint
+    condition: succeeded()
+    pool:
+      vmImage: 'macOS 10.14'
+    steps:
+      - bash: |
+          cd Tests ; pod update Starscream; pod update BaseAPI; pod install
         displayName: 'Installing cocoapods'
 
   - job: Build
     dependsOn: PodInstall
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.14'
     steps:
       - task: Xcode@5
         displayName: 'Build Xcode App'
@@ -42,7 +52,7 @@ jobs:
     dependsOn: Build
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.13'
+      vmImage: 'macOS 10.14'
     steps:
       - task: Xcode@5
         displayName: 'Running tests'

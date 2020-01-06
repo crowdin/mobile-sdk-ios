@@ -15,4 +15,8 @@ extension CrowdinSDK {
         guard let hash = config.crowdinProviderConfig?.hashString else { return }
         LoginFeature.configureWith(with: hash, loginConfig: loginConfig)
 	}
+    
+    public class func handle(url: URL) -> Bool {
+        return LoginFeature.shared?.hadle(url: url) ?? false
+    }
 }

@@ -20,7 +20,6 @@ class SettingsVC: BaseMenuVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadUI), name: Notification.Name.CrowdinProviderDidDownloadLocalization, object: nil)
     }
     
     @IBAction func reloadUI(_ sender: AnyObject) {

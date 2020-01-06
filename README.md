@@ -12,10 +12,11 @@ The SDK provides:
 
 ## Status
 
-[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/commit-activity)
-[![GitHub last commit](https://img.shields.io/github/last-commit/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/commits/master)
+[![Cocoapods](https://img.shields.io/cocoapods/v/CrowdinSDK?logo=pods&cacheSeconds=3600)](https://cocoapods.org/pods/CrowdinSDK)
+[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CrowdinSDK?cacheSeconds=10000)](https://cocoapods.org/pods/CrowdinSDK)
+[![GitHub Release Date](https://img.shields.io/github/release-date/crowdin/mobile-sdk-ios?cacheSeconds=10000)](https://github.com/crowdin/mobile-sdk-ios/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
 
 [![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines&cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
@@ -32,6 +33,8 @@ The SDK provides:
   * [Real-time Preview](#real-time-preview)
   * [Screenshots](#screenshots)
   * [Force Update](#force-update)
+* [Parameters](#parameters)
+* [File Export Patterns](#file-export-patterns)
 * [Contribution](#contribution)
 * [Seeking Assistance](#seeking-assistance)
 * [Author](#author)
@@ -61,7 +64,7 @@ The SDK provides:
    pod 'CrowdinSDK'
    ```
 
-2. Cocoapods spec repository [TBA] (will be avalaible after publishing to cocoapods):
+2. Cocoapods spec repository:
 
    ```swift
    target 'MyApp' do
@@ -69,27 +72,20 @@ The SDK provides:
    end
    ```
 
-3. GitHub repository (This option will be removed from this document in the future):
-
-   ```swift
-   target 'MyApp' do
-     pod 'CrowdinSDK', :git => 'https://github.com/crowdin/mobile-sdk-ios.git'
-   end
-   ```
-
-4. Local sources (This option will be removed from this document in the future):
-
-   ```swift
-   target 'MyApp' do
-     pod 'CrowdinSDK', :path => '../../CrowdinSDK'
-   end
-   ```
-   
-   `'../../CrowdinSDK'` - path to local sources.
-
 After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open `App.xcworkspace` and build it. 
 
 ## Setup
+
+To configure iOS SDK integration you need to:
+
+- Set up Distribution in Crowdin.
+- Set up SDK and enable Over-The-Air Content Delivery feature.
+
+**Distribution** is a CDN vault that mirrors the translated content of your project and is required for integration with iOS app.
+
+To manage distributions open the needed project and go to *Over-The-Air Content Delivery*. You can create as many distributions as you need and choose different files for each. You’ll need to click the *Release* button next to the necessary distribution every time you want to send new translations to the app.
+
+**Note!** Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
 
 In order to start using CrowdinSDK you need to import and initialize it in your AppDelegate. 
 
@@ -171,8 +167,8 @@ Add the below code to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-pod 'CrowdinSDK', :git => 'git@github.com:crowdin/mobile-sdk-ios.git'
-pod 'CrowdinSDK/RealtimeUpdate', 'git@github.com:crowdin/mobile-sdk-ios.git'
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/RealtimeUpdate'
 end
 ```
 
@@ -206,9 +202,9 @@ Add the below code to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-pod 'CrowdinSDK', :git => 'git@github.com:crowdin/mobile-sdk-ios.git'
-pod 'CrowdinSDK/Screenshots', 'git@github.com:crowdin/mobile-sdk-ios.git' // required for screenshots
-pod 'CrowdinSDK/Settings', 'git@github.com:crowdin/mobile-sdk-ios.git' // optional: to add ‘settings’ button
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/Screenshots' // required for screenshots
+  pod 'CrowdinSDK/Settings' // optional: to add ‘settings’ button
 end
 ```
 
@@ -242,8 +238,8 @@ Add the below code to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-pod 'CrowdinSDK', :git => 'git@github.com:crowdin/mobile-sdk-ios.git'
-pod 'CrowdinSDK/RefereshLocalization', 'git@github.com:crowdin/mobile-sdk-ios.git'
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/RefereshLocalization'
 end
 ```
 
@@ -255,6 +251,55 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
    sourceLanguage: "{source_language}")
 CrowdinSDK.startWithConfig(crowdinProviderConfig)
 ```
+
+## Parameters
+
+<table class="table table-bordered" style="font-size: 15px;">
+   <tr><td colspan="2"><b>Required for all features</b></td></tr>
+   <tr><td style="vertical-align:middle"> your_distribution_hash</td><td>Unique hash which you can get by going to <b>Over-The-Air Content Delivery</b> in your project settings. To see the distribution hash open the needed distribution, choose <b>Edit</b> and copy distribution hash</td></tr>
+   <tr><td colspan="2"><b>Required for advanced features</b></td></tr>
+   <tr><td style="vertical-align:middle">source_language</td><td>Source language in your Crowdin project (e.g. "en")</td></tr>
+   <tr><td style="vertical-align:middle">client_id; <br>client_secret</td><td>Crowdin authorization credentials. Open the project and go to <b>Over-The-Air Content Delivery</b>, choose the feature you need and click <b>Get Credentials</b></td></tr>
+   <tr><td colspan="2"><b>Optional</b></td></tr>
+   <tr><td style="vertical-align:middle">network_type</td><td>Network type to be used. You may select NetworkType.ALL, NetworkType.CELLULAR, or NetworkType.WIFI</td></tr>
+   <tr><td style="vertical-align:middle">interval_in_milisec</td><td>Update intervals in milliseconds</td></tr>
+  </table>
+
+## File Export Patterns
+
+You can set file export patterns and check existing ones using *File Settings*. The following placeholders are supported for iOS integration:
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="vertical-align:middle">%language%</td>
+      <td>Language name (e.g. Ukrainian)</td>
+    </tr>
+       <tr>
+      <td style="vertical-align:middle">%locale%</td>
+      <td>Locale (e.g. uk-UA)</td>
+    </tr>
+    <tr>
+      <td style="vertical-align:middle">%locale_with_underscore%</td>
+      <td>Locale (e.g. uk_UA)</td>
+    </tr>
+      <tr>
+      <td style="vertical-align:middle">%osx_code%</td>
+      <td>OS X locale identifier used to name ".lproj" directories</td>
+    </tr>
+    <tr>
+      <td style="vertical-align:middle">%osx_locale%</td>
+      <td>OS X locale used to name translation resources (e.g. uk, zh-Hans, zh_HK)</td>
+    </tr>
+   </tbody>
+</table>
+</table>
 
 ## Contribution
 We are happy to accept contributions to the Crowdin iOS SDK. To contribute please do the following:
@@ -277,7 +322,7 @@ Serhii Londar, serhii.londar@gmail.com
 
 ## License
 <pre>
-Copyright © 2019 Crowdin
+Copyright © 2020 Crowdin
 
 The Crowdin iOS SDK is licensed under the MIT License. 
 See the LICENSE file distributed with this work for additional 

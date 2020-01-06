@@ -23,13 +23,13 @@ fileprivate enum Paths: String {
         case .language:
             // swiftlint:disable force_unwrapping
             let languageCode = Locale(identifier: localization).languageCode!
-            return enLocale.localizedString(forLanguageCode: languageCode) ?? .empty
+            return enLocale.localizedString(forLanguageCode: languageCode) ?? ""
         case .locale:
             return Locale(identifier: localization).identifier.replacingOccurrences(of: "_", with: "-")
         case .localeWithUnderscore:
             return Locale(identifier: localization).identifier.replacingOccurrences(of: "-", with: "_")
         case .osxCode:
-            return Locale(identifier: localization).identifier + FileType.lproj.extension
+            return Locale(identifier: localization).identifier + ".lproj"
         case .osxLocale:
             return Locale(identifier: localization).identifier
         }
