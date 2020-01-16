@@ -23,17 +23,15 @@ The SDK provides:
 [![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
 [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master?cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
 
-
 ## Table of Contents
 * [Requirements](#requirements)
 * [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Setup](#setup)
 * [Advanced Features](#advanced-features)
-  * [Real-time Preview](#real-time-preview)
+  * [Real-Time Preview](#real-time-preview)
   * [Screenshots](#screenshots)
-  * [Force Update](#force-update)
-* [Parameters](#parameters)
+* [Notes](#notes)
 * [File Export Patterns](#file-export-patterns)
 * [Contribution](#contribution)
 * [Seeking Assistance](#seeking-assistance)
@@ -55,11 +53,11 @@ The SDK provides:
 
 1. Cocoapods
 
-   To install CrowdinSDK via [cocoapods](https://cocoapods.org), please make shure you have cocoapods installed locally. If not, please install it with following command: ```sudo gem install cocoapods```. 
+   To install Crowdin iOS SDK via [cocoapods](https://cocoapods.org), make sure you have cocoapods installed locally. If not, install it with following command: ```sudo gem install cocoapods```.
 
    Detailed instruction can be found [here](https://guides.cocoapods.org/using/getting-started.html).
 
-    To install it, simply add the following line to your Podfile:
+    Add the following line to your Podfile:
 
    ```swift
    pod 'CrowdinSDK'
@@ -73,7 +71,7 @@ The SDK provides:
    end
    ```
 
-After you've added CrowdinSDK to your Podfile, please run ```pod install``` in your project directory, open `App.xcworkspace` and build it. 
+After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
 
 ## Setup
 
@@ -86,39 +84,31 @@ To configure iOS SDK integration you need to:
 
 To manage distributions open the needed project and go to *Over-The-Air Content Delivery*. You can create as many distributions as you need and choose different files for each. You’ll need to click the *Release* button next to the necessary distribution every time you want to send new translations to the app.
 
-**Note!** Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
+1. Enable *Over-The-Air Content Delivery* in your Crowdin project so that application can pull translations from CDN vault.
 
-In order to start using CrowdinSDK you need to import and initialize it in your AppDelegate. 
+2. In order to start using *CrowdinSDK* you need to import and initialize it in your *AppDelegate*.
 
-By default, CrowdinSDK uses Crowdin localization provider. In order to properly setup it please read [providers documentation](Documentation/Providers.md). 
-
-Also you can use your own provider implementation. To get the detailed istructions please read [providers documentation](Documentation/Providers.md) or look at *CustomLocalizationProvider* in *Example project*.
-
-
-1. Enable *Over-The-Air Content Delivery* in your Crowdin project so that application can pull translations from CDN vault. 
-
-2. Open *AppDelegate.swift* file and add:
+Open *AppDelegate.swift* file and add:
 
    ```swift
    import CrowdinSDK
    ```
 
-3. In ```func application(...) -> Bool``` method add:
+3. In `application` method add:
 
-   ```swift
-   let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-      localizations: [target_languages],
-      sourceLanguage: source_language)
+    ```swift
+    let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
+      localizations: [{target_languages}],
+      sourceLanguage: {source_language})
 
-   CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
-   ```
+    CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
+    ```
 
-   `your_distribution_hash` - when distribution added you will get your unique hash.
+   `your_distribution_hash` - unique hash which you can get by going to **Over-The-Air Content Delivery** in your project settings. To see the distribution hash open the needed distribution, choose **Edit** and copy distribution hash.
 
    `target_languages` - target languages are the ones you’re translating to. Example: `"fr","uk","de"`
 
-   `source_language` - source language in your Crowdin project. Example - "en". Required for real time/screenshot functionalities.
-
+   `source_language` - source language in your Crowdin project. Example - `"en"`. Required for Screenshots and Real-Time Preview features.
 
 <details>
 <summary>Objective-C</summary>
@@ -127,23 +117,27 @@ In *AppDelegate.m* add:
 
 ```objective-c
 @import CrowdinSDK
-``` 
+```
 
-or 
+or
 
 ```objective-c
 #import<CrowdinSDK/CrowdinSDK.h>
 ```
 
-In ```application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions``` method add: 
+In `application` method add:
 
 ```objective-c
-[CrowdinSDK start];
+CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" localizations:@[] sourceLanguage:@""];
+CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig]];
+
+[CrowdinSDK startWithConfig:config];
 ```
 
 If you have pure Objective-C project, then you will need to do some additional steps:
 
 Add the following code to your Library Search Paths:
+
 ```objective-c
 $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
 ```
@@ -152,14 +146,12 @@ Add ```use_frameworks!``` to your Podfile.
 
 </details>
 
-
 ### Example Project
 
-To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in this [article](Documentation/TestApplication.md).
+To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in this [article](https://github.com/crowdin/mobile-sdk-ios/wiki/Test-Application).
 
 ## Advanced Features
-
-### Real-time Preview
+### Real-Time Preview
 
 This feature allows translators to see translations in the application in real-time. It can also be used by managers and QA team to preview translations before release.
 
@@ -169,11 +161,12 @@ Add the below code to your *Podfile*:
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
+  pod 'CrowdinSDK/Login'
   pod 'CrowdinSDK/RealtimeUpdate'
 end
 ```
 
-Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method add:
+Open *AppDelegate.swift* file and in `application` method add:
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
@@ -183,16 +176,28 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
 let loginConfig = CrowdinLoginConfig(clientId: "client_id", // required for real-time preview
     clientSecret: "client_secret",
     scope: "project.screenshot",
-    redirectURI: "crowdintest",
-    organizationName: "{organization_name}")
+    redirectURI: "redirectURI",
+    organizationName: "organization_name")
 
 let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(loginConfig: loginConfig) // required for screenshots and real-time preview            
+    .with(loginConfig: loginConfig) // required for screenshots and real-time preview
     .with(settingsEnabled: true) // optional: to add ‘settings’ button
-    .with(reatimeUpdatesEnabled: true) // button for real-time preview 
+    .with(realtimeUpdatesEnabled: true) // optional: to add button for real-time preview
 
 CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
 ```
+
+`client_id`, `client_secret` - Crowdin OAuth Client ID and Client Secret.
+
+`scope` - defines the access for personal tokens.
+
+`settingsEnabled` - enable floating settings view with a list of all active features and its statuses.
+
+`realtimeUpdatesEnabled` - enable Real-Time Preview feature.
+
+`redirectURI` - a custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app).
+
+`organizationName` - organization domain name (for Crowdin Enterprise users only).
 
 ### Screenshots
 
@@ -204,12 +209,13 @@ Add the below code to your *Podfile*:
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
+  pod 'CrowdinSDK/Login'
   pod 'CrowdinSDK/Screenshots' // required for screenshots
   pod 'CrowdinSDK/Settings' // optional: to add ‘settings’ button
 end
 ```
 
-Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method add:
+Open *AppDelegate.swift* file and in `application` method add:
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
@@ -219,7 +225,7 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
 let loginConfig = CrowdinLoginConfig(clientId: "client_id", // required for screenshots
     clientSecret: "client_secret",
     scope: "project.screenshot",
-    redirectURI: "crowdintest",
+    redirectURI: "redirectURI",
     organizationName: "{organization_name}")
 
 let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
@@ -230,41 +236,41 @@ let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: cro
 CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
 ```
 
-### Force Update
+`client_id`, `client_secret` - Crowdin OAuth Client ID and Client Secret.
 
-Enable to have the option of initiating translation updates while using the application.
+`scope` - defines the access for personal tokens.
 
-Add the below code to your *Podfile*:
+`screenshotsEnabled` - enable floating button to send screenshots to Crowdin.
+
+`settingsEnabled` - enable floating settings view with a list of all active features and its statuses.
+
+`realtimeUpdatesEnabled` - enable Real-Time Preview feature.
+
+`redirectURI` - a custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app).
+
+`organizationName` - organization domain name (for Crowdin Enterprise users only).
+
+## Notes
+
+1. Configuring translation update interval
+
+Update translations in application every defined time interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
 
 ```swift
-use_frameworks!
-target 'your-app' do
-  pod 'CrowdinSDK'
-  pod 'CrowdinSDK/RefereshLocalization'
-end
+  pod 'CrowdinSDK/IntervalUpdate'
 ```
 
-Open *AppDelegate.swift* file and in ```func application(...) -> Bool``` method add:
+Then enable this option in `CrowdinSDKConfig`:
 
 ```swift
-let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-   localizations: [{target_languages}],
-   sourceLanguage: "{source_language}")
-CrowdinSDK.startWithConfig(crowdinProviderConfig)
+    ...
+    .with(intervalUpdatesEnabled: true, interval: {interval})
+    ...
 ```
 
-## Parameters
+`interval` - defines translations update time interval in seconds.
 
-<table class="table table-bordered" style="font-size: 15px;">
-   <tr><td colspan="2"><b>Required for all features</b></td></tr>
-   <tr><td style="vertical-align:middle"> your_distribution_hash</td><td>Unique hash which you can get by going to <b>Over-The-Air Content Delivery</b> in your project settings. To see the distribution hash open the needed distribution, choose <b>Edit</b> and copy distribution hash</td></tr>
-   <tr><td colspan="2"><b>Required for advanced features</b></td></tr>
-   <tr><td style="vertical-align:middle">source_language</td><td>Source language in your Crowdin project (e.g. "en")</td></tr>
-   <tr><td style="vertical-align:middle">client_id; <br>client_secret</td><td>Crowdin authorization credentials. Open the project and go to <b>Over-The-Air Content Delivery</b>, choose the feature you need and click <b>Get Credentials</b></td></tr>
-   <tr><td colspan="2"><b>Optional</b></td></tr>
-   <tr><td style="vertical-align:middle">network_type</td><td>Network type to be used. You may select NetworkType.ALL, NetworkType.CELLULAR, or NetworkType.WIFI</td></tr>
-   <tr><td style="vertical-align:middle">interval_in_milisec</td><td>Update intervals in milliseconds</td></tr>
-  </table>
+2. Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
 
 ## File Export Patterns
 
@@ -299,7 +305,6 @@ You can set file export patterns and check existing ones using *File Settings*. 
       <td>OS X locale used to name translation resources (e.g. uk, zh-Hans, zh_HK)</td>
     </tr>
    </tbody>
-</table>
 </table>
 
 ## Contribution
