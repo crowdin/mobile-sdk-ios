@@ -110,41 +110,41 @@ Open *AppDelegate.swift* file and add:
 
    `source_language` - source language in your Crowdin project. Example - `"en"`. Required for Screenshots and Real-Time Preview features.
 
-<details>
-<summary>Objective-C</summary>
+   <details>
+   <summary>Objective-C</summary>
 
-In *AppDelegate.m* add:
+   In *AppDelegate.m* add:
 
-```objective-c
-@import CrowdinSDK
-```
+   ```objective-c
+   @import CrowdinSDK
+   ```
 
-or
+   or
 
-```objective-c
-#import<CrowdinSDK/CrowdinSDK.h>
-```
+   ```objective-c
+   #import<CrowdinSDK/CrowdinSDK.h>
+   ```
 
-In `application` method add:
+   In `application` method add:
 
-```objective-c
-CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" localizations:@[] sourceLanguage:@""];
-CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig]];
+   ```objective-c
+   CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" localizations:@[] sourceLanguage:@""];
+   CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig]];
 
-[CrowdinSDK startWithConfig:config];
-```
+   [CrowdinSDK startWithConfig:config];
+   ```
 
-If you have pure Objective-C project, then you will need to do some additional steps:
+   If you have pure Objective-C project, then you will need to do some additional steps:
 
-Add the following code to your Library Search Paths:
+   Add the following code to your Library Search Paths:
 
-```objective-c
-$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
-```
+   ```objective-c
+   $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
+   ```
 
-Add ```use_frameworks!``` to your Podfile.
+   Add ```use_frameworks!``` to your Podfile.
 
-</details>
+   </details>
 
 ### Example Project
 
@@ -254,21 +254,21 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
 
 1. Configuring translation update interval
 
-Update translations in application every defined time interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
+   Update translations in application every defined time interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
 
-```swift
-  pod 'CrowdinSDK/IntervalUpdate'
-```
+   ```swift
+   pod 'CrowdinSDK/IntervalUpdate'
+   ```
 
-Then enable this option in `CrowdinSDKConfig`:
+   Then enable this option in `CrowdinSDKConfig`:
 
-```swift
-    ...
-    .with(intervalUpdatesEnabled: true, interval: {interval})
-    ...
-```
+   ```swift
+   ...
+   .with(intervalUpdatesEnabled: true, interval: {interval})
+   ...
+   ```
 
-`interval` - defines translations update time interval in seconds.
+   `interval` - defines translations update time interval in seconds.
 
 2. Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
 
