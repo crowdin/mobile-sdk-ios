@@ -268,7 +268,7 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
    ...
    ```
 
-   `interval` - defines translations update time interval in seconds.
+`interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes.
 
 2. Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
 
