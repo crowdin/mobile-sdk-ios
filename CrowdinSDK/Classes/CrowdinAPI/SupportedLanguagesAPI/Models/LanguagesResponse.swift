@@ -13,8 +13,8 @@ public struct LanguagesResponse: Codable {
     public let pagination: LanguagesResponsePagination
 
     enum CodingKeys: String, CodingKey {
-        case data = "data"
-        case pagination = "pagination"
+        case data
+        case pagination
     }
 
     public init(data: [LanguagesResponseDatum], pagination: LanguagesResponsePagination) {
@@ -28,7 +28,7 @@ public struct LanguagesResponseDatum: Codable {
     public let data: LanguagesResponseData
 
     enum CodingKeys: String, CodingKey {
-        case data = "data"
+        case data
     }
 
     public init(data: LanguagesResponseData) {
