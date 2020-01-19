@@ -9,7 +9,7 @@ import Foundation
 
 class CrowdinSupportedLanguages {
     static let shared = CrowdinSupportedLanguages()
-    let api = SupportedLanguagesAPI()
+    let api = LanguagesAPI()
     
     fileprivate enum Strings: String {
         case SupportedLanguages
@@ -31,7 +31,7 @@ class CrowdinSupportedLanguages {
             return UserDefaults.standard.value(forKey: Keys.lastUpdatedDate.rawValue) as? Date
         }
     }
-    var supportedLanguages: SupportedLanguagesResponse? {
+    var supportedLanguages: LanguagesResponse? {
         didSet {
             saveSupportedLanguages()
         }
@@ -43,11 +43,15 @@ class CrowdinSupportedLanguages {
     }
     
     func crowdinLanguageCode(for localization: String) -> String? {
-        let language = supportedLanguages?.first(where: { $0.osxLocale == localization })
-        return language?.crowdinCode
+        let language = supportedLanguages?.data.first(where: { $0.data.osxLocale == localization })
+        return language?.data.id
     }
     
     func updateSupportedLanguagesIfNeeded() {
+        guard self.supportedLanguages != nil else {
+            self.updateSupportedLanguages()
+            return
+        }
         guard let lastUpdatedDate = lastUpdatedDate else {
             self.updateSupportedLanguages()
             return
@@ -58,7 +62,7 @@ class CrowdinSupportedLanguages {
     }
     
     func updateSupportedLanguages() {
-        api.getSupportedLanguages { (supportedLanguages, error) in
+        api.getLanguages(limit: 500, offset: 0) { (supportedLanguages, error) in
             guard error == nil else { return }
             guard let supportedLanguages = supportedLanguages else { return }
             self.supportedLanguages = supportedLanguages
@@ -73,6 +77,6 @@ class CrowdinSupportedLanguages {
     
     func readSupportedLanguages() {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else { return }
-        self.supportedLanguages = try? JSONDecoder().decode(SupportedLanguagesResponse.self, from: data)
+        self.supportedLanguages = try? JSONDecoder().decode(LanguagesResponse.self, from: data)
     }
 }
