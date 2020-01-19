@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                                                        .with(screenshotsEnabled: true)
 //														  .with(loginConfig: loginConfig)
 //                                                        .with(settingsEnabled: true)
-//                                                        .with(reatimeUpdatesEnabled: true)
+//                                                        .with(realtimeUpdatesEnabled: true)
 //        CrowdinSDK.startWithConfig(crowdinSDKConfig)
 		
 		// Setup CrowdinSDK with crowdin sdk with all features:
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)
-                                                        .with(reatimeUpdatesEnabled: true)
+                                                        .with(realtimeUpdatesEnabled: true)
                                                         .with(screenshotsEnabled: true)
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
 		
