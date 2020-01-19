@@ -54,20 +54,20 @@ public struct LanguagesResponseData: Codable {
     public let dialectOf: String?
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "name"
-        case editorCode = "editorCode"
-        case twoLettersCode = "twoLettersCode"
-        case threeLettersCode = "threeLettersCode"
-        case locale = "locale"
-        case androidCode = "androidCode"
-        case osxCode = "osxCode"
-        case osxLocale = "osxLocale"
-        case pluralCategoryNames = "pluralCategoryNames"
-        case pluralRules = "pluralRules"
-        case pluralExamples = "pluralExamples"
-        case textDirection = "textDirection"
-        case dialectOf = "dialectOf"
+        case id
+        case name
+        case editorCode
+        case twoLettersCode
+        case threeLettersCode
+        case locale
+        case androidCode
+        case osxCode
+        case osxLocale
+        case pluralCategoryNames
+        case pluralRules
+        case pluralExamples
+        case textDirection
+        case dialectOf
     }
 
     public init(id: String, name: String, editorCode: String, twoLettersCode: String, threeLettersCode: String, locale: String, androidCode: String, osxCode: String, osxLocale: String, pluralCategoryNames: [LanguagesResponsePluralCategoryName], pluralRules: String, pluralExamples: [String], textDirection: LanguagesResponseTextDirection, dialectOf: String?) {
@@ -89,17 +89,17 @@ public struct LanguagesResponseData: Codable {
 }
 
 public enum LanguagesResponsePluralCategoryName: String, Codable {
-    case few = "few"
-    case many = "many"
-    case one = "one"
-    case other = "other"
-    case two = "two"
-    case zero = "zero"
+    case few
+    case many
+    case one
+    case other
+    case two
+    case zero
 }
 
 public enum LanguagesResponseTextDirection: String, Codable {
-    case ltr = "ltr"
-    case rtl = "rtl"
+    case ltr
+    case rtl
 }
 
 // MARK: - LanguagesResponsePagination
@@ -108,8 +108,8 @@ public struct LanguagesResponsePagination: Codable {
     public let limit: Int
 
     enum CodingKeys: String, CodingKey {
-        case offset = "offset"
-        case limit = "limit"
+        case offset
+        case limit
     }
 
     public init(offset: Int, limit: Int) {
