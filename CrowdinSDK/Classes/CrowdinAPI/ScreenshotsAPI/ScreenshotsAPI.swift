@@ -17,8 +17,8 @@ class ScreenshotsAPI: CrowdinAPI {
         return "\(fullPath)/\(projectId)/screenshots"
     }
 
-    func createScreenshot(projectId: Int, storageId: Int, name: String, completion: @escaping (CreateScreenshotResponse?, Error?) -> Void) {
-        let request = CreateScreenshotRequest(storageId: storageId, name: name)
+    func createScreenshot(projectId: Int, storageId: Int, name: String, autoTag: Bool = false, completion: @escaping (CreateScreenshotResponse?, Error?) -> Void) {
+        let request = CreateScreenshotRequest(storageId: storageId, name: name, autoTag: autoTag)
         let requestData = try? JSONEncoder().encode(request)
         let url = baseUrl(with: projectId)
         let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]

@@ -64,7 +64,7 @@ extension SettingsView {
             if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                 screenshotCell.action = {
                     self.isHidden = true
-                    feature.captureScreenshot(name: "NewScreenhot", success: {
+                    feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
                         print("Success")
                     }, errorHandler: { (error) in
                         print("Error uploading screenshot - \(error?.localizedDescription ?? "Unknown")")

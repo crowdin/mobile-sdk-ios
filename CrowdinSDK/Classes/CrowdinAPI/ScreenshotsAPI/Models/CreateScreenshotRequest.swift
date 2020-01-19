@@ -10,4 +10,5 @@ import Foundation
 struct CreateScreenshotRequest: Codable {
     let storageId: Int
     let name: String
+    let autoTag: Bool
 }
