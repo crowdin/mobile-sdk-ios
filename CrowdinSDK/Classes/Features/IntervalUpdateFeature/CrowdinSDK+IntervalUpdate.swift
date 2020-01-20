@@ -20,8 +20,12 @@ extension CrowdinSDK {
     
     class func initializeIntervalUpdateFeature() {
         guard let config = CrowdinSDK.config else { return }
-        if config.intervalUpdatesEnabled, let interval = config.intervalUpdatesInterval {
-            IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+        if config.intervalUpdatesEnabled {
+            if let interval = config.localizationUpdatesInterval {
+                IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
+            } else {
+                IntervalUpdateFeature.shared = IntervalUpdateFeature()
+            }
             IntervalUpdateFeature.shared?.start()
         }
     }

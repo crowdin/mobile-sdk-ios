@@ -32,17 +32,19 @@ final class IntervalUpdateFeature: IntervalUpdateFeatureProtocol {
         }
     }
     
+    private static var minimumTimeInterval: TimeInterval = 60 * 15 // 15 minutes
     static var shared: IntervalUpdateFeatureProtocol?
     
     var interval: TimeInterval
     var timer: Timer? = nil
     
     convenience init() {
-        self.init(interval: 60)
+        self.init(interval: IntervalUpdateFeature.minimumTimeInterval)
     }
     
-    required public init(interval: TimeInterval) {
-        self.interval = interval
+    required init(interval: TimeInterval) {
+        let minimumTimeInterval = IntervalUpdateFeature.minimumTimeInterval
+        self.interval = minimumTimeInterval < interval ? interval : minimumTimeInterval
     }
     
     func start() {

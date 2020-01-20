@@ -10,8 +10,9 @@ import Foundation
 extension CrowdinSDKConfig {
     private static var intervalUpdatesEnabled: Bool = false
     private static var intervalUpdatesInterval: TimeInterval? = nil
-    // Interval updates
-    var intervalUpdatesInterval: TimeInterval? {
+    
+    /// Time inteval for localization updates. Minimum value is 15 minutes.
+    var localizationUpdatesInterval: TimeInterval? {
         get {
             return CrowdinSDKConfig.intervalUpdatesInterval
         }
@@ -19,7 +20,8 @@ extension CrowdinSDKConfig {
             CrowdinSDKConfig.intervalUpdatesInterval = newValue
         }
     }
-    // Realtime updates
+    
+    /// Interval updates feature status.
     var intervalUpdatesEnabled: Bool {
         get {
             return CrowdinSDKConfig.intervalUpdatesEnabled
@@ -31,7 +33,7 @@ extension CrowdinSDKConfig {
     
     public func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
         self.intervalUpdatesEnabled = intervalUpdatesEnabled
-        self.intervalUpdatesInterval = interval
+        self.localizationUpdatesInterval = interval
         return self
     }
 }
