@@ -169,7 +169,7 @@ extension RealtimeUpdateFeature {
     }
     
     func didChangePlural(with id: Int, to newValue: String) {
-        guard let key = mappingManager.stringLocalizationKey(for: id) else { return }
+        guard let key = mappingManager.pluralLocalizationKey(for: id) else { return }
         self.refreshControl(with: key, newText: newValue)
     }
 }

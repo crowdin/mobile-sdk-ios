@@ -84,8 +84,8 @@ extension CrowdinMappingManager {
             }
             
             // Get id for every internal key if it exist.
-            for (key, value) in valueDict {
-                guard let keyString = key as? String, let valueDict = value as? [AnyHashable: Any] else { continue }
+            for (_, value) in valueDict {
+                guard let valueDict = value as? [AnyHashable: Any] else { continue }
                 if let idString = idFromDict(valueDict) {
                     pluralsMapping[keyString] = idString
                 }
