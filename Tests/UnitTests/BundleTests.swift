@@ -43,8 +43,8 @@ class BundleTests: XCTestCase {
         XCTAssert(Bundle.main.developmentRegion == "en")
     }
     
-    func testCrowdinHash() {
-        XCTAssert(Bundle.main.crowdinHash == "5290b1cfa1eb44bf2581e78106i")
+    func testCrowdinDistributionHash() {
+        XCTAssert(Bundle.main.crowdinDistributionHash == "5290b1cfa1eb44bf2581e78106i")
     }
     
     func testCrowdinLocalizations() {
@@ -54,21 +54,6 @@ class BundleTests: XCTestCase {
             XCTAssert(localizations.contains("en"))
             XCTAssert(localizations.contains("de"))
             XCTAssert(localizations.contains("uk"))
-        }
-    }
-    
-    func testProjectKey() {
-        let projectKey = Bundle.main.projectKey
-        XCTAssertNil(projectKey)
-    }
-    
-    func testCrowdinFilesNames() {
-        let crowdinStringsFileNames = Bundle.main.crowdinFiles
-        XCTAssertNotNil(crowdinStringsFileNames)
-        if let crowdinStringsFileNames = crowdinStringsFileNames {
-            XCTAssert(crowdinStringsFileNames.contains("Localizable.strings"))
-            XCTAssert(crowdinStringsFileNames.contains("Main.strings"))
-            XCTAssert(crowdinStringsFileNames.contains("Localizable.stringsdict"))
         }
     }
     

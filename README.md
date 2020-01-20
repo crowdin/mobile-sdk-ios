@@ -86,7 +86,9 @@ To manage distributions open the needed project and go to *Over-The-Air Content 
 
 1. Enable *Over-The-Air Content Delivery* in your Crowdin project so that application can pull translations from CDN vault.
 
-2. In order to start using *CrowdinSDK* you need to import and initialize it in your *AppDelegate*.
+2. In order to start using *CrowdinSDK* you need to initialize it in *AppDelegate* or in *Info.plist*
+
+### Setup with AppDelegate
 
 Open *AppDelegate.swift* file and add:
 
@@ -146,6 +148,20 @@ Open *AppDelegate.swift* file and add:
 
    </details>
 
+### Setup with Info.plist
+
+Open *Info.plist* file and add:
+
+`CrowdinDistributionHash` - Crowdin CDN hash value for current project (String value).
+
+`CrowdinLocalizations` - Supported localizations for current project on crowdin server (Array of strings).
+
+`CrowdinSourceLanguage` - Source language for current project on crowdin server (String value).
+
+In AppDelegate you should call start method: `CrowdinSDK.start()` for Swift, and `[CrowdinSDK start]` for Objective-C.
+
+Please note: using this setup method you will unable to set up additional *Screenshots* and *Real-Time Preview* project features.
+ 
 ### Example Project
 
 To run the example project, first clone the repo and run `pod install` from the Example directory. All functionality described in this [article](https://github.com/crowdin/mobile-sdk-ios/wiki/Test-Application).

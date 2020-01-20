@@ -33,17 +33,11 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>CrowdinFiles</key>
-	<array>
-		<string>Localizable.strings</string>
-		<string>Base.strings</string>
-		<string>Localizable.stringsdict</string>
-		<string>Base.stringsdict</string>
-	</array>
-	<key>CrowdinHash</key>
-	<string>1c2f58c7c711435295d2408106i</string>
+	<key>CrowdinDistributionHash</key>
+	<string>2db137daf26d22bf499c998106i</string>
 	<key>CrowdinLocalizations</key>
 	<array>
+		<string>uk</string>
 		<string>de</string>
 		<string>en</string>
 	</array>

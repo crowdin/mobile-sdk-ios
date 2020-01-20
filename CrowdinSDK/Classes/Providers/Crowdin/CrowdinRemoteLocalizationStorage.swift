@@ -29,8 +29,8 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.localization = localization
         self.crowdinDownloader = CrowdinLocalizationDownloader(enterprise: enterprise)
         self.enterprise = enterprise
-        guard let hashString = Bundle.main.crowdinHash else {
-            fatalError("Please add CrowdinHash key to your Info.plist file")
+        guard let hashString = Bundle.main.crowdinDistributionHash else {
+            fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
         self.hashString = hashString
         guard let localizations = Bundle.main.cw_localizations else {
