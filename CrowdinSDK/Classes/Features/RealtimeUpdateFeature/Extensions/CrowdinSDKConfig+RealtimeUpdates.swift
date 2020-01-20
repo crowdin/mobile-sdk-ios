@@ -8,19 +8,22 @@
 import Foundation
 
 extension CrowdinSDKConfig {
-    private static var reatimeUpdatesEnabled: Bool = false
-    // Realtime updates
-    var reatimeUpdatesEnabled: Bool {
+    private static var realtimeUpdatesEnabled: Bool = false
+    
+    /// Realtime updates feature status
+    var realtimeUpdatesEnabled: Bool {
         get {
-            return CrowdinSDKConfig.reatimeUpdatesEnabled
+            return CrowdinSDKConfig.realtimeUpdatesEnabled
         }
         set {
-            CrowdinSDKConfig.reatimeUpdatesEnabled = newValue
+            CrowdinSDKConfig.realtimeUpdatesEnabled = newValue
         }
     }
     
-    public func with(reatimeUpdatesEnabled: Bool) -> Self {
-        self.reatimeUpdatesEnabled = reatimeUpdatesEnabled
+    /// Method for enabling/disabling real-time updates feature through the config.
+    /// - Parameter realtimeUpdatesEnabled: A boolean value which indicate real-time updates status.
+    public func with(realtimeUpdatesEnabled: Bool) -> Self {
+        self.realtimeUpdatesEnabled = realtimeUpdatesEnabled
         return self
     }
 }
