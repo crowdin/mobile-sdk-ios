@@ -18,11 +18,6 @@ extension Bundle {
     var cw_localizations: [String]? {
         return infoDictionary?["CrowdinLocalizations"] as? [String]
     }
-
-    /// Array of all file names.
-    var crowdinFiles: [String]? {
-        return infoDictionary?["CrowdinFiles"] as? [String]
-    }
     
     /// Source language for current project on crowdin server.
     var crowdinSourceLanguage: String? {

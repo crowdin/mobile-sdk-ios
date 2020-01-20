@@ -57,16 +57,6 @@ class BundleTests: XCTestCase {
         }
     }
     
-    func testCrowdinFilesNames() {
-        let crowdinStringsFileNames = Bundle.main.crowdinFiles
-        XCTAssertNotNil(crowdinStringsFileNames)
-        if let crowdinStringsFileNames = crowdinStringsFileNames {
-            XCTAssert(crowdinStringsFileNames.contains("Localizable.strings"))
-            XCTAssert(crowdinStringsFileNames.contains("Main.strings"))
-            XCTAssert(crowdinStringsFileNames.contains("Localizable.stringsdict"))
-        }
-    }
-    
     func testCrowdinSourceLanguage() {
         XCTAssertNotNil(Bundle.main.crowdinSourceLanguage)
         XCTAssert(Bundle.main.crowdinSourceLanguage == "en")
