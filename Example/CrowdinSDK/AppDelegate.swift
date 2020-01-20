@@ -55,12 +55,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         .with(reatimeUpdatesEnabled: true)
                                                         .with(screenshotsEnabled: true)
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
-		
+        
+//		Setup CrowdinSDK with Info.plist. Initializes only localization delivery feature.
+//        CrowdinSDK.start()
         
 //        _ = CrowdinSDK.addDownloadHandler {
 //            print("Localization downloaded")
 //        }
-//        
+//
 //        _ = CrowdinSDK.addErrorUpdateHandler { (errors) in
 //            print("Localization download failed with errors:")
 //            errors.forEach({ print($0.localizedDescription) })
