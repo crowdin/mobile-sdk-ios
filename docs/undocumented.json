@@ -1,0 +1,2945 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/CrowdinAPI.swift",
+      "line": 16,
+      "symbol": "Notification.Name.CrowdinAPIUnautorizedNotification",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 11,
+      "symbol": "DistributionsResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 12,
+      "symbol": "DistributionsResponse.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 18,
+      "symbol": "DistributionsResponse.init(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 24,
+      "symbol": "DistributionsResponseData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 25,
+      "symbol": "DistributionsResponseData.project",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 26,
+      "symbol": "DistributionsResponseData.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 27,
+      "symbol": "DistributionsResponseData.wsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 35,
+      "symbol": "DistributionsResponseData.init(project:user:wsUrl:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 43,
+      "symbol": "DistributionsResponseProject",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 44,
+      "symbol": "DistributionsResponseProject.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 45,
+      "symbol": "DistributionsResponseProject.wsHash",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 52,
+      "symbol": "DistributionsResponseProject.init(id:wsHash:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 59,
+      "symbol": "DistributionsResponseUser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 60,
+      "symbol": "DistributionsResponseUser.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/DistributionsAPI/Models/DistributionsResponse.swift",
+      "line": 66,
+      "symbol": "DistributionsResponseUser.init(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 10,
+      "symbol": "TokenResponse",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 11,
+      "symbol": "TokenResponse.tokenType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 12,
+      "symbol": "TokenResponse.expiresIn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 13,
+      "symbol": "TokenResponse.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinAPI/LoginAPI/Models/TokenResponse.swift",
+      "line": 14,
+      "symbol": "TokenResponse.refreshToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 29,
+      "symbol": "CrowdinSDK.Mode.autoSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 30,
+      "symbol": "CrowdinSDK.Mode.customSDK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 31,
+      "symbol": "CrowdinSDK.Mode.autoBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift",
+      "line": 32,
+      "symbol": "CrowdinSDK.Mode.customBundle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/CrowdinSDK/FileSystem/FileStatus.swift",
+      "line": 20,
+      "symbol": "FileStatsProtocol",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/IntervalUpdateFeature/CrowdinSDK+IntervalUpdate.swift",
+      "line": 11,
+      "symbol": "CrowdinSDK.startIntervalUpdates(interval:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/IntervalUpdateFeature/CrowdinSDK+IntervalUpdate.swift",
+      "line": 11,
+      "symbol": "CrowdinSDK.startIntervalUpdates(interval:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/IntervalUpdateFeature/CrowdinSDK+IntervalUpdate.swift",
+      "line": 16,
+      "symbol": "CrowdinSDK.stopIntervalUpdates()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/IntervalUpdateFeature/CrowdinSDK+IntervalUpdate.swift",
+      "line": 16,
+      "symbol": "CrowdinSDK.stopIntervalUpdates()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/IntervalUpdateFeature/CrowdinSDKConfig+IntervalUpdate.swift",
+      "line": 32,
+      "symbol": "CrowdinSDKConfig.with(intervalUpdatesEnabled:interval:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/IntervalUpdateFeature/CrowdinSDKConfig+IntervalUpdate.swift",
+      "line": 32,
+      "symbol": "CrowdinSDKConfig.with(intervalUpdatesEnabled:interval:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinLoginConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinLoginConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinLoginConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinLoginConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 17,
+      "symbol": "CrowdinLoginConfig.init(clientId:clientSecret:scope:redirectURI:organizationName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 17,
+      "symbol": "CrowdinLoginConfig.init(clientId:clientSecret:scope:redirectURI:organizationName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 17,
+      "symbol": "CrowdinLoginConfig.init(clientId:clientSecret:scope:redirectURI:organizationName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/CrowdinLoginConfig.swift",
+      "line": 17,
+      "symbol": "CrowdinLoginConfig.init(clientId:clientSecret:scope:redirectURI:organizationName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDK+Login.swift",
+      "line": 19,
+      "symbol": "CrowdinSDK.handle(url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDK+Login.swift",
+      "line": 19,
+      "symbol": "CrowdinSDK.handle(url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDK+Login.swift",
+      "line": 19,
+      "symbol": "CrowdinSDK.handle(url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDK+Login.swift",
+      "line": 19,
+      "symbol": "CrowdinSDK.handle(url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDKConfig +Login.swift",
+      "line": 22,
+      "symbol": "CrowdinSDKConfig.with(loginConfig:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDKConfig +Login.swift",
+      "line": 22,
+      "symbol": "CrowdinSDKConfig.with(loginConfig:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDKConfig +Login.swift",
+      "line": 22,
+      "symbol": "CrowdinSDKConfig.with(loginConfig:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/LoginFeature/Extensions/CrowdinSDKConfig +Login.swift",
+      "line": 22,
+      "symbol": "CrowdinSDKConfig.with(loginConfig:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RealtimeUpdateFeature/Extensions/CrowdinSDK+ReatimeUpdates.swift",
+      "line": 20,
+      "symbol": "CrowdinSDK.startRealtimeUpdates(success:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RealtimeUpdateFeature/Extensions/CrowdinSDK+ReatimeUpdates.swift",
+      "line": 20,
+      "symbol": "CrowdinSDK.startRealtimeUpdates(success:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RealtimeUpdateFeature/Extensions/CrowdinSDK+ReatimeUpdates.swift",
+      "line": 25,
+      "symbol": "CrowdinSDK.stopRealtimeUpdates()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RealtimeUpdateFeature/Extensions/CrowdinSDK+ReatimeUpdates.swift",
+      "line": 25,
+      "symbol": "CrowdinSDK.stopRealtimeUpdates()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RealtimeUpdateFeature/Extensions/CrowdinSDKConfig+RealtimeUpdates.swift",
+      "line": 22,
+      "symbol": "CrowdinSDKConfig.with(reatimeUpdatesEnabled:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RealtimeUpdateFeature/Extensions/CrowdinSDKConfig+RealtimeUpdates.swift",
+      "line": 22,
+      "symbol": "CrowdinSDKConfig.with(reatimeUpdatesEnabled:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RefreshLocalizationFeature/CrowdinSDK+RefreshLocalization.swift",
+      "line": 11,
+      "symbol": "CrowdinSDK.forceRefreshLocalization()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/RefreshLocalizationFeature/CrowdinSDK+RefreshLocalization.swift",
+      "line": 11,
+      "symbol": "CrowdinSDK.forceRefreshLocalization()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/CrowdinScreenshotsConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinScreenshotsConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/CrowdinScreenshotsConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinScreenshotsConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/CrowdinScreenshotsConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinScreenshotsConfig.init(login:accountKey:loginConfig:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/CrowdinScreenshotsConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinScreenshotsConfig.init(login:accountKey:loginConfig:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/Extensions/CrowdinSDK+Screenshots.swift",
+      "line": 20,
+      "symbol": "CrowdinSDK.captureScreenshot(name:success:errorHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/Extensions/CrowdinSDK+Screenshots.swift",
+      "line": 20,
+      "symbol": "CrowdinSDK.captureScreenshot(name:success:errorHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/Extensions/CrowdinSDKConfig+Screenshots.swift",
+      "line": 23,
+      "symbol": "CrowdinSDKConfig.with(screenshotsEnabled:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/Extensions/CrowdinSDKConfig+Screenshots.swift",
+      "line": 23,
+      "symbol": "CrowdinSDKConfig.with(screenshotsEnabled:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotInformationCollector.swift",
+      "line": 10,
+      "symbol": "ControlInformation",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotInformationCollector.swift",
+      "line": 10,
+      "symbol": "ControlInformation",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotProcessor.swift",
+      "line": 11,
+      "symbol": "ScreenshotProcessor",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotProcessor.swift",
+      "line": 11,
+      "symbol": "ScreenshotProcessor",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotProcessor.swift",
+      "line": 12,
+      "symbol": "ScreenshotProcessor.process(screenshot:with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotProcessor.swift",
+      "line": 12,
+      "symbol": "ScreenshotProcessor.process(screenshot:with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotUploader.swift",
+      "line": 10,
+      "symbol": "ScreenshotUploader",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotUploader.swift",
+      "line": 10,
+      "symbol": "ScreenshotUploader",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotUploader.swift",
+      "line": 11,
+      "symbol": "ScreenshotUploader.uploadScreenshot(screenshot:controlsInformation:name:success:errorHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Features/ScreenshotFeature/ScreenshotUploader.swift",
+      "line": 11,
+      "symbol": "ScreenshotUploader.uploadScreenshot(screenshot:controlsInformation:name:success:errorHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 10,
+      "symbol": "CrowdinProviderConfig",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 15,
+      "symbol": "CrowdinProviderConfig.init(hashString:localizations:sourceLanguage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/Config/CrowdinProviderConfig.swift",
+      "line": 21,
+      "symbol": "CrowdinProviderConfig.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 10,
+      "symbol": "CrowdinMappingManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 11,
+      "symbol": "CrowdinMappingManagerProtocol.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 12,
+      "symbol": "CrowdinMappingManagerProtocol.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 14,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 15,
+      "symbol": "CrowdinMappingManagerProtocol.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 17,
+      "symbol": "CrowdinMappingManagerProtocol.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 18,
+      "symbol": "CrowdinMappingManagerProtocol.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 21,
+      "symbol": "CrowdinMappingManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 45,
+      "symbol": "CrowdinMappingManager.stringLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 49,
+      "symbol": "CrowdinMappingManager.pluralLocalizationKey(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 53,
+      "symbol": "CrowdinMappingManager.idFor(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 58,
+      "symbol": "CrowdinMappingManager.idFor(plural:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 63,
+      "symbol": "CrowdinMappingManager.key(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Providers/Crowdin/MappingDownloader/CrowdinMappingManager.swift",
+      "line": 67,
+      "symbol": "CrowdinMappingManager.id(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Settings/CrowdinSDK+Settings.swift",
+      "line": 18,
+      "symbol": "CrowdinSDK.showSettings()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes/Settings/CrowdinSDKConfig+Settings.swift",
+      "line": 23,
+      "symbol": "CrowdinSDKConfig.with(settingsEnabled:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios/CrowdinSDK/Classes"
+}

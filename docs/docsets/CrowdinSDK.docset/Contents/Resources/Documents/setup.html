@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Setup  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Setup  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">CrowdinSDK Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/serhii-londar"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">CrowdinSDK Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Setup  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="documents.html">Documents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="framework-tutorial.html">Framework tutorial</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="providers.html">Providers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="setup.html">Setup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="testapplication.html">TestApplication</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinLoginConfig.html">CrowdinLoginConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinMappingManager.html">CrowdinMappingManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinProviderConfig.html">CrowdinProviderConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinSDK.html">CrowdinSDK</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinSDK/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinSDKConfig.html">CrowdinSDKConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinScreenshotsConfig.html">CrowdinScreenshotsConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CrowdinTester.html">CrowdinTester</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Notification/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/CrowdinMappingManagerProtocol.html">CrowdinMappingManagerProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/LocalizationStorageProtocol.html">LocalizationStorageProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/RemoteLocalizationStorageProtocol.html">RemoteLocalizationStorageProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ScreenshotProcessor.html">ScreenshotProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ScreenshotUploader.html">ScreenshotUploader</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs.html#/s:10CrowdinSDK18ControlInformationV">ControlInformation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/DistributionsResponse.html">DistributionsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/DistributionsResponseData.html">DistributionsResponseData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/DistributionsResponseProject.html">DistributionsResponseProject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/DistributionsResponseUser.html">DistributionsResponseUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokenResponse.html">TokenResponse</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10CrowdinSDK0A29SDKLocalizationUpdateDownloada">CrowdinSDKLocalizationUpdateDownload</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10CrowdinSDK0A26SDKLocalizationUpdateErrora">CrowdinSDKLocalizationUpdateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10CrowdinSDK29LocalizationStorageCompletiona">LocalizationStorageCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>Xcode 10.2</li>
+<li>Swift 4.2</li>
+<li>iOS 9.0</li>
+</ul>
+<h2 id='installation' class='heading'>Installation</h2>
+<h4 id='cocoapods' class='heading'>Cocoapods</h4>
+
+<p>To install CrowdinSDK via <a href="https://cocoapods.org">cocoapods</a>, please make sure you have cocoapods installed locally. If not, please install it with the following command: <code>sudo gem install cocoapods</code>. Detailed instruction can be found <a href="https://guides.cocoapods.org/using/getting-started.html">here</a>.</p>
+
+<p>To install it, simply add the following line to your Podfile (<strong>!!!Will be available after publishing repo to cocoapods podspecs repo!!!</strong>):</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'CrowdinSDK'</span>
+</code></pre>
+
+<p>To install from cocoapods spec repository (<strong>!!!Will be available after publishing repo to cocoapods podspecs repo!!!</strong>):</p>
+<pre class="highlight ruby"><code><span class="n">target</span> <span class="s1">'App'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK'</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>To install from gitlab repository (<strong>This option will be removed from this document in the future. This option is needed only for testing.</strong>):</p>
+<pre class="highlight ruby"><code><span class="n">target</span> <span class="s1">'App'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span> <span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>To install from local sources (<strong>This option will be removed from this document in the future. This option is needed only for testing.</strong>):</p>
+<pre class="highlight ruby"><code><span class="n">target</span> <span class="s1">'App'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK'</span><span class="p">,</span> <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">'../../CrowdinSDK'</span> <span class="o">-</span> <span class="n">where</span> <span class="s1">'../../CrowdinSDK'</span> <span class="n">is</span> <span class="n">path</span> <span class="n">to</span> <span class="n">local</span> <span class="n">sources</span><span class="p">.</span>
+<span class="nf">end</span>
+</code></pre>
+
+<p>To enable all available features of SDK you can add following lines to your pod file: </p>
+<pre class="highlight ruby"><code><span class="n">target</span> <span class="s1">'App'</span> <span class="k">do</span>
+  <span class="n">use_frameworks!</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK/Screenshots'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK/IntervalUpdate'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK/RealtimeUpdate'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK/RefreshLocalization'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK/Login'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+  <span class="n">pod</span> <span class="s1">'CrowdinSDK/Settings'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span><span class="s1">'git@gitlab.com:crowdin-ext/mobile-sdk-ios.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'develop'</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Please read more detailed about every feature in <a href="#subspecs">Subspecs section</a>.</p>
+
+<p>After you&rsquo;ve added CrowdinSDK and all needed features to your Podfile, please run <code>pod install</code> in your project directory, open App.xcworkspace and build it. </p>
+<h2 id='subspecs' class='heading'>Subspecs</h2>
+
+<p>CrowdinSDK divided to separate parts called subspecs. To install some of these parts via cocoapods you&rsquo;ll need to add </p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'CrowdinSDK/Subspec_Name'</span>
+</code></pre>
+
+<p>in your pod file.</p>
+
+<p>CrowdinSDK contains several submodules:</p>
+<h3 id='core' class='heading'>Core</h3>
+
+<p>This submodule contains core SDK functionality, such as functionality for switching localized strings, algorithms for current language detection.</p>
+
+<p>This is default submodule, that means if you setup SDK via cocapods with pod &lsquo;CrowdinSDK&rsquo; this submodule will be included.</p>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="https://github.com/daltoniam/Starscream">Starscream</a> - third party WebSocket client library.</li>
+</ul>
+<h3 id='crowdinprovider' class='heading'>CrowdinProvider</h3>
+
+<p>Submodule for downloading localizations from crowdin server.</p>
+
+<p>This is default submodule, that means if you setup SDK via cocapods with <code>pod &#39;CrowdinSDK&#39;</code> this submodule will be included by default.</p>
+
+<p>To setup this feature you need to setup <code><a href="Classes/CrowdinProviderConfig.html">CrowdinProviderConfig</a></code> object with the following parameters:</p>
+
+<ul>
+<li>hashString - Crowdin content delivery hash string.</li>
+<li>localizations - list of all available localizations on crowdin server.</li>
+<li>sourceLanguage - project source language on crowdin server.</li>
+</ul>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">crowdinProviderConfig</span> <span class="o">=</span> <span class="kt">CrowdinProviderConfig</span><span class="p">(</span><span class="nv">hashString</span><span class="p">:</span> <span class="s">"{your_distribution_hash}, 
+                                                  localizations: [target_languages], 
+                                                  sourceLanguage: source_language)
+</span></code></pre>
+
+<p>Than you need to setup CrowdinSDKConfig with just created screenshots config object:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="kt">CrowdinSDKConfig</span><span class="o">.</span><span class="nf">config</span><span class="p">()</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">crowdinProviderConfig</span><span class="p">:</span> <span class="n">crowdinProviderConfig</span><span class="p">)</span>
+</code></pre>
+
+<p>And start SDK with this config:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">startWithConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</code></pre>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="#core">CrowdinSDK/Core</a></li>
+<li><a href="#crowdinapi">CrowdinSDK/CrowdinAPI</a></li>
+</ul>
+<h3 id='crowdinapi' class='heading'>CrowdinAPI</h3>
+
+<p>Crowdin API implementation to work with crowdin server. To enable this feature please add</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'CrowdinSDK/CrowdinAPI'</span>
+</code></pre>
+
+<p>to your pod file.</p>
+<h3 id='mappingmanager' class='heading'>MappingManager</h3>
+
+<p>All classes related to strings mapping downloading and parsing. This subspec is used only as a dependency for realtime updates and screenshots subspecs.</p>
+<h3 id='screenshots' class='heading'>Screenshots</h3>
+
+<p>Contains all functionality related to screenshots feature. To enable this feature please add pod &lsquo;CrowdinSDK/Screenshots&rsquo; to your pod file.</p>
+
+<p>To setup this feature you need to setup LoginConfig object as this functionality requires autentification. Example:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">loginConfig</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">CrowdinLoginConfig</span><span class="p">(</span><span class="nv">clientId</span><span class="p">:</span> <span class="n">client_id</span><span class="p">,</span>
+                                      <span class="nv">clientSecret</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">,</span>
+                                             <span class="nv">scope</span><span class="p">:</span> <span class="n">scope</span><span class="p">,</span>
+                                       <span class="nv">redirectURI</span><span class="p">:</span> <span class="n">redirect_url</span><span class="p">,</span>
+                                  <span class="nv">organizationName</span><span class="p">:</span> <span class="n">organization_name</span><span class="p">)</span>
+</code></pre>
+
+<ul>
+<li>client_id -</li>
+<li>client_secret -</li>
+<li>scope -</li>
+<li>redirect_url -</li>
+</ul>
+
+<p>Than you need to setup CrowdinSDKConfig with just created screenshots config object:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="kt">CrowdinSDKConfig</span><span class="o">.</span><span class="nf">config</span><span class="p">()</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">loginConfig</span><span class="p">:</span> <span class="n">loginConfig</span><span class="p">)</span>
+                                      <span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">screenshotsEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+</code></pre>
+
+<p>And start SDK with this config:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">startWithConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</code></pre>
+
+<p>To create screenshot for currently displaing screen you need to call CrowdinSDK function <code>func captureScreenshot(name: String, success: @escaping (() -&gt; Void), errorHandler: @escaping ((Error?) -&gt; Void))</code></p>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">captureScreenshot</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"My awesome screenshot"</span><span class="p">,</span> <span class="nv">success</span><span class="p">:</span> <span class="p">{</span>
+
+<span class="p">})</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+
+<span class="p">}</span>
+</code></pre>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="#core">CrowdinSDK/Core</a></li>
+<li><a href="#CrowdinAPI">CrowdinSDK/CrowdinAPI</a></li>
+<li><a href="#Login">CrowdinSDK/Login</a></li>
+<li><a href="#MappingManager">CrowdinSDK/MappingManager</a></li>
+</ul>
+<h3 id='realtimeupdate' class='heading'>RealtimeUpdate</h3>
+
+<p>Contains all functionality related to real-time updates feature. To enable this feature please add pod &lsquo;CrowdinSDK/RealtimeUpdate&rsquo; to your pod file.</p>
+
+<p>To setup this feature you need to setup CrowdinSDKConfig object. Example: </p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="kt">CrowdinSDKConfig</span><span class="o">.</span><span class="nf">config</span><span class="p">()</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">reatimeUpdatesEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+</code></pre>
+
+<p>And start SDK with this config:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">startWithConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</code></pre>
+
+<p>To start realtime updates you can call CrowdinSDK function </p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">startRealtimeUpdates</span><span class="p">(</span><span class="nv">success</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?,</span> <span class="nv">error</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+</code></pre>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">startRealtimeUpdates</span><span class="p">(</span><span class="nv">success</span><span class="p">:</span> <span class="p">{</span>
+
+<span class="p">})</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>To stop realtime updates you need to call CrowdinSDK function <code>func stopRealtimeUpdates()</code></p>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">stopRealtimeUpdates</span><span class="p">()</span>
+</code></pre>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="#core">CrowdinSDK/Core</a></li>
+<li><a href="#CrowdinAPI">CrowdinSDK/CrowdinAPI</a></li>
+<li><a href="#Login">CrowdinSDK/Login</a></li>
+<li><a href="#MappingManager">CrowdinSDK/MappingManager</a></li>
+</ul>
+<h3 id='refreshlocalization' class='heading'>RefreshLocalization</h3>
+
+<p>Contains functionality to force refresh localization strings. To enable this feature please add <code>pod &#39;CrowdinSDK/RefreshLocalization&#39;</code> to your pod file.</p>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="#core">CrowdinSDK/Core</a></li>
+<li><a href="#CrowdinAPI">CrowdinSDK/CrowdinAPI</a></li>
+</ul>
+<h3 id='login' class='heading'>Login</h3>
+
+<p>Contains login functionality. To enable this feature please add <code>pod &#39;CrowdinSDK/Login&#39;</code> to your pod file.</p>
+
+<p>To set up this feature you need to setup create <code><a href="Classes/CrowdinLoginConfig.html">CrowdinLoginConfig</a></code> object and pass it to CrowdinSDKConfig. </p>
+
+<p>For configuration you should have client id, client secret, scopes, and redirect URL scheme. </p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">loginConfig</span> <span class="o">=</span> <span class="kt">CrowdinLoginConfig</span><span class="p">(</span><span class="nv">clientId</span><span class="p">:</span> <span class="n">client_id</span><span class="p">,</span>
+                                 <span class="nv">clientSecret</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">,</span>
+                                          <span class="nv">scope</span><span class="p">:</span> <span class="n">scope</span><span class="p">,</span>
+                                  <span class="nv">redirectURI</span><span class="p">:</span> <span class="n">redirect_uri</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">crowdinSDKConfig</span> <span class="o">=</span> <span class="kt">CrowdinSDKConfig</span><span class="o">.</span><span class="nf">config</span><span class="p">()</span><span class="o">.</span>
+                                                <span class="o">...</span>
+                                                <span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">loginConfig</span><span class="p">:</span> <span class="n">loginConfig</span><span class="p">)</span>
+</code></pre>
+
+<p>Note: You should configure Authorization feature to use Almost any API calls, screenshots or realtime updates.</p>
+<h3 id='intervalupdate' class='heading'>IntervalUpdate</h3>
+
+<p>Contains functionality for update localization strings every defined time interval. To enable this feature please add pod &lsquo;CrowdinSDK/IntervalUpdate&rsquo; to your pod file.</p>
+
+<p>To set up this feature you need to setup CrowdinSDKConfig object. Example: </p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="kt">CrowdinSDKConfig</span><span class="o">.</span><span class="nf">config</span><span class="p">()</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">intervalUpdatesEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">interval</span><span class="p">:</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))</span>
+</code></pre>
+
+<p>And start SDK with this config:</p>
+<pre class="highlight swift"><code><span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">startWithConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</code></pre>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="#CrowdinAPI">CrowdinSDK/CrowdinAPI</a></li>
+</ul>
+<h3 id='settings' class='heading'>Settings</h3>
+
+<p>Submodule for testing all features. It contains a simple view with the possibility to enable/disable following features: Force localization refresh, Interval localization updates, Real-time updates, screenshots. To enable this feature please add pod &lsquo;CrowdinSDK/Settings&rsquo; to your pod file.</p>
+
+<p>To display settings view you can call <code><a href="Classes/CrowdinSDK.html#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)showSettings">CrowdinSDK.showSettings()</a></code> method for swift and <code>[CrowdinSDK showSettings]</code> for Objective-C. Note that you need to set up all features with CrowdinSDKConfig object.</p>
+
+<p>Settings view have two states:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: center"><img src='./Setup/settings_closed.png'/></th>
+<th style="text-align: center"><img src='./Setup/settings_open.png'/></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">Closed state</td>
+<td style="text-align: center">Open State</td>
+</tr>
+</tbody></table>
+
+<p>Buttons and it&rsquo;s states explenation:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Image</th>
+<th style="text-align: center">Explanation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><img src='./Setup/force_refresh.png'/></td>
+<td style="text-align: center">Start force localization update</td>
+</tr>
+<tr>
+<td style="text-align: center"><img src='./Setup/interval_updates_disabled.png'/></td>
+<td style="text-align: center">Interval updates disabled</td>
+</tr>
+<tr>
+<td style="text-align: center"><img src='./Setup/interval_updates_enabled.png'/></td>
+<td style="text-align: center">Interval updates enabled</td>
+</tr>
+<tr>
+<td style="text-align: center"><img src='./Setup/realtime_updates_disabled.png'/></td>
+<td style="text-align: center">Realtime updated disabled</td>
+</tr>
+<tr>
+<td style="text-align: center"><img src='./Setup/realtime_updates_enabled.png'/></td>
+<td style="text-align: center">Realtime updated enabled</td>
+</tr>
+<tr>
+<td style="text-align: center"><img src='./Setup/screenshot.png'/></td>
+<td style="text-align: center">Open State</td>
+</tr>
+</tbody></table>
+<h4 id='dependencies' class='heading'>Dependencies:</h4>
+
+<ul>
+<li><a href="#Screenshots">CrowdinSDK/Screenshots</a></li>
+<li><a href="#RealtimeUpdate">CrowdinSDK/RealtimeUpdate</a></li>
+<li><a href="#RefreshLocalization">CrowdinSDK/RefreshLocalization</a></li>
+<li><a href="#IntervalUpdate">CrowdinSDK/IntervalUpdate</a></li>
+</ul>
+<h2 id='setup' class='heading'>Setup</h2>
+
+<p>There are two ways to setup CrowdinSDK: </p>
+<h3 id='appdelegate' class='heading'>AppDelegate:</h3>
+<h4 id='swift' class='heading'>Swift:</h4>
+
+<p>In AppDelegate.swift file add:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">CrowdinSDK</span>
+</code></pre>
+
+<p>In <code>func application(_ application: UIApplication, didFinishLaunchingWithOptions 
+launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -&gt; Bool</code> method add your setup code: </p>
+<pre class="highlight swift"><code><span class="o">*</span><span class="mf">1*</span> <span class="k">let</span> <span class="nv">crowdinProviderConfig</span> <span class="o">=</span> <span class="kt">CrowdinProviderConfig</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">*</span><span class="mf">2*</span> <span class="k">let</span> <span class="nv">loginConfig</span> <span class="o">=</span> <span class="kt">LoginConfig</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">*</span><span class="mf">3*</span> <span class="kt">CrowdinSDK</span><span class="o">.</span><span class="nf">startWithConfig</span><span class="p">(</span><span class="kt">CrowdinSDKConfig</span><span class="o">.</span><span class="nf">config</span><span class="p">()</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">crowdinProviderConfig</span><span class="p">:</span> <span class="n">crowdinProviderConfig</span><span class="p">)</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">intervalUpdatesEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">interval</span><span class="p">:</span> <span class="mi">60</span><span class="p">)</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">reatimeUpdatesEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">loginConfig</span><span class="p">:</span> <span class="n">loginConfig</span><span class="p">)</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">settingsEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span><span class="o">.</span><span class="nf">with</span><span class="p">(</span><span class="nv">loginConfig</span><span class="p">:</span> <span class="n">loginConfig</span><span class="p">))</span>
+</code></pre>
+
+<ol>
+<li>Initialize CrowdinProviderConfig with following parameters:
+
+<ul>
+<li>hashString - Crowdin content delivery hash.</li>
+<li>stringsFileNames - array of all file names for files with .strings extension (files with strings). This names can contain custom file paths.</li>
+<li>pluralsFileNames - array of all file names for files with .stringsdict extension (files with plurals). This names can contain custom file paths.</li>
+<li>localizations - list of all available localizations on crowdin server.</li>
+<li>sourceLanguage - project source language on crowdin server.</li>
+</ul></li>
+<li>(Optional) Create credentials constant which are basically base64 encoded string from test user login /password for basic authorization to for screenshots API.</li>
+<li>(Optional) Initialize CrowdinScreenshotsConfig with following parameters:
+
+<ul>
+<li>login - user&rsquo;s login on crowdin server.</li>
+<li>accountKey - user&rsquo;s account API key.</li>
+<li>credentials - value from step 2.</li>
+</ul></li>
+<li>Start SDK by passing CrowdinSDKConfig. In the current example listed all options available:
+
+<ul>
+<li>crowdinProviderConfig - Instance of CrowdinProviderConfig from step 1.</li>
+<li>intervalUpdatesEnabled - Enable interval update feature with periodic localization update from crowdin server.</li>
+<li>reatimeUpdatesEnabled - Enable realtime updates feature.</li>
+<li>crowdinScreenshotsConfig - Enable screenshots feature. Pass parameter from step 3.</li>
+<li>settingsEnabled - Enable floating settings view with a list of all active features and its statuses.</li>
+</ul></li>
+</ol>
+<h4 id='objective-c' class='heading'>Objective-C:</h4>
+
+<p>In AppDelegate.m file add:</p>
+
+<p><code>@import CrowdinSDK</code> or <code>#import&lt;CrowdinSDK/CrowdinSDK.h&gt;</code>.</p>
+
+<p>In <code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code> method add: </p>
+<pre class="highlight plaintext"><code>    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" stringsFileNames:@[@""] pluralsFileNames:@[@""] localizations:@[] sourceLanguage:@""];
+    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withCrowdinScreenshotsConfig: screenshotsConfig];
+    [CrowdinSDK startWithConfig:config];
+</code></pre>
+
+<p>After application will start it SDK will detect current device localization and download strings and plurals from the crowdin server for this localization. </p>
+<h3 id='info-plist' class='heading'>Info.plist</h3>
+
+<p>NOTE: Currently not recommended for usage.</p>
+
+<p>To setup CrowdinProvider you should add following keys to Info.plist file:</p>
+
+<ul>
+<li><strong>CrowdinHash</strong> - hash value of Content Delivery release.</li>
+<li><strong>CrowdinProjectIdentifier</strong> - crowdin project identifier.</li>
+<li><strong>CrowdinPluralsFileNames</strong> - array of plurals file names on crowdin server.</li>
+<li><strong>CrowdinStringsFileNames</strong> - array of strings file names on crowdin server.</li>
+<li><strong>CrowdinProjectKey</strong> - project API key.</li>
+<li><strong>CrowdinLocalizations</strong> - list of all supported localizations.</li>
+</ul>
+
+<p>Example:</p>
+
+<p><img src='./Providers/Infoplist.png' width="600"/></p>
+
+<p>In this case, after you set up your SDK with CrowdinSDK start method, SDK will read all these values from Info.plist file and download all needed localization files from the provided Crowdin project.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/serhii-londar" target="_blank" rel="external">Serhii Londar</a>. All rights reserved. (Last updated: 2020-01-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

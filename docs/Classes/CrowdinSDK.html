@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CrowdinSDK Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/CrowdinSDK" class="dashAnchor"></a>
+    <a title="CrowdinSDK Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">CrowdinSDK Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/serhii-londar"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">CrowdinSDK Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CrowdinSDK Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../documents.html">Documents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../framework-tutorial.html">Framework tutorial</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../providers.html">Providers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../setup.html">Setup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../testapplication.html">TestApplication</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinLoginConfig.html">CrowdinLoginConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinMappingManager.html">CrowdinMappingManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinProviderConfig.html">CrowdinProviderConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinSDK.html">CrowdinSDK</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinSDK/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinSDKConfig.html">CrowdinSDKConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinScreenshotsConfig.html">CrowdinScreenshotsConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CrowdinTester.html">CrowdinTester</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CrowdinMappingManagerProtocol.html">CrowdinMappingManagerProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LocalizationStorageProtocol.html">LocalizationStorageProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RemoteLocalizationStorageProtocol.html">RemoteLocalizationStorageProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ScreenshotProcessor.html">ScreenshotProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ScreenshotUploader.html">ScreenshotUploader</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:10CrowdinSDK18ControlInformationV">ControlInformation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DistributionsResponse.html">DistributionsResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DistributionsResponseData.html">DistributionsResponseData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DistributionsResponseProject.html">DistributionsResponseProject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DistributionsResponseUser.html">DistributionsResponseUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TokenResponse.html">TokenResponse</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CrowdinSDK0A29SDKLocalizationUpdateDownloada">CrowdinSDKLocalizationUpdateDownload</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CrowdinSDK0A26SDKLocalizationUpdateErrora">CrowdinSDKLocalizationUpdateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CrowdinSDK29LocalizationStorageCompletiona">LocalizationStorageCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CrowdinSDK</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">CrowdinSDK</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Main interface for working with CrowdinSDK library.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CrowdinSDKAAC4ModeO"></a>
+                    <a name="//apple_ref/swift/Enum/Mode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CrowdinSDKAAC4ModeO">Mode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Enum representing available SDK modes.</p>
+
+<p>autoSDK - Automaticly detect current localization and change localized strings to crowdin strings.</p>
+
+<p>customSDK - Enable user defined localization from crowdin supported languages.</p>
+
+<p>autoBundle - Does not enable crowdin localization. In this mode will be used bundle localization detected by system.</p>
+
+<p>customBundle - Set user defined localization from bundle supported languages.</p>
+
+                        <a href="../Classes/CrowdinSDK/Mode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Mode</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CrowdinSDKAAC4modeAB4ModeOvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/mode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CrowdinSDKAAC4modeAB4ModeOvpZ">mode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current SDK mode.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Classes/CrowdinSDK/Mode.html">Mode</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cpy)currentLocalization"></a>
+                    <a name="//apple_ref/swift/Variable/currentLocalization" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cpy)currentLocalization">currentLocalization</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current localization language code.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">currentLocalization</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cpy)inSDKLocalizations"></a>
+                    <a name="//apple_ref/swift/Variable/inSDKLocalizations" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cpy)inSDKLocalizations">inSDKLocalizations</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List of avalaible localizations in SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">inSDKLocalizations</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cpy)inBundleLocalizations"></a>
+                    <a name="//apple_ref/swift/Variable/inBundleLocalizations" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cpy)inBundleLocalizations">inBundleLocalizations</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List of supported in app localizations.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">inBundleLocalizations</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)stop"></a>
+                    <a name="//apple_ref/swift/Method/stop()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)stop">stop()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)deintegrate"></a>
+                    <a name="//apple_ref/swift/Method/deintegrate()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)deintegrate">deintegrate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">deintegrate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)enableSDKLocalization:localization:"></a>
+                    <a name="//apple_ref/swift/Method/enableSDKLocalization(_:localization:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)enableSDKLocalization:localization:">enableSDKLocalization(_:localization:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Method for changing SDK lcoalization and mode. There are 4 avalaible modes in SDK. For more information please look on Mode enum description.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">enableSDKLocalization</span><span class="p">(</span><span class="n">_</span> <span class="nv">sdkLocalization</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">localization</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sdkLocalization</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Bool value which indicate whether to use SDK localization or native in bundle localization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localization</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Localization code to use.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)extractAllLocalization"></a>
+                    <a name="//apple_ref/swift/Method/extractAllLocalization()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)extractAllLocalization">extractAllLocalization()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">extractAllLocalization</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)addDownloadHandler:"></a>
+                    <a name="//apple_ref/swift/Method/addDownloadHandler(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)addDownloadHandler:">addDownloadHandler(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add download handler closure. This closure will be called every time when new localization is downloaded.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">addDownloadHandler</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10CrowdinSDK0A29SDKLocalizationUpdateDownloada">CrowdinSDKLocalizationUpdateDownload</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Download handler closure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Download handler id value. This value is used to remove this handler.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeDownloadHandler:"></a>
+                    <a name="//apple_ref/swift/Method/removeDownloadHandler(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeDownloadHandler:">removeDownloadHandler(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove download handler by id.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeDownloadHandler</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Download handler id value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeAllDownloadHandlers"></a>
+                    <a name="//apple_ref/swift/Method/removeAllDownloadHandlers()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeAllDownloadHandlers">removeAllDownloadHandlers()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove all download handlers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeAllDownloadHandlers</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)addErrorUpdateHandler:"></a>
+                    <a name="//apple_ref/swift/Method/addErrorUpdateHandler(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)addErrorUpdateHandler:">addErrorUpdateHandler(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add error handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">addErrorUpdateHandler</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:10CrowdinSDK0A26SDKLocalizationUpdateErrora">CrowdinSDKLocalizationUpdateError</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Error handler closure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Error handler id value. This value is used to remove this handler.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeErrorHandler:"></a>
+                    <a name="//apple_ref/swift/Method/removeErrorHandler(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeErrorHandler:">removeErrorHandler(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove error handler by id.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeErrorHandler</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Error&rsquo;s handler id value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeAllErrorHandlers"></a>
+                    <a name="//apple_ref/swift/Method/removeAllErrorHandlers()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@CrowdinSDK@objc(cs)CrowdinSDK(cm)removeAllErrorHandlers">removeAllErrorHandlers()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove all error handlers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeAllErrorHandlers</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)start"></a>
+                    <a name="//apple_ref/swift/Method/start()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)start">start()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">start</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)startWithConfig:"></a>
+                    <a name="//apple_ref/swift/Method/startWithConfig(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)startWithConfig:">startWithConfig(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialization method. Initialize CrowdinProvider with passed parameters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">startWithConfig</span><span class="p">(</span><span class="n">_</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Classes/CrowdinSDKConfig.html">CrowdinSDKConfig</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>hashString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Distribution hash value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)handleWithUrl:"></a>
+                    <a name="//apple_ref/swift/Method/handle(url:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)handleWithUrl:">handle(url:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">handle</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)captureScreenshotWithName:success:errorHandler:"></a>
+                    <a name="//apple_ref/swift/Method/captureScreenshot(name:success:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)captureScreenshotWithName:success:errorHandler:">captureScreenshot(name:success:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">captureScreenshot</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">success</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">))</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)startRealtimeUpdatesWithSuccess:error:"></a>
+                    <a name="//apple_ref/swift/Method/startRealtimeUpdates(success:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)startRealtimeUpdatesWithSuccess:error:">startRealtimeUpdates(success:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">startRealtimeUpdates</span><span class="p">(</span><span class="nv">success</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?,</span> <span class="nv">error</span><span class="p">:</span> <span class="p">((</span><span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)stopRealtimeUpdates"></a>
+                    <a name="//apple_ref/swift/Method/stopRealtimeUpdates()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)stopRealtimeUpdates">stopRealtimeUpdates()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">stopRealtimeUpdates</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)reloadUI"></a>
+                    <a name="//apple_ref/swift/Method/reloadUI()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)reloadUI">reloadUI()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">reloadUI</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)forceRefreshLocalization"></a>
+                    <a name="//apple_ref/swift/Method/forceRefreshLocalization()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)forceRefreshLocalization">forceRefreshLocalization()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">forceRefreshLocalization</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)startIntervalUpdatesWithInterval:"></a>
+                    <a name="//apple_ref/swift/Method/startIntervalUpdates(interval:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)startIntervalUpdatesWithInterval:">startIntervalUpdates(interval:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">startIntervalUpdates</span><span class="p">(</span><span class="nv">interval</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)stopIntervalUpdates"></a>
+                    <a name="//apple_ref/swift/Method/stopIntervalUpdates()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)stopIntervalUpdates">stopIntervalUpdates()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">stopIntervalUpdates</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)showSettings"></a>
+                    <a name="//apple_ref/swift/Method/showSettings()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@CrowdinSDK@objc(cs)CrowdinSDK(cm)showSettings">showSettings()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">showSettings</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/serhii-londar" target="_blank" rel="external">Serhii Londar</a>. All rights reserved. (Last updated: 2020-01-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

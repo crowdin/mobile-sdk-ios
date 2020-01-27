@@ -1,0 +1,6 @@
+framework module FAPanels {
+  umbrella header "FAPanels-umbrella.h"
+
+  export *
+  module * { export * }
+}
