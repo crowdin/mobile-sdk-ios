@@ -101,7 +101,7 @@ The SDK provides:
 end
 ```
 
-Then run `pod install` again to fix it.
+  Then run `pod install` again to fix it.
 
 After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
 
