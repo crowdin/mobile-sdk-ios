@@ -71,6 +71,38 @@ The SDK provides:
    end
    ```
 
+3. Working with App Extensions
+
+  Upon `pod install` result, you might experience some building issues in case your application embeds target extensions.
+
+  Example error:
+  
+  > 'sharedApplication' is unavailable: not available on iOS (App Extension) - Use view controller based solutions where appropriate instead.
+  
+  In this scenario you'll need to add a `post_install` script to your Podfile
+
+  ```
+  post_install do |installer|
+
+    extension_api_exclude_pods = ['CrowdinSDK']
+
+    installer.pods_project.targets.each do |target|
+
+          # the Pods contained into the `extension_api_exclude_pods` array
+          # have to get the value (APPLICATION_EXTENSION_API_ONLY) set to NO
+          # in order to work with service extensions
+
+          if extension_api_exclude_pods.include? target.name
+            target.build_configurations.each do |config|
+              config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+            end
+          end
+     end
+end
+```
+
+Then run `pod install` again to fix it.
+
 After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
 
 ## Setup
