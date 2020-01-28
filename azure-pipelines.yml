@@ -9,8 +9,10 @@ trigger:
       - refs/heads/*
     exclude:
       - refs/tags/*
-      - README.md
-      - LICENSE
+  paths:
+    exclude:
+    - README.md
+    - LICENSE
 
 jobs:
   - job: DangerSwiftLint
