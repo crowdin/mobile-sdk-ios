@@ -11,8 +11,8 @@ trigger:
       - refs/tags/*
   paths:
     exclude:
-    - README.md
-    - LICENSE
+      - README.md
+      - LICENSE
 
 jobs:
   - job: DangerSwiftLint
