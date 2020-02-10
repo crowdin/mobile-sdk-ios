@@ -90,7 +90,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         }
     }
     
-    func fetchData(completion: LocalizationStorageCompletion) {
+    func fetchData(completion: LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.fetchData()
         completion(self.localizations, self.strings, self.plurals)
     }

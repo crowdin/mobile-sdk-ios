@@ -18,7 +18,7 @@ class CustomProvider: RemoteLocalizationStorageProtocol {
     
     var localization: String = "en"
     
-    func fetchData(completion: @escaping LocalizationStorageCompletion) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         
     }
     

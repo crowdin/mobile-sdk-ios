@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RULocalLocalizationProvider: LocalLocalizationStorage {
+class RULocalLocalizationStorage: LocalLocalizationStorage {
     override init(localization: String) {
         super.init(localization: localization)
         // swiftlint:disable force_try
