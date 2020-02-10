@@ -27,6 +27,8 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     required init(localization: String, localizations: [String]) {
         self.localizations = localizations
         self.localization = localization
+        // swiftlint:disable force_try
+        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     }
     
     /// Initialization method.
@@ -38,11 +40,12 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         }
         self.localizations = localizations
         self.localization = localization
+        // swiftlint:disable force_try
+        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     }
     
-    // swiftlint:disable force_try
     /// Folder used for storing all localization files.
-    let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
+    var localizationFolder: FolderProtocol
     
     /// Current localization.
     var localization: String {

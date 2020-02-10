@@ -19,6 +19,7 @@ extension Notification.Name {
 class CrowdinAPI: BaseAPI {
     let organizationName: String?
     let auth: CrowdinAuth?
+    
     var baseURL: String {
         if let organizationName = organizationName {
             return "https://\(organizationName).crowdin.com/api/v2/"

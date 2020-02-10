@@ -33,7 +33,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     let organizationName: String?
 	
 	var distributionResponse: DistributionsResponse? = nil
-	
+    
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
@@ -104,6 +104,10 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
 			}
 			return
 		}
+        
+        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationProvider(localization: self.localization), remoteStorage: RURemoteLocalizationProvider(localization: self.localization, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
+        Localization.current.provider.refreshLocalization()
+        
 		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
