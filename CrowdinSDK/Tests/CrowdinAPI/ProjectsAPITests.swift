@@ -92,7 +92,7 @@ class ProjectsAPITests: XCTestCase {
         api = ProjectsAPI(organizationName: testOrganization, session: session)
         
         var result: ProjectsFilesListResponse? = nil
-        api.getFilesList(projectId: testProjectId) { (response, _) in
+        api.getFilesList(projectId: testProjectId, limit: 2, offset: 0) { (response, _) in
             result = response
         }
         

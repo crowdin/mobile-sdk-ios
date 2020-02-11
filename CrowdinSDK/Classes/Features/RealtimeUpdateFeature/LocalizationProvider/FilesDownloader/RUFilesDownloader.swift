@@ -81,19 +81,36 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getFiles { (files, error) in
+        self.contentDeliveryAPI.getFiles { [weak self] (files, error) in
+            guard let self = self else { return }
             guard let files = files else { completion(nil, error); return; }
             let fileNames = files.compactMap({ $0.split(separator: "/").last }).map({ String($0) })
-            self.projectsAPI.getFilesList(projectId: self.projectId) { (response, error) in
-                guard let response = response else { completion(nil, error); return; }
+            self.getAllProjectFiles { (projectFiles, error) in
+                guard let projectFiles = projectFiles else { completion(nil, error); return; }
                 var results = [String]()
-                for file in response.data {
+                for file in projectFiles {
                     if fileNames.contains(file.data.name) {
                         results.append(String(file.data.id))
                     }
                 }
                 completion(results, nil)
             }
+        }
+    }
+    
+    func getAllProjectFiles(completion: @escaping (_ files: [ProjectsFilesListResponseDatum]?, _ error: Error?) -> Void) {
+        let defaultFilesCount = 500
+        var allFiles = [ProjectsFilesListResponseDatum]()
+        DispatchQueue(label: "RUFilesDownloader").async {
+            var result = self.projectsAPI.getFilesListSync(projectId: self.projectId, limit: defaultFilesCount, offset: allFiles.count)
+            if let files = result.response?.data {
+                allFiles.append(contentsOf: files)
+            }
+            while let files = result.response?.data, files.count == defaultFilesCount {
+                result = self.projectsAPI.getFilesListSync(projectId: self.projectId, limit: defaultFilesCount, offset: allFiles.count)
+                allFiles.append(contentsOf: files)
+            }
+            completion(allFiles, result.1)
         }
     }
 }

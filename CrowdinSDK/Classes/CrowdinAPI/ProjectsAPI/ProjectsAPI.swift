@@ -13,9 +13,28 @@ class ProjectsAPI: CrowdinAPI {
         return "projects"
     }
     
-    func getFilesList(projectId: String, completion: @escaping (ProjectsFilesListResponse?, Error?) -> Void) {
+    func getFilesList(projectId: String, limit: Int? = nil, offset: Int? = nil, completion: @escaping (_ response: ProjectsFilesListResponse?, _ error: Error?) -> Void) {
+        var parameters = [String: String]()
+        if let limit = limit {
+            parameters["limit"] = String(limit)
+        }
+        if let offset = offset {
+            parameters["offset"] = String(offset)
+        }
         let url = "\(fullPath)/\(projectId)/files"
-        self.cw_get(url: url, completion: completion)
+        self.cw_get(url: url, parameters: parameters, completion: completion)
+    }
+    
+    func getFilesListSync(projectId: String, limit: Int? = nil, offset: Int? = nil) -> (response: ProjectsFilesListResponse?, error: Error?) {
+        var parameters = [String: String]()
+        if let limit = limit {
+            parameters["limit"] = String(limit)
+        }
+        if let offset = offset {
+            parameters["offset"] = String(offset)
+        }
+        let url = "\(fullPath)/\(projectId)/files"
+        return self.cw_get(url: url, parameters: parameters)
     }
     
     func downloadFile(projectId: String, fileId: String, completion: @escaping (ProjectsDownloadFileResponse?, Error?) -> Void) {

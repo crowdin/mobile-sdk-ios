@@ -23,7 +23,6 @@ class FileDataDownloadOperation: AsyncOperation {
     }
     
     override func main() {
-        
         self.projectsAPI.buildProjectFileTranslation(projectId: projectId, fileId: fileId, targetLanguageId: targetLanguageId) { [weak self] (response, error) in
             guard let self = self else { return }
             guard let url = response?.data.url else {
