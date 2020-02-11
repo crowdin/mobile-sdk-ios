@@ -54,7 +54,7 @@ class DistributionsAPITests: XCTestCase {
         api = DistributionsAPI(hashString: testHashString, organizationName: testOrganization, session: session)
         
         var result: DistributionsResponse? = nil
-        api.getDistribution { (response, error) in
+        api.getDistribution { (response, _) in
             result = response
         }
         
