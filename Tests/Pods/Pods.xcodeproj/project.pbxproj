@@ -126,6 +126,7 @@
 		E25CCA55D3111E6E5C80BF8EAF84AA59 /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D17976DBDA8684B87B33045A6D730E8A /* Pods-Tests-dummy.m */; };
 		E679580B4E5D3714A219A38F0417A63D /* CrowdinSupportedLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD7D724E47599B3854330CABDC537A0 /* CrowdinSupportedLanguages.swift */; };
 		E823872523F2ACB700CF47A0 /* DistributionsAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E823872423F2ACB700CF47A0 /* DistributionsAPITests.swift */; };
+		E823872723F2B0B800CF47A0 /* LanguagesAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E823872623F2B0B800CF47A0 /* LanguagesAPITests.swift */; };
 		E829AA3A67B050CCEABCD6CDC780BEB3 /* Starscream-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F8C078A914227010962810D9396F387F /* Starscream-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E88404D6AC04B3794C86E4D1F9052D33 /* DistributionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F450654FCED92A29F44D9F27561BC /* DistributionsResponse.swift */; };
 		EE2D673C05F6EC52D2828D954AE00BE6 /* LocalizationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85764C2BF15DA0657D25D22092E7E0AF /* LocalizationDataSource.swift */; };
@@ -403,6 +404,7 @@
 		E7E0AE5A3C35EC94A712BAF451616E0F /* FirebaseAuthInterop.xcscheme */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = FirebaseAuthInterop.xcscheme; path = "docs/Example/Pods/Pods.xcodeproj/xcuserdata/serhii-londar.xcuserdatad/xcschemes/FirebaseAuthInterop.xcscheme"; sourceTree = "<group>"; };
 		E8049500A17679CCBCF4A1969E184604 /* CrowdinSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrowdinSDK.swift; path = CrowdinSDK/Classes/CrowdinSDK/CrowdinSDK.swift; sourceTree = "<group>"; };
 		E823872423F2ACB700CF47A0 /* DistributionsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistributionsAPITests.swift; path = CrowdinSDK/Tests/CrowdinAPI/DistributionsAPITests.swift; sourceTree = "<group>"; };
+		E823872623F2B0B800CF47A0 /* LanguagesAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LanguagesAPITests.swift; path = CrowdinSDK/Tests/CrowdinAPI/LanguagesAPITests.swift; sourceTree = "<group>"; };
 		E8CB36AD1F485451A20D38006C4A9DAF /* Starscream.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Starscream.xcconfig; sourceTree = "<group>"; };
 		EA32404FD26EF1317D27FB4BFE74F5C6 /* DistributionsAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DistributionsAPI.swift; sourceTree = "<group>"; };
 		EA51653D70E91081BA5FB97F053C1C57 /* String+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				2A1390D59B3EF8DA477391AEDE28ABB9 /* CrowdinAPITests.swift */,
+				E823872623F2B0B800CF47A0 /* LanguagesAPITests.swift */,
 				E823872423F2ACB700CF47A0 /* DistributionsAPITests.swift */,
 				F8FAA4D8ED4460E50173DE62ED6824DE /* CrowdinContentDeliveryAPITests.swift */,
 				99E63C958A08924468EBE08CF4F22F9D /* CrowdinLoginAPITests.swift */,
@@ -1747,6 +1750,7 @@
 			files = (
 				E823872523F2ACB700CF47A0 /* DistributionsAPITests.swift in Sources */,
 				5DB67AC4003B59432DBD6B2B59CC4161 /* CrowdinAPITests.swift in Sources */,
+				E823872723F2B0B800CF47A0 /* LanguagesAPITests.swift in Sources */,
 				272AF26A626ABAEED18AF0424A2A99C6 /* CrowdinContentDeliveryAPITests.swift in Sources */,
 				06E0C92450E558682B90E0C4C3A74E9F /* CrowdinLoginAPITests.swift in Sources */,
 				20F81CBD3EA25F7F3DAA940EE765D77D /* URLSessionMock.swift in Sources */,
