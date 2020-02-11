@@ -71,6 +71,40 @@ The SDK provides:
    end
    ```
 
+3. Working with App Extensions
+
+   Upon `pod install` result, you might experience some building issues in case your application embeds target extensions.
+
+   Example error:
+  
+    > 'shared' (Swift) / 'sharedApplication' (Objective-C) is unavailable: not available on iOS (App Extension) - Use view controller based solutions where appropriate instead.
+    
+    In this scenario you'll need to add a `post_install` script to your Podfile
+
+      ```
+    post_install do |installer|
+
+      extension_api_exclude_pods = ['CrowdinSDK']
+
+      installer.pods_project.targets.each do |target|
+
+          # the Pods contained into the `extension_api_exclude_pods` array
+          # have to get the value (APPLICATION_EXTENSION_API_ONLY) set to NO
+          # in order to work with service extensions
+
+          if extension_api_exclude_pods.include? target.name
+            target.build_configurations.each do |config|
+              config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+            end
+          end
+          
+        end
+        
+     end
+      ```
+       
+    Then run `pod install` again to fix it.
+
 After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
 
 ## Setup
@@ -346,7 +380,7 @@ When you decide to use Crowdin iOS SDK, please make sure you’ve made the follo
 - When you use Crowdin iOS SDK CDN – translations are uploaded to Amazon CloudFront to be delivered to the app and speed up the download. Keep in mind that your users download translations without any additional authentication.
 - We use encryption to keep your data private while in transit.
 - We do not store any Personally Identifiable Information (PII) about the end-user, but you can decide to develop the opt-out option inside your application to make sure your users have full control.
-- The Automatic Screenshots and Real-Time Preview features are supposed to be used by the development team and translators team. Those features should not be compiled to the production version of your app. Therefore, should not affect end-users privacy anyhow. 
+- The Automatic Screenshots and Real-Time Preview features are supposed to be used by the development team and translators team. Those features should not be compiled to the production version of your app. Therefore, should not affect end-users privacy in any way. 
 
 ## Author
 

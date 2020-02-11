@@ -9,6 +9,8 @@ trigger:
       - refs/heads/*
     exclude:
       - refs/tags/*
+  paths:
+    exclude:
       - README.md
       - LICENSE
 
