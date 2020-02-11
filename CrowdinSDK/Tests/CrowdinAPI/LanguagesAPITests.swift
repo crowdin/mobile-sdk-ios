@@ -36,7 +36,7 @@ class LanguagesAPITests: XCTestCase {
         XCTAssert(api.fullPath == "https://\(testOrganization).crowdin.com/api/v2/languages")
     }
     
-    func testGetDistribution() {
+    func testGetLanguages() {
         session.data = """
         {
           "data": [
