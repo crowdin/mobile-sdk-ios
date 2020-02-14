@@ -23,6 +23,6 @@ class LanguagesAPI: CrowdinAPI {
     
     func getLanguagesSync(limit: Int, offset: Int) -> (LanguagesResponse?, Error?) {
         let parameters = [Strings.limit.rawValue: String(limit), Strings.offset.rawValue: String(offset)]
-        return self.cw_get(url: fullPath, parameters: parameters)
+        return self.cw_getSync(url: fullPath, parameters: parameters)
     }
 }

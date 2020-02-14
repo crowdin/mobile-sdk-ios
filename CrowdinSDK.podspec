@@ -33,7 +33,7 @@ Pod::Spec.new do |spec|
   
   
   spec.frameworks = 'UIKit'
-  spec.static_framework = true
+  spec.static_framework = false
   spec.swift_version = '4.2'
   spec.default_subspecs = 'Core', 'CrowdinProvider'
   
