@@ -127,7 +127,8 @@ class CrowdinAPI: BaseAPI {
         var result = headers ?? [:]
         let bundle = Bundle(for: CrowdinSDK.self)
         let systemVersion = UIDevice.current.systemVersion
-        result["User-Agent"] = "crowdin-ios-sdk/\(bundle.versionNumber) iOS/\(systemVersion)"
+        let sdkVersionNumber = bundle.versionNumber
+        result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
         return result
     }
     

@@ -265,7 +265,6 @@
 				607FACCE1AFB9204008FA782 /* Resources */,
 				1CF4D24802B3C1A925FA166E /* [CP] Embed Pods Frameworks */,
 				92C227AD21FA71E9009AFC1F /* ShellScript */,
-				6CEADCB1E6F159803D6A7ED0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -344,6 +343,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BaseAPI/BaseAPI.framework",
+				"${BUILT_PRODUCTS_DIR}/CrowdinSDK/CrowdinSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FAPanels/FAPanels.framework",
 				"${BUILT_PRODUCTS_DIR}/FileBrowser/FileBrowser.framework",
@@ -356,6 +356,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BaseAPI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CrowdinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FAPanels.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileBrowser.framework",
@@ -392,24 +393,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6CEADCB1E6F159803D6A7ED0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/CrowdinSDK/CrowdinSDK.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CrowdinSDK.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		92A1BCE32210C6650086B3AC /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -424,7 +407,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/CrowdinSDK/R.generated.swift,
+				"$SRCROOT/CrowdinSDK/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
