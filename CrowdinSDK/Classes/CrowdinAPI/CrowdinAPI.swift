@@ -125,9 +125,8 @@ class CrowdinAPI: BaseAPI {
     
     func versioned(_ headers: [String: String]?) -> [String: String] {
         var result = headers ?? [:]
-        guard let bundle = Bundle(identifier: "org.cocoapods.CrowdinSDK") else { return result }
+        guard let bundle = Bundle(identifier: "org.cocoapods.CrowdinSDK"), let sdkVersionNumber = bundle.infoDictionary?["CFBundleShortVersionString"] as? String else { return result }
         let systemVersion = UIDevice.current.systemVersion
-        let sdkVersionNumber = bundle.versionNumber
         result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
         return result
     }
