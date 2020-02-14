@@ -34,7 +34,7 @@ class ProjectsAPI: CrowdinAPI {
             parameters["offset"] = String(offset)
         }
         let url = "\(fullPath)/\(projectId)/files"
-        return self.cw_get(url: url, parameters: parameters)
+        return self.cw_getSync(url: url, parameters: parameters)
     }
     
     func downloadFile(projectId: String, fileId: String, completion: @escaping (ProjectsDownloadFileResponse?, Error?) -> Void) {
