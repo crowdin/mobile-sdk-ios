@@ -43,10 +43,6 @@ public struct ProjectsFilesListResponseData: Codable {
     public let revisionID: Int
     public let status: String
     public let priority: String
-//    public let importOptions: ProjectsFilesListResponseImportOptions?
-//    public let exportOptions: ProjectsFilesListResponseExportOptions?
-//    public let createdAt: Date
-//    public let updatedAt: Date
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -59,10 +55,6 @@ public struct ProjectsFilesListResponseData: Codable {
         case revisionID = "revisionId"
         case status
         case priority
-//        case importOptions
-//        case exportOptions
-//        case createdAt
-//        case updatedAt
     }
 }
 
