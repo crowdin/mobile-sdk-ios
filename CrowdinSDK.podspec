@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.0.4'
+  spec.version          = '1.0.5'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   spec.description      = <<-DESC
@@ -33,7 +33,7 @@ Pod::Spec.new do |spec|
   
   
   spec.frameworks = 'UIKit'
-  spec.static_framework = true
+  spec.static_framework = false
   spec.swift_version = '4.2'
   spec.default_subspecs = 'Core', 'CrowdinProvider'
   
