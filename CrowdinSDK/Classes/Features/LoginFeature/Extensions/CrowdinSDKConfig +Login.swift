@@ -16,12 +16,12 @@ extension CrowdinSDKConfig {
 		}
 		set {
 			CrowdinSDKConfig.loginConfig = newValue
+            CrowdinSDKConfig.loginConfig?.organizationName = self.organizationName
 		}
 	}
 	
 	public func with(loginConfig: CrowdinLoginConfig) -> Self {
 		self.loginConfig = loginConfig
-        loginConfig.organizationName = self.organizationName
 		return self
 	}
 }
