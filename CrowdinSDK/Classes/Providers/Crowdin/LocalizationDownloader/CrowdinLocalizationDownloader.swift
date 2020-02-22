@@ -16,14 +16,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
-    fileprivate var enterprise: Bool
-    
-    init(enterprise: Bool) {
-        self.enterprise = enterprise
-    }
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
 		self.strings = nil
 		self.plurals = nil
 		self.errors = nil
@@ -81,7 +76,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.contentDeliveryAPI.getFiles(completion: completion)
     }
 }
