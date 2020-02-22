@@ -277,8 +277,7 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
 let loginConfig = CrowdinLoginConfig(clientId: "client_id", // required for screenshots
     clientSecret: "client_secret",
     scope: "project.screenshot",
-    redirectURI: "redirectURI",
-    organizationName: "{organization_name}")
+    redirectURI: "redirectURI")
 
 let crowdinSDKConfig = CrowdinSDKConfig.config() // Default config initialization
 let crowdinSDKConfig = CrowdinSDKConfig.config(organizationName: "organization_name") // Config initialization for organization.
