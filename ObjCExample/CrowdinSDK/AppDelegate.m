@@ -19,8 +19,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"e-ad1725d987df2ee38c5c3b2p3r" localizations:@[@"it", @"de", @"uk"] sourceLanguage:@"de"];
-    CrowdinSDKConfig *config = [[CrowdinSDKConfig configWithOrganizationName:@"test000"] withCrowdinProviderConfig:crowdinProviderConfig];
+    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"53376706833043f14491518106i" localizations:@[@"en", @"de"] sourceLanguage:@"en"];
+    CrowdinSDKConfig *config = [[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig];
     [CrowdinSDK startWithConfig:config];
     
     [CrowdinSDK addDownloadHandler:^{
