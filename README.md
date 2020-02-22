@@ -226,13 +226,15 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
 let loginConfig = CrowdinLoginConfig(clientId: "client_id", // required for real-time preview
     clientSecret: "client_secret",
     scope: "project.screenshot",
-    redirectURI: "redirectURI",
-    organizationName: "organization_name")
+    redirectURI: "redirectURI")
 
-let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(loginConfig: loginConfig) // required for screenshots and real-time preview
-    .with(settingsEnabled: true) // optional: to add ‘settings’ button
-    .with(realtimeUpdatesEnabled: true) // optional: to add button for real-time preview
+let crowdinSDKConfig = CrowdinSDKConfig.config() // Default config initialization
+let crowdinSDKConfig = CrowdinSDKConfig.config(organizationName: "organization_name") // Config initialization for organization.
+
+crowdinSDKConfig.with(crowdinProviderConfig: crowdinProviderConfig) // required for over-the-air content delivery
+                .with(loginConfig: loginConfig) // required for screenshots and real-time preview
+                .with(settingsEnabled: true) // optional: to add ‘settings’ button
+                .with(realtimeUpdatesEnabled: true) // optional: to add button for real-time preview
 
 CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
 ```
@@ -278,10 +280,13 @@ let loginConfig = CrowdinLoginConfig(clientId: "client_id", // required for scre
     redirectURI: "redirectURI",
     organizationName: "{organization_name}")
 
-let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(screenshotsEnabled: true) // button for screenshots
-    .with(loginConfig: loginConfig) // required for screenshots and real-time preview            
-    .with(settingsEnabled: true) // optional: to add ‘settings’ button 
+let crowdinSDKConfig = CrowdinSDKConfig.config() // Default config initialization
+let crowdinSDKConfig = CrowdinSDKConfig.config(organizationName: "organization_name") // Config initialization for organization.
+
+crowdinSDKConfig.with(crowdinProviderConfig: crowdinProviderConfig)
+                .with(screenshotsEnabled: true) // button for screenshots
+                .with(loginConfig: loginConfig) // required for screenshots and real-time preview            
+                .with(settingsEnabled: true) // optional: to add ‘settings’ button 
 
 CrowdinSDK.startWithConfig(crowdinSDKConfig) // required
 ```
