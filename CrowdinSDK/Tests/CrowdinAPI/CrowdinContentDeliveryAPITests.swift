@@ -22,7 +22,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     }
 
     func testCrowdinContentDeliveryAPIGetStrings() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
+        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         key = value;
         """
@@ -39,7 +39,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     }
     
     func testCrowdinContentDeliveryAPIGetStringsSync() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
+        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         key = value;
         """
@@ -55,7 +55,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     }
     
     func testCrowdinContentDeliveryAPIGetStringsMappingSync() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
+        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         key = 123;
         """
@@ -71,7 +71,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     }
 
     func testCrowdinContentDeliveryAPIGetPlurals() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
+        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -113,7 +113,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     }
     
     func testCrowdinContentDeliveryAPIGetPluralsSync() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
+        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -152,7 +152,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     }
     
     func testCrowdinContentDeliveryAPIGetPluralsMappingSync() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", enterprise: true, session: session)
+        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
