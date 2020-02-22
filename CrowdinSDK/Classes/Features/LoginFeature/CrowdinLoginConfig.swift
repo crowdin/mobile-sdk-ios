@@ -12,9 +12,9 @@ import Foundation
 	var clientSecret: String
 	var scope: String
 	var redirectURI: String
-	var organizationName: String?
+	var organizationName: String? = nil
 	
-	public init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String? = nil) throws {
+	public init(clientId: String, clientSecret: String, scope: String, redirectURI: String) throws {
         guard !clientId.isEmpty else { throw NSError(domain: "clientId could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
 		self.clientId = clientId
         guard !clientSecret.isEmpty else { throw NSError(domain: "clientSecret could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
@@ -24,6 +24,5 @@ import Foundation
         guard !redirectURI.isEmpty else { throw NSError(domain: "redirectURI could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
         guard let urlSchemes = Bundle.main.urlSchemes, urlSchemes.contains(redirectURI) else { throw NSError(domain: "Application supported url schemes should contain \(redirectURI)", code: defaultCrowdinErrorCode, userInfo: nil) }
 		self.redirectURI = redirectURI
-		self.organizationName = organizationName
 	}
 }

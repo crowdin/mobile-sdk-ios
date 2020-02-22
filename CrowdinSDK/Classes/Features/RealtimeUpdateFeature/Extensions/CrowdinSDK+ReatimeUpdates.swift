@@ -13,7 +13,7 @@ extension CrowdinSDK {
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         if config.realtimeUpdatesEnabled {
             let localization = Bundle.main.preferredLanguage(with: crowdinProviderConfig.localizations)
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: config.loginConfig?.organizationName)
+            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(localization: localization, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: config.organizationName)
         }
     }
     

@@ -16,10 +16,21 @@ import Foundation
         return CrowdinSDKConfig()
     }
     
-    var enterprise: Bool = false
-	
-	func with(enterprise: Bool) -> Self {
-		self.enterprise = enterprise
-		return self
-	}
+    /// Method for new config creation.
+    ///
+    /// - Returns: New CrowdinSDKConfig object instance for concrete organization.
+    /// - Parameter organizationName: Organization name.
+    public static func config(organizationName: String) -> CrowdinSDKConfig {
+        return CrowdinSDKConfig(organizationName: organizationName)
+    }
+    
+    var enterprise: Bool { return organizationName != nil }
+    
+    var organizationName: String? = nil
+    
+    override init() { }
+    
+    init(organizationName: String) {
+        self.organizationName = organizationName
+    }
 }

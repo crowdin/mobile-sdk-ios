@@ -49,11 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                   clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
                                                   scope: "project.screenshot",
                                                   redirectURI: "crowdintest://")
-		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(loginConfig: loginConfig)
-                                                        .with(settingsEnabled: true)
-                                                        .with(realtimeUpdatesEnabled: true)
-                                                        .with(screenshotsEnabled: true)
+        
+		let crowdinSDKConfig = CrowdinSDKConfig.config(organizationName: "test000")
+                                                .with(crowdinProviderConfig: crowdinProviderConfig)
+                                                .with(loginConfig: loginConfig)
+                                                .with(settingsEnabled: true)
+                                                .with(realtimeUpdatesEnabled: true)
+                                                .with(screenshotsEnabled: true)
+        
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
         
 //		Setup CrowdinSDK with Info.plist. Initializes only localization delivery feature.
