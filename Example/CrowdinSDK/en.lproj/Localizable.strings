@@ -6,11 +6,11 @@
   Copyright © 2019 CocoaPods. All rights reserved.
 */
 
-"details_present" = "Deetails (Present)";
-"details_present_highlighted" = "Deetails (Present) H";
+"details_present" = "Deetails (Present) [BUNDLE]";
+"details_present_highlighted" = "Deetails (Present) H [BUNDLE]";
 
-"details_push" = "Deetails (Push)";
-"details_push_highlighted" = "Deetails (Push) H";
+"details_push" = "Deetails (Push) [BUNDLE]";
+"details_push_highlighted" = "Deetails (Push) H [BUNDLE]";
 
 "details_button" = "Button [BUNDLE]";
 "details_label" = "Label 123 [BUNDLE]";

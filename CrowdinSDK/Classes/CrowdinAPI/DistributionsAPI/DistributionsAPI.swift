@@ -10,9 +10,9 @@ import Foundation
 class DistributionsAPI: CrowdinAPI {
     let hashString: String
     
-    init(hashString: String, organizationName: String? = nil, auth: CrowdinAuth? = nil) {
+    init(hashString: String, organizationName: String? = nil, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
         self.hashString = hashString
-        super.init(organizationName: organizationName, auth: auth)
+        super.init(organizationName: organizationName, auth: auth, session: session)
     }
 	
 	override var apiPath: String {

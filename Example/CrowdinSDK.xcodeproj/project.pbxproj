@@ -15,9 +15,6 @@
 		9232188421FE21E0009F8339 /* SettingsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9232188321FE21E0009F8339 /* SettingsVC.storyboard */; };
 		923C62E02205EFBF001A6BC3 /* CustomProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923C62DF2205EFBF001A6BC3 /* CustomProvider.swift */; };
 		9255BF4C21FCBE2D00C80A40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */; };
-		9255BF5921FCC1F300C80A40 /* ObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5521FCC1F300C80A40 /* ObjectViewController.swift */; };
-		9255BF5A21FCC1F300C80A40 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5621FCC1F300C80A40 /* TableViewController.swift */; };
-		9255BF5B21FCC1F300C80A40 /* FireTiny.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5721FCC1F300C80A40 /* FireTiny.swift */; };
 		9255BF5E21FCC85A00C80A40 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5D21FCC85A00C80A40 /* MainViewController.swift */; };
 		9255BF6021FCCE9800C80A40 /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255BF5F21FCCE9800C80A40 /* DetailsVC.swift */; };
 		9268149821FCD60E0052F778 /* MenuVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9268149621FCD60E0052F778 /* MenuVC.storyboard */; };
@@ -51,9 +48,6 @@
 		9232188321FE21E0009F8339 /* SettingsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsVC.storyboard; sourceTree = "<group>"; };
 		923C62DF2205EFBF001A6BC3 /* CustomProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProvider.swift; sourceTree = "<group>"; };
 		9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9255BF5521FCC1F300C80A40 /* ObjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectViewController.swift; sourceTree = "<group>"; };
-		9255BF5621FCC1F300C80A40 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		9255BF5721FCC1F300C80A40 /* FireTiny.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireTiny.swift; sourceTree = "<group>"; };
 		9255BF5D21FCC85A00C80A40 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9255BF5F21FCCE9800C80A40 /* DetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
 		9268149621FCD60E0052F778 /* MenuVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuVC.storyboard; sourceTree = "<group>"; };
@@ -123,7 +117,6 @@
 				9232187021FE0590009F8339 /* DetailsVC */,
 				9268149A21FCD61B0052F778 /* MainViewController */,
 				9268149521FCD60E0052F778 /* MenuVC */,
-				9255BF5421FCC1F300C80A40 /* FirebaseBrowse */,
 				9255BF4B21FCBE2D00C80A40 /* GoogleService-Info.plist */,
 				920F09BC21F9136A00078558 /* Resources */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -181,16 +174,6 @@
 				9232188321FE21E0009F8339 /* SettingsVC.storyboard */,
 			);
 			path = SettingsVC;
-			sourceTree = "<group>";
-		};
-		9255BF5421FCC1F300C80A40 /* FirebaseBrowse */ = {
-			isa = PBXGroup;
-			children = (
-				9255BF5521FCC1F300C80A40 /* ObjectViewController.swift */,
-				9255BF5621FCC1F300C80A40 /* TableViewController.swift */,
-				9255BF5721FCC1F300C80A40 /* FireTiny.swift */,
-			);
-			path = FirebaseBrowse;
 			sourceTree = "<group>";
 		};
 		9268149521FCD60E0052F778 /* MenuVC */ = {
@@ -344,27 +327,19 @@
 				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BaseAPI/BaseAPI.framework",
 				"${BUILT_PRODUCTS_DIR}/CrowdinSDK/CrowdinSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FAPanels/FAPanels.framework",
 				"${BUILT_PRODUCTS_DIR}/FileBrowser/FileBrowser.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BaseAPI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CrowdinSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FAPanels.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileBrowser.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -407,7 +382,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/CrowdinSDK/R.generated.swift",
+				$SRCROOT/CrowdinSDK/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -438,16 +413,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				927159BC224BDB8B00E8B567 /* StringsCell.swift in Sources */,
-				9255BF5B21FCC1F300C80A40 /* FireTiny.swift in Sources */,
 				92ECA8E422495E3A000DD994 /* PluralsVC.swift in Sources */,
 				923C62E02205EFBF001A6BC3 /* CustomProvider.swift in Sources */,
 				9255BF6021FCCE9800C80A40 /* DetailsVC.swift in Sources */,
 				C836C157221B1EE4006CEECF /* StringsVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				9255BF5921FCC1F300C80A40 /* ObjectViewController.swift in Sources */,
 				9268149E21FCE9350052F778 /* BaseMenuVC.swift in Sources */,
 				9268149921FCD60E0052F778 /* MenuVC.swift in Sources */,
-				9255BF5A21FCC1F300C80A40 /* TableViewController.swift in Sources */,
 				9255BF5E21FCC85A00C80A40 /* MainViewController.swift in Sources */,
 				927159BE224BDF3400E8B567 /* PluralsCell.swift in Sources */,
 				92A1BCE52210C7CD0086B3AC /* R.generated.swift in Sources */,

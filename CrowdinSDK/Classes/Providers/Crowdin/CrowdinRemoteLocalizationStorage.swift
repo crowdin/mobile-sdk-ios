@@ -39,9 +39,10 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.localizations = localizations
     }
     
-    func fetchData(completion: @escaping LocalizationStorageCompletion) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.crowdinDownloader = CrowdinLocalizationDownloader()
         self.crowdinDownloader.getFiles(for: self.hashString) { [weak self] (files, error) in
+            if let error = error { errorHandler?(error) }
             guard let self = self else { return }
             if let crowdinFiles = files {
                 self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
@@ -54,12 +55,14 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
                         
                         if let errors = errors {
                             NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: errors)
+                            errors.forEach({ errorHandler?($0) })
                         }
                     }
                 })
             } else if let error = error {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: [error])
+                    errorHandler?(error)
                 }
             }
         }
