@@ -17,11 +17,6 @@ class MenuVC: UIViewController {
             mainButton.setTitle(NSLocalizedString("menu_main_button_title", comment: ""), for: .normal)
         }
     }
-    @IBOutlet weak var firebaseButton: UIButton! {
-        didSet {
-            firebaseButton.setTitle(NSLocalizedString("menu_plurals_button_title", comment: ""), for: .normal)
-        }
-    }
     @IBOutlet weak var explorerButton: UIButton! {
         didSet {
             explorerButton.setTitle(NSLocalizedString("menu_explorer_button_title", comment: ""), for: .normal)
@@ -55,28 +50,6 @@ class MenuVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @IBAction func firebaseButtonPressed(_ sender: AnyObject) {
-        FireTiny.shared.getData(nil) { (data) in
-            if let data = data {
-                switch FireTiny.shared.typeOf(FirebaseData: data) {
-                case .isArray, .isDictionary:
-                    let vc : TableViewController = TableViewController()
-                    vc.data = data
-                    vc.address = NSURL.init(string: "/") as URL?
-                    
-                    let nc = UINavigationController(rootViewController: vc)
-                    _ = self.panel?.center(nc)
-                default:
-                    let vc : ObjectViewController = ObjectViewController()
-                    vc.data = data
-                    
-                    let nc = UINavigationController(rootViewController: vc)
-                    _ = self.panel?.center(nc)
-                }
-            }
-        }
     }
     
     @IBAction func explorerButtonPressed(_ sender: AnyObject) {

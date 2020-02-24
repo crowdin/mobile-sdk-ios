@@ -9,9 +9,6 @@ target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK/Settings', :path => '../'
   pod 'SwiftLint'
   pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
-  pod 'Firebase'
-  pod 'FirebaseDatabase'
   pod 'FAPanels'
   pod 'R.swift'
-  pod 'DateToolsSwift'
 end
