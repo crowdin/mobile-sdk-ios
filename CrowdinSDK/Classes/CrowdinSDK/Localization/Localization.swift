@@ -18,8 +18,8 @@ class Localization {
     /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
     fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
     
-    /// Instance of shared @Localization class instance.
     // swiftlint:disable implicitly_unwrapped_optional
+    /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
 	
     /// Property for detecting and storing current SDK mode value.

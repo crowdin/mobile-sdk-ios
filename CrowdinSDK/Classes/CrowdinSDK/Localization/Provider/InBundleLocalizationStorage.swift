@@ -20,7 +20,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     var strings: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
-    func fetchData(completion: @escaping LocalizationStorageCompletion) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.refresh()
         completion(localizations, strings, plurals)
     }

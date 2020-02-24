@@ -7,6 +7,9 @@
 
 import Foundation
 
+typealias LocalizationProviderCompletion = () -> Void
+typealias LocalizationProviderError = (Error) -> Void
+
 protocol LocalizationProviderProtocol {
     init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol)
     var localStorage: LocalLocalizationStorageProtocol { get }
@@ -14,6 +17,9 @@ protocol LocalizationProviderProtocol {
     
     var localization: String { get  set }
     var localizations: [String] { get }
+    
+    var completion: LocalizationProviderCompletion? { get set }
+    var errorHandler: LocalizationProviderError? { get set }
     
     func refreshLocalization()
     
@@ -36,9 +42,14 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
             self.refreshLocalization()
         }
     }
+    var localizations: [String] { return localStorage.localizations }
+    
     var localStorage: LocalLocalizationStorageProtocol
     var remoteStorage: RemoteLocalizationStorageProtocol
-    var localizations: [String] { return localStorage.localizations }
+    
+    var completion: LocalizationProviderCompletion?
+    var errorHandler: LocalizationProviderError?
+    
     // Internal
     var strings: [String: String] { return localStorage.strings }
     var plurals: [AnyHashable: Any] { return localStorage.plurals }
@@ -82,17 +93,19 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     // Private method
     func loadLocalLocalization() {
         self.localStorage.localization = localization
-        self.localStorage.fetchData { localizations, strings, plurals in
+        self.localStorage.fetchData(completion: { [weak self] localizations, strings, plurals in
+            guard let self = self else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
-        }
+        }, errorHandler: errorHandler)
     }
     
     func fetchRemoteLocalization() {
         self.remoteStorage.localization = localization
-        self.remoteStorage.fetchData { [weak self] localizations, strings, plurals in
+        self.remoteStorage.fetchData(completion: { [weak self] localizations, strings, plurals in
             guard let self = self else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
-        }
+            self.completion?()
+        }, errorHandler: errorHandler)
     }
     
     func setup(with localizations: [String]?, strings: [String: String]?, plurals: [AnyHashable: Any]?) {
