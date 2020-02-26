@@ -16,14 +16,9 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var errors: [Error]? = nil
     //swiftlint:disable implicitly_unwrapped_optional
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
-    fileprivate var enterprise: Bool
-    
-    init(enterprise: Bool) {
-        self.enterprise = enterprise
-    }
     
     func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         
         self.strings = nil
         self.plurals = nil
@@ -77,7 +72,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.contentDeliveryAPI.getFiles(completion: completion)
     }
 }

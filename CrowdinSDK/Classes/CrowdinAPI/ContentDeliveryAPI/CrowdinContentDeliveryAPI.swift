@@ -43,24 +43,17 @@ class CrowdinContentDeliveryAPI: BaseAPI, CrowdinContentDeliveryProtolol {
     private typealias CrowdinAPIDataCompletion = ((Data?, CrowdinContentDeliveryAPIError?) -> Void)
     
     private let hash: String
-    private let enterprise: Bool
 //    private let baseURL = "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
 //    private let baseURL = "https://production-enterprise-distribution.s3.us-east-1.amazonaws.com"
-//    private let baseURL = "https://distributions.crowdin.net"
-	
-    private var baseURL: String {
-        return enterprise ? "https://production-enterprise-distribution.s3.us-east-1.amazonaws.com" : "https://crowdin-distribution.s3.us-east-1.amazonaws.com"
-    }
+    private let baseURL = "https://distributions.crowdin.net"
     
-    init(hash: String, enterprise: Bool, session: URLSession) {
+    init(hash: String, session: URLSession) {
         self.hash = hash
-        self.enterprise = enterprise
         super.init(session: session)
     }
     
-    init(hash: String, enterprise: Bool) {
+    init(hash: String) {
         self.hash = hash
-        self.enterprise = enterprise
         super.init(session: URLSession.shared)
     }
     

@@ -52,7 +52,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.localization = localization
         self.hashString = hash
 		self.organizationName = organizationName
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
     }
 	
 	func downloadDistribution(with completion: ((Bool) -> Void)? = nil) {

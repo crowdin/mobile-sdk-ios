@@ -80,7 +80,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, enterprise: enterprise, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.contentDeliveryAPI.getFiles { [weak self] (files, error) in
             guard let self = self else { return }
             guard let files = files else { completion(nil, error); return; }
