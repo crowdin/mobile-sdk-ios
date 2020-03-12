@@ -6,9 +6,9 @@ Crowdin iOS SDK delivers all new translations from Crowdin project to the applic
 
 The SDK provides:
 
-* Over-The-Air Content Delivery – the localized files can be sent to the application from the project whenever needed
-* Real-time Preview – all the translations that are done via Editor can be shown in the application in real-time
-* Screenshots – all screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings
+* Over-The-Air Content Delivery – the localized files can be sent to the application from the project whenever needed.
+* Real-Time Preview – all the translations that are done in the Editor can be shown in your version of the application in real-time. View the translations already made and the ones you're currently typing in.
+* Screenshots – all the screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings.
 
 ## Status
 
