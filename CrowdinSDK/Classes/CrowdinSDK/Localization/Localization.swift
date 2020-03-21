@@ -80,10 +80,10 @@ class Localization {
     ///
     /// - Parameter provider: Localization provider implementation.
 	init(provider: LocalizationProviderProtocol) {
-        self.extractor = LocalizationExtractor()
+        let localization = provider.localization
+        self.extractor = LocalizationExtractor(localization: localization)
         self.provider = provider
-        self.provider.localization = currentLocalization ?? Bundle.main.preferredLanguage
-        self.extractor.setLocalization(currentLocalization ?? defaultLocalization)
+        self.provider.localization = localization
 	}
 	
 	/// A list of all avalaible localization in SDK downloaded from current provider.
