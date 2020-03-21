@@ -19,8 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"53376706833043f14491518106i" localizations:@[@"en", @"de"] sourceLanguage:@"en"];
-    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"fd6b1a246914f54cd37d826xb" localizations:@[@"pl"] sourceLanguage:@"en"];
+    CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"53376706833043f14491518106i" localizations:@[@"en", @"de"] sourceLanguage:@"en"];
     CrowdinSDKConfig *config = [[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig];
     [CrowdinSDK startWithConfig:config];
     
