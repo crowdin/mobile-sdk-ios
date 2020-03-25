@@ -26,7 +26,7 @@ extension Locale {
 		})
         // Also add language code from localization with regions: "en-US" -> "en", "uk-UA" -> "uk".
         localizations.forEach {
-            if let language = $0.split(separator: "-").map({ String($0) }).first, language != $0 {
+            if let language = $0.split(separator: "-").map({ String($0) }).first, language != $0, !localizations.contains(language) {
                 localizations.append(language)
             }
         }
