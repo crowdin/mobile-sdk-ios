@@ -304,7 +304,7 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 
 1. Configuring translation update interval
 
-   By default SDK is looking for new translation once per day. You can update translations in application every defined time interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
+   By default SDK is looking for new translation once per application load every 15 minutes. You can update translations in application every defined time interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
 
    ```swift
    pod 'CrowdinSDK/IntervalUpdate'
