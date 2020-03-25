@@ -114,7 +114,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
     class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, localizations: [String]) {
-        let localization = Bundle.main.preferredLanguage
+        let localization = Bundle.main.preferredLanguage(with: localizations)
 		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
     }

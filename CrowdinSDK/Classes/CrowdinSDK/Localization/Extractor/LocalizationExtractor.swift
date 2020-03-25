@@ -22,7 +22,7 @@ class LocalizationExtractor {
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
     
-    var localization: String = Bundle.main.preferredLanguage
+    var localization: String
     
     var isEmpty: Bool {
         return self.localizationDict.isEmpty && self.localizationPluralsDict.isEmpty
@@ -42,7 +42,7 @@ class LocalizationExtractor {
         return files.map({ $0.path })
     }
     
-    init(localization: String = Bundle.main.preferredLanguage) {
+    init(localization: String) {
         self.localization = localization
         self.extract()
         // If we're unable to extract localization passed/detected language then try to extract Base localization.
@@ -52,7 +52,7 @@ class LocalizationExtractor {
         }
     }
     
-    func setLocalization(_ localization: String = Bundle.main.preferredLanguage) {
+    func setLocalization(_ localization: String) {
         self.localization = localization
         self.extract()
     }

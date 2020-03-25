@@ -40,19 +40,9 @@ extension Bundle {
     
     /// Return ordered list of language codes according to device settings, and passed localizations.
     func preferredLanguages(with availableLanguages: [String]) -> [String] {
-        var preferredLanguages = Locale.preferredLocalizations
-        let localizations = availableLanguages.compactMap { (localization) -> String? in
-            if preferredLanguages.contains(localization) {
-                return localization
-            }
+        return Locale.preferredLocalizations.compactMap {
+            if availableLanguages.contains($0) { return $0 }
             return nil
         }
-        preferredLanguages = preferredLanguages.compactMap { (localization) -> String? in
-            if localizations.contains(localization) {
-                return localization
-            }
-            return nil
-        }
-        return preferredLanguages
     }
 }
