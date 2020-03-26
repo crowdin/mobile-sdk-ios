@@ -7,6 +7,12 @@
 
 import Foundation
 
+extension LanguagesResponseData {
+    var iOSLocaleCode: String {
+        return self.osxLocale.replacingOccurrences(of: "_", with: "-")
+    }
+}
+
 class CrowdinSupportedLanguages {
     static let shared = CrowdinSupportedLanguages()
     let api = LanguagesAPI()
@@ -43,7 +49,12 @@ class CrowdinSupportedLanguages {
     }
     
     func crowdinLanguageCode(for localization: String) -> String? {
-        let language = supportedLanguages?.data.first(where: { $0.data.osxLocale == localization })
+        var language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == localization })
+        if language == nil { // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to get localization code and search again.
+            // swiftlint:disable force_unwrapping
+            let alternateiOSLocaleCode = localization.split(separator: "-").map({ String($0) }).first!
+            language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == alternateiOSLocaleCode })
+        }
         return language?.data.id
     }
     
