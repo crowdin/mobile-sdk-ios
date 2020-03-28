@@ -59,7 +59,6 @@ class CrowdinTesterTests: XCTestCase {
     }
 	
     func testNotExistingLocalizations() {
-
 		let tester = CrowdinTester(localization: "zh")
 		XCTAssert(tester.inSDKPluralsKeys.count == 0, "Localization contains 0 plural keys as it is not exist")
 		XCTAssert(tester.inSDKStringsKeys.count == 0, "Localization contains 0 string keys as it is not exist")

@@ -29,7 +29,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         session.data = fileString.data(using: .utf8)
         
         var result: [String: String]? = nil
-        crowdinContentDeliveryAPI.getStrings(filePath: "filePath") { (strings, _) in
+        crowdinContentDeliveryAPI.getStrings(filePath: "filePath", timestamp: nil) { (strings, _) in
             result = strings
         }
         
@@ -45,7 +45,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         """
         session.data = fileString.data(using: .utf8)
         
-        let result: [String: String]? = crowdinContentDeliveryAPI.getStringsSync(filePath: "filePath").strings
+        let result: [String: String]? = crowdinContentDeliveryAPI.getStringsSync(filePath: "filePath", timestamp: nil).strings
         
         XCTAssertNotNil(result)
         if let result = result {
@@ -101,7 +101,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         session.data = fileString.data(using: .utf8)
         
         var result: [AnyHashable: Any]? = nil
-        crowdinContentDeliveryAPI.getPlurals(filePath: "filePath") { (response, _) in
+        crowdinContentDeliveryAPI.getPlurals(filePath: "filePath", timestamp: nil) { (response, _) in
             result = response
         }
         
@@ -142,7 +142,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         """
         session.data = fileString.data(using: .utf8)
         
-        let result: [AnyHashable: Any]? = crowdinContentDeliveryAPI.getPluralsSync(filePath: "filePath").plurals
+        let result: [AnyHashable: Any]? = crowdinContentDeliveryAPI.getPluralsSync(filePath: "filePath", timestamp: nil).plurals
         
         XCTAssertNotNil(result)
         if let result = result {

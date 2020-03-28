@@ -8,19 +8,15 @@
 import Foundation
 
 protocol CrowdinDownloadOperationProtocol {
-    var hashString: String { get }
     var filePath: String { get }
+    var contentDeliveryAPI: CrowdinContentDeliveryAPI { get }
 }
 
-class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol {
-    var error: Error?
-    
-    var hashString: String
+class CrowdinDownloadOperation: AsyncOperation, CrowdinDownloadOperationProtocol {    
     var filePath: String
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
     
-    init(hash: String, filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
-        self.hashString = hash
+    init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.filePath = filePath
         self.contentDeliveryAPI = contentDeliveryAPI
     }

@@ -23,13 +23,9 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
-        fileDownloader.getFiles(for: hash) { (fileIDs, error) in
-            if let error = error { errorHandler?(error) }
-            guard let fileIDs = fileIDs else { return }
-            self.fileDownloader.download(strings: fileIDs, plurals: [], with: self.hash, for: self.localization) { (strings, plurals, errors) in
-                if let errors = errors { errors.forEach({ errorHandler?($0) }) }
-                completion([self.localization], strings, plurals)
-            }
+        self.fileDownloader.download(with: hash, for: localization) { (strings, plurals, errors) in
+            if let errors = errors { errors.forEach({ errorHandler?($0) }) }
+            completion([self.localization], strings, plurals)
         }
     }
 }

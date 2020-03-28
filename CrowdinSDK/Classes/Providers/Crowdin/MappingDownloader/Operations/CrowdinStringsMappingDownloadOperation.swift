@@ -10,15 +10,16 @@ import Foundation
 class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?
+    var error: Error?
     
     init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([String: String]?, Error?) -> Void)?) {
         let filePath = CrowdinPathsParser.shared.parse(filePath, localization: sourceLanguage)
-        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
+        super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    override init(hash: String, filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
-        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
+    override init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {

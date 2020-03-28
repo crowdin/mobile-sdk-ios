@@ -28,22 +28,26 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: LoginFeature.shared)
     }
     
-    func download(strings: [String], plurals: [String], with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+    func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        self.completion = completion
+        self.getFiles(for: hash) { (fileIDs, error) in
+            if let error = error { self.completion(nil, nil, [error]) }
+            guard let fileIDs = fileIDs else { return }
+            self.download(fileIDs: fileIDs, with: hash, for: localization)
+        }
+    }
+    
+    func download(fileIDs: [String], with hash: String, for localization: String) {
         self.strings = nil
         self.plurals = nil
         self.errors = nil
         
-        self.completion = completion
         let completionBlock = BlockOperation { [weak self] in
             guard let self = self else { return }
             self.completion(self.strings, self.plurals, self.errors)
         }
         
-        var allIDs = [String]()
-        allIDs.append(contentsOf: strings)
-        allIDs.append(contentsOf: plurals)
-        
-        allIDs.forEach { (fileId) in
+        fileIDs.forEach { (fileId) in
             let targetLanguageId = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
             let download = FileDataDownloadOperation(fileId: fileId, projectId: projectId, targetLanguageId: targetLanguageId, projectsAPI: projectsAPI) { [weak self] (data, error) in
                 guard let self = self else {
@@ -81,7 +85,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getFiles { [weak self] (files, error) in
+        self.contentDeliveryAPI.getFiles { [weak self] (files, _, error) in
             guard let self = self else { return }
             guard let files = files else { completion(nil, error); return; }
             let fileNames = files.compactMap({ $0.split(separator: "/").last }).map({ String($0) })

@@ -41,28 +41,15 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.crowdinDownloader = CrowdinLocalizationDownloader()
-        self.crowdinDownloader.getFiles(for: self.hashString) { [weak self] (files, error) in
-            if let error = error { errorHandler?(error) }
+        self.crowdinDownloader.download(with: self.hashString, for: self.localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
-            if let crowdinFiles = files {
-                self.stringsFileNames = crowdinFiles.filter({ $0.isStrings })
-                self.pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
-                self.crowdinDownloader.download(strings: self.stringsFileNames, plurals: self.pluralsFileNames, with: self.hashString, for: self.localization, completion: { [weak self] strings, plurals, errors in
-                    guard let self = self else { return }
-                    completion(self.localizations, strings, plurals)
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue)))
-                        
-                        if let errors = errors {
-                            NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: errors)
-                            errors.forEach({ errorHandler?($0) })
-                        }
-                    }
-                })
-            } else if let error = error {
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: [error])
-                    errorHandler?(error)
+            completion(self.localizations, strings, plurals)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue)))
+                
+                if let errors = errors {
+                    NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: errors)
+                    errors.forEach({ errorHandler?($0) })
                 }
             }
         }
@@ -70,16 +57,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     /// Remove add stored E-Tag headers for every file.
     func deintegrate() {
-        for supportedLocalization in localizations {
-            self.stringsFileNames.forEach({
-                let filePath = CrowdinPathsParser.shared.parse($0, localization: supportedLocalization)
-                UserDefaults.standard.removeObject(forKey: filePath)
-            })
-            self.pluralsFileNames.forEach({
-                let filePath = CrowdinPathsParser.shared.parse($0, localization: supportedLocalization)
-                UserDefaults.standard.removeObject(forKey: filePath)
-            })
-        }
+        UserDefaults.standard.removeObject(forKey: "CrowdinEtagKeys")
         UserDefaults.standard.synchronize()
     }
 }

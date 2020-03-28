@@ -26,19 +26,10 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     
     init(hash: String, sourceLanguage: String) {
         self.downloader = CrowdinMappingDownloader()
-        self.downloader.getFiles(for: hash) { (files, error) in
-            if let crowdinFiles = files {
-                let stringsFileNames = crowdinFiles.filter({ $0.isStrings })
-                let pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
-                self.downloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hash, for: sourceLanguage) { (strings, plurals, _) in
-                    self.stringsMapping = strings ?? [:]
-                    self.plurals = plurals ?? [:]
-                    self.extractPluralsMapping()
-                }
-            } else if let error = error {
-                // TODO: Add proper error report:
-                print(error.localizedDescription)
-            }
+        self.downloader.download(with: hash, for: sourceLanguage) { (strings, plurals, _) in
+            self.stringsMapping = strings ?? [:]
+            self.plurals = plurals ?? [:]
+            self.extractPluralsMapping()
         }
     }
     
