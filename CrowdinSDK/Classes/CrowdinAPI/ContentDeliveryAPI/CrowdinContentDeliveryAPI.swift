@@ -8,17 +8,6 @@
 import Foundation
 import BaseAPI
 
-//enum CrowdinContentDeliveryAPIError: Error {
-//    case badUrl(url: String)
-//    case parsingError(filePath: String)
-//    case dataError
-//    case error(error: Error?)
-//}
-
-//typealias CrowdinAPIStringsResult = (strings: [String: String]?, error: CrowdinContentDeliveryAPIError?)
-//typealias CrowdinAPIPluralsResult = (plurals: [AnyHashable: Any]?, error: CrowdinContentDeliveryAPIError?)
-//typealias CrowdinAPIFilesResult = (files: [String]?, error: CrowdinContentDeliveryAPIError?)
-
 typealias CrowdinAPIStringsCompletion = (([String: String]?, String?, Error?) -> Void)
 typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, String?, Error?) -> Void)
 typealias CrowdinAPIStringsMappingCompletion = (([String: String]?, Error?) -> Void)
