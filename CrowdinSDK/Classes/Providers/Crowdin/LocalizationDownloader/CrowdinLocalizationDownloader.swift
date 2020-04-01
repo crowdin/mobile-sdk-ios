@@ -34,10 +34,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     
     func download(strings: [String], plurals: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-		self.strings = nil
-		self.plurals = nil
-		self.errors = nil
-		
+        self.strings = nil
+        self.plurals = nil
+        self.errors = nil
+        
         let completionBlock = BlockOperation { [weak self] in
             guard let self = self else { return }
             self.completion?(self.strings, self.plurals, self.errors)

@@ -25,10 +25,14 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     }
     
     override func main() {
-        let result = contentDeliveryAPI.getPluralsSync(filePath: self.filePath, timestamp: timestamp)
-        self.plurals = result.plurals
-        self.error = result.error
-        self.completion?(self.plurals, self.error)
-        self.finish(with: result.error != nil)
+        let etag = ETagStorage.shared.etags[self.filePath]
+        contentDeliveryAPI.getPlurals(filePath: self.filePath, etag: etag, timestamp: nil,completion: { [weak self] (plurals, etag, error) in
+            guard let self = self else { return }
+            ETagStorage.shared.etags[self.filePath] = etag
+            self.plurals = plurals
+            self.error = error
+            self.completion?(self.plurals, self.error)
+            self.finish(with: error != nil)
+        })
     }
 }

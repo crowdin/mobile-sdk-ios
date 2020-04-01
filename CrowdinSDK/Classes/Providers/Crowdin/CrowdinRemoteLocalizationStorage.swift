@@ -57,7 +57,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     /// Remove add stored E-Tag headers for every file.
     func deintegrate() {
-        UserDefaults.standard.removeObject(forKey: "CrowdinEtagKeys")
-        UserDefaults.standard.synchronize()
+        ETagStorage.shared.clear()
     }
 }

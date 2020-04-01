@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinStringTestsEnLocalization: XCTestCase {
+class CrowdinStringTestsLocalization: XCTestCase {
     
     override func setUp() {
         super.setUp()

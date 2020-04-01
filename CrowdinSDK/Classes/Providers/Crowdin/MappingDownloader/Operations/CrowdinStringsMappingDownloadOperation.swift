@@ -23,10 +23,12 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     }
     
     override func main() {
-        let result = contentDeliveryAPI.getStringsMappingSync(filePath: filePath)
-        self.strings = result.strings
-        self.error = result.error
-        self.completion?(self.strings, self.error)
-        self.finish(with: result.error != nil)
+        contentDeliveryAPI.getStringsMapping(filePath: filePath, etag: nil, timestamp: nil) { [weak self] (strings, error) in
+            guard let self = self else { return }
+            self.strings = strings
+            self.error = error
+            self.completion?(self.strings, self.error)
+            self.finish(with: error != nil)
+        }
     }
 }

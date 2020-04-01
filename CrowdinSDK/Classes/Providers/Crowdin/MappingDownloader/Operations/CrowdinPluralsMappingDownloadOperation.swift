@@ -23,10 +23,12 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     }
     
     override func main() {
-        let result = contentDeliveryAPI.getPluralsMappingSync(filePath: self.filePath)
-        self.plurals = result.plurals
-        self.error = result.error
-        self.completion?(self.plurals, self.error)
-        self.finish(with: result.error != nil)
+        self.contentDeliveryAPI.getPluralsMapping(filePath: self.filePath, etag: nil, timestamp: nil) { [weak self] (plurals, error) in
+            guard let self = self else { return }
+            self.plurals = plurals
+            self.error = error
+            self.completion?(self.plurals, self.error)
+            self.finish(with: error != nil)
+        }
     }
 }
