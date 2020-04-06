@@ -60,7 +60,7 @@ Pod::Spec.new do |spec|
   spec.subspec 'CrowdinAPI' do |subspec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*'
-    subspec.dependency 'Starscream', '~> 3.0.6'
+    subspec.dependency 'Starscream', '~> 3.1.0'
     subspec.dependency 'BaseAPI', '0.1.7'
   end
   
