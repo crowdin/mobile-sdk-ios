@@ -28,6 +28,7 @@ jobs:
   - job: PodInstall
     dependsOn: DangerSwiftLint
     condition: succeeded()
+    continueOnError: true
     pool:
       vmImage: 'macOS 10.14'
     steps:
