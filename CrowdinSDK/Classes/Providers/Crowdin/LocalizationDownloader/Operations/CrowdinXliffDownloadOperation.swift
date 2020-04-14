@@ -73,7 +73,7 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
                 }
             }
             
-//            ETagStorage.shared.etags[self.filePath] = etag
+            ETagStorage.shared.etags[self.filePath] = etag
             self.strings = strings
             self.plurals = plurals
             self.error = error
