@@ -24,7 +24,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             if let files = files {
                 let strings = files.filter({ $0.isStrings })
                 let plurals = files.filter({ $0.isStringsDict })
-                self.download(strings: strings, plurals: plurals, with: hash, timestamp: timestamp, for: localization)
+                let xliffs = files.filter({ $0.isXliff })
+                self.download(strings: strings, plurals: plurals, xliffs:xliffs, with: hash, timestamp: timestamp, for: localization)
             } else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
@@ -32,7 +33,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
     }
     
-    func download(strings: [String], plurals: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
+    func download(strings: [String], plurals: [String], xliffs: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.strings = nil
         self.plurals = nil
@@ -47,19 +48,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             let download = CrowdinStringsDownloadOperation(filePath: string, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, error) in
                 guard let self = self else { return }
-                if let error = error {
-                    if self.errors != nil {
-                        self.errors?.append(error)
-                    } else {
-                        self.errors = [error]
-                    }
-                }
-                guard let strings = strings else { return }
-                if self.strings != nil {
-                    self.strings?.merge(with: strings)
-                } else {
-                    self.strings = strings
-                }
+                self.add(strings: strings)
+                self.add(error: error)
             }
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
@@ -69,28 +59,57 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             let download = CrowdinPluralsDownloadOperation(filePath: plural, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (plurals, error) in
                 guard let self = self else { return }
-                if let error = error {
-                    if self.errors != nil {
-                        self.errors?.append(error)
-                    } else {
-                        self.errors = [error]
-                    }
-                }
-                guard let plurals = plurals else { return }
-                if self.plurals != nil {
-                    self.plurals?.merge(with: plurals)
-                } else {
-                    self.plurals = plurals
-                }
+                self.add(plurals: plurals)
+                self.add(error: error)
             }
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
+        
+        xliffs.forEach { (xliff) in
+            let download = CrowdinXliffDownloadOperation(filePath: xliff, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
+            download.completion = { [weak self] (strings, plurals, error) in
+                guard let self = self else { return }
+                self.add(strings: strings)
+                self.add(plurals: plurals)
+                self.add(error: error)
+            }
+            completionBlock.addDependency(download)
+            operationQueue.addOperation(download)
+        }
+        
         operationQueue.addOperation(completionBlock)
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.contentDeliveryAPI.getFiles(completion: completion)
+    }
+    
+    func add(error: Error?) {
+        guard let error = error else { return }
+        if self.errors != nil {
+            self.errors?.append(error)
+        } else {
+            self.errors = [error]
+        }
+    }
+    
+    func add(strings: [String: String]?) {
+        guard let strings = strings else { return }
+        if self.strings != nil {
+            self.strings?.merge(with: strings)
+        } else {
+            self.strings = strings
+        }
+    }
+    
+    func add(plurals: [AnyHashable: Any]?) {
+        guard let plurals = plurals else { return }
+        if self.plurals != nil {
+            self.plurals?.merge(with: plurals)
+        } else {
+            self.plurals = plurals
+        }
     }
 }

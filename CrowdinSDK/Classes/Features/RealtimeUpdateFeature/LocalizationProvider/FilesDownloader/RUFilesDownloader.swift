@@ -61,7 +61,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
                     }
                 }
                 guard let data = data else { return }
-                guard let dict = CrowdinContentDelivery.parse(data: data) else { return }
+                guard let dict = PropertyListDataParser.parse(data: data) else { return }
                 if let strings = dict as? [String: String] {
                     if self.strings != nil {
                         self.strings?.merge(with: strings)
