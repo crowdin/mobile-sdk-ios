@@ -60,7 +60,7 @@ class CrowdinXliffMappingDownloadOperation: CrowdinDownloadOperation {
                                                 currentDict[key] = target
                                             }
                                         }
-                                        plurals = plurals.merge(right: currentDict)
+                                        plurals.mergeRecursively(with: currentDict)
                                     }
                                 }
                             }
