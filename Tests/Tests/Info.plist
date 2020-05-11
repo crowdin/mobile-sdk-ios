@@ -33,12 +33,6 @@
 	<string>1</string>
 	<key>CrowdinDistributionHash</key>
 	<string>5290b1cfa1eb44bf2581e78106i</string>
-	<key>CrowdinLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>uk</string>
-		<string>de</string>
-	</array>
 	<key>CrowdinSourceLanguage</key>
 	<string>en</string>
 	<key>LSApplicationCategoryType</key>

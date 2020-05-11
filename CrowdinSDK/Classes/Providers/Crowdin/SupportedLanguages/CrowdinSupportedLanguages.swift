@@ -58,6 +58,10 @@ class CrowdinSupportedLanguages {
         return language?.data.id
     }
     
+    func iOSLanguageCode(for crowdinLocalization: String) -> String? {
+        return supportedLanguages?.data.first(where: { $0.data.id == crowdinLocalization })?.data.iOSLocaleCode
+    }
+    
     func updateSupportedLanguagesIfNeeded() {
         guard self.supportedLanguages != nil else {
             self.updateSupportedLanguages()

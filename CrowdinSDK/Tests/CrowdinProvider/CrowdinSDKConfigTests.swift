@@ -12,11 +12,6 @@ class CrowdinSDKConfigTests: XCTestCase {
     func testProviderConfigInitialization() {
         XCTAssert(providerConfig.hashString == "test_hash")
         
-        XCTAssert(providerConfig.localizations.count == 3)
-        XCTAssert(providerConfig.localizations.contains("en"))
-        XCTAssert(providerConfig.localizations.contains("de"))
-        XCTAssert(providerConfig.localizations.contains("uk"))
-        
         XCTAssert(providerConfig.sourceLanguage == "en")
     }
     

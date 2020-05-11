@@ -42,7 +42,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
             self.refreshLocalization()
         }
     }
-    var localizations: [String] { return localStorage.localizations }
+    var localizations: [String] { return remoteStorage.localizations }
     
     var localStorage: LocalLocalizationStorageProtocol
     var remoteStorage: RemoteLocalizationStorageProtocol
@@ -70,7 +70,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     
     init(localization: String, localizations: [String], remoteStorage: RemoteLocalizationStorageProtocol) {
         self.localization = localization
-        self.localStorage = LocalLocalizationStorage(localization: localization, localizations: localizations)
+        self.localStorage = LocalLocalizationStorage(localization: localization)
         self.remoteStorage = remoteStorage
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.Plurals.rawValue)
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
@@ -114,9 +114,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         }
         if let plurals = plurals {
             self.localStorage.plurals.merge(with: plurals)
-        }
-        if let localizations = localizations {
-            self.localStorage.localizations = localizations
         }
         self.setupStrings()
         self.setupPlurals()

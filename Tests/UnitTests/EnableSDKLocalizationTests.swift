@@ -34,7 +34,7 @@ class EnableSDKLocalizationTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         _ = CrowdinSDK.addDownloadHandler {
-            XCTAssert(CrowdinSDK.mode == .autoSDK, "Shouuld enable autoSDK mode and redownload localization")
+            XCTAssert(CrowdinSDK.mode == .autoSDK, "Should enable autoSDK mode and redownload localization")
             XCTAssert(CrowdinSDK.currentLocalization == "en", "Shouuld auto detect current localization as en")
             expectation.fulfill()
         }
