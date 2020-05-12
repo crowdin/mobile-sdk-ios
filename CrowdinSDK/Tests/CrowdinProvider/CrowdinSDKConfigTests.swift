@@ -6,7 +6,7 @@ class CrowdinSDKConfigTests: XCTestCase {
     var providerConfig: CrowdinProviderConfig!
     
     override func setUp() {
-        self.providerConfig = CrowdinProviderConfig(hashString: "test_hash", localizations: ["en", "de", "uk"], sourceLanguage: "en")
+        self.providerConfig = CrowdinProviderConfig(hashString: "test_hash", sourceLanguage: "en")
     }
     
     func testProviderConfigInitialization() {

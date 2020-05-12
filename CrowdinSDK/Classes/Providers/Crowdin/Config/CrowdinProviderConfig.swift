@@ -11,7 +11,7 @@ import Foundation
     var hashString: String
     var sourceLanguage: String
     
-    public init(hashString: String, localizations: [String], sourceLanguage: String) {
+    public init(hashString: String, sourceLanguage: String) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
     }
