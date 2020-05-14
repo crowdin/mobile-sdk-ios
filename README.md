@@ -135,7 +135,6 @@ In `application` method add:
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-  localizations: [{target_languages}],
   sourceLanguage: "{source_language}")
 
 CrowdinSDK.startWithConfig(crowdinSDKConfig)
@@ -144,7 +143,6 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 | Config option              | Description                                                         | Example                                               |
 |----------------------------|---------------------------------------------------------------------|-------------------------------------------------------|
 | `hashString`               | Distribution Hash                                                   |`hashString: "7a0c1ee2622bc85a4030297uo3b"`
-| `localizations`            | Array of target language codes are the ones you’re translating to. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)        | `localizations: ["fr", "uk"]`
 | `sourceLanguage`           | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) | `sourceLanguage: "en"`
 
 <details>
@@ -165,7 +163,7 @@ or
 In `application` method add:
 
 ```objective-c
-CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" localizations:@[] sourceLanguage:@""];
+CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
 CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig]];
 
 [CrowdinSDK startWithConfig:config];
@@ -188,8 +186,6 @@ Add ```use_frameworks!``` to your Podfile.
 Open *Info.plist* file and add:
 
 `CrowdinDistributionHash` - Crowdin CDN hash value for current project (String value).
-
-`CrowdinLocalizations` - Supported localizations for current project on crowdin server (Array of strings - language codes [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)).
 
 `CrowdinSourceLanguage` - Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) for current project on crowdin server (String value).
 
@@ -222,7 +218,6 @@ Open *AppDelegate.swift* file and in `application` method add:
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    localizations: [{target_languages}],
     sourceLanguage: "{source_language}")
 
 let loginConfig = CrowdinLoginConfig(clientId: "client_id",
@@ -242,7 +237,6 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 | Config option              | Description                                                         | Example                                               |
 |----------------------------|---------------------------------------------------------------------|-------------------------------------------------------|
 | `hashString`               | Distribution Hash                                                   |`hashString: "7a0c1ee2622bc85a4030297uo3b"`
-| `localizations`            | Array of target language codes are the ones you’re translating to. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)        | `localizations: ["fr", "uk"]`
 | `sourceLanguage`           | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) | `sourceLanguage: "en"`
 | `clientId`, `clientSecret` | Crowdin OAuth Client ID and Client Secret | `clientId: "gpY2yTbCVGEelrcx3TYB"`, `clientSecret: "Xz95t0ASVgbvKaZbFB4SMHQzdUl1MSgSTabEDx9T"`
 | `scope`                    | Define the access scope for personal tokens | `scope: "project.translation"`
@@ -271,7 +265,6 @@ Open *AppDelegate.swift* file and in `application` method add:
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    localizations: [{target_languages}],
     sourceLanguage: "{source_language}")
 
 let loginConfig = CrowdinLoginConfig(clientId: "client_id",
@@ -291,7 +284,6 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 | Config option              | Description                                                         | Example                                               |
 |----------------------------|---------------------------------------------------------------------|-------------------------------------------------------|
 | `hashString`               | Distribution Hash                                                   |`hashString: "7a0c1ee2622bc85a4030297uo3b"`
-| `localizations`            | Array of target language codes are the ones you’re translating to. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)        | `localizations: ["fr", "uk"]`
 | `sourceLanguage`           | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) | `sourceLanguage: "en"`
 | `clientId`, `clientSecret` | Crowdin OAuth Client ID and Client Secret | `clientId: "gpY2yTbCVGEelrcx3TYB"`, `clientSecret: "Xz95t0ASVgbvKaZbFB4SMHQzdUl1MSgSTabEDx9T"`
 | `scope`                    | Define the access scope for personal tokens | `scope: "project.screenshot"`
