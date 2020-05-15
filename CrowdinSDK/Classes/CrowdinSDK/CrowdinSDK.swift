@@ -79,8 +79,10 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
     class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
-        self.setRemoteStorage(remoteStorage)
-        self.initializeLib()
+        remoteStorage.prepare {
+            self.setRemoteStorage(remoteStorage)
+            self.initializeLib()
+        }
     }
     
     /// Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.

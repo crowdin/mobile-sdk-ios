@@ -59,11 +59,13 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
-        self.socketAPI.subscribeOnUpdateDraft(localization: localization, stringId: stringId)
+        guard let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) else { return }
+        self.socketAPI.subscribeOnUpdateDraft(localization: crowdinLocalization, stringId: stringId)
     }
     
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
-        self.socketAPI.subscribeOnUpdateTopSuggestion(localization: localization, stringId: stringId)
+        guard let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) else { return }
+        self.socketAPI.subscribeOnUpdateTopSuggestion(localization: crowdinLocalization, stringId: stringId)
     }
     
     func updateDraft(_ draft: UpdateDraftResponse) {

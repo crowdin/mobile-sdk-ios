@@ -24,6 +24,10 @@ class CustomProvider: RemoteLocalizationStorageProtocol {
         
     }
     
+    func prepare(with completion: @escaping () -> Void) {
+        completion()
+    }
+    
     /*
     func set(localization: String?) {
         self.localization = localization ?? "en"

@@ -24,6 +24,10 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.localizations = ManifestManager.shared(for: hash).iOSLanguages
     }
     
+    func prepare(with completion: (() -> Void)) {
+        completion()
+    }
+    
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.fileDownloader.download(with: hash, for: localization) { (strings, plurals, errors) in
             if let errors = errors { errors.forEach({ errorHandler?($0) }) }
