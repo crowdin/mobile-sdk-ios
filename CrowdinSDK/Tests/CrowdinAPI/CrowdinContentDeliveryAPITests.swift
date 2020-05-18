@@ -38,7 +38,6 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         XCTAssert(result?.contains(where: { $0 == "key" && $1 == "value" }) ?? false)
     }
     
-    
     func testCrowdinContentDeliveryAPIGetStringsMapping() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
