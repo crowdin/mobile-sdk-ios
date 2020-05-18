@@ -54,11 +54,10 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             guard let self = self else { return }
             completion(self.localizations, strings, plurals)
             DispatchQueue.main.async {
-                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue)))
+                LocalizationUpdateObserver.shared.notifyDownload()
                 
                 if let errors = errors {
-                    NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: errors)
-                    errors.forEach({ errorHandler?($0) })
+                    LocalizationUpdateObserver.shared.notifyError(with: errors)
                 }
             }
         }

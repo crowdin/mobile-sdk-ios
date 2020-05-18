@@ -36,7 +36,7 @@ class AddDownloadHandlersTests: XCTestCase {
         
         wait(for: [expectation], timeout: 60.0)
         
-        CrowdinSDK.removeErrorHandler(hendlerId)
+        CrowdinSDK.removeDownloadHandler(hendlerId)
     }
 
 }
