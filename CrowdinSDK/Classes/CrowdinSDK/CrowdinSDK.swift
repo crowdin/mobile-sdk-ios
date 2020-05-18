@@ -154,7 +154,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// - Parameter handler: Download error closure.
     /// - Returns: Handler id needed to unsubscribe.
     public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> Int {
-        LocalizationUpdateObserver.shared.addErrorHandler(handler) 
+        return LocalizationUpdateObserver.shared.addErrorHandler(handler) 
     }
     
     /// Method for removing localization download error handler.
