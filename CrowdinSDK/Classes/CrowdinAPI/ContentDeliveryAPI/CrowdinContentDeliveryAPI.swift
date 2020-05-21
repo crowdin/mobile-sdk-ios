@@ -15,7 +15,7 @@ typealias CrowdinAPIStringsMappingCompletion = (([String: String]?, Error?) -> V
 typealias CrowdinAPIPluralsMappingCompletion = (([AnyHashable: Any]?, Error?) -> Void)
 typealias CrowdinAPIXliffMappingCompletion = (([AnyHashable: Any]?, Error?) -> Void)
 
-typealias CrowdinAPIFilesCompletion = (([String]?, TimeInterval?, Error?) -> Void)
+typealias CrowdinAPIManifestCompletion = ((ManifestResponse?, Error?) -> Void)
 
 class CrowdinContentDeliveryAPI: BaseAPI {
     enum FileType: String {
@@ -153,20 +153,35 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
     
-    func getFiles(completion: @escaping CrowdinAPIFilesCompletion) {
+    func getManifest(completion: @escaping CrowdinAPIManifestCompletion) {
         let stringURL = buildURL(fileType: .manifest, filePath: ".json", timestamp: nil)
         super.get(url: stringURL) { [weak self] (data, _, error) in
             guard self != nil else { return }
             if let data = data {
                 do {
                     let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
-                    completion(response.files, response.timestamp, nil)
+                    completion(response, nil)
                 } catch {
-                    completion(nil, nil, error)
+                    completion(nil, error)
                 }
             } else {
-                completion(nil, nil, error)
+                completion(nil, error)
             }
+        }
+    }
+    
+    func getManifestSync() -> ManifestResponse? {
+        let stringURL = buildURL(fileType: .manifest, filePath: ".json", timestamp: nil)
+        let result = super.get(url: stringURL)
+        if let data = result.data {
+            do {
+                let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
+                return response
+            } catch {
+                return nil
+            }
+        } else {
+            return nil
         }
     }
 }

@@ -76,7 +76,9 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getFiles(completion: completion)
+        self.contentDeliveryAPI.getManifest { (manifest, error) in
+            completion(manifest?.files, manifest?.timestamp, error)
+        }
     }
     
     func add(error: Error?) {

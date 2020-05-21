@@ -15,28 +15,37 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var pluralsFileNames: [String] = []
     var name: String = "Crowdin"
     var enterprise: Bool
-    private var crowdinDownloader: CrowdinDownloaderProtocol
+    private var crowdinDownloader: CrowdinLocalizationDownloader
+    private var _localizations: [String]?
     
     init(localization: String, config: CrowdinProviderConfig, enterprise: Bool) {
-        self.hashString = config.hashString
         self.localization = localization
-        self.localizations = config.localizations
-        self.crowdinDownloader = CrowdinLocalizationDownloader()
         self.enterprise = enterprise
+        self.hashString = config.hashString
+        self.crowdinDownloader = CrowdinLocalizationDownloader()
+        self.localizations = ManifestManager.shared(for: hashString).iOSLanguages
+    }
+    
+    func prepare(with completion: @escaping () -> Void) {
+        if !CrowdinSupportedLanguages.shared.loaded {
+            CrowdinSupportedLanguages.shared.downloadSupportedLanguages {
+                self.localizations = ManifestManager.shared(for: self.hashString).iOSLanguages
+                completion()
+            }
+        } else {
+            completion()
+        }
     }
     
     required init(localization: String, enterprise: Bool) {
         self.localization = localization
-        self.crowdinDownloader = CrowdinLocalizationDownloader()
         self.enterprise = enterprise
         guard let hashString = Bundle.main.crowdinDistributionHash else {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
         self.hashString = hashString
-        guard let localizations = Bundle.main.cw_localizations else {
-            fatalError("Please add CrowdinLocalizations key to your Info.plist file")
-        }
-        self.localizations = localizations
+        self.crowdinDownloader = CrowdinLocalizationDownloader()
+        self.localizations = ManifestManager.shared(for: hashString).iOSLanguages
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
@@ -45,11 +54,10 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             guard let self = self else { return }
             completion(self.localizations, strings, plurals)
             DispatchQueue.main.async {
-                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue)))
+                LocalizationUpdateObserver.shared.notifyDownload()
                 
                 if let errors = errors {
-                    NotificationCenter.default.post(name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: errors)
-                    errors.forEach({ errorHandler?($0) })
+                    LocalizationUpdateObserver.shared.notifyError(with: errors)
                 }
             }
         }

@@ -78,9 +78,11 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, localizations: [String]) {
-        self.setRemoteStorage(remoteStorage, localizations: localizations)
-        self.initializeLib()
+    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+        remoteStorage.prepare {
+            self.setRemoteStorage(remoteStorage)
+            self.initializeLib()
+        }
     }
     
     /// Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.
@@ -113,7 +115,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
     /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
-    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, localizations: [String]) {
+    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+        let localizations = remoteStorage.localizations;
         let localization = Bundle.main.preferredLanguage(with: localizations)
 		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
@@ -131,39 +134,39 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// - Parameter handler: Download handler closure.
     /// - Returns: Download handler id value. This value is used to remove this handler.
     public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> Int {
-        return Localization.current?.addDownloadHandler(handler) ?? -1
+        return LocalizationUpdateObserver.shared.addDownloadHandler(handler) 
     }
     
-    /// Remove download handler by id.
+    /// Method for removing localization download completion handler by id.
     ///
-    /// - Parameter id: Download handler id value.
+    /// - Parameter id: Handler id returned from addDownloadHandler(_:) method.
     public class func removeDownloadHandler(_ id: Int) {
-        Localization.current?.removeDownloadHandler(id)
+        LocalizationUpdateObserver.shared.removeDownloadHandler(id)
     }
     
-    /// Remove all download handlers.
+    /// Remove all download completion handlers.
     public class func removeAllDownloadHandlers() {
-        Localization.current?.removeAllDownloadHandlers()
+        LocalizationUpdateObserver.shared.removeAllDownloadHandlers()
     }
     
-    /// Add error handler
+    /// Method for adding localization download error handler.
     ///
-    /// - Parameter handler: Error handler closure.
-    /// - Returns: Error handler id value. This value is used to remove this handler.
+    /// - Parameter handler: Download error closure.
+    /// - Returns: Handler id needed to unsubscribe.
     public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> Int {
-        return Localization.current?.addErrorUpdateHandler(handler) ?? -1
+        return LocalizationUpdateObserver.shared.addErrorHandler(handler) 
     }
     
-    /// Remove error handler by id.
+    /// Method for removing localization download error handler.
     ///
-    /// - Parameter id: Error's handler id value.
+    /// - Parameter id: Handler id returned from addErrorUpdateHandler(_:) method.
     public class func removeErrorHandler(_ id: Int) {
-        Localization.current?.removeErrorHandler(id)
+        LocalizationUpdateObserver.shared.removeErrorHandler(id)
     }
     
-    /// Remove all error handlers.
+    /// Method for removing all localization download error handlers.
     public class func removeAllErrorHandlers() {
-        Localization.current.removeAllErrorHandlers()
+        LocalizationUpdateObserver.shared.removeAllErrorHandlers()
     }
 }
 
