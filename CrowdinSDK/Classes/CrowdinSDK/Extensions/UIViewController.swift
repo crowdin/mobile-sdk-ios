@@ -8,21 +8,43 @@
 import Foundation
 
 // MARK: - Custom view controller presentation and dismiss.
-extension UIViewController {
-    /// Custom view controller presentation.
-    ///
-    /// - Parameter viewController: View controller to present.
-    func cw_present(viewController: UIViewController) {
-        viewController.loadViewIfNeeded()
-        self.addChild(viewController)
-        self.view.addSubview(viewController.view)
-        viewController.view.frame = self.view.bounds
-        self.view.bringSubviewToFront(viewController.view)
+public extension UIViewController {
+    private static let alertWindowAssociation = ObjectAssociation<UIWindow>()
+    private var alertWindow: UIWindow? {
+        get { return UIViewController.alertWindowAssociation[self] }
+        set { UIViewController.alertWindowAssociation[self] = newValue }
     }
     
-    /// Dismiss custom presented view controller.
+    private static let topWindowAssociation = ObjectAssociation<UIWindow>()
+    private var topWindow: UIWindow? {
+        get { return UIViewController.topWindowAssociation[self] }
+        set { UIViewController.topWindowAssociation[self] = newValue }
+    }
+    
+    /// Custom view controller presentation. View controller presenter on new window over all existing windows. To dismiss it cw_dismiss() method should be used.
+    /// https://stackoverflow.com/a/51723032/3697225
+    func cw_present() {
+        self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
+        self.topWindow = UIApplication.shared.keyWindow
+        
+        let viewController = UIViewController()
+        self.alertWindow?.rootViewController = viewController
+
+        if let topWindow = topWindow {
+            self.alertWindow?.windowLevel = topWindow.windowLevel + 1
+        }
+
+        self.alertWindow?.makeKeyAndVisible()
+        self.alertWindow?.rootViewController?.present(self, animated: true, completion: nil)
+    }
+    
+    /// Dissmiss view controller presenter with cw_present() method.
     func cw_dismiss() {
-        self.removeFromParent()
-        self.view.removeFromSuperview()
+        self.dismiss(animated: false, completion: nil)
+        self.alertWindow?.resignKey()
+        self.alertWindow?.isHidden = true
+        self.alertWindow = nil
+        self.topWindow?.makeKeyAndVisible()
+        self.topWindow = nil
     }
 }
