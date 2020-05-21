@@ -14,7 +14,6 @@ class AddErrorHandlersTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "wrong_hash",
-                                                          localizations: ["en", "de", "uk"],
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(enterprise: true)

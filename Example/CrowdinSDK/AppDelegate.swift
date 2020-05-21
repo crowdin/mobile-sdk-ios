@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		// Setup CrowdinSDK with crowdin sdk with all features:
 		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
-														  localizations: ["en", "de", "uk"],
 														  sourceLanguage: "en")
 		let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
                                                   clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",

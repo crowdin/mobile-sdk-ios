@@ -13,8 +13,12 @@ public typealias LocalizationStorageError = (_ error: Error) -> Void
 
 /// Protocol for storage with localization data.
 @objc public protocol LocalizationStorageProtocol {
+    /// List of all available localizations.
+    var localizations: [String] { get }
+    
     /// Current localization.
     var localization: String { get set }
+    
     /// Method for data fetching.
     ///
     /// - Parameter completion: Completion block called after localization data fetched.

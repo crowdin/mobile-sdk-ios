@@ -10,6 +10,8 @@ import Foundation
 import CrowdinSDK
 
 class CustomProvider: RemoteLocalizationStorageProtocol {
+    var localizations: [String] = []
+    
 	func deintegrate() {
 		
 	}
@@ -20,6 +22,10 @@ class CustomProvider: RemoteLocalizationStorageProtocol {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         
+    }
+    
+    func prepare(with completion: @escaping () -> Void) {
+        completion()
     }
     
     /*

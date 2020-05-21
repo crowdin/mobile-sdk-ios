@@ -29,7 +29,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         session.data = fileString.data(using: .utf8)
         
         var result: [String: String]? = nil
-        crowdinContentDeliveryAPI.getStrings(filePath: "filePath") { (strings, _) in
+        crowdinContentDeliveryAPI.getStrings(filePath: "filePath", etag: nil, timestamp: nil) { (strings, _, _) in
             result = strings
         }
         
@@ -38,38 +38,25 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         XCTAssert(result?.contains(where: { $0 == "key" && $1 == "value" }) ?? false)
     }
     
-    func testCrowdinContentDeliveryAPIGetStringsSync() {
+    func testCrowdinContentDeliveryAPIGetStringsMapping() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
-        key = value;
+        key1 = 0;
+        key2 = 1;
         """
         session.data = fileString.data(using: .utf8)
         
-        let result: [String: String]? = crowdinContentDeliveryAPI.getStringsSync(filePath: "filePath").strings
+        var result: [String: String]? = nil
+        crowdinContentDeliveryAPI.getStrings(filePath: "filePath", etag: nil, timestamp: nil) { (strings, _, _) in
+            result = strings
+        }
         
         XCTAssertNotNil(result)
-        if let result = result {
-            XCTAssert(result.count == 1)
-            XCTAssert(result.contains(where: { $0 == "key" && $1 == "value" }))
-        }
+        XCTAssert(result?.count == 2)
+        XCTAssert(result?.contains(where: { $0 == "key1" && $1 == "0" }) ?? false)
+        XCTAssert(result?.contains(where: { $0 == "key2" && $1 == "1" }) ?? false)
     }
     
-    func testCrowdinContentDeliveryAPIGetStringsMappingSync() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
-        let fileString = """
-        key = 123;
-        """
-        session.data = fileString.data(using: .utf8)
-        
-        let result: [String: String]? = crowdinContentDeliveryAPI.getStringsMappingSync(filePath: "filePath").strings
-        
-        XCTAssertNotNil(result)
-        if let result = result {
-            XCTAssert(result.count == 1)
-            XCTAssert(result.contains(where: { $0 == "key" && $1 == "123" }))
-        }
-    }
-
     func testCrowdinContentDeliveryAPIGetPlurals() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
@@ -101,7 +88,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         session.data = fileString.data(using: .utf8)
         
         var result: [AnyHashable: Any]? = nil
-        crowdinContentDeliveryAPI.getPlurals(filePath: "filePath") { (response, _) in
+        crowdinContentDeliveryAPI.getPlurals(filePath: "filePath", etag: nil, timestamp: nil) { (response, _, _) in
             result = response
         }
         
@@ -112,46 +99,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         }
     }
     
-    func testCrowdinContentDeliveryAPIGetPluralsSync() {
-        crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
-        let fileString = """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-            <key>johns_pineapples_count</key>
-            <dict>
-                <key>NSStringLocalizedFormatKey</key>
-                <string>%#@v1_pineapples_count@</string>
-                <key>v1_pineapples_count</key>
-                <dict>
-                    <key>NSStringFormatSpecTypeKey</key>
-                    <string>NSStringPluralRuleType</string>
-                    <key>NSStringFormatValueTypeKey</key>
-                    <string>u</string>
-                    <key>zero</key>
-                    <string>John has no pineapples</string>
-                    <key>one</key>
-                    <string>John has 1 pineapple</string>
-                    <key>other</key>
-                    <string>John has %u pineapples</string>
-                </dict>
-            </dict>
-        </dict>
-        </plist>
-        """
-        session.data = fileString.data(using: .utf8)
-        
-        let result: [AnyHashable: Any]? = crowdinContentDeliveryAPI.getPluralsSync(filePath: "filePath").plurals
-        
-        XCTAssertNotNil(result)
-        if let result = result {
-            XCTAssert(result.isEmpty == false)
-            XCTAssert(result["johns_pineapples_count"] != nil)
-        }
-    }
-    
-    func testCrowdinContentDeliveryAPIGetPluralsMappingSync() {
+    func testCrowdinContentDeliveryAPIGetPluralsMapping() {
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         <?xml version="1.0" encoding="UTF-8"?>
@@ -181,12 +129,12 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         """
         session.data = fileString.data(using: .utf8)
         
-        let result: [AnyHashable: Any]? = crowdinContentDeliveryAPI.getPluralsMappingSync(filePath: "filePath").plurals
-        
-        XCTAssertNotNil(result)
-        if let result = result {
-            XCTAssert(result.isEmpty == false)
-            XCTAssert(result["johns_pineapples_count"] != nil)
+        crowdinContentDeliveryAPI.getPluralsMapping(filePath: "filePath", etag: nil, timestamp: nil) { (result, _) in
+            XCTAssertNotNil(result)
+            if let result = result {
+                XCTAssert(result.isEmpty == false)
+                XCTAssert(result["johns_pineapples_count"] != nil)
+            }
         }
     }
 }

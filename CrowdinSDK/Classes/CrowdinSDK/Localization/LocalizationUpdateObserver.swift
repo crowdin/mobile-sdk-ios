@@ -7,72 +7,70 @@
 
 import Foundation
 
-typealias LocalizationUpdateDownload = () -> Void
-typealias LocalizationUpdateError = ([Error]) -> Void
-
-protocol LocalizationUpdateObserverProtocol {
-    var downloadHandlers: [Int: LocalizationUpdateDownload] { get }
-    var errorHandlers: [Int: LocalizationUpdateError] { get }
+protocol HandlerContainerProtocol {
+    associatedtype HandlerType
     
-    func subscribe()
+    func subscribe(handler: HandlerType) -> Int
+    func unsubscribe(with id: Int)
     func unsubscribe()
 }
 
-class LocalizationUpdateObserver {
-    var downloadHandlers: [Int: LocalizationUpdateDownload] = [:]
-    var errorHandlers: [Int: LocalizationUpdateError] = [:]
+class HandlerContainer<HandlerType>: HandlerContainerProtocol {
+    var handlers: [Int: HandlerType] = [:]
     
-    init() {
-        subscribe()
+    func subscribe(handler: HandlerType) -> Int {
+        let newId = (handlers.keys.max() ?? 0) + 1
+        handlers[newId] = handler
+        return newId
     }
     
-    deinit {
-        unsubscribe()
-    }
-    
-    func subscribe() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didDownloadLocalization), name: Notification.Name(Notifications.ProviderDidDownloadLocalization.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(downloadError(with:)), name: Notification.Name(Notifications.ProviderDownloadError.rawValue), object: nil)
+    func unsubscribe(with id: Int) {
+        handlers.removeValue(forKey: id)
     }
     
     func unsubscribe() {
-        NotificationCenter.default.removeObserver(self)
+        handlers.removeAll()
     }
+}
+
+typealias LocalizationUpdateDownload = () -> Void
+typealias LocalizationUpdateError = ([Error]) -> Void
+
+class LocalizationUpdateObserver {
+    static var shared = LocalizationUpdateObserver()
+    
+    var downloadHandlerContainer = HandlerContainer<LocalizationUpdateDownload>()
+    var errorHandlerContainer = HandlerContainer<LocalizationUpdateError>()
     
     func addDownloadHandler(_ handler: @escaping LocalizationUpdateDownload) -> Int {
-        let newKey = (downloadHandlers.keys.max() ?? 0) + 1
-        downloadHandlers[newKey] = handler
-        return newKey
+        return downloadHandlerContainer.subscribe(handler: handler)
     }
     
     func removeDownloadHandler(_ id: Int) {
-        downloadHandlers.removeValue(forKey: id)
+        downloadHandlerContainer.unsubscribe(with: id)
     }
     
     func removeAllDownloadHandlers() {
-        downloadHandlers.removeAll()
+        downloadHandlerContainer.unsubscribe()
     }
     
     func addErrorHandler(_ handler: @escaping LocalizationUpdateError) -> Int {
-        let newKey = (errorHandlers.keys.max() ?? 0) + 1
-        errorHandlers[newKey] = handler
-        return newKey
+        return errorHandlerContainer.subscribe(handler: handler)
     }
     
     func removeErrorHandler(_ id: Int) {
-        errorHandlers.removeValue(forKey: id)
+        errorHandlerContainer.unsubscribe(with: id)
     }
     
     func removeAllErrorHandlers() {
-        errorHandlers.removeAll()
+        errorHandlerContainer.unsubscribe()
     }
     
-    @objc func didDownloadLocalization() {
-        downloadHandlers.forEach({ $1() })
+    func notifyDownload() {
+        downloadHandlerContainer.handlers.values.forEach({ $0() })
     }
     
-    @objc func downloadError(with notification: Notification) {
-        guard let errors = notification.object as? [Error] else { return }
-        errorHandlers.forEach({ $1(errors) })
+    func notifyError(with errors: [Error]) {
+        errorHandlerContainer.handlers.values.forEach({ $0(errors) })
     }
 }

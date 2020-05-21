@@ -10,22 +10,25 @@ import Foundation
 class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
     var plurals: [AnyHashable: Any]?
+    var error: Error?
     
     init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         let filePath = CrowdinPathsParser.shared.parse(filePath, localization: sourceLanguage)
-        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
+        super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    override init(hash: String, filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
-        super.init(hash: hash, filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
+    override init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let result = contentDeliveryAPI.getPluralsMappingSync(filePath: self.filePath)
-        self.plurals = result.plurals
-        self.error = result.error
-        self.completion?(self.plurals, self.error)
-        self.finish(with: result.error != nil)
+        self.contentDeliveryAPI.getPluralsMapping(filePath: self.filePath, etag: nil, timestamp: nil) { [weak self] (plurals, error) in
+            guard let self = self else { return }
+            self.plurals = plurals
+            self.error = error
+            self.completion?(self.plurals, self.error)
+            self.finish(with: error != nil)
+        }
     }
 }

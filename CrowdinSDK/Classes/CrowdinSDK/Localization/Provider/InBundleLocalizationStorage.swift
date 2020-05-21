@@ -9,6 +9,10 @@ import Foundation
 
 /// Example of using RemoteLocalizationStorageProtocol.
 class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
+    func prepare(with completion: (() -> Void)) {
+        completion()
+    }
+    
     var name: String = "Empty"
     var additionalWord: String
     var localization: String {
