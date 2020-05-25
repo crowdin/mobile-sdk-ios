@@ -9,6 +9,53 @@ import Foundation
 
 typealias CrowdinXliffDownloadOperationCompletion = ([String: String]?, [AnyHashable: Any]?, Error?) -> Void
 
+class XliffDictionaryParser {
+    static func parse(xliffDict: [AnyHashable: Any]) -> ([String: String], [AnyHashable: Any]) {
+        var strings = [String: String]()
+        var plurals = [AnyHashable: Any]()
+        if let xliff = xliffDict["xliff"] as? [AnyHashable: Any], let files = xliff["file"] as? [[AnyHashable: Any]] {
+            for file in files {
+                if let attributes = file["XMLParserAttributesKey"] as? [String: String], let original = attributes["original"] {
+                    if original.isStrings { // Parse strings
+                        if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
+                            for transUnit in transUnits {
+                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let source = transUnit["source"] as? String {
+                                    strings[id] = source
+                                }
+                            }
+                        }
+                    } else if original.isStringsDict { // Parse Plurals
+                        if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
+                            for transUnit in transUnits {
+                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let source = transUnit["source"] as? String {
+                                    var path = id.split(separator: "/").map({ String($0) }).map({ $0.split(separator: ":").map({ String($0) }) })
+                                    if path.count > 1 {
+                                        path.removeLast()
+                                        path[path.count - 1][1] = "string"
+                                    }
+                                    var currentDict = [AnyHashable: Any]()
+                                    for index in (0..<path.count).reversed() {
+                                        let currentPath = path[index]
+                                        if currentPath.count == 2, currentPath[1] == "dict" {
+                                            let key = currentPath[0]
+                                            currentDict = [key: currentDict]
+                                        } else if currentPath.count == 2, currentPath[1] == "string" {
+                                            let key = currentPath[0]
+                                            currentDict[key] = source
+                                        }
+                                    }
+                                    plurals.mergeRecursively(with: currentDict)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return (strings, plurals)
+    }
+}
+
 class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
     var completion: CrowdinXliffDownloadOperationCompletion? = nil
     var strings: [String: String]?
@@ -31,51 +78,11 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
         let etag = ETagStorage.shared.etags[self.filePath]
         contentDeliveryAPI.getXliff(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (xliffDict, etag, error) in
             guard let self = self else { return }
-            var strings = [String: String]()
-            var plurals = [AnyHashable: Any]()
-            if let xliff = xliffDict?["xliff"] as? [AnyHashable: Any], let files = xliff["file"] as? [[AnyHashable: Any]] {
-                for file in files {
-                    if let attributes = file["XMLParserAttributesKey"] as? [String: String], let original = attributes["original"] {
-                        if original.isStrings { // Parse strings
-                            if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
-                                for transUnit in transUnits {
-                                    if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let source = transUnit["source"] as? String {
-                                        strings[id] = source
-                                    }
-                                }
-                            }
-                        } else if original.isStringsDict { // Parse Plurals
-                            if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
-                                for transUnit in transUnits {
-                                    if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let source = transUnit["source"] as? String {
-                                        var path = id.split(separator: "/").map({ String($0) }).map({ $0.split(separator: ":").map({ String($0) }) })
-                                        if path.count > 1 {
-                                            path.removeLast()
-                                            path[path.count - 1][1] = "string"
-                                        }
-                                        var currentDict = [AnyHashable: Any]()
-                                        for index in (0..<path.count).reversed() {
-                                            let currentPath = path[index]
-                                            if currentPath.count == 2, currentPath[1] == "dict" {
-                                                let key = currentPath[0]
-                                                currentDict = [key: currentDict]
-                                            } else if currentPath.count == 2, currentPath[1] == "string" {
-                                                let key = currentPath[0]
-                                                currentDict[key] = source
-                                            }
-                                        }
-                                        plurals.mergeRecursively(with: currentDict)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
+            guard let xliffDict = xliffDict else { return }
+            let parseResult = XliffDictionaryParser.parse(xliffDict: xliffDict)
             ETagStorage.shared.etags[self.filePath] = etag
-            self.strings = strings
-            self.plurals = plurals
+            self.strings = parseResult.0
+            self.plurals = parseResult.1
             self.error = error
             self.completion?(self.strings, self.plurals, self.error)
             self.finish(with: error != nil)
