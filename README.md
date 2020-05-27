@@ -208,7 +208,7 @@ Add the code below to your *Podfile*:
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
-  pod 'CrowdinSDK/Login'
+  pod 'CrowdinSDK/LoginFeature'
   pod 'CrowdinSDK/RealtimeUpdate'
   pod 'CrowdinSDK/Settings' // Optional. To add 'settings' floating button
 end
@@ -255,7 +255,7 @@ Add the code below to your *Podfile*:
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
-  pod 'CrowdinSDK/Login'
+  pod 'CrowdinSDK/LoginFeature'
   pod 'CrowdinSDK/Screenshots'
   pod 'CrowdinSDK/Settings' // Optional. To add 'settings' button
 end
