@@ -19,15 +19,15 @@ class XliffDictionaryParser {
                     if original.isStrings { // Parse strings
                         if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
                             for transUnit in transUnits {
-                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let source = transUnit["source"] as? String {
-                                    strings[id] = source
+                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let target = transUnit["target"] as? [String: Any], let textKey = target["XMLParserTextKey"] as? String {
+                                    strings[id] = textKey
                                 }
                             }
                         }
                     } else if original.isStringsDict { // Parse Plurals
                         if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
                             for transUnit in transUnits {
-                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let source = transUnit["source"] as? String {
+                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let target = transUnit["target"] as? [String: Any], let textKey = target["XMLParserTextKey"] as? String {
                                     var path = id.split(separator: "/").map({ String($0) }).map({ $0.split(separator: ":").map({ String($0) }) })
                                     if path.count > 1 {
                                         path.removeLast()
@@ -41,7 +41,7 @@ class XliffDictionaryParser {
                                             currentDict = [key: currentDict]
                                         } else if currentPath.count == 2, currentPath[1] == "string" {
                                             let key = currentPath[0]
-                                            currentDict[key] = source
+                                            currentDict[key] = textKey
                                         }
                                     }
                                     plurals.mergeRecursively(with: currentDict)
