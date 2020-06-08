@@ -55,6 +55,7 @@ class CrowdinXliffMappingDownloadOperation: CrowdinDownloadOperation {
                                             if currentPath.count == 2, currentPath[1] == "dict" {
                                                 let key = currentPath[0]
                                                 currentDict = [key: currentDict]
+                                                strings.removeValue(forKey: key)
                                             } else if currentPath.count == 2, currentPath[1] == "string" {
                                                 let key = currentPath[0]
                                                 currentDict[key] = target
