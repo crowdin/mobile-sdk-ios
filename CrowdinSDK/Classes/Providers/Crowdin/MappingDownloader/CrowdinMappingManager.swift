@@ -55,8 +55,8 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         return self.stringLocalizationKey(for: id) ?? self.pluralLocalizationKey(for: id)
     }
     
-    public func id(for string: String) -> Int? {
-        return self.idFor(string: string) ?? self.idFor(plural: string)
+    public func id(for key: String) -> Int? {
+        return self.idFor(string: key) ?? self.idFor(plural: key)
     }
 }
 

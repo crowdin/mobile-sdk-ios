@@ -65,7 +65,7 @@
       "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*",
       "dependencies": {
         "Starscream": [
-          "~> 3.0.6"
+          "~> 3.1.0"
         ],
         "BaseAPI": [
           "0.1.7"

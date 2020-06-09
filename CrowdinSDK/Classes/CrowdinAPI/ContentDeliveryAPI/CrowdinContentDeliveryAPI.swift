@@ -10,8 +10,10 @@ import BaseAPI
 
 typealias CrowdinAPIStringsCompletion = (([String: String]?, String?, Error?) -> Void)
 typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, String?, Error?) -> Void)
+typealias CrowdinAPIXliffCompletion = (([AnyHashable: Any]?, String?, Error?) -> Void)
 typealias CrowdinAPIStringsMappingCompletion = (([String: String]?, Error?) -> Void)
 typealias CrowdinAPIPluralsMappingCompletion = (([AnyHashable: Any]?, Error?) -> Void)
+typealias CrowdinAPIXliffMappingCompletion = (([AnyHashable: Any]?, Error?) -> Void)
 
 typealias CrowdinAPIManifestCompletion = ((ManifestResponse?, Error?) -> Void)
 
@@ -67,7 +69,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         self.getFile(fileType: .content, filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
             if let data = data {
-                guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
+                guard let dictionary = PropertyListDataParser.parse(data: data) else {
                     completion(nil, etag, error)
                     return
                 }
@@ -82,7 +84,22 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         self.getFile(fileType: .content, filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
             if let data = data {
-                guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
+                guard let dictionary = PropertyListDataParser.parse(data: data) else {
+                    completion(nil, etag, error)
+                    return
+                }
+                completion(dictionary, etag, nil)
+            } else {
+                completion(nil, etag, error)
+            }
+        }
+    }
+    
+    func getXliff(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIXliffCompletion) {
+        self.getFile(fileType: .content, filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
+            let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
+            if let data = data {
+                guard let dictionary = XLIFFDataParser.parse(data: data) else {
                     completion(nil, etag, error)
                     return
                 }
@@ -97,7 +114,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
     func getStringsMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsMappingCompletion) {
         self.getFile(fileType: .mapping, filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
             if let data = data {
-                guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
+                guard let dictionary = PropertyListDataParser.parse(data: data) else {
                     completion(nil, error)
                     return
                 }
@@ -111,7 +128,21 @@ class CrowdinContentDeliveryAPI: BaseAPI {
     func getPluralsMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIPluralsMappingCompletion) {
         self.getFile(fileType: .mapping, filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
             if let data = data {
-                guard let dictionary = CrowdinContentDelivery.parse(data: data) else {
+                guard let dictionary = PropertyListDataParser.parse(data: data) else {
+                    completion(nil, error)
+                    return
+                }
+                completion(dictionary, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+    
+    func getXliffMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIXliffMappingCompletion) {
+        self.getFile(fileType: .mapping, filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
+            if let data = data {
+                guard let dictionary = XLIFFDataParser.parse(data: data) else {
                     completion(nil, error)
                     return
                 }

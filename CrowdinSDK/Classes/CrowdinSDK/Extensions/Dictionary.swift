@@ -8,6 +8,22 @@
 import Foundation
 
 extension Dictionary {
+    mutating func mergeRecursively(with dict: [Key: Value]) {
+        for (k, rv) in dict {
+            // case of existing left value
+            if let lv = self[k] {
+                if var lv = lv as? Dictionary, let rv = rv as? Dictionary {
+                    lv.mergeRecursively(with: rv)
+                    self[k] = lv as? Value
+                } else {
+                    self[k] = rv
+                }
+            } else {
+                self[k] = rv
+            }
+        }
+    }
+    
 	mutating func merge(with dict: [Key: Value]) {
 		for (k, v) in dict {
 			updateValue(v, forKey: k)

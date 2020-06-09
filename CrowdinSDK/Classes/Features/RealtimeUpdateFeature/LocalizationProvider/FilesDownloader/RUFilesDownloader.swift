@@ -61,19 +61,34 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
                     }
                 }
                 guard let data = data else { return }
-                guard let dict = CrowdinContentDelivery.parse(data: data) else { return }
-                if let strings = dict as? [String: String] {
-                    if self.strings != nil {
-                        self.strings?.merge(with: strings)
+                if let dict = PropertyListDataParser.parse(data: data) {
+                    if let strings = dict as? [String: String] {
+                        if self.strings != nil {
+                            self.strings?.merge(with: strings)
+                        } else {
+                            self.strings = strings
+                        }
                     } else {
-                        self.strings = strings
+                        if self.plurals != nil {
+                            self.plurals?.merge(with: dict)
+                        } else {
+                            self.plurals = dict
+                        }
+                    }
+                } else if let dict = XLIFFDataParser.parse(data: data) {
+                    let parseResult = XliffDictionaryParser.parse(xliffDict: dict)
+                    if self.strings != nil {
+                        self.strings?.merge(with: parseResult.0)
+                    } else {
+                        self.strings = parseResult.0
+                    }
+                    if self.plurals != nil {
+                        self.plurals?.merge(with: parseResult.1)
+                    } else {
+                        self.plurals = parseResult.1
                     }
                 } else {
-                    if self.plurals != nil {
-                        self.plurals?.merge(with: dict)
-                    } else {
-                        self.plurals = dict
-                    }
+                    return
                 }
             }
             completionBlock.addDependency(download)

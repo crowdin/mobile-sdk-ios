@@ -26,7 +26,6 @@
 		92A1BCE52210C7CD0086B3AC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1BCE42210C7CC0086B3AC /* R.generated.swift */; };
 		92AFC6C0224FA2E7008029F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92AFC6BF224FA2E7008029F3 /* LaunchScreen.storyboard */; };
 		92E65440224F8090009178C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92E65442224F8090009178C6 /* Localizable.strings */; };
-		92E65443224F8093009178C6 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 92E65445224F8093009178C6 /* Localizable.stringsdict */; };
 		92ECA8E422495E3A000DD994 /* PluralsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECA8E322495E3A000DD994 /* PluralsVC.swift */; };
 		92ECA8E622495E41000DD994 /* PluralsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92ECA8E522495E41000DD994 /* PluralsVC.storyboard */; };
 		C82D2893220B431C00DB239B /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C82D2892220B431C00DB239B /* MainViewController.storyboard */; };
@@ -304,7 +303,6 @@
 				92E65440224F8090009178C6 /* Localizable.strings in Resources */,
 				9255BF4C21FCBE2D00C80A40 /* GoogleService-Info.plist in Resources */,
 				C836C159221B1EF2006CEECF /* StringsVC.storyboard in Resources */,
-				92E65443224F8093009178C6 /* Localizable.stringsdict in Resources */,
 				9268149821FCD60E0052F778 /* MenuVC.storyboard in Resources */,
 				9232187221FE059F009F8339 /* DetailsVC.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,

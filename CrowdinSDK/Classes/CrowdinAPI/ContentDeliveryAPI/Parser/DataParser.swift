@@ -13,14 +13,25 @@ protocol DataParser {
     static func parse(data: Data) -> Type?
 }
 
-class CrowdinContentDelivery: DataParser {
+class PropertyListDataParser: DataParser {
     typealias `Type` = [AnyHashable: Any]
     
     static func parse(data: Data) -> [AnyHashable: Any]? {
         var propertyListForamat = PropertyListSerialization.PropertyListFormat.xml
-        guard let dictionary = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: &propertyListForamat) as? [AnyHashable: Any] else {
-            return nil
+        if let dictionary = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: &propertyListForamat) as? [AnyHashable: Any] {
+            return dictionary
         }
-        return dictionary
+        return nil
+    }
+}
+
+class XLIFFDataParser: DataParser {
+    typealias `Type` = [AnyHashable: Any]
+    
+    static func parse(data: Data) -> [AnyHashable: Any]? {
+        if let dictionary = SwiftXMLParser().makeDic(data: data) {
+            return dictionary
+        }
+        return nil
     }
 }
