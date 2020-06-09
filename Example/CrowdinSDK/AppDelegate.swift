@@ -42,8 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 														  sourceLanguage: "en")
 		let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
                                                   clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
-                                                  scope: "project",
-                                                  redirectURI: "crowdintest://")
+                                                  scope: "project")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)
