@@ -13,7 +13,7 @@ class Localization {
 	var provider: LocalizationProviderProtocol
     
     /// Localization extractor.
-    var extractor: LocalizationExtractor
+    var extractor: LocalLocalizationExtractor
     
     /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
     fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
@@ -81,7 +81,7 @@ class Localization {
     /// - Parameter provider: Localization provider implementation.
 	init(provider: LocalizationProviderProtocol) {
         let localization = provider.localization
-        self.extractor = LocalizationExtractor(localization: localization)
+        self.extractor = LocalLocalizationExtractor(localization: localization)
         self.provider = provider
         self.provider.localization = localization
 	}
