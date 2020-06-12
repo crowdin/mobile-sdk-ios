@@ -27,6 +27,7 @@ The SDK provides:
 * [Requirements](#requirements)
 * [Dependencies](#dependencies)
 * [Installation](#installation)
+* [Example Project](#example-project)
 * [Setup](#setup)
 * [Advanced Features](#advanced-features)
   * [Real-Time Preview](#real-time-preview)
@@ -104,6 +105,12 @@ The SDK provides:
     Then run `pod install` again to fix it.
 
 After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
+
+## Example Project
+
+To discover how iOS SDK is integrated into real project see the [Example project](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example). You can set up this project for yourself, run, and test. 
+
+To run the example project, first clone the repo and run `pod install` from the Example directory. For more about Example project structure visit the [Wiki article](https://github.com/crowdin/mobile-sdk-ios/wiki/Test-Application). 
 
 ## Setup
 
@@ -193,14 +200,12 @@ In AppDelegate you should call start method: `CrowdinSDK.start()` for Swift, and
 
 **Note!** Using this setup method you will unable to set up additional *Screenshots* and *Real-Time Preview* project features.
 
-### Example Project
-
-To run the example project, first clone the repo and run `pod install` from the Example directory. For more details read [Test Application](https://github.com/crowdin/mobile-sdk-ios/wiki/Test-Application) wiki.
-
 ## Advanced Features
 ### Real-Time Preview
 
 All the translations that are done in the Editor can be shown in the application in real-time. View the translations already made and the ones you're currently typing in.
+
+[<p align='center'><img src='https://github.com/crowdin/mobile-sdk-ios/blob/docs/sdk_preview.gif' width='500'/></p>](#)
 
 Add the code below to your *Podfile*:
 
@@ -248,6 +253,8 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 ### Screenshots
 
 Enable if you want all the screenshots made in the application to be automatically sent to your Crowdin project with tagged strings. This will provide additional context for translators.
+
+[<p align='center'><img src='https://github.com/crowdin/mobile-sdk-ios/blob/docs/sdk_screenshots.gif' width='500'/></p>](#)
 
 Add the code below to your *Podfile*:
 
