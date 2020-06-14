@@ -51,6 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         .with(screenshotsEnabled: true)
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
         
+        print(CrowdinSDK.localizationDictionary(for: "en"))
+        
 //		Setup CrowdinSDK with Info.plist. Initializes only localization delivery feature.
 //        CrowdinSDK.start()
         
