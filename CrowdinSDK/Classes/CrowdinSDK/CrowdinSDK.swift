@@ -125,8 +125,27 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
     public class func extractAllLocalization() {
         guard let folder = try? CrowdinFolder.shared.createFolder(with: "Extracted") else { return }
-        LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
-        LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
+        LocalLocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
+        LocalLocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
+    }
+    
+    /// Get localization dictionary for current localizatiion in json format. Example:
+    /// {
+    /// "localization": "en",
+    /// "strings": [
+    ///     ...
+    /// ],
+    /// "plurals": [
+    ///     ...
+    /// ]
+    /// }
+    /// - Returns: Localization dictionary for current localizatiion in json format.
+    public class func localizationDictionary() -> [AnyHashable: Any] {
+        return [
+            "localization": Localization.current.provider.localStorage.localization,
+            "strings": Localization.current.provider.localStorage.strings,
+            "plurals": Localization.current.provider.localStorage.plurals
+        ]
     }
     
     /// Add download handler closure. This closure will be called every time when new localization is downloaded.
