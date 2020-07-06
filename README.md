@@ -128,7 +128,12 @@ To manage distributions open the needed project and go to *Over-The-Air Content 
 
 2. In order to start using *CrowdinSDK* you need to initialize it in *AppDelegate* or in *Info.plist*
 
-**Note!** The CDN feature does not update the localization files. if you want to add new translations to your localization files you need to do it yourself.
+---
+
+**Notes:**
+- The CDN feature does not update the localization files. if you want to add new translations to the localization files you need to do it yourself.
+- Once SDK receives the translations, it's stored on the device as application files for further sessions to minimize requests the next time the app starts. Storage time can be configured using `intervalUpdatesEnabled` option.
+- CDN caches all the translation in release for up to 15 minutes and even when new translations are released in Crowdin, CDN may return it with a delay.
 
 ### Setup with AppDelegate
 
