@@ -326,7 +326,13 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 
 2. R-Swift applications are also supported by Crowdin iOS SDK.
 
-3. XLIFF localization files are currently not supported.
+3. To change SDK target language on the fly regardless of device locale use the following method:
+
+```
+
+CrowdinSDK.enableSDKLocalization(true, localization: “<language_code>”)
+
+```
 
 4. Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
 
