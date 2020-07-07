@@ -1,6 +1,6 @@
 {
   "name": "CrowdinSDK",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "summary": "Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately",
   "description": "Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately. So there is no need to update this application via App Store to get the new version with the localization.\n\nThe SDK provides:\n\nOver-The-Air Content Delivery – the localized files can be sent to the application from the project whenever needed\nReal-time Preview – all the translations that are done via Editor can be shown in the application in real-time\nScreenshots – all screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings",
   "homepage": "https://github.com/crowdin/mobile-sdk-ios",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/crowdin/mobile-sdk-ios.git",
-    "tag": "1.1.1"
+    "tag": "1.1.2"
   },
   "social_media_url": "https://twitter.com/crowdin",
   "platforms": {
