@@ -230,11 +230,17 @@ Open *AppDelegate.swift* file and in `application` method add:
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
     sourceLanguage: "{source_language}")
 
-let loginConfig = try? CrowdinLoginConfig(clientId: "client_id",
-    clientSecret: "client_secret",
-    scope: "project.translation",
-    redirectURI: "redirectURI",
-    organizationName: "organization_name")
+var loginConfig: CrowdinLoginConfig
+do {
+	loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
+		clientSecret: "{client_secret}",
+		scope: "project.translation",
+		redirectURI: "{redirectURI}",
+		organizationName: "{organization_name}")
+} catch {
+	print(error)
+	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
 
 let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
     .with(loginConfig: loginConfig)
@@ -279,11 +285,17 @@ Open *AppDelegate.swift* file and in `application` method add:
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
     sourceLanguage: "{source_language}")
 
-let loginConfig = CrowdinLoginConfig(clientId: "client_id",
-    clientSecret: "client_secret",
-    scope: "project.screenshot",
-    redirectURI: "redirectURI",
-    organizationName: "{organization_name}")
+var loginConfig: CrowdinLoginConfig
+do {
+	loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
+		clientSecret: "{client_secret}",
+		scope: "project.screenshot",
+		redirectURI: "{redirectURI}",
+		organizationName: "{organization_name}")
+} catch {
+	print(error)
+	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
 
 let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
     .with(screenshotsEnabled: true)
