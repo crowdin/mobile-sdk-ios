@@ -55,12 +55,17 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
     }
 	
-	func downloadDistribution(with completion: ((Bool) -> Void)? = nil) {
-		// TODO: Add better error handling.
+    func downloadDistribution(with successHandler: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         let distributionsAPI = DistributionsAPI(hashString: self.hashString, organizationName: organizationName, auth: LoginFeature.shared)
 		distributionsAPI.getDistribution { (response, error) in
-			self.distributionResponse = response
-			completion?(error == nil && response != nil)
+            if let response = response {
+                self.distributionResponse = response
+                successHandler?()
+            } else if let error = error {
+                errorHandler?(error)
+            } else {
+                errorHandler?(NSError(domain: "Unable to download project distribution", code: defaultCrowdinErrorCode, userInfo: nil))
+            }
 		}
 	}
     
@@ -86,7 +91,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
                 error?(err)
             }
         } else {
-            print("Login feature is not configured properly")
             error?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
         }
     }
@@ -95,14 +99,9 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.success = success
         self.error = error
 		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id, let wsUrl = distributionResponse?.data.wsUrl else {
-			self.downloadDistribution { [weak self] (downloaded) in
-                guard let self = self else { return }
-				if downloaded {
-					self._start(with: success, error: error)
-				} else {
-					error?(NSError(domain: "Unable to download project distribution information.", code: defaultCrowdinErrorCode, userInfo: nil))
-				}
-			}
+            self.downloadDistribution(with: {
+                self._start(with: success, error: error)
+            }, errorHandler: error)
 			return
 		}
         setupRealtimeUpdatesLocalizationProvider(with: projectId) { [weak self] in

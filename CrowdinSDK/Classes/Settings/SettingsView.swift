@@ -16,9 +16,6 @@ class SettingsView: UIView {
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.resourceBundle, compatibleWith: nil), for: .normal)
-            settingsButton.backgroundColor = .white
-            settingsButton.layer.cornerRadius = 30
-            settingsButton.clipsToBounds = true
         }
     }
     
@@ -34,6 +31,7 @@ class SettingsView: UIView {
     var open: Bool = false {
         didSet {
             setupCells()
+            tableView.reloadData()
             if open == true {
                 self.frame.size.height = CGFloat(60 + cells.count * 60);
             } else {
