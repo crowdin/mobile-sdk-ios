@@ -29,7 +29,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         self.organizationName = organizationName
 		self.hash = hash
 		self.sourceLanguage = sourceLanguage
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {

@@ -47,16 +47,6 @@ class BundleTests: XCTestCase {
         XCTAssert(Bundle.main.crowdinDistributionHash == "5290b1cfa1eb44bf2581e78106i")
     }
     
-    func testCrowdinLocalizations() {
-        let localizations = Bundle.main.cw_localizations
-        XCTAssertNotNil(localizations)
-        if let localizations = localizations {
-            XCTAssert(localizations.contains("en"))
-            XCTAssert(localizations.contains("de"))
-            XCTAssert(localizations.contains("uk"))
-        }
-    }
-    
     func testCrowdinSourceLanguage() {
         XCTAssertNotNil(Bundle.main.crowdinSourceLanguage)
         XCTAssert(Bundle.main.crowdinSourceLanguage == "en")

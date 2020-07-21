@@ -10,21 +10,29 @@ import Foundation
 class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
     var strings: [String: String]?
+    var error: Error?
+    var timestamp: TimeInterval?
     
-    init(hash: String, filePath: String, localization: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
+    init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
+        self.timestamp = timestamp
+        super.init(filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    required init(hash: String, filePath: String, localization: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
-        super.init(hash: hash, filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
+    required init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+        self.timestamp = timestamp
+        super.init(filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let result = contentDeliveryAPI.getStringsSync(filePath: filePath)
-        self.strings = result.strings
-        self.error = result.error
-        self.completion?(self.strings, self.error)
-        self.finish(with: result.error != nil)
+        let etag = ETagStorage.shared.etags[self.filePath]
+        contentDeliveryAPI.getStrings(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (strings, etag, error) in
+            guard let self = self else { return }
+            ETagStorage.shared.etags[self.filePath] = etag
+            self.strings = strings
+            self.error = error
+            self.completion?(self.strings, self.error)
+            self.finish(with: error != nil)
+        }
     }
 }

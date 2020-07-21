@@ -33,7 +33,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     let organizationName: String?
 	
 	var distributionResponse: DistributionsResponse? = nil
-	
+    
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
@@ -52,7 +52,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.localization = localization
         self.hashString = hash
 		self.organizationName = organizationName
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, enterprise: organizationName != nil)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
     }
 	
 	func downloadDistribution(with completion: ((Bool) -> Void)? = nil) {
@@ -95,7 +95,8 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.success = success
         self.error = error
 		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id, let wsUrl = distributionResponse?.data.wsUrl else {
-			self.downloadDistribution { (downloaded) in
+			self.downloadDistribution { [weak self] (downloaded) in
+                guard let self = self else { return }
 				if downloaded {
 					self._start(with: success, error: error)
 				} else {
@@ -104,7 +105,47 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
 			}
 			return
 		}
-		self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+        setupRealtimeUpdatesLocalizationProvider(with: projectId) { [weak self] in
+            guard let self = self else { return }
+            self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+        }
+    }
+    
+    func stop() {
+        self.socketManger?.stop()
+        self.socketManger?.didChangeString = nil
+        self.socketManger?.didChangePlural = nil
+        self.socketManger = nil
+        self.removeRealtimeUpdatesLocalizationProvider()
+    }
+    
+    var oldProvider: LocalizationProviderProtocol? = nil
+    
+    func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
+        oldProvider = Localization.current.provider
+        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
+        Localization.current.provider.completion = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.subscribeAllVisibleConrols()
+                self.refreshAllControls()
+                completion()
+            }
+        }
+        Localization.current.provider.errorHandler = error
+        Localization.current.provider.refreshLocalization()
+    }
+    
+    func removeRealtimeUpdatesLocalizationProvider() {
+        if let provider = oldProvider {
+            Localization.current.provider = provider
+            Localization.current.provider.refreshLocalization()
+            self.refreshAllControls()
+        }
+    }
+    
+    func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
+        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }
@@ -120,13 +161,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         }
         
         self.socketManger?.start()
-    }
-    
-    func stop() {
-        self.socketManger?.stop()
-        self.socketManger?.didChangeString = nil
-        self.socketManger?.didChangePlural = nil
-        self.socketManger = nil
     }
     
     func refreshAllControls() {

@@ -10,6 +10,8 @@ import Foundation
 enum FileExtensions: String {
     case strings
     case stringsdict
+    case xliff
+    case json
 }
 
 extension String {
@@ -19,5 +21,13 @@ extension String {
     
     var isStringsDict: Bool {
         return self.hasSuffix(FileExtensions.stringsdict.rawValue)
+    }
+    
+    var isXliff: Bool {
+        return self.hasSuffix(FileExtensions.xliff.rawValue)
+    }
+    
+    var isJson: Bool {
+        return self.hasSuffix(FileExtensions.json.rawValue)
     }
 }

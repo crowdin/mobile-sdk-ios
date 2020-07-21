@@ -8,7 +8,6 @@
 
 import UIKit
 import CrowdinSDK
-import Firebase
 import FAPanels
 
 @UIApplicationMain
@@ -16,9 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Firebase
-        FirebaseApp.configure()
-
         // Setup only crowdin provider:
 //        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "1c2f58c7c711435295d2408106i", stringsFileNames: ["/%osx_locale%/Localizable.strings"], pluralsFileNames: ["Localizable.stringsdict"], localizations: ["en", "de"], sourceLanguage: "en")
 //        CrowdinSDK.startWithConfig(CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig))
@@ -42,19 +38,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        CrowdinSDK.startWithConfig(crowdinSDKConfig)
 		
 		// Setup CrowdinSDK with crowdin sdk with all features:
-		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "2db137daf26d22bf499c998106i",
-														  localizations: ["en", "de", "uk"],
+		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "fe5e8af03e067aac4d4ec28106i",
 														  sourceLanguage: "en")
 		let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
                                                   clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
-                                                  scope: "project.screenshot",
-                                                  redirectURI: "crowdintest://")
+                                                  scope: "project")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(loginConfig: loginConfig)
                                                         .with(settingsEnabled: true)
                                                         .with(realtimeUpdatesEnabled: true)
                                                         .with(screenshotsEnabled: true)
 		CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        
+        print(CrowdinSDK.localizationDictionary(for: "en"))
         
 //		Setup CrowdinSDK with Info.plist. Initializes only localization delivery feature.
 //        CrowdinSDK.start()

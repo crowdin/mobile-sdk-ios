@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SafariServices
 
 protocol LoginFeatureProtocol {
 	static var shared: Self? { get }
@@ -17,28 +18,29 @@ protocol LoginFeatureProtocol {
 	func logout()
 }
 
-final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
+final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
 	var config: CrowdinLoginConfig
-	
 	static var shared: LoginFeature?
-	
     private var loginAPI: LoginAPI
     
-    init(hash: String, config: CrowdinLoginConfig) {
+    fileprivate var safariVC: SFSafariViewController?
+    
+    init(hashString: String, config: CrowdinLoginConfig) {
 		self.config = config
         self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI, organizationName: config.organizationName)
-        if self.hash != hash {
+        super.init()
+        if self.hashString != hashString {
             self.logout()
         }
-        self.hash = hash
+        self.hashString = hashString
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUnautorizedResponse), name: .CrowdinAPIUnautorizedNotification, object: nil)
 	}
 	
-    static func configureWith(with hash: String, loginConfig: CrowdinLoginConfig) {
-        LoginFeature.shared = LoginFeature(hash: hash, config: loginConfig)
+    static func configureWith(with hashString: String, loginConfig: CrowdinLoginConfig) {
+        LoginFeature.shared = LoginFeature(hashString: hashString, config: loginConfig)
 	}
     
-    var hash: String {
+    var hashString: String {
         set {
             UserDefaults.standard.set(newValue, forKey: "crowdin.hash.key")
             UserDefaults.standard.synchronize()
@@ -86,12 +88,19 @@ final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
 		}
 		return tokenResponse?.accessToken
 	}
+
+    var loginCompletion: (() -> Void)?  = nil
+    var loginError: ((Error) -> Void)?  = nil
     
     func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
-        loginAPI.login(completion: { (tokenResponse) in
-            self.tokenExpirationDate = Date(timeIntervalSinceNow: TimeInterval(tokenResponse.expiresIn))
-            self.tokenResponse = tokenResponse
-        }, error: error)
+        self.loginCompletion = completion
+        self.loginError = error
+        guard let url = URL(string: loginAPI.loginURLString) else {
+            error(NSError(domain: "Unable to create URL for login", code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
+        
+        self.showWarningAlert(with: url)
 	}
 	
 	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
@@ -105,7 +114,14 @@ final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
 	}
 	
 	func hadle(url: URL) -> Bool {
-        return loginAPI.hadle(url: url)
+        dismissSafariVC()
+        let errorHandler = loginError ?? { _ in }
+        let result = loginAPI.hadle(url: url, completion: { (tokenResponse) in
+            self.tokenExpirationDate = Date(timeIntervalSinceNow: TimeInterval(tokenResponse.expiresIn))
+            self.tokenResponse = tokenResponse
+            self.loginCompletion?()
+        }, error: errorHandler)
+        return result
 	}
     
     @objc func receiveUnautorizedResponse() {
@@ -118,7 +134,37 @@ final class LoginFeature: LoginFeatureProtocol, CrowdinAuth {
         }
     }
     
+    fileprivate func showWarningAlert(with url: URL) {
+        let alert = UIAlertController(title: "CrowdinSDK", message: "The Real-Time Preview and Screenshots features require Crowdin Authorization. You will now be redirected to the Crowdin login page.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            alert.cw_dismiss()
+            self.showSafariVC(with: url)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
+            alert.cw_dismiss()
+        }))
+        alert.cw_present()
+    }
+    
+    fileprivate func showSafariVC(with url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.delegate = self
+        safariVC.cw_present()
+        self.safariVC = safariVC
+    }
+    
+    fileprivate func dismissSafariVC() {
+        safariVC?.cw_dismiss()
+        safariVC = nil
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension LoginFeature: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismissSafariVC()
     }
 }

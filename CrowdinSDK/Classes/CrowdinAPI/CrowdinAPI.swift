@@ -19,6 +19,7 @@ extension Notification.Name {
 class CrowdinAPI: BaseAPI {
     let organizationName: String?
     let auth: CrowdinAuth?
+    
     var baseURL: String {
         if let organizationName = organizationName {
             return "https://\(organizationName).crowdin.com/api/v2/"
@@ -41,7 +42,7 @@ class CrowdinAPI: BaseAPI {
     }
     
     func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
-        self.post(url: url, parameters: parameters, headers: authorized(headers), body: body, completion: { data, response, error in
+        self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, completion: { data, response, error in
             if self.isUnautorized(response: response) {
                 NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
                 return;
@@ -60,8 +61,8 @@ class CrowdinAPI: BaseAPI {
         })
     }
     
-    func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
-        let result = self.post(url: url, parameters: parameters, headers: authorized(headers), body: body)
+    func cw_postSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
+        let result = self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body)
         if self.isUnautorized(response: result.response) {
             NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
             return (nil, nil);
@@ -79,7 +80,7 @@ class CrowdinAPI: BaseAPI {
     }
     
     func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
-        self.get(url: url, parameters: parameters, headers: authorized(headers), completion: { data, response, error in
+        self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), completion: { data, response, error in
             if self.isUnautorized(response: response) {
                 NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
                 return;
@@ -98,8 +99,8 @@ class CrowdinAPI: BaseAPI {
         })
     }
     
-    func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> (T?, Error?) {
-        let result = self.get(url: url, parameters: parameters, headers: authorized(headers))
+    func cw_getSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> (T?, Error?) {
+        let result = self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers))
         if self.isUnautorized(response: result.response) {
             NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
             return (nil, nil);
@@ -120,6 +121,21 @@ class CrowdinAPI: BaseAPI {
         var result = headers ?? [:]
         guard let accessToken = auth?.accessToken else { return result }
         result["Authorization"] = "Bearer \(accessToken)"
+        return result
+    }
+    
+    func versioned(_ headers: [String: String]?) -> [String: String] {
+        var result = headers ?? [:]
+        guard let bundle = Bundle(identifier: "org.cocoapods.CrowdinSDK"), let sdkVersionNumber = bundle.infoDictionary?["CFBundleShortVersionString"] as? String else { return result }
+        let systemVersion = UIDevice.current.systemVersion
+        result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
+        return result
+    }
+    
+    func addDefaultHeaders(to headers: [String: String]?) -> [String: String] {
+        var result = headers ?? [:]
+        result = authorized(result)
+        result = versioned(result)
         return result
     }
     

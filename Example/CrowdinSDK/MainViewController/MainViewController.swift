@@ -8,7 +8,6 @@
 
 import UIKit
 import CrowdinSDK
-import DateToolsSwift
 
 class MainViewController: BaseMenuVC {
     @IBOutlet weak var textLabel: UILabel! {
@@ -23,7 +22,7 @@ class MainViewController: BaseMenuVC {
     }
     @IBOutlet weak var textLabel2: UILabel! {
         didSet {
-            textLabel2.text = pineapplesCountUniversal(count: 0)
+            textLabel2.text = pineapplesCountUniversal(count: 1)
         }
     }
     @IBOutlet weak var textLabel3: UILabel! {

@@ -9,6 +9,10 @@ import Foundation
 
 /// Example of using RemoteLocalizationStorageProtocol.
 class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
+    func prepare(with completion: (() -> Void)) {
+        completion()
+    }
+    
     var name: String = "Empty"
     var additionalWord: String
     var localization: String {
@@ -20,7 +24,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     var strings: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
-    func fetchData(completion: @escaping LocalizationStorageCompletion) {
+    func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.refresh()
         completion(localizations, strings, plurals)
     }
@@ -36,7 +40,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func refresh() {
-        let extractor = LocalizationExtractor(localization: self.localization)
+        let extractor = LocalLocalizationExtractor(localization: self.localization)
         self.plurals = self.addAdditionalWordTo(plurals: extractor.localizationPluralsDict)
         self.strings = self.addAdditionalWordTo(strings: extractor.localizationDict)
     }

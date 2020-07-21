@@ -47,53 +47,6 @@ class CrowdinLoginAPITests: XCTestCase {
         XCTAssert(loginAPI.organizationName == "organizationName")
     }
 
-    func testSuccessLogin() {
-        session.data = try? JSONEncoder().encode(TokenResponse(tokenType: "tokenType", expiresIn: 111111, accessToken: "accessToken", refreshToken: "refreshToken"))
-        
-        loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI", organizationName: "organizationName", session: session)
-        var tokenResponse: TokenResponse? = nil
-        
-        loginAPI.login(completion: { (response) in
-            tokenResponse = response
-        }) { _ in
-            
-        }
-        guard let url = URL(string: "https://test?code=testcode") else { return }
-        _ = loginAPI.hadle(url: url)
-        
-        XCTAssertNotNil(tokenResponse)
-        XCTAssert(tokenResponse?.tokenType == "tokenType")
-        XCTAssert(tokenResponse?.expiresIn == 111111)
-        XCTAssert(tokenResponse?.accessToken == "accessToken")
-        XCTAssert(tokenResponse?.refreshToken == "refreshToken")
-    }
-    
-    func testFailedLogin() {
-        let session = URLSessionMock()
-        
-        session.error = NSError(domain: "Failed to login", code: 111111, userInfo: nil)
-        
-        loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI", organizationName: "organizationName", session: session)
-        
-        var loginError: Error? = nil
-        
-        loginAPI.login(completion: { _ in
-            
-        }) { (error) in
-            loginError = error
-        }
-        guard let url = URL(string: "https://test?code=testcode") else { return }
-        _ = loginAPI.hadle(url: url)
-        
-        XCTAssertNotNil(loginError)
-        
-        let nsError = loginError as NSError?
-        
-        XCTAssertNotNil(nsError)
-        XCTAssert(nsError?.domain == "Failed to login")
-        XCTAssert(nsError?.code == 111111)
-    }
-    
     func testGetAutorizationToken() {
         let session = URLSessionMock()
         

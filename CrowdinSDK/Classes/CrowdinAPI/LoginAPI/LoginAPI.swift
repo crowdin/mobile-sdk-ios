@@ -25,7 +25,7 @@ class LoginAPI: BaseAPI {
         super.init(session: session)
     }
     
-    private var loginURL: String {
+    var loginURLString: String {
         if let organizationName = organizationName {
             return "https://accounts.crowdin.com/oauth/authorize?client_id=\(clientId)&response_type=code&scope=\(scope)&redirect_uri=\(redirectURI)&domain=\(organizationName)"
         }
@@ -39,24 +39,11 @@ class LoginAPI: BaseAPI {
         return "https://accounts.crowdin.com/oauth/token"
     }
     
-    var loginCompletion: ((TokenResponse) -> Void)?  = nil
-    var loginError: ((Error) -> Void)?  = nil
-    
-    func login(completion: @escaping (TokenResponse) -> Void, error: @escaping (Error) -> Void) {
-        guard let url = URL(string: self.loginURL) else {
-            error(NSError(domain: "Unable to create URL for login", code: defaultCrowdinErrorCode, userInfo: nil))
-            return
-        }
-        self.loginCompletion = completion
-        self.loginError = error
-        UIApplication.shared.openURL(url)
-    }
-    
-    func hadle(url: URL) -> Bool {
+    func hadle(url: URL, completion: @escaping (TokenResponse) -> Void, error: @escaping (Error) -> Void) -> Bool {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         guard let queryItems = components?.queryItems else { return false }
         guard let code = queryItems.first(where: { $0.name == "code" })?.value else { return false }
-        self.getAutorizationToken(with: code, success: loginCompletion, error: loginError)
+        self.getAutorizationToken(with: code, success: completion, error: error)
         return true
     }
     

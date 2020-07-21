@@ -9,8 +9,6 @@ import Foundation
 
 /// Protocol for local storage for localization data.
 protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
-    /// List of all available localizations.
-    var localizations: [String] { get set }
     /// Strings localization files content.
     var strings: [String: String] { get set }
     /// Plurals localization files content.
@@ -21,28 +19,15 @@ protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
 class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     /// Initialization method.
     ///
-    /// - Parameters:
-    ///   - localization: Current localization.
-    ///   - localizations: List of all available localizations.
-    required init(localization: String, localizations: [String]) {
-        self.localizations = localizations
-        self.localization = localization
-    }
-    
-    /// Initialization method.
-    ///
     /// - Parameter localization: Current localization.
     init(localization: String) {
-        guard let localizations = Bundle.main.cw_localizations else {
-            fatalError("Please add CrowdinLocalizations key to your Info.plist file")
-        }
-        self.localizations = localizations
         self.localization = localization
+        // swiftlint:disable force_try
+        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     }
     
-    // swiftlint:disable force_try
     /// Folder used for storing all localization files.
-    let localizationFolder: FolderProtocol = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
+    var localizationFolder: FolderProtocol
     
     /// Current localization.
     var localization: String {
@@ -52,7 +37,9 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     }
     
     /// List of all available localizations.
-    var localizations: [String]
+    var localizations: [String] {
+        return self.localizationFolder.files.filter({ return $0.type == "plist" }).map({ $0.name })
+    }
     
     private var _strings: Atomic<[String: String]> = Atomic([:])
     var strings: [String: String] {
@@ -87,7 +74,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         }
     }
     
-    func fetchData(completion: LocalizationStorageCompletion) {
+    func fetchData(completion: LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.fetchData()
         completion(self.localizations, self.strings, self.plurals)
     }

@@ -14,4 +14,6 @@ import Foundation
     
     /// Shoud be called to remove cache data
     func deintegrate()
+    
+    func prepare(with completion:  @escaping () -> Void)
 }

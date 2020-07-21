@@ -24,21 +24,12 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
-    init(hash: String, sourceLanguage: String, enterprise: Bool) {
-        self.downloader = CrowdinMappingDownloader(enterprise: enterprise)
-        self.downloader.getFiles(for: hash) { (files, error) in
-            if let crowdinFiles = files {
-                let stringsFileNames = crowdinFiles.filter({ $0.isStrings })
-                let pluralsFileNames = crowdinFiles.filter({ $0.isStringsDict })
-                self.downloader.download(strings: stringsFileNames, plurals: pluralsFileNames, with: hash, for: sourceLanguage) { (strings, plurals, _) in
-                    self.stringsMapping = strings ?? [:]
-                    self.plurals = plurals ?? [:]
-                    self.extractPluralsMapping()
-                }
-            } else if let error = error {
-                // TODO: Add proper error report:
-                print(error.localizedDescription)
-            }
+    init(hash: String, sourceLanguage: String) {
+        self.downloader = CrowdinMappingDownloader()
+        self.downloader.download(with: hash, for: sourceLanguage) { (strings, plurals, _) in
+            self.stringsMapping = strings ?? [:]
+            self.plurals = plurals ?? [:]
+            self.extractPluralsMapping()
         }
     }
     
@@ -64,8 +55,8 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         return self.stringLocalizationKey(for: id) ?? self.pluralLocalizationKey(for: id)
     }
     
-    public func id(for string: String) -> Int? {
-        return self.idFor(string: string) ?? self.idFor(plural: string)
+    public func id(for key: String) -> Int? {
+        return self.idFor(string: key) ?? self.idFor(plural: key)
     }
 }
 
