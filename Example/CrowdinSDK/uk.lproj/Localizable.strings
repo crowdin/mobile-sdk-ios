@@ -29,6 +29,8 @@
 "test_parameter" = "Parameter [BUNDLE]";
 "main_reload_ui_button" = "Reload UI [BUNDLE]";
 "main_show_details_button" = "Show Details [BUNDLE]";
+"test_key_with_string_parameter" = "test value with parameter - %@ [BUNDLE]";
+"test_key_with_int_parameter" = "test value with parameter - %lu [BUNDLE]";
 
 // Formatted Strings:
 "test_with_format_key" = "Test parameter - %@ [BUNDLE]";
