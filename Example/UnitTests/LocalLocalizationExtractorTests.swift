@@ -10,7 +10,6 @@ import XCTest
 @testable import CrowdinSDK
 
 class LocalizationExtractorTests: XCTestCase {
-
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -20,14 +19,14 @@ class LocalizationExtractorTests: XCTestCase {
     }
 
     func testInBundleLocalizations() {
-        XCTAssert(LocalizationExtractor.allLocalizations.count == 3)
-        XCTAssert(LocalizationExtractor.allLocalizations.contains("em"))
-        XCTAssert(LocalizationExtractor.allLocalizations.contains("de"))
-        XCTAssert(LocalizationExtractor.allLocalizations.contains("uk"))
+        XCTAssert(LocalLocalizationExtractor.allLocalizations.count == 3)
+        XCTAssert(LocalLocalizationExtractor.allLocalizations.contains("en"))
+        XCTAssert(LocalLocalizationExtractor.allLocalizations.contains("de"))
+        XCTAssert(LocalLocalizationExtractor.allLocalizations.contains("uk"))
     }
 
     func testExtractDefaultLocalization() {
-        let extractor = LocalizationExtractor()
+        let extractor = LocalLocalizationExtractor(localization: "en")
         
         XCTAssert(extractor.localization == "en")
         XCTAssert(!extractor.isEmpty)
@@ -37,13 +36,13 @@ class LocalizationExtractorTests: XCTestCase {
     }
     
     func testExtractLocalizationJSON() {
-        XCTAssert(!LocalizationExtractor.extractLocalizationJSON().isEmpty)
+        XCTAssert(!LocalLocalizationExtractor.extractLocalizationJSON().isEmpty)
     }
-    
+    /* 
     func testExtractLocalizationJSONtoPath() {
         let file = DocumentsFolder.root.file(with: "LocalizationJSON.json")
         
-        LocalizationExtractor.extractLocalizationJSONFile(to: file!.path)
+        LocalLocalizationExtractor.extractLocalizationJSONFile(to: file!.path)
         
         let dictFile = DictionaryFile(path: file!.path)
         
@@ -55,5 +54,5 @@ class LocalizationExtractorTests: XCTestCase {
         XCTAssertNotNil(extractedLocalization)
         XCTAssert(!extractedLocalization!.isEmpty)
     }
-
+    */
 }

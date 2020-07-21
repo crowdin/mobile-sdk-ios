@@ -120,14 +120,6 @@ struct R: Rswift.Validatable {
   struct string {
     /// This `R.string.localizable` struct is generated, and contains static references to 31 localization keys.
     struct localizable {
-      /// en translation: %#@v1_pineapples_count@
-      /// 
-      /// Locales: en, de, uk
-      static let johnsPineapplesCount = Rswift.StringResource(key: "johns pineapples count", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "de", "uk"], comment: nil)
-      /// en translation: %1$#@lu_completed_runs@
-      /// 
-      /// Locales: en, de, uk
-      static let lu_completed_runs = Rswift.StringResource(key: "lu_completed_runs", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "de", "uk"], comment: nil)
       /// en translation: Back
       /// 
       /// Locales: en, de, uk
@@ -244,20 +236,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, de, uk
       static let details_segmentedControl_1 = Rswift.StringResource(key: "details_segmentedControl_1", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "de", "uk"], comment: nil)
-      
-      /// en translation: %#@v1_pineapples_count@
+      /// en translation: test value with parameter - %@ [BUNDLE]
       /// 
-      /// Locales: en, de, uk
-      static func johnsPineapplesCount(v1_pineapples_count value1: UInt) -> String {
-        return String(format: NSLocalizedString("johns pineapples count", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
-      }
-      
-      /// en translation: %1$#@lu_completed_runs@
+      /// Locales: en
+      static let test_key_with_string_parameter = Rswift.StringResource(key: "test_key_with_string_parameter", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: test value with parameter - %lu [BUNDLE]
       /// 
-      /// Locales: en, de, uk
-      static func lu_completed_runs(lu_completed_runs value1: UInt, lu_total_runs value2: UInt) -> String {
-        return String(format: NSLocalizedString("lu_completed_runs", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
-      }
+      /// Locales: en
+      static let test_key_with_int_parameter = Rswift.StringResource(key: "test_key_with_int_parameter", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
       /// en translation: Back
       /// 
@@ -460,6 +446,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, de, uk
       static func details_segmentedControl_1(_: Void = ()) -> String {
         return NSLocalizedString("details_segmentedControl_1", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: test value with parameter - %@ [BUNDLE]
+      /// 
+      /// Locales: en
+      static func test_key_with_string_parameter(_ value1: String) -> String {
+        return String(format: NSLocalizedString("test_key_with_string_parameter", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: test value with parameter - %lu [BUNDLE]
+      /// 
+      /// Locales: en
+      static func test_key_with_int_parameter(_ value1: UInt) -> String {
+        return String(format: NSLocalizedString("test_key_with_int_parameter", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       fileprivate init() {}

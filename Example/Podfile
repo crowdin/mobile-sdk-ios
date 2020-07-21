@@ -1,7 +1,8 @@
+platform :ios, '9.0'
 use_frameworks!
 
 target 'CrowdinSDK_Example' do
-  pod 'CrowdinSDK', :path => '../'
+  pod 'CrowdinSDK', :path => '../', :testspecs => ['Core_Tests', 'CrowdinProvider_Tests', 'CrowdinAPI_Tests']
   pod 'CrowdinSDK/Screenshots', :path => '../'
   pod 'CrowdinSDK/IntervalUpdate', :path => '../'
   pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
@@ -11,4 +12,12 @@ target 'CrowdinSDK_Example' do
   pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
   pod 'FAPanels'
   pod 'R.swift'
+end
+
+target 'UnitTests' do
+  inherit! :search_paths
+  pod 'CrowdinSDK', :path => '../', :testspecs => ['Core_Tests', 'CrowdinProvider_Tests', 'CrowdinAPI_Tests']
+  pod 'CrowdinSDK/CrowdinProvider', :path => '../'
+  pod 'CrowdinSDK/LoginFeature', :path => '../'
+  pod 'CrowdinSDK/Settings', :path => '../'
 end

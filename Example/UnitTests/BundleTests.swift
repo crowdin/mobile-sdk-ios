@@ -20,11 +20,11 @@ class BundleTests: XCTestCase {
     }
 
     func testAppName() {
-        XCTAssert(Bundle.main.appName == "Tests")
+        XCTAssert(Bundle.main.appName == "CrowdinSDK_Example")
     }
     
     func testBundleId() {
-        XCTAssert(Bundle.main.bundleId == "com.slon.Tests")
+        XCTAssert(Bundle.main.bundleId == "org.crowdin.demo.CrowdinSDK")
     }
     
     func testVersionNumber() {

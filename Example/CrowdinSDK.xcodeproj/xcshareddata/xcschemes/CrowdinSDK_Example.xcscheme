@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1160"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -22,15 +22,15 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "CrowdinSDK_Tests.xctest"
-               BlueprintName = "CrowdinSDK_Tests"
+               BlueprintIdentifier = "E8C1CA8524C7526F007EEAF7"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
                ReferencedContainer = "container:CrowdinSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -41,24 +41,45 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "CrowdinSDK_Example.app"
-            BlueprintName = "CrowdinSDK_Example"
-            ReferencedContainer = "container:CrowdinSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "CrowdinSDK_Tests.xctest"
-               BlueprintName = "CrowdinSDK_Tests"
+               BlueprintIdentifier = "E8C1CA8524C7526F007EEAF7"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
                ReferencedContainer = "container:CrowdinSDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9E5FF1CB8B173F0459C4F0DA97F72F9"
+               BuildableName = "CrowdinSDK-Unit-Core_Tests.xctest"
+               BlueprintName = "CrowdinSDK-Unit-Core_Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D53D9865CDF15D2BDA588FBEF154678"
+               BuildableName = "CrowdinSDK-Unit-CrowdinAPI_Tests.xctest"
+               BlueprintName = "CrowdinSDK-Unit-CrowdinAPI_Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FC8DB1A4FDD9F957BCC8337F68FA2B15"
+               BuildableName = "CrowdinSDK-Unit-CrowdinProvider_Tests.xctest"
+               BlueprintName = "CrowdinSDK-Unit-CrowdinProvider_Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

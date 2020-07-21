@@ -47,9 +47,9 @@ jobs:
         inputs:
           actions: 'build'
           sdk: 'iphonesimulator'
-          scheme: 'Tests'
+          scheme: 'CrowdinSDK_Example'
           configuration: 'Debug'
-          xcWorkspacePath: 'Tests/Tests.xcworkspace'
+          xcWorkspacePath: 'Example/CrowdinSDK.xcworkspace'
           xcodeVersion: '11'
           packageApp: false
 
@@ -65,8 +65,8 @@ jobs:
           actions: 'test'
           sdk: 'iphonesimulator'
           configuration: 'Debug'
-          xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          scheme: 'TestsTests'
+          xcWorkspacePath: 'Example/CrowdinSDK.xcworkspace'
+          scheme: 'CrowdinSDK_Example'
           xcodeVersion: '11'
           publishJUnitResults: true
           destinationPlatformOption: 'iOS'

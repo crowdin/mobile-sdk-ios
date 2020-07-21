@@ -30,7 +30,7 @@ class CrowdinSDKTests: XCTestCase {
 	}
 	
 	func testInBundleLocalizations() {
-		XCTAssert(CrowdinSDK.inBundleLocalizations.count == 4, "Contains Base, English, German and Ukrainian localizations.")
+		XCTAssert(CrowdinSDK.inBundleLocalizations.count == 3, "Contains English, German and Ukrainian localizations.")
 	}
 	
 	func testCurrentLocalization() {
