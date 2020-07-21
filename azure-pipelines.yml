@@ -33,7 +33,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          cd Tests ; pod update Starscream; pod update BaseAPI; pod install
+          cd Example ; pod update Starscream; pod update BaseAPI; pod install
         displayName: 'Installing cocoapods'
 
   - job: Build
@@ -73,7 +73,7 @@ jobs:
           destinationTypeOption: 'simulators'
           destinationSimulators: 'iPhone 8'
       - bash: |
-          cd Tests & bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
+          cd Example & bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN)
         displayName: 'Upload coverage to codecov.io'
       - task: PublishTestResults@2
         inputs:
