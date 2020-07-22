@@ -14,13 +14,11 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var stringsFileNames: [String] = []
     var pluralsFileNames: [String] = []
     var name: String = "Crowdin"
-    var enterprise: Bool
     private var crowdinDownloader: CrowdinLocalizationDownloader
     private var _localizations: [String]?
     
-    init(localization: String, config: CrowdinProviderConfig, enterprise: Bool) {
+    init(localization: String, config: CrowdinProviderConfig) {
         self.localization = localization
-        self.enterprise = enterprise
         self.hashString = config.hashString
         self.crowdinDownloader = CrowdinLocalizationDownloader()
         self.localizations = ManifestManager.shared(for: hashString).iOSLanguages
@@ -39,7 +37,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     required init(localization: String, enterprise: Bool) {
         self.localization = localization
-        self.enterprise = enterprise
         guard let hashString = Bundle.main.crowdinDistributionHash else {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
