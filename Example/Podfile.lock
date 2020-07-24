@@ -14,29 +14,40 @@ PODS:
     - CrowdinSDK/CrowdinAPI
   - CrowdinSDK/CrowdinProvider_Tests (1.1.2)
   - CrowdinSDK/IntervalUpdate (1.1.2):
+  - CrowdinSDK (1.1.3):
+    - CrowdinSDK/Core (= 1.1.3)
+    - CrowdinSDK/CrowdinProvider (= 1.1.3)
+  - CrowdinSDK/Core (1.1.3)
+  - CrowdinSDK/CrowdinAPI (1.1.3):
+    - BaseAPI (= 0.1.7)
+    - Starscream (~> 3.1.0)
+  - CrowdinSDK/CrowdinProvider (1.1.3):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+  - CrowdinSDK/IntervalUpdate (1.1.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.1.2):
+  - CrowdinSDK/LoginFeature (1.1.3):
     - BaseAPI (= 0.1.7)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.1.2):
+  - CrowdinSDK/RealtimeUpdate (1.1.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.1.2):
+  - CrowdinSDK/RefreshLocalization (1.1.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.1.2):
+  - CrowdinSDK/Screenshots (1.1.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.1.2):
+  - CrowdinSDK/Settings (1.1.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -93,7 +104,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
-  CrowdinSDK: 5ac335b8c989c2aefe60b1860f7c8a69d21a3eed
+  CrowdinSDK: 1d772e9b879ed6260ea57e9cf5c2aaad9483833e
   FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   R.swift: a8e1a7e7f38441282fbcb7a3c266076eb38b77ba

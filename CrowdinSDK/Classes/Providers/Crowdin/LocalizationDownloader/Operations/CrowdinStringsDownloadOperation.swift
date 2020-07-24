@@ -9,8 +9,6 @@ import Foundation
 
 class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([String: String]?, Error?) -> Void)? = nil
-    var strings: [String: String]?
-    var error: Error?
     var timestamp: TimeInterval?
     
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
@@ -29,9 +27,7 @@ class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
         contentDeliveryAPI.getStrings(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (strings, etag, error) in
             guard let self = self else { return }
             ETagStorage.shared.etags[self.filePath] = etag
-            self.strings = strings
-            self.error = error
-            self.completion?(self.strings, self.error)
+            self.completion?(strings, error)
             self.finish(with: error != nil)
         }
     }

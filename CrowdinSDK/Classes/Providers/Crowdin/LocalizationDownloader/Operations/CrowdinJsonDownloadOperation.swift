@@ -11,9 +11,6 @@ typealias CrowdinJsonDownloadOperationCompletion = ([String: String]?, [AnyHasha
 
 class CrowdinJsonDownloadOperation: CrowdinDownloadOperation {
    var completion: CrowdinJsonDownloadOperationCompletion? = nil
-   var strings: [String: String]?
-   var plurals: [AnyHashable: Any]?
-   var error: Error?
    var timestamp: TimeInterval?
    
    init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinJsonDownloadOperationCompletion?) {
@@ -31,11 +28,8 @@ class CrowdinJsonDownloadOperation: CrowdinDownloadOperation {
         let etag = ETagStorage.shared.etags[self.filePath]
         contentDeliveryAPI.getJson(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (strings, etag, error) in
             guard let self = self else { return }
-            guard let strings = strings else { return }
             ETagStorage.shared.etags[self.filePath] = etag
-            self.strings = strings
-            self.error = error
-            self.completion?(self.strings, self.plurals, self.error)
+            self.completion?(strings, nil, error)
             self.finish(with: error != nil)
         }
     }
