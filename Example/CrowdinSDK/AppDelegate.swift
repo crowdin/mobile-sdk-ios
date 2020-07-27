@@ -16,18 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // Setup CrowdinSDK with crowdin sdk with all features:
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "fe5e8af03e067aac4d4ec28106i",
-                                                          sourceLanguage: "en")
-        let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
-                                                  clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
-                                                  scope: "project")
-        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(loginConfig: loginConfig)
-                                                        .with(settingsEnabled: true)
-                                                        .with(realtimeUpdatesEnabled: true)
-                                                        .with(screenshotsEnabled: true)
-        CrowdinSDK.startWithConfig(crowdinSDKConfig)    
+        if !isRunningTests {
+            // Setup CrowdinSDK with crowdin sdk with all features:
+            let crowdinProviderConfig = CrowdinProviderConfig(hashString: "fe5e8af03e067aac4d4ec28106i",
+                                                              sourceLanguage: "en")
+            let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
+                                                      clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+                                                      scope: "project")
+            let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+                                                            .with(loginConfig: loginConfig)
+                                                            .with(settingsEnabled: true)
+                                                            .with(realtimeUpdatesEnabled: true)
+                                                            .with(screenshotsEnabled: true)
+            CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -52,5 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		print("options - \(options)")
 		return CrowdinSDK.handle(url: url)
 	}
+    
+    var isRunningTests: Bool {
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
 }
 

@@ -12,7 +12,6 @@ import XCTest
 class AddErrorHandlersTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "wrong_hash",
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
@@ -22,7 +21,6 @@ class AddErrorHandlersTests: XCTestCase {
     
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         CrowdinSDK.removeAllErrorHandlers()
         CrowdinSDK.deintegrate()
         CrowdinSDK.stop()
@@ -39,5 +37,4 @@ class AddErrorHandlersTests: XCTestCase {
         
         CrowdinSDK.removeErrorHandler(hendlerId)
     }
-
 }
