@@ -33,9 +33,11 @@ class SettingsView: UIView {
             setupCells()
             tableView.reloadData()
             if open == true {
-                self.frame.size.height = CGFloat(60 + cells.count * 60);
+                self.frame.size.height = CGFloat(60 + cells.count * 60)
+                self.frame.size.width = 150
             } else {
-                self.frame.size.height = 60;
+                self.frame.size.height = 60
+                self.frame.size.width = 60
             }
         }
     }

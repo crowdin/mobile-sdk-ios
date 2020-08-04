@@ -10,6 +10,6 @@ import Foundation
 typealias SettingsItemCellAction = () -> Void
 
 class SettingsItemCell: UITableViewCell {
-    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     var action: SettingsItemCellAction?
 }
