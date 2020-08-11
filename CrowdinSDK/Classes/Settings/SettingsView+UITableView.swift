@@ -86,7 +86,6 @@ extension SettingsView {
             if let feature = ScreenshotFeature.shared {
                 if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                     screenshotCell.action = {
-                        self.isHidden = true
                         feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
                             print("Success")
                         }, errorHandler: { (error) in
@@ -99,6 +98,19 @@ extension SettingsView {
                     cells.append(screenshotCell)
                 }
             }
+        }
+        
+        if let logsCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+            logsCell.action = {
+                CrowdinLogsCollector.shared.add(log: CrowdinLog.info(with: "Open logs screen"))
+                let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.resourceBundle)
+                let logsVC = logsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogsVC")
+                logsVC.cw_present()
+                self.isHidden = false
+                self.open = false
+            }
+            logsCell.titleLabel.text = "Logs"
+            cells.append(logsCell)
         }
     }
 }
