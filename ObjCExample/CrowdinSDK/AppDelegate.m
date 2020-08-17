@@ -21,7 +21,9 @@
     
     CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"53376706833043f14491518106i" localizations:@[@"en", @"de"] sourceLanguage:@"en"];
     CrowdinSDKConfig *config = [[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig];
-    [CrowdinSDK startWithConfig:config];
+    [CrowdinSDK startWithConfig:config completion:^{
+        
+    }];
     
     [CrowdinSDK addDownloadHandler:^{
         
