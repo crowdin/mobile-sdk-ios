@@ -31,6 +31,7 @@
 		C836C157221B1EE4006CEECF /* StringsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C836C156221B1EE4006CEECF /* StringsVC.swift */; };
 		C836C159221B1EF2006CEECF /* StringsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C836C158221B1EF2006CEECF /* StringsVC.storyboard */; };
 		D4A164B7A80C64590EAC4B5E /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5128D56A74AB8364725C6F /* Pods_UnitTests.framework */; };
+		E82C8E5924EB446A00E3BB33 /* ObjectiveCExample.m in Sources */ = {isa = PBXBuildFile; fileRef = E82C8E5824EB446A00E3BB33 /* ObjectiveCExample.m */; };
 		E8C1CAA024C75292007EEAF7 /* LocalLocalizationExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1CA9024C75292007EEAF7 /* LocalLocalizationExtractorTests.swift */; };
 		E8C1CAA224C75292007EEAF7 /* BundleStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1CA9224C75292007EEAF7 /* BundleStringTests.swift */; };
 		E8C1CAA324C75292007EEAF7 /* AddDownloadHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1CA9324C75292007EEAF7 /* AddDownloadHandlersTests.swift */; };
@@ -99,6 +100,9 @@
 		C836C156221B1EE4006CEECF /* StringsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsVC.swift; sourceTree = "<group>"; };
 		C836C158221B1EF2006CEECF /* StringsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StringsVC.storyboard; sourceTree = "<group>"; };
 		DED704D7359DAC03416512CF /* Pods-CrowdinSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrowdinSDK_Example/Pods-CrowdinSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		E82C8E5624EB446900E3BB33 /* CrowdinSDK_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK_Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		E82C8E5724EB446A00E3BB33 /* ObjectiveCExample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveCExample.h; sourceTree = "<group>"; };
+		E82C8E5824EB446A00E3BB33 /* ObjectiveCExample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCExample.m; sourceTree = "<group>"; };
 		E8C1CA8624C7526F007EEAF7 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8C1CA9024C75292007EEAF7 /* LocalLocalizationExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalLocalizationExtractorTests.swift; sourceTree = "<group>"; };
 		E8C1CA9224C75292007EEAF7 /* BundleStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleStringTests.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		607FACD21AFB9204008FA782 /* Example for CrowdinSDK */ = {
 			isa = PBXGroup;
 			children = (
+				E82C8E5524EB444B00E3BB33 /* ObjectiveCExample */,
 				92ECA8E222495E2F000DD994 /* PluralsVC */,
 				C836C155221B1ECF006CEECF /* StringsVC */,
 				92A1BCE42210C7CC0086B3AC /* R.generated.swift */,
@@ -286,6 +291,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E82C8E5524EB444B00E3BB33 /* ObjectiveCExample */ = {
+			isa = PBXGroup;
+			children = (
+				E82C8E5724EB446A00E3BB33 /* ObjectiveCExample.h */,
+				E82C8E5824EB446A00E3BB33 /* ObjectiveCExample.m */,
+				E82C8E5624EB446900E3BB33 /* CrowdinSDK_Example-Bridging-Header.h */,
+			);
+			path = ObjectiveCExample;
+			sourceTree = "<group>";
+		};
 		E8C1CA8724C7526F007EEAF7 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,7 +388,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1160;
 					};
 					E8C1CA8524C7526F007EEAF7 = {
 						CreatedOnToolsVersion = 11.6;
@@ -580,6 +595,7 @@
 				9268149921FCD60E0052F778 /* MenuVC.swift in Sources */,
 				9255BF5E21FCC85A00C80A40 /* MainViewController.swift in Sources */,
 				927159BE224BDF3400E8B567 /* PluralsCell.swift in Sources */,
+				E82C8E5924EB446A00E3BB33 /* ObjectiveCExample.m in Sources */,
 				92A1BCE52210C7CD0086B3AC /* R.generated.swift in Sources */,
 				9232188221FE21DA009F8339 /* SettingsVC.swift in Sources */,
 			);
@@ -749,11 +765,14 @@
 			baseConfigurationReference = DED704D7359DAC03416512CF /* Pods-CrowdinSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CrowdinSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = org.crowdin.demo.CrowdinSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CrowdinSDK/ObjectiveCExample/CrowdinSDK_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -763,11 +782,13 @@
 			baseConfigurationReference = 53B00B52D11E0C931790121C /* Pods-CrowdinSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CrowdinSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = org.crowdin.demo.CrowdinSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CrowdinSDK/ObjectiveCExample/CrowdinSDK_Example-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
