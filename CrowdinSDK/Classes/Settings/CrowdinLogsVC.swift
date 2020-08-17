@@ -15,6 +15,7 @@ class CrowdinLogCell: UITableViewCell {
     func setup(with log: CrowdinLog) {
         self.dateLabel.text = CrowdinLogCell.dateFormatter.string(from: log.date)
         self.typeLabel.text = log.type.rawValue
+        self.typeLabel.textColor = log.type.color
         self.messageLabel.text = log.message
     }
     static var dateFormatter: DateFormatter = {

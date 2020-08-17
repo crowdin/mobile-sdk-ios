@@ -22,10 +22,9 @@ extension SettingsView {
                     loginCell.titleLabel.text = "Log in"
                     loginCell.action = {
                         loginFeature.login(completion: {
-                            print("Successfully login")
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully logined"))
                         }, error: { (error) in
-                            // TODO: Add error to logs
-                            print("Error while logining - \(error.localizedDescription)")
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Login error - \(error.localizedDescription)"))
                         })
                         self.isHidden = false
                         self.open = false
@@ -71,6 +70,16 @@ extension SettingsView {
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
                 if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+                    if feature.error == nil {
+                        feature.error = { error in
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Error while starting real-time preview - \(error.localizedDescription)"))
+                        }
+                    }
+                    if feature.success == nil {
+                        feature.success = {
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully started real-time preview"))
+                        }
+                    }
                     realtimeUpdateCell.action = {
                         feature.enabled = !feature.enabled
                         realtimeUpdateCell.titleLabel.text = feature.enabled ? "Real-time on" : "Real-time off"
@@ -87,9 +96,9 @@ extension SettingsView {
                 if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                     screenshotCell.action = {
                         feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
-                            print("Success")
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully captured screenshot"))
                         }, errorHandler: { (error) in
-                            print("Error uploading screenshot - \(error?.localizedDescription ?? "Unknown")")
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"))
                         })
                         self.isHidden = false
                         self.open = false
@@ -102,10 +111,13 @@ extension SettingsView {
         
         if let logsCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             logsCell.action = {
-                CrowdinLogsCollector.shared.add(log: CrowdinLog.info(with: "Open logs screen"))
                 let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.resourceBundle)
                 let logsVC = logsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogsVC")
-                logsVC.cw_present()
+                let logsNC = UINavigationController(rootViewController: logsVC)
+                logsVC.title = "Logs"
+                logsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: logsNC, action: #selector(UIViewController.cw_dismiss))
+                logsNC.modalPresentationStyle = .fullScreen
+                logsNC.cw_present()
                 self.isHidden = false
                 self.open = false
             }

@@ -42,6 +42,13 @@ class SettingsView: UIView {
         }
     }
     
+    var logsVC: UIViewController? = nil
+    
+    func dismissLogsVC() {
+        logsVC?.cw_dismiss()
+        logsVC = nil
+    }
+    
     class func loadFromNib() -> SettingsView? {
         return UINib(nibName: "SettingsView", bundle: Bundle.resourceBundle).instantiate(withOwner: self, options: nil)[0] as? SettingsView
     }

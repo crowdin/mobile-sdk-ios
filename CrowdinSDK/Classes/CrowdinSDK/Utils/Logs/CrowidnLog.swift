@@ -19,7 +19,7 @@ extension CrowdinLogType {
         case .error:
             return .red
         case .info:
-            return .black
+            return .blue
         case .warning:
             return .yellow
         }
