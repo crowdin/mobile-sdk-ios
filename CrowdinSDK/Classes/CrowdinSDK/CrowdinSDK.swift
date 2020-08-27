@@ -129,43 +129,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
         LocalLocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
     
-    /// Get localization dictionary for current localizatiion in json format. Example:
-    /// {
-    /// "localization": "en",
-    /// "strings": [
-    ///     ...
-    /// ],
-    /// "plurals": [
-    ///     ...
-    /// ]
-    /// }
-    /// - Returns: Localization dictionary for current localizatiion in json format.
-    public class func localizationDictionary() -> [AnyHashable: Any] {
-        return localizationDictionary(for: Localization.current.provider.localStorage.localization)
-    }
-    
-    /// Get localization dictionary for specific localizatiion in json format. Example:
-    /// {
-    /// "localization": "en",
-    /// "strings": [
-    ///     ...
-    /// ],
-    /// "plurals": [
-    ///     ...
-    /// ]
-    /// }
-    /// - Parameter localization: Localization code to get localizatiion in json format.
-    /// - Returns: Localization dictionary for specific localizatiion in json format.
-    public class func localizationDictionary(for localization: String) -> [AnyHashable: Any] {
-        let localLocalizationStorage = LocalLocalizationStorage(localization: localization)
-        localLocalizationStorage.fetchData()
-        return [
-            "localization": localLocalizationStorage.localization,
-            "strings": localLocalizationStorage.strings,
-            "plurals": localLocalizationStorage.plurals
-        ]
-    }
-    
     /// Add download handler closure. This closure will be called every time when new localization is downloaded.
     ///
     /// - Parameter handler: Download handler closure.

@@ -261,7 +261,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = "";
-				LastSwiftUpdateCheck = 0830;
+				DefaultBuildSystemTypeForWorkspace = Original;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Crowdin;
 				TargetAttributes = {

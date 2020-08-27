@@ -63,7 +63,6 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
     var completion: CrowdinXliffDownloadOperationCompletion? = nil
     var strings: [String: String]?
     var plurals: [AnyHashable: Any]?
-    var error: Error?
     var timestamp: TimeInterval?
     
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinXliffDownloadOperationCompletion?) {
@@ -81,16 +80,13 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
         let etag = ETagStorage.shared.etags[self.filePath]
         contentDeliveryAPI.getXliff(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (xliffDict, etag, error) in
             guard let self = self else { return }
-            guard let xliffDict = xliffDict else {
-                self.finish(with: error != nil)
-                return
+            if let xliffDict = xliffDict {
+                let parseResult = XliffDictionaryParser.parse(xliffDict: xliffDict)
+                self.strings = parseResult.0
+                self.plurals = parseResult.1
             }
-            let parseResult = XliffDictionaryParser.parse(xliffDict: xliffDict)
             ETagStorage.shared.etags[self.filePath] = etag
-            self.strings = parseResult.0
-            self.plurals = parseResult.1
-            self.error = error
-            self.completion?(self.strings, self.plurals, self.error)
+            self.completion?(self.strings, self.plurals, error)
             self.finish(with: error != nil)
         }
     }

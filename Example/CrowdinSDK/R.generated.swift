@@ -318,7 +318,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, de, uk
       static let details_segmentedControl_1 = Rswift.StringResource(key: "details_segmentedControl_1", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "de", "uk"], comment: nil)
-
       /// en translation: Back
       ///
       /// Locales: en, de, uk
