@@ -81,7 +81,10 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
         let etag = ETagStorage.shared.etags[self.filePath]
         contentDeliveryAPI.getXliff(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (xliffDict, etag, error) in
             guard let self = self else { return }
-            guard let xliffDict = xliffDict else { return }
+            guard let xliffDict = xliffDict else {
+                self.finish(with: error != nil)
+                return
+            }
             let parseResult = XliffDictionaryParser.parse(xliffDict: xliffDict)
             ETagStorage.shared.etags[self.filePath] = etag
             self.strings = parseResult.0

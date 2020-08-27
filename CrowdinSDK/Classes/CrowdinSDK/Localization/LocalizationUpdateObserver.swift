@@ -68,9 +68,11 @@ class LocalizationUpdateObserver {
     
     func notifyDownload() {
         downloadHandlerContainer.handlers.values.forEach({ $0() })
+        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Localization downloaded"))
     }
     
     func notifyError(with errors: [Error]) {
         errorHandlerContainer.handlers.values.forEach({ $0(errors) })
+        errors.forEach({ CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Localization downloading error - \($0.localizedDescription)")) })
     }
 }

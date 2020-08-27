@@ -26,6 +26,7 @@ class CrowdinLogCell: UITableViewCell {
 }
 
 class CrowdinLogsVC: UITableViewController {
+    // swiftlint:disable implicitly_unwrapped_optional
     override var tableView: UITableView! {
         didSet {
             self.refreshControl = UIRefreshControl()
@@ -33,6 +34,7 @@ class CrowdinLogsVC: UITableViewController {
             if #available(iOS 10.0, *) {
                 tableView.refreshControl = refreshControl
             } else {
+                // swiftlint:disable force_unwrapping
                 tableView.addSubview(refreshControl!)
             }
         }
