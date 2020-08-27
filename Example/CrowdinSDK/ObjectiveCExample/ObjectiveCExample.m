@@ -26,8 +26,6 @@
         }
         [CrowdinSDK removeErrorHandler:errorHandlerId];
     }];
-    
-    
 }
 
 @end
