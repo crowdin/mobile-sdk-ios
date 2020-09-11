@@ -10,20 +10,27 @@ import Foundation
 extension CrowdinSDK {
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     public class func start() {
-        self.startWithConfig(CrowdinSDKConfig.config())
+        self.startWithConfig(CrowdinSDKConfig.config(), completion: { })
+    }
+    
+    /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
+    /// - Parameter completion: Crowdin SDK library initialization completion.
+    public class func start(completion: @escaping () -> Void) {
+        self.startWithConfig(CrowdinSDKConfig.config(), completion: completion)
     }
     
     /// Initialization method. Initialize CrowdinProvider with passed parameters.
     ///
     /// - Parameters:
-    ///   - hashString: Distribution hash value.
-    public class func startWithConfig(_ config: CrowdinSDKConfig) {
+    ///   - config: Crowdin SDK configuration object.
+    ///   - completion: Crowdin SDK library initialization completion.
+    public class func startWithConfig(_ config: CrowdinSDKConfig, completion: @escaping () -> Void) {
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let hash = crowdinProviderConfig.hashString
         let localizations = ManifestManager.shared(for: hash).iOSLanguages
         let localization = Bundle.main.preferredLanguage(with: localizations)
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
-        self.startWithRemoteStorage(remoteStorage)
+        self.startWithRemoteStorage(remoteStorage, completion: completion)
     }
 }

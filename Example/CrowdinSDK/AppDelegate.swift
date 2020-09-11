@@ -48,16 +48,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         .with(settingsEnabled: true)
                                                         .with(realtimeUpdatesEnabled: true)
                                                         .with(screenshotsEnabled: true)
-		CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            CrowdinSDK.currentLocalization = "es"
+        })
         
         print(CrowdinSDK.localizationDictionary(for: "en"))
         
 //		Setup CrowdinSDK with Info.plist. Initializes only localization delivery feature.
 //        CrowdinSDK.start()
         
-//        _ = CrowdinSDK.addDownloadHandler {
-//            print("Localization downloaded")
-//        }
+        _ = CrowdinSDK.addDownloadHandler {
+            print("Localization downloaded")
+        }
 //
 //        _ = CrowdinSDK.addErrorUpdateHandler { (errors) in
 //            print("Localization download failed with errors:")

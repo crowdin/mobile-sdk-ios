@@ -149,7 +149,9 @@ In `application` method add:
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
   sourceLanguage: "{source_language}")
 
-CrowdinSDK.startWithConfig(crowdinSDKConfig)
+CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+    // SDK is ready to use, put code to change language, etc. here
+})
 ```
 
 | Config option              | Description                                                         | Example                                               |
@@ -178,7 +180,9 @@ In `application` method add:
 CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
 CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig]];
 
-[CrowdinSDK startWithConfig:config];
+[CrowdinSDK startWithConfig:config completion:^{
+    // SDK is ready to use, put code to change language, etc. here
+}];
 ```
 
 If you have pure Objective-C project, then you will need to do some additional steps:
@@ -247,7 +251,9 @@ let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: cro
     .with(settingsEnabled: true)
     .with(realtimeUpdatesEnabled: true)
 
-CrowdinSDK.startWithConfig(crowdinSDKConfig)
+CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+	// SDK is ready to use, put code to change language, etc. here
+})
 ```
 
 | Config option              | Description                                                         | Example                                               |
@@ -302,7 +308,9 @@ let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: cro
     .with(loginConfig: loginConfig)
     .with(settingsEnabled: true)
 
-CrowdinSDK.startWithConfig(crowdinSDKConfig)
+CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+	// SDK is ready to use, put code to change language, etc. here
+})
 ```
 
 | Config option              | Description                                                         | Example                                               |
