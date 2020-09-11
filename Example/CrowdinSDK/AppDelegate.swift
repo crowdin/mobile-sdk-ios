@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         if !isRunningTests {
             // Setup CrowdinSDK with crowdin sdk with all features:
             let crowdinProviderConfig = CrowdinProviderConfig(hashString: "fe5e8af03e067aac4d4ec28106i",
@@ -28,8 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                             .with(settingsEnabled: true)
                                                             .with(realtimeUpdatesEnabled: true)
                                                             .with(screenshotsEnabled: true)
-            CrowdinSDK.startWithConfig(crowdinSDKConfig)
+            CrowdinSDK.startWithConfig(crowdinSDKConfig) {
+                print(CrowdinSDK.localizationDictionary(for: "en"))
+            }
         }
+        
+
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         

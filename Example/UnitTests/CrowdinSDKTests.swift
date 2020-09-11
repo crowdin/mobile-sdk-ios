@@ -15,8 +15,9 @@ class CrowdinSDKTests: XCTestCase {
 		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i",
 														  sourceLanguage: "en")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-		CrowdinSDK.startWithConfig(crowdinSDKConfig)
-        CrowdinSDK.enableSDKLocalization(true, localization: nil)
+		CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            CrowdinSDK.enableSDKLocalization(true, localization: nil)
+        })
     }
 
     override func tearDown() {

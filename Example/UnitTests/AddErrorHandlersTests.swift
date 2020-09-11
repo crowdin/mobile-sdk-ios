@@ -16,7 +16,7 @@ class AddErrorHandlersTests: XCTestCase {
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(enterprise: true)
-        CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
     }
     
     
