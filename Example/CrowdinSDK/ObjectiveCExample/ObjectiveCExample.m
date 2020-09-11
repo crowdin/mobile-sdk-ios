@@ -14,7 +14,9 @@
 - (void)startSDK {
     CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"53376706833043f14491518106i" sourceLanguage:@"en"];
     CrowdinSDKConfig *config = [[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig];
-    [CrowdinSDK startWithConfig:config];
+    [CrowdinSDK startWithConfig:config completion:^{
+            
+    }];
     
     __block NSInteger downloadHandlerId = [CrowdinSDK addDownloadHandler:^{
         [CrowdinSDK removeDownloadHandler:downloadHandlerId];

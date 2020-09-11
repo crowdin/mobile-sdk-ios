@@ -4,12 +4,15 @@ PODS:
     - CrowdinSDK/Core (= 1.1.4)
     - CrowdinSDK/CrowdinProvider (= 1.1.4)
   - CrowdinSDK/Core (1.1.4)
+  - CrowdinSDK/Core_Tests (1.1.4)
   - CrowdinSDK/CrowdinAPI (1.1.4):
     - BaseAPI (= 0.1.7)
     - Starscream (~> 3.1.0)
+  - CrowdinSDK/CrowdinAPI_Tests (1.1.4)
   - CrowdinSDK/CrowdinProvider (1.1.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
+  - CrowdinSDK/CrowdinProvider_Tests (1.1.4)
   - CrowdinSDK/IntervalUpdate (1.1.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
@@ -52,7 +55,12 @@ PODS:
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
+  - CrowdinSDK/Core_Tests (from `../`)
+  - CrowdinSDK/CrowdinAPI_Tests (from `../`)
+  - CrowdinSDK/CrowdinProvider (from `../`)
+  - CrowdinSDK/CrowdinProvider_Tests (from `../`)
   - CrowdinSDK/IntervalUpdate (from `../`)
+  - CrowdinSDK/LoginFeature (from `../`)
   - CrowdinSDK/RealtimeUpdate (from `../`)
   - CrowdinSDK/RefreshLocalization (from `../`)
   - CrowdinSDK/Screenshots (from `../`)
@@ -93,6 +101,6 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 8a63cc65310e0091b8df61d6180d59382898c3f8
+PODFILE CHECKSUM: 492da828a7a0c2bb29765d717fde3a95b0ab5149
 
 COCOAPODS: 1.9.3
