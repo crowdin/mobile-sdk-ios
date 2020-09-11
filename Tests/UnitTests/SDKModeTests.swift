@@ -17,8 +17,9 @@ class SDKModeTests: XCTestCase {
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
                                                         .with(enterprise: true)
-        CrowdinSDK.startWithConfig(crowdinSDKConfig)
-        CrowdinSDK.enableSDKLocalization(true, localization: nil)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            CrowdinSDK.enableSDKLocalization(true, localization: nil)
+        })
     }
     
     
