@@ -9,8 +9,16 @@ import Foundation
 
 /// Helper class for working with localization providers and extractors. Store all needed information such as: mode, current localization value, ect.
 class Localization {
+    var _provider: Atomic<LocalizationProviderProtocol>
     /// Current localization provider.
-	var provider: LocalizationProviderProtocol
+    var provider: LocalizationProviderProtocol {
+        get {
+            return _provider.value
+        }
+        set {
+            _provider.mutate({ $0 = newValue })
+        }
+    }
     
     /// Localization extractor.
     var extractor: LocalLocalizationExtractor
@@ -82,6 +90,7 @@ class Localization {
 	init(provider: LocalizationProviderProtocol) {
         let localization = provider.localization
         self.extractor = LocalLocalizationExtractor(localization: localization)
+        self._provider = Atomic(provider)
         self.provider = provider
         self.provider.localization = localization
 	}
