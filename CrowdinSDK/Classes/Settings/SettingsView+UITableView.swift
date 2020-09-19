@@ -32,8 +32,10 @@ extension SettingsView {
                 } else {
                     loginCell.titleLabel.text = "Logged in"
                     loginCell.action = {
+                        if let realtimeUpdateFeature = RealtimeUpdateFeature.shared, realtimeUpdateFeature.enabled {
+                            realtimeUpdateFeature.stop()
+                        }
                         loginFeature.logout()
-                        self.isHidden = false
                         self.open = false
                     }
                 }
@@ -95,6 +97,7 @@ extension SettingsView {
             if let feature = ScreenshotFeature.shared {
                 if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                     screenshotCell.action = {
+                        self.isHidden = true
                         feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
                             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully captured screenshot"))
                         }, errorHandler: { (error) in

@@ -71,26 +71,35 @@ class SettingsView: UIView {
     
     @IBAction func settingsButtonPressed() {
         self.open = !self.open
+        self.fixPositionIfNeeded()
     }
     
     func fixPositionIfNeeded() {
-        guard let window = window else { return }
-        let minX: CGFloat = 0
-        let maxX = window.frame.size.width - self.frame.size.width
-        let currentX = self.frame.origin.x
-        var x: CGFloat = 0
-        x = currentX < minX ? minX : currentX
-        x = x > maxX ? maxX : x
-        
-        let minY: CGFloat = 0
-        let maxY = window.frame.size.height - self.frame.size.height
-        let currentY = self.frame.origin.y
-        var y: CGFloat = 0
-        y = currentY < minY ? minY : currentY
-        y = y > maxY ? maxY : y
+        let x = validateXCoordinate(value: self.center.x)
+        let y = validateYCoordinate(value: self.center.y)
         
         UIView.animate(withDuration: 0.3) {
-            self.frame = CGRect(origin: CGPoint(x: x, y: y), size: self.frame.size)
+            self.center = CGPoint(x: x, y: y)
         }
+    }
+    
+    func validateXCoordinate(value: CGFloat) -> CGFloat {
+        guard let window = window else { return 0 }
+        let minX = self.frame.size.width / 2.0
+        let maxX = window.frame.size.width - self.frame.size.width / 2.0
+        var x = value
+        x = x < minX ? minX : x
+        x = x > maxX ? maxX : x
+        return x
+    }
+    
+    func validateYCoordinate(value: CGFloat) -> CGFloat {
+        guard let window = window else { return 0 }
+        let minY = self.frame.size.height / 2.0
+        let maxY = window.frame.size.height - self.frame.size.height / 2.0
+        var y = value
+        y = y < minY ? minY : y
+        y = y > maxY ? maxY : y
+        return y
     }
 }
