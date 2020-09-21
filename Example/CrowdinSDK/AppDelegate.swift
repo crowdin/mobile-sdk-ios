@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             CrowdinSDK.currentLocalization = "es"
         })
         
-        print(CrowdinSDK.localizationDictionary(for: "en"))
+//        print(CrowdinSDK.localizationDictionary(for: "en"))
         
 //		Setup CrowdinSDK with Info.plist. Initializes only localization delivery feature.
 //        CrowdinSDK.start()
