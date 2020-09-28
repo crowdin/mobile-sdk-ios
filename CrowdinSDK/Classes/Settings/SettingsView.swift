@@ -28,16 +28,20 @@ class SettingsView: UIView {
         }
     }
     
+    fileprivate let closedWidth: CGFloat = 60.0
+    fileprivate let openedWidth: CGFloat = 130.0
+    fileprivate let defaultItemHeight: CGFloat = 60.0
+    
     var open: Bool = false {
         didSet {
             setupCells()
             tableView.reloadData()
             if open == true {
-                self.frame.size.height = CGFloat(60 + cells.count * 60)
-                self.frame.size.width = 150
+                self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
+                self.frame.size.width = openedWidth
             } else {
-                self.frame.size.height = 60
-                self.frame.size.width = 60
+                self.frame.size.height = defaultItemHeight
+                self.frame.size.width = closedWidth
             }
         }
     }

@@ -9,12 +9,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SettingsView" customModule="CrowdinSDK" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="64" height="60"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="SettingsView" customModule="CrowdinSDK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Oy-Ng-Df5">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qdU-95-U9D">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNh-Ab-bb1">
-                    <rect key="frame" x="2" y="0.0" width="60" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="T6C-jo-IDQ"/>
@@ -28,25 +36,34 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="upo-VE-mtW">
-                    <rect key="frame" x="0.0" y="60" width="64" height="0.0"/>
+                    <rect key="frame" x="0.0" y="60" width="60" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="2Oy-Ng-Df5" secondAttribute="bottom" id="8xb-he-0NK"/>
                 <constraint firstAttribute="trailing" secondItem="upo-VE-mtW" secondAttribute="trailing" id="BQA-Pg-h7E"/>
+                <constraint firstItem="2Oy-Ng-Df5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q3G-en-PSd"/>
+                <constraint firstItem="RNh-Ab-bb1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vo9-w0-Sxt"/>
                 <constraint firstItem="RNh-Ab-bb1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xf3-Jn-cvG"/>
                 <constraint firstItem="upo-VE-mtW" firstAttribute="top" secondItem="RNh-Ab-bb1" secondAttribute="bottom" id="fBx-5W-h4Q"/>
-                <constraint firstItem="RNh-Ab-bb1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="he1-Wj-f4D"/>
                 <constraint firstItem="upo-VE-mtW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lZs-bA-yhN"/>
                 <constraint firstAttribute="bottom" secondItem="upo-VE-mtW" secondAttribute="bottom" id="m2x-JA-GBJ"/>
+                <constraint firstItem="2Oy-Ng-Df5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="onG-tg-rYK"/>
+                <constraint firstAttribute="trailing" secondItem="2Oy-Ng-Df5" secondAttribute="trailing" id="tZ2-2L-CMD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="3"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="settingsButton" destination="RNh-Ab-bb1" id="m6e-iv-b88"/>
                 <outlet property="tableView" destination="upo-VE-mtW" id="R6u-Vd-fHd"/>
             </connections>
-            <point key="canvasLocation" x="-248" y="-26"/>
+            <point key="canvasLocation" x="-248" y="-26.086956521739133"/>
         </view>
     </objects>
     <resources>
