@@ -198,6 +198,7 @@ extension RealtimeUpdateFeature {
     
     func didChangeString(with id: Int, to newValue: String) {
         guard let key = mappingManager.stringLocalizationKey(for: id) else { return }
+        Localization.current.provider.localStorage.strings[key] = newValue
         self.refreshControl(with: key, newText: newValue)
     }
     
