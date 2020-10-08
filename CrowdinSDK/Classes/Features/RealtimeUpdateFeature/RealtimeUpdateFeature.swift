@@ -14,7 +14,7 @@ protocol RealtimeUpdateFeatureProtocol {
     var error: ((Error) -> Void)? { set get }
     var enabled: Bool { get set }
     
-	init(localization: String, hash: String, sourceLanguage: String, organizationName: String?)
+	init(hash: String, sourceLanguage: String, organizationName: String?)
     
     func start(success: (() -> Void)?, error: ((Error) -> Void)?)
     func stop()
@@ -28,7 +28,10 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     var success: (() -> Void)?
     var error: ((Error) -> Void)?
-    var localization: String
+    var localization: String {
+        let localizations = ManifestManager.shared(for: hashString).iOSLanguages
+        return CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
+    }
     var hashString: String
     let organizationName: String?
 	
@@ -48,8 +51,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    required init(localization: String, hash: String, sourceLanguage: String, organizationName: String? = nil) {
-        self.localization = localization
+    required init(hash: String, sourceLanguage: String, organizationName: String? = nil) {
         self.hashString = hash
 		self.organizationName = organizationName
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
@@ -123,11 +125,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
         oldProvider = Localization.current.provider
         Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
+        
         Localization.current.provider.completion = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.subscribeAllVisibleConrols()
                 self.refreshAllControls()
+                self.subscribeAllVisibleConrols()
                 completion()
             }
         }
@@ -198,8 +201,8 @@ extension RealtimeUpdateFeature {
     
     func didChangeString(with id: Int, to newValue: String) {
         guard let key = mappingManager.stringLocalizationKey(for: id) else { return }
-        Localization.current.provider.localStorage.strings[key] = newValue
         self.refreshControl(with: key, newText: newValue)
+        Localization.current.provider.set(string: newValue, for: key)
     }
     
     func didChangePlural(with id: Int, to newValue: String) {

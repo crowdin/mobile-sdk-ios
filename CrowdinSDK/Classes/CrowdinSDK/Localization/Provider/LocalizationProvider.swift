@@ -27,6 +27,7 @@ protocol LocalizationProviderProtocol {
     func localizedString(for key: String) -> String?
     func key(for string: String) -> String?
     func values(for string: String, with format: String) -> [Any]?
+    func set(string: String, for key: String)
 }
 
 class LocalizationProvider: NSObject, LocalizationProviderProtocol {
@@ -158,5 +159,10 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
             values = self.pluralsDataSource.findValues(for: string, with: format)
         }
         return values
+    }
+    
+    func set(string: String, for key: String) {
+        self.localStorage.strings[key] = string
+        self.setupStrings()
     }
 }

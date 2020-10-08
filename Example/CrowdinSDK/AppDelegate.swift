@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         .with(realtimeUpdatesEnabled: true)
                                                         .with(screenshotsEnabled: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            CrowdinSDK.mode = .customSDK
             CrowdinSDK.currentLocalization = "es"
         })
         
