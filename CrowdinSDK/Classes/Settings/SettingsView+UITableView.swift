@@ -49,7 +49,7 @@ extension SettingsView {
                 RefreshLocalizationFeature.refreshLocalization()
                 self.open = false
             }
-            reloadCell.titleLabel.text = "Force reload"
+            reloadCell.titleLabel.text = "Reload translations"
             reloadCell.selectionStyle = .none
             cells.append(reloadCell)
         }
