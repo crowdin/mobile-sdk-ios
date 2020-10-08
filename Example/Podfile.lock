@@ -48,7 +48,7 @@ PODS:
     - R.swift.Library (~> 5.2.0)
   - R.swift.Library (5.2.0)
   - Starscream (3.1.1)
-  - SwiftLint (0.39.2)
+  - SwiftLint (0.40.3)
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
@@ -90,7 +90,7 @@ SPEC CHECKSUMS:
   R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
   R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
-  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
+  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
 
 PODFILE CHECKSUM: 8a63cc65310e0091b8df61d6180d59382898c3f8
 

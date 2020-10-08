@@ -11,5 +11,6 @@ typealias SettingsItemCellAction = () -> Void
 
 class SettingsItemCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var statusView: UIView!
     var action: SettingsItemCellAction?
 }

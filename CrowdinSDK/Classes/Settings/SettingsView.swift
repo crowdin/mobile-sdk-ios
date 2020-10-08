@@ -29,8 +29,9 @@ class SettingsView: UIView {
     }
     
     fileprivate let closedWidth: CGFloat = 60.0
-    fileprivate let openedWidth: CGFloat = 130.0
+    fileprivate let openedWidth: CGFloat = 200.0
     fileprivate let defaultItemHeight: CGFloat = 60.0
+    let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
     
     var open: Bool = false {
         didSet {

@@ -39,6 +39,7 @@ extension SettingsView {
                         self.open = false
                     }
                 }
+                loginCell.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
                 cells.append(loginCell)
             }
         }
@@ -89,8 +90,10 @@ extension SettingsView {
                         self.open = false
                     }
                     realtimeUpdateCell.titleLabel.text = feature.enabled ? "Real-time on" : "Real-time off"
+                    realtimeUpdateCell.statusView.backgroundColor = feature.enabled ? self.enabledStatusColor : .clear
                     realtimeUpdateCell.selectionStyle = .none
                     cells.append(realtimeUpdateCell)
+                    
                 }
             }
             

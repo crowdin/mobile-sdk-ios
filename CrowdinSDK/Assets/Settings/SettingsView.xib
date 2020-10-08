@@ -13,14 +13,6 @@
             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Oy-Ng-Df5">
-                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qdU-95-U9D">
-                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <blurEffect style="regular"/>
-                </visualEffectView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNh-Ab-bb1">
                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,18 +32,14 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.13725490200000001" green="0.1529411765" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="2Oy-Ng-Df5" secondAttribute="bottom" id="8xb-he-0NK"/>
                 <constraint firstAttribute="trailing" secondItem="upo-VE-mtW" secondAttribute="trailing" id="BQA-Pg-h7E"/>
-                <constraint firstItem="2Oy-Ng-Df5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q3G-en-PSd"/>
-                <constraint firstItem="RNh-Ab-bb1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vo9-w0-Sxt"/>
+                <constraint firstItem="RNh-Ab-bb1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DS1-0h-Mo8"/>
                 <constraint firstItem="RNh-Ab-bb1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xf3-Jn-cvG"/>
                 <constraint firstItem="upo-VE-mtW" firstAttribute="top" secondItem="RNh-Ab-bb1" secondAttribute="bottom" id="fBx-5W-h4Q"/>
                 <constraint firstItem="upo-VE-mtW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lZs-bA-yhN"/>
                 <constraint firstAttribute="bottom" secondItem="upo-VE-mtW" secondAttribute="bottom" id="m2x-JA-GBJ"/>
-                <constraint firstItem="2Oy-Ng-Df5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="onG-tg-rYK"/>
-                <constraint firstAttribute="trailing" secondItem="2Oy-Ng-Df5" secondAttribute="trailing" id="tZ2-2L-CMD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
