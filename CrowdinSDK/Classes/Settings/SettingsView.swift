@@ -24,7 +24,7 @@ class SettingsView: UIView {
             tableView.delegate = self
             tableView.dataSource = self
             registerCells()
-            setupCells()
+            reloadData()
         }
     }
     
@@ -35,8 +35,7 @@ class SettingsView: UIView {
     
     var open: Bool = false {
         didSet {
-            setupCells()
-            tableView.reloadData()
+            reloadData()
             if open == true {
                 self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
                 self.frame.size.width = openedWidth
@@ -45,6 +44,11 @@ class SettingsView: UIView {
                 self.frame.size.width = closedWidth
             }
         }
+    }
+    
+    func reloadData() {
+        setupCells()
+        tableView.reloadData()
     }
     
     var logsVC: UIViewController? = nil

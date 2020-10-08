@@ -81,6 +81,7 @@ extension SettingsView {
                     if feature.success == nil {
                         feature.success = {
                             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully started real-time preview"))
+                            self.reloadData()
                         }
                     }
                     realtimeUpdateCell.action = {
