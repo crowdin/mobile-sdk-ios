@@ -1,39 +1,39 @@
 PODS:
   - BaseAPI (0.1.7)
-  - CrowdinSDK (1.1.5):
-    - CrowdinSDK/Core (= 1.1.5)
-    - CrowdinSDK/CrowdinProvider (= 1.1.5)
-  - CrowdinSDK/Core (1.1.5)
-  - CrowdinSDK/CrowdinAPI (1.1.5):
+  - CrowdinSDK (1.1.6):
+    - CrowdinSDK/Core (= 1.1.6)
+    - CrowdinSDK/CrowdinProvider (= 1.1.6)
+  - CrowdinSDK/Core (1.1.6)
+  - CrowdinSDK/CrowdinAPI (1.1.6):
     - BaseAPI (= 0.1.7)
     - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinProvider (1.1.5):
+  - CrowdinSDK/CrowdinProvider (1.1.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (1.1.5):
+  - CrowdinSDK/IntervalUpdate (1.1.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.1.5):
+  - CrowdinSDK/LoginFeature (1.1.6):
     - BaseAPI (= 0.1.7)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.1.5):
+  - CrowdinSDK/RealtimeUpdate (1.1.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.1.5):
+  - CrowdinSDK/RefreshLocalization (1.1.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.1.5):
+  - CrowdinSDK/Screenshots (1.1.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.1.5):
+  - CrowdinSDK/Settings (1.1.6):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -84,7 +84,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
-  CrowdinSDK: 1658fbe7cc5d0379db8f25982065524e8865ff7c
+  CrowdinSDK: a4d5bb7deaf91b56305c8907fc540ac71e222870
   FAPanels: 050291ef601a1dc00fad888f83e74284cb86dd52
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
@@ -92,6 +92,6 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
 
-PODFILE CHECKSUM: 8a63cc65310e0091b8df61d6180d59382898c3f8
+PODFILE CHECKSUM: 58b9b6768846e2bc821eb1091f2a91106835bbdc
 
 COCOAPODS: 1.9.3
