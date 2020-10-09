@@ -13,6 +13,8 @@ class SettingsView: UIView {
     
     var cells = [SettingsItemCell]()
     
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.resourceBundle, compatibleWith: nil), for: .normal)
@@ -36,6 +38,8 @@ class SettingsView: UIView {
     var open: Bool = false {
         didSet {
             reloadData()
+            self.blurView.isHidden = open
+            self.backgroundColor = open ? UIColor(red: 45.0 / 255.0, green: 49.0 / 255.0, blue: 49.0 / 255.0, alpha: 1.0) : .clear
             if open == true {
                 self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
                 self.frame.size.width = openedWidth

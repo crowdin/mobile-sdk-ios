@@ -31,7 +31,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.13725490196078433" green="0.15294117647058825" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="BXT-lr-9a2" firstAttribute="top" secondItem="IpP-Dg-7xq" secondAttribute="top" constant="8" id="6jv-4c-Wvu"/>
                     <constraint firstAttribute="trailing" secondItem="BXT-lr-9a2" secondAttribute="trailing" constant="16" id="9I9-0W-JKX"/>
@@ -42,7 +42,7 @@
                     <constraint firstItem="74H-So-yFb" firstAttribute="leading" secondItem="BXT-lr-9a2" secondAttribute="leading" id="cmA-vY-1MJ"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.13725490196078433" green="0.15294117647058825" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="statusView" destination="74H-So-yFb" id="teu-aR-XWH"/>
                 <outlet property="titleLabel" destination="BXT-lr-9a2" id="HIo-q4-KPu"/>

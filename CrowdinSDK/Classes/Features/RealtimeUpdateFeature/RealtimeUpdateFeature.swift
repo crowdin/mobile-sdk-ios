@@ -129,8 +129,8 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         Localization.current.provider.completion = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.refreshAllControls()
                 self.subscribeAllVisibleConrols()
+                self.refreshAllControls()
                 completion()
             }
         }
