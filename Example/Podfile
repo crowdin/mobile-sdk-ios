@@ -1,5 +1,7 @@
 use_frameworks!
 
+platform :ios, '9.0'
+
 target 'CrowdinSDK_Example' do
   pod 'CrowdinSDK', :path => '../'
   pod 'CrowdinSDK/Screenshots', :path => '../'
@@ -11,4 +13,12 @@ target 'CrowdinSDK_Example' do
   pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
   pod 'FAPanels'
   pod 'R.swift'
+end
+
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+      t.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+      end
+    end
 end
