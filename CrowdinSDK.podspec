@@ -114,7 +114,6 @@ Pod::Spec.new do |spec|
   spec.subspec 'Settings' do |settings|
     settings.name = 'Settings'
     settings.source_files = 'CrowdinSDK/Classes/Settings/**/*.swift'
-#    settings.resource_bundle = { 'CrowdinSDK' => 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'}
     settings.resources = 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'
     settings.dependency 'CrowdinSDK/Screenshots'
     settings.dependency 'CrowdinSDK/RealtimeUpdate'
