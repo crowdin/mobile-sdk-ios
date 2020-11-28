@@ -40,7 +40,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func refresh() {
-        let extractor = LocalizationExtractor(localization: self.localization)
+        let extractor = LocalLocalizationExtractor(localization: self.localization)
         self.plurals = self.addAdditionalWordTo(plurals: extractor.localizationPluralsDict)
         self.strings = self.addAdditionalWordTo(strings: extractor.localizationDict)
     }

@@ -9,11 +9,19 @@ import Foundation
 
 /// Helper class for working with localization providers and extractors. Store all needed information such as: mode, current localization value, ect.
 class Localization {
+    var _provider: Atomic<LocalizationProviderProtocol>
     /// Current localization provider.
-	var provider: LocalizationProviderProtocol
+    var provider: LocalizationProviderProtocol {
+        get {
+            return _provider.value
+        }
+        set {
+            _provider.mutate({ $0 = newValue })
+        }
+    }
     
     /// Localization extractor.
-    var extractor: LocalizationExtractor
+    var extractor: LocalLocalizationExtractor
     
     /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
     fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
@@ -81,7 +89,8 @@ class Localization {
     /// - Parameter provider: Localization provider implementation.
 	init(provider: LocalizationProviderProtocol) {
         let localization = provider.localization
-        self.extractor = LocalizationExtractor(localization: localization)
+        self.extractor = LocalLocalizationExtractor(localization: localization)
+        self._provider = Atomic(provider)
         self.provider = provider
         self.provider.localization = localization
 	}

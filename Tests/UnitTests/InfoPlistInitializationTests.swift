@@ -16,7 +16,7 @@ class InfoPlistInitializationTests: XCTestCase {
         let crowdinProviderConfig = CrowdinProviderConfig()
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
         
-        CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
         CrowdinSDK.deintegrate()
     }
     

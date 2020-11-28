@@ -13,6 +13,7 @@
 		AC134E62B46E8C4E451EA4CD /* Pods_TestsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A367693F1E2D6901F12CC78 /* Pods_TestsTests.framework */; };
 		E8145B77235B9DDA000993DB /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8145B76235B9DDA000993DB /* InfoPlistInitializationTests.swift */; };
 		E8145B7D235BAB33000993DB /* BundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8145B7C235BAB33000993DB /* BundleTests.swift */; };
+		E82C8E5424EB38E900E3BB33 /* InitializationCompletionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C8E5224EB386400E3BB33 /* InitializationCompletionHandlerTests.swift */; };
 		E8676076236794BE00AB9680 /* CrowdinLoginConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8676075236794BE00AB9680 /* CrowdinLoginConfigTests.swift */; };
 		E867607A23679E2A00AB9680 /* CrowdinSDKConfigLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E867607923679E2A00AB9680 /* CrowdinSDKConfigLoginTests.swift */; };
 		E88AE264234D3F00000B6FC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE263234D3F00000B6FC0 /* AppDelegate.swift */; };
@@ -61,6 +62,7 @@
 		B316B4E1DE564564279B018B /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E8145B76235B9DDA000993DB /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
 		E8145B7C235BAB33000993DB /* BundleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleTests.swift; sourceTree = "<group>"; };
+		E82C8E5224EB386400E3BB33 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
 		E8676075236794BE00AB9680 /* CrowdinLoginConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLoginConfigTests.swift; sourceTree = "<group>"; };
 		E867607923679E2A00AB9680 /* CrowdinSDKConfigLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKConfigLoginTests.swift; sourceTree = "<group>"; };
 		E88AE260234D3F00000B6FC0 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +210,7 @@
 				E88AE27A234D3F01000B6FC0 /* CrowdinSDKTests.swift */,
 				E8BD50C123527250006D77FD /* AddErrorHandlersTests.swift */,
 				E8BD50BE235270B5006D77FD /* AddDownloadHandlersTests.swift */,
+				E82C8E5224EB386400E3BB33 /* InitializationCompletionHandlerTests.swift */,
 				E88AE27C234D3F01000B6FC0 /* Info.plist */,
 			);
 			path = UnitTests;
@@ -463,6 +466,7 @@
 				E8BD50DF235348F5006D77FD /* CrowdinStringTests.swift in Sources */,
 				E8BD50C023527175006D77FD /* AddDownloadHandlersTests.swift in Sources */,
 				E88AE27B234D3F01000B6FC0 /* CrowdinSDKTests.swift in Sources */,
+				E82C8E5424EB38E900E3BB33 /* InitializationCompletionHandlerTests.swift in Sources */,
 				E8BD50D82352F17E006D77FD /* CrowdinTesterTests.swift in Sources */,
 				E867607A23679E2A00AB9680 /* CrowdinSDKConfigLoginTests.swift in Sources */,
 				E8676076236794BE00AB9680 /* CrowdinLoginConfigTests.swift in Sources */,

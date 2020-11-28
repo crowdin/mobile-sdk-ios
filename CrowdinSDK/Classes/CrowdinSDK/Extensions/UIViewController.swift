@@ -23,7 +23,7 @@ public extension UIViewController {
     
     /// Custom view controller presentation. View controller presenter on new window over all existing windows. To dismiss it cw_dismiss() method should be used.
     /// https://stackoverflow.com/a/51723032/3697225
-    func cw_present() {
+    @objc func cw_present() {
         self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         self.topWindow = UIApplication.shared.keyWindow
         
@@ -39,7 +39,7 @@ public extension UIViewController {
     }
     
     /// Dissmiss view controller presenter with cw_present() method.
-    func cw_dismiss() {
+    @objc func cw_dismiss() {
         self.dismiss(animated: false, completion: nil)
         self.alertWindow?.resignKey()
         self.alertWindow?.isHidden = true
