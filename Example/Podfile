@@ -7,16 +7,5 @@ target 'AppleReminders' do
 
   pod 'RealmSwift', '4.3.1'
   pod 'SwiftDate'
-  
-  # Pods for AppleReminders
-
-  target 'AppleRemindersTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'AppleRemindersUITests' do
-    # Pods for testing
-  end
-
+  pod 'CrowdinSDK/Settings'
 end

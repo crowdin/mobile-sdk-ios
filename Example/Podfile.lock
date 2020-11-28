@@ -1,26 +1,74 @@
 PODS:
+  - BaseAPI (0.1.7)
+  - CrowdinSDK/Core (1.1.6)
+  - CrowdinSDK/CrowdinAPI (1.1.6):
+    - BaseAPI (= 0.1.7)
+    - Starscream (~> 3.1.0)
+  - CrowdinSDK/CrowdinProvider (1.1.6):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+  - CrowdinSDK/IntervalUpdate (1.1.6):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/LoginFeature (1.1.6):
+    - BaseAPI (= 0.1.7)
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/RealtimeUpdate (1.1.6):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+    - CrowdinSDK/LoginFeature
+  - CrowdinSDK/RefreshLocalization (1.1.6):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+  - CrowdinSDK/Screenshots (1.1.6):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+    - CrowdinSDK/LoginFeature
+  - CrowdinSDK/Settings (1.1.6):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinProvider
+    - CrowdinSDK/IntervalUpdate
+    - CrowdinSDK/LoginFeature
+    - CrowdinSDK/RealtimeUpdate
+    - CrowdinSDK/RefreshLocalization
+    - CrowdinSDK/Screenshots
   - Realm (4.3.1):
     - Realm/Headers (= 4.3.1)
   - Realm/Headers (4.3.1)
   - RealmSwift (4.3.1):
     - Realm (= 4.3.1)
+  - Starscream (3.1.1)
   - SwiftDate (6.3.1)
 
 DEPENDENCIES:
+  - CrowdinSDK/Settings
   - RealmSwift (= 4.3.1)
   - SwiftDate
 
 SPEC REPOS:
   trunk:
+    - BaseAPI
+    - CrowdinSDK
     - Realm
     - RealmSwift
+    - Starscream
     - SwiftDate
 
 SPEC CHECKSUMS:
+  BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
+  CrowdinSDK: a4d5bb7deaf91b56305c8907fc540ac71e222870
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
 
-PODFILE CHECKSUM: 0930130f76989e93d9bd5adffc3bf07b927732ce
+PODFILE CHECKSUM: ca24ad8b37598219cf9967e8e59451d47f380d34
 
 COCOAPODS: 1.9.3

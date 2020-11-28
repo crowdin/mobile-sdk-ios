@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CrowdinSDK
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -27,9 +28,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
+        
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "972b2fc38ef7ac1fb442228106i",
+                                                          sourceLanguage: "en")
+        let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
+                                                  clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+                                                  scope: "project")
+        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+            .with(loginConfig: loginConfig)
+            .with(settingsEnabled: true)
+            .with(realtimeUpdatesEnabled: true)
+            .with(screenshotsEnabled: true)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
     }
     
-//    fileprivate func createNavigationController() -> UINavigationController {
+    //    fileprivate func createNavigationController() -> UINavigationController {
 //        let navController = UINavigationController(rootViewController: MainVC())
 //        UINavigationBar.appearance().shadowImage = UIImage()
 //        UINavigationBar.appearance().isTranslucent = false
