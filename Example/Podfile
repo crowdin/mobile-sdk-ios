@@ -1,24 +1,22 @@
-use_frameworks!
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
 
-platform :ios, '9.0'
+target 'AppleReminders' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
 
-target 'CrowdinSDK_Example' do
-  pod 'CrowdinSDK', :path => '../'
-  pod 'CrowdinSDK/Screenshots', :path => '../'
-  pod 'CrowdinSDK/IntervalUpdate', :path => '../'
-  pod 'CrowdinSDK/RealtimeUpdate', :path => '../'
-  pod 'CrowdinSDK/RefreshLocalization', :path => '../'
-  pod 'CrowdinSDK/Settings', :path => '../'
-  pod 'SwiftLint'
-  pod 'FileBrowser', :git => 'https://github.com/serhii-londar/FileBrowser.git'
-  pod 'FAPanels'
-  pod 'R.swift'
-end
+  pod 'RealmSwift', '4.3.1'
+  pod 'SwiftDate'
+  
+  # Pods for AppleReminders
 
-post_install do |pi|
-    pi.pods_project.targets.each do |t|
-      t.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
-      end
-    end
+  target 'AppleRemindersTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'AppleRemindersUITests' do
+    # Pods for testing
+  end
+
 end

@@ -1,97 +1,26 @@
 PODS:
-  - BaseAPI (0.1.7)
-  - CrowdinSDK (1.1.6):
-    - CrowdinSDK/Core (= 1.1.6)
-    - CrowdinSDK/CrowdinProvider (= 1.1.6)
-  - CrowdinSDK/Core (1.1.6)
-  - CrowdinSDK/CrowdinAPI (1.1.6):
-    - BaseAPI (= 0.1.7)
-    - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinProvider (1.1.6):
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (1.1.6):
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.1.6):
-    - BaseAPI (= 0.1.7)
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.1.6):
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinProvider
-    - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.1.6):
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.1.6):
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinProvider
-    - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.1.6):
-    - CrowdinSDK/Core
-    - CrowdinSDK/CrowdinAPI
-    - CrowdinSDK/CrowdinProvider
-    - CrowdinSDK/IntervalUpdate
-    - CrowdinSDK/LoginFeature
-    - CrowdinSDK/RealtimeUpdate
-    - CrowdinSDK/RefreshLocalization
-    - CrowdinSDK/Screenshots
-  - FAPanels (2.0.1)
-  - FileBrowser (1.0.0)
-  - R.swift (5.2.2):
-    - R.swift.Library (~> 5.2.0)
-  - R.swift.Library (5.2.0)
-  - Starscream (3.1.1)
-  - SwiftLint (0.40.3)
+  - Realm (4.3.1):
+    - Realm/Headers (= 4.3.1)
+  - Realm/Headers (4.3.1)
+  - RealmSwift (4.3.1):
+    - Realm (= 4.3.1)
+  - SwiftDate (6.3.1)
 
 DEPENDENCIES:
-  - CrowdinSDK (from `../`)
-  - CrowdinSDK/IntervalUpdate (from `../`)
-  - CrowdinSDK/RealtimeUpdate (from `../`)
-  - CrowdinSDK/RefreshLocalization (from `../`)
-  - CrowdinSDK/Screenshots (from `../`)
-  - CrowdinSDK/Settings (from `../`)
-  - FAPanels
-  - FileBrowser (from `https://github.com/serhii-londar/FileBrowser.git`)
-  - R.swift
-  - SwiftLint
+  - RealmSwift (= 4.3.1)
+  - SwiftDate
 
 SPEC REPOS:
   trunk:
-    - BaseAPI
-    - FAPanels
-    - R.swift
-    - R.swift.Library
-    - Starscream
-    - SwiftLint
-
-EXTERNAL SOURCES:
-  CrowdinSDK:
-    :path: "../"
-  FileBrowser:
-    :git: https://github.com/serhii-londar/FileBrowser.git
-
-CHECKOUT OPTIONS:
-  FileBrowser:
-    :commit: 2b89796436311c117270382355ad030caadd3a3f
-    :git: https://github.com/serhii-londar/FileBrowser.git
+    - Realm
+    - RealmSwift
+    - SwiftDate
 
 SPEC CHECKSUMS:
-  BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
-  CrowdinSDK: a4d5bb7deaf91b56305c8907fc540ac71e222870
-  FAPanels: 050291ef601a1dc00fad888f83e74284cb86dd52
-  FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
-  R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
-  R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
-  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
+  Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
+  RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
+  SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
 
-PODFILE CHECKSUM: 58b9b6768846e2bc821eb1091f2a91106835bbdc
+PODFILE CHECKSUM: 0930130f76989e93d9bd5adffc3bf07b927732ce
 
 COCOAPODS: 1.9.3
