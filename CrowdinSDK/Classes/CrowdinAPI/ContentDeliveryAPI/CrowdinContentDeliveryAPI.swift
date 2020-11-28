@@ -110,6 +110,21 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
     
+    func getJson(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsCompletion) {
+        self.getFile(fileType: .content, filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
+            let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
+            if let data = data {
+                guard let strings = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: String] else {
+                    completion(nil, etag, error)
+                    return
+                }
+                completion(strings, etag, nil)
+            } else {
+                completion(nil, etag, error)
+            }
+        }
+    }
+    
     // MARK - Mapping download methods:
     func getStringsMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsMappingCompletion) {
         self.getFile(fileType: .mapping, filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in

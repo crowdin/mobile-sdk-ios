@@ -42,7 +42,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                 errorHandler?(err)
             }
         } else {
-            print("Login feature is not configured properly")
             errorHandler?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
         }
 	}

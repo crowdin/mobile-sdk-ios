@@ -1,5 +1,5 @@
 //
-//  LocalizationExtractor.swift
+//  LocalLocalizationExtractor.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 1/24/19.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LocalizationExtractor {
+class LocalLocalizationExtractor {
     static var allLocalizations: [String] {
         return Bundle.main.localizations
     }
@@ -79,7 +79,7 @@ class LocalizationExtractor {
 	static func extractLocalizationJSON() -> [String: Any] {
 		var result = [String: Any]()
 		self.allLocalizations.forEach { (localization) in
-			let extractor = LocalizationExtractor(localization: localization)
+			let extractor = LocalLocalizationExtractor(localization: localization)
 			var dict = [String: Any]()
 			if !extractor.localizationDict.isEmpty {
 				dict[Keys.strings.rawValue] = extractor.localizationDict
@@ -101,7 +101,7 @@ class LocalizationExtractor {
     
     static func extractAllLocalizationStrings(to path: String) {
         self.allLocalizations.forEach { (localization) in
-            let ectractor = LocalizationExtractor(localization: localization)
+            let ectractor = LocalLocalizationExtractor(localization: localization)
             _ = ectractor.extractLocalizationStrings(to: path)
         }
     }
@@ -115,7 +115,7 @@ class LocalizationExtractor {
     
     static func extractAllLocalizationPlurals(to path: String) {
         self.allLocalizations.forEach { (localization) in
-            let ectractor = LocalizationExtractor(localization: localization)
+            let ectractor = LocalLocalizationExtractor(localization: localization)
             _ = ectractor.extractLocalizationPlurals(to: path)
         }
     }

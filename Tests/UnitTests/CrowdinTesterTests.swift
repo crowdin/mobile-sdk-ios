@@ -17,7 +17,7 @@ class CrowdinTesterTests: XCTestCase {
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
         
-        CrowdinSDK.startWithConfig(crowdinSDKConfig)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
     }
     
     

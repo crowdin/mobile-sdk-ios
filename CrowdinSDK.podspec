@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.1.0'
+  spec.version          = '1.1.6'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   spec.description      = <<-DESC
@@ -114,7 +114,7 @@ Pod::Spec.new do |spec|
   spec.subspec 'Settings' do |settings|
     settings.name = 'Settings'
     settings.source_files = 'CrowdinSDK/Classes/Settings/**/*.swift'
-    settings.resource_bundle = { 'CrowdinSDK' => 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'}
+    settings.resources = 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'
     settings.dependency 'CrowdinSDK/Screenshots'
     settings.dependency 'CrowdinSDK/RealtimeUpdate'
     settings.dependency 'CrowdinSDK/RefreshLocalization'

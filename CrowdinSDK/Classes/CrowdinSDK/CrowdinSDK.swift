@@ -77,11 +77,13 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	
     /// Initialization method. Initialize library with passed localization provider.
     ///
-    /// - Parameter provider: Custom localization provider which will be used to exchange localizations.
-    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
+    /// - Parameter remoteStorage: Custom localization remote storage which will be used to download localizations.
+    /// - Parameter completion: Remote storage preperation completion handler.
+    class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, completion: @escaping () -> Void) {
         remoteStorage.prepare {
             self.setRemoteStorage(remoteStorage)
             self.initializeLib()
+            completion()
         }
     }
     
@@ -114,7 +116,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	
     /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
     ///
-    /// - Parameter provider: Localization provider which contains all strings, plurals and avalaible localizations values.
+    /// - Parameter remoteStorage: Localization remote storage  which contains all strings, plurals and avalaible localizations values.
     class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
         let localizations = remoteStorage.localizations;
         let localization = Bundle.main.preferredLanguage(with: localizations)
@@ -125,8 +127,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
     public class func extractAllLocalization() {
         guard let folder = try? CrowdinFolder.shared.createFolder(with: "Extracted") else { return }
-        LocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
-        LocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
+        LocalLocalizationExtractor.extractAllLocalizationStrings(to: folder.path)
+        LocalLocalizationExtractor.extractAllLocalizationPlurals(to: folder.path)
     }
     
     /// Add download handler closure. This closure will be called every time when new localization is downloaded.

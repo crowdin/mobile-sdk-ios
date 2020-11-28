@@ -13,12 +13,11 @@ class SettingsView: UIView {
     
     var cells = [SettingsItemCell]()
     
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.resourceBundle, compatibleWith: nil), for: .normal)
-            settingsButton.backgroundColor = .white
-            settingsButton.layer.cornerRadius = 30
-            settingsButton.clipsToBounds = true
         }
     }
     
@@ -27,19 +26,40 @@ class SettingsView: UIView {
             tableView.delegate = self
             tableView.dataSource = self
             registerCells()
-            setupCells()
+            reloadData()
         }
     }
     
+    fileprivate let closedWidth: CGFloat = 60.0
+    fileprivate let openedWidth: CGFloat = 200.0
+    fileprivate let defaultItemHeight: CGFloat = 60.0
+    let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
+    
     var open: Bool = false {
         didSet {
-            setupCells()
+            reloadData()
+            self.blurView.isHidden = open
+            self.backgroundColor = open ? UIColor(red: 45.0 / 255.0, green: 49.0 / 255.0, blue: 49.0 / 255.0, alpha: 1.0) : .clear
             if open == true {
-                self.frame.size.height = CGFloat(60 + cells.count * 60);
+                self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
+                self.frame.size.width = openedWidth
             } else {
-                self.frame.size.height = 60;
+                self.frame.size.height = defaultItemHeight
+                self.frame.size.width = closedWidth
             }
         }
+    }
+    
+    func reloadData() {
+        setupCells()
+        tableView.reloadData()
+    }
+    
+    var logsVC: UIViewController? = nil
+    
+    func dismissLogsVC() {
+        logsVC?.cw_dismiss()
+        logsVC = nil
     }
     
     class func loadFromNib() -> SettingsView? {
@@ -64,26 +84,35 @@ class SettingsView: UIView {
     
     @IBAction func settingsButtonPressed() {
         self.open = !self.open
+        self.fixPositionIfNeeded()
     }
     
     func fixPositionIfNeeded() {
-        guard let window = window else { return }
-        let minX: CGFloat = 0
-        let maxX = window.frame.size.width - self.frame.size.width
-        let currentX = self.frame.origin.x
-        var x: CGFloat = 0
-        x = currentX < minX ? minX : currentX
-        x = x > maxX ? maxX : x
-        
-        let minY: CGFloat = 0
-        let maxY = window.frame.size.height - self.frame.size.height
-        let currentY = self.frame.origin.y
-        var y: CGFloat = 0
-        y = currentY < minY ? minY : currentY
-        y = y > maxY ? maxY : y
+        let x = validateXCoordinate(value: self.center.x)
+        let y = validateYCoordinate(value: self.center.y)
         
         UIView.animate(withDuration: 0.3) {
-            self.frame = CGRect(origin: CGPoint(x: x, y: y), size: self.frame.size)
+            self.center = CGPoint(x: x, y: y)
         }
+    }
+    
+    func validateXCoordinate(value: CGFloat) -> CGFloat {
+        guard let window = window else { return 0 }
+        let minX = self.frame.size.width / 2.0
+        let maxX = window.frame.size.width - self.frame.size.width / 2.0
+        var x = value
+        x = x < minX ? minX : x
+        x = x > maxX ? maxX : x
+        return x
+    }
+    
+    func validateYCoordinate(value: CGFloat) -> CGFloat {
+        guard let window = window else { return 0 }
+        let minY = self.frame.size.height / 2.0
+        let maxY = window.frame.size.height - self.frame.size.height / 2.0
+        var y = value
+        y = y < minY ? minY : y
+        y = y > maxY ? maxY : y
+        return y
     }
 }

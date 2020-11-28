@@ -9,8 +9,6 @@ import Foundation
 
 class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
-    var plurals: [AnyHashable: Any]?
-    var error: Error?
     var timestamp: TimeInterval?
     
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
@@ -29,9 +27,7 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
         contentDeliveryAPI.getPlurals(filePath: self.filePath, etag: etag, timestamp: nil,completion: { [weak self] (plurals, etag, error) in
             guard let self = self else { return }
             ETagStorage.shared.etags[self.filePath] = etag
-            self.plurals = plurals
-            self.error = error
-            self.completion?(self.plurals, self.error)
+            self.completion?(plurals, error)
             self.finish(with: error != nil)
         })
     }
