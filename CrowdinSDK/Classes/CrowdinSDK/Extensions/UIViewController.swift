@@ -24,8 +24,16 @@ public extension UIViewController {
     /// Custom view controller presentation. View controller presenter on new window over all existing windows. To dismiss it cw_dismiss() method should be used.
     /// https://stackoverflow.com/a/51723032/3697225
     @objc func cw_present() {
-        self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         self.topWindow = UIApplication.shared.keyWindow
+        if #available(iOS 13.0, *) {
+            if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
+                self.alertWindow = UIWindow(windowScene: windowScene)
+            } else {
+                self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
+            }
+        } else {
+            self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
+        }
         
         let viewController = UIViewController()
         self.alertWindow?.rootViewController = viewController
