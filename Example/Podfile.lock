@@ -1,11 +1,11 @@
 PODS:
-  - BaseAPI (0.1.7)
+  - BaseAPI (0.1.12)
   - CrowdinSDK (1.1.6):
     - CrowdinSDK/Core (= 1.1.6)
     - CrowdinSDK/CrowdinProvider (= 1.1.6)
   - CrowdinSDK/Core (1.1.6)
   - CrowdinSDK/CrowdinAPI (1.1.6):
-    - BaseAPI (= 0.1.7)
+    - BaseAPI (~> 0.1.12)
     - Starscream (~> 3.1.0)
   - CrowdinSDK/CrowdinProvider (1.1.6):
     - CrowdinSDK/Core
@@ -15,7 +15,7 @@ PODS:
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
   - CrowdinSDK/LoginFeature (1.1.6):
-    - BaseAPI (= 0.1.7)
+    - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -83,8 +83,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/serhii-londar/FileBrowser.git
 
 SPEC CHECKSUMS:
-  BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
-  CrowdinSDK: a4d5bb7deaf91b56305c8907fc540ac71e222870
+  BaseAPI: 84c9b49d75b8be1e9d7facd66bd14082eee499e4
+  CrowdinSDK: a93b47a206dde098d88b0ca06b68949c899dd871
   FAPanels: 050291ef601a1dc00fad888f83e74284cb86dd52
   FileBrowser: 7a361252fed9fe35d95735a39d149b1cac5601d0
   R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32

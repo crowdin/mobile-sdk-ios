@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.1.6'
+  spec.version          = '1.1.7'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   spec.description      = <<-DESC
@@ -61,7 +61,7 @@ Pod::Spec.new do |spec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*.swift'
     subspec.dependency 'Starscream', '~> 3.1.0'
-    subspec.dependency 'BaseAPI', '0.1.7'
+    subspec.dependency 'BaseAPI', '~> 0.1.12'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
@@ -100,7 +100,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
-    feature.dependency 'BaseAPI', '0.1.7'
+    feature.dependency 'BaseAPI', '~> 0.1.12'
   end
   
   spec.subspec 'IntervalUpdate' do |feature|
