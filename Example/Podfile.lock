@@ -2,7 +2,7 @@ PODS:
   - BaseAPI (0.1.7)
   - CrowdinSDK/Core (1.1.6)
   - CrowdinSDK/CrowdinAPI (1.1.6):
-    - BaseAPI (= 0.1.7)
+    - BaseAPI (~> 0.1.12)
     - Starscream (~> 3.1.0)
   - CrowdinSDK/CrowdinProvider (1.1.6):
     - CrowdinSDK/Core
@@ -12,7 +12,7 @@ PODS:
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
   - CrowdinSDK/LoginFeature (1.1.6):
-    - BaseAPI (= 0.1.7)
+    - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider

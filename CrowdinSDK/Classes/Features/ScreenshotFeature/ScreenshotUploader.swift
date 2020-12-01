@@ -22,7 +22,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	enum Errors: String {
 		case storageIdIsMissing = "Storage id is missing."
 		case screenshotIdIsMissing = "Screenshot id is missing."
-		case unknownError = "Unknown error"
+		case unknownError = "Unknown error."
+        case noLocalizedStringsDetected = "There are no localizad strings detected on current screen."
 	}
 	
 	init(organizationName: String? = nil, hash: String, sourceLanguage: String) {
@@ -69,8 +70,12 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 			}, errorHandler: errorHandler)
 			return
 		}
-		
-		let values = self.proceed(controlsInformation: controlsInformation)
+        let values = self.proceed(controlsInformation: controlsInformation)
+        guard values.count > 0 else {
+            errorHandler?(NSError(domain: Errors.noLocalizedStringsDetected.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
+        
 		guard let data = screenshot.pngData() else { return }
 		let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: LoginFeature.shared)
         let storageAPI = StorageAPI(organizationName: organizationName, auth: LoginFeature.shared)
@@ -92,7 +97,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 					errorHandler?(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
 					return
 				}
-				guard values.count > 0 else { return }
 				screenshotsAPI.createScreenshotTags(projectId: projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
 					if let error = error {
 						errorHandler?(error)
