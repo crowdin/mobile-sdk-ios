@@ -7,5 +7,5 @@ target 'AppleReminders' do
 
   pod 'RealmSwift', '4.3.1'
   pod 'SwiftDate'
-  pod 'CrowdinSDK/Settings'
+  pod 'CrowdinSDK/Settings', :path => '../'
 end

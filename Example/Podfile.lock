@@ -1,36 +1,36 @@
 PODS:
-  - BaseAPI (0.1.7)
-  - CrowdinSDK/Core (1.1.6)
-  - CrowdinSDK/CrowdinAPI (1.1.6):
+  - BaseAPI (0.1.12)
+  - CrowdinSDK/Core (1.1.7)
+  - CrowdinSDK/CrowdinAPI (1.1.7):
     - BaseAPI (~> 0.1.12)
     - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinProvider (1.1.6):
+  - CrowdinSDK/CrowdinProvider (1.1.7):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (1.1.6):
+  - CrowdinSDK/IntervalUpdate (1.1.7):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.1.6):
+  - CrowdinSDK/LoginFeature (1.1.7):
     - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.1.6):
+  - CrowdinSDK/RealtimeUpdate (1.1.7):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.1.6):
+  - CrowdinSDK/RefreshLocalization (1.1.7):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.1.6):
+  - CrowdinSDK/Screenshots (1.1.7):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.1.6):
+  - CrowdinSDK/Settings (1.1.7):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -48,27 +48,30 @@ PODS:
   - SwiftDate (6.3.1)
 
 DEPENDENCIES:
-  - CrowdinSDK/Settings
+  - CrowdinSDK/Settings (from `../`)
   - RealmSwift (= 4.3.1)
   - SwiftDate
 
 SPEC REPOS:
   trunk:
     - BaseAPI
-    - CrowdinSDK
     - Realm
     - RealmSwift
     - Starscream
     - SwiftDate
 
+EXTERNAL SOURCES:
+  CrowdinSDK:
+    :path: "../"
+
 SPEC CHECKSUMS:
-  BaseAPI: 78f88151221ac5d2dcc2dda69cf3aab6773fd8eb
-  CrowdinSDK: a4d5bb7deaf91b56305c8907fc540ac71e222870
+  BaseAPI: 84c9b49d75b8be1e9d7facd66bd14082eee499e4
+  CrowdinSDK: dc89a113ec4b81259e10fcdaa7c9faa09d654638
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
 
-PODFILE CHECKSUM: ca24ad8b37598219cf9967e8e59451d47f380d34
+PODFILE CHECKSUM: b161d830c530a73a7efb3a1f729cf4f072e5819d
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

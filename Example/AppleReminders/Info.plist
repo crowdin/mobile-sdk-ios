@@ -22,10 +22,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.corowdin</string>
+			<string>com.applereminders</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>apple-reminders</string>
+				<string>applereminders</string>
 			</array>
 		</dict>
 	</array>

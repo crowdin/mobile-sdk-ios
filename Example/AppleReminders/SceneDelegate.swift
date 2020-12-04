@@ -8,11 +8,8 @@
 
 import UIKit
 import CrowdinSDK
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -31,8 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "972b2fc38ef7ac1fb442228106i",
                                                           sourceLanguage: "en")
-        let loginConfig = try! CrowdinLoginConfig(clientId: "test-sdk",
-                                                  clientSecret: "79MG6E8DZfEeomalfnoKx7dA0CVuwtPC3jQTB3ts",
+        let loginConfig = try! CrowdinLoginConfig(clientId: "RSd7wgg2g5A1RRJnsfgI",
+                                                  clientSecret: "fah9fUReHXlEgK8CScmo7m4F9IU3vZ8tU06PqWto",
                                                   scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
@@ -42,14 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
     }
     
-    //    fileprivate func createNavigationController() -> UINavigationController {
-//        let navController = UINavigationController(rootViewController: MainVC())
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().isTranslucent = false
-//
-//        return navController
-//    }
-
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -78,6 +67,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        CrowdinSDK.handle(url: url)
+    }
 }
 
