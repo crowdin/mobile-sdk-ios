@@ -25,7 +25,6 @@ enum ListSection: Int {
     }
 }
 
-
 final class ListDiffableDatasource: UITableViewDiffableDataSource<ListSection, ReminderList?> {
     
     //A NotificationToken is passed so the observer on MainVC isn't called when a user moves a list.

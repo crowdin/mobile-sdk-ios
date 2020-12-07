@@ -11,6 +11,12 @@ class SettingsView: UIView {
     // swiftlint:disable force_unwrapping
     static let shared: SettingsView? = SettingsView.loadFromNib()
     
+    var settingsWindow = SettingsWindow() {
+        didSet {
+            settingsWindow.settingsView = self
+        }
+    }
+    
     var cells = [SettingsItemCell]()
     
     @IBOutlet weak var blurView: UIVisualEffectView!
