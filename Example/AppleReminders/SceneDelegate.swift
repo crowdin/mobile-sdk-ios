@@ -12,6 +12,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "972b2fc38ef7ac1fb442228106i",
+                                                          sourceLanguage: "en")
+        let loginConfig = try! CrowdinLoginConfig(clientId: "RSd7wgg2g5A1RRJnsfgI",
+                                                  clientSecret: "fah9fUReHXlEgK8CScmo7m4F9IU3vZ8tU06PqWto",
+                                                  scope: "project")
+        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+            .with(loginConfig: loginConfig)
+            .with(settingsEnabled: true)
+            .with(realtimeUpdatesEnabled: true)
+            .with(screenshotsEnabled: true)
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
@@ -25,18 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
-        
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "972b2fc38ef7ac1fb442228106i",
-                                                          sourceLanguage: "en")
-        let loginConfig = try! CrowdinLoginConfig(clientId: "RSd7wgg2g5A1RRJnsfgI",
-                                                  clientSecret: "fah9fUReHXlEgK8CScmo7m4F9IU3vZ8tU06PqWto",
-                                                  scope: "project")
-        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-            .with(loginConfig: loginConfig)
-            .with(settingsEnabled: true)
-            .with(realtimeUpdatesEnabled: true)
-            .with(screenshotsEnabled: true)
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

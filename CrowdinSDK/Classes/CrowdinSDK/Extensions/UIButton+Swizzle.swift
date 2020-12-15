@@ -48,6 +48,15 @@ extension UIButton {
         return localizationValues?[state.rawValue]
     }
     
+    /// Association object for storing localization format string values if such exists.
+    private static let usingAttributedTitleAssociation = ObjectAssociation<Bool>()
+    
+    /// Store boolean value which indicates whether title was set as attributed string.
+    var usingAttributedTitle: Bool {
+        get { return UIButton.usingAttributedTitleAssociation[self] ?? false }
+        set { UIButton.usingAttributedTitleAssociation[self] = newValue }
+    }
+    
     // swiftlint:disable implicitly_unwrapped_optional
     /// Original setTitle(_:for:) method.
     static var originalSetTitle: Method!
@@ -70,6 +79,7 @@ extension UIButton {
     @objc func swizzled_setTitle(_ title: String?, for state: UIControl.State) {
         proceed(title: title, for: state)
         swizzled_setTitle(title, for: state)
+        usingAttributedTitle = false
     }
     
     /// Swizzled implementation for setAttributedTitle(_:for:) method.
@@ -82,6 +92,7 @@ extension UIButton {
         let titleString = title?.string
         proceed(title: titleString, for: state)
         swizzled_setAttributedTitle(title, for: state)
+        usingAttributedTitle = true
     }
     
     /// Method for title string processing. Detect localization key for this string and store all needed values for this string.
@@ -120,12 +131,21 @@ extension UIButton {
         }
     }
     
+    func cw_setTitle(_ title: String?, for state: UIControl.State) {
+        if usingAttributedTitle {
+            // TODO: Apply attributes.
+            original_setAttributedTitle(NSAttributedString(string: title ?? ""), for: state)
+        } else {
+            original_setTitle(title, for: state)
+        }
+    }
+    
     /// Original method for setting title string for button after swizzling.
     ///
     /// - Parameters:
     ///   - title: Title string.
     ///   - state: The state that uses the specified title.
-    func original_setTitle(_ title: String?, for state: UIControl.State) {
+    private func original_setTitle(_ title: String?, for state: UIControl.State) {
         guard UIButton.swizzledSetTitle != nil else { return }
         swizzled_setTitle(title, for: state)
     }
@@ -135,7 +155,7 @@ extension UIButton {
     /// - Parameters:
     ///   - title: Title attributed string.
     ///   - state: The state that uses the specified title.
-    func original_setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
+    private func original_setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
         // TODO: Add saving attributes.
         guard UIButton.swizzledSetAttributedTitle != nil else { return }
         swizzled_setAttributedTitle(title, for: state)
@@ -150,7 +170,7 @@ extension UIButton {
         
         originalSetAttributedTitle = class_getInstanceMethod(self, #selector(UIButton.setAttributedTitle(_:for:)))!
         swizzledSetAttributedTitle = class_getInstanceMethod(self, #selector(UIButton.swizzled_setAttributedTitle(_:for:)))!
-        method_exchangeImplementations(originalSetTitle, swizzledSetTitle)
+        method_exchangeImplementations(originalSetAttributedTitle, swizzledSetAttributedTitle)
     }
     
     /// Method for swizzling implementations back for setTitle(_:for:) and setAttributedTitle(_:for:) methods.
