@@ -155,23 +155,3 @@ struct CreateReminderCellManager {
     //value1
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

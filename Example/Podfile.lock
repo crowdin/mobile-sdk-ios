@@ -46,11 +46,13 @@ PODS:
     - Realm (= 4.3.1)
   - Starscream (3.1.1)
   - SwiftDate (6.3.1)
+  - SwiftLint (0.41.0)
 
 DEPENDENCIES:
   - CrowdinSDK/Settings (from `../`)
   - RealmSwift (= 4.3.1)
   - SwiftDate
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -59,6 +61,7 @@ SPEC REPOS:
     - RealmSwift
     - Starscream
     - SwiftDate
+    - SwiftLint
 
 EXTERNAL SOURCES:
   CrowdinSDK:
@@ -71,7 +74,8 @@ SPEC CHECKSUMS:
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
+  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
 
-PODFILE CHECKSUM: b161d830c530a73a7efb3a1f729cf4f072e5819d
+PODFILE CHECKSUM: 039dfa317e86dfe524af85b8816460f689111a5a
 
 COCOAPODS: 1.10.0
