@@ -12,7 +12,6 @@ import SwiftDate
 
 struct Dates {
     static func generateRandomDate(between startDate: Date?, and endDate: Date?) -> Date? {
-        
         guard let startDate = startDate, let endDate = endDate else { return nil }
         
         let startDateRegion = DateInRegion(startDate, region: .current)
@@ -22,7 +21,6 @@ struct Dates {
         
         return randomDate.date
     }
-
 }
 
 

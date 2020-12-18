@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-
 struct CustomColors {
-    
     static let defaultListColor = "systemBlue"
     
     static let systemColors = [
@@ -135,8 +133,6 @@ struct Conversions {
 
 
 struct RealmHelper {
-    
-    
     //Used to delete todos with no name.
     static func deleteEmptyRealmReminder() {
         let realm = MyRealm.getConfig()

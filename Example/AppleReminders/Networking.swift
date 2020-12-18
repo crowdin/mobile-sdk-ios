@@ -11,7 +11,6 @@ import Foundation
 
 struct IconAPI {
     func fetchIcon(urlString: String, completion: @escaping (Result<Data?, Error>) -> Void) {
-        
         let imgURLString = "https://logo.clearbit.com/\(urlString)"
         guard let url = URL(string: imgURLString) else { return }
         
@@ -25,7 +24,6 @@ struct IconAPI {
                     completion(.success(nil))
                 }
             }
-            
             completion(.success(data))
         }.resume()
     }

@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 import UIKit
 
-
 enum ListSection: Int {
     case type
     case list

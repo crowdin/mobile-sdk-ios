@@ -14,8 +14,9 @@ public struct ControlInformation {
 
 class ScreenshotInformationCollector {
 	class func captureControlsInformation() -> [ControlInformation] {
-		guard let window = UIApplication.shared.keyWindow else { return [] }
-		let values = self.getControlsInformation(from: window)
+		guard let window = UIApplication.shared.cw_KeyWindow else { return [] }
+//        guard let vc = window.rootViewController else { return [] }
+        let values = self.getControlsInformation(from: window)
 		let koef = window.screen.scale
 		var returnValue = [ControlInformation]()
 		values.forEach { value in
@@ -32,9 +33,9 @@ class ScreenshotInformationCollector {
 	class func getControlsInformation(from view: UIView) -> [ControlInformation] {
 		var description = [ControlInformation]()
 		view.subviews.forEach { (view) in
-			guard !view.isHidden && view.alpha != 0.0 else { return }
+            guard !view.isHidden && view.alpha != 0.0 else { return }
 			if let label = view as? UILabel, let localizationKey = label.localizationKey {
-				if let frame = label.superview?.convert(label.frame, to: UIApplication.shared.keyWindow) {
+				if let frame = label.superview?.convert(label.frame, to: UIApplication.shared.cw_KeyWindow) {
 					description.append(ControlInformation(key: localizationKey, rect: frame))
 				}
 			}

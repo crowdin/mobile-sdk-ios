@@ -11,12 +11,6 @@ import RealmSwift
 import UIKit
 
 struct CreateReminderCellManager {
-
-    //Section 0 - title, notes, url
-    //todo title input cell
-    //notes input cell
-    //URL input cell
-    
     //Section 1 - Remind me on a day
     //MARK: toggleCell - remind me on a day
     static func remindMeOnADay(for reminder: Reminder?, completion: @escaping () -> Void) -> ToggleTVCell {
@@ -139,19 +133,4 @@ struct CreateReminderCellManager {
             return cell
         }
     }
-    
-    
-    
-    //Section 4 - Flagged, Priority, and List
-    //MARK: toggleCell - Flagged
-    
-    //value1 - priority
-    //value1 - list
-    
-    //Section 5 - Subtasks
-    //value1
-    
-    //Section 6 - Add image
-    //value1
-    
 }

@@ -113,7 +113,6 @@ extension String {
         }
         
         var rgbValue: UInt64 = 0
-//        Scanner(string: cString).scanHexInt32(&rgbValue)
         Scanner(string: cString).scanHexInt64(&rgbValue)
         
         return UIColor(

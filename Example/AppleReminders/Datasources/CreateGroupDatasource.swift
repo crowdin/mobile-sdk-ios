@@ -95,7 +95,6 @@ final class GroupDiffableDatasource: UITableViewDiffableDataSource<Section, Remi
 }
 
 class CreateGroupDatasource: NSObject {
-    
     static let cellID = "listcell"
     
     var groupDiffableDatasource: GroupDiffableDatasource?
