@@ -14,9 +14,8 @@ public struct ControlInformation {
 
 class ScreenshotInformationCollector {
 	class func captureControlsInformation() -> [ControlInformation] {
-		guard let window = UIApplication.shared.cw_KeyWindow else { return [] }
-//        guard let vc = window.rootViewController else { return [] }
-        let values = self.getControlsInformation(from: window)
+        guard let window = UIApplication.shared.cw_KeyWindow, let topViewController = window.topViewController() else { return [] }
+        let values = self.getControlsInformation(from: topViewController.view)
 		let koef = window.screen.scale
 		var returnValue = [ControlInformation]()
 		values.forEach { value in
