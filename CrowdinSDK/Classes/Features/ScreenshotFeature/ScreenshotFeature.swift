@@ -18,11 +18,11 @@ class ScreenshotFeature {
 	}
 	
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
-		guard let window = UIApplication.shared.cw_KeyWindow else {
+        guard let window = UIApplication.shared.cw_KeyWindow, let vc = window.topViewController() else {
 			errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
 			return
 		}
-        self.captureScreenshot(view: window, name: name, success: success, errorHandler: errorHandler)
+        self.captureScreenshot(view: vc.view, name: name, success: success, errorHandler: errorHandler)
     }
     
     func captureScreenshot(view: UIView, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
