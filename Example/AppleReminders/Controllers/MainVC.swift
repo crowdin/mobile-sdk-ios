@@ -59,6 +59,7 @@ final class MainVC: UIViewController {
         setupTableView()
         addListView()
         footerView.addListBtn.addTarget(self, action: #selector(addListBtnTapped), for: .touchUpInside)
+        footerView.settingsBtn.addTarget(self, action: #selector(settingsBtnTapped), for: .touchUpInside)
         footerView.addGroupBtn.addTarget(self, action: #selector(addGroupBtnTapped), for: .touchUpInside)
         
         childVC.didTapCell = { type in
@@ -130,6 +131,12 @@ final class MainVC: UIViewController {
     @objc func addListBtnTapped() {
         let createListVC = CreateListVC()
         self.present(createListVC, animated: true, completion: nil)
+    }
+    
+    @objc func settingsBtnTapped() {
+        let settingsVC = SettingsVC()
+        let settingsNC = UINavigationController(rootViewController: settingsVC)
+        self.present(settingsNC, animated: true, completion: nil)
     }
     
     @objc func addGroupBtnTapped() {
