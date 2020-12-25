@@ -30,7 +30,7 @@ class ScreenshotFeature {
             errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view)
+        let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
         screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
     }
 }
