@@ -24,20 +24,19 @@ class Localization {
     var extractor: LocalLocalizationExtractor
     
     /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
-    fileprivate let preferredLocalizations = Bundle.main.preferredLanguages
+    fileprivate static let preferredLocalizations = Bundle.main.preferredLanguages
     
     // swiftlint:disable implicitly_unwrapped_optional
     /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
 	
     /// Property for detecting and storing current SDK mode value.
-	var mode: CrowdinSDK.Mode {
+    static var mode: CrowdinSDK.Mode {
 		get {
 			let value = UserDefaults.standard.mode
 			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
 		}
 		set {
-            UserDefaults.standard.cleanAppleLanguages()
             switch newValue {
             case .autoSDK, .customSDK,.autoBundle:
                 UserDefaults.standard.cleanAppleLanguages()
@@ -48,7 +47,7 @@ class Localization {
 	}
 	
     /// Property for detecting and storing curent localization value depending on current SDK mode.
-	var currentLocalization: String? {
+    static var currentLocalization: String? {
 		set {
 			switch mode {
 			case .autoSDK: break;
@@ -58,14 +57,14 @@ class Localization {
 			case .customBundle:
 				UserDefaults.standard.appleLanguage = newValue
 			}
-            self.provider.localization = newValue ?? Bundle.main.preferredLanguage
+            Localization.current?.provider.localization = newValue ?? Bundle.main.preferredLanguage
 		}
 		get {
 			switch mode {
 			case .autoSDK:
-				return preferredLocalizations.first(where: { provider.localizations.contains($0) })
+                return preferredLocalizations.first(where: { Localization.current?.provider.localizations.contains($0) ?? false })
 			case .autoBundle:
-				return preferredLocalizations.first(where: { self.inBundle.contains($0) })
+				return preferredLocalizations.first(where: { Localization.current?.inBundle.contains($0) ?? false })
 			case .customSDK:
 				return self.customLocalization
 			case .customBundle:
@@ -75,7 +74,7 @@ class Localization {
 	}
 	
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
-    private var customLocalization: String? {
+    private static var customLocalization: String? {
         set {
             UserDefaults.standard.customLocalization = newValue
         }
