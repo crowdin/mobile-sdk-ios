@@ -238,7 +238,7 @@ extension CrowdinSDK {
     /// Method for real-time updates feature initialization if RealtimeUpdate submodule is added.
     private class func initializeRealtimeUpdatesFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeRealtimeUpdatesFeature.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
+            CrowdinSDK.perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
         }
     }
 	

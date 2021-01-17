@@ -62,10 +62,10 @@ class AddListView: UIView {
         
         //MARK: Constraints
         self.addSubview(addGroupBtn)
-//        self.addSubview(settingsBtn)
+        self.addSubview(settingsBtn)
         self.addSubview(addListBtn)
         addGroupBtn.translatesAutoresizingMaskIntoConstraints = false
-//        settingsBtn.translatesAutoresizingMaskIntoConstraints = false
+        settingsBtn.translatesAutoresizingMaskIntoConstraints = false
         addListBtn.translatesAutoresizingMaskIntoConstraints = false
        
         NSLayoutConstraint.activate([
@@ -73,11 +73,10 @@ class AddListView: UIView {
             addGroupBtn.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             addGroupBtn.heightAnchor.constraint(equalToConstant: 30),
             
-            /*
             settingsBtn.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0.0),
             settingsBtn.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             settingsBtn.heightAnchor.constraint(equalToConstant: 30),
-            */
+            
             addListBtn.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             addListBtn.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             addListBtn.heightAnchor.constraint(equalToConstant: 30)
