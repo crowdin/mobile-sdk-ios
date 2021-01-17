@@ -30,6 +30,7 @@ The SDK provides:
 * [Example Project](#example-project)
 * [Setup](#setup)
 * [Advanced Features](#advanced-features)
+  * [Login](#login)	 	
   * [Real-Time Preview](#real-time-preview)
   * [Screenshots](#screenshots)
 * [Notes](#notes)
@@ -210,6 +211,122 @@ In AppDelegate you should call start method: `CrowdinSDK.start()` for Swift, and
 **Note!** Using this setup method you will unable to set up additional *Screenshots* and *Real-Time Preview* project features.
 
 ## Advanced Features
+
+### Login
+
+
+Firs of all your application have to support custom URL scheme. Read more how to add it in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). **It's required to be added**.
+
+For advanced feature usage you should properly setup login to the crowdin. For that please make sure you've added 'CrowdinSDK/LoginFeature' to your *Podfile*:
+
+```ruby
+use_frameworks!
+target 'your-app' do
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/LoginFeature'
+end
+```
+
+After that you should create 'LoginConfig' object and pass it to the SDK config:
+
+```swift
+
+let crowdinProviderConfig = ...
+
+var loginConfig: CrowdinLoginConfig
+do {
+	loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
+		clientSecret: "{client_secret}",
+		scope: "project.translation",
+		redirectURI: "{redirectURI}",
+		organizationName: "{organization_name}")
+} catch {
+	print(error)
+	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
+
+let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+    											        .with(loginConfig: loginConfig)
+    											        ...
+
+CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+	// SDK is ready to use, put code to change language, etc. here
+})
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+CrowdinProviderConfig *crowdinProviderConfig = ...
+
+NSError *error;
+CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.translation" organizationName:@"{organization_name}" error:&error];
+
+if (!error) {
+	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+  
+	[CrowdinSDK startWithConfig:config completion:^{
+		// SDK is ready to use, put code to change language, etc. here
+	}];
+} else {
+	NSLog(@"%@", error.localizedDescription);
+	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
+```
+
+</details>
+
+
+| Config option              | Description                                                         | Example                                               |
+|----------------------------|---------------------------------------------------------------------|-------------------------------------------------------|
+| `clientId`, `clientSecret` | Crowdin OAuth Client ID and Client Secret | `clientId: "gpY2yTbCVGEelrcx3TYB"`, `clientSecret: "Xz95t0ASVgbvKaZbFB4SMHQzdUl1MSgSTabEDx9T"`
+| `scope`                    | Define the access scope for personal tokens | `scope: "project.translation"`
+| `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
+| `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
+
+The last step is to handle autorization callback in your application.
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+	guard let url = URLContexts.first?.url else { return }
+	CrowdinSDK.handle(url: url)
+}
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [CrowdinSDK handleWithUrl:url];
+}
+```
+
+</details>
+
+If you are using **SceneDelegate** then you need to hanlde callback there, in **SceneDelegate**  class implement method:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+	guard let url = URLContexts.first?.url else { return }
+	CrowdinSDK.handle(url: url)
+}
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    return [CrowdinSDK handleWithUrl:url];
+}
+```
+
+</details>
+
+
 ### Real-Time Preview
 
 All the translations that are done in the Editor can be shown in the application in real-time. View the translations already made and the ones you're currently typing in.
