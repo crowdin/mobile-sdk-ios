@@ -8,10 +8,11 @@
 import Foundation
 
 // MARK: - Extension for window screenshot creation.
-extension UIWindow {
+extension UIView {
     /// Current window screenshot.
     var screenshot: UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, true, self.screen.scale)
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, true, scale)
         defer { UIGraphicsEndImageContext() }
         self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         return UIGraphicsGetImageFromCurrentImageContext()

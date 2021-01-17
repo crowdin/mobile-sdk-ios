@@ -43,20 +43,20 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Current SDK mode.
 	public class var mode: Mode {
 		get {
-			return Localization.current.mode
+			return Localization.mode
 		}
 		set {
-			Localization.current.mode = newValue
+			Localization.mode = newValue
 		}
 	}
 	
     /// Current localization language code.
 	public class var currentLocalization: String? {
 		get {
-			return Localization.current.currentLocalization
+			return Localization.currentLocalization
 		}
 		set {
-			Localization.current.currentLocalization = newValue
+			Localization.currentLocalization = newValue
 		}
 	}
 	
@@ -119,7 +119,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// - Parameter remoteStorage: Localization remote storage  which contains all strings, plurals and avalaible localizations values.
     class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
         let localizations = remoteStorage.localizations;
-        let localization = Bundle.main.preferredLanguage(with: localizations)
+        let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
 		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
     }
@@ -238,7 +238,7 @@ extension CrowdinSDK {
     /// Method for real-time updates feature initialization if RealtimeUpdate submodule is added.
     private class func initializeRealtimeUpdatesFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeRealtimeUpdatesFeature.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
+            CrowdinSDK.perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
         }
     }
 	

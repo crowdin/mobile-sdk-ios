@@ -24,4 +24,12 @@ extension CrowdinSDK {
         }
         screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
     }
+    
+    public class func captureScreenshot(view: UIView, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard let screenshotFeature = ScreenshotFeature.shared else {
+            errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
+        screenshotFeature.captureScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
+    }
 }

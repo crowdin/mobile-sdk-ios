@@ -16,6 +16,7 @@ extension CrowdinSDK {
         LoginFeature.configureWith(with: hash, loginConfig: loginConfig)
 	}
     
+    @discardableResult
     public class func handle(url: URL) -> Bool {
         return LoginFeature.shared?.hadle(url: url) ?? false
     }

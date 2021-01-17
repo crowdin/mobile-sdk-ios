@@ -18,8 +18,9 @@ extension CrowdinSDK {
     public class func showSettings() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if let settingsView = SettingsView.shared {
+                settingsView.settingsWindow.makeKeyAndVisible()
                 settingsView.center = CGPoint(x: 100, y: 100)
-                UIApplication.shared.keyWindow?.addSubview(settingsView)
+                settingsView.settingsWindow.settingsView = settingsView
             }
         }
     }

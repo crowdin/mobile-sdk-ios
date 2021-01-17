@@ -29,7 +29,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     var success: (() -> Void)?
     var error: ((Error) -> Void)?
     var localization: String {
-        let localizations = ManifestManager.shared(for: hashString).iOSLanguages
+        let localizations = Localization.current.provider.remoteStorage.localizations
         return CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
     }
     var hashString: String
@@ -186,8 +186,9 @@ extension RealtimeUpdateFeature {
     }
     
     func subscribeAllVisibleConrols() {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        subscribeAllControls(from: window)
+        UIApplication.shared.windows.forEach({
+            subscribeAllControls(from: $0)
+        })
     }
     
     func subscribeAllControls(from view: UIView) {
