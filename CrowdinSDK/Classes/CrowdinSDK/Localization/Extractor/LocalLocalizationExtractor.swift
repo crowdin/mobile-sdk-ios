@@ -45,11 +45,11 @@ class LocalLocalizationExtractor {
     init(localization: String) {
         self.localization = localization
         self.extract()
-        // If we're unable to extract localization passed/detected language then try to extract Base localization.
-        if self.isEmpty, let developmentRegion = Bundle.main.developmentRegion {
-            self.localization = developmentRegion
-            self.extract()
-        }
+//        // If we're unable to extract localization passed/detected language then try to extract Base localization.
+//        if self.isEmpty, let developmentRegion = Bundle.main.developmentRegion {
+//            self.localization = developmentRegion
+//            self.extract()
+//        }
     }
     
     func setLocalization(_ localization: String) {
@@ -58,11 +58,13 @@ class LocalLocalizationExtractor {
     }
     
     func extract() {
+        self.localizationDict = [:]
         self.stringsFiles.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
             self.localizationDict.merge(with: dict as? [String: String] ?? [:])
         }
         
+        self.localizationPluralsDict = [:]
         self.stringsdictFiles.forEach { (file) in
             guard let dict = NSMutableDictionary (contentsOfFile: file) else { return }
 			guard let strings = dict as? [AnyHashable: Any] else { return }

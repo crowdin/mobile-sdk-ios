@@ -8,7 +8,7 @@
 import Foundation
 
 /// Closure with localization data. Contains list of all available languages, strings and plurals localizations.
-public typealias LocalizationStorageCompletion = (_ localizations: [String]?, _ strings: [String: String]?, _ plurals: [AnyHashable: Any]?) -> Void
+public typealias LocalizationStorageCompletion = (_ localizations: [String]?, _ localization: String, _ strings: [String: String]?, _ plurals: [AnyHashable: Any]?) -> Void
 public typealias LocalizationStorageError = (_ error: Error) -> Void
 
 /// Protocol for storage with localization data.

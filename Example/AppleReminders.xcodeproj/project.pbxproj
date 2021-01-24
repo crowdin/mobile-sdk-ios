@@ -130,6 +130,8 @@
 		E82913E5257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E82913E6257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E837B5F22596484F00656C9B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		E8FABB3125BD9884007F1468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E8FABB3225BD9884007F1468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4F3E1B6D5FE0494414C1392 /* Pods-AppleReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleReminders.debug.xcconfig"; path = "Target Support Files/Pods-AppleReminders/Pods-AppleReminders.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -357,6 +359,7 @@
 				en,
 				Base,
 				uk,
+				fr,
 			);
 			mainGroup = 12706DCC23DBB9320001D243;
 			productRefGroup = 12706DD623DBB9320001D243 /* Products */;
@@ -508,6 +511,7 @@
 				12706DE423DBB9330001D243 /* Base */,
 				E82913DE257301310068A629 /* en */,
 				E82913E5257306F90068A629 /* uk */,
+				E8FABB3125BD9884007F1468 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -517,6 +521,7 @@
 			children = (
 				E82913D8257300E70068A629 /* en */,
 				E82913E6257306F90068A629 /* uk */,
+				E8FABB3225BD9884007F1468 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

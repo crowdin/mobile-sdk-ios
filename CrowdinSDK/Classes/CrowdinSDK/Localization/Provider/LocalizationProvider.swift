@@ -94,16 +94,18 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     // Private method
     func loadLocalLocalization() {
         self.localStorage.localization = localization
-        self.localStorage.fetchData(completion: { [weak self] localizations, strings, plurals in
+        self.localStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
+            guard localization == self.localization else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
         }, errorHandler: errorHandler)
     }
     
     func fetchRemoteLocalization() {
         self.remoteStorage.localization = localization
-        self.remoteStorage.fetchData(completion: { [weak self] localizations, strings, plurals in
+        self.remoteStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
+            guard localization == self.localization else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
             self.completion?()
         }, errorHandler: errorHandler)

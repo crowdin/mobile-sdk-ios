@@ -26,7 +26,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.refresh()
-        completion(localizations, strings, plurals)
+        completion(localizations, localization, strings, plurals)
     }
     
     convenience init(additionalWord: String, localization: String) {

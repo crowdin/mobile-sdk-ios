@@ -104,6 +104,10 @@ class Localization {
         return Bundle.main.localizations
     }
     
+    var avalaibleLocalizations: [String] {
+        return Array(Set<String>(inProvider + inBundle))
+    }
+    
     /// Find localization key for a given text.
     ///
     /// - Parameter text: Text to find key for.
@@ -122,7 +126,12 @@ class Localization {
     /// - Parameter key: Key to find localization string for.
     /// - Returns: Localization key string value. If string woun't find method will return key value.
     func localizedString(for key: String) -> String? {
-        return self.provider.localizedString(for: key)
+        var string = provider.localizedString(for: key)
+        if string == nil {
+            // Todo: Add proper method to extractor for getting localized string by key.
+            string = extractor.localizationDict[key]
+        }
+        return string
     }
 	
     /// Method for detecting formated values in string by given format.

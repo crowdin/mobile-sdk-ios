@@ -46,10 +46,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
+        guard self.localizations.contains(self.localization) else { return }
         self.crowdinDownloader = CrowdinLocalizationDownloader()
-        self.crowdinDownloader.download(with: self.hashString, for: self.localization) { [weak self] strings, plurals, errors in
+        let localization = self.localization
+        self.crowdinDownloader.download(with: self.hashString, for: localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
-            completion(self.localizations, strings, plurals)
+            completion(self.localizations, localization, strings, plurals)
             DispatchQueue.main.async {
                 LocalizationUpdateObserver.shared.notifyDownload()
                 

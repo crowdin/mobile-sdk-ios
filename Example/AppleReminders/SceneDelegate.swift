@@ -22,7 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .with(settingsEnabled: true)
             .with(realtimeUpdatesEnabled: true)
             .with(screenshotsEnabled: true)
+        
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        CrowdinSDK.enableSDKLocalization(true, localization: "fr")
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
