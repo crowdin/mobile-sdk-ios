@@ -10,7 +10,7 @@ import UIKit
 import CrowdinSDK
 
 class SettingsVC: UITableViewController {
-    let localizations = CrowdinSDK.inSDKLocalizations
+    let localizations = CrowdinSDK.allAvalaibleLocalizations
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +42,7 @@ class SettingsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let localization = localizations[indexPath.row]
-        CrowdinSDK.mode = .customSDK
-        CrowdinSDK.currentLocalization = localization   
+        CrowdinSDK.enableSDKLocalization(true, localization: localization)
         self.tableView.reloadData()
     }
 }

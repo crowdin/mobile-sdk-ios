@@ -16,39 +16,39 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 
 /// Main interface for working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
-    /// Enum representing available SDK modes.
-    ///
-    /// autoSDK - Automaticly detect current localization and change localized strings to crowdin strings.
-    ///
-    /// customSDK - Enable user defined localization from crowdin supported languages.
-    ///
-    /// autoBundle - Does not enable crowdin localization. In this mode will be used bundle localization detected by system.
-    ///
-    /// customBundle - Set user defined localization from bundle supported languages.
-	public enum Mode: Int {
-		case autoSDK
-		case customSDK
-		case autoBundle
-		case customBundle
-        
-        var isAutoMode: Bool {
-            return self == .autoSDK || self == .autoBundle
-        }
-        
-        var isSDKMode: Bool {
-            return self == .autoSDK || self == .customSDK
-        }
-	}
-	
+//    /// Enum representing available SDK modes.
+//    ///
+//    /// autoSDK - Automaticly detect current localization and change localized strings to crowdin strings.
+//    ///
+//    /// customSDK - Enable user defined localization from crowdin supported languages.
+//    ///
+//    /// autoBundle - Does not enable crowdin localization. In this mode will be used bundle localization detected by system.
+//    ///
+//    /// customBundle - Set user defined localization from bundle supported languages.
+//	public enum Mode: Int {
+//		case autoSDK
+//		case customSDK
+//		case autoBundle
+//		case customBundle
+//
+//        var isAutoMode: Bool {
+//            return self == .autoSDK || self == .autoBundle
+//        }
+//
+//        var isSDKMode: Bool {
+//            return self == .autoSDK || self == .customSDK
+//        }
+//	}
+//
     /// Current SDK mode.
-	public class var mode: Mode {
-		get {
-			return Localization.mode
-		}
-		set {
-			Localization.mode = newValue
-		}
-	}
+//	public class var mode: Mode {
+//		get {
+//			return Localization.mode
+//		}
+//		set {
+//			Localization.mode = newValue
+//		}
+//	}
 	
     /// Current localization language code.
 	public class var currentLocalization: String? {
@@ -65,6 +65,9 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	
     /// List of supported in app localizations.
     public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
+    
+    /// List of all available localizations in bundle and on crowdin.
+    public class var allAvalaibleLocalizations: [String] { return Array(Set<String>(inSDKLocalizations + inBundleLocalizations)) }
     
     // swiftlint:disable implicitly_unwrapped_optional
     static var config: CrowdinSDKConfig!
@@ -98,19 +101,19 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///   - sdkLocalization: Bool value which indicate whether to use SDK localization or native in bundle localization.
     ///   - localization: Localization code to use.
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
-        if sdkLocalization {
-            if localization != nil {
-                self.mode = .customSDK
-            } else {
-                self.mode = .autoSDK
-            }
-        } else {
-            if localization != nil {
-                self.mode = .customBundle
-            } else {
-                self.mode = .autoBundle
-            }
-        }
+//        if sdkLocalization {
+//            if localization != nil {
+//                self.mode = .customSDK
+//            } else {
+//                self.mode = .autoSDK
+//            }
+//        } else {
+//            if localization != nil {
+//                self.mode = .customBundle
+//            } else {
+//                self.mode = .autoBundle
+//            }
+//        }
         self.currentLocalization = localization
     }
 	
@@ -211,11 +214,7 @@ extension CrowdinSDK {
     
     /// Method for library initialization.
     class func initializeLib() {
-        if self.mode == .customSDK || self.mode == .autoSDK {
-            CrowdinSDK.swizzle()
-        } else {
-            CrowdinSDK.unswizzle()
-        }
+        self.swizzle()
         
         self.setupLoginIfNeeded()
         

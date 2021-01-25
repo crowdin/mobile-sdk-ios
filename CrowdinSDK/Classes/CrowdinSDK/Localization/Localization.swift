@@ -30,48 +30,21 @@ class Localization {
     /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
 	
-    /// Property for detecting and storing current SDK mode value.
-    static var mode: CrowdinSDK.Mode {
-		get {
-			let value = UserDefaults.standard.mode
-			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
-		}
-		set {
-            switch newValue {
-            case .autoSDK, .customSDK,.autoBundle:
-                UserDefaults.standard.cleanAppleLanguages()
-            case .customBundle: break
-            }
-			UserDefaults.standard.mode = newValue.rawValue
-		}
-	}
-	
     /// Property for detecting and storing curent localization value depending on current SDK mode.
     static var currentLocalization: String? {
 		set {
-			switch mode {
-			case .autoSDK: break;
-			case .customSDK:
-				self.customLocalization = newValue
-			case .autoBundle: break;
-			case .customBundle:
-				UserDefaults.standard.appleLanguage = newValue
-			}
-            Localization.current?.provider.localization = newValue ?? Bundle.main.preferredLanguage
+            self.customLocalization = newValue
+            Localization.current?.provider.localization = newValue ?? autoDetectedLocalization
+            Localization.current?.extractor.localization = newValue ?? autoDetectedLocalization
 		}
 		get {
-			switch mode {
-			case .autoSDK:
-                return preferredLocalizations.first(where: { Localization.current?.provider.localizations.contains($0) ?? false })
-			case .autoBundle:
-				return preferredLocalizations.first(where: { Localization.current?.inBundle.contains($0) ?? false })
-			case .customSDK:
-				return self.customLocalization
-			case .customBundle:
-				return UserDefaults.standard.appleLanguage
-			}
+            return customLocalization ?? autoDetectedLocalization
 		}
 	}
+    
+    private static var autoDetectedLocalization: String {
+        return preferredLocalizations.first(where: { Localization.current?.provider.localizations.contains($0) ?? false }) ?? defaultLocalization
+    }
 	
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
     private static var customLocalization: String? {

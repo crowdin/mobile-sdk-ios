@@ -22,7 +22,11 @@ class LocalLocalizationExtractor {
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
     
-    var localization: String
+    var localization: String {
+        didSet {
+            self.extract()
+        }
+    }
     
     var isEmpty: Bool {
         return self.localizationDict.isEmpty && self.localizationPluralsDict.isEmpty

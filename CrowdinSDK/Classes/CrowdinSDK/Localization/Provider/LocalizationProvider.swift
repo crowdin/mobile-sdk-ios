@@ -38,8 +38,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     // Public
     var localization: String {
         didSet {
-            self.localStorage.localization = localization
-            self.remoteStorage.localization = localization
             self.refreshLocalization()
         }
     }
@@ -93,7 +91,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     
     // Private method
     func loadLocalLocalization() {
-        self.localStorage.localization = localization
+        self.localStorage = LocalLocalizationStorage(localization: localization)
         self.localStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
             guard localization == self.localization else { return }
@@ -105,7 +103,10 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         self.remoteStorage.localization = localization
         self.remoteStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
-            guard localization == self.localization else { return }
+            guard localization == self.localization else {
+                self.saveLocalization(strings: strings, plurals: plurals, for: localization)    
+                return
+            }
             self.setup(with: localizations, strings: strings, plurals: plurals)
             self.completion?()
         }, errorHandler: errorHandler)
@@ -170,5 +171,15 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     func set(string: String, for key: String) {
         self.localStorage.strings[key] = string
         self.setupStrings()
+    }
+    
+    private func saveLocalization(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
+        let localStorage = LocalLocalizationStorage(localization: localization)
+        if let strings = strings {
+            localStorage.strings.merge(with: strings)
+        }
+        if let plurals = plurals {
+            localStorage.plurals.merge(with: plurals)
+        }
     }
 }
