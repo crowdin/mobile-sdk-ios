@@ -16,40 +16,6 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 
 /// Main interface for working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
-//    /// Enum representing available SDK modes.
-//    ///
-//    /// autoSDK - Automaticly detect current localization and change localized strings to crowdin strings.
-//    ///
-//    /// customSDK - Enable user defined localization from crowdin supported languages.
-//    ///
-//    /// autoBundle - Does not enable crowdin localization. In this mode will be used bundle localization detected by system.
-//    ///
-//    /// customBundle - Set user defined localization from bundle supported languages.
-//	public enum Mode: Int {
-//		case autoSDK
-//		case customSDK
-//		case autoBundle
-//		case customBundle
-//
-//        var isAutoMode: Bool {
-//            return self == .autoSDK || self == .autoBundle
-//        }
-//
-//        var isSDKMode: Bool {
-//            return self == .autoSDK || self == .customSDK
-//        }
-//	}
-//
-    /// Current SDK mode.
-//	public class var mode: Mode {
-//		get {
-//			return Localization.mode
-//		}
-//		set {
-//			Localization.mode = newValue
-//		}
-//	}
-	
     /// Current localization language code.
 	public class var currentLocalization: String? {
 		get {
