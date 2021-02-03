@@ -210,6 +210,7 @@ In AppDelegate you should call start method: `CrowdinSDK.start()` for Swift, and
 **Note!** Using this setup method you will unable to set up additional *Screenshots* and *Real-Time Preview* project features.
 
 ## Advanced Features
+
 ### Real-Time Preview
 
 All the translations that are done in the Editor can be shown in the application in real-time. View the translations already made and the ones you're currently typing in.
@@ -222,8 +223,8 @@ Add the code below to your *Podfile*:
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
-  pod 'CrowdinSDK/LoginFeature'
-  pod 'CrowdinSDK/RealtimeUpdate'
+  pod 'CrowdinSDK/LoginFeature' // Required for Real-Time Preview
+  pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
   pod 'CrowdinSDK/Settings' // Optional. To add 'settings' floating button
 end
 ```
@@ -256,6 +257,29 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 })
 ```
 
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
+
+NSError *error;
+CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.translation" organizationName:@"{organization_name}" error:&error];
+
+if (!error) {
+	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+
+	[CrowdinSDK startWithConfig:config completion:^{
+		// SDK is ready to use, put code to change language, etc. here
+	}];
+} else {
+	NSLog(@"%@", error.localizedDescription);
+	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
+```
+</details>
+
+
 | Config option              | Description                                                         | Example                                               |
 |----------------------------|---------------------------------------------------------------------|-------------------------------------------------------|
 | `hashString`               | Distribution Hash                                                   |`hashString: "7a0c1ee2622bc85a4030297uo3b"`
@@ -266,6 +290,44 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 | `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
 | `settingsEnabled`          | Enable floating settings view with a list of all active features and its statuses | `settingsEnabled: true`
 | `realtimeUpdatesEnabled`   | Enable Real-Time Preview feature | `realtimeUpdatesEnabled: true`
+
+The last step is to handle authorization callback in your application:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+	guard let url = URLContexts.first?.url else { return }
+	CrowdinSDK.handle(url: url)
+}
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [CrowdinSDK handleWithUrl:url];
+}
+```
+</details>
+
+If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate**  class implement method:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+	guard let url = URLContexts.first?.url else { return }
+	CrowdinSDK.handle(url: url)
+}
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    return [CrowdinSDK handleWithUrl:url];
+}
+```
+</details>
 
 ### Screenshots
 
@@ -279,8 +341,8 @@ Add the code below to your *Podfile*:
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
-  pod 'CrowdinSDK/LoginFeature'
-  pod 'CrowdinSDK/Screenshots'
+  pod 'CrowdinSDK/LoginFeature' // Required for Screenshots
+  pod 'CrowdinSDK/Screenshots' // Required for Screenshots
   pod 'CrowdinSDK/Settings' // Optional. To add 'settings' button
 end
 ```
@@ -313,6 +375,29 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 })
 ```
 
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
+
+NSError *error;
+CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.translation" organizationName:@"{organization_name}" error:&error];
+
+if (!error) {
+	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+
+	[CrowdinSDK startWithConfig:config completion:^{
+		// SDK is ready to use, put code to change language, etc. here
+	}];
+} else {
+	NSLog(@"%@", error.localizedDescription);
+	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
+```
+</details>
+
+
 | Config option              | Description                                                         | Example                                               |
 |----------------------------|---------------------------------------------------------------------|-------------------------------------------------------|
 | `hashString`               | Distribution Hash                                                   |`hashString: "7a0c1ee2622bc85a4030297uo3b"`
@@ -323,6 +408,45 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 | `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
 | `settingsEnabled`          | Enable floating settings view with a list of all active features and its statuses | `settingsEnabled: true`
 | `screenshotsEnabled`       | Enable floating button to send screenshots to Crowdin | `screenshotsEnabled: true`
+
+The last step is to handle authorization callback in your application:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+	guard let url = URLContexts.first?.url else { return }
+	CrowdinSDK.handle(url: url)
+}
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [CrowdinSDK handleWithUrl:url];
+}
+```
+</details>
+
+If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate**  class implement method:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+	guard let url = URLContexts.first?.url else { return }
+	CrowdinSDK.handle(url: url)
+}
+```
+
+<details>
+<summary>Objective-C</summary>
+
+```objective-c
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    return [CrowdinSDK handleWithUrl:url];
+}
+```
+</details>
 
 ## Notes
 
