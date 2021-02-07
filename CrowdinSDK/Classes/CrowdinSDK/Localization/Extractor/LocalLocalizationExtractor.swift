@@ -8,8 +8,13 @@
 import Foundation
 
 class LocalLocalizationExtractor {
+    enum Strings: String {
+        case LocalPlurals
+        case LocalizableStringsdict
+    }
+    
     static var allLocalizations: [String] {
-        return Bundle.main.localizations
+        return Bundle.main.inBundleLocalizations
     }
     
     var allKeys: [String] {
@@ -21,6 +26,9 @@ class LocalLocalizationExtractor {
     
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
+    
+    var pluralsFolder: FolderProtocol
+    var pluralsBundle: DictionaryBundleProtocol?
     
     var localization: String {
         didSet {
@@ -48,7 +56,9 @@ class LocalLocalizationExtractor {
     
     init(localization: String) {
         self.localization = localization
+        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.LocalPlurals.rawValue)
         self.extract()
+        
 //        // If we're unable to extract localization passed/detected language then try to extract Base localization.
 //        if self.isEmpty, let developmentRegion = Bundle.main.developmentRegion {
 //            self.localization = developmentRegion
@@ -74,6 +84,7 @@ class LocalLocalizationExtractor {
 			guard let strings = dict as? [AnyHashable: Any] else { return }
 			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }
+        self.setupPluralsBundle()
     }
 	
 	static func extractLocalizationJSONFile(to path: String) {
@@ -124,5 +135,25 @@ class LocalLocalizationExtractor {
             let ectractor = LocalLocalizationExtractor(localization: localization)
             _ = ectractor.extractLocalizationPlurals(to: path)
         }
+    }
+    
+    func setupPluralsBundle() {
+        self.pluralsBundle?.remove()
+        pluralsFolder.directories.forEach({ try? $0.remove() })
+        let localizationFolderName = localization + String.minus + UUID().uuidString
+        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.localizationPluralsDict)
+    }
+    
+    // Localization methods
+    func localizedString(for key: String) -> String? {
+        var string = self.localizationDict[key]
+        if string == nil {
+            string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+            // Plurals localization works as default bundle localization. In case localized string for key is missing the key string will be returned. To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
+            if string == key {
+                string = nil
+            }
+        }
+        return string
     }
 }

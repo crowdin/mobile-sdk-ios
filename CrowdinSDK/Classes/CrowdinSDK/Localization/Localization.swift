@@ -24,7 +24,7 @@ class Localization {
     var extractor: LocalLocalizationExtractor
     
     /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
-    fileprivate static let preferredLocalizations = Bundle.main.preferredLanguages
+    fileprivate static let preferredLocalizations = Locale.preferredLocalizations
     
     // swiftlint:disable implicitly_unwrapped_optional
     /// Instance of shared @Localization class instance.
@@ -34,11 +34,13 @@ class Localization {
     static var currentLocalization: String? {
 		set {
             self.customLocalization = newValue
-            Localization.current?.provider.localization = newValue ?? autoDetectedLocalization
-            Localization.current?.extractor.localization = newValue ?? autoDetectedLocalization
+            if let localization = newValue {
+                Localization.current?.provider.localization = localization
+                Localization.current?.extractor.localization = localization
+            }
 		}
 		get {
-            return customLocalization ?? autoDetectedLocalization
+            return customLocalization
 		}
 	}
     
@@ -74,7 +76,7 @@ class Localization {
     
     /// A list of all the localizations contained in the bundle.
     var inBundle: [String] {
-        return Bundle.main.localizations
+        return Bundle.main.inBundleLocalizations
     }
     
     var avalaibleLocalizations: [String] {
@@ -102,7 +104,7 @@ class Localization {
         var string = provider.localizedString(for: key)
         if string == nil {
             // Todo: Add proper method to extractor for getting localized string by key.
-            string = extractor.localizationDict[key]
+            string = extractor.localizedString(for: key)
         }
         return string
     }

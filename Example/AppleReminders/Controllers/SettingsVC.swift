@@ -10,13 +10,22 @@ import UIKit
 import CrowdinSDK
 
 class SettingsVC: UITableViewController {
-    let localizations = CrowdinSDK.allAvalaibleLocalizations
+    var localizations = CrowdinSDK.allAvalaibleLocalizations
+    
+    enum Strings: String {
+        case settings
+        case language
+        case auto
+        case done
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.title = "Settings".localized
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done".localized, style: .done, target: self, action: #selector(cancelBtnTapped))
+        
+        localizations.insert(Strings.auto.rawValue.capitalized.localized, at: 0)
+        
+        self.title = Strings.settings.rawValue.capitalized.localized
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.done.rawValue.capitalized.localized, style: .done, target: self, action: #selector(cancelBtnTapped))
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
         self.tableView.reloadData()
     }
@@ -26,7 +35,7 @@ class SettingsVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Language".localized
+        return Strings.language.rawValue.capitalized.localized
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,13 +45,23 @@ class SettingsVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell")!
         cell.textLabel?.text = localizations[indexPath.row]
-        cell.accessoryType = CrowdinSDK.currentLocalization == localizations[indexPath.row] ? .checkmark : .none
+        let localization = CrowdinSDK.currentLocalization
+        cell.accessoryType = .none
+        if localization == nil && indexPath.row == 0 {
+            cell.accessoryType = .checkmark
+        } else if localization == localizations[indexPath.row] {
+            cell.accessoryType = .checkmark
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let localization = localizations[indexPath.row]
-        CrowdinSDK.enableSDKLocalization(true, localization: localization)
+        if localization == Strings.auto.rawValue.capitalized.localized {
+            CrowdinSDK.currentLocalization = nil
+        } else {
+            CrowdinSDK.currentLocalization = localization
+        }
         self.tableView.reloadData()
     }
 }

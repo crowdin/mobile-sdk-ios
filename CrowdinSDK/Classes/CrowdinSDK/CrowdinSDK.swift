@@ -30,10 +30,16 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 	public class var inSDKLocalizations: [String] { return Localization.current?.inProvider ?? [] }
 	
     /// List of supported in app localizations.
-    public class var inBundleLocalizations: [String] { return Localization.current?.inBundle ?? Bundle.main.localizations }
+    public class var inBundleLocalizations: [String] { Bundle.main.inBundleLocalizations }
     
     /// List of all available localizations in bundle and on crowdin.
-    public class var allAvalaibleLocalizations: [String] { return Array(Set<String>(inSDKLocalizations + inBundleLocalizations)) }
+    public class var allAvalaibleLocalizations: [String] {
+        var localizations = Array(Set<String>(inSDKLocalizations + inBundleLocalizations))
+        if let index = localizations.firstIndex(where: { $0 == "Base" }) {
+            localizations.remove(at: index)
+        }
+        return localizations
+    }
     
     // swiftlint:disable implicitly_unwrapped_optional
     static var config: CrowdinSDKConfig!
@@ -66,20 +72,8 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// - Parameters:
     ///   - sdkLocalization: Bool value which indicate whether to use SDK localization or native in bundle localization.
     ///   - localization: Localization code to use.
+    @available(*, deprecated, message: "Please use currentLocalization instead.")
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
-//        if sdkLocalization {
-//            if localization != nil {
-//                self.mode = .customSDK
-//            } else {
-//                self.mode = .autoSDK
-//            }
-//        } else {
-//            if localization != nil {
-//                self.mode = .customBundle
-//            } else {
-//                self.mode = .autoBundle
-//            }
-//        }
         self.currentLocalization = localization
     }
 	
@@ -87,7 +81,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     ///
     /// - Parameter remoteStorage: Localization remote storage  which contains all strings, plurals and avalaible localizations values.
     class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
-        let localizations = remoteStorage.localizations;
+        let localizations = remoteStorage.localizations + self.inBundleLocalizations;
         let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
 		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
