@@ -19,7 +19,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     /// Current localization language code.
 	public class var currentLocalization: String? {
 		get {
-			return Localization.currentLocalization
+            return Localization.currentLocalization ?? Localization.current?.provider.localization
 		}
 		set {
 			Localization.currentLocalization = newValue
@@ -64,7 +64,7 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     
     /// Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.
     public class func deintegrate() {
-        Localization.current.provider.deintegrate()
+        Localization.current?.provider.deintegrate()
     }
     
     /// Method for changing SDK lcoalization and mode. There are 4 avalaible modes in SDK. For more information please look on Mode enum description.

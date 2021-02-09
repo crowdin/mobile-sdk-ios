@@ -26,10 +26,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     func prepare(with completion: @escaping () -> Void) {
         if !CrowdinSupportedLanguages.shared.loaded {
-            CrowdinSupportedLanguages.shared.downloadSupportedLanguages {
+            CrowdinSupportedLanguages.shared.downloadSupportedLanguages(completion: {
                 self.localizations = ManifestManager.shared(for: self.hashString).iOSLanguages
                 completion()
-            }
+            }, error: {
+                LocalizationUpdateObserver.shared.notifyError(with: [$0])
+            })
         } else {
             completion()
         }

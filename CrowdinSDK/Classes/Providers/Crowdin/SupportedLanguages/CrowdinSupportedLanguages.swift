@@ -77,9 +77,12 @@ class CrowdinSupportedLanguages {
         }
     }
     
-    func downloadSupportedLanguages(completion: (() -> Void)? = nil) {
-        api.getLanguages(limit: 500, offset: 0) { (supportedLanguages, error) in
-            guard error == nil else { return }
+    func downloadSupportedLanguages(completion: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
+        api.getLanguages(limit: 500, offset: 0) { (supportedLanguages, err) in
+            if let err = err {
+                error?(err)
+                return
+            }
             guard let supportedLanguages = supportedLanguages else { return }
             self.supportedLanguages = supportedLanguages
             self.lastUpdatedDate = Date()
