@@ -7,22 +7,16 @@
 
 import Foundation
 
-class LocalLocalizationExtractor {
+final class LocalLocalizationExtractor {
     enum Strings: String {
         case LocalPlurals
         case LocalizableStringsdict
     }
     
-    static var allLocalizations: [String] {
-        return Bundle.main.inBundleLocalizations
-    }
+    static var allLocalizations: [String] { Bundle.main.inBundleLocalizations }
     
-    var allKeys: [String] {
-        return self.localizationDict.keys.map({ String($0) })
-    }
-    var allValues: [String] {
-        return self.localizationDict.values.map({ String($0) })
-    }
+    var allKeys: [String] { localizationDict.keys.map({ String($0) }) }
+    var allValues: [String] { localizationDict.values.map({ String($0) }) }
     
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
@@ -32,13 +26,11 @@ class LocalLocalizationExtractor {
     
     var localization: String {
         didSet {
-            self.extract()
+            extract()
         }
     }
     
-    var isEmpty: Bool {
-        return self.localizationDict.isEmpty && self.localizationPluralsDict.isEmpty
-    }
+    var isEmpty: Bool { localizationDict.isEmpty && self.localizationPluralsDict.isEmpty }
     
     var stringsFiles: [String] {
         guard let filePath = Bundle.main.path(forResource: localization, ofType: FileType.lproj.rawValue) else { return [] }
@@ -56,35 +48,29 @@ class LocalLocalizationExtractor {
     
     init(localization: String) {
         self.localization = localization
-        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.LocalPlurals.rawValue)
-        self.extract()
-        
-//        // If we're unable to extract localization passed/detected language then try to extract Base localization.
-//        if self.isEmpty, let developmentRegion = Bundle.main.developmentRegion {
-//            self.localization = developmentRegion
-//            self.extract()
-//        }
+        pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.LocalPlurals.rawValue)
+        extract()
     }
     
     func setLocalization(_ localization: String) {
         self.localization = localization
-        self.extract()
+        extract()
     }
     
     func extract() {
-        self.localizationDict = [:]
-        self.stringsFiles.forEach { (file) in
+        localizationDict = [:]
+        stringsFiles.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
             self.localizationDict.merge(with: dict as? [String: String] ?? [:])
         }
         
-        self.localizationPluralsDict = [:]
-        self.stringsdictFiles.forEach { (file) in
+        localizationPluralsDict = [:]
+        stringsdictFiles.forEach { (file) in
             guard let dict = NSMutableDictionary (contentsOfFile: file) else { return }
 			guard let strings = dict as? [AnyHashable: Any] else { return }
 			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }
-        self.setupPluralsBundle()
+        setupPluralsBundle()
     }
 	
 	static func extractLocalizationJSONFile(to path: String) {

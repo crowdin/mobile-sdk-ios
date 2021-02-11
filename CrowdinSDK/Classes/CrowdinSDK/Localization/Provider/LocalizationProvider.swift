@@ -131,7 +131,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     
     func setupPluralsBundle() {
 		self.pluralsBundle?.remove()
-		pluralsFolder.directories.forEach({ try? $0.remove() })
+		pluralsFolder.directories.forEach { try? $0.remove() }
         let localizationFolderName = localStorage.localization + String.minus + UUID().uuidString
         self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.plurals)
     }

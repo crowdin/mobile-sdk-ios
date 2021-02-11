@@ -49,7 +49,5 @@ extension Locale {
 }
 
 private extension String {
-    var hasLocaleId: Bool {
-        return self.split(separator: "-").count > 1
-    }
+    var hasLocaleId: Bool { split(separator: "-").count > 1 }
 }
