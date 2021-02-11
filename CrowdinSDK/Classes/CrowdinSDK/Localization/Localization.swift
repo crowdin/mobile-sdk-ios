@@ -22,10 +22,7 @@ class Localization {
     
     /// Localization extractor.
     var extractor: LocalLocalizationExtractor
-    
-    /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
-    fileprivate static let preferredLocalizations = Locale.preferredLocalizations
-    
+
     // swiftlint:disable implicitly_unwrapped_optional
     /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
@@ -37,6 +34,9 @@ class Localization {
             if let localization = newValue {
                 Localization.current?.provider.localization = localization
                 Localization.current?.extractor.localization = localization
+            } else {
+                Localization.current?.provider.localization = autoDetectedLocalization
+                Localization.current?.extractor.localization = autoDetectedLocalization
             }
 		}
 		get {
@@ -44,8 +44,12 @@ class Localization {
 		}
 	}
     
+    /// Auto detects localization. For detection uses localizations from the bundle and from the current provider. Return "en" if SDK isn't initialized or there are no languages ether on crowdin and bundle.
     private static var autoDetectedLocalization: String {
-        return preferredLocalizations.first(where: { Localization.current?.provider.localizations.contains($0) ?? false }) ?? defaultLocalization
+        if let avalaibleLocalizations = Localization.current?.avalaibleLocalizations {
+            return Bundle.main.preferredLanguage(with: avalaibleLocalizations)
+        }
+        return defaultLocalization
     }
 	
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.

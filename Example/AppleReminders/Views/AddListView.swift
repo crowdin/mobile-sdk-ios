@@ -32,7 +32,7 @@ class AddListView: UIView {
     
     lazy var settingsBtn: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        button.setImage(UIImage(named: "gear"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .clear
