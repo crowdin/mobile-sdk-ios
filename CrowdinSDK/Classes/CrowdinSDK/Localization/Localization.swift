@@ -74,18 +74,12 @@ class Localization {
 	}
 	
 	/// A list of all avalaible localization in SDK downloaded from current provider.
-	var inProvider: [String] {
-		return provider.localizations
-	}
+	var inProvider: [String] { provider.localizations }
     
     /// A list of all the localizations contained in the bundle.
-    var inBundle: [String] {
-        return Bundle.main.inBundleLocalizations
-    }
+    var inBundle: [String] { Bundle.main.inBundleLocalizations }
     
-    var avalaibleLocalizations: [String] {
-        return Array(Set<String>(inProvider + inBundle))
-    }
+    var avalaibleLocalizations: [String] { Array(Set<String>(inProvider + inBundle)) }
     
     /// Find localization key for a given text.
     ///

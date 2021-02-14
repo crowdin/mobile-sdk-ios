@@ -73,17 +73,19 @@ extension SettingsView {
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
                 if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-                    if feature.error == nil {
-                        feature.error = { error in
-                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Error while starting real-time preview - \(error.localizedDescription)"))
-                        }
+                    feature.error = { error in
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Error while starting real-time preview - \(error.localizedDescription)"))
                     }
-                    if feature.success == nil {
-                        feature.success = {
-                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully started real-time preview"))
-                            self.reloadData()
-                        }
+                    
+                    feature.success = {
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Successfully started real-time preview"))
+                        self.reloadData()
                     }
+                    feature.disconnect = {
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Real-time preview disabled"))
+                        self.reloadData()
+                    }
+                    
                     realtimeUpdateCell.action = {
                         feature.enabled = !feature.enabled
                         realtimeUpdateCell.titleLabel.text = feature.enabled ? "Real-time on" : "Real-time off"

@@ -49,7 +49,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         guard self.localizations.contains(self.localization) else { return }
-        self.crowdinDownloader = CrowdinLocalizationDownloader()
         let localization = self.localization
         self.crowdinDownloader.download(with: self.hashString, for: localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
@@ -66,6 +65,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     /// Remove add stored E-Tag headers for every file.
     func deintegrate() {
-        ETagStorage.shared.clear()
+        ETagStorage.clear()
     }
 }

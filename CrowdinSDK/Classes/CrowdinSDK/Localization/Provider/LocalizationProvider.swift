@@ -82,6 +82,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         try? pluralsFolder.remove()
         pluralsBundle?.remove()
         remoteStorage.deintegrate()
+        localStorage.deintegrate()
     }
     
     func refreshLocalization() {
@@ -91,7 +92,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     
     // Private method
     func loadLocalLocalization() {
-        self.localStorage = LocalLocalizationStorage(localization: localization)
+        self.localStorage.localization = localization
         self.localStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
             guard localization == self.localization else { return }
@@ -119,6 +120,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         if let plurals = plurals {
             self.localStorage.plurals.merge(with: plurals)
         }
+        self.localStorage.save()
         self.setupStrings()
         self.setupPlurals()
     }
@@ -174,12 +176,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     }
     
     private func saveLocalization(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
-        let localStorage = LocalLocalizationStorage(localization: localization)
-        if let strings = strings {
-            localStorage.strings.merge(with: strings)
-        }
-        if let plurals = plurals {
-            localStorage.plurals.merge(with: plurals)
-        }
+        self.localStorage.saveLocalizaion(strings: strings, plurals: plurals, for: localization)
     }
 }

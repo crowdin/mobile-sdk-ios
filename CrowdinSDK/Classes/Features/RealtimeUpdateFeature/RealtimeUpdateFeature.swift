@@ -12,11 +12,12 @@ protocol RealtimeUpdateFeatureProtocol {
     
     var success: (() -> Void)? { get set }
     var error: ((Error) -> Void)? { set get }
+    var disconnect: (() -> Void)? { get set }
     var enabled: Bool { get set }
     
 	init(hash: String, sourceLanguage: String, organizationName: String?)
     
-    func start(success: (() -> Void)?, error: ((Error) -> Void)?)
+    func start()
     func stop()
     func subscribe(control: Refreshable)
     func unsubscribe(control: Refreshable)
@@ -28,6 +29,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     var success: (() -> Void)?
     var error: ((Error) -> Void)?
+    var disconnect: (() -> Void)?
     var localization: String {
         let localizations = Localization.current.provider.remoteStorage.localizations
         return CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
@@ -83,26 +85,24 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         controls.remove(control)
     }
     
-    func start(success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
+    func start() {
         if LoginFeature.isLogined {
-            _start(with: success, error: error)
+            _start()
         } else if let loginFeature = LoginFeature.shared {
             loginFeature.login(completion: {
-                self.start(success: success, error: error)
+                self.start()
             }) { err in
-                error?(err)
+                self.error?(err)
             }
         } else {
             error?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
         }
     }
     
-    func _start(with success: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-        self.success = success
-        self.error = error
+    func _start() {
 		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id, let wsUrl = distributionResponse?.data.wsUrl else {
             self.downloadDistribution(with: {
-                self._start(with: success, error: error)
+                self._start()
             }, errorHandler: error)
 			return
 		}
@@ -139,6 +139,9 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func removeRealtimeUpdatesLocalizationProvider() {
+        if let ruLocalLocalizationStorage = Localization.current.provider.localStorage as? RULocalLocalizationStorage {
+            ruLocalLocalizationStorage.deintegrate()
+        }
         if let provider = oldProvider {
             Localization.current.provider = provider
             Localization.current.provider.refreshLocalization()
@@ -161,7 +164,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             self.success?()
             self.subscribeAllVisibleConrols()
         }
-        
+        self.socketManger?.disconnect = disconnect
         self.socketManger?.start()
     }
     
