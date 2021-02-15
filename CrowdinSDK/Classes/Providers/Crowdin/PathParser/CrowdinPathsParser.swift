@@ -15,8 +15,9 @@ fileprivate enum Paths: String {
     case localeWithUnderscore = "%locale_with_underscore%"
     case osxCode = "%osx_code%"
     case osxLocale = "%osx_locale%"
+    case twoLettersCode = "%two_letters_code%"
     
-    static var all: [Paths] = [.language, .locale, .localeWithUnderscore, .osxCode, .osxLocale]
+    static var all: [Paths] = [.language, .locale, .localeWithUnderscore, .osxCode, .osxLocale, .twoLettersCode]
     
     func value(for localization: String) -> String {
         switch self {
@@ -32,6 +33,8 @@ fileprivate enum Paths: String {
             return Locale(identifier: localization).identifier + ".lproj"
         case .osxLocale:
             return Locale(identifier: localization).identifier
+        case .twoLettersCode:
+            return Locale(identifier: localization).regionCode ?? Locale(identifier: localization).identifier
         }
     }
 }
