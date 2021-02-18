@@ -86,6 +86,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func start() {
+        guard CrowdinSDK.inSDKLocalizations.contains(localization) else {
+            let message = "Unable to start real-time preview as \(localization) is not supported on crowdin for this project."
+            print(message)
+            self.error?(NSError(domain: message, code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
         if LoginFeature.isLogined {
             _start()
         } else if let loginFeature = LoginFeature.shared {
