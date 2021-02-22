@@ -67,6 +67,7 @@ class SocketAPI: NSObject {
 extension SocketAPI: WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
         self.onConnect?()
+        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Connect to Web Socket success"))
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
@@ -75,6 +76,7 @@ extension SocketAPI: WebSocketDelegate {
         } else {
             self.onError?(NSError(domain: Errors.didDisconect.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
         }
+        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Disconnect Web Socket success"))
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {

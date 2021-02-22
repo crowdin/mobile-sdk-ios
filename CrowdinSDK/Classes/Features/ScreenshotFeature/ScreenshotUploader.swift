@@ -55,8 +55,10 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 			} else if let id = response?.data.project.id, let projectId = Int(id) {
 				self.projectId = projectId
 				success?()
+                CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Get distribution success"))
 			} else {
 				errorHandler?(NSError(domain: Errors.unknownError.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
+                CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Get distribution failed - \(Errors.unknownError.rawValue)"))
 			}
 		}
 	}
