@@ -70,4 +70,3 @@ enum Attribute {
         }
     }
 }
-
