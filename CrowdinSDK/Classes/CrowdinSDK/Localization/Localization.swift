@@ -62,9 +62,9 @@ class Localization {
 		get {
 			switch mode {
 			case .autoSDK:
-                return preferredLocalizations.first(where: { Localization.current?.provider.localizations.contains($0) ?? false })
+                return preferredLocalizations.last(where: { Localization.current?.provider.localizations.contains($0) ?? false })
 			case .autoBundle:
-				return preferredLocalizations.first(where: { Localization.current?.inBundle.contains($0) ?? false })
+				return preferredLocalizations.last(where: { Localization.current?.inBundle.contains($0) ?? false })
 			case .customSDK:
 				return self.customLocalization
 			case .customBundle:

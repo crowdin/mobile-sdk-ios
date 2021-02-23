@@ -19,7 +19,7 @@ class CrowdinLogsCollector {
     func add(log: CrowdinLog) {
         _logs.mutate { $0.append(log) }
         
-        guard CrowdinSDK.config.debugEnabled else {
+        guard let config = CrowdinSDK.config, config.debugEnabled else {
             return
         }
         

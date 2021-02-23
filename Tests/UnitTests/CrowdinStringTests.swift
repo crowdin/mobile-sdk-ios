@@ -30,7 +30,7 @@ class CrowdinStringTestsLocalization: XCTestCase {
     }
     
     func testCrowdinSDKStringLocalizationForDefaultLanguage() {
-        CrowdinSDK.enableSDKLocalization(true, localization: nil)
+        CrowdinSDK.enableSDKLocalization(true, localization: "en")
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         _ = CrowdinSDK.addDownloadHandler {
