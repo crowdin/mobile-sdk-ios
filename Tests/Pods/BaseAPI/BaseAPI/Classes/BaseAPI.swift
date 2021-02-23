@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if swift(>=5.1) && os(Linux)
+   import FoundationNetworking
+#endif
+
 public typealias BaseAPICompletion = (Data?, URLResponse?, Error?) -> Swift.Void
 public typealias BaseAPIResult = SynchronousDataTaskResult
 

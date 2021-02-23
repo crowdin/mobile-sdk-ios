@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if swift(>=5.1) && os(Linux)
+   import FoundationNetworking
+#endif
+
 public class Request {
     public var url: String
     public var method: RequestMethod
@@ -23,8 +27,8 @@ public class Request {
     }
     
     public func request() -> (request: URLRequest?, error: Error?) {
-        let url = URL(string: self.urlWithParameters())
-        if let url = url {
+        let stringUrl = self.urlWithParameters()
+        if let encodedUrlString = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed), let url = URL(string: encodedUrlString) {
             var request = URLRequest(url: url)
             if let headers = headers {
                 for (key, value) in headers {
@@ -35,7 +39,7 @@ public class Request {
             request.httpBody = body
             return (request, nil)
         } else {
-            return (nil, NSError(domain:"Unable to create URL", code:9999, userInfo:nil) )
+            return (nil, NSError(domain:"Unable to create URL from string \(stringUrl)", code:9999, userInfo:nil) )
         }
     }
     
