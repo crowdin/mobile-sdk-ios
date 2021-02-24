@@ -8,7 +8,7 @@
 import Foundation
 import BaseAPI
 
-enum AttributedTextFormatter {
+struct AttributedTextFormatter {
    
     static func make(
         method: RequestMethod,
@@ -40,7 +40,7 @@ enum AttributedTextFormatter {
     }
 }
 
-enum Attribute {
+enum LogAttribute {
     
     case url(String)
     case method(String)
