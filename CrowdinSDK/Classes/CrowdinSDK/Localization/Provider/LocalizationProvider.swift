@@ -127,15 +127,15 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     
     // Setup plurals
     func setupPlurals() {
-        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
-        self.setupPluralsBundle()
+        pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
+        setupPluralsBundle()
     }
     
     func setupPluralsBundle() {
-		self.pluralsBundle?.remove()
+		pluralsBundle?.remove()
 		pluralsFolder.directories.forEach { try? $0.remove() }
         let localizationFolderName = localStorage.localization + String.minus + UUID().uuidString
-        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.plurals)
+        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.plurals)
     }
     // Setup strings
     func setupStrings() {

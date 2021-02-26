@@ -124,10 +124,10 @@ final class LocalLocalizationExtractor {
     }
     
     func setupPluralsBundle() {
-        self.pluralsBundle?.remove()
-        pluralsFolder.directories.forEach({ try? $0.remove() })
+        pluralsBundle?.remove()
+        pluralsFolder.directories.forEach{ try? $0.remove() }
         let localizationFolderName = localization + String.minus + UUID().uuidString
-        self.pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.localizationPluralsDict)
+        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.localizationPluralsDict)
     }
     
     // Localization methods
