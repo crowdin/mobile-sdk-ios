@@ -84,7 +84,6 @@
 		12706DDA23DBB9320001D243 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		12706DDC23DBB9320001D243 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		12706DE123DBB9330001D243 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		12706DE423DBB9330001D243 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12706DE623DBB9330001D243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12706E0823DBDBEE0001D243 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		12706E0A23DBE0D60001D243 /* TypeCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCVCell.swift; sourceTree = "<group>"; };
@@ -126,10 +125,12 @@
 		A0EF92C77451D127D36BE069 /* Pods_AppleReminders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppleReminders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4E47C6AB77BD5D745CC522 /* Pods_AppleReminders_AppleRemindersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppleReminders_AppleRemindersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82913D8257300E70068A629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E82913DE257301310068A629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		E82913E5257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E82913E6257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E837B5F22596484F00656C9B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		E8FABB3225BD9884007F1468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E8FABB3425BE101B007F1468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E8FABB3525BE101B007F1468 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = uk; path = uk.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E8FABB3625BE101B007F1468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4F3E1B6D5FE0494414C1392 /* Pods-AppleReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleReminders.debug.xcconfig"; path = "Target Support Files/Pods-AppleReminders/Pods-AppleReminders.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -357,6 +358,7 @@
 				en,
 				Base,
 				uk,
+				fr,
 			);
 			mainGroup = 12706DCC23DBB9320001D243;
 			productRefGroup = 12706DD623DBB9320001D243 /* Products */;
@@ -505,9 +507,9 @@
 		12706DE323DBB9330001D243 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				12706DE423DBB9330001D243 /* Base */,
-				E82913DE257301310068A629 /* en */,
-				E82913E5257306F90068A629 /* uk */,
+				E8FABB3425BE101B007F1468 /* en */,
+				E8FABB3525BE101B007F1468 /* uk */,
+				E8FABB3625BE101B007F1468 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -517,6 +519,7 @@
 			children = (
 				E82913D8257300E70068A629 /* en */,
 				E82913E6257306F90068A629 /* uk */,
+				E8FABB3225BD9884007F1468 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

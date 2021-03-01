@@ -19,6 +19,7 @@ class SocketAPI: NSObject {
     var ws: WebSocket
     var onConnect: (() -> Void)? = nil
     var onError: ((Error) -> Void)? = nil
+    var onDisconnect: (() -> Void)? = nil
     var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)? = nil
     var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)? = nil
     
@@ -44,7 +45,7 @@ class SocketAPI: NSObject {
     }
     
     func disconect() {
-        self.ws.disconnect()
+        self.ws.disconnect(forceTimeout: 1, closeCode: CloseCode.normal.rawValue)
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
@@ -70,10 +71,12 @@ extension SocketAPI: WebSocketDelegate {
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        if let error = error {
+        if let wsError = error as? WSError, wsError.code == CloseCode.normal.rawValue {
+            self.onDisconnect?()
+        } else if let error = error {
             self.onError?(error)
         } else {
-            self.onError?(NSError(domain: Errors.didDisconect.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
+            self.onDisconnect?()
         }
     }
     

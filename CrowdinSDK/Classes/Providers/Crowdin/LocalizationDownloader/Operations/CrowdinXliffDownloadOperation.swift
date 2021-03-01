@@ -64,20 +64,23 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
     var strings: [String: String]?
     var plurals: [AnyHashable: Any]?
     var timestamp: TimeInterval?
+    var eTagStorage: ETagStorage
     
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinXliffDownloadOperationCompletion?) {
         self.timestamp = timestamp
+        self.eTagStorage = ETagStorage(localization: localization)
         super.init(filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
     required init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.timestamp = timestamp
+        self.eTagStorage = ETagStorage(localization: localization)
         super.init(filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {
-        let etag = ETagStorage.shared.etags[self.filePath]
+        let etag = eTagStorage.etags[self.filePath]
         contentDeliveryAPI.getXliff(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (xliffDict, etag, error) in
             guard let self = self else { return }
             if let xliffDict = xliffDict {
@@ -85,7 +88,7 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
                 self.strings = parseResult.0
                 self.plurals = parseResult.1
             }
-            ETagStorage.shared.etags[self.filePath] = etag
+            self.eTagStorage.etags[self.filePath] = etag
             self.completion?(self.strings, self.plurals, error)
             self.finish(with: error != nil)
         }

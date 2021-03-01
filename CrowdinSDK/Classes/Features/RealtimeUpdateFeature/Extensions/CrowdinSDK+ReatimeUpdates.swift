@@ -17,8 +17,10 @@ extension CrowdinSDK {
     }
     
     public class func startRealtimeUpdates(success: (() -> Void)?, error: ((Error) -> Void)?) {
-        guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
-        realtimeUpdateFeature.start(success: success, error: error)
+        guard var realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
+        realtimeUpdateFeature.success = success
+        realtimeUpdateFeature.error = error
+        realtimeUpdateFeature.start()
     }
     
     public class func stopRealtimeUpdates() {
