@@ -109,7 +109,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     
     func getLanguagesSync(for hash: String) -> [String]? {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        return self.contentDeliveryAPI.getManifestSync()?.languages
+        let manifest = self.contentDeliveryAPI.getManifestSync()
+        if let error = manifest.error {
+            LocalizationUpdateObserver.shared.notifyError(with: [error])
+        }
+        return manifest.response?.languages
     }
     
     func add(error: Error?) {

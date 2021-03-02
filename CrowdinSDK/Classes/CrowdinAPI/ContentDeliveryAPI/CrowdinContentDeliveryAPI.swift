@@ -185,20 +185,19 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
     
-    func getManifestSync() -> ManifestResponse? {
+    func getManifestSync() -> (response: ManifestResponse?, error: Error?) {
         let stringURL = buildURL(fileType: .manifest, filePath: ".json", timestamp: nil)
         let result = super.get(url: stringURL)
         if let data = result.data {
             do {
                 let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
-                return response
+                return (response, nil)
             } catch {
-                LocalizationUpdateObserver.shared.notifyError(with: [error])
-                return nil
+                return (nil, error)
             }
         } else {
-            LocalizationUpdateObserver.shared.notifyError(with: [NSError(domain: "Unable to download manifest for hash - \(hash)", code: defaultCrowdinErrorCode, userInfo: nil)])
-            return nil
+            let error = NSError(domain: "Unable to download manifest for hash - \(hash)", code: defaultCrowdinErrorCode, userInfo: nil)
+            return (nil, error)
         }
     }
 }
