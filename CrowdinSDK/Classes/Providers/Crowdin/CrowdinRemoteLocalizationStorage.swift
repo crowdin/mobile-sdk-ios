@@ -26,10 +26,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     func prepare(with completion: @escaping () -> Void) {
         if !CrowdinSupportedLanguages.shared.loaded {
-            CrowdinSupportedLanguages.shared.downloadSupportedLanguages {
+            CrowdinSupportedLanguages.shared.downloadSupportedLanguages(completion: {
                 self.localizations = ManifestManager.shared(for: self.hashString).iOSLanguages
                 completion()
-            }
+            }, error: {
+                LocalizationUpdateObserver.shared.notifyError(with: [$0])
+            })
         } else {
             completion()
         }
@@ -46,10 +48,11 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
-        self.crowdinDownloader = CrowdinLocalizationDownloader()
-        self.crowdinDownloader.download(with: self.hashString, for: self.localization) { [weak self] strings, plurals, errors in
+        guard self.localizations.contains(self.localization) else { return }
+        let localization = self.localization
+        self.crowdinDownloader.download(with: self.hashString, for: localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
-            completion(self.localizations, strings, plurals)
+            completion(self.localizations, localization, strings, plurals)
             DispatchQueue.main.async {
                 LocalizationUpdateObserver.shared.notifyDownload()
                 
@@ -62,6 +65,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     /// Remove add stored E-Tag headers for every file.
     func deintegrate() {
-        ETagStorage.shared.clear()
+        ETagStorage.clear()
     }
 }

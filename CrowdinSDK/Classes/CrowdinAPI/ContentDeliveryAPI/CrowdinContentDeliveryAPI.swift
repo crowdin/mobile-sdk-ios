@@ -193,9 +193,11 @@ class CrowdinContentDeliveryAPI: BaseAPI {
                 let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
                 return response
             } catch {
+                LocalizationUpdateObserver.shared.notifyError(with: [error])
                 return nil
             }
         } else {
+            LocalizationUpdateObserver.shared.notifyError(with: [NSError(domain: "Unable to download manifest for hash - \(hash)", code: defaultCrowdinErrorCode, userInfo: nil)])
             return nil
         }
     }

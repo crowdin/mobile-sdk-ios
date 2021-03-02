@@ -26,7 +26,7 @@ enum Section: String, CaseIterable {
 final class GroupDiffableDatasource: UITableViewDiffableDataSource<Section, ReminderList> {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return snapshot().sectionIdentifiers[section].sectionTitles
+        snapshot().sectionIdentifiers[section].sectionTitles
     }
     
     // MARK: reordering support

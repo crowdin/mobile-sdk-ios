@@ -28,8 +28,8 @@ extension CrowdinSDK {
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let hash = crowdinProviderConfig.hashString
-        let localizations = ManifestManager.shared(for: hash).iOSLanguages
-        let localization = Bundle.main.preferredLanguage(with: localizations)
+        let localizations = ManifestManager.shared(for: hash).iOSLanguages + self.inBundleLocalizations
+        let localization = currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
         self.startWithRemoteStorage(remoteStorage, completion: completion)
     }

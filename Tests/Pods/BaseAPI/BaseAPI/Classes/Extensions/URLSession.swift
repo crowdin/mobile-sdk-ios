@@ -9,6 +9,10 @@
 import Foundation
 import Dispatch
 
+#if swift(>=5.1) && os(Linux)
+   import FoundationNetworking
+#endif
+
 public typealias SynchronousDataTaskResult = (data: Data?, response: URLResponse?, error: Error?)
 
 extension URLSession {

@@ -15,9 +15,8 @@ class CrowdinSDKTests: XCTestCase {
 		let crowdinProviderConfig = CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i",
 														  sourceLanguage: "en")
 		let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-		CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-            CrowdinSDK.enableSDKLocalization(true, localization: nil)
-        })
+        CrowdinSDK.currentLocalization = nil
+		CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
     }
 
     override func tearDown() {
@@ -31,15 +30,11 @@ class CrowdinSDKTests: XCTestCase {
 	}
 	
 	func testInBundleLocalizations() {
-		XCTAssert(CrowdinSDK.inBundleLocalizations.count == 4, "Contains Base, English, German and Ukrainian localizations.")
+		XCTAssert(CrowdinSDK.inBundleLocalizations.count == 3, "Contains English, German and Ukrainian localizations.")
 	}
 	
 	func testCurrentLocalization() {
 		XCTAssert(CrowdinSDK.currentLocalization == "en")
-	}
-	
-	func testMode() {
-		XCTAssert(CrowdinSDK.mode == .autoSDK)
 	}
     
     func testConfig() {
