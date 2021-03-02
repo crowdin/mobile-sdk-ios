@@ -196,7 +196,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
                 return (nil, error)
             }
         } else {
-            let error = NSError(domain: "Unable to download manifest for hash - \(hash)", code: defaultCrowdinErrorCode, userInfo: nil)
+            let error = NSError(domain: "Unable to download manifest for hash - \(hash)", code: -1, userInfo: nil)
             return (nil, error)
         }
     }
