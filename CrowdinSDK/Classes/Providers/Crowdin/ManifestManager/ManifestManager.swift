@@ -22,9 +22,12 @@ class ManifestManager {
         self.hash = hash
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
         let manifest = contentDeliveryAPI.getManifestSync()
-        self.files = manifest?.files ?? []
-        self.timestamp = manifest?.timestamp
-        self.languages = manifest?.languages
+        if let error = manifest.error {
+            LocalizationUpdateObserver.shared.notifyError(with: [error])
+        }
+        self.files = manifest.response?.files ?? []
+        self.timestamp = manifest.response?.timestamp
+        self.languages = manifest.response?.languages
     }
     
     static func shared(for hash: String) -> ManifestManager {
