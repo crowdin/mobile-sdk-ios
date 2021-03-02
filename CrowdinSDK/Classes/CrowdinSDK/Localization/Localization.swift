@@ -22,56 +22,35 @@ class Localization {
     
     /// Localization extractor.
     var extractor: LocalLocalizationExtractor
-    
-    /// Ordered array of preffered localization language codes according to device settings, and bundle localizations.
-    fileprivate static let preferredLocalizations = Bundle.main.preferredLanguages
-    
+
     // swiftlint:disable implicitly_unwrapped_optional
     /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
 	
-    /// Property for detecting and storing current SDK mode value.
-    static var mode: CrowdinSDK.Mode {
-		get {
-			let value = UserDefaults.standard.mode
-			return CrowdinSDK.Mode(rawValue: value) ?? CrowdinSDK.Mode.autoSDK
-		}
-		set {
-            switch newValue {
-            case .autoSDK, .customSDK,.autoBundle:
-                UserDefaults.standard.cleanAppleLanguages()
-            case .customBundle: break
-            }
-			UserDefaults.standard.mode = newValue.rawValue
-		}
-	}
-	
     /// Property for detecting and storing curent localization value depending on current SDK mode.
     static var currentLocalization: String? {
 		set {
-			switch mode {
-			case .autoSDK: break;
-			case .customSDK:
-				self.customLocalization = newValue
-			case .autoBundle: break;
-			case .customBundle:
-				UserDefaults.standard.appleLanguage = newValue
-			}
-            Localization.current?.provider.localization = newValue ?? Bundle.main.preferredLanguage
+            self.customLocalization = newValue
+            if let localization = newValue {
+                Localization.current?.provider.localization = localization
+                Localization.current?.extractor.localization = localization
+            } else {
+                Localization.current?.provider.localization = autoDetectedLocalization
+                Localization.current?.extractor.localization = autoDetectedLocalization
+            }
 		}
 		get {
-			switch mode {
-			case .autoSDK:
-                return preferredLocalizations.last(where: { Localization.current?.provider.localizations.contains($0) ?? false })
-			case .autoBundle:
-				return preferredLocalizations.last(where: { Localization.current?.inBundle.contains($0) ?? false })
-			case .customSDK:
-				return self.customLocalization
-			case .customBundle:
-				return UserDefaults.standard.appleLanguage
-			}
+            return customLocalization
 		}
 	}
+    
+    /// Auto detects localization. For detection uses localizations from the bundle and from the current provider. Return "en" if SDK isn't initialized or there are no languages ether on crowdin and bundle.
+    private static var autoDetectedLocalization: String {
+        if let avalaibleLocalizations = Localization.current?.avalaibleLocalizations {
+            return Bundle.main.preferredLanguage(with: avalaibleLocalizations)
+        }
+        return defaultLocalization
+    }
 	
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
     private static var customLocalization: String? {
@@ -95,14 +74,12 @@ class Localization {
 	}
 	
 	/// A list of all avalaible localization in SDK downloaded from current provider.
-	var inProvider: [String] {
-		return provider.localizations
-	}
+	var inProvider: [String] { provider.localizations }
     
     /// A list of all the localizations contained in the bundle.
-    var inBundle: [String] {
-        return Bundle.main.localizations
-    }
+    var inBundle: [String] { Bundle.main.inBundleLocalizations }
+    
+    var avalaibleLocalizations: [String] { Array(Set<String>(inProvider + inBundle)) }
     
     /// Find localization key for a given text.
     ///
@@ -122,7 +99,12 @@ class Localization {
     /// - Parameter key: Key to find localization string for.
     /// - Returns: Localization key string value. If string woun't find method will return key value.
     func localizedString(for key: String) -> String? {
-        return self.provider.localizedString(for: key)
+        var string = provider.localizedString(for: key)
+        if string == nil {
+            // Todo: Add proper method to extractor for getting localized string by key.
+            string = extractor.localizedString(for: key)
+        }
+        return string
     }
 	
     /// Method for detecting formated values in string by given format.

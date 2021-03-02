@@ -13,6 +13,9 @@ protocol RefreshLocalizationFeatureProtocol {
 
 final class RefreshLocalizationFeature: RefreshLocalizationFeatureProtocol {
     static func refreshLocalization() {
-        Localization.current.provider.refreshLocalization()
+        if let currentLocalization = Localization.current {
+            ETagStorage.clear(for: currentLocalization.provider.localization)
+            currentLocalization.provider.refreshLocalization()
+        }
     }
 }

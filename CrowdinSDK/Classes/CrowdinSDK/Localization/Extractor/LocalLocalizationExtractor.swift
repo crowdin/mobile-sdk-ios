@@ -7,26 +7,30 @@
 
 import Foundation
 
-class LocalLocalizationExtractor {
-    static var allLocalizations: [String] {
-        return Bundle.main.localizations
+final class LocalLocalizationExtractor {
+    enum Strings: String {
+        case LocalPlurals
+        case LocalizableStringsdict
     }
     
-    var allKeys: [String] {
-        return self.localizationDict.keys.map({ String($0) })
-    }
-    var allValues: [String] {
-        return self.localizationDict.values.map({ String($0) })
-    }
+    static var allLocalizations: [String] { Bundle.main.inBundleLocalizations }
+    
+    var allKeys: [String] { localizationDict.keys.map({ String($0) }) }
+    var allValues: [String] { localizationDict.values.map({ String($0) }) }
     
     var localizationDict: [String: String] = [:]
 	var localizationPluralsDict: [AnyHashable: Any] = [:]
     
-    var localization: String
+    var pluralsFolder: FolderProtocol
+    var pluralsBundle: DictionaryBundleProtocol?
     
-    var isEmpty: Bool {
-        return self.localizationDict.isEmpty && self.localizationPluralsDict.isEmpty
+    var localization: String {
+        didSet {
+            extract()
+        }
     }
+    
+    var isEmpty: Bool { localizationDict.isEmpty && self.localizationPluralsDict.isEmpty }
     
     var stringsFiles: [String] {
         guard let filePath = Bundle.main.path(forResource: localization, ofType: FileType.lproj.rawValue) else { return [] }
@@ -44,30 +48,29 @@ class LocalLocalizationExtractor {
     
     init(localization: String) {
         self.localization = localization
-        self.extract()
-        // If we're unable to extract localization passed/detected language then try to extract Base localization.
-        if self.isEmpty, let developmentRegion = Bundle.main.developmentRegion {
-            self.localization = developmentRegion
-            self.extract()
-        }
+        pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.LocalPlurals.rawValue)
+        extract()
     }
     
     func setLocalization(_ localization: String) {
         self.localization = localization
-        self.extract()
+        extract()
     }
     
     func extract() {
-        self.stringsFiles.forEach { (file) in
+        localizationDict = [:]
+        stringsFiles.forEach { (file) in
             guard let dict = NSDictionary(contentsOfFile: file) else { return }
             self.localizationDict.merge(with: dict as? [String: String] ?? [:])
         }
         
-        self.stringsdictFiles.forEach { (file) in
+        localizationPluralsDict = [:]
+        stringsdictFiles.forEach { (file) in
             guard let dict = NSMutableDictionary (contentsOfFile: file) else { return }
 			guard let strings = dict as? [AnyHashable: Any] else { return }
 			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }
+        setupPluralsBundle()
     }
 	
 	static func extractLocalizationJSONFile(to path: String) {
@@ -118,5 +121,25 @@ class LocalLocalizationExtractor {
             let ectractor = LocalLocalizationExtractor(localization: localization)
             _ = ectractor.extractLocalizationPlurals(to: path)
         }
+    }
+    
+    func setupPluralsBundle() {
+        pluralsBundle?.remove()
+        pluralsFolder.directories.forEach{ try? $0.remove() }
+        let localizationFolderName = localization + String.minus + UUID().uuidString
+        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.localizationPluralsDict)
+    }
+    
+    // Localization methods
+    func localizedString(for key: String) -> String? {
+        var string = self.localizationDict[key]
+        if string == nil {
+            string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+            // Plurals localization works as default bundle localization. In case localized string for key is missing the key string will be returned. To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
+            if string == key {
+                string = nil
+            }
+        }
+        return string
     }
 }

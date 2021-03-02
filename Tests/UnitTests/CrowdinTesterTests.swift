@@ -28,7 +28,6 @@ class CrowdinTesterTests: XCTestCase {
     }
     
     func testDownloadedLocalizations() {
-        CrowdinSDK.mode = .customSDK
         CrowdinSDK.currentLocalization = "en"
         let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
@@ -43,7 +42,6 @@ class CrowdinTesterTests: XCTestCase {
     
     
     func testChangeAndDownloadLocalizations() {
-        CrowdinSDK.mode = .customSDK
         CrowdinSDK.currentLocalization = "de"
         
         let expectation = XCTestExpectation(description: "Download handler is called")

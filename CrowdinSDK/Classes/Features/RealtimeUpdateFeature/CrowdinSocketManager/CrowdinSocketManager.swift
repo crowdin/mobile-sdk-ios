@@ -14,6 +14,7 @@ protocol CrowdinSocketManagerProtocol {
     var active: Bool { get }
     var connect: (() -> Void)? { set get }
     var error: ((Error) -> Void)? { set get }
+    var disconnect: (() -> Void)? { set get }
     var didChangeString: ((Int, String) -> Void)? { set get }
     var didChangePlural: ((Int, String) -> Void)? { set get }
     
@@ -38,6 +39,11 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var error: ((Error) -> Void)? = nil {
         didSet {
             self.socketAPI.onError = error
+        }
+    }
+    var disconnect: (() -> Void)? = nil {
+        didSet {
+            self.socketAPI.onDisconnect = disconnect
         }
     }
     var didChangeString: ((Int, String) -> Void)? = nil

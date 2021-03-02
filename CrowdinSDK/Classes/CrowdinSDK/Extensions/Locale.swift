@@ -24,6 +24,7 @@ extension Locale {
 			// TODO: find a better way of getting language identifiers without replacing "_" to "-".
 			return Locale.identifier(fromComponents: components).replacingOccurrences(of: "_", with: "-")
 		})
+        
         // Also add language code from localization with regions: "en-US" -> "en", "uk-UA" -> "uk".
         localizations.forEach {
             if let language = $0.split(separator: "-").map({ String($0) }).first, language != $0, !localizations.contains(language) {
@@ -33,6 +34,20 @@ extension Locale {
                 }
             }
         }
+        
+        // Add region code to localizations without region: "en" -> "en-US".
+        if let regionCode = Locale.current.regionCode {
+            localizations.forEach({
+                if !$0.hasLocaleId {
+                    localizations.append("\($0)-\(regionCode)")
+                }
+            })
+        }
         return localizations
 	}
+    
+}
+
+private extension String {
+    var hasLocaleId: Bool { split(separator: "-").count > 1 }
 }

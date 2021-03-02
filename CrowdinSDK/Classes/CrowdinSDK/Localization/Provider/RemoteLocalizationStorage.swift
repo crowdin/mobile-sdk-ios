@@ -12,8 +12,5 @@ import Foundation
     /// Storage name.
     var name: String { get set }
     
-    /// Shoud be called to remove cache data
-    func deintegrate()
-    
     func prepare(with completion:  @escaping () -> Void)
 }

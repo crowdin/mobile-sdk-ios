@@ -13,6 +13,9 @@ protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
     var strings: [String: String] { get set }
     /// Plurals localization files content.
     var plurals: [AnyHashable: Any] { get set }
+    
+    func saveLocalizaion(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String)
+    func save()
 }
 
 /// Local localization storage default implementation. Include data fetching and saving locally.
@@ -32,13 +35,15 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     /// Current localization.
     var localization: String {
         didSet {
+            strings = [:]
+            plurals = [:]
             self.fetchData()
         }
     }
     
     /// List of all available localizations.
     var localizations: [String] {
-        return self.localizationFolder.files.filter({ return $0.type == "plist" }).map({ $0.name })
+        return self.localizationFolder.files.filter({ return $0.type == FileType.plist.rawValue }).map({ $0.name })
     }
     
     private var _strings: Atomic<[String: String]> = Atomic([:])
@@ -48,7 +53,6 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         }
         set {
             _strings.mutate({ $0 = newValue })
-            saveLocalization()
         }
     }
     
@@ -59,7 +63,6 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         }
         set {
             _plurals.mutate({ $0 = newValue })
-            saveLocalization()
         }
     }
     
@@ -76,10 +79,10 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     
     func fetchData(completion: LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.fetchData()
-        completion(self.localizations, self.strings, self.plurals)
+        completion(self.localizations, self.localization, self.strings, self.plurals)
     }
     
-    func saveLocalization() {
+    func save() {
         let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: localizationFilePath)
         localizationFile.file = [Keys.strings.rawValue : strings, Keys.plurals.rawValue: plurals]
@@ -88,5 +91,19 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func saveLocalizaion(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
+        let localStorage = LocalLocalizationStorage(localization: localization)
+        if let strings = strings {
+            localStorage.strings.merge(with: strings)
+        }
+        if let plurals = plurals {
+            localStorage.plurals.merge(with: plurals)
+        }
+    }
+    
+    func deintegrate() {
+        try? self.localizationFolder.remove()
     }
 }
