@@ -14,7 +14,7 @@ struct AttributeFactory {
         let title = attribute.title
         
         switch attribute {
-        case let .url(url):
+        case let .url(url), let .path(url):
             let text = url.isEmpty ? empty : url
             
             return AttributeFactory.attributeWithTitle(title, text)
@@ -23,7 +23,7 @@ struct AttributeFactory {
             
             return AttributeFactory.attributeWithTitle(title, text)
         case let .parameters(dictionary), let .headers(dictionary):
-            let text = dictionary?.description ?? empty
+            let text = dictionary?.isEmpty == true ? empty : dictionary?.description ?? empty
             
             return AttributeFactory.attributeWithTitle(title, text)
         case let .requestBody(body), let .responseBody(body):
@@ -33,6 +33,10 @@ struct AttributeFactory {
             }
             
             return AttributeFactory.attributeWithTitle(title, bodyText)
+        case let .error(error):
+            let text = error.isEmpty ? empty : error
+            
+            return AttributeFactory.attributeWithTitle(title, text)
         case .newLine:
             return NSAttributedString(string: "\n")
         case .separator:

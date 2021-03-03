@@ -52,7 +52,7 @@ class CrowdinAPI: BaseAPI {
                 return
             }
             
-            self.logRequest(method: .POST, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
+            CrowdinAPILog.logRequest(method: .POST, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
             
             do {
                 let response = try JSONDecoder().decode(T.self, from: data)
@@ -74,7 +74,7 @@ class CrowdinAPI: BaseAPI {
             return (nil, result.error)
         }
         
-        logRequest(method: .POST, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: data)
+        CrowdinAPILog.logRequest(method: .POST, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: data)
         
         do {
             let response = try JSONDecoder().decode(T.self, from: data)
@@ -96,7 +96,7 @@ class CrowdinAPI: BaseAPI {
                 return
             }
             
-            self.logRequest(method: .GET, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), responseData: data)
+            CrowdinAPILog.logRequest(method: .GET, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), responseData: data)
             
             do {
                 let response = try JSONDecoder().decode(T.self, from: data)
@@ -118,7 +118,7 @@ class CrowdinAPI: BaseAPI {
             return (nil, result.error)
         }
         
-        logRequest(method: .GET, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), responseData: data)
+        CrowdinAPILog.logRequest(method: .GET, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), responseData: data)
         
         do {
             let response = try JSONDecoder().decode(T.self, from: data)

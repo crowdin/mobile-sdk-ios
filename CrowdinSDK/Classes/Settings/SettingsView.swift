@@ -142,5 +142,6 @@ class SettingsView: UIView {
             $0.logout()
         }
         open = false
+        CrowdinLogsCollector.shared.add(log: .info(with: "Successfully logout"))
     }
 }

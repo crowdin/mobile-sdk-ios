@@ -16,7 +16,8 @@ struct AttributedTextFormatter {
         parameters: [String: String]? = nil,
         headers: [String: String]? = nil,
         body: Data? = nil,
-        responseData: Data? = nil
+        responseData: Data? = nil,
+        error: Error? = nil
     ) -> NSAttributedString {
         let attributedText = NSMutableAttributedString()
         
@@ -31,7 +32,9 @@ struct AttributedTextFormatter {
             AttributeFactory.make(.separator),
             AttributeFactory.make(.requestBody(body)),
             AttributeFactory.make(.separator),
-            AttributeFactory.make(.responseBody(responseData))
+            AttributeFactory.make(.responseBody(responseData)),
+            AttributeFactory.make(.separator),
+            AttributeFactory.make(.error(error?.localizedDescription ?? "Empty"))
         ].forEach {
             attributedText.append($0)
         }
@@ -42,17 +45,21 @@ struct AttributedTextFormatter {
 
 enum LogAttribute {
     
+    case path(String)
     case url(String)
     case method(String)
     case parameters([String: String]?)
     case headers([String: String]?)
     case requestBody(Data?)
     case responseBody(Data?)
+    case error(String)
     case newLine
     case separator
     
     var title: String {
         switch self {
+        case .path:
+            return "[PATH]"
         case .url:
             return "[URL]"
         case .method:
@@ -65,6 +72,8 @@ enum LogAttribute {
             return "[Request Body]"
         case .responseBody:
             return "[Response Body]"
+        case .error:
+            return "[Error]"
         default:
             return ""
         }

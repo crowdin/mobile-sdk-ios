@@ -111,7 +111,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
             }
             self.setup(with: localizations, strings: strings, plurals: plurals)
             self.completion?()
-            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Localization fetched from remote storage"))
         }, errorHandler: errorHandler)
     }
     

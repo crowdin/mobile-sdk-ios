@@ -37,16 +37,25 @@ struct CrowdinLog {
     let message: String
     var attributedDetails: NSAttributedString? = nil
     
-    static func info(with message: String) -> CrowdinLog {
-        CrowdinLog(type: .info, message: message)
+    static func info(with message: String, attributedDetails: NSAttributedString? = nil) -> CrowdinLog {
+        var log = CrowdinLog(type: .info, message: message)
+        log.attributedDetails = attributedDetails
+        
+        return log
     }
     
-    static func error(with message: String) -> CrowdinLog {
-        CrowdinLog(type: .error, message: message)
+    static func error(with message: String, attributedDetails: NSAttributedString? = nil) -> CrowdinLog {
+        var log = CrowdinLog(type: .error, message: message)
+        log.attributedDetails = attributedDetails
+        
+        return log
     }
     
-    static func warning(with message: String) -> CrowdinLog {
-        CrowdinLog(type: .warning, message: message)
+    static func warning(with message: String, attributedDetails: NSAttributedString? = nil) -> CrowdinLog {
+        var log = CrowdinLog(type: .warning, message: message)
+        log.attributedDetails = attributedDetails
+        
+        return log
     }
     
     static func rest(with message: String, attributedDetails: NSAttributedString? = nil) -> CrowdinLog {

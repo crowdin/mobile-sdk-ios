@@ -61,7 +61,18 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         if let etag = etag {
             headers = [Strings.ifNoneMatch.rawValue: etag]
         }
-        super.get(url: stringURL, headers: headers, completion: completion)
+        super.get(url: stringURL, headers: headers) { data, response, error in
+            completion(data, response, error)
+            CrowdinAPILog.logRequest(
+                method: .GET,
+                url: stringURL,
+                parameters: nil,
+                headers: headers,
+                body: nil,
+                responseData: data,
+                error: error
+            )
+        }
     }
     
     // MARK - Localization download methods:
@@ -176,6 +187,18 @@ class CrowdinContentDeliveryAPI: BaseAPI {
                 do {
                     let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
                     completion(response, nil)
+                    let details = response.files.map({ $0 }).joined(separator: "\n")
+                    let attributedText: NSMutableAttributedString = NSMutableAttributedString()
+                    attributedText.append(AttributeFactory.make(.url(stringURL)))
+                    attributedText.append(AttributeFactory.make(.separator))
+                    attributedText.append(AttributeFactory.make(.path(details)))
+                    CrowdinLogsCollector.shared.add(
+                        log: CrowdinLog(
+                            type: .info,
+                            message: "Localization fetched from remote storage",
+                            attributedDetails: attributedText
+                        )
+                    )
                 } catch {
                     completion(nil, error)
                 }

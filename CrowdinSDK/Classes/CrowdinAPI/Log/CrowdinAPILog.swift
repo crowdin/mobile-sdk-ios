@@ -8,15 +8,16 @@
 import Foundation
 import BaseAPI
 
-extension CrowdinAPI {
+struct CrowdinAPILog {
     
-    func logRequest(
+    static func logRequest(
         method: RequestMethod,
         url: String,
         parameters: [String: String]? = nil,
         headers: [String: String]? = nil,
         body: Data? = nil,
-        responseData: Data? = nil
+        responseData: Data? = nil,
+        error: Error? = nil
     ) {
         let urlMethod = method.rawValue
         let message = [urlMethod, url].joined(separator: ", ")
@@ -29,6 +30,6 @@ extension CrowdinAPI {
             responseData: responseData
         )
         
-        CrowdinLogsCollector.shared.add(log: CrowdinLog.rest(with: message, attributedDetails: attributedText))
+        CrowdinLogsCollector.shared.add(log: .rest(with: message, attributedDetails: attributedText))
     }
 }
