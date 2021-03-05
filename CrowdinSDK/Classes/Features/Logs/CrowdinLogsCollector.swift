@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CrowdinLogsCollector {
+final class CrowdinLogsCollector {
     static let shared = CrowdinLogsCollector()
     
     fileprivate var _logs = Atomic<[CrowdinLog]>([])

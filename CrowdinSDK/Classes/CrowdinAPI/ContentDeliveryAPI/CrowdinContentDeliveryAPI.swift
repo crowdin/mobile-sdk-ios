@@ -187,18 +187,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
                 do {
                     let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
                     completion(response, nil)
-                    let details = response.files.map({ $0 }).joined(separator: "\n")
-                    let attributedText: NSMutableAttributedString = NSMutableAttributedString()
-                    attributedText.append(AttributeFactory.make(.url(stringURL)))
-                    attributedText.append(AttributeFactory.make(.separator))
-                    attributedText.append(AttributeFactory.make(.path(details)))
-                    CrowdinLogsCollector.shared.add(
-                        log: CrowdinLog(
-                            type: .info,
-                            message: "Localization fetched from remote storage",
-                            attributedDetails: attributedText
-                        )
-                    )
+                    CrowdinAPILog.logRequest(response: response, stringURL: stringURL, message: "Localization fetched from remote storage")
                 } catch {
                     completion(nil, error)
                 }
@@ -214,6 +203,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         if let data = result.data {
             do {
                 let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
+                CrowdinAPILog.logRequest(response: response, stringURL: stringURL, message: "Download manifest for hash - \(hash) for sync")
                 return (response, nil)
             } catch {
                 return (nil, error)

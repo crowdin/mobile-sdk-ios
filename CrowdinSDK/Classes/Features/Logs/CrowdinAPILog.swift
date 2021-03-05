@@ -32,4 +32,23 @@ struct CrowdinAPILog {
         
         CrowdinLogsCollector.shared.add(log: .rest(with: message, attributedDetails: attributedText))
     }
+    
+    static func logRequest(
+        response: ManifestResponse,
+        stringURL: String,
+        message: String
+    ) {
+        let details = response.files.map({ $0 }).joined(separator: "\n")
+        let attributedText: NSMutableAttributedString = NSMutableAttributedString()
+        attributedText.append(AttributeFactory.make(.url(stringURL)))
+        attributedText.append(AttributeFactory.make(.separator))
+        attributedText.append(AttributeFactory.make(.path(details)))
+        CrowdinLogsCollector.shared.add(
+            log: CrowdinLog(
+                type: .info,
+                message: message,
+                attributedDetails: attributedText
+            )
+        )
+    }
 }
