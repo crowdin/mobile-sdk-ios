@@ -10,12 +10,6 @@
 "Location" = "Розташування[L]";
 "not implemented" = "не впроваджений[L]";
 "Cancel" = "Скасувати[L]";
-"General" = "Загальні[L]";
-"MOA" = "MOA[L]";
-"Vacation" = "Відпустка[L]";
-"Birthday" = "День народження[L]";
-"Christmas" = "Різдво[L]";
-"Reminders" = "Нагадування[L]";
 "Tuesday" = "Вівторок[L]";
 "Selecting this option will show the reminder notification when chatting with a person in Messages." = "Якщо вибрати цей параметр, відобразиться сповіщення про нагадування під час спілкування з людиною в чаті в Повідомленнях.[L]";
 "Main" = "Головна[L]";
@@ -44,7 +38,6 @@
 "Thursday" = "Четвер[L]";
 "Buy milk" = "Купуйте молоко[L]";
 "Pick up kid from daycare" = "Забери дитину з дитячого садка[L]";
-"MOA" = "MOA[L]";
 "Testing" = "Тестування[L]";
 "Go to Store" = "Перейдіть до магазину[L]";
 "Pay milk money" = "Платіть молочні гроші[L]";
@@ -110,4 +103,4 @@
 "INCLUDE" = "ВКЛЮЧАТИ[L]";
 "End Repeat Date" = "Дата закінчення повтору[L]";
 "Settings" = "Налаштування[L]";
-"You do not have any lists. To create a new one, press the \"Add List\" button" = "У вас немає жодного списку. Щоб створити нову, натисніть кнопку \"Додати список\";
+"You do not have any lists. To create a new one, press the \"Add List\" button" = "У вас немає жодного списку. Щоб створити нову, натисніть кнопку \"Додати список\"";

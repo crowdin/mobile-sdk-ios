@@ -10,12 +10,6 @@
 "Location" = "Location[L]";
 "not implemented" = "not implemented[L]";
 "Cancel" = "Cancel[L]";
-"General" = "General[L]";
-"MOA" = "MOA[L]";
-"Vacation" = "Vacation[L]";
-"Birthday" = "Birthday[L]";
-"Christmas" = "Christmas[L]";
-"Reminders" = "Reminders[L]";
 "Tuesday" = "Tuesday[L]";
 "Selecting this option will show the reminder notification when chatting with a person in Messages." = "Selecting this option will show the reminder notification when chatting with a person in Messages.[L]";
 "Main" = "Main[L]";
@@ -44,7 +38,6 @@
 "Thursday" = "Thursday[L]";
 "Buy milk" = "Buy milk[L]";
 "Pick up kid from daycare" = "Pick up kid from daycare[L]";
-"MOA" = "MOA[L]";
 "Testing" = "Testing[L]";
 "Go to Store" = "Go to Store[L]";
 "Pay milk money" = "Pay milk money[L]";
