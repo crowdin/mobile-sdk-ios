@@ -30,7 +30,12 @@ struct CrowdinAPILog {
             responseData: responseData
         )
         
-        CrowdinLogsCollector.shared.add(log: .rest(with: message, attributedDetails: attributedText))
+        guard url.contains("mapping") else {
+            CrowdinLogsCollector.shared.add(log: .rest(with: message, attributedDetails: attributedText))
+            return
+        }
+        
+        CrowdinLogsCollector.shared.add(log: .info(with: message, attributedDetails: attributedText))
     }
     
     static func logRequest(
@@ -38,11 +43,10 @@ struct CrowdinAPILog {
         stringURL: String,
         message: String
     ) {
+        let url = URL(string: stringURL)?.deletingLastPathComponent().description.dropLast().description ?? stringURL
         let details = response.files.map({ $0 }).joined(separator: "\n")
         let attributedText: NSMutableAttributedString = NSMutableAttributedString()
-        attributedText.append(AttributeFactory.make(.url(stringURL)))
-        attributedText.append(AttributeFactory.make(.separator))
-        attributedText.append(AttributeFactory.make(.path(details)))
+        attributedText.append(AttributeFactory.make(.url(url + details)))
         CrowdinLogsCollector.shared.add(
             log: CrowdinLog(
                 type: .info,
