@@ -116,7 +116,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     
     func log(localization: String, string: String, baseURL: String?, error: Error?) {
         let message = "Localization for '\(localization)' fetched from remote storage"
-        let filePath = URL(fileURLWithPath: baseURL ?? "").deletingLastPathComponent().appendingPathComponent( CrowdinPathsParser.shared.parse(string, localization: localization).dropFirst().description).description
+        let filePath = baseURL ?? ""
         guard error == nil else {
             CrowdinAPILog.logRequest(type: .error, stringURL: filePath, message: message)
             return
