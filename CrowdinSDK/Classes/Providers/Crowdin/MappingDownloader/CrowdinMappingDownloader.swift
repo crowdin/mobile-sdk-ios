@@ -19,13 +19,13 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
-        self.getFiles(for: hash) { [weak self] (files, _, error)  in
+        self.getFiles(for: hash) { [weak self] (files, _, url, error)  in
             guard let self = self else { return }
             if let files = files {
                 let strings = files.filter({ $0.isStrings })
                 let plurals = files.filter({ $0.isStringsDict })
                 let xliffs = files.filter({ $0.isXliff })
-                self.download(strings: strings, plurals: plurals, xliffs: xliffs, with: hash, for: localization)
+                self.download(strings: strings, plurals: plurals, xliffs: xliffs, with: hash, for: localization, baseURL: url)
             }  else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
@@ -33,7 +33,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         }
     }
     
-    func download(strings: [String], plurals: [String], xliffs: [String], with hash: String, for localization: String) {
+    func download(strings: [String], plurals: [String], xliffs: [String], with hash: String, for localization: String, baseURL: String?) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         
         self.strings = nil
@@ -49,6 +49,8 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
                 self.add(error: error)
                 self.add(strings: strings)
                 self.add(plurals: plurals)
+                
+                self.log(localization: localization, string: xliff, baseURL: baseURL, error: error)
             })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
@@ -58,6 +60,8 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
             let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (strings, error) in
                 self.add(error: error)
                 self.add(strings: strings)
+                
+                self.log(localization: localization, string: string, baseURL: baseURL, error: error)
             })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
@@ -67,6 +71,8 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
             let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (plurals, error) in
                 self.add(error: error)
                 self.add(plurals: plurals)
+                
+                self.log(localization: localization, string: plural, baseURL: baseURL, error: error)
             })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
@@ -74,10 +80,10 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         operationQueue.addOperation(completionBlock)
     }
     
-    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
+    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, String?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, error) in
-            completion(manifest?.files, manifest?.timestamp, error)
+        self.contentDeliveryAPI.getManifest { (manifest, url, error) in
+            completion(manifest?.files, manifest?.timestamp, url, error)
         }
     }
     
@@ -106,5 +112,16 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         } else {
             self.plurals = plurals
         }
+    }
+    
+    func log(localization: String, string: String, baseURL: String?, error: Error?) {
+        let message = "Localization for '\(localization)' fetched from remote storage"
+        let filePath = URL(fileURLWithPath: baseURL ?? "").deletingLastPathComponent().appendingPathComponent( CrowdinPathsParser.shared.parse(string, localization: localization).dropFirst().description).description
+        guard error == nil else {
+            CrowdinAPILog.logRequest(type: .error, stringURL: filePath, message: message)
+            return
+        }
+        
+        CrowdinAPILog.logRequest(stringURL: filePath, message: message)
     }
 }

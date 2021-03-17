@@ -15,7 +15,7 @@ typealias CrowdinAPIStringsMappingCompletion = (([String: String]?, Error?) -> V
 typealias CrowdinAPIPluralsMappingCompletion = (([AnyHashable: Any]?, Error?) -> Void)
 typealias CrowdinAPIXliffMappingCompletion = (([AnyHashable: Any]?, Error?) -> Void)
 
-typealias CrowdinAPIManifestCompletion = ((ManifestResponse?, Error?) -> Void)
+typealias CrowdinAPIManifestCompletion = ((ManifestResponse?, String?, Error?) -> Void)
 
 class CrowdinContentDeliveryAPI: BaseAPI {
     enum FileType: String {
@@ -186,13 +186,12 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             if let data = data {
                 do {
                     let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
-                    completion(response, nil)
-                    CrowdinAPILog.logRequest(response: response, stringURL: stringURL, message: "Localization fetched from remote storage")
+                    completion(response, stringURL, nil)
                 } catch {
-                    completion(nil, error)
+                    completion(nil, nil, error)
                 }
             } else {
-                completion(nil, error)
+                completion(nil, nil, error)
             }
         }
     }

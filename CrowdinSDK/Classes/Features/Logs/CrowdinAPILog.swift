@@ -30,7 +30,7 @@ struct CrowdinAPILog {
             responseData: responseData
         )
         
-        guard url.contains("mapping") else {
+        guard url.contains("mapping") || url.contains("content") else {
             CrowdinLogsCollector.shared.add(log: .rest(with: message, attributedDetails: attributedText))
             return
         }
@@ -50,6 +50,22 @@ struct CrowdinAPILog {
         CrowdinLogsCollector.shared.add(
             log: CrowdinLog(
                 type: .info,
+                message: message,
+                attributedDetails: attributedText
+            )
+        )
+    }
+    
+    static func logRequest(
+        type: CrowdinLogType = .info,
+        stringURL: String,
+        message: String
+    ) {
+        let attributedText: NSMutableAttributedString = NSMutableAttributedString()
+        attributedText.append(AttributeFactory.make(.url(stringURL)))
+        CrowdinLogsCollector.shared.add(
+            log: CrowdinLog(
+                type: type,
                 message: message,
                 attributedDetails: attributedText
             )

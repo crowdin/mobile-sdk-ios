@@ -95,14 +95,14 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, error) in
+        self.contentDeliveryAPI.getManifest { (manifest, _, error) in
             completion(manifest?.files, manifest?.timestamp, error)
         }
     }
     
     func getLanguages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, error) in
+        self.contentDeliveryAPI.getManifest { (manifest, _, error) in
             completion(manifest?.languages, error)
         }
     }

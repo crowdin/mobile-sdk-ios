@@ -34,4 +34,9 @@ class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
             self.finish(with: error != nil)
         }
     }
+    
+    func log(filePath: String, localization: String) {
+        let stringURL = CrowdinPathsParser.shared.parse(filePath, localization: localization)
+        CrowdinAPILog.logRequest(type: .info, stringURL: stringURL, message: "\(localization) - Localization fetched from remote storage")
+    }
 }
