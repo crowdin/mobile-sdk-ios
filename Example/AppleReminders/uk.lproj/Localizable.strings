@@ -36,11 +36,6 @@
 "TEMP" = "ТЕМП[L]";
 "Text" = "Текст[L]";
 "Thursday" = "Четвер[L]";
-"Buy milk" = "Купуйте молоко[L]";
-"Pick up kid from daycare" = "Забери дитину з дитячого садка[L]";
-"Testing" = "Тестування[L]";
-"Go to Store" = "Перейдіть до магазину[L]";
-"Pay milk money" = "Платіть молочні гроші[L]";
 "Add Group" = "Додати групу[L]";
 "Monthly" = "Щомісяця[L]";
 "Wednesday" = "Середа[L]";
@@ -48,7 +43,6 @@
 "New Group" = "Нова група[L]";
 "Group Info" = "Інформація про групу[L]";
 "Default Configuration" = "Конфігурація за замовчуванням[L]";
-"Reminders" = "Нагадування[L]";
 "Name & Appearance" = "Ім'я та зовнішній вигляд[L]";
 "Unspecified" = "Невстановлений[L]";
 "computer desktop pc" = "комп'ютер настільний ПК[L]";
@@ -103,4 +97,4 @@
 "INCLUDE" = "ВКЛЮЧАТИ[L]";
 "End Repeat Date" = "Дата закінчення повтору[L]";
 "Settings" = "Налаштування[L]";
-"You do not have any lists. To create a new one, press the \"Add List\" button" = "У вас немає жодного списку. Щоб створити нову, натисніть кнопку \"Додати список\"";
+"You do not have any lists. To create a new one, press the \"Add List\" button" = "У вас немає жодного списку. Щоб створити новий, натисніть кнопку \"Додати список\"";

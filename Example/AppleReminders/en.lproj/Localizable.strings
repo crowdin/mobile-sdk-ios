@@ -36,11 +36,6 @@
 "TEMP" = "TEMP[L]";
 "Text" = "Text[L]";
 "Thursday" = "Thursday[L]";
-"Buy milk" = "Buy milk[L]";
-"Pick up kid from daycare" = "Pick up kid from daycare[L]";
-"Testing" = "Testing[L]";
-"Go to Store" = "Go to Store[L]";
-"Pay milk money" = "Pay milk money[L]";
 "Add Group" = "Add Group[L]";
 "Monthly" = "Monthly[L]";
 "Wednesday" = "Wednesday[L]";
@@ -48,7 +43,6 @@
 "New Group" = "New Group[L]";
 "Group Info" = "Group Info[L]";
 "Default Configuration" = "Default Configuration[L]";
-"Reminders" = "Reminders[L]";
 "Name & Appearance" = "Name & Appearance[L]";
 "Unspecified" = "Unspecified[L]";
 "computer desktop pc" = "computer desktop pc[L]";
