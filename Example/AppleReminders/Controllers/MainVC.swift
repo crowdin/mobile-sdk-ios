@@ -52,8 +52,9 @@ final class MainVC: UIViewController {
         
         //Generates new Realm data
         if realm?.objects(ReminderList.self).count == 0 {
-            SampleRealmData.createTestRealmData()
-            SampleRealmData.addRemindersToCurrentModel()
+            // Uncomment if you don't want to have default Reminder list
+//            SampleRealmData.createTestRealmData()
+//            SampleRealmData.addRemindersToCurrentModel()
         }
         
         setupTableView()
@@ -226,6 +227,7 @@ extension MainVC {
         
         snapshot.appendItems([ReminderList()], toSection: .type)
         
+        tableView.hidePlaceholder()
         guard let allLists = ReminderList.getAllLists(isGroupsIncluded: true) else { return }
         
         for list in allLists {
@@ -245,6 +247,10 @@ extension MainVC {
         }
         
         listDiffableDatasource?.apply(snapshot, animatingDifferences: false, completion: nil)
+        
+        if allLists.isEmpty {
+            tableView.showPlaceholder()
+        }
     }
 }
 
@@ -323,6 +329,12 @@ extension MainVC: UITableViewDelegate {
                 }
                 
                 self.childVC.collectionView.reloadData()
+                
+                guard let allLists = ReminderList.getAllLists(isGroupsIncluded: true) else { return }
+                
+                if allLists.isEmpty {
+                    tableView.showPlaceholder()
+                }
             }
         }
         

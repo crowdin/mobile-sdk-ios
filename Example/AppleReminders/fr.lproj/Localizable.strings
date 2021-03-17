@@ -10,12 +10,6 @@
 "Location" = "Location[fr]";
 "not implemented" = "not implemented[fr]";
 "Cancel" = "Cancel[fr]";
-"General" = "General[fr]";
-"MOA" = "MOA[fr]";
-"Vacation" = "Vacation[fr]";
-"Birthday" = "Birthday[fr]";
-"Christmas" = "Christmas[fr]";
-"Reminders" = "Reminders[fr]";
 "Tuesday" = "Tuesday[fr]";
 "Selecting this option will show the reminder notification when chatting with a person in Messages." = "Selecting this option will show the reminder notification when chatting with a person in Messages.[fr]";
 "Main" = "Main[fr]";
@@ -42,12 +36,6 @@
 "TEMP" = "TEMP[fr]";
 "Text" = "Text[fr]";
 "Thursday" = "Thursday[fr]";
-"Buy milk" = "Buy milk[fr]";
-"Pick up kid from daycare" = "Pick up kid from daycare[fr]";
-"MOA" = "MOA[fr]";
-"Testing" = "Testing[fr]";
-"Go to Store" = "Go to Store[fr]";
-"Pay milk money" = "Pay milk money[fr]";
 "Add Group" = "Add Group[fr]";
 "Monthly" = "Monthly[fr]";
 "Wednesday" = "Wednesday[fr]";
@@ -55,7 +43,6 @@
 "New Group" = "New Group[fr]";
 "Group Info" = "Group Info[fr]";
 "Default Configuration" = "Default Configuration[fr]";
-"Reminders" = "Reminders[fr]";
 "Name & Appearance" = "Name & Appearance[fr]";
 "Unspecified" = "Unspecified[fr]";
 "computer desktop pc" = "computer desktop pc[fr]";
@@ -110,3 +97,4 @@
 "INCLUDE" = "INCLUDE[fr]";
 "End Repeat Date" = "End Repeat Date[fr]";
 "Settings" = "Settings[fr]";
+"You do not have any lists. To create a new one, press the \"Add List\" button" = "You do not have any lists. To create a new one, press the \"Add List\" button";
