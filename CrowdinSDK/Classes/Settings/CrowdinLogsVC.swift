@@ -80,6 +80,13 @@ final class CrowdinLogCell: UITableViewCell {
 }
 
 final class CrowdinLogsVC: UITableViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name.refreshLogsName, object: nil)
+    }
+    
     // swiftlint:disable implicitly_unwrapped_optional
     override var tableView: UITableView! {
         didSet {
@@ -135,4 +142,9 @@ final class CrowdinLogsVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         didSelect(indexPath)
     }
+}
+
+extension NSNotification.Name {
+    
+    static let refreshLogsName = NSNotification.Name(rawValue: "RefreshLogsNotificationName")
 }

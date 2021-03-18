@@ -55,4 +55,17 @@ public extension UIViewController {
         self.topWindow?.makeKeyAndVisible()
         self.topWindow = nil
     }
+    
+    @objc func cw_askToClearLogsAlert() {
+        let alert = UIAlertController(title: "CrowdinSDK", message: "Are you sure you want to remove all logs?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            alert.cw_dismiss()
+            CrowdinLogsCollector.shared.clear()
+            NotificationCenter.default.post(name: NSNotification.Name.refreshLogsName, object: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
+            alert.cw_dismiss()
+        }))
+        alert.cw_present()
+    }
 }
