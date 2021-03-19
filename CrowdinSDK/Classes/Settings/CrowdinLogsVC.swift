@@ -143,8 +143,3 @@ final class CrowdinLogsVC: UITableViewController {
         didSelect(indexPath)
     }
 }
-
-extension NSNotification.Name {
-    
-    static let refreshLogsName = NSNotification.Name(rawValue: "RefreshLogsNotificationName")
-}

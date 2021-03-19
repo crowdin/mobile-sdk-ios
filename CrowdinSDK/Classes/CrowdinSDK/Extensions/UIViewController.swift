@@ -69,3 +69,8 @@ public extension UIViewController {
         alert.cw_present()
     }
 }
+
+extension NSNotification.Name {
+    
+    static let refreshLogsName = NSNotification.Name(rawValue: "RefreshLogsNotificationName")
+}
