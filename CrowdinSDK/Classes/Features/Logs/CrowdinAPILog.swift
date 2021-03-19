@@ -44,7 +44,10 @@ struct CrowdinAPILog {
         message: String
     ) {
         let url = URL(string: stringURL)?.deletingLastPathComponent().description.dropLast().description ?? stringURL
-        let details = response.files.map({ $0 }).joined(separator: "\n")
+        var details = response.files.map({ $0 }).joined(separator: "\n")
+        if let currentLocalization = CrowdinSDK.currentLocalization {
+            details = CrowdinPathsParser.shared.parse(details, localization: currentLocalization)
+        }
         let attributedText: NSMutableAttributedString = NSMutableAttributedString()
         attributedText.append(AttributeFactory.make(.url(url + details)))
         CrowdinLogsCollector.shared.add(
