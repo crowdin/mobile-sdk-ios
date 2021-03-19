@@ -122,6 +122,7 @@ extension SettingsView {
                 let logsNC = UINavigationController(rootViewController: logsVC)
                 logsVC.title = "Logs"
                 logsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: logsNC, action: #selector(UIViewController.cw_dismiss))
+                logsVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clear logs", style: .done, target: logsNC, action: #selector(UIViewController.cw_askToClearLogsAlert))
                 logsNC.modalPresentationStyle = .fullScreen
                 logsNC.cw_present()
                 self.isHidden = false

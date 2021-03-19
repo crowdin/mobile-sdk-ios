@@ -28,11 +28,11 @@ class CrowdinAPI: BaseAPI {
     }
     
     var apiPath: String {
-        return ""
+        ""
     }
     
     var fullPath: String {
-        return baseURL + apiPath
+        baseURL + apiPath
     }
     
     init(organizationName: String? = nil, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
@@ -45,12 +45,15 @@ class CrowdinAPI: BaseAPI {
         self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, completion: { data, response, error in
             if self.isUnautorized(response: response) {
                 NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
-                return;
+                return
             }
             guard let data = data else {
                 completion(nil, error)
                 return
             }
+            
+            CrowdinAPILog.logRequest(method: .POST, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
+            
             do {
                 let response = try JSONDecoder().decode(T.self, from: data)
                 completion(response, error)
@@ -70,6 +73,9 @@ class CrowdinAPI: BaseAPI {
         guard let data = result.data else {
             return (nil, result.error)
         }
+        
+        CrowdinAPILog.logRequest(method: .POST, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: data)
+        
         do {
             let response = try JSONDecoder().decode(T.self, from: data)
             return (response, result.error)
@@ -89,6 +95,9 @@ class CrowdinAPI: BaseAPI {
                 completion(nil, error)
                 return
             }
+            
+            CrowdinAPILog.logRequest(method: .GET, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), responseData: data)
+            
             do {
                 let response = try JSONDecoder().decode(T.self, from: data)
                 completion(response, error)
@@ -101,13 +110,16 @@ class CrowdinAPI: BaseAPI {
     
     func cw_getSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> (T?, Error?) {
         let result = self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers))
-        if self.isUnautorized(response: result.response) {
+        if isUnautorized(response: result.response) {
             NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
-            return (nil, nil);
+            return (nil, nil)
         }
         guard let data = result.data else {
             return (nil, result.error)
         }
+        
+        CrowdinAPILog.logRequest(method: .GET, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), responseData: data)
+        
         do {
             let response = try JSONDecoder().decode(T.self, from: data)
             return (response, result.error)

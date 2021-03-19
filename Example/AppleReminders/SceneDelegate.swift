@@ -12,10 +12,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "972b2fc38ef7ac1fb442228106i",
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "381ae31d167d3ee639214d8p9ys",
                                                           sourceLanguage: "en")
-        let loginConfig = try! CrowdinLoginConfig(clientId: "RSd7wgg2g5A1RRJnsfgI",
-                                                  clientSecret: "fah9fUReHXlEgK8CScmo7m4F9IU3vZ8tU06PqWto",
+        let loginConfig = try! CrowdinLoginConfig(clientId: "9iNCAuUX6qmfWfCEWBTG",
+                                                  clientSecret: "Vocz0soPiYVxZFIDMl8arlqldpnN6negwHZmxS3J",
                                                   scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)

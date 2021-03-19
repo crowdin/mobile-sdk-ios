@@ -62,6 +62,7 @@ Pod::Spec.new do |spec|
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*.swift'
     subspec.dependency 'Starscream', '~> 3.1.0'
     subspec.dependency 'BaseAPI', '~> 0.1.12'
+    subspec.dependency 'CrowdinSDK/Logs'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
@@ -123,5 +124,10 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/CrowdinProvider'
     settings.dependency 'CrowdinSDK/CrowdinAPI'
     settings.dependency 'CrowdinSDK/LoginFeature'
+  end
+
+  spec.subspec 'Logs' do |feature|
+    feature.name = 'Logs'
+    feature.source_files = 'CrowdinSDK/Classes/Features/Logs/**/*.swift'
   end
 end

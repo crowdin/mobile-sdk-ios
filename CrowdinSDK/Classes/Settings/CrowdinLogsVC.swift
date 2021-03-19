@@ -7,25 +7,86 @@
 
 import Foundation
 
-class CrowdinLogCell: UITableViewCell {
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
+protocol CrowdinLogCellPresentation {
     
-    func setup(with log: CrowdinLog) {
-        self.dateLabel.text = CrowdinLogCell.dateFormatter.string(from: log.date)
-        self.typeLabel.text = log.type.rawValue
-        self.typeLabel.textColor = log.type.color
-        self.messageLabel.text = log.message
-    }
-    static var dateFormatter: DateFormatter = {
+    var log: CrowdinLog { get }
+    var date: String { get }
+    var type: String { get }
+    var message: String { get }
+    var textColor: UIColor { get }
+    var isShowArrow: Bool { get }
+    var attributedText: NSAttributedString? { get }
+}
+
+final class CrowdinLogCellViewModel: CrowdinLogCellPresentation {
+    
+    private static var dateFormatter: DateFormatter = {
        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm:ss dd/MM/yyyy"
         return dateFormatter
     }()
+    
+    let log: CrowdinLog
+    
+    init(log: CrowdinLog) {
+        self.log = log
+    }
+    
+    var date: String {
+        CrowdinLogCellViewModel.dateFormatter.string(from: log.date)
+    }
+    
+    var type: String {
+        log.type.rawValue
+    }
+    
+    var message: String {
+        log.message
+    }
+    
+    var textColor: UIColor {
+        log.type.color
+    }
+    
+    var isShowArrow: Bool {
+        attributedText != nil
+    }
+    
+    var attributedText: NSAttributedString? {
+        log.attributedDetails
+    }
 }
 
-class CrowdinLogsVC: UITableViewController {
+final class CrowdinLogCell: UITableViewCell {
+    
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var typeLabel: UILabel!
+    @IBOutlet private weak var messageLabel: UILabel!
+    
+    func setup(with viewModel: CrowdinLogCellPresentation) {
+        self.dateLabel.text = viewModel.date
+        self.typeLabel.text = viewModel.type
+        self.typeLabel.textColor = viewModel.textColor
+        self.messageLabel.text = viewModel.message
+        
+        selectionStyle = .none
+        
+        guard viewModel.isShowArrow else {
+            return
+        }
+        
+        accessoryType = .disclosureIndicator
+    }
+}
+
+final class CrowdinLogsVC: UITableViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name.refreshLogsName, object: nil)
+    }
+    
     // swiftlint:disable implicitly_unwrapped_optional
     override var tableView: UITableView! {
         didSet {
@@ -42,16 +103,43 @@ class CrowdinLogsVC: UITableViewController {
     
     @objc func reloadData() {
         tableView.reloadData()
-        self.refreshControl?.endRefreshing()
+        refreshControl?.endRefreshing()
     }
     
+    // MARK: - Private
+    
+    private func didSelect(_ indexPath: IndexPath) {
+        let cellViewModel = CrowdinLogCellViewModel(log: CrowdinLogsCollector.shared.logs[indexPath.row])
+        
+        guard cellViewModel.isShowArrow else {
+            return
+        }
+        
+        openLogsDetails(cellViewModel: cellViewModel)
+    }
+    
+    private func openLogsDetails(cellViewModel: CrowdinLogCellViewModel) {
+        let logsDetailsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.resourceBundle)
+        if let logDetailsVC: CrowdinLogDetailsVC = logsDetailsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogDetailsVC") as? CrowdinLogDetailsVC {
+            logDetailsVC.setup(with: cellViewModel.attributedText)
+            navigationController?.pushViewController(logDetailsVC, animated: true)
+        }
+    }
+    
+    // MARK: - UITableViewDelegate
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CrowdinLogsCollector.shared.logs.count
+        CrowdinLogsCollector.shared.logs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CrowdinLogCell", for: indexPath) as? CrowdinLogCell else { return UITableViewCell() }
-        cell.setup(with: CrowdinLogsCollector.shared.logs[indexPath.row])
+        let cellViewModel = CrowdinLogCellViewModel(log: CrowdinLogsCollector.shared.logs[indexPath.row])
+        cell.setup(with: cellViewModel)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        didSelect(indexPath)
     }
 }

@@ -100,7 +100,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { [weak self] (manifest, error) in
+        self.contentDeliveryAPI.getManifest { [weak self] (manifest, _, error) in
             guard let self = self else { return }
             guard let files = manifest?.files else { completion(nil, error); return; }
             let fileNames = files.compactMap({ $0.split(separator: "/").last }).map({ String($0) })
@@ -119,7 +119,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     
     func getLangiages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, error) in
+        self.contentDeliveryAPI.getManifest { (manifest, _, error) in
             guard let languages = manifest?.languages else { completion(nil, error); return; }
             completion(languages, nil)
         }

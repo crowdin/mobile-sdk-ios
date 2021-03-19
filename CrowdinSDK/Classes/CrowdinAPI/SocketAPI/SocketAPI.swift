@@ -67,7 +67,7 @@ class SocketAPI: NSObject {
 
 extension SocketAPI: WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
-        self.onConnect?()
+        onConnect?()
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {

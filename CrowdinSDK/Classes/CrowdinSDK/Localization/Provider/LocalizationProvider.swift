@@ -86,8 +86,8 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     }
     
     func refreshLocalization() {
-        self.loadLocalLocalization()
-        self.fetchRemoteLocalization()
+        loadLocalLocalization()
+        fetchRemoteLocalization()
     }
     
     // Private method
@@ -97,6 +97,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
             guard let self = self else { return }
             guard localization == self.localization else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
+            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Localization fetched from local storage"))
         }, errorHandler: errorHandler)
     }
     

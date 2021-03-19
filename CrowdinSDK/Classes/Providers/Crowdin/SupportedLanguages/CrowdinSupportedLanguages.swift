@@ -86,6 +86,7 @@ class CrowdinSupportedLanguages {
             guard let supportedLanguages = supportedLanguages else { return }
             self.supportedLanguages = supportedLanguages
             self.lastUpdatedDate = Date()
+            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Download supported languages success"))
             completion?()
         }
     }
