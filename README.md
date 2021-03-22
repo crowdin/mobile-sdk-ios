@@ -478,7 +478,14 @@ CrowdinSDK.enableSDKLocalization(true, localization: “<language_code>”)
 
 ```
 
-4. Currently, Custom Languages, Dialects, and Language Mapping are not supported for iOS SDK.
+4. Currently, Custom Languages and Language Mapping are not supported for iOS SDK.
+
+5. Crowdin iOS SDK provides detailed debug mode - "Logs" tab in the Settings floating button module and logging into XCode console.
+   To enable console logging, add the following option to your `CrowdinSDKConfig`
+   
+   ```swift
+   .with(debugEnabled: true)
+   ```
 
 ## File Export Patterns
 
@@ -496,9 +503,13 @@ You can set file export patterns and check existing ones using *File Settings*. 
       <td style="vertical-align:middle">%language%</td>
       <td>Language name (e.g. Ukrainian)</td>
     </tr>
-       <tr>
+    <tr>
       <td style="vertical-align:middle">%locale%</td>
       <td>Locale (e.g. uk-UA)</td>
+    </tr>
+    <tr>
+      <td style="vertical-align:middle">%two_letters_code%</td>
+      <td>Language code ISO 639-1 (i.e. uk)</td>
     </tr>
     <tr>
       <td style="vertical-align:middle">%locale_with_underscore%</td>
