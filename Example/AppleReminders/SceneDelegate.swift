@@ -10,12 +10,20 @@ import UIKit
 import CrowdinSDK
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-
+    
+    // MARK: - Configuration
+    
+    private let distributionHash = "your_distribution_hash"
+    private let sourceLanguage = "source_language"
+    
+    private let clientId = "your_client_id"
+    private let clientSecret = "your_client_secret"
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: "381ae31d167d3ee639214d8p9ys",
-                                                          sourceLanguage: "en")
-        let loginConfig = try! CrowdinLoginConfig(clientId: "9iNCAuUX6qmfWfCEWBTG",
-                                                  clientSecret: "Vocz0soPiYVxZFIDMl8arlqldpnN6negwHZmxS3J",
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
+                                                          sourceLanguage: sourceLanguage)
+        let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
+                                                  clientSecret: clientSecret,
                                                   scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
