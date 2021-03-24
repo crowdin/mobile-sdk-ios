@@ -18,14 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private let clientId = "your_client_id"
     private let clientSecret = "your_client_secret"
-    private let scope = "project"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
                                                           sourceLanguage: sourceLanguage)
         let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
                                                   clientSecret: clientSecret,
-                                                  scope: scope)
+                                                  scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
             .with(settingsEnabled: true)
