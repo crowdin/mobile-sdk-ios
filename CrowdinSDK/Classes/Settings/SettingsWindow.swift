@@ -14,7 +14,7 @@ class SettingsWindow: UIWindow {
                 view.removeFromSuperview()
             }
             if let view = settingsView {
-                    self.addSubview(view)
+                self.addSubview(view)
             }
         }
     }

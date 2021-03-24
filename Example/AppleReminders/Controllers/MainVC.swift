@@ -80,6 +80,7 @@ final class MainVC: UIViewController {
             self.navigationController?.pushViewController(reminderTVC, animated: true)
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(onMessageRecieve(_:)), name: Notification.Name("CrowdinServiceMessage"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,18 +132,28 @@ final class MainVC: UIViewController {
     
     @objc func addListBtnTapped() {
         let createListVC = CreateListVC()
-        self.present(createListVC, animated: true, completion: nil)
+        present(createListVC, animated: true, completion: nil)
     }
     
     @objc func settingsBtnTapped() {
         let settingsVC = SettingsVC()
         let settingsNC = UINavigationController(rootViewController: settingsVC)
-        self.present(settingsNC, animated: true, completion: nil)
+        present(settingsNC, animated: true, completion: nil)
     }
     
     @objc func addGroupBtnTapped() {
         let createGroupVC = UINavigationController(rootViewController: CreateGroupTVC())
-        self.present(createGroupVC, animated: true, completion: nil)
+        present(createGroupVC, animated: true, completion: nil)
+    }
+    
+    // MARK: -Privates
+    
+    @objc private func onMessageRecieve(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary?, let message = dict["message"] as? String {
+            DispatchQueue.main.async { [weak self] in
+                self?.view.makeToast(message)
+            }
+        }
     }
     
     private func addViews(views: UIView...) {
@@ -150,7 +161,7 @@ final class MainVC: UIViewController {
     }
     
     private func addListView() {
-        self.addViews(views: footerView)
+        addViews(views: footerView)
         
         footerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
@@ -188,7 +199,6 @@ final class MainVC: UIViewController {
         searchController?.searchBar.placeholder = "Search".localized
         navigationItem.searchController = searchController
     }
-    
 }
 
 //MARK: Datasource

@@ -190,7 +190,7 @@ extension CrowdinSDK {
     /// Method for screenshot feature initialization if Screenshot submodule is added.
     private class func initializeScreenshotFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeScreenshotFeature.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeScreenshotFeature.rawValue)
+            CrowdinSDK.perform(Selectors.initializeScreenshotFeature.rawValue)
         }
     }
 	
@@ -204,20 +204,20 @@ extension CrowdinSDK {
 	/// Method for interval updates feature initialization if IntervalUpdate submodule is added.
     private class func initializeIntervalUpdateFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeIntervalUpdateFeature.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeIntervalUpdateFeature.rawValue)
+            CrowdinSDK.perform(Selectors.initializeIntervalUpdateFeature.rawValue)
         }
     }
 	
 	/// Method for Settings view feature initialization if Screenshots submodule is added.
     private class func initializeSettingsIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeSettings.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
+            CrowdinSDK.perform(Selectors.initializeSettings.rawValue)
         }
     }
 	
 	private class func setupLoginIfNeeded() {
 		if CrowdinSDK.responds(to: Selectors.setupLogin.rawValue) {
-			CrowdinSDK .perform(Selectors.setupLogin.rawValue)
+			CrowdinSDK.perform(Selectors.setupLogin.rawValue)
 		}
 	}
 }

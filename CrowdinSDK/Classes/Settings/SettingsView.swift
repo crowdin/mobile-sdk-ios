@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SettingsView: UIView {
+final class SettingsView: UIView {
     // swiftlint:disable force_unwrapping
     static let shared: SettingsView? = SettingsView.loadFromNib()
     
@@ -36,6 +36,8 @@ class SettingsView: UIView {
         }
     }
     
+    @IBOutlet weak var closeButton: UIButton!
+    
     fileprivate let closedWidth: CGFloat = 60.0
     fileprivate let openedWidth: CGFloat = 200.0
     fileprivate let defaultItemHeight: CGFloat = 60.0
@@ -53,6 +55,7 @@ class SettingsView: UIView {
                 self.frame.size.height = defaultItemHeight
                 self.frame.size.width = closedWidth
             }
+            closeButtonHidden(isHidden: open == false)
         }
     }
     
@@ -88,9 +91,21 @@ class SettingsView: UIView {
         gesture.delegate = self
     }
     
+    // MARK: - IBActions
+    
     @IBAction func settingsButtonPressed() {
         self.open = !self.open
         self.fixPositionIfNeeded()
+    }
+    
+    @IBAction func closeButtonPressed() {
+        open = false
+    }
+    
+    // MARK: - Private
+    
+    func closeButtonHidden(isHidden: Bool) {
+        closeButton.isHidden = isHidden
     }
     
     func fixPositionIfNeeded() {
@@ -141,7 +156,14 @@ class SettingsView: UIView {
         LoginFeature.shared.flatMap {
             $0.logout()
         }
-        open = false
-        CrowdinLogsCollector.shared.add(log: .info(with: "Successfully logout"))
+        reloadData()
+        let message = "Successfully logout"
+        CrowdinLogsCollector.shared.add(log: .info(with: message))
+        showToast(message)
+    }
+    
+    func showToast(_ message: String) {
+        let stringDataDict: [String: String] = ["message": message]
+        NotificationCenter.default.post(name: Notification.Name("CrowdinServiceMessage"), object: nil, userInfo: stringDataDict)
     }
 }

@@ -63,6 +63,7 @@
 		E053C3DB25E7B4DC0061E270 /* UIScrollView+EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3DA25E7B4DC0061E270 /* UIScrollView+EmptyState.swift */; };
 		E053C3E225E7B57A0061E270 /* EmptyDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3DF25E7B57A0061E270 /* EmptyDataViewModel.swift */; };
 		E053C3E425E7B57A0061E270 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3E125E7B57A0061E270 /* EmptyDataView.swift */; };
+		E0B27188260A01F100FB9EBF /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B27187260A01F100FB9EBF /* Toast.swift */; };
 		E82913D9257300E70068A629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E82913D7257300E70068A629 /* Localizable.strings */; };
 		E837B5F32596484F00656C9B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E837B5F22596484F00656C9B /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
@@ -132,6 +133,7 @@
 		E053C3DA25E7B4DC0061E270 /* UIScrollView+EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+EmptyState.swift"; sourceTree = "<group>"; };
 		E053C3DF25E7B57A0061E270 /* EmptyDataViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataViewModel.swift; sourceTree = "<group>"; };
 		E053C3E125E7B57A0061E270 /* EmptyDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataView.swift; sourceTree = "<group>"; };
+		E0B27187260A01F100FB9EBF /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		E82913D8257300E70068A629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E82913E6257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E837B5F22596484F00656C9B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				126EBBF123EC77A5004D3A4E /* AddReminderView.swift */,
 				128F7A5824205DC500281796 /* ContactThumbImgView.swift */,
 				12E14B1124CC8A6800DEE1C5 /* MoveRemindersDetailView.swift */,
+				E0B27187260A01F100FB9EBF /* Toast.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				129CACD424C40C7C005FE8AD /* AddListToGroupHeaderView.swift in Sources */,
 				126EBBF223EC77A5004D3A4E /* AddReminderView.swift in Sources */,
 				12B7B5F223E3BA6C00532696 /* ReminderListTVC.swift in Sources */,
+				E0B27188260A01F100FB9EBF /* Toast.swift in Sources */,
 				12A4260D24BFEB010035E350 /* ReminderTypeDatasource.swift in Sources */,
 				12344C2624BB7D5300A889C7 /* AddReminderFooterView.swift in Sources */,
 			);
