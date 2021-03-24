@@ -23,7 +23,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		case storageIdIsMissing = "Storage id is missing."
 		case screenshotIdIsMissing = "Screenshot id is missing."
 		case unknownError = "Unknown error."
-        case noLocalizedStringsDetected = "There are no localizad strings detected on current screen."
+        case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
 	
 	init(organizationName: String? = nil, hash: String, sourceLanguage: String) {
