@@ -79,8 +79,6 @@ final class MainVC: UIViewController {
             guard let allLists = ReminderList.getAllLists(isGroupsIncluded: true), allLists.count > 0 else { return }
             self.navigationController?.pushViewController(reminderTVC, animated: true)
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(onMessageRecieve(_:)), name: Notification.Name("CrowdinServiceMessage"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,14 +145,6 @@ final class MainVC: UIViewController {
     }
     
     // MARK: -Privates
-    
-    @objc private func onMessageRecieve(_ notification: NSNotification) {
-        if let dict = notification.userInfo as NSDictionary?, let message = dict["message"] as? String {
-            DispatchQueue.main.async { [weak self] in
-                self?.view.makeToast(message)
-            }
-        }
-    }
     
     private func addViews(views: UIView...) {
         views.forEach({ self.view.addSubview($0) })

@@ -163,7 +163,8 @@ final class SettingsView: UIView {
     }
     
     func showToast(_ message: String) {
-        let stringDataDict: [String: String] = ["message": message]
-        NotificationCenter.default.post(name: Notification.Name("CrowdinServiceMessage"), object: nil, userInfo: stringDataDict)
+        DispatchQueue.main.async { [weak self] in
+            self?.makeToast(message)
+        }
     }
 }

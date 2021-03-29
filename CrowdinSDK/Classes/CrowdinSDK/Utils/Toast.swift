@@ -350,11 +350,7 @@ public extension UIView {
         
         activeToasts.add(toast)
         
-        if let topVC = UIApplication.getTopViewController() {
-           topVC.view.addSubview(toast)
-        } else {
-            self.addSubview(toast)
-        }
+        toast.cw_present()
         
         UIView.animate(withDuration: ToastManager.shared.style.fadeDuration, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
             toast.alpha = 1.0
@@ -626,7 +622,7 @@ public struct ToastStyle {
     /**
      The message text alignment. Default is `NSTextAlignment.Left`.
     */
-    public var messageAlignment: NSTextAlignment = .left
+    public var messageAlignment: NSTextAlignment = .center
     
     /**
      The maximum number of lines for the title. The default is 0 (no limit).
@@ -759,14 +755,15 @@ public enum ToastPosition {
     fileprivate func centerPoint(forToast toast: UIView, inSuperview superview: UIView) -> CGPoint {
         let topPadding: CGFloat = ToastManager.shared.style.verticalPadding + superview.csSafeAreaInsets.top
         let bottomPadding: CGFloat = ToastManager.shared.style.verticalPadding + superview.csSafeAreaInsets.bottom
-        
+        let bottomOffset: CGFloat = 50
+        let deviceBounds = UIScreen.main.bounds
         switch self {
         case .top:
-            return CGPoint(x: superview.bounds.size.width / 2.0, y: (toast.frame.size.height / 2.0) + topPadding)
+            return CGPoint(x: deviceBounds.size.width / 2.0, y: (toast.frame.size.height / 2.0) + topPadding)
         case .center:
-            return CGPoint(x: superview.bounds.size.width / 2.0, y: superview.bounds.size.height / 2.0)
+            return CGPoint(x: deviceBounds.size.width / 2.0, y: deviceBounds.size.height / 2.0)
         case .bottom:
-            return CGPoint(x: superview.bounds.size.width / 2.0, y: (superview.bounds.size.height - (toast.frame.size.height / 2.0)) - bottomPadding)
+            return CGPoint(x: deviceBounds.size.width / 2.0, y: (deviceBounds.size.height - (toast.frame.size.height / 2.0)) - bottomPadding - bottomOffset)
         }
     }
 }
