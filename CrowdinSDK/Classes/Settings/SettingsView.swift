@@ -43,6 +43,8 @@ final class SettingsView: UIView {
     fileprivate let defaultItemHeight: CGFloat = 60.0
     let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
     
+    var realtimeUpdateFeatureEnabled: Bool = false
+    
     var open: Bool = false {
         didSet {
             reloadData()
@@ -166,5 +168,8 @@ final class SettingsView: UIView {
         DispatchQueue.main.async { [weak self] in
             self?.makeToast(message)
         }
+        
+        // Notify all subscribers about new log record is created
+        LogMessageObserver.shared.notifyAll(message)
     }
 }

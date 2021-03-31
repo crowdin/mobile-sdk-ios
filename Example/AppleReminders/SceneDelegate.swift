@@ -24,6 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .with(screenshotsEnabled: true)
         
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        // Now new log message comes as callback
+        CrowdinSDK.setOnLogCallback { logMessage in
+            print("LOG MESSAGE - \(logMessage)")
+        }
 //        CrowdinSDK.currentLocalization = "fr"
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

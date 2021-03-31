@@ -46,8 +46,10 @@ extension SettingsView {
         }
         
         if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-            reloadCell.action = {
+            reloadCell.action = { [weak self] in
                 RefreshLocalizationFeature.refreshLocalization()
+                let message = RealtimeUpdateFeature.shared?.enabled == true ? "Localization fetched from Crowdin project" : "Localization fetched from distribution"
+                self?.showToast(message)
             }
             reloadCell.titleLabel.text = "Reload translations"
             reloadCell.selectionStyle = .none
@@ -83,6 +85,12 @@ extension SettingsView {
                         let message = "Successfully started real-time preview"
                         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
                         self?.reloadData()
+                        guard self?.realtimeUpdateFeatureEnabled == false else {
+                            self?.realtimeUpdateFeatureEnabled = RealtimeUpdateFeature.shared?.enabled == true
+                            return
+                        }
+                        
+                        self?.realtimeUpdateFeatureEnabled = RealtimeUpdateFeature.shared?.enabled == true
                         self?.showToast(message)
                     }
                     feature.disconnect = { [weak self] in
