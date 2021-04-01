@@ -1,15 +1,17 @@
 PODS:
   - BaseAPI (0.1.12)
-  - CrowdinSDK (1.2.0):
-    - CrowdinSDK/Core (= 1.2.0)
-    - CrowdinSDK/CrowdinProvider (= 1.2.0)
-  - CrowdinSDK/Core (1.2.0)
-  - CrowdinSDK/CrowdinAPI (1.2.0):
+  - CrowdinSDK (1.2.1):
+    - CrowdinSDK/Core (= 1.2.1)
+    - CrowdinSDK/CrowdinProvider (= 1.2.1)
+  - CrowdinSDK/Core (1.2.1)
+  - CrowdinSDK/CrowdinAPI (1.2.1):
     - BaseAPI (~> 0.1.12)
+    - CrowdinSDK/Logs
     - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinProvider (1.2.0):
+  - CrowdinSDK/CrowdinProvider (1.2.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
+  - CrowdinSDK/Logs (1.2.1)
   - Starscream (3.1.1)
 
 DEPENDENCIES:
@@ -26,7 +28,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 84c9b49d75b8be1e9d7facd66bd14082eee499e4
-  CrowdinSDK: a271245e53c328da9fa616d0bdf9cccc9b1ecd02
+  CrowdinSDK: 2567e7d883a2bb5d956952c7a26b7ad0690b86c3
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
 PODFILE CHECKSUM: f3277f5a7ea93e9aea586360c382e16466237cd2
