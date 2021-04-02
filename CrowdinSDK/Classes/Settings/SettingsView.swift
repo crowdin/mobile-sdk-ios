@@ -50,13 +50,7 @@ final class SettingsView: UIView {
             reloadData()
             self.blurView.isHidden = open
             self.backgroundColor = open ? UIColor(red: 45.0 / 255.0, green: 49.0 / 255.0, blue: 49.0 / 255.0, alpha: 1.0) : .clear
-            if open == true {
-                self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
-                self.frame.size.width = openedWidth
-            } else {
-                self.frame.size.height = defaultItemHeight
-                self.frame.size.width = closedWidth
-            }
+            reloadUI()
             closeButtonHidden(isHidden: open == false)
         }
     }
@@ -71,6 +65,16 @@ final class SettingsView: UIView {
     func dismissLogsVC() {
         logsVC?.cw_dismiss()
         logsVC = nil
+    }
+    
+    func reloadUI() {
+        if open == true {
+            self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
+            self.frame.size.width = openedWidth
+        } else {
+            self.frame.size.height = defaultItemHeight
+            self.frame.size.width = closedWidth
+        }
     }
     
     class func loadFromNib() -> SettingsView? {
@@ -144,6 +148,7 @@ final class SettingsView: UIView {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self]_ in
             alert.cw_dismiss()
             self?.logout()
+            self?.reloadUI()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
             alert.cw_dismiss()

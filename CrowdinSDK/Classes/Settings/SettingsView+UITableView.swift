@@ -25,6 +25,10 @@ extension SettingsView {
                             let message = "Successfully logined"
                             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
                             self?.showToast(message)
+                            self?.reloadData()
+                            DispatchQueue.main.async {
+                                self?.reloadUI()
+                            }
                         }, error: { [weak self] error in
                             let message = "Login error - \(error.localizedDescription)"
                             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
