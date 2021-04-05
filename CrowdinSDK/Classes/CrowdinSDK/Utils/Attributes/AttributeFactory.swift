@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AttributeFactory {
+public struct AttributeFactory {
 
     static func make(_ attribute: LogAttribute) -> NSAttributedString {
         let empty = "Empty"

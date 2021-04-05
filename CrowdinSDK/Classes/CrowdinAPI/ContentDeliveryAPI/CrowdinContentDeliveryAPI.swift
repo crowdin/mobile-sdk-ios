@@ -64,7 +64,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         super.get(url: stringURL, headers: headers) { data, response, error in
             completion(data, response, error)
             CrowdinAPILog.logRequest(
-                method: .GET,
+                method: RequestMethod.GET.rawValue,
                 url: stringURL,
                 parameters: nil,
                 headers: headers,

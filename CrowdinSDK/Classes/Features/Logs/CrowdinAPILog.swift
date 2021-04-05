@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import BaseAPI
 
 struct CrowdinAPILog {
     
     static func logRequest(
-        method: RequestMethod,
+        method: String,
         url: String,
         parameters: [String: String]? = nil,
         headers: [String: String]? = nil,
@@ -19,8 +18,7 @@ struct CrowdinAPILog {
         responseData: Data? = nil,
         error: Error? = nil
     ) {
-        let urlMethod = method.rawValue
-        let message = [urlMethod, url].joined(separator: ", ")
+        let message = [method, url].joined(separator: ", ")
         let attributedText = AttributedTextFormatter.make(
             method: method,
             url: url,
