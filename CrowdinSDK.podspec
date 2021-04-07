@@ -129,6 +129,7 @@ Pod::Spec.new do |spec|
 
   spec.subspec 'Logs' do |feature|
     feature.name = 'Logs'
+    feature.dependency 'CrowdinSDK/Core'
     feature.source_files = 'CrowdinSDK/Classes/Features/Logs/**/*.swift'
   end
 end
