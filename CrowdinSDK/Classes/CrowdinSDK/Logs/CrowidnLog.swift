@@ -31,7 +31,7 @@ extension CrowdinLogType {
     }
 }
 
-struct CrowdinLog {
+public struct CrowdinLog {
     let date = Date()
     let type: CrowdinLogType
     let message: String

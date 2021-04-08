@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CrowdinAPILog {
+public struct CrowdinAPILog {
     
     static func logRequest(
         method: String,
@@ -37,34 +37,13 @@ struct CrowdinAPILog {
     }
     
     static func logRequest(
-        response: ManifestResponse,
-        stringURL: String,
-        message: String
-    ) {
-        let attributedText: NSMutableAttributedString = NSMutableAttributedString()
-        attributedText.append(AttributeFactory.make(.url(stringURL)))
-        CrowdinLogsCollector.shared.add(
-            log: CrowdinLog(
-                type: .info,
-                message: message,
-                attributedDetails: attributedText
-            )
-        )
-    }
-    
-    static func logRequest(
         type: CrowdinLogType = .info,
         stringURL: String,
         message: String
     ) {
         let attributedText: NSMutableAttributedString = NSMutableAttributedString()
         attributedText.append(AttributeFactory.make(.url(stringURL)))
-        CrowdinLogsCollector.shared.add(
-            log: CrowdinLog(
-                type: type,
-                message: message,
-                attributedDetails: attributedText
-            )
-        )
+        let log = CrowdinLog(type: type, message: message, attributedDetails: attributedText)
+        CrowdinLogsCollector.shared.add(log: log)
     }
 }
