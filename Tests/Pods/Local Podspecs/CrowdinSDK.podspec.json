@@ -57,9 +57,6 @@
         ],
         "CrowdinSDK/CrowdinAPI": [
 
-        ],
-        "CrowdinSDK/Logs": [
-
         ]
       }
     },
@@ -67,14 +64,14 @@
       "name": "CrowdinAPI",
       "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*.swift",
       "dependencies": {
+        "CrowdinSDK/Core": [
+
+        ],
         "Starscream": [
           "~> 3.1.0"
         ],
         "BaseAPI": [
           "~> 0.1.12"
-        ],
-        "CrowdinSDK/Logs": [
-
         ]
       }
     },
@@ -192,10 +189,6 @@
 
         ]
       }
-    },
-    {
-      "name": "Logs",
-      "source_files": "CrowdinSDK/Classes/Features/Logs/**/*.swift"
     }
   ],
   "swift_version": "4.2"
