@@ -24,7 +24,7 @@ public struct AttributeFactory {
             return AttributeFactory.attributeWithTitle(title, text)
         case let .parameters(dictionary), let .headers(dictionary):
             var finalDictionary = dictionary
-            finalDictionary?.trim(header: "Authorization", placeholder: "Bearer <token>")
+            finalDictionary?.updateValue("Bearer <token>", forKey: "Authorization")
             let text = finalDictionary?.isEmpty == true ? empty : finalDictionary?.description ?? empty
             
             return AttributeFactory.attributeWithTitle(title, text)
