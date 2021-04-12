@@ -36,8 +36,18 @@ jobs:
           cd Tests ; pod update Starscream; pod update BaseAPI; pod install
         displayName: 'Installing cocoapods'
 
-  - job: Build
+  - job: PodLint
     dependsOn: PodInstall
+    condition: succeeded()
+    pool:
+      vmImage: 'macOS 10.14'
+    steps:
+      - bash: |
+          pod lib lint
+        displayName: 'Lint pod library'
+
+  - job: Build
+    dependsOn: PodLint
     condition: succeeded()
     pool:
       vmImage: 'macOS 10.14'
