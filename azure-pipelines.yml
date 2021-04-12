@@ -60,7 +60,7 @@ jobs:
           scheme: 'Tests'
           configuration: 'Debug'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          xcodeVersion: '12'
+          xcodeVersion: '11'
           packageApp: false
 
   - job: Test
@@ -77,7 +77,7 @@ jobs:
           configuration: 'Debug'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
           scheme: 'TestsTests'
-          xcodeVersion: '12'
+          xcodeVersion: '11'
           publishJUnitResults: true
           destinationPlatformOption: 'iOS'
           destinationTypeOption: 'simulators'
