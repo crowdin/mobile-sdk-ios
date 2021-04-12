@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import BaseAPI
 
 struct AttributedTextFormatter {
    
     static func make(
-        method: RequestMethod,
+        method: String,
         url: String,
         parameters: [String: String]? = nil,
         headers: [String: String]? = nil,
@@ -22,7 +21,7 @@ struct AttributedTextFormatter {
         let attributedText = NSMutableAttributedString()
         
         [
-            AttributeFactory.make(.method(method.rawValue)),
+            AttributeFactory.make(.method(method)),
             AttributeFactory.make(.separator),
             AttributeFactory.make(.url(url)),
             AttributeFactory.make(.separator),

@@ -27,7 +27,7 @@ The SDK provides:
 * [Requirements](#requirements)
 * [Dependencies](#dependencies)
 * [Installation](#installation)
-* [Example Project](#example-project)
+* [Wiki](#wiki)
 * [Setup](#setup)
 * [Advanced Features](#advanced-features)
   * [Real-Time Preview](#real-time-preview)
@@ -106,11 +106,9 @@ The SDK provides:
 
 After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
 
-## Example Project
+## Wiki
 
-To discover how iOS SDK is integrated into real project see the [Example project](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example). You can set up this project for yourself, run, and test. 
-
-To run the example project, first clone the repo and run `pod install` from the Example directory. For more about Example project structure visit the [Wiki article](https://github.com/crowdin/mobile-sdk-ios/wiki/Test-Application). 
+Visit the [Crowdin iOS SDK Wiki](https://github.com/crowdin/mobile-sdk-ios/wiki) to see additional project documentation. Here you can find information about the Example project, SDK Controls, and more.
 
 ## Setup
 

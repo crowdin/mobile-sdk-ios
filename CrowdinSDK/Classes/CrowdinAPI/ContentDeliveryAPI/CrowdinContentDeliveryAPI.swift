@@ -64,7 +64,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         super.get(url: stringURL, headers: headers) { data, response, error in
             completion(data, response, error)
             CrowdinAPILog.logRequest(
-                method: .GET,
+                method: RequestMethod.GET.rawValue,
                 url: stringURL,
                 parameters: nil,
                 headers: headers,
@@ -202,7 +202,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         if let data = result.data {
             do {
                 let response = try JSONDecoder().decode(ManifestResponse.self, from: data)
-                CrowdinAPILog.logRequest(response: response, stringURL: stringURL, message: "Download manifest for hash - \(hash) for sync")
+                CrowdinAPILog.logRequest(stringURL: stringURL, message: "Download manifest for hash - \(hash) for sync")
                 return (response, nil)
             } catch {
                 return (nil, error)

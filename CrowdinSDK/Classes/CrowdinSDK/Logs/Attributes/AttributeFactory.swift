@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AttributeFactory {
+public struct AttributeFactory {
 
     static func make(_ attribute: LogAttribute) -> NSAttributedString {
         let empty = "Empty"
@@ -24,7 +24,7 @@ struct AttributeFactory {
             return AttributeFactory.attributeWithTitle(title, text)
         case let .parameters(dictionary), let .headers(dictionary):
             var finalDictionary = dictionary
-            finalDictionary?.trim(header: "Authorization", placeholder: "Bearer <token>")
+            finalDictionary?.updateValue("Bearer <token>", forKey: "Authorization")
             let text = finalDictionary?.isEmpty == true ? empty : finalDictionary?.description ?? empty
             
             return AttributeFactory.attributeWithTitle(title, text)
