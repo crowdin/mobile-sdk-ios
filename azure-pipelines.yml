@@ -43,7 +43,7 @@ jobs:
       vmImage: 'macOS 10.14'
     steps:
       - bash: |
-          pod lib lint --verbose
+          pod lib lint --verbose --skip-tests
         displayName: 'Lint pod library'
 
   - job: Build
