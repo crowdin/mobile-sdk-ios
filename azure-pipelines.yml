@@ -20,7 +20,7 @@ jobs:
   - job: DangerSwiftLint
     continueOnError: true
     pool:
-      vmImage: 'macOS 10.15'
+      vmImage: 'macOS 10.14'
     steps:
       - bash: |
           brew install swiftlint ; brew install danger/tap/danger-swift ; export DANGER_GITHUB_API_TOKEN='$(DANGER_GITHUB_API_TOKEN)' ; danger-swift ci 
@@ -30,7 +30,7 @@ jobs:
     dependsOn: DangerSwiftLint
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15'
+      vmImage: 'macOS 10.14'
     steps:
       - bash: |
           cd Tests ; pod update Starscream; pod update BaseAPI; pod install
@@ -40,7 +40,7 @@ jobs:
     dependsOn: PodInstall
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15'
+      vmImage: 'macOS 10.14'
     steps:
       - bash: |
           pod lib lint --skip-tests
@@ -50,7 +50,7 @@ jobs:
     dependsOn: PodLint
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15'
+      vmImage: 'macOS 10.14'
     steps:
       - task: Xcode@5
         displayName: 'Build Xcode App'
@@ -67,7 +67,7 @@ jobs:
     dependsOn: Build
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15'
+      vmImage: 'macOS 10.14'
     steps:
       - task: Xcode@5
         displayName: 'Running tests'
