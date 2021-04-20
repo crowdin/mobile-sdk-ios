@@ -47,7 +47,7 @@ jobs:
         displayName: 'Lint pod library'
 
   - job: Build
-    dependsOn: PodLint
+    dependsOn: PodInstall
     condition: succeeded()
     pool:
       vmImage: 'macOS 10.14'
