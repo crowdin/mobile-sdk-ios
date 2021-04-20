@@ -484,6 +484,13 @@ CrowdinSDK.enableSDKLocalization(true, localization: “<language_code>”)
    ```swift
    .with(debugEnabled: true)
    ```
+6. Log callback. Crowdin SDK collects log messages for all actions that made by SDK (login/logout, download languages, API calls). This callback returns Log text each time a new Log is created. To subscribe on receiving Log messages just add a new callback like this:
+
+```
+CrowdinSDK.setOnLogCallback { logMessage in
+   print("LOG MESSAGE - \(logMessage)")
+}
+```
 
 ## File Export Patterns
 
