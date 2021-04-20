@@ -33,4 +33,12 @@ extension CrowdinSDK {
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
         self.startWithRemoteStorage(remoteStorage, completion: completion)
     }
+    
+    /// Method. Add Log message callback.
+    ///
+    /// - Parameters:
+    ///   - completion: Crowdin SDK Log message completion.
+    public class func setOnLogCallback(_ completion: @escaping CrowdinSDKLogMessage) {
+        addLogMessageHandler(completion)
+    }
 }

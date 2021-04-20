@@ -14,8 +14,14 @@ public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void
 /// Closure type for localization update error handlers.
 public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 
+/// Closure type for Log messages handlers.
+public typealias CrowdinSDKLogMessage = (String) -> Void
+
 /// Main interface for working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
+
+    public var onLogCallback: ((String) -> Void)?
+
     /// Current localization language code.
 	public class var currentLocalization: String? {
 		get {
@@ -133,6 +139,27 @@ public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
     public class func removeAllErrorHandlers() {
         LocalizationUpdateObserver.shared.removeAllErrorHandlers()
     }
+    
+    /// Add log message handler closure. This closure will be called every time when new log record is created.
+    ///
+    /// - Parameter handler: Log message handler closure.
+    /// - Returns: Log handler id value. This value is used to remove this handler.
+    @discardableResult
+    public class func addLogMessageHandler(_ handler: @escaping CrowdinSDKLogMessage) -> Int {
+        LogMessageObserver.shared.addLogMessageHandler(handler)
+    }
+    
+    /// Method for removing log message completion handler by id.
+    ///
+    /// - Parameter id: Handler id returned from addLogMessageHandler(_:) method.
+    public class func removeLogMessageHandler(_ id: Int) {
+        LogMessageObserver.shared.removeLogMessageHandler(id)
+    }
+    
+    /// Remove all completion handlers.
+    public class func removeAllLogMessageHandlers() {
+        LogMessageObserver.shared.removeAllLogMessageHandlers()
+    }
 }
 
 extension CrowdinSDK {
@@ -190,7 +217,7 @@ extension CrowdinSDK {
     /// Method for screenshot feature initialization if Screenshot submodule is added.
     private class func initializeScreenshotFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeScreenshotFeature.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeScreenshotFeature.rawValue)
+            CrowdinSDK.perform(Selectors.initializeScreenshotFeature.rawValue)
         }
     }
 	
@@ -204,20 +231,20 @@ extension CrowdinSDK {
 	/// Method for interval updates feature initialization if IntervalUpdate submodule is added.
     private class func initializeIntervalUpdateFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeIntervalUpdateFeature.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeIntervalUpdateFeature.rawValue)
+            CrowdinSDK.perform(Selectors.initializeIntervalUpdateFeature.rawValue)
         }
     }
 	
 	/// Method for Settings view feature initialization if Screenshots submodule is added.
     private class func initializeSettingsIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeSettings.rawValue) {
-            CrowdinSDK .perform(Selectors.initializeSettings.rawValue)
+            CrowdinSDK.perform(Selectors.initializeSettings.rawValue)
         }
     }
 	
 	private class func setupLoginIfNeeded() {
 		if CrowdinSDK.responds(to: Selectors.setupLogin.rawValue) {
-			CrowdinSDK .perform(Selectors.setupLogin.rawValue)
+			CrowdinSDK.perform(Selectors.setupLogin.rawValue)
 		}
 	}
 }
