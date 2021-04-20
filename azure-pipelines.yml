@@ -38,7 +38,7 @@ jobs:
 
   - job: PodLint
     dependsOn: PodInstall
-    condition: succeeded()
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
     pool:
       vmImage: 'macOS 10.14'
     steps:
