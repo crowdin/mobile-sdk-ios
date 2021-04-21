@@ -237,7 +237,7 @@ var loginConfig: CrowdinLoginConfig
 do {
 	loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
 		clientSecret: "{client_secret}",
-		scope: "project.translation",
+		scope: "project",
 		redirectURI: "{redirectURI}",
 		organizationName: "{organization_name}")
 } catch {
@@ -262,7 +262,7 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
 
 NSError *error;
-CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.translation" organizationName:@"{organization_name}" error:&error];
+CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project" organizationName:@"{organization_name}" error:&error];
 
 if (!error) {
 	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
@@ -283,7 +283,7 @@ if (!error) {
 | `hashString`               | Distribution Hash                                                   |`hashString: "7a0c1ee2622bc85a4030297uo3b"`
 | `sourceLanguage`           | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) | `sourceLanguage: "en"`
 | `clientId`, `clientSecret` | Crowdin OAuth Client ID and Client Secret | `clientId: "gpY2yTbCVGEelrcx3TYB"`, `clientSecret: "Xz95t0ASVgbvKaZbFB4SMHQzdUl1MSgSTabEDx9T"`
-| `scope`                    | Define the access scope for personal tokens | `scope: "project.translation"`
+| `scope`                    | Define the access scope for personal tokens | `scope: "project"`
 | `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
 | `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
 | `settingsEnabled`          | Enable floating settings view with a list of all active features and its statuses | `settingsEnabled: true`
@@ -380,7 +380,7 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
 
 NSError *error;
-CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.translation" organizationName:@"{organization_name}" error:&error];
+CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.screenshot" organizationName:@"{organization_name}" error:&error];
 
 if (!error) {
 	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
