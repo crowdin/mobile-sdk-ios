@@ -9,7 +9,7 @@ import Foundation
 
 fileprivate let enLocale = Locale(identifier: "en-GB")
 
-fileprivate enum Paths: String {
+public enum Paths: String {
     case language = "%language%"
     case locale = "%locale%"
     case localeWithUnderscore = "%locale_with_underscore%"

@@ -18,14 +18,16 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        var localize = localization
         self.completion = completion
-        self.getFiles(for: hash) { [weak self] (files, _, url, error)  in
+        self.getFiles(for: hash) { [weak self] (files, _, url, languageMapping, error)  in
             guard let self = self else { return }
             if let files = files {
                 let strings = files.filter({ $0.isStrings })
                 let plurals = files.filter({ $0.isStringsDict })
                 let xliffs = files.filter({ $0.isXliff })
-                self.download(strings: strings, plurals: plurals, xliffs: xliffs, with: hash, for: localization, baseURL: url)
+                localize = CrowdinPathHelper.adoptMappingLocalization(languageMapping: languageMapping, localization: localization)
+                self.download(strings: strings, plurals: plurals, xliffs: xliffs, with: hash, for: localize, baseURL: url)
             }  else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
@@ -80,10 +82,10 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         operationQueue.addOperation(completionBlock)
     }
     
-    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, String?, Error?) -> Void) {
+    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, String?, LangMapping?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.contentDeliveryAPI.getManifest { (manifest, url, error) in
-            completion(manifest?.files, manifest?.timestamp, url, error)
+            completion(manifest?.files, manifest?.timestamp, url, manifest?.languageMapping, error)
         }
     }
     
