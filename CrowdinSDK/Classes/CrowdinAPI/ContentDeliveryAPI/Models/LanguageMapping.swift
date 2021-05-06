@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LangMapping: Codable {
+public struct LangMapping: Codable {
     
     var languagesMapping: [LanguageMapping] = []
     
