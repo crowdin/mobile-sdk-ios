@@ -11,7 +11,7 @@ public struct LangMapping: Codable {
     
     var languagesMapping: [LanguageMapping] = []
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let dictionary = try container.decode([String : PathTestPattern].self)
         
