@@ -459,9 +459,7 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
    Then enable this option in `CrowdinSDKConfig`:
 
    ```swift
-   ...
    .with(intervalUpdatesEnabled: true, interval: {interval})
-   ...
    ```
 
     `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes.
@@ -470,11 +468,11 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 
 3. To change SDK target language on the fly regardless of device locale use the following method:
 
-```
-
-CrowdinSDK.enableSDKLocalization(true, localization: “<language_code>”)
-
-```
+    ```swift
+    CrowdinSDK.enableSDKLocalization(true, localization: “<language_code>”)
+    ```
+    
+    `<language_code>` - target language code in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format.
 
 4. Currently, Custom Languages and Language Mapping are not supported for iOS SDK.
 
@@ -486,11 +484,11 @@ CrowdinSDK.enableSDKLocalization(true, localization: “<language_code>”)
    ```
 6. Log callback. Crowdin SDK collects log messages for all actions that made by SDK (login/logout, download languages, API calls). This callback returns Log text each time a new Log is created. To subscribe on receiving Log messages just add a new callback like this:
 
-```
-CrowdinSDK.setOnLogCallback { logMessage in
-   print("LOG MESSAGE - \(logMessage)")
-}
-```
+    ```swift
+    CrowdinSDK.setOnLogCallback { logMessage in
+       print("LOG MESSAGE - \(logMessage)")
+    }
+    ```
 
 ## File Export Patterns
 
