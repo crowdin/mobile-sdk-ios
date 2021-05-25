@@ -16,11 +16,15 @@ trigger:
       - CODE_OF_CONDUCT.md
       - CONTRIBUTING.md
 
+variables:
+  image: 'macOS-latest'
+  xCode: '11'
+
 jobs:
   - job: DangerSwiftLint
     continueOnError: true
     pool:
-      vmImage: 'macOS 10.15.2'
+      vmImage: $(image)
     steps:
       - bash: |
           brew install swiftlint ; brew install danger/tap/danger-swift ; export DANGER_GITHUB_API_TOKEN='$(DANGER_GITHUB_API_TOKEN)' ; danger-swift ci 
@@ -30,7 +34,7 @@ jobs:
     dependsOn: DangerSwiftLint
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15.2'
+      vmImage: $(image)
     steps:
       - bash: |
           cd Tests ; pod update Starscream; pod update BaseAPI; pod install
@@ -40,7 +44,7 @@ jobs:
     dependsOn: PodInstall
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
     pool:
-      vmImage: 'macOS 10.15.2'
+      vmImage: $(image)
     steps:
       - bash: |
           pod lib lint --skip-tests
@@ -50,7 +54,7 @@ jobs:
     dependsOn: PodInstall
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15.2'
+      vmImage: $(image)
     steps:
       - task: Xcode@5
         displayName: 'Build Xcode App'
@@ -60,14 +64,14 @@ jobs:
           scheme: 'Tests'
           configuration: 'Debug'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          xcodeVersion: '11'
+          xcodeVersion: $(xCode)
           packageApp: false
 
   - job: Test
     dependsOn: Build
     condition: succeeded()
     pool:
-      vmImage: 'macOS 10.15.2'
+      vmImage: $(image)
     steps:
       - task: Xcode@5
         displayName: 'Running tests'
@@ -77,7 +81,7 @@ jobs:
           configuration: 'Debug'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
           scheme: 'TestsTests'
-          xcodeVersion: '11'
+          xcodeVersion: $(xCode)
           publishJUnitResults: true
           destinationPlatformOption: 'iOS'
           destinationTypeOption: 'simulators'
