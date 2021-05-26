@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SettingsView: UIView {
+final class SettingsView: UIView {
     // swiftlint:disable force_unwrapping
     static let shared: SettingsView? = SettingsView.loadFromNib()
     
@@ -36,23 +36,22 @@ class SettingsView: UIView {
         }
     }
     
+    @IBOutlet weak var closeButton: UIButton!
+    
     fileprivate let closedWidth: CGFloat = 60.0
     fileprivate let openedWidth: CGFloat = 200.0
     fileprivate let defaultItemHeight: CGFloat = 60.0
     let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
+    
+    var realtimeUpdateFeatureEnabled: Bool = false
     
     var open: Bool = false {
         didSet {
             reloadData()
             self.blurView.isHidden = open
             self.backgroundColor = open ? UIColor(red: 45.0 / 255.0, green: 49.0 / 255.0, blue: 49.0 / 255.0, alpha: 1.0) : .clear
-            if open == true {
-                self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
-                self.frame.size.width = openedWidth
-            } else {
-                self.frame.size.height = defaultItemHeight
-                self.frame.size.width = closedWidth
-            }
+            reloadUI()
+            closeButtonHidden(isHidden: open == false)
         }
     }
     
@@ -66,6 +65,16 @@ class SettingsView: UIView {
     func dismissLogsVC() {
         logsVC?.cw_dismiss()
         logsVC = nil
+    }
+    
+    func reloadUI() {
+        if open == true {
+            self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
+            self.frame.size.width = openedWidth
+        } else {
+            self.frame.size.height = defaultItemHeight
+            self.frame.size.width = closedWidth
+        }
     }
     
     class func loadFromNib() -> SettingsView? {
@@ -88,9 +97,21 @@ class SettingsView: UIView {
         gesture.delegate = self
     }
     
+    // MARK: - IBActions
+    
     @IBAction func settingsButtonPressed() {
         self.open = !self.open
         self.fixPositionIfNeeded()
+    }
+    
+    @IBAction func closeButtonPressed() {
+        open = false
+    }
+    
+    // MARK: - Private
+    
+    func closeButtonHidden(isHidden: Bool) {
+        closeButton.isHidden = isHidden
     }
     
     func fixPositionIfNeeded() {
@@ -127,6 +148,7 @@ class SettingsView: UIView {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self]_ in
             alert.cw_dismiss()
             self?.logout()
+            self?.reloadUI()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
             alert.cw_dismiss()
@@ -141,7 +163,18 @@ class SettingsView: UIView {
         LoginFeature.shared.flatMap {
             $0.logout()
         }
-        open = false
-        CrowdinLogsCollector.shared.add(log: .info(with: "Successfully logout"))
+        reloadData()
+        let message = "Successfully logout"
+        CrowdinLogsCollector.shared.add(log: .info(with: message))
+        showToast(message)
+    }
+    
+    func showToast(_ message: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.makeToast(message)
+        }
+        
+        // Notify all subscribers about new log record is created
+        LogMessageObserver.shared.notifyAll(message)
     }
 }

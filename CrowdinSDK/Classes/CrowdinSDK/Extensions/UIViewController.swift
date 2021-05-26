@@ -16,7 +16,7 @@ public extension UIViewController {
     }
     
     private static let topWindowAssociation = ObjectAssociation<UIWindow>()
-    private var topWindow: UIWindow? {
+    var topWindow: UIWindow? {
         get { return UIViewController.topWindowAssociation[self] }
         set { UIViewController.topWindowAssociation[self] = newValue }
     }
@@ -68,9 +68,4 @@ public extension UIViewController {
         }))
         alert.cw_present()
     }
-}
-
-extension NSNotification.Name {
-    
-    static let refreshLogsName = NSNotification.Name(rawValue: "RefreshLogsNotificationName")
 }

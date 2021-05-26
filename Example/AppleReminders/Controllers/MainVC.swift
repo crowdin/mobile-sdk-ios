@@ -79,7 +79,6 @@ final class MainVC: UIViewController {
             guard let allLists = ReminderList.getAllLists(isGroupsIncluded: true), allLists.count > 0 else { return }
             self.navigationController?.pushViewController(reminderTVC, animated: true)
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,26 +130,28 @@ final class MainVC: UIViewController {
     
     @objc func addListBtnTapped() {
         let createListVC = CreateListVC()
-        self.present(createListVC, animated: true, completion: nil)
+        present(createListVC, animated: true, completion: nil)
     }
     
     @objc func settingsBtnTapped() {
         let settingsVC = SettingsVC()
         let settingsNC = UINavigationController(rootViewController: settingsVC)
-        self.present(settingsNC, animated: true, completion: nil)
+        present(settingsNC, animated: true, completion: nil)
     }
     
     @objc func addGroupBtnTapped() {
         let createGroupVC = UINavigationController(rootViewController: CreateGroupTVC())
-        self.present(createGroupVC, animated: true, completion: nil)
+        present(createGroupVC, animated: true, completion: nil)
     }
+    
+    // MARK: -Privates
     
     private func addViews(views: UIView...) {
         views.forEach({ self.view.addSubview($0) })
     }
     
     private func addListView() {
-        self.addViews(views: footerView)
+        addViews(views: footerView)
         
         footerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
@@ -188,7 +189,6 @@ final class MainVC: UIViewController {
         searchController?.searchBar.placeholder = "Search".localized
         navigationItem.searchController = searchController
     }
-    
 }
 
 //MARK: Datasource
