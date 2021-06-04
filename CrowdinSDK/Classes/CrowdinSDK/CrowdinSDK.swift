@@ -39,7 +39,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     public class var inBundleLocalizations: [String] { Bundle.main.inBundleLocalizations }
     
     /// List of all available localizations in bundle and on crowdin.
-    public class var allAvalaibleLocalizations: [String] {
+    public class var allAvailableLocalizations: [String] {
         var localizations = Array(Set<String>(inSDKLocalizations + inBundleLocalizations))
         if let index = localizations.firstIndex(where: { $0 == "Base" }) {
             localizations.remove(at: index)

@@ -10,7 +10,7 @@ import UIKit
 import CrowdinSDK
 
 class SettingsVC: UITableViewController {
-    var localizations = CrowdinSDK.allAvalaibleLocalizations
+    var localizations = CrowdinSDK.allAvailableLocalizations
     
     enum Strings: String {
         case settings
