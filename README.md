@@ -405,7 +405,7 @@ if (!error) {
 | `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
 | `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
 | `settingsEnabled`          | Enable [floating widget](https://github.com/crowdin/mobile-sdk-ios/wiki/SDK-Controls) to easily access the features of SDK | `settingsEnabled: true`
-| `screenshotsEnabled`       | Enable screenshots feature | `screenshotsEnabled: true`
+| `screenshotsEnabled`       | Enable Screenshots feature | `screenshotsEnabled: true`
 
 The last step is to handle authorization callback in your application:
 
@@ -460,6 +460,8 @@ let feature = ScreenshotFeature.shared {
 	})
 }
 ```
+
+or even capture screenshots of a separate UIView.
 
 ## Notes
 
