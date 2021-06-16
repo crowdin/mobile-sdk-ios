@@ -286,7 +286,7 @@ if (!error) {
 | `scope`                    | Define the access scope for personal tokens | `scope: "project"`
 | `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
 | `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
-| `settingsEnabled`          | Enable floating settings view with a list of all active features and its statuses | `settingsEnabled: true`
+| `settingsEnabled`          | Enable [floating widget](https://github.com/crowdin/mobile-sdk-ios/wiki/SDK-Controls) to easily access the features of SDK | `settingsEnabled: true`
 | `realtimeUpdatesEnabled`   | Enable Real-Time Preview feature | `realtimeUpdatesEnabled: true`
 
 The last step is to handle authorization callback in your application:
@@ -404,8 +404,8 @@ if (!error) {
 | `scope`                    | Define the access scope for personal tokens | `scope: "project.screenshot"`
 | `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
 | `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
-| `settingsEnabled`          | Enable floating settings view with a list of all active features and its statuses | `settingsEnabled: true`
-| `screenshotsEnabled`       | Enable floating button to send screenshots to Crowdin | `screenshotsEnabled: true`
+| `settingsEnabled`          | Enable [floating widget](https://github.com/crowdin/mobile-sdk-ios/wiki/SDK-Controls) to easily access the features of SDK | `settingsEnabled: true`
+| `screenshotsEnabled`       | Enable screenshots feature | `screenshotsEnabled: true`
 
 The last step is to handle authorization callback in your application:
 
@@ -445,6 +445,21 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 }
 ```
 </details>
+
+You could also define (optional) your own handler to take a screenshot (for example, clicking on some button in your application):
+
+```swift
+let feature = ScreenshotFeature.shared {
+	feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
+	    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+	    self?.showToast(message)
+	}, errorHandler: { (error) in
+	    let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
+	    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+	    self?.showToast(message)
+	})
+}
+```
 
 ## Notes
 
