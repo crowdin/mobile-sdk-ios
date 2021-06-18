@@ -18,15 +18,17 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        var localize = localization
         self.completion = completion
-        self.getFiles(for: hash) { [weak self] (files, timestamp, error) in
+        self.getFiles(for: hash) { [weak self] (files, timestamp, languageMapping, error) in
             guard let self = self else { return }
             if let files = files {
                 let strings = files.filter({ $0.isStrings })
                 let plurals = files.filter({ $0.isStringsDict })
                 let xliffs = files.filter({ $0.isXliff })
                 let jsons = files.filter({ $0.isJson })
-                self.download(strings: strings, plurals: plurals, xliffs:xliffs, jsons: jsons, with: hash, timestamp: timestamp, for: localization)
+                localize = CrowdinPathHelper.adoptMappingLocalization(languageMapping: languageMapping, localization: localization)
+                self.download(strings: strings, plurals: plurals, xliffs:xliffs, jsons: jsons, with: hash, timestamp: timestamp, for: localize)
             } else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
@@ -93,10 +95,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         operationQueue.addOperation(completionBlock)
     }
     
-    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
+    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, LangMapping?, Error?) -> Void) {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
         self.contentDeliveryAPI.getManifest { (manifest, _, error) in
-            completion(manifest?.files, manifest?.timestamp, error)
+            completion(manifest?.files, manifest?.timestamp, manifest?.languageMapping, error)
         }
     }
     
