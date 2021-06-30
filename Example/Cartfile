@@ -1,0 +1,2 @@
+github "realm/realm-cocoa"
+github "malcommac/SwiftDate" ~> 6.0
