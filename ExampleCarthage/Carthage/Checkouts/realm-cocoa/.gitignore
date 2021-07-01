@@ -1,0 +1,83 @@
+*~
+.DS_Store
+
+# Merge files
+*.orig
+
+# Binaries
+*.dylib
+*.a
+*.o
+*.d
+*.libdeps
+*.zip
+*.realm
+!examples/ios/swift/Migration/RealmTemplates/*.realm
+!examples/ios/objc/Migration/RealmTemplates/*.realm
+*.realm.lock
+
+# core
+core
+core-*
+realm-core-*-xcframework
+
+# sh build.sh test
+build/
+
+
+# sh build.sh cocoapods-setup
+/include
+
+# sh build.sh docs
+/docs/objc_output
+/docs/swift_output
+/Realm/RLMPlatform.h
+
+# XCode
+*.bak
+xcuserdata/
+project.xcworkspace
+*.xccheckout
+DerivedData
+/.build
+
+# AppCode
+.idea/
+*.iml
+# backup and crash files
+*.swp
+
+# xcpretty
+build.log
+
+# ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+## Carthage
+# Cartfiles are ignored because they're generated on demand in the installation examples
+Cartfile
+Carthage
+
+## Swift Version
+SwiftVersion.swift
+
+examples/ios/objc/Draw/Constants.h
+
+## Sync testing
+/.baas
+
+## Swiftpm
+.swiftpm
+.build
+Package.resolved
+
+examples/installation/ios/swift/SwiftPackageManagerExample/SwiftPackageManagerExample.xcodeproj

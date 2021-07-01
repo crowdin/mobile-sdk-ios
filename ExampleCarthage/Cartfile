@@ -1,0 +1,3 @@
+github "realm/realm-cocoa"
+github "malcommac/SwiftDate" ~> 6.0
+github "crowdin/mobile-sdk-ios" "31_add_carthage_support"
