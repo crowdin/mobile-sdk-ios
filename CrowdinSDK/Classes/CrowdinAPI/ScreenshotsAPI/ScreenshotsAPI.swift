@@ -7,6 +7,7 @@
 
 import Foundation
 import BaseAPI
+import CoreGraphics
 
 class ScreenshotsAPI: CrowdinAPI {
     override var apiPath: String {

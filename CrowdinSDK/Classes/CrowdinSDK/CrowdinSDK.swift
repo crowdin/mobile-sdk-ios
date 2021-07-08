@@ -19,6 +19,8 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
 
 /// Main interface for working with CrowdinSDK library.
 @objcMembers public class CrowdinSDK: NSObject {
+    
+    public override init() {}
 
     public var onLogCallback: ((String) -> Void)?
 

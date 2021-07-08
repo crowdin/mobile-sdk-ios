@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 6/5/19.
 //
 
-import Foundation
+import UIKit
 
 extension UIButton {
     /// Subscribe UIButton for realtime updates if it has at least one localization key for any state and realtime updates feature enabled.

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 extension CrowdinSDK {
     @objc class func initializeSettings() {

@@ -11,21 +11,21 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
     let crowdinFolder: FolderProtocol = CrowdinFolder.shared
     let firebaseFolder: FolderProtocol
     
-    var localizations: [String] = []
+//    var localizations: [String] = []
     
-    var strings: [String: String] = [:] {
+    override var strings: [String: String] {
         didSet {
             self.save()
         }
     }
     
-    var plurals: [AnyHashable: Any] = [:] {
+    override var plurals: [AnyHashable: Any] {
         didSet {
             self.save()
         }
     }
     
-    var localization: String {
+    override var localization: String {
         didSet {
             refresh()
         }
@@ -33,13 +33,16 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
     
     func fetchData(completion: @escaping LocalizationStorageCompletion) {
         self.refresh()
-        completion([], strings, plurals)
+//        completion([], strings, plurals)
     }
     
-    required init(localization: String) {
-        self.localization = localization
+    required override init(localization: String) {
         // swiftlint:disable force_try
         self.firebaseFolder = try! crowdinFolder.createFolder(with: "Firebase")
+        
+        super.init(localization: localization)
+        
+        self.localization = localization
     }
     
     func refresh() {
@@ -53,7 +56,7 @@ class FirebaseLocalLocalizationStorage: LocalLocalizationStorage {
         }
     }
     
-    func save() {
+    override func save() {
         let localizationDict = [Keys.strings.rawValue : strings, Keys.plurals.rawValue : plurals]
         let path = self.firebaseFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let stringsFile = DictionaryFile(path: path)
