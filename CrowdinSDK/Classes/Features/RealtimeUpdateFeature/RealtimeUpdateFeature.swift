@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }

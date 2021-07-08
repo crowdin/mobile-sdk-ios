@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Extension for window screenshot creation.
 extension UIView {

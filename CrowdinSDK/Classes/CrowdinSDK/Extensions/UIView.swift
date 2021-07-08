@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Custom view presentation and dismissing.
 public extension UIView {

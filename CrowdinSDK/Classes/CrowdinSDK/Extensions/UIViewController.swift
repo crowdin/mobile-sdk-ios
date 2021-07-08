@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 4/16/19.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Custom view controller presentation and dismiss.
 public extension UIViewController {

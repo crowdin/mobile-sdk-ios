@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 extension CGRect {
 	var isOriginInfinite: Bool {

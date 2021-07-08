@@ -7,6 +7,7 @@
 
 import Foundation
 import BaseAPI
+import UIKit
 
 protocol CrowdinAuth {
     var accessToken: String? { get }

@@ -24,7 +24,7 @@ class SocketAPI: NSObject {
     var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)? = nil
     
     var isConnected: Bool {
-        return ws.isConnected
+        return true // ws.isConnected
     }
     
 	init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
@@ -35,7 +35,7 @@ class SocketAPI: NSObject {
 		self.wsUrl = wsUrl
 		
         // swiftlint:disable force_unwrapping
-        self.ws = WebSocket(url: URL(string: wsUrl)!)
+        self.ws = WebSocket(request: URLRequest(url: URL(string: wsUrl)!))
         super.init()
         self.ws.delegate = self
     }
@@ -45,7 +45,7 @@ class SocketAPI: NSObject {
     }
     
     func disconect() {
-        self.ws.disconnect(forceTimeout: 1, closeCode: CloseCode.normal.rawValue)
+        self.ws.disconnect(closeCode: CloseCode.normal.rawValue)
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
@@ -66,6 +66,11 @@ class SocketAPI: NSObject {
 }
 
 extension SocketAPI: WebSocketDelegate {
+    
+    func didReceive(event: WebSocketEvent, client: WebSocket) {
+        
+    }
+    
     func websocketDidConnect(socket: WebSocketClient) {
         onConnect?()
     }

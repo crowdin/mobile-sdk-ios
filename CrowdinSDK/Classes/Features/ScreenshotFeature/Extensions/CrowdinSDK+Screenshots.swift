@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 6/1/19.
 //
 
-import Foundation
+import UIKit
 
 extension CrowdinSDK {
     @objc class func initializeScreenshotFeature() {

@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 7/18/19.
 //
 
-import Foundation
+import UIKit
 
 public protocol ScreenshotUploader {
 	func uploadScreenshot(screenshot: UIImage, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public protocol ScreenshotProcessor {
 	func process(screenshot: UIImage, with controlsInfo: [ControlInformation]) -> UIImage

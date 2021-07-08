@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 4/6/19.
 //
 
-import Foundation
+import UIKit
 
 extension SettingsView {
     func registerCells() {
@@ -17,7 +17,7 @@ extension SettingsView {
         cells = []
         
         if let loginFeature = LoginFeature.shared {
-            if let loginCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+            if let loginCell: SettingsItemCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                 if !LoginFeature.isLogined {
                     loginCell.titleLabel.text = "Log in"
                     loginCell.action = { [weak self] in
