@@ -121,11 +121,11 @@ class CrowdinSupportedLanguages {
     
     func downloadSupportedLanguagesSync() {
         let semaphore = DispatchSemaphore(value: 0)
-        self.downloadSupportedLanguages {
+        self.downloadSupportedLanguages(completion: {
             semaphore.signal()
-        } error: { _ in
+        }, error: { _ in
             semaphore.signal()
-        }
+        })
         _ = semaphore.wait(timeout: .now() + 60)
     }
     
