@@ -5,8 +5,8 @@ class CrowdinPathsParserTests: XCTestCase {
     var pathParser = CrowdinPathsParser.shared
     
     override func setUp() {
-        if pathParser.loaded == false {
-            pathParser.downloadSupportedLanguagesSync()
+        if CrowdinSupportedLanguages.shared.loaded == false {
+            CrowdinSupportedLanguages.shared.downloadSupportedLanguagesSync()
         }
     }
     
