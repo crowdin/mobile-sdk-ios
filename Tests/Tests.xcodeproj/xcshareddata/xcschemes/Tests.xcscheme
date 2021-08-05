@@ -78,6 +78,10 @@
                BlueprintName = "CrowdinSDK-Unit-CrowdinProvider_Tests"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
+            <LocationScenarioReference
+               identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
+               referenceType = "1">
+            </LocationScenarioReference>
          </TestableReference>
          <TestableReference
             skipped = "NO">

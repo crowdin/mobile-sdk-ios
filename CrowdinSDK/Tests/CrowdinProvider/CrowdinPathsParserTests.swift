@@ -2,10 +2,12 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinPathsParserTests: XCTestCase {
-    var pathParser: CrowdinPathsParser!
+    var pathParser = CrowdinPathsParser.shared
     
     override func setUp() {
-        self.pathParser = CrowdinPathsParser()
+        if pathParser.loaded == false {
+            pathParser.downloadSupportedLanguagesSync()
+        }
     }
     
     func testContainsLanguageCustomPath() {
@@ -35,11 +37,11 @@ class CrowdinPathsParserTests: XCTestCase {
     // mark - Locale
     
     func testParseLocaleCustomPathForEnLocalization() {
-        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "en") == "en/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "en") == "en-GB/Localizable.strings", "")
     }
     
     func testParseLocaleCustomPathForDeLocalization() {
-        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "de") == "de/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "de") == "de-DE/Localizable.strings", "")
     }
     
     func testParseLocaleCustomPathForEnUSLocalization() {
@@ -50,16 +52,12 @@ class CrowdinPathsParserTests: XCTestCase {
         XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "en_US") == "en-US/Localizable.strings", "")
     }
     
-    func testParseLocaleCustomPathForZhLocalization() {
-        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "zh") == "zh/Localizable.strings", "")
-    }
-    
-    func testParseLocaleCustomPathForZhHantLocalization() {
-        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "zh_Hant") == "zh-Hant/Localizable.strings", "")
+    func testParseLocaleCustomPathForsZhHantLocalization() {
+        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "zh_Hant") == "zh-TW/Localizable.strings", "")
     }
     
     func testParseLocaleCustomPathForZhHansLocalization() {
-        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "zh_Hans") == "zh-Hans/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "zh_Hans") == "zh-CN/Localizable.strings", "")
     }
     
     // mark - Language
@@ -77,33 +75,29 @@ class CrowdinPathsParserTests: XCTestCase {
     }
     
     func testParseLanguageCustomPathForEnUSLocalization() {
-        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "en-US") == "English/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "en-US") == "English, United States/Localizable.strings", "")
     }
     
     func testParseLanguageCustomPathForEnUSWithUnderscoreLocalization() {
-        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "en_US") == "English/Localizable.strings", "")
-    }
-    
-    func testParseLanguageCustomPathForZhLocalization() {
-        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "zh") == "Chinese/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "en_US") == "English, United States/Localizable.strings", "")
     }
     
     func testParseLanguageCustomPathForZhHantLocalization() {
-        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "zh_Hant") == "Chinese/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "zh_Hant") == "Chinese Traditional/Localizable.strings", "")
     }
     
     func testParseLanguageCustomPathForZhHansLocalization() {
-        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "zh_Hans") == "Chinese/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%language%/Localizable.strings", localization: "zh_Hans") == "Chinese Simplified/Localizable.strings", "")
     }
     
     // mark - Locale With Underscore
 
     func testParseLocaleWithUnderscoreCustomPathForEnLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "en") == "en/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "en") == "en_US/Localizable.strings", "")
     }
     
     func testParseLocaleWithUnderscoreCustomPathForDeLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "de") == "de/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "de") == "de_DE/Localizable.strings", "")
     }
     
     func testParseLocaleWithUnderscoreCustomPathForEnUSLocalization() {
@@ -114,16 +108,12 @@ class CrowdinPathsParserTests: XCTestCase {
         XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "en_US") == "en_US/Localizable.strings", "")
     }
     
-    func testParseLocaleWithUnderscoreCustomPathForZhLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh") == "zh/Localizable.strings", "")
-    }
-    
     func testParseLocaleWithUnderscoreCustomPathForZhHantLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh_Hant") == "zh_Hant/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh_Hant") == "zh_TW/Localizable.strings", "")
     }
     
     func testParseLocaleWithUnderscoreCustomPathForZhHansLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh_Hans") == "zh_Hans/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh_Hans") == "zh_CN/Localizable.strings", "")
     }
     
     // mark - osx code
@@ -141,11 +131,7 @@ class CrowdinPathsParserTests: XCTestCase {
     }
     
     func testParseOsxCodeCustomPathForEnUSWithUnderscoreLocalization() {
-        XCTAssert(self.pathParser.parse("%osx_code%/Localizable.strings", localization: "en_US") == "en_US.lproj/Localizable.strings", "")
-    }
-    
-    func testParseOsxCodeCustomPathForZhLocalization() {
-        XCTAssert(self.pathParser.parse("%osx_code%/Localizable.strings", localization: "zh") == "zh.lproj/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%osx_code%/Localizable.strings", localization: "en_US") == "en-US.lproj/Localizable.strings", "")
     }
     
     func testParseOsxCodeCustomPathForZhHantLocalization() {
@@ -167,15 +153,11 @@ class CrowdinPathsParserTests: XCTestCase {
     }
     
     func testParseOsxLocaleCustomPathForEnUSLocalization() {
-        XCTAssert(self.pathParser.parse("%osx_locale%/Localizable.strings", localization: "en-US") == "en-US/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%osx_locale%/Localizable.strings", localization: "en-US") == "en_US/Localizable.strings", "")
     }
     
     func testParseOsxLocaleCustomPathForEnUSWithUnderscoreLocalization() {
         XCTAssert(self.pathParser.parse("%osx_locale%/Localizable.strings", localization: "en_US") == "en_US/Localizable.strings", "")
-    }
-    
-    func testParseOsxLocaleCustomPathForZhLocalization() {
-        XCTAssert(self.pathParser.parse("%osx_locale%/Localizable.strings", localization: "zh") == "zh/Localizable.strings", "")
     }
     
     func testParseOsxLocaleCustomPathForZhHantLocalization() {
@@ -197,22 +179,18 @@ class CrowdinPathsParserTests: XCTestCase {
     }
     
     func testParseTwoLettersLocaleCustomPathForEnUSLocalization() {
-        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "en-US") == "US/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "en-US") == "en/Localizable.strings", "")
     }
     
     func testParseTwoLettersLocaleCustomPathForEnUSWithUnderscoreLocalization() {
-        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "en_US") == "US/Localizable.strings", "")
-    }
-    
-    func testParseTwoLettersLocaleCustomPathForZhLocalization() {
-        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "zh") == "zh/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "en_US") == "en/Localizable.strings", "")
     }
     
     func testParseTwoLettersLocaleCustomPathForZhHantLocalization() {
-        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "zh-Hant") == "zh-Hant/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "zh-Hant") == "zh/Localizable.strings", "")
     }
     
     func testParseTwoLettersLocaleCustomPathForZhHansLocalization() {
-        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "zh-Hans") == "zh-Hans/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%two_letters_code%/Localizable.strings", localization: "zh-Hans") == "zh/Localizable.strings", "")
     }
 }
