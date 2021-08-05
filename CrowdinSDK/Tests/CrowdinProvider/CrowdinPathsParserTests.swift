@@ -37,7 +37,7 @@ class CrowdinPathsParserTests: XCTestCase {
     // mark - Locale
     
     func testParseLocaleCustomPathForEnLocalization() {
-        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "en") == "en-GB/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale%/Localizable.strings", localization: "en") == "en-US/Localizable.strings", "")
     }
     
     func testParseLocaleCustomPathForDeLocalization() {
