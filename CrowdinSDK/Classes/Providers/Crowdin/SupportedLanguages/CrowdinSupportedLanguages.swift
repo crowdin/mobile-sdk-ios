@@ -13,6 +13,19 @@ extension LanguagesResponseData {
     }
 }
 
+protocol SupportedLanguage: Codable {
+    var id: String { get }
+    var name: String { get }
+    var editorCode: String { get }
+    var twoLettersCode: String { get }
+    var threeLettersCode: String { get }
+    var locale: String { get }
+    var osxCode: String { get }
+    var osxLocale: String { get }
+}
+
+extension LanguagesResponseData: SupportedLanguage { }
+
 class CrowdinSupportedLanguages {
     static let shared = CrowdinSupportedLanguages()
     let api = LanguagesAPI()
@@ -59,6 +72,21 @@ class CrowdinSupportedLanguages {
         return language?.data.id
     }
     
+    func crowdinSupportedLanguage(for localization: String) -> SupportedLanguage? {
+        var language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == localization })
+        if language == nil {
+            // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to replace _ in location code with -
+            let alternateiOSLocaleCode = localization.replacingOccurrences(of: "_", with: "-")
+            language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == alternateiOSLocaleCode })
+        }
+        if language == nil {
+            // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to get localization code and search again
+            let alternateiOSLocaleCode = localization.split(separator: "-").map({ String($0) }).first!
+            language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == alternateiOSLocaleCode })
+        }
+        return language?.data
+    }
+    
     func iOSLanguageCode(for crowdinLocalization: String) -> String? {
         return supportedLanguages?.data.first(where: { $0.data.id == crowdinLocalization })?.data.iOSLocaleCode
     }
@@ -89,6 +117,16 @@ class CrowdinSupportedLanguages {
             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Download supported languages success"))
             completion?()
         }
+    }
+    
+    func downloadSupportedLanguagesSync() {
+        let semaphore = DispatchSemaphore(value: 0)
+        self.downloadSupportedLanguages(completion: {
+            semaphore.signal()
+        }, error: { _ in
+            semaphore.signal()
+        })
+        _ = semaphore.wait(timeout: .now() + 60)
     }
     
     fileprivate func saveSupportedLanguages() {

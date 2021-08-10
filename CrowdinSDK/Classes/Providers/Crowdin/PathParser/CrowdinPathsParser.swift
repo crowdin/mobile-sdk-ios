@@ -20,21 +20,20 @@ fileprivate enum Paths: String {
     static var all: [Paths] = [.language, .locale, .localeWithUnderscore, .osxCode, .osxLocale, .twoLettersCode]
     
     func value(for localization: String) -> String {
+        guard let language = CrowdinSupportedLanguages.shared.crowdinSupportedLanguage(for: localization) else { return "" }
         switch self {
         case .language:
-            // swiftlint:disable force_unwrapping
-            let languageCode = Locale(identifier: localization).languageCode!
-            return enLocale.localizedString(forLanguageCode: languageCode) ?? ""
+            return language.name
         case .locale:
-            return Locale(identifier: localization).identifier.replacingOccurrences(of: "_", with: "-")
+            return language.locale
         case .localeWithUnderscore:
-            return Locale(identifier: localization).identifier.replacingOccurrences(of: "-", with: "_")
+            return language.locale.replacingOccurrences(of: "-", with: "_")
         case .osxCode:
-            return Locale(identifier: localization).identifier + ".lproj"
+            return language.osxCode
         case .osxLocale:
-            return Locale(identifier: localization).identifier
+            return language.osxLocale
         case .twoLettersCode:
-            return Locale(identifier: localization).regionCode ?? Locale(identifier: localization).identifier
+            return language.twoLettersCode
         }
     }
 }
