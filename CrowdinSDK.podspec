@@ -23,10 +23,10 @@ Pod::Spec.new do |spec|
   
   DESC
   
-  spec.homepage         = 'https://github.com/crowdin/mobile-sdk-ios'
+  spec.homepage         = 'http://github.com/crowdin/mobile-sdk-ios'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.author           = { 'Crowdin' => 'support@crowdin.com' }
-  spec.source           = { :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :tag => spec.version.to_s }
+  spec.source           = { :git => 'http://github.com/crowdin/mobile-sdk-ios.git', :tag => spec.version.to_s }
   spec.social_media_url    = 'https://twitter.com/crowdin'
   
   spec.ios.deployment_target = '9.0'
