@@ -6,4 +6,4 @@ git checkout master
 
 pod trunk me
 
-pod trunk push
+pod trunk push --allow-warnings --skip-tests
