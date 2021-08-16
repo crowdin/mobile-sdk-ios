@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 2/10/19.
 //
 
-import Foundation
+import UIKit
 
 protocol ReadWriteProtocol {
     func write(to path: String)

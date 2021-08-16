@@ -5,7 +5,8 @@
 //  Created by Serhii Londar on 7/18/19.
 //
 
-import Foundation
+import UIKit
+import CoreGraphics
 
 public struct ControlInformation {
 	var key: String

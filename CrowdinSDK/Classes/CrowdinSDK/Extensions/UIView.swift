@@ -5,7 +5,7 @@
 //  Created by Nazar Yavornytskyy on 3/27/21.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Custom view presentation and dismissing.
 public extension UIView {

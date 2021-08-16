@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 5/20/19.
 //
 
-import Foundation
+import UIKit
 import SafariServices
 
 protocol LoginFeatureProtocol {

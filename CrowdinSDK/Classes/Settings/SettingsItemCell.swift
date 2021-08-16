@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 4/13/19.
 //
 
-import Foundation
+import UIKit
 
 typealias SettingsItemCellAction = () -> Void
 

@@ -5,7 +5,7 @@
 //  Created by Nazar Yavornytskyy on 2/19/21.
 //
 
-import Foundation
+import UIKit
 
 public struct AttributeFactory {
 

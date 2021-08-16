@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 4/6/19.
 //
 
-import Foundation
+import UIKit
 
 extension SettingsView: UIGestureRecognizerDelegate {
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {

@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 5/14/19.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Extension for window screenshot creation.
 extension UIView {

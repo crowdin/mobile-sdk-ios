@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 3/5/19.
 //
 
-import Foundation
+import UIKit
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }

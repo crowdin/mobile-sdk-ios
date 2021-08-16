@@ -5,7 +5,8 @@
 //  Created by Serhii Londar on 04.12.2020.
 //
 
-import Foundation
+import UIKit
+import CoreGraphics
 
 class SettingsWindow: UIWindow {
     weak var settingsView: SettingsView? {

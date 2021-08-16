@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 11.08.2020.
 //
 
-import Foundation
+import UIKit
 
 enum CrowdinLogType: String {
     

@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 7/18/19.
 //
 
-import Foundation
+import CoreGraphics
 
 extension CGRect {
 	var isOriginInfinite: Bool {

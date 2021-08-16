@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 import BaseAPI
 
 class ScreenshotsAPI: CrowdinAPI {
