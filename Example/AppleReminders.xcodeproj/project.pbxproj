@@ -467,7 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd ../CrowdinSDK/Classes\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd ../Sources/CrowdinSDK/\n${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

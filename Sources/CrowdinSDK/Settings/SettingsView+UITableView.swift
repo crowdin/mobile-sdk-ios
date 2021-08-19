@@ -9,7 +9,7 @@ import UIKit
 
 extension SettingsView {
     func registerCells() {
-        let nib = UINib(nibName: "SettingsItemCell", bundle: Bundle.module)
+        let nib = UINib(nibName: "SettingsItemCell", bundle: Bundle.resourceBundle)
         tableView.register(nib, forCellReuseIdentifier: "SettingsItemCell")
     }
     
