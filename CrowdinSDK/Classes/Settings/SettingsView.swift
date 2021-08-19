@@ -8,7 +8,6 @@
 import UIKit
 
 final class SettingsView: UIView {
-    // swiftlint:disable force_unwrapping
     static let shared: SettingsView? = SettingsView.loadFromNib()
     
     var settingsWindow = SettingsWindow() {
@@ -78,7 +77,8 @@ final class SettingsView: UIView {
     }
     
     class func loadFromNib() -> SettingsView? {
-        return UINib(nibName: "SettingsView", bundle: Bundle.module).instantiate(withOwner: self, options: nil)[0] as? SettingsView
+        Bundle.module.load()
+        return UINib(nibName: "SettingsView", bundle: Bundle.module).instantiate(withOwner: self, options: nil).first as? SettingsView
     }
     
     override func awakeFromNib() {
