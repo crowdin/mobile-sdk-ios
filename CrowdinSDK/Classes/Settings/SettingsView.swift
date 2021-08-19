@@ -77,8 +77,7 @@ final class SettingsView: UIView {
     }
     
     class func loadFromNib() -> SettingsView? {
-        Bundle.module.load()
-        return UINib(nibName: "SettingsView", bundle: Bundle.module).instantiate(withOwner: self, options: nil).first as? SettingsView
+        return UINib(nibName: "SettingsView", bundle: nil).instantiate(withOwner: self, options: nil).first as? SettingsView
     }
     
     override func awakeFromNib() {
