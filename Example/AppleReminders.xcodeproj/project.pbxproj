@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -65,6 +65,7 @@
 		E053C3E425E7B57A0061E270 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3E125E7B57A0061E270 /* EmptyDataView.swift */; };
 		E82913D9257300E70068A629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E82913D7257300E70068A629 /* Localizable.strings */; };
 		E837B5F32596484F00656C9B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E837B5F22596484F00656C9B /* SettingsVC.swift */; };
+		E86888EA26CEE85D00A9B0CA /* CrowdinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = E86888E926CEE85D00A9B0CA /* CrowdinSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E86888EA26CEE85D00A9B0CA /* CrowdinSDK in Frameworks */,
 				2FC55D4EC80CB8BECFA839F2 /* Pods_AppleReminders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +353,9 @@
 			dependencies = (
 			);
 			name = AppleReminders;
+			packageProductDependencies = (
+				E86888E926CEE85D00A9B0CA /* CrowdinSDK */,
+			);
 			productName = AppleReminders;
 			productReference = 12706DD523DBB9320001D243 /* AppleReminders.app */;
 			productType = "com.apple.product-type.application";
@@ -381,6 +386,9 @@
 				fr,
 			);
 			mainGroup = 12706DCC23DBB9320001D243;
+			packageReferences = (
+				E86888E826CEE85D00A9B0CA /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */,
+			);
 			productRefGroup = 12706DD623DBB9320001D243 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -729,6 +737,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E86888E826CEE85D00A9B0CA /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "file:///Users/serhii-londar/Documents/GitHub/mobile-sdk-ios";
+			requirement = {
+				branch = "spm-1.0";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E86888E926CEE85D00A9B0CA /* CrowdinSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E86888E826CEE85D00A9B0CA /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */;
+			productName = CrowdinSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 12706DCD23DBB9320001D243 /* Project object */;
 }

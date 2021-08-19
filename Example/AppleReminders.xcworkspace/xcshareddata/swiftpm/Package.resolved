@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "BaseAPI",
+        "repositoryURL": "https://github.com/serhii-londar/BaseAPI.git",
+        "state": {
+          "branch": null,
+          "revision": "101edffad4b007f66849c2af1874e7703f2bf113",
+          "version": "0.2.1"
+        }
+      },
+      {
+        "package": "CrowdinSDK",
+        "repositoryURL": "/Users/serhii-londar/Documents/GitHub/mobile-sdk-ios",
+        "state": {
+          "branch": "spm-1.0",
+          "revision": "332444c3bcf4ffb9ef9beb78e8ced761aa5f5ccb",
+          "version": null
+        }
+      },
+      {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d",
+          "version": "3.1.1"
+        }
+      },
+      {
+        "package": "swift-nio-zlib-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "state": {
+          "branch": null,
+          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
