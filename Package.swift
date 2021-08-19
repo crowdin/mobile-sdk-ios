@@ -22,6 +22,6 @@ let package = Package(
                 exclude: [
                     "Providers/Firebase/"
                 ],
-                resources: [.process("CrowdinSDK/Assets")])
+                resources: [.process("CrowdinSDK/Assets/SettingsView.xib")])
     ]
 )
