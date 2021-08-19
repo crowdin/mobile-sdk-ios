@@ -9,9 +9,10 @@ import Foundation
 
 extension Bundle {
     class var resourceBundle: Bundle {
-        // swiftlint:disable force_unwrapping
         if Bundle.responds(to: Selector(("module"))) {
-            return Bundle.perform(Selector(("module"))) as! Bundle
+            // swiftlint:disable force_cast
+            let bundle = Bundle.perform(Selector(("module")))
+            return bundle?.takeRetainedValue() as! Bundle
         }
         return Bundle(for: SettingsView.self)
     }
