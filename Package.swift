@@ -23,10 +23,10 @@ let package = Package(
                     "Providers/Firebase/"
                 ],
                 resources: [
-                    .copy("Assets/Settings/CrowdinLogsVC.storyboard"),
-                    .copy("Assets/Settings/Images.xcassets"),
-                    .copy("Assets/Settings/SettingsItemCell.xib"),
-                    .copy("Assets/Settings/SettingsView.xib")
+                    .process("Assets/Settings/CrowdinLogsVC.storyboard"),
+                    .process("Assets/Settings/Images.xcassets"),
+                    .process("Assets/Settings/SettingsItemCell.xib"),
+                    .process("Assets/Settings/SettingsView.xib")
                 ])
     ]
 )
