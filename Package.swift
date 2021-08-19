@@ -18,15 +18,15 @@ let package = Package(
     targets: [
         .target(name: "CrowdinSDK",
                 dependencies: ["BaseAPI", "Starscream"],
-                path: "CrowdinSDK/Classes",
+                path: "Sources/CrowdinSDK",
                 exclude: [
                     "Providers/Firebase/"
                 ],
                 resources: [
-                    .process("Assets/Settings/CrowdinLogsVC.storyboard"),
-                    .process("Assets/Settings/Images.xcassets"),
-                    .process("Assets/Settings/SettingsItemCell.xib"),
-                    .process("Assets/Settings/SettingsView.xib")
+                    .process("Resources/Settings/CrowdinLogsVC.storyboard"),
+                    .process("Resources/Settings/Images.xcassets"),
+                    .process("Resources/Settings/SettingsItemCell.xib"),
+                    .process("Resources/Settings/SettingsView.xib")
                 ])
     ]
 )
