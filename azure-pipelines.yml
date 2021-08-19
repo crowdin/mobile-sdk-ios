@@ -37,7 +37,7 @@ jobs:
       vmImage: $(image)
     steps:
       - bash: |
-          cd Tests ; pod update Starscream; pod update BaseAPI; pod install
+          cd Example ; pod update Starscream; pod update BaseAPI; pod install
         displayName: 'Installing cocoapods'
 
   - job: PodLint
@@ -61,9 +61,9 @@ jobs:
         inputs:
           actions: 'build'
           sdk: 'iphonesimulator'
-          scheme: 'Tests'
+          scheme: 'AppleReminders'
           configuration: 'Debug'
-          xcWorkspacePath: 'Tests/Tests.xcworkspace'
+          xcWorkspacePath: 'Example/AppleReminders.xcworkspace'
           xcodeVersion: $(xCode)
           packageApp: false
 
@@ -79,8 +79,8 @@ jobs:
           actions: 'test'
           sdk: 'iphonesimulator'
           configuration: 'Debug'
-          xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          scheme: 'TestsTests'
+          xcWorkspacePath: 'Example/AppleReminders.xcworkspace'
+          scheme: 'Tests'
           xcodeVersion: $(xCode)
           publishJUnitResults: true
           destinationPlatformOption: 'iOS'

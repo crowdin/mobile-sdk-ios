@@ -5,9 +5,6 @@ class CrowdinAPITests: XCTestCase {
     // swiftlint:disable implicitly_unwrapped_optional
     var api: CrowdinAPI!
     
-    override func setUp() {
-    }
-    
     func testAPIInitialization() {
         api = CrowdinAPI()
         
