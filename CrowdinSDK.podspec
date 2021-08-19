@@ -38,40 +38,40 @@ Pod::Spec.new do |spec|
   spec.default_subspecs = 'Core', 'CrowdinProvider'
   
   spec.subspec 'Core' do |core|
-    core.source_files = 'CrowdinSDK/Classes/CrowdinSDK/**/*'
+    core.source_files = 'Sources/CrowdinSDK/CrowdinSDK/**/*'
   end
   
 
   spec.test_spec 'Core_Tests' do |test_spec|
-    test_spec.source_files = 'CrowdinSDK/Tests/Core/*.swift'
+    test_spec.source_files = 'Sources/Tests/Core/*.swift'
   end
   
   spec.subspec 'CrowdinProvider' do |provider|
     provider.name = 'CrowdinProvider'
-    provider.source_files = 'CrowdinSDK/Classes/Providers/Crowdin/**/*.swift'
+    provider.source_files = 'Sources/CrowdinSDK/Providers/Crowdin/**/*.swift'
     provider.dependency 'CrowdinSDK/Core'
     provider.dependency 'CrowdinSDK/CrowdinAPI'
   end
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
-    test_spec.source_files = 'CrowdinSDK/Tests/CrowdinProvider/*.swift'
+    test_spec.source_files = 'Sources/Tests/CrowdinProvider/*.swift'
   end
   
   spec.subspec 'CrowdinAPI' do |subspec|
     subspec.name = 'CrowdinAPI'
-    subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*.swift'
+    subspec.source_files = 'Sources/CrowdinSDK/CrowdinAPI/**/*.swift'
     subspec.dependency 'CrowdinSDK/Core'
     subspec.dependency 'Starscream', '~> 3.1.0'
     subspec.dependency 'BaseAPI', '~> 0.1.12'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
-    test_spec.source_files = 'CrowdinSDK/Tests/CrowdinAPI/*.swift'
+    test_spec.source_files = 'Sources/Tests/CrowdinAPI/*.swift'
   end
   
   spec.subspec 'Screenshots' do |feature|
     feature.name = 'Screenshots'
-    feature.source_files = 'CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift'
+    feature.source_files = 'Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -80,7 +80,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'RealtimeUpdate' do |feature|
     feature.name = 'RealtimeUpdate'
-    feature.source_files = 'CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift'
+    feature.source_files = 'Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -89,7 +89,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'RefreshLocalization' do |feature|
     feature.name = 'RefreshLocalization'
-    feature.source_files = 'CrowdinSDK/Classes/Features/RefreshLocalizationFeature/**/*.swift'
+    feature.source_files = 'Sources/CrowdinSDK/Features/RefreshLocalizationFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -97,7 +97,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'LoginFeature' do |feature|
     feature.name = 'LoginFeature'
-    feature.source_files = 'CrowdinSDK/Classes/Features/LoginFeature/**/*.swift'
+    feature.source_files = 'Sources/CrowdinSDK/Features/LoginFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -106,7 +106,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'IntervalUpdate' do |feature|
     feature.name = 'IntervalUpdate'
-    feature.source_files = 'CrowdinSDK/Classes/Features/IntervalUpdateFeature/**/*.swift'
+    feature.source_files = 'Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -114,8 +114,8 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'Settings' do |settings|
     settings.name = 'Settings'
-    settings.source_files = 'CrowdinSDK/Classes/Settings/**/*.swift'
-    settings.resources = 'CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}'
+    settings.source_files = 'Sources/CrowdinSDK/Settings/**/*.swift'
+    settings.resources = 'Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}'
     settings.dependency 'CrowdinSDK/Screenshots'
     settings.dependency 'CrowdinSDK/RealtimeUpdate'
     settings.dependency 'CrowdinSDK/RefreshLocalization'

@@ -7,9 +7,10 @@
 
 import Foundation
 
+#if !CrowdinSDKSPM
 
-#if !SPM
 extension Bundle {
     static var module: Bundle { Bundle(for: SettingsView.self) }
 }
+
 #endif

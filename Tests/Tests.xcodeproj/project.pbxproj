@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		03889E2498BE76977E18B335 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB6E45C19D79AEF67CEC319 /* Pods_Tests.framework */; };
 		5BDB06CB673D1227873DEF28 /* Pods_TestsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A6DC0FB8A535F1AA2999A7 /* Pods_TestsUITests.framework */; };
-		920E2A19234F5A2200FD3E12 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */; };
 		AC134E62B46E8C4E451EA4CD /* Pods_TestsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A367693F1E2D6901F12CC78 /* Pods_TestsTests.framework */; };
 		E8145B77235B9DDA000993DB /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8145B76235B9DDA000993DB /* InfoPlistInitializationTests.swift */; };
 		E8145B7D235BAB33000993DB /* BundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8145B7C235BAB33000993DB /* BundleTests.swift */; };
@@ -55,7 +54,6 @@
 		1A367693F1E2D6901F12CC78 /* Pods_TestsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFAE53CCB0976C090655E6E /* Pods-TestsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsUITests.debug.xcconfig"; path = "Target Support Files/Pods-TestsUITests/Pods-TestsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		70A6DC0FB8A535F1AA2999A7 /* Pods_TestsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A36A374768AF3AA6499401ED /* Pods-TestsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestsTests.debug.xcconfig"; path = "Target Support Files/Pods-TestsTests/Pods-TestsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AAB6E45C19D79AEF67CEC319 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B316B4E1DE564564279B018B /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 		E88AE257234D3F00000B6FC0 = {
 			isa = PBXGroup;
 			children = (
-				920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */,
 				E88AE262234D3F00000B6FC0 /* Tests */,
 				E88AE279234D3F01000B6FC0 /* UnitTests */,
 				E88AE284234D3F01000B6FC0 /* UITests */,
@@ -335,7 +332,6 @@
 			files = (
 				E8BD50CC23527390006D77FD /* Localizable.strings in Resources */,
 				E88AE270234D3F01000B6FC0 /* LaunchScreen.storyboard in Resources */,
-				920E2A19234F5A2200FD3E12 /* Default-568h@2x.png in Resources */,
 				E88AE26D234D3F01000B6FC0 /* Assets.xcassets in Resources */,
 				E88AE26B234D3F00000B6FC0 /* Main.storyboard in Resources */,
 				E8BD50D92352F6C6006D77FD /* Localizable.stringsdict in Resources */,

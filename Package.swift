@@ -28,7 +28,7 @@ let package = Package(
                     .process("Resources/Settings/SettingsItemCell.xib"),
                     .process("Resources/Settings/SettingsView.xib")
                 ], swiftSettings: [
-                    .define("SPM")
+                    .define("CrowdinSDKSPM")
                 ])
     ]
 )
