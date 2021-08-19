@@ -9,7 +9,7 @@ import UIKit
 
 extension SettingsView {
     func registerCells() {
-        let nib = UINib(nibName: "SettingsItemCell", bundle: Bundle.resourceBundle)
+        let nib = UINib(nibName: "SettingsItemCell", bundle: Bundle.module)
         tableView.register(nib, forCellReuseIdentifier: "SettingsItemCell")
     }
     
@@ -137,7 +137,7 @@ extension SettingsView {
         
         if let logsCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
             logsCell.action = {
-                let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.resourceBundle)
+                let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
                 let logsVC = logsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogsVC")
                 let logsNC = UINavigationController(rootViewController: logsVC)
                 logsVC.title = "Logs"

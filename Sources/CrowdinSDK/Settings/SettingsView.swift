@@ -22,7 +22,7 @@ final class SettingsView: UIView {
     
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
-            settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.resourceBundle, compatibleWith: nil), for: .normal)
+            settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.module, compatibleWith: nil), for: .normal)
         }
     }
     
@@ -77,8 +77,7 @@ final class SettingsView: UIView {
     }
     
     class func loadFromNib() -> SettingsView? {
-        let bundle = Bundle.resourceBundle
-        return UINib(nibName: "SettingsView", bundle: bundle).instantiate(withOwner: self, options: nil).first as? SettingsView
+        return UINib(nibName: "SettingsView", bundle: Bundle.module).instantiate(withOwner: self, options: nil).first as? SettingsView
     }
     
     override func awakeFromNib() {

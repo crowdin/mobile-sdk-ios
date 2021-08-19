@@ -119,7 +119,7 @@ final class CrowdinLogsVC: UITableViewController {
     }
     
     private func openLogsDetails(cellViewModel: CrowdinLogCellViewModel) {
-        let logsDetailsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.resourceBundle)
+        let logsDetailsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
         if let logDetailsVC: CrowdinLogDetailsVC = logsDetailsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogDetailsVC") as? CrowdinLogDetailsVC {
             logDetailsVC.setup(with: cellViewModel.attributedText)
             navigationController?.pushViewController(logDetailsVC, animated: true)

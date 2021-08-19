@@ -27,6 +27,8 @@ let package = Package(
                     .process("Resources/Settings/Images.xcassets"),
                     .process("Resources/Settings/SettingsItemCell.xib"),
                     .process("Resources/Settings/SettingsView.xib")
+                ], swiftSettings: [
+                    .define("SPM")
                 ])
     ]
 )
