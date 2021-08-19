@@ -8,13 +8,17 @@
 import Foundation
 
 extension Bundle {
+    enum Selectors: Selector {
+        case module
+    }
+
     class var resourceBundle: Bundle {
-        let moduleSelector = Selector(stringLiteral: "module")
-        if Bundle.responds(to: moduleSelector) {
+        if CrowdinSDK.responds(to: Selectors.module.rawValue) {
+            let bundle = CrowdinSDK.perform(Selectors.module.rawValue)
             // swiftlint:disable force_cast
-            let bundle = Bundle.perform(moduleSelector)
             return bundle?.takeRetainedValue() as! Bundle
         }
+        
         return Bundle(for: SettingsView.self)
     }
 }
