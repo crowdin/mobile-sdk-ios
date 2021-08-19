@@ -13,8 +13,8 @@ extension Bundle {
     }
 
     class var resourceBundle: Bundle {
-        if CrowdinSDK.responds(to: Selectors.module.rawValue) {
-            let bundle = CrowdinSDK.perform(Selectors.module.rawValue)
+        if Bundle.responds(to: Selectors.module.rawValue) {
+            let bundle = Bundle.perform(Selectors.module.rawValue)
             // swiftlint:disable force_cast
             return bundle?.takeRetainedValue() as! Bundle
         }
