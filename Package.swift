@@ -22,6 +22,11 @@ let package = Package(
                 exclude: [
                     "Providers/Firebase/"
                 ],
-                resources: [.copy("Assets/")])
+                resources: [
+                    .copy("Assets/Settings/CrowdinLogsVC.storyboard"),
+                    .copy("Assets/Settings/Images.xcassets"),
+                    .copy("Assets/Settings/SettingsItemCell.xib"),
+                    .copy("Assets/Settings/SettingsView.xib")
+                ])
     ]
 )
