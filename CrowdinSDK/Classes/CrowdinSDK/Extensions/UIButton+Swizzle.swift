@@ -14,6 +14,13 @@ extension UIControl.State {
 
 // MARK: - UIButton extension with core functionality for language substitution.
 extension UIButton {
+    /// Whether to process and store localization keys and values
+    static var shouldProcessLocalizationKeysAndValues: Bool = {
+        // Currently, storing localization keys and values is only needed for the real-time updates feature.
+        // If that feature is not even compiled, we should not process localization keys.
+        return CrowdinSDK.responds(to: CrowdinSDK.Selectors.initializeRealtimeUpdatesFeature.rawValue)
+    }()
+
     /// Association object for storing localization keys for different states.
     private static let localizationKeyAssociation = ObjectAssociation<[UInt: String]>()
     
@@ -101,6 +108,9 @@ extension UIButton {
     ///   - title: Title string to proceed.
     ///   - state: The state that uses the specified title.
     func proceed(title: String?, for state: UIControl.State) {
+        guard Self.shouldProcessLocalizationKeysAndValues else {
+            return
+        }
         if let title = title {
             if let key = Localization.current.keyForString(title) {
                 // Try to find values for key (formated strings, plurals)

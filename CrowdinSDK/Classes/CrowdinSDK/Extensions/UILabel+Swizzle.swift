@@ -10,6 +10,13 @@ import UIKit
 
 // MARK: -  extension with core functionality for language substitution.
 extension UILabel {
+    /// Whether to process and store localization keys and values
+    static var shouldProcessLocalizationKeysAndValues: Bool = {
+        // Currently, storing localization keys and values is only needed for the real-time updates feature.
+        // If that feature is not even compiled, we should not process localization keys.
+        return CrowdinSDK.responds(to: CrowdinSDK.Selectors.initializeRealtimeUpdatesFeature.rawValue)
+    }()
+
     /// Association object for storing localization key.
     private static let localizationKeyAssociation = ObjectAssociation<String>()
     
@@ -66,6 +73,9 @@ extension UILabel {
     ///
     /// - Parameter text: Title text.
     func proceed(text: String?) {
+        guard Self.shouldProcessLocalizationKeysAndValues else {
+            return
+        }
         if let text = text {
             self.localizationKey = Localization.current.keyForString(text)
             
