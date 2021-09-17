@@ -33,13 +33,4 @@ extension CrowdinSDK {
     public class func reloadUI() {
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
     }
-    
-    class func swizzleControlMethods() {
-        if !UILabel.isSwizzled {
-            UILabel.swizzle()
-        }
-        if !UIButton.isSwizzled {
-            UIButton.swizzle()
-        }
-    }
 }
