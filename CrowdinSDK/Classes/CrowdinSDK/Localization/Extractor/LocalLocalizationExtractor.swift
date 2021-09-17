@@ -10,7 +10,7 @@ import Foundation
 final class LocalLocalizationExtractor {
     enum Strings: String {
         case LocalPlurals
-        case LocalizableStringsdict
+        case LocalizableStringsdict = "Localizable.stringsdict"
     }
     
     static var allLocalizations: [String] { Bundle.main.inBundleLocalizations }

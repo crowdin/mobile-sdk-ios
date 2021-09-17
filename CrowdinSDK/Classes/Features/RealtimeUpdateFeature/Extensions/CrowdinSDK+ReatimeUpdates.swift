@@ -13,6 +13,7 @@ extension CrowdinSDK {
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         if config.realtimeUpdatesEnabled {
             RealtimeUpdateFeature.shared = RealtimeUpdateFeature(hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: config.loginConfig?.organizationName)
+            swizzleControlMethods()
         }
     }
     
@@ -31,5 +32,14 @@ extension CrowdinSDK {
     /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
     public class func reloadUI() {
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
+    }
+    
+    class func swizzleControlMethods() {
+        if !UILabel.isSwizzled {
+            UILabel.swizzle()
+        }
+        if !UIButton.isSwizzled {
+            UIButton.swizzle()
+        }
     }
 }

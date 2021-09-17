@@ -163,24 +163,24 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
 }
 
 extension CrowdinSDK {
-    /// Method for swizzling all needed methods.
+    /// Method for swizzling Bundle methods.
     class func swizzle() {
         if !Bundle.isSwizzled {
             Bundle.swizzle()
-        }
-        if !UILabel.isSwizzled {
-            UILabel.swizzle()
-        }
-        if !UIButton.isSwizzled {
-            UIButton.swizzle()
         }
     }
     
     /// Method for unswizzling all zwizzled methods.
     class func unswizzle() {
-        Bundle.unswizzle()
-        UILabel.unswizzle()
-        UIButton.unswizzle()
+        if Bundle.isSwizzled {
+            Bundle.unswizzle()
+        }
+        if UILabel.isSwizzled {
+            UILabel.unswizzle()
+        }
+        if UIButton.isSwizzled {
+            UIButton.unswizzle()
+        }
     }
 }
 
