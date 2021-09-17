@@ -162,6 +162,7 @@ extension UIButton {
     }
 
     /// Method for swizzling implementations for setTitle(_:for:) and setAttributedTitle(_:for:) methods.
+    /// Note: This method should be called only when we need to get localization key from string, currently it is needed for screenshots and realtime preview features.
     class func swizzle() {
         // swiftlint:disable force_unwrapping
         originalSetTitle = class_getInstanceMethod(self, #selector(UIButton.setTitle(_:for:)))!

@@ -13,6 +13,7 @@ extension CrowdinSDK {
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         if config.realtimeUpdatesEnabled {
             RealtimeUpdateFeature.shared = RealtimeUpdateFeature(hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: config.loginConfig?.organizationName)
+            swizzleControlMethods()
         }
     }
     

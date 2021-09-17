@@ -14,6 +14,7 @@ extension CrowdinSDK {
             let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
             let screenshotUploader = CrowdinScreenshotUploader(organizationName: config.loginConfig?.organizationName, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
             ScreenshotFeature.shared = ScreenshotFeature(screenshotUploader: screenshotUploader, screenshotProcessor: CrowdinScreenshotProcessor())
+            swizzleControlMethods()
         }
     }
     
