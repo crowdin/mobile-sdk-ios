@@ -163,11 +163,28 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
 }
 
 extension CrowdinSDK {
-    /// Method for swizzling all needed methods.
+    /// Method for swizzling Bundle methods.
     class func swizzle() {
         if !Bundle.isSwizzled {
             Bundle.swizzle()
         }
+    }
+    
+    /// Method for unswizzling all zwizzled methods.
+    class func unswizzle() {
+        if Bundle.isSwizzled {
+            Bundle.unswizzle()
+        }
+        if UILabel.isSwizzled {
+            UILabel.unswizzle()
+        }
+        if UIButton.isSwizzled {
+            UIButton.unswizzle()
+        }
+    }
+    
+    /// Swizzle methods for UILabel and UIButton. Needed for screenshots and real-time preview.
+    class func swizzleControlMethods() {
         if !UILabel.isSwizzled {
             UILabel.swizzle()
         }
@@ -176,11 +193,14 @@ extension CrowdinSDK {
         }
     }
     
-    /// Method for unswizzling all zwizzled methods.
-    class func unswizzle() {
-        Bundle.unswizzle()
-        UILabel.unswizzle()
-        UIButton.unswizzle()
+    /// Unswizzle methods for UILabel and UIButton.
+    class func unswizzleControlMethods() {
+        if UILabel.isSwizzled {
+            UILabel.unswizzle()
+        }
+        if UIButton.isSwizzled {
+            UIButton.unswizzle()
+        }
     }
 }
 

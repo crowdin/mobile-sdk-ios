@@ -101,6 +101,7 @@ extension UILabel {
     }
 
     /// Method for swizzling implementations for text and attributedText methods.
+    /// Note: This method should be called only when we need to get localization key from localization string, currently it is needed for screenshots and realtime preview features.
     class func swizzle() {
         // swiftlint:disable force_unwrapping
         originalText = class_getInstanceMethod(self, #selector(setter: UILabel.text))!
