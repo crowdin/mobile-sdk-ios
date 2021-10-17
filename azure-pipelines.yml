@@ -30,32 +30,28 @@ jobs:
           brew install swiftlint ; brew install danger/tap/danger-swift ; export DANGER_GITHUB_API_TOKEN='$(DANGER_GITHUB_API_TOKEN)' ; danger-swift ci 
         displayName: 'Danger SwiftLint'
 
-  - job: PodInstall
-    dependsOn: DangerSwiftLint
-    condition: succeeded()
-    pool:
-      vmImage: $(image)
-    steps:
-      - bash: |
-          cd Example ; pod update Starscream; pod update BaseAPI; pod install
-        displayName: 'Installing cocoapods'
-
   - job: PodLint
-    dependsOn: PodInstall
+    dependsOn: DangerSwiftLint
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
     pool:
       vmImage: $(image)
     steps:
+      - task: CocoaPods@0
+        inputs:
+          projectDirectory: Example
       - bash: |
           pod lib lint --skip-tests
         displayName: 'Lint pod library'
 
   - job: Build
-    dependsOn: PodInstall
+    dependsOn: DangerSwiftLint
     condition: succeeded()
     pool:
       vmImage: $(image)
     steps:
+      - task: CocoaPods@0
+        inputs:
+          projectDirectory: Example
       - task: Xcode@5
         displayName: 'Build Xcode App'
         inputs:
@@ -73,6 +69,9 @@ jobs:
     pool:
       vmImage: $(image)
     steps:
+      - task: CocoaPods@0
+        inputs:
+          projectDirectory: Example
       - task: Xcode@5
         displayName: 'Running tests'
         inputs:
