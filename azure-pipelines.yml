@@ -18,7 +18,7 @@ trigger:
 
 variables:
   image: 'macOS-latest'
-  xCode: '12'
+  xCode: '13'
 
 jobs:
   - job: DangerSwiftLint
