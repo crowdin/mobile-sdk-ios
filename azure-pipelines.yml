@@ -18,7 +18,7 @@ trigger:
 
 variables:
   image: 'macOS-latest'
-  xCode: 'Default'
+  xCode: 'default'
 
 jobs:
   - job: DangerSwiftLint
@@ -56,12 +56,13 @@ jobs:
         displayName: 'Build Xcode App'
         inputs:
           actions: 'build'
-          sdk: 'iphonesimulator'
+          sdk: 'iphoneos'
           scheme: 'AppleReminders'
           configuration: 'Debug'
           xcWorkspacePath: 'Example/AppleReminders.xcworkspace'
           xcodeVersion: $(xCode)
           packageApp: false
+          useXcpretty: true
 
   - job: Test
     dependsOn: Build
