@@ -43,6 +43,6 @@ class ManifestManager {
     }
     
     var iOSLanguages: [String] {
-        return self.languages ?? []//?.compactMap({ CrowdinSupportedLanguages.shared.iOSLanguageCode(for: $0) }) ?? []
+        return self.languages?.compactMap({ self.iOSLanguageCode(for: $0) }) ?? []
     }
 }

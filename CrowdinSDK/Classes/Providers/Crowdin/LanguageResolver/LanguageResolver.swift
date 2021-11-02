@@ -17,13 +17,11 @@ protocol CrowdinLanguage {
     var osxLocale: String { get }
 }
 
-
 extension CrowdinLanguage {
-    var iOSLocaleCode: String {
+    var iOSLanguageCode: String {
         return self.osxLocale.replacingOccurrences(of: "_", with: "-")
     }
 }
-
 
 protocol LanguageResolver {
     /// Get crowdin language locale code for iOS localization code.
@@ -35,7 +33,6 @@ protocol LanguageResolver {
     /// - Parameter localization: iOS localization identifier. (List of all - Locale.availableIdentifiers).
     /// - Returns: SupportedLanguage value in crowdin system.
     func crowdinSupportedLanguage(for localization: String) -> CrowdinLanguage?
-    
     
     /// Get iOS language code from crowdin localization code. Needs for presenting correct localization codes to users.
     /// - Returns: iOS localization code or nil, if it is not found.
