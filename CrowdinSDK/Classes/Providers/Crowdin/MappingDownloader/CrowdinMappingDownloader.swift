@@ -40,39 +40,45 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         self.plurals = nil
         self.errors = nil
         
+        let languageResolver: LanguageResolver = ManifestManager.shared(for: hash)
+        let pathParser = CrowdinPathsParser(languageResolver: languageResolver)
+        
         let completionBlock = BlockOperation {
             self.completion?(self.strings, self.plurals, self.errors)
         }
         
         xliffs.forEach { (xliff) in
-            let download = CrowdinXliffMappingDownloadOperation(hash: hash, filePath: xliff, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (strings, plurals, error) in
+            let filePath = pathParser.parse(xliff, localization: localization)
+            let download = CrowdinXliffMappingDownloadOperation(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI, completion: { (strings, plurals, error) in
                 self.add(error: error)
                 self.add(strings: strings)
                 self.add(plurals: plurals)
                 
-                self.log(localization: localization, string: xliff, baseURL: baseURL, error: error)
+                self.log(localization: localization, string: xliff, filePath: filePath, error: error)
             })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
         
         strings.forEach { (string) in
-            let download = CrowdinStringsMappingDownloadOperation(hash: hash, filePath: string, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (strings, error) in
+            let filePath = pathParser.parse(string, localization: localization)
+            let download = CrowdinStringsMappingDownloadOperation(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI, completion: { (strings, error) in
                 self.add(error: error)
                 self.add(strings: strings)
                 
-                self.log(localization: localization, string: string, baseURL: baseURL, error: error)
+                self.log(localization: localization, string: string, filePath: filePath, error: error)
             })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
         
         plurals.forEach { (plural) in
-            let download = CrowdinPluralsMappingDownloadOperation(hash: hash, filePath: plural, sourceLanguage: localization, contentDeliveryAPI: contentDeliveryAPI, completion: { (plurals, error) in
+            let filePath = pathParser.parse(plural, localization: localization)
+            let download = CrowdinPluralsMappingDownloadOperation(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI, completion: { (plurals, error) in
                 self.add(error: error)
                 self.add(plurals: plurals)
                 
-                self.log(localization: localization, string: plural, baseURL: baseURL, error: error)
+                self.log(localization: localization, string: plural, filePath: filePath, error: error)
             })
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
@@ -114,9 +120,8 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         }
     }
     
-    func log(localization: String, string: String, baseURL: String?, error: Error?) {
+    func log(localization: String, string: String, filePath: String, error: Error?) {
         let message = "Localization for '\(localization)' fetched from remote storage"
-        let filePath = URL(fileURLWithPath: baseURL ?? "").deletingLastPathComponent().appendingPathComponent( CrowdinPathsParser.shared.parse(string, localization: localization).dropFirst().description).description
         guard error == nil else {
             CrowdinAPILog.logRequest(type: .error, stringURL: filePath, message: message)
             return

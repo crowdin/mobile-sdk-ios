@@ -12,8 +12,7 @@ class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
     var plurals: [AnyHashable: Any]?
     var error: Error?
     
-    init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
-        let filePath = CrowdinPathsParser.shared.parse(filePath, localization: sourceLanguage)
+    init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }

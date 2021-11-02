@@ -20,7 +20,7 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     init(localization: String, hash: String, projectId: String, organizationName: String?) {
         self.localization = localization
         self.hash = hash
-        self.fileDownloader = RUFilesDownloader(projectId: projectId, organizationName: organizationName)
+        self.fileDownloader = RUFilesDownloader(projectId: projectId, laguageResolver: ManifestManager.shared(for: hash), organizationName: organizationName)
         self.localizations = ManifestManager.shared(for: hash).iOSLanguages
     }
     

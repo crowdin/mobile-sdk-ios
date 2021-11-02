@@ -15,6 +15,7 @@ class ManifestManager {
     var files: [String]
     var timestamp: TimeInterval?
     var languages: [String]?
+    var customLanguages: [CustomLangugage]?
     
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
     
@@ -28,6 +29,7 @@ class ManifestManager {
         self.files = manifest.response?.files ?? []
         self.timestamp = manifest.response?.timestamp
         self.languages = manifest.response?.languages
+        self.customLanguages = manifest.response?.customLanguages
     }
     
     static func shared(for hash: String) -> ManifestManager {
@@ -41,6 +43,6 @@ class ManifestManager {
     }
     
     var iOSLanguages: [String] {
-        return self.languages?.compactMap({ CrowdinSupportedLanguages.shared.iOSLanguageCode(for: $0) }) ?? []
+        return self.languages ?? []//?.compactMap({ CrowdinSupportedLanguages.shared.iOSLanguageCode(for: $0) }) ?? []
     }
 }
