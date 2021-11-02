@@ -8,6 +8,6 @@ target 'AppleReminders' do
   pod 'RealmSwift', '4.3.1'
   pod 'SwiftDate'
   pod 'SwiftLint'
-  pod 'CrowdinSDK', :path => '../', :testspecs => ['Core_Tests', 'CrowdinProvider_Tests', 'CrowdinAPI_Tests']
+  pod 'CrowdinSDK', :path => '../'
   pod 'CrowdinSDK/Settings', :path => '../'
 end

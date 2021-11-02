@@ -4,16 +4,13 @@ PODS:
     - CrowdinSDK/Core (= 1.2.4)
     - CrowdinSDK/CrowdinProvider (= 1.2.4)
   - CrowdinSDK/Core (1.2.4)
-  - CrowdinSDK/Core_Tests (1.2.4)
   - CrowdinSDK/CrowdinAPI (1.2.4):
     - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinAPI_Tests (1.2.4)
   - CrowdinSDK/CrowdinProvider (1.2.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/CrowdinProvider_Tests (1.2.4)
   - CrowdinSDK/IntervalUpdate (1.2.4):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
@@ -57,9 +54,6 @@ PODS:
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
-  - CrowdinSDK/Core_Tests (from `../`)
-  - CrowdinSDK/CrowdinAPI_Tests (from `../`)
-  - CrowdinSDK/CrowdinProvider_Tests (from `../`)
   - CrowdinSDK/Settings (from `../`)
   - RealmSwift (= 4.3.1)
   - SwiftDate
@@ -87,6 +81,6 @@ SPEC CHECKSUMS:
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
 
-PODFILE CHECKSUM: 42a74b04f0d5fc070000741bc77cfbeeb4e68736
+PODFILE CHECKSUM: fd95aae78daa6dceafb1b5d27e02d131308926e2
 
 COCOAPODS: 1.11.2

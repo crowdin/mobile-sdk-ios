@@ -79,7 +79,7 @@ jobs:
           actions: 'test'
           sdk: 'iphonesimulator'
           configuration: 'Debug'
-          xcWorkspacePath: 'Example/AppleReminders.xcworkspace'
+          xcWorkspacePath: 'Tests/Tests.xcworkspace'
           scheme: 'Tests'
           xcodeVersion: $(xCode)
           publishJUnitResults: true
