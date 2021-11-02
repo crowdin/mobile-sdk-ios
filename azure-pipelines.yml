@@ -72,7 +72,7 @@ jobs:
     steps:
       - task: CocoaPods@0
         inputs:
-          projectDirectory: Example
+          projectDirectory: Tests
       - task: Xcode@5
         displayName: 'Running tests'
         inputs:
