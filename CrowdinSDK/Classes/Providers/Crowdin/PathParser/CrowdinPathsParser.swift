@@ -45,7 +45,7 @@ class CrowdinPathsParser {
     
 	func parse(_ path: String, localization: String) -> String {
         var resultPath = path
-        if self.containsCustomPath(path) {
+        if CrowdinPathsParser.containsCustomPath(path) {
             Paths.all.forEach { (path) in
                 resultPath = resultPath.replacingOccurrences(of: path.rawValue, with: path.value(for: localization, languageResolver: languageResolver))
             }
@@ -57,7 +57,7 @@ class CrowdinPathsParser {
         return resultPath
     }
     
-    func containsCustomPath(_ filePath: String) -> Bool {
+    static func containsCustomPath(_ filePath: String) -> Bool {
         var contains = false
         Paths.all.forEach { (path) in
             if filePath.contains(path.rawValue) {
