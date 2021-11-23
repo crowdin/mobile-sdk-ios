@@ -13,8 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Configuration
     
-    private let distributionHash = "e-7e6df2f7bccb0c8454913b2tvk"
-    private let sourceLanguage = "en"
+    private let distributionHash = "your_distribution_hash"
+    private let sourceLanguage = "your_source_language"
     
 //    private let clientId = "your_client_id"
 //    private let clientSecret = "your_client_secret"
