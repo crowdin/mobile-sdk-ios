@@ -30,7 +30,7 @@ Pod::Spec.new do |spec|
   spec.social_media_url    = 'https://twitter.com/crowdin'
   
   spec.ios.deployment_target = '9.0'
-  
+  spec.tvos.deployment_target = '9.0'
   
   spec.frameworks = 'UIKit'
   spec.static_framework = false
@@ -62,7 +62,7 @@ Pod::Spec.new do |spec|
     subspec.source_files = 'CrowdinSDK/Classes/CrowdinAPI/**/*.swift'
     subspec.dependency 'CrowdinSDK/Core'
     subspec.dependency 'Starscream', '~> 3.1.0'
-    subspec.dependency 'BaseAPI', '~> 0.1.12'
+    subspec.dependency 'BaseAPI', '~> 0.2.0'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|

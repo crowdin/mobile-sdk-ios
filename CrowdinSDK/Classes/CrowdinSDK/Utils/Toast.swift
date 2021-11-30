@@ -345,7 +345,9 @@ public extension UIView {
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(UIView.handleToastTapped(_:)))
             toast.addGestureRecognizer(recognizer)
             toast.isUserInteractionEnabled = true
+#if os(iOS)
             toast.isExclusiveTouch = true
+#endif
         }
         
         activeToasts.add(toast)
@@ -773,7 +775,11 @@ private extension UIView {
     
     var csSafeAreaInsets: UIEdgeInsets {
         if #available(iOS 11.0, *) {
-            return self.safeAreaInsets
+            if #available(tvOS 11.0, *) {
+                return self.safeAreaInsets
+            } else {
+                return .zero
+            }
         } else {
             return .zero
         }
