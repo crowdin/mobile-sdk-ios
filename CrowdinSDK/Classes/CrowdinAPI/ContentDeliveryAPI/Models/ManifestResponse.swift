@@ -19,6 +19,18 @@ struct ManifestResponse: Codable {
         case languages
         case responseCustomLanguages = "custom_languages"
     }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        files = try values.decode([String].self, forKey: .files)
+        timestamp = try values.decodeIfPresent(TimeInterval.self, forKey: .timestamp)
+        languages = try values.decodeIfPresent([String].self, forKey: .languages)
+        if let customLanguages = try? values.decodeIfPresent([String : ManifestResponseCustomLangugage].self, forKey: .responseCustomLanguages) { // Do not throw error while encode custom_languages, as server can return empty array for manifests without language mappings.
+            responseCustomLanguages = customLanguages
+        } else {
+            responseCustomLanguages = nil
+        }
+    }
 
     public init(files: [String], timestamp: TimeInterval, languages: [String]?, responseCustomLanguages: [String: ManifestResponseCustomLangugage]?) {
         self.files = files
