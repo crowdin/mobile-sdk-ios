@@ -13,11 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Configuration
     
-    private let distributionHash = "6ff9e825a47b6fe8f58f758106i"
-    private let sourceLanguage = "en"
+    private let distributionHash = "your_distribution_hash"
+    private let sourceLanguage = "your_source_language"
     
-    private let clientId = "mJadRQTWzf9oA1JpdJRM"
-    private let clientSecret = "vvgZwmbnEJ9S1pHA0n8WQIP3DTHTkekKPtvwefUK"
+    private let clientId = "client_id"
+    private let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,

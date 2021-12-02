@@ -1,40 +1,40 @@
 PODS:
   - BaseAPI (0.1.12)
-  - CrowdinSDK (1.2.4):
-    - CrowdinSDK/Core (= 1.2.4)
-    - CrowdinSDK/CrowdinProvider (= 1.2.4)
-  - CrowdinSDK/Core (1.2.4)
-  - CrowdinSDK/CrowdinAPI (1.2.4):
+  - CrowdinSDK (1.3.0):
+    - CrowdinSDK/Core (= 1.3.0)
+    - CrowdinSDK/CrowdinProvider (= 1.3.0)
+  - CrowdinSDK/Core (1.3.0)
+  - CrowdinSDK/CrowdinAPI (1.3.0):
     - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinProvider (1.2.4):
+  - CrowdinSDK/CrowdinProvider (1.3.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (1.2.4):
+  - CrowdinSDK/IntervalUpdate (1.3.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.2.4):
+  - CrowdinSDK/LoginFeature (1.3.0):
     - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.2.4):
+  - CrowdinSDK/RealtimeUpdate (1.3.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.2.4):
+  - CrowdinSDK/RefreshLocalization (1.3.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.2.4):
+  - CrowdinSDK/Screenshots (1.3.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.2.4):
+  - CrowdinSDK/Settings (1.3.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -50,7 +50,7 @@ PODS:
     - Realm (= 4.3.1)
   - Starscream (3.1.1)
   - SwiftDate (6.3.1)
-  - SwiftLint (0.41.0)
+  - SwiftLint (0.45.1)
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
@@ -74,12 +74,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 84c9b49d75b8be1e9d7facd66bd14082eee499e4
-  CrowdinSDK: b59eb17099f03a0fde3ae35f4282b4c36929a2e1
+  CrowdinSDK: 143566a501e30f31ea3bd990f41953a332e0c0af
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
-  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
+  SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
 
 PODFILE CHECKSUM: fd95aae78daa6dceafb1b5d27e02d131308926e2
 

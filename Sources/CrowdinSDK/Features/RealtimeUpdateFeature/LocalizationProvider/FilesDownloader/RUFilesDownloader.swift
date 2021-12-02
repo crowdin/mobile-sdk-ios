@@ -21,9 +21,11 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     let projectsAPI: ProjectsAPI
     let projectId: String
     let enterprise: Bool
+    let languageResolver: LanguageResolver
     
-    init(projectId: String, organizationName: String? = nil) {
+    init(projectId: String, laguageResolver: LanguageResolver, organizationName: String? = nil) {
         self.projectId = projectId
+        self.languageResolver = laguageResolver
         self.enterprise = organizationName != nil
         self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: LoginFeature.shared)
     }
@@ -48,7 +50,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         }
         
         fileIDs.forEach { (fileId) in
-            let targetLanguageId = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
+            let targetLanguageId = languageResolver.crowdinLanguageCode(for: localization) ?? localization
             let download = FileDataDownloadOperation(fileId: fileId, projectId: projectId, targetLanguageId: targetLanguageId, projectsAPI: projectsAPI) { [weak self] (data, error) in
                 guard let self = self else {
                     return
