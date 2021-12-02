@@ -7,8 +7,6 @@
 
 import Foundation
 
-fileprivate let enLocale = Locale(identifier: "en-GB")
-
 fileprivate enum Paths: String {
     case language = "%language%"
     case locale = "%locale%"
@@ -19,8 +17,8 @@ fileprivate enum Paths: String {
     
     static var all: [Paths] = [.language, .locale, .localeWithUnderscore, .osxCode, .osxLocale, .twoLettersCode]
     
-    func value(for localization: String) -> String {
-        guard let language = CrowdinSupportedLanguages.shared.crowdinSupportedLanguage(for: localization) else { return "" }
+    func value(for localization: String, languageResolver: LanguageResolver) -> String {
+        guard let language = languageResolver.crowdinSupportedLanguage(for: localization) else { return "" }
         switch self {
         case .language:
             return language.name
@@ -39,23 +37,27 @@ fileprivate enum Paths: String {
 }
 
 class CrowdinPathsParser {
-    static let shared = CrowdinPathsParser()
+    let languageResolver: LanguageResolver
+    
+    init(languageResolver: LanguageResolver) {
+        self.languageResolver = languageResolver
+    }
     
 	func parse(_ path: String, localization: String) -> String {
         var resultPath = path
-        if self.containsCustomPath(path) {
+        if CrowdinPathsParser.containsCustomPath(path) {
             Paths.all.forEach { (path) in
-                resultPath = resultPath.replacingOccurrences(of: path.rawValue, with: path.value(for: localization))
+                resultPath = resultPath.replacingOccurrences(of: path.rawValue, with: path.value(for: localization, languageResolver: languageResolver))
             }
         } else {
             // Add localization code to file name
-            let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) ?? localization
+            let crowdinLocalization = languageResolver.crowdinLanguageCode(for: localization) ?? localization
             resultPath = "/\(crowdinLocalization)\(path)"
         }
         return resultPath
     }
     
-    func containsCustomPath(_ filePath: String) -> Bool {
+    static func containsCustomPath(_ filePath: String) -> Bool {
         var contains = false
         Paths.all.forEach { (path) in
             if filePath.contains(path.rawValue) {

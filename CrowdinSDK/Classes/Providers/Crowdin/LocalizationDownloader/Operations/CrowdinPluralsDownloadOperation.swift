@@ -15,14 +15,14 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([AnyHashable: Any]?, Error?) -> Void)?) {
         self.timestamp = timestamp
         self.eTagStorage = ETagStorage(localization: localization)
-        super.init(filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
+        super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
     required init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.timestamp = timestamp
         self.eTagStorage = ETagStorage(localization: localization)
-        super.init(filePath: CrowdinPathsParser.shared.parse(filePath, localization: localization), contentDeliveryAPI: contentDeliveryAPI)
+        super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
     
     override func main() {

@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Configuration
     
     private let distributionHash = "your_distribution_hash"
-    private let sourceLanguage = "source_language"
+    private let sourceLanguage = "your_source_language"
     
     private let clientId = "your_client_id"
     private let clientSecret = "your_client_secret"

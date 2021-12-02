@@ -12,8 +12,7 @@ class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
     var strings: [String: String]?
     var error: Error?
     
-    init(hash: String, filePath: String, sourceLanguage: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([String: String]?, Error?) -> Void)?) {
-        let filePath = CrowdinPathsParser.shared.parse(filePath, localization: sourceLanguage)
+    init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([String: String]?, Error?) -> Void)?) {
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }

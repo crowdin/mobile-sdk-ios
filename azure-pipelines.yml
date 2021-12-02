@@ -56,6 +56,8 @@ jobs:
     pool:
       vmImage: $(image)
     steps:
+      - bash: |
+          cd Example; pod install
       - task: Xcode@5
         displayName: 'Build Xcode App'
         inputs:
@@ -73,6 +75,8 @@ jobs:
     pool:
       vmImage: $(image)
     steps:
+      - bash: |
+          cd Tests; pod install
       - task: Xcode@5
         displayName: 'Running tests'
         inputs:

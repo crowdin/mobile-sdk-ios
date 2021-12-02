@@ -9,7 +9,7 @@ import Foundation
 import Starscream
 
 protocol CrowdinSocketManagerProtocol {
-    init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String)
+    init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver)
 
     var active: Bool { get }
     var connect: (() -> Void)? { set get }
@@ -27,6 +27,8 @@ protocol CrowdinSocketManagerProtocol {
 
 class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var socketAPI: SocketAPI
+    var languageResolver: LanguageResolver
+    
     var active: Bool {
         return socketAPI.isConnected
     }
@@ -49,8 +51,9 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
     
-	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
+	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver) {
 		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+        self.languageResolver = languageResolver
         super.init()
         self.socketAPI.didReceiveUpdateTopSuggestion = updateTopSuggestion(_:)
         self.socketAPI.didReceiveUpdateDraft = updateDraft(_:)
@@ -65,12 +68,12 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
-        guard let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) else { return }
+        guard let crowdinLocalization = languageResolver.crowdinLanguageCode(for: localization) else { return }
         self.socketAPI.subscribeOnUpdateDraft(localization: crowdinLocalization, stringId: stringId)
     }
     
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
-        guard let crowdinLocalization = CrowdinSupportedLanguages.shared.crowdinLanguageCode(for: localization) else { return }
+        guard let crowdinLocalization = languageResolver.crowdinLanguageCode(for: localization) else { return }
         self.socketAPI.subscribeOnUpdateTopSuggestion(localization: crowdinLocalization, stringId: stringId)
     }
     

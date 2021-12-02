@@ -2,7 +2,7 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinPathsParserTests: XCTestCase {
-    var pathParser = CrowdinPathsParser.shared
+    var pathParser = CrowdinPathsParser(languageResolver: ManifestManager.shared(for: "test_hash"))
     
     override func setUp() {
         if CrowdinSupportedLanguages.shared.loaded == false {
@@ -11,27 +11,27 @@ class CrowdinPathsParserTests: XCTestCase {
     }
     
     func testContainsLanguageCustomPath() {
-        XCTAssert(self.pathParser.containsCustomPath("%language%/Localizable.strings"), "Should return true because %language% is custom path paramether.")
+        XCTAssert(CrowdinPathsParser.containsCustomPath("%language%/Localizable.strings"), "Should return true because %language% is custom path paramether.")
     }
     
     func testContainsLocaleCustomPath() {
-        XCTAssert(self.pathParser.containsCustomPath("%locale%/Localizable.strings"), "Should return true because %locale% is custom path paramether.")
+        XCTAssert(CrowdinPathsParser.containsCustomPath("%locale%/Localizable.strings"), "Should return true because %locale% is custom path paramether.")
     }
     
     func testContainsLocaleWithUnderscoreCustomPath() {
-        XCTAssert(self.pathParser.containsCustomPath("%locale_with_underscore%/Localizable.strings"), "Should return true because %locale_with_underscore% is custom path paramether.")
+        XCTAssert(CrowdinPathsParser.containsCustomPath("%locale_with_underscore%/Localizable.strings"), "Should return true because %locale_with_underscore% is custom path paramether.")
     }
     
     func testContainsOSXCodeCustomPath() {
-        XCTAssert(self.pathParser.containsCustomPath("%osx_code%/Localizable.strings"), "Should return true because %osx_code% is custom path paramether.")
+        XCTAssert(CrowdinPathsParser.containsCustomPath("%osx_code%/Localizable.strings"), "Should return true because %osx_code% is custom path paramether.")
     }
     
     func testContainsOSXLocaleCustomPath() {
-        XCTAssert(self.pathParser.containsCustomPath("%osx_locale%/Localizable.strings"), "Should return true because %osx_locale% is custom path paramether.")
+        XCTAssert(CrowdinPathsParser.containsCustomPath("%osx_locale%/Localizable.strings"), "Should return true because %osx_locale% is custom path paramether.")
     }
     
     func testContainsWrongCustomPath() {
-        XCTAssertFalse(self.pathParser.containsCustomPath("%wrong_path%/Localizable.strings"), "Should return false because %wrong_path% is not custom path paramether.")
+        XCTAssertFalse(CrowdinPathsParser.containsCustomPath("%wrong_path%/Localizable.strings"), "Should return false because %wrong_path% is not custom path paramether.")
     }
     
     // mark - Locale

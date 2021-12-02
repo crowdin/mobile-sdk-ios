@@ -156,7 +156,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
-        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: ManifestManager.shared(for: hashString))
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }

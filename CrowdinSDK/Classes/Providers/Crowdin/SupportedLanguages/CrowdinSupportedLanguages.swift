@@ -7,24 +7,7 @@
 
 import Foundation
 
-extension LanguagesResponseData {
-    var iOSLocaleCode: String {
-        return self.osxLocale.replacingOccurrences(of: "_", with: "-")
-    }
-}
-
-protocol SupportedLanguage: Codable {
-    var id: String { get }
-    var name: String { get }
-    var editorCode: String { get }
-    var twoLettersCode: String { get }
-    var threeLettersCode: String { get }
-    var locale: String { get }
-    var osxCode: String { get }
-    var osxLocale: String { get }
-}
-
-extension LanguagesResponseData: SupportedLanguage { }
+extension LanguagesResponseData: CrowdinLanguage { }
 
 class CrowdinSupportedLanguages {
     static let shared = CrowdinSupportedLanguages()
@@ -60,35 +43,6 @@ class CrowdinSupportedLanguages {
     init() {
         readSupportedLanguages()
         updateSupportedLanguagesIfNeeded()
-    }
-    
-    func crowdinLanguageCode(for localization: String) -> String? {
-        var language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == localization })
-        if language == nil { // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to get localization code and search again.
-            // swiftlint:disable force_unwrapping
-            let alternateiOSLocaleCode = localization.split(separator: "-").map({ String($0) }).first!
-            language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == alternateiOSLocaleCode })
-        }
-        return language?.data.id
-    }
-    
-    func crowdinSupportedLanguage(for localization: String) -> SupportedLanguage? {
-        var language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == localization })
-        if language == nil {
-            // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to replace _ in location code with -
-            let alternateiOSLocaleCode = localization.replacingOccurrences(of: "_", with: "-")
-            language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == alternateiOSLocaleCode })
-        }
-        if language == nil {
-            // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to get localization code and search again
-            let alternateiOSLocaleCode = localization.split(separator: "-").map({ String($0) }).first!
-            language = supportedLanguages?.data.first(where: { $0.data.iOSLocaleCode == alternateiOSLocaleCode })
-        }
-        return language?.data
-    }
-    
-    func iOSLanguageCode(for crowdinLocalization: String) -> String? {
-        return supportedLanguages?.data.first(where: { $0.data.id == crowdinLocalization })?.data.iOSLocaleCode
     }
     
     func updateSupportedLanguagesIfNeeded() {
