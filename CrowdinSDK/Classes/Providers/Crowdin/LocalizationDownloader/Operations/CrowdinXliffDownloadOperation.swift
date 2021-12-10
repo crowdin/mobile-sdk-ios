@@ -9,6 +9,11 @@ import Foundation
 
 typealias CrowdinXliffDownloadOperationCompletion = ([String: String]?, [AnyHashable: Any]?, Error?) -> Void
 
+extension String {
+    fileprivate var isXib: Bool { hasSuffix(".xib") }
+    fileprivate var isStorybaord: Bool { hasSuffix(".storyboard") }
+}
+
 class XliffDictionaryParser {
     static func parse(xliffDict: [AnyHashable: Any]) -> ([String: String], [AnyHashable: Any]) {
         var strings = [String: String]()
@@ -16,7 +21,7 @@ class XliffDictionaryParser {
         if let xliff = xliffDict["xliff"] as? [AnyHashable: Any], let files = xliff["file"] as? [[AnyHashable: Any]] {
             for file in files {
                 if let attributes = file["XMLParserAttributesKey"] as? [String: String], let original = attributes["original"] {
-                    if original.isStrings { // Parse strings
+                    if original.isStrings || original.isXib || original.isStorybaord { // Parse strings
                         if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
                             for transUnit in transUnits {
                                 if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let target = transUnit["target"] as? [String: Any], let textKey = target["XMLParserTextKey"] as? String {
