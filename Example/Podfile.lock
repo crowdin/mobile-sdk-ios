@@ -8,33 +8,33 @@ PODS:
     - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - Starscream (~> 3.1.0)
-  - CrowdinSDK/CrowdinProvider (1.3.0):
+  - CrowdinSDK/CrowdinProvider (1.3.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
-  - CrowdinSDK/IntervalUpdate (1.3.0):
+  - CrowdinSDK/IntervalUpdate (1.3.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.3.0):
+  - CrowdinSDK/LoginFeature (1.3.1):
     - BaseAPI (~> 0.1.12)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.3.0):
+  - CrowdinSDK/RealtimeUpdate (1.3.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/RefreshLocalization (1.3.0):
+  - CrowdinSDK/RefreshLocalization (1.3.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.3.0):
+  - CrowdinSDK/Screenshots (1.3.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.3.0):
+  - CrowdinSDK/Settings (1.3.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
