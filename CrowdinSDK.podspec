@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.3.0'
+  spec.version          = '1.3.1'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   spec.description      = <<-DESC
