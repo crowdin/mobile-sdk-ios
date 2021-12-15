@@ -18,7 +18,7 @@ trigger:
 
 variables:
   image: 'macOS-latest'
-  xCode: '11'
+  xCode: 'default'
 
 jobs:
   - job: DangerSwiftLint
@@ -30,44 +30,39 @@ jobs:
           brew install swiftlint ; brew install danger/tap/danger-swift ; export DANGER_GITHUB_API_TOKEN='$(DANGER_GITHUB_API_TOKEN)' ; danger-swift ci 
         displayName: 'Danger SwiftLint'
 
-  - job: PodInstall
-    dependsOn: DangerSwiftLint
-    condition: succeeded()
-    pool:
-      vmImage: $(image)
-    steps:
-      - bash: |
-          cd Tests ; pod update Starscream; pod update BaseAPI; pod install
-        displayName: 'Installing cocoapods'
-
   - job: PodLint
-    dependsOn: PodInstall
+    dependsOn: DangerSwiftLint
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
     pool:
       vmImage: $(image)
     steps:
+      - task: CocoaPods@0
+        inputs:
+          projectDirectory: Example
       - bash: |
           pod lib lint --skip-tests
         displayName: 'Lint pod library'
 
   - job: Build
-    dependsOn: PodInstall
+    dependsOn: DangerSwiftLint
     condition: succeeded()
     pool:
       vmImage: $(image)
     steps:
-      - bash: |
-          cd Example; pod install
+      - task: CocoaPods@0
+        inputs:
+          projectDirectory: Example
       - task: Xcode@5
         displayName: 'Build Xcode App'
         inputs:
           actions: 'build'
-          sdk: 'iphonesimulator'
-          scheme: 'Tests'
+          sdk: 'iphoneos'
+          scheme: 'AppleReminders'
           configuration: 'Debug'
-          xcWorkspacePath: 'Tests/Tests.xcworkspace'
+          xcWorkspacePath: 'Example/AppleReminders.xcworkspace'
           xcodeVersion: $(xCode)
           packageApp: false
+          useXcpretty: true
 
   - job: Test
     dependsOn: Build
@@ -75,8 +70,9 @@ jobs:
     pool:
       vmImage: $(image)
     steps:
-      - bash: |
-          cd Tests; pod install
+      - task: CocoaPods@0
+        inputs:
+          projectDirectory: Tests
       - task: Xcode@5
         displayName: 'Running tests'
         inputs:
@@ -84,7 +80,7 @@ jobs:
           sdk: 'iphonesimulator'
           configuration: 'Debug'
           xcWorkspacePath: 'Tests/Tests.xcworkspace'
-          scheme: 'TestsTests'
+          scheme: 'Tests'
           xcodeVersion: $(xCode)
           publishJUnitResults: true
           destinationPlatformOption: 'iOS'
