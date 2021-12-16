@@ -101,7 +101,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
-    feature.dependency 'BaseAPI', '~> 0.1.12'
+    feature.dependency 'BaseAPI', '~> 0.2.0'
   end
   
   spec.subspec 'IntervalUpdate' do |feature|

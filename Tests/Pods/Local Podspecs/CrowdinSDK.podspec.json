@@ -17,7 +17,8 @@
   },
   "social_media_url": "https://twitter.com/crowdin",
   "platforms": {
-    "ios": "9.0"
+    "ios": "9.0",
+    "tvos": "9.0"
   },
   "frameworks": "UIKit",
   "static_framework": false,
@@ -30,27 +31,27 @@
     {
       "name": "Core_Tests",
       "test_type": "unit",
-      "source_files": "CrowdinSDK/Tests/Core/*.swift"
+      "source_files": "Sources/Tests/Core/*.swift"
     },
     {
       "name": "CrowdinProvider_Tests",
       "test_type": "unit",
-      "source_files": "CrowdinSDK/Tests/CrowdinProvider/*.swift"
+      "source_files": "Sources/Tests/CrowdinProvider/*.swift"
     },
     {
       "name": "CrowdinAPI_Tests",
       "test_type": "unit",
-      "source_files": "CrowdinSDK/Tests/CrowdinAPI/*.swift"
+      "source_files": "Sources/Tests/CrowdinAPI/*.swift"
     }
   ],
   "subspecs": [
     {
       "name": "Core",
-      "source_files": "CrowdinSDK/Classes/CrowdinSDK/**/*"
+      "source_files": "Sources/CrowdinSDK/CrowdinSDK/**/*"
     },
     {
       "name": "CrowdinProvider",
-      "source_files": "CrowdinSDK/Classes/Providers/Crowdin/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/Providers/Crowdin/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -62,7 +63,7 @@
     },
     {
       "name": "CrowdinAPI",
-      "source_files": "CrowdinSDK/Classes/CrowdinAPI/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/CrowdinAPI/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -71,13 +72,13 @@
           "~> 3.1.0"
         ],
         "BaseAPI": [
-          "~> 0.1.12"
+          "~> 0.2.0"
         ]
       }
     },
     {
       "name": "Screenshots",
-      "source_files": "CrowdinSDK/Classes/Features/ScreenshotFeature/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -95,7 +96,7 @@
     },
     {
       "name": "RealtimeUpdate",
-      "source_files": "CrowdinSDK/Classes/Features/RealtimeUpdateFeature/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -113,7 +114,7 @@
     },
     {
       "name": "RefreshLocalization",
-      "source_files": "CrowdinSDK/Classes/Features/RefreshLocalizationFeature/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/Features/RefreshLocalizationFeature/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -128,7 +129,7 @@
     },
     {
       "name": "LoginFeature",
-      "source_files": "CrowdinSDK/Classes/Features/LoginFeature/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/Features/LoginFeature/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -140,13 +141,13 @@
 
         ],
         "BaseAPI": [
-          "~> 0.1.12"
+          "~> 0.2.0"
         ]
       }
     },
     {
       "name": "IntervalUpdate",
-      "source_files": "CrowdinSDK/Classes/Features/IntervalUpdateFeature/**/*.swift",
+      "source_files": "Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift",
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -161,8 +162,8 @@
     },
     {
       "name": "Settings",
-      "source_files": "CrowdinSDK/Classes/Settings/**/*.swift",
-      "resources": "CrowdinSDK/Assets/Settings/*.{storyboard,xib,xcassets}",
+      "source_files": "Sources/CrowdinSDK/Settings/**/*.swift",
+      "resources": "Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}",
       "dependencies": {
         "CrowdinSDK/Screenshots": [
 
