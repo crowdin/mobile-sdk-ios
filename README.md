@@ -52,6 +52,8 @@ The SDK provides:
 
 ## Installation
 
+### Cocoapods
+
 1. Cocoapods
 
    To install Crowdin iOS SDK via [cocoapods](https://cocoapods.org), make sure you have cocoapods installed locally. If not, install it with following command: ```sudo gem install cocoapods```.
@@ -105,6 +107,18 @@ The SDK provides:
     Then run `pod install` again to fix it.
 
 After you've added *CrowdinSDK* to your Podfile, run ```pod install``` in your project directory, open `App.xcworkspace` and build it.
+
+### Swift Package Manager
+
+Once you have your Swift package set up, adding CrowdinSDK as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+
+Swift Package Manager support added in version 1.3.0.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from:"1.3.0")
+]
+```
 
 ## Wiki
 
