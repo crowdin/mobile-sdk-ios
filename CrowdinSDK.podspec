@@ -72,7 +72,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'Screenshots' do |feature|
     feature.name = 'Screenshots'
-    feature.source_files = 'Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift'
+    feature.ios.source_files = 'Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -81,7 +81,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'RealtimeUpdate' do |feature|
     feature.name = 'RealtimeUpdate'
-    feature.source_files = 'Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift'
+    feature.ios.source_files = 'Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -98,7 +98,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'LoginFeature' do |feature|
     feature.name = 'LoginFeature'
-    feature.source_files = 'Sources/CrowdinSDK/Features/LoginFeature/**/*.swift'
+    feature.ios.source_files = 'Sources/CrowdinSDK/Features/LoginFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -107,7 +107,7 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'IntervalUpdate' do |feature|
     feature.name = 'IntervalUpdate'
-    feature.source_files = 'Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift'
+    feature.ios.source_files = 'Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
@@ -115,8 +115,8 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'Settings' do |settings|
     settings.name = 'Settings'
-    settings.source_files = 'Sources/CrowdinSDK/Settings/**/*.swift'
-    settings.resources = 'Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}'
+    settings.ios.source_files = 'Sources/CrowdinSDK/Settings/**/*.swift'
+    settings.ios.resources = 'Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}'
     settings.dependency 'CrowdinSDK/Screenshots'
     settings.dependency 'CrowdinSDK/RealtimeUpdate'
     settings.dependency 'CrowdinSDK/RefreshLocalization'
