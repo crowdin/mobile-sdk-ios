@@ -55,6 +55,7 @@ Pod::Spec.new do |spec|
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
     test_spec.source_files = 'Sources/Tests/CrowdinProvider/*.swift'
+    test_spec.resources = 'Resources/Tests/SupportedLanguages.json'
   end
   
   spec.subspec 'CrowdinAPI' do |subspec|

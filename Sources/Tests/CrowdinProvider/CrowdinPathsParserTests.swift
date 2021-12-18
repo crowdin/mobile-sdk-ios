@@ -1,14 +1,42 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinPathsParserTests: XCTestCase {
-    var pathParser = CrowdinPathsParser(languageResolver: ManifestManager.shared(for: "test_hash"))
+class TestLanguageResolver: LanguageResolver {
+    var allLanguages: [CrowdinLanguage] = []
     
-    override func setUp() {
-        if CrowdinSupportedLanguages.shared.loaded == false {
-            CrowdinSupportedLanguages.shared.downloadSupportedLanguagesSync()
-        }
+    init() {
+        guard let url = Bundle(for: TestLanguageResolver.self).url(forResource: "SupportedLanguages", withExtension: "json") else { return }
+        guard let data = try? Data(contentsOf: url) else { return }
+        let supportedLanguages = try? JSONDecoder().decode(LanguagesResponse.self, from: data)
+        allLanguages = supportedLanguages?.data.map({ $0.data }) ?? []
     }
+    
+    public func crowdinLanguageCode(for localization: String) -> String? {
+        crowdinSupportedLanguage(for: localization)?.id
+    }
+    
+    public func crowdinSupportedLanguage(for localization: String) -> CrowdinLanguage? {
+        var language = allLanguages.first(where: { $0.iOSLanguageCode == localization })
+        if language == nil {
+            // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to replace _ in location code with -
+            let alternateiOSLocaleCode = localization.replacingOccurrences(of: "_", with: "-")
+            language = allLanguages.first(where: { $0.iOSLanguageCode == alternateiOSLocaleCode })
+        }
+        if language == nil {
+            // This is possible for languages ​​with regions. In case we didn't find Crowdin language mapping, try to get localization code and search again
+            let alternateiOSLocaleCode = localization.split(separator: "_").map({ String($0) }).first
+            language = allLanguages.first(where: { $0.iOSLanguageCode == alternateiOSLocaleCode })
+        }
+        return language
+    }
+    
+    public func iOSLanguageCode(for crowdinLocalization: String) -> String? {
+        allLanguages.first(where: { $0.id == crowdinLocalization })?.osxLocale
+    }
+}
+
+class CrowdinPathsParserTests: XCTestCase {
+    var pathParser = CrowdinPathsParser(languageResolver: TestLanguageResolver())
     
     func testContainsLanguageCustomPath() {
         XCTAssert(CrowdinPathsParser.containsCustomPath("%language%/Localizable.strings"), "Should return true because %language% is custom path paramether.")
@@ -109,11 +137,11 @@ class CrowdinPathsParserTests: XCTestCase {
     }
     
     func testParseLocaleWithUnderscoreCustomPathForZhHantLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh_Hant") == "zh_TW/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh-Hant") == "zh_TW/Localizable.strings", "")
     }
     
     func testParseLocaleWithUnderscoreCustomPathForZhHansLocalization() {
-        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh_Hans") == "zh_CN/Localizable.strings", "")
+        XCTAssert(self.pathParser.parse("%locale_with_underscore%/Localizable.strings", localization: "zh-Hans") == "zh_CN/Localizable.strings", "")
     }
     
     // mark - osx code

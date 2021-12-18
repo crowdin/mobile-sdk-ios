@@ -36,7 +36,8 @@
     {
       "name": "CrowdinProvider_Tests",
       "test_type": "unit",
-      "source_files": "Sources/Tests/CrowdinProvider/*.swift"
+      "source_files": "Sources/Tests/CrowdinProvider/*.swift",
+      "resources": "Resources/Tests/SupportedLanguages.json"
     },
     {
       "name": "CrowdinAPI_Tests",
