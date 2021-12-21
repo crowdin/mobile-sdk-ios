@@ -505,7 +505,7 @@ or even capture screenshots of a separate UIView.
     
     `<language_code>` - target language code in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format.
 
-4. Currently, Custom Languages and Language Mapping are not supported for iOS SDK.
+4. Currently, Language Mapping is not supported by iOS SDK.
 
 5. Crowdin iOS SDK provides detailed debug mode - "Logs" tab in the Settings floating button module and logging into XCode console.
    To enable console logging, add the following option to your `CrowdinSDKConfig`
