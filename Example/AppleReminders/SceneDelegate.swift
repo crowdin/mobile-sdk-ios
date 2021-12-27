@@ -16,8 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let distributionHash = "your_distribution_hash"
     private let sourceLanguage = "your_source_language"
     
-    private let clientId = "your_client_id"
-    private let clientSecret = "your_client_secret"
+    private let clientId = "client_id"
+    private let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,

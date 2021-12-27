@@ -3,6 +3,8 @@
 
 # Xcode
 build/
+.swiftpm/
+.build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -36,8 +38,12 @@ Carthage/Build
 #
 Example/Pods/
 ObjCExample/Pods/
+Tests/Pods/
 Example/CrowdinSDK/GoogleService-Info.plist
 .idea/
 Example2/
 Example2/Example2
+
+Example/AppleReminders.xcworkspace/contents.xcworkspacedata
+Example/AppleReminders.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 
