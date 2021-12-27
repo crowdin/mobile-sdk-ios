@@ -70,6 +70,8 @@ jobs:
     pool:
       vmImage: $(image)
     steps:
+      - checkout: self
+        persistCredentials: true
       - task: CocoaPods@0
         inputs:
           projectDirectory: Tests
