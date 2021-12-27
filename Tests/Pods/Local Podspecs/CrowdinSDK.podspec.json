@@ -79,7 +79,9 @@
     },
     {
       "name": "Screenshots",
-      "source_files": "Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -97,7 +99,9 @@
     },
     {
       "name": "RealtimeUpdate",
-      "source_files": "Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -130,7 +134,9 @@
     },
     {
       "name": "LoginFeature",
-      "source_files": "Sources/CrowdinSDK/Features/LoginFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/LoginFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -148,7 +154,9 @@
     },
     {
       "name": "IntervalUpdate",
-      "source_files": "Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -163,8 +171,10 @@
     },
     {
       "name": "Settings",
-      "source_files": "Sources/CrowdinSDK/Settings/**/*.swift",
-      "resources": "Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Settings/**/*.swift",
+        "resources": "Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}"
+      },
       "dependencies": {
         "CrowdinSDK/Screenshots": [
 
