@@ -12,11 +12,9 @@ class LanguagesAPITests: XCTestCase {
     var session = URLSessionMock()
     // swiftlint:disable implicitly_unwrapped_optional
     var api: LanguagesAPI!
+    let defaultTimeoutForExpectation = 2.0
     
     var testOrganization = "test_organization"
-    
-    override func setUp() {
-    }
     
     func testAPIInitialization() {
         api = LanguagesAPI()
@@ -37,6 +35,8 @@ class LanguagesAPITests: XCTestCase {
     }
     
     func testGetLanguages() {
+        let expectation = XCTestExpectation(description: "Wait for callback")
+        
         session.data = """
         {
           "data": [
@@ -100,7 +100,10 @@ class LanguagesAPITests: XCTestCase {
         var result: LanguagesResponse? = nil
         api.getLanguages(limit: 2, offset: 0) { (response, _) in
             result = response
+            expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: defaultTimeoutForExpectation)
         
         XCTAssertNotNil(result)
         if let result = result {

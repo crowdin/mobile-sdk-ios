@@ -17,7 +17,8 @@
   },
   "social_media_url": "https://twitter.com/crowdin",
   "platforms": {
-    "ios": "9.0"
+    "ios": "9.0",
+    "tvos": "9.0"
   },
   "frameworks": "UIKit",
   "static_framework": false,
@@ -35,7 +36,8 @@
     {
       "name": "CrowdinProvider_Tests",
       "test_type": "unit",
-      "source_files": "Sources/Tests/CrowdinProvider/*.swift"
+      "source_files": "Sources/Tests/CrowdinProvider/*.swift",
+      "resources": "Resources/Tests/SupportedLanguages.json"
     },
     {
       "name": "CrowdinAPI_Tests",
@@ -71,13 +73,15 @@
           "~> 3.1.0"
         ],
         "BaseAPI": [
-          "~> 0.1.12"
+          "~> 0.2.0"
         ]
       }
     },
     {
       "name": "Screenshots",
-      "source_files": "Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/ScreenshotFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -95,7 +99,9 @@
     },
     {
       "name": "RealtimeUpdate",
-      "source_files": "Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/RealtimeUpdateFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -128,7 +134,9 @@
     },
     {
       "name": "LoginFeature",
-      "source_files": "Sources/CrowdinSDK/Features/LoginFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/LoginFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -140,13 +148,15 @@
 
         ],
         "BaseAPI": [
-          "~> 0.1.12"
+          "~> 0.2.0"
         ]
       }
     },
     {
       "name": "IntervalUpdate",
-      "source_files": "Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Features/IntervalUpdateFeature/**/*.swift"
+      },
       "dependencies": {
         "CrowdinSDK/Core": [
 
@@ -161,8 +171,10 @@
     },
     {
       "name": "Settings",
-      "source_files": "Sources/CrowdinSDK/Settings/**/*.swift",
-      "resources": "Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}",
+      "ios": {
+        "source_files": "Sources/CrowdinSDK/Settings/**/*.swift",
+        "resources": "Sources/CrowdinSDK/Resources/Settings/*.{storyboard,xib,xcassets}"
+      },
       "dependencies": {
         "CrowdinSDK/Screenshots": [
 

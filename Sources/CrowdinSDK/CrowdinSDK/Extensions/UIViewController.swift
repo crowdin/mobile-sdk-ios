@@ -3,10 +3,10 @@
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 4/16/19.
-//
 
 import UIKit
 
+#if os(iOS)
 // MARK: - Custom view controller presentation and dismiss.
 public extension UIViewController {
     private static let alertWindowAssociation = ObjectAssociation<UIWindow>()
@@ -69,3 +69,4 @@ public extension UIViewController {
         alert.cw_present()
     }
 }
+#endif

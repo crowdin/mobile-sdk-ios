@@ -14,9 +14,7 @@ class DistributionsAPITests: XCTestCase {
     var api: DistributionsAPI!
     var testHashString = "dssdasd7as8dasd9asd9ds9ad9sa"
     var testOrganization = "test_organization"
-    
-    override func setUp() {
-    }
+    let defaultTimeoutForExpectation = 2.0
     
     func testAPIInitialization() {
         api = DistributionsAPI(hashString: testHashString)
@@ -37,6 +35,8 @@ class DistributionsAPITests: XCTestCase {
     }
     
     func testGetDistribution() {
+        let expectation = XCTestExpectation(description: "Wait for callback")
+        
         session.data = """
         {
             "data": {
@@ -56,7 +56,10 @@ class DistributionsAPITests: XCTestCase {
         var result: DistributionsResponse? = nil
         api.getDistribution { (response, _) in
             result = response
+            expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: defaultTimeoutForExpectation)
         
         XCTAssertNotNil(result)
         if let result = result {

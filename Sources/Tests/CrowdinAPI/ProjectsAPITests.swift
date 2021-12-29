@@ -16,9 +16,7 @@ class ProjectsAPITests: XCTestCase {
     var testOrganization = "test_organization"
     var testProjectId = "352187"
     var testFileId = "6"
-    
-    override func setUp() {
-    }
+    let defaultTimeoutForExpectation = 2.0
     
     func testAPIInitialization() {
         api = ProjectsAPI()
@@ -39,6 +37,8 @@ class ProjectsAPITests: XCTestCase {
     }
     
     func testGetFilesList() {
+        let expectation = XCTestExpectation(description: "Wait for callback")
+        
         session.data = """
         {
           "data": [
@@ -94,7 +94,10 @@ class ProjectsAPITests: XCTestCase {
         var result: ProjectsFilesListResponse? = nil
         api.getFilesList(projectId: testProjectId, limit: 2, offset: 0) { (response, _) in
             result = response
+            expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: defaultTimeoutForExpectation)
         
         XCTAssertNotNil(result)
         if let result = result {
@@ -121,6 +124,8 @@ class ProjectsAPITests: XCTestCase {
     }
     
     func testBuildProjectFileTranslation() {
+        let expectation = XCTestExpectation(description: "Wait for callback")
+        
         session.data = """
         {
             "data": {
@@ -134,7 +139,10 @@ class ProjectsAPITests: XCTestCase {
         var result: ProjectsDownloadFileResponse? = nil
         api.buildProjectFileTranslation(projectId: testProjectId, fileId: testFileId, targetLanguageId: "en") { (response, _) in
             result = response
+            expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: defaultTimeoutForExpectation)
         
         XCTAssertNotNil(result)
         XCTAssertNotNil(result?.data)
@@ -146,6 +154,8 @@ class ProjectsAPITests: XCTestCase {
     }
     
     func testDownloadFile() {
+        let expectation = XCTestExpectation(description: "Wait for callback")
+        
         session.data = """
         {
             "data": {
@@ -159,7 +169,10 @@ class ProjectsAPITests: XCTestCase {
         var result: ProjectsDownloadFileResponse? = nil
         api.downloadFile(projectId: testProjectId, fileId: testFileId) { (response, _) in
             result = response
+            expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: defaultTimeoutForExpectation)
         
         XCTAssertNotNil(result)
         XCTAssertNotNil(result?.data)
