@@ -43,7 +43,7 @@ class SocketAPI: NSObject {
     }
     
     func disconect() {
-        ws.disconnect(closeCode: CloseCode.normal.rawValue)
+        ws.disconnect()
     }
     
     func reconnect() {
