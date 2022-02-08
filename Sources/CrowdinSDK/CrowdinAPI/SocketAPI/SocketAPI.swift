@@ -23,9 +23,7 @@ class SocketAPI: NSObject {
     var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)? = nil
     var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)? = nil
     
-    var isConnected: Bool {
-        return ws.isConnected
-    }
+    var isConnected = false
     
 	init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
         self.hashString = hashString
@@ -35,17 +33,22 @@ class SocketAPI: NSObject {
 		self.wsUrl = wsUrl
 		
         // swiftlint:disable force_unwrapping
-        self.ws = WebSocket(url: URL(string: wsUrl)!)
+        ws = WebSocket(request: URLRequest(url: URL(string: wsUrl)!))
         super.init()
-        self.ws.delegate = self
+        ws.delegate = self
     }
     
     func connect() {
-        self.ws.connect()
+        ws.connect()
     }
     
     func disconect() {
-        self.ws.disconnect(forceTimeout: 1, closeCode: CloseCode.normal.rawValue)
+        ws.disconnect(closeCode: CloseCode.normal.rawValue)
+    }
+    
+    func reconnect() {
+        disconect()
+        connect()
     }
     
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
@@ -53,7 +56,7 @@ class SocketAPI: NSObject {
         let action = ActionRequest.subscribeAction(with: event)
         guard let data = action.data else { return }
         
-        self.ws.write(data: data)
+        ws.write(data: data)
     }
     
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
@@ -63,24 +66,8 @@ class SocketAPI: NSObject {
         
         self.ws.write(data: data)
     }
-}
-
-extension SocketAPI: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocketClient) {
-        onConnect?()
-    }
     
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        if let wsError = error as? WSError, wsError.code == CloseCode.normal.rawValue {
-            self.onDisconnect?()
-        } else if let error = error {
-            self.onError?(error)
-        } else {
-            self.onDisconnect?()
-        }
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+    func websocketDidReceiveText(_ text: String) {
         guard let data = text.data(using: .utf8) else { return }
         if let response = try? JSONDecoder().decode(UpdateDraftResponse.self, from: data) {
             self.didReceiveUpdateDraft?(response)
@@ -88,8 +75,38 @@ extension SocketAPI: WebSocketDelegate {
             self.didReceiveUpdateTopSuggestion?(response)
         }
     }
+}
+
+extension SocketAPI: WebSocketDelegate {
     
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
+    func didReceive(event: WebSocketEvent, client: WebSocket) {
+        switch event {
+        case .connected:
+            isConnected = true
+            onConnect?()
+        case .disconnected:
+            isConnected = false
+            onDisconnect?()
+        case .text(let string):
+            websocketDidReceiveText(string)
+        case .binary: break
+        case .ping: break
+        case .pong: break
+        case .viabilityChanged: break
+            //the viability (connection status) of the connection has updated. 
+            // e.g. connection is down, connection came back up https://github.com/daltoniam/Starscream/issues/798
+        case .reconnectSuggested(let shouldReconnect):
+            //the connection has upgrade to wifi from cellular. Consider reconnecting to take advantage of this
+            if shouldReconnect {
+                reconnect()
+            }
+        case .cancelled:
+            isConnected = false
+        case .error(let error):
+            isConnected = false
+            onError?(error ?? Errors.didDisconect)
+        }
+    }
 }
 
 extension SocketAPI {
@@ -98,7 +115,14 @@ extension SocketAPI {
         case updateDraft = "update-draft"
     }
     
-    enum Errors: String {
-        case didDisconect = "Websocket did disconnect with unknown error"
+    enum Errors: Error, LocalizedError {
+        case didDisconect
+        
+        var errorDescription: String? {
+            switch self {
+            case .didDisconect:
+                return NSLocalizedString("Websocket did disconnect with unknown error", comment: "didDisconect")
+            }
+        }
     }
 }
