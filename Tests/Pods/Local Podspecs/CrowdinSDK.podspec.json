@@ -69,9 +69,6 @@
         "CrowdinSDK/Core": [
 
         ],
-        "Starscream": [
-          "~> 3.1.0"
-        ],
         "BaseAPI": [
           "~> 0.2.0"
         ]
@@ -114,6 +111,9 @@
         ],
         "CrowdinSDK/LoginFeature": [
 
+        ],
+        "Starscream": [
+          "~> 3.1.0"
         ]
       }
     },

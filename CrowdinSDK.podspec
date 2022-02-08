@@ -62,7 +62,6 @@ Pod::Spec.new do |spec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'Sources/CrowdinSDK/CrowdinAPI/**/*.swift'
     subspec.dependency 'CrowdinSDK/Core'
-    subspec.dependency 'Starscream', '~> 3.1.0'
     subspec.dependency 'BaseAPI', '~> 0.2.0'
   end
   
@@ -86,6 +85,8 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'CrowdinSDK/LoginFeature'
+    
+    feature.dependency 'Starscream', '~> 3.1.0'
   end
   
   spec.subspec 'RefreshLocalization' do |feature|
