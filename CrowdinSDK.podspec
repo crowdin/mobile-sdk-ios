@@ -86,7 +86,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'CrowdinSDK/LoginFeature'
     
-    feature.dependency 'Starscream', '~> 3.1.0'
+    feature.dependency 'Starscream', '~> 4.0.4'
   end
   
   spec.subspec 'RefreshLocalization' do |feature|
