@@ -20,12 +20,36 @@ public protocol CrowdinMappingManagerProtocol {
 
 public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     let downloader: CrowdinDownloaderProtocol
+    let manifestManager: ManifestManager
     var pluralsMapping: [String: String] = [:]
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
     init(hash: String, sourceLanguage: String) {
-        self.downloader = CrowdinMappingDownloader()
+        var downloadManifest = false
+        if let manifestManager = ManifestManager.manifest(for: hash) {
+            self.manifestManager = manifestManager
+        } else {
+            self.manifestManager = ManifestManager(hash: hash)
+            downloadManifest = true
+        }
+        
+        self.downloader = CrowdinMappingDownloader(languageResolver: self.manifestManager)
+        download(hash: hash, sourceLanguage: sourceLanguage, downloadManifest: downloadManifest)
+    }
+    
+    func download(hash: String, sourceLanguage: String, downloadManifest: Bool) {
+        if downloadManifest {
+            self.manifestManager.download { [weak self] in
+                guard let self = self else { return }
+                self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)                                       
+            }
+        } else {
+            downloadMapping(hash: hash, sourceLanguage: sourceLanguage)
+        }
+    }
+    
+    func downloadMapping(hash: String, sourceLanguage: String) {
         self.downloader.download(with: hash, for: sourceLanguage) { (strings, plurals, _) in
             self.stringsMapping = strings ?? [:]
             self.plurals = plurals ?? [:]

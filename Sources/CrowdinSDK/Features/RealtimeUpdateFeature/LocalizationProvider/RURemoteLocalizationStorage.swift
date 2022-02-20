@@ -13,19 +13,26 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     func deintegrate() { }
     
     var localization: String
-    var localizations: [String]
-    var hash: String
-    var fileDownloader: RUFilesDownloader
+    var localizations: [String] {
+        manifestManager.iOSLanguages
+    }
+    let hash: String
+    let fileDownloader: RUFilesDownloader
+    let manifestManager: ManifestManager
     
     init(localization: String, hash: String, projectId: String, organizationName: String?) {
         self.localization = localization
         self.hash = hash
-        self.fileDownloader = RUFilesDownloader(projectId: projectId, laguageResolver: ManifestManager.shared(for: hash), organizationName: organizationName)
-        self.localizations = ManifestManager.shared(for: hash).iOSLanguages
+        if let manifestManager = ManifestManager.manifest(for: hash) {
+            self.manifestManager = manifestManager
+        } else {
+            self.manifestManager = ManifestManager(hash: hash)
+        }
+        self.fileDownloader = RUFilesDownloader(projectId: projectId, laguageResolver: manifestManager, organizationName: organizationName)
     }
     
-    func prepare(with completion: (() -> Void)) {
-        completion()
+    func prepare(with completion: @escaping (() -> Void)) {
+        manifestManager.download(completion: completion)
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {

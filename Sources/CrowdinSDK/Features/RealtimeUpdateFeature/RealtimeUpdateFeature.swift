@@ -156,7 +156,17 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
-        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: ManifestManager.shared(for: hashString))
+        guard let manifestManager = ManifestManager.manifest(for: hashString) else {
+            // Download manifest if it is not initialized.
+            let manifestManager = ManifestManager(hash: hashString)
+            manifestManager.download { [weak self] in
+                guard let self = self else { return }
+                self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+            }
+            return
+        }
+        
+        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: manifestManager)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }
