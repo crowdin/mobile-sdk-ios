@@ -39,7 +39,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     }
     
     func download(strings: [String], plurals: [String], xliffs: [String], with hash: String, for localization: String, baseURL: String?) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         
         self.strings = nil
         self.plurals = nil
@@ -91,7 +91,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, String?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         self.contentDeliveryAPI.getManifest { (manifest, url, error) in
             completion(manifest?.files, manifest?.timestamp, url, error)
         }
