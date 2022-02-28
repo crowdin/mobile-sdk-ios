@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-protocol SendSelectedListsDelegate: class {
+protocol SendSelectedListsDelegate: AnyObject {
     func pass(lists: [ReminderList])
 }
 

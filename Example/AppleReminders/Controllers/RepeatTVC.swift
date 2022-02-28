@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-protocol RepeatDelegate: class {
+protocol RepeatDelegate: AnyObject {
     func pass(repeatOption: Reminder.RepeatingPeriod?)
 }
 

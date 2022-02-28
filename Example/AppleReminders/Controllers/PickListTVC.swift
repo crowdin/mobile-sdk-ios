@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import SwiftUI
 
-protocol PassSelectedListDelegate: class {
+protocol PassSelectedListDelegate: AnyObject {
     func pass(selectedList: ReminderList)
 }
 

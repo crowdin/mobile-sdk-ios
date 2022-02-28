@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PriorityDelegate: class {
+protocol PriorityDelegate: AnyObject {
     func passPriority(priority: Reminder.Priority?)
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-protocol PassSubtasksDelegate: class {
+protocol PassSubtasksDelegate: AnyObject {
     func pass(subtasks: [Reminder])
 }
 
