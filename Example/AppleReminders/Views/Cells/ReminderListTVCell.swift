@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-protocol ReminderListCellDelegate: class {
+protocol ReminderListCellDelegate: AnyObject {
     func pass(list: ReminderList)
 }
 

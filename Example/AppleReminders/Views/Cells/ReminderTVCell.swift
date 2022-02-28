@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 
-protocol ReminderTVCellDelegate: class {
+protocol ReminderTVCellDelegate: AnyObject {
     func cellTapped(reminder: Reminder?)
 }
 
