@@ -25,4 +25,9 @@ extension CrowdinSDK {
             }
         }
     }
+
+    public class func hideSettings() {
+        guard let settingsView = SettingsView.shared else { return }
+        settingsView.isHidden = true
+    }
 }
