@@ -425,8 +425,7 @@ if (!error) {
 The last step is to handle authorization callback in your application:
 
 ```swift
-func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-	guard let url = URLContexts.first?.url else { return }
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
 	CrowdinSDK.handle(url: url)
 }
 ```
