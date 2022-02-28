@@ -127,26 +127,18 @@ extension UILabel {
         }
     }
     
-    /// Selectors for working with real-time updates.
-    ///
-    /// - subscribeForRealtimeUpdates: Method for subscribing to real-time updates.
-    /// - unsubscribeForRealtimeUpdates: Method for unsubscribing from real-time updates.
-    enum Selectors: Selector {
-        case subscribeForRealtimeUpdates
-        case unsubscribeFromRealtimeUpdates
-    }
-    
     /// Method for subscription to real-time updates if real-time feature enabled.
     func subscribeForRealtimeUpdatesIfNeeded() {
-        if self.responds(to: Selectors.subscribeForRealtimeUpdates.rawValue) {
-            self.perform(Selectors.subscribeForRealtimeUpdates.rawValue)
-        }
+        performIfResponds(#selector(UILabel.subscribeForRealtimeUpdates))
     }
     
     /// Method for unsubscribing from real-time updates if real-time feature enabled.
     func unsubscribeFromRealtimeUpdatesIfNeeded() {
-        if self.responds(to: Selectors.unsubscribeFromRealtimeUpdates.rawValue) {
-            self.perform(Selectors.unsubscribeFromRealtimeUpdates.rawValue)
-        }
+        performIfResponds(#selector(UILabel.unsubscribeForRealtimeUpdates))
+    }
+
+    private func performIfResponds(_ selector: Selector) {
+        guard responds(to: selector) else { return }
+        perform(selector)
     }
 }
