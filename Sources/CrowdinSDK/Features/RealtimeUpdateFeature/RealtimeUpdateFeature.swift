@@ -132,16 +132,18 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         oldProvider = Localization.current.provider
         Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
         
-        Localization.current.provider.completion = { [weak self] in
+        Localization.current.provider.refreshLocalization { [weak self] error in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.subscribeAllVisibleConrols()
-                self.refreshAllControls()
-                completion()
+            if let error = error {
+                self.error?(error)
+            } else {
+                DispatchQueue.main.async {
+                    self.subscribeAllVisibleConrols()
+                    self.refreshAllControls()
+                    completion()
+                }
             }
         }
-        Localization.current.provider.errorHandler = error
-        Localization.current.provider.refreshLocalization()
     }
     
     func removeRealtimeUpdatesLocalizationProvider() {
@@ -156,16 +158,16 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
-        guard let manifestManager = ManifestManager.manifest(for: hashString) else {
-            // Download manifest if it is not initialized.
-            let manifestManager = ManifestManager(hash: hashString)
+        // Download manifest if it is not initialized.
+        let manifestManager = ManifestManager.manifest(for: hashString)
+        guard manifestManager.downloaded else {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }
                 self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
             }
             return
         }
-        
+
         self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: manifestManager)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)

@@ -18,10 +18,8 @@ protocol LocalizationProviderProtocol {
     var localization: String { get  set }
     var localizations: [String] { get }
     
-    var completion: LocalizationProviderCompletion? { get set }
-    var errorHandler: LocalizationProviderError? { get set }
-    
     func refreshLocalization()
+    func refreshLocalization(completion: @escaping ((Error?) -> Void))
     
     func deintegrate()
     func localizedString(for key: String) -> String?
@@ -46,9 +44,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     var localStorage: LocalLocalizationStorageProtocol
     var remoteStorage: RemoteLocalizationStorageProtocol
     
-    var completion: LocalizationProviderCompletion?
-    var errorHandler: LocalizationProviderError?
-    
     // Internal
     var strings: [String: String] { return localStorage.strings }
     var plurals: [AnyHashable: Any] { return localStorage.plurals }
@@ -65,6 +60,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         super.init()
+        self.refreshLocalization()
     }
     
     init(localization: String, localizations: [String], remoteStorage: RemoteLocalizationStorageProtocol) {
@@ -75,6 +71,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         super.init()
+        self.refreshLocalization()
     }
     
     func deintegrate() {
@@ -86,35 +83,45 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     }
     
     func refreshLocalization() {
-        loadLocalLocalization()
-        fetchRemoteLocalization()
+        refreshLocalization(completion: { _ in })
+    }
+    
+    func refreshLocalization(completion: @escaping ((Error?) -> Void)) {
+        loadLocalLocalization { [weak self] in
+            guard let self = self else { return }
+            self.fetchRemoteLocalization(completion: completion)
+        }
     }
     
     // Private method
-    func loadLocalLocalization() {
+    func loadLocalLocalization(completion: @escaping () -> Void) {
         self.localStorage.localization = localization
         self.localStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
             guard localization == self.localization else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Localization fetched from local storage"))
-        }, errorHandler: errorHandler)
+            completion()
+        }, errorHandler: nil)
     }
     
-    func fetchRemoteLocalization() {
+    func fetchRemoteLocalization(completion: @escaping ((Error?) -> Void)) {
         self.remoteStorage.localization = localization
         self.remoteStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
+            
             guard localization == self.localization else {
-                self.saveLocalization(strings: strings, plurals: plurals, for: localization)    
+                self.saveLocalization(strings: strings, plurals: plurals, for: localization)
+                completion(nil)
                 return
             }
             self.setup(with: localizations, strings: strings, plurals: plurals)
-            self.completion?()
-        }, errorHandler: errorHandler)
+            completion(nil)
+        }, errorHandler: completion)
     }
     
     func setup(with localizations: [String]?, strings: [String: String]?, plurals: [AnyHashable: Any]?) {
+        print(#function)
         if let strings = strings {
             self.localStorage.strings.merge(with: strings)
         }

@@ -22,9 +22,9 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     init(localization: String, config: CrowdinProviderConfig) {
         self.localization = localization
         self.hashString = config.hashString
-        self.manifestManager = ManifestManager(hash: config.hashString)
+        self.manifestManager = ManifestManager.manifest(for: config.hashString)
         self.crowdinDownloader = CrowdinLocalizationDownloader(languageResolver: manifestManager)
-        self.localizations = []
+        self.localizations = self.manifestManager.iOSLanguages
     }
     
     func prepare(with completion: @escaping () -> Void) {
@@ -62,13 +62,18 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
         self.hashString = hashString
-        self.manifestManager = ManifestManager(hash: hashString)
+        self.manifestManager = ManifestManager.manifest(for: hashString)
         self.crowdinDownloader = CrowdinLocalizationDownloader(languageResolver: self.manifestManager)
         self.localizations = []
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
-        guard self.localizations.contains(self.localization) else { return }
+        guard self.localizations.contains(self.localization) else {
+            let error = NSError(domain: "Remote storage doesn't contains selected localization.", code: defaultCrowdinErrorCode, userInfo: nil)
+            errorHandler?(error)
+            LocalizationUpdateObserver.shared.notifyError(with: [error])
+            return
+        }
         let localization = self.localization
         self.crowdinDownloader.download(with: self.hashString, for: localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
@@ -83,8 +88,9 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         }
     }
     
-    /// Remove add stored E-Tag headers for every file.
+    /// Remove add stored E-Tag headers for every file and cached manifest file
     func deintegrate() {
         ETagStorage.clear()
+        manifestManager.clear()
     }
 }

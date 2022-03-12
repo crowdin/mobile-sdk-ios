@@ -100,7 +100,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
-        
+        operationQueue.operations.forEach({ $0.qualityOfService = .userInitiated })
         operationQueue.addOperation(completionBlock)
     }
     

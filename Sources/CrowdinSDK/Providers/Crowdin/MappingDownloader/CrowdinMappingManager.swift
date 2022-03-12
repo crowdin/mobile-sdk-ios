@@ -26,21 +26,14 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var plurals: [AnyHashable: Any] = [:]
     
     init(hash: String, sourceLanguage: String) {
-        var downloadManifest = false
-        if let manifestManager = ManifestManager.manifest(for: hash) {
-            self.manifestManager = manifestManager
-        } else {
-            self.manifestManager = ManifestManager(hash: hash)
-            downloadManifest = true
-        }
-        
+        self.manifestManager = ManifestManager.manifest(for: hash)
         self.downloader = CrowdinMappingDownloader(languageResolver: self.manifestManager)
-        download(hash: hash, sourceLanguage: sourceLanguage, downloadManifest: downloadManifest)
+        self.download(hash: hash, sourceLanguage: sourceLanguage)
     }
     
-    func download(hash: String, sourceLanguage: String, downloadManifest: Bool) {
-        if downloadManifest {
-            self.manifestManager.download { [weak self] in
+    func download(hash: String, sourceLanguage: String) {
+        if manifestManager.downloaded == false {
+            manifestManager.download { [weak self] in
                 guard let self = self else { return }
                 self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)                                       
             }
