@@ -69,7 +69,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
         
         initializeLib()
         
-        remoteStorage.prepare(with: completion)
+        localizationProvider.prepare(with: completion)
     }
     
     /// Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.

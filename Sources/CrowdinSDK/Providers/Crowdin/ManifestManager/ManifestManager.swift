@@ -11,11 +11,20 @@ import Foundation
 class ManifestManager {
     /// Dictionary with manifest downloading status for hashes.
     fileprivate var downloadingMap = [String: Bool]()
+    /// Dictionary with manifest downloaded status for hashes. Stats only for downloading from server.
     fileprivate var downloadedMap = [String: Bool]()
+    /// Dictionary with manifest loaded status for hashes. Status includes loading from hash and loading from server.
+    fileprivate var loadedMap = [String: Bool]()
+    /// Dictionary with manifest completion handlers array for hashes.
     fileprivate var completionsMap = [String: [() -> Void]]()
+    /// Dictionary with manifest managers for hashes.
     fileprivate static var manifestMap = [String: ManifestManager]()
     
+    /// Download status of manifest for current hash for current app session. True - after manifest downloaded from crowding.
     var downloaded: Bool { downloadedMap[hash] ?? false }
+    
+    /// Indicates whether manifest information was loaded from server or from cache.
+    var loaded: Bool { loadedMap[hash] ?? false }
     
     let hash: String
     var files: [String]?
@@ -63,6 +72,7 @@ class ManifestManager {
                 self.languages = manifest.languages
                 self.customLanguages = manifest.customLanguages
                 self.save(manifestResponse: manifest)
+                self.loadedMap[self.hash] = true
                 self.downloadedMap[self.hash] = true
             } else if let error = error {
                 LocalizationUpdateObserver.shared.notifyError(with: [error])
@@ -108,6 +118,7 @@ class ManifestManager {
         timestamp = manifestResponse.timestamp
         languages = manifestResponse.languages
         customLanguages = manifestResponse.customLanguages
+        loadedMap[hash] = true
     }
     
     /// Removes all cached manifest data files
