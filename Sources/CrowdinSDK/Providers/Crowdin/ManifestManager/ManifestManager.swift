@@ -21,10 +21,34 @@ class ManifestManager {
     fileprivate static var manifestMap = [String: ManifestManager]()
     
     /// Download status of manifest for current hash for current app session. True - after manifest downloaded from crowding.
-    var downloaded: Bool { downloadedMap[hash] ?? false }
+    var downloaded: Bool {
+        get {
+            downloadedMap[hash] ?? false
+        }
+        set {
+            downloadedMap[hash] = newValue
+        }
+    }
     
     /// Indicates whether manifest information was loaded from server or from cache.
-    var loaded: Bool { loadedMap[hash] ?? false }
+    var loaded: Bool {
+        get {
+            loadedMap[hash] ?? false
+        }
+        set {
+            loadedMap[hash] = newValue
+        }
+    }
+    
+    /// Status of manifest downloading for current hash
+    fileprivate var downloading: Bool {
+        get {
+            downloadingMap[hash] ?? false
+        }
+        set {
+            downloadingMap[hash] = newValue
+        }
+    }
     
     let hash: String
     var files: [String]?
@@ -58,12 +82,12 @@ class ManifestManager {
             completion()
             return
         }
-        guard downloadingMap[hash] != true else {
+        guard downloading == false else {
             addCompletion(completion: completion, for: hash)
             return
         }
         addCompletion(completion: completion, for: hash)
-        self.downloadingMap[self.hash] = true
+        downloading = true
         contentDeliveryAPI.getManifest { [weak self] manifest, timestamp, error in
             guard let self = self else { return }
             if let manifest = manifest {
@@ -72,8 +96,9 @@ class ManifestManager {
                 self.languages = manifest.languages
                 self.customLanguages = manifest.customLanguages
                 self.save(manifestResponse: manifest)
-                self.loadedMap[self.hash] = true
-                self.downloadedMap[self.hash] = true
+                self.loaded = true
+                self.downloaded = true
+                self.downloading = false
             } else if let error = error {
                 LocalizationUpdateObserver.shared.notifyError(with: [error])
             } else {
@@ -118,16 +143,19 @@ class ManifestManager {
         timestamp = manifestResponse.timestamp
         languages = manifestResponse.languages
         customLanguages = manifestResponse.customLanguages
-        loadedMap[hash] = true
+        loaded = true
     }
     
     /// Removes all cached manifest data files
     static func clear() {
-        try? FileManager.default.removeItem(atPath: ManifestManager.manifestsPath)
+        manifestMap.removeAll() // clear all manifests
+        try? FileManager.default.removeItem(atPath: ManifestManager.manifestsPath) // clear all manifest cache
     }
     
     /// Removes cached manifest data file for current hash
     func clear() {
+        ManifestManager.manifestMap.removeValue(forKey: hash)
         try? FileManager.default.removeItem(atPath: manifestPath)
+        
     }
 }
