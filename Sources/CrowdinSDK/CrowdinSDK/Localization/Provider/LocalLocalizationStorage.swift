@@ -101,6 +101,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         if let plurals = plurals {
             localStorage.plurals.merge(with: plurals)
         }
+        localStorage.save()
     }
     
     func deintegrate() {

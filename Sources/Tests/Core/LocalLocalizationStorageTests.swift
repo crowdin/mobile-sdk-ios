@@ -121,6 +121,7 @@ class LocalLocalizationStorageTests: XCTestCase {
         localLocalizationStorage = LocalLocalizationStorage(localization: "en")
         
         localLocalizationStorage.saveLocalizaion(strings: stringsDictEn, plurals: pluralsDictEn, for: "en")
+        localLocalizationStorage.localization = "de"
         localLocalizationStorage.saveLocalizaion(strings: stringsDictDe, plurals: pluralsDictDe, for: "de")
         
         localLocalizationStorage = nil
