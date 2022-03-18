@@ -13,8 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Configuration
     
-    private let distributionHash = "distribution_hash"
-    private let sourceLanguage = "source_language"
+    private let distributionHash = "your_distribution_hash"
+    private let sourceLanguage = "your_source_language"
     
     private let clientId = "client_id"
     private let clientSecret = "client_secret"
@@ -31,18 +31,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .with(realtimeUpdatesEnabled: true)
             .with(screenshotsEnabled: true)
         
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-            
-        })
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
         // Now new log message comes as callback
         CrowdinSDK.setOnLogCallback { logMessage in
             print("LOG MESSAGE - \(logMessage)")
         }
 //        CrowdinSDK.currentLocalization = "fr"
         
-        CrowdinSDK.addDownloadHandler {
-            
-        }
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
