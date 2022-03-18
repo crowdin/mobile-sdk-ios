@@ -89,7 +89,8 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
         let localizations = remoteStorage.localizations + self.inBundleLocalizations;
         let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
-		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
+        let localLocalizationStorage = LocalLocalizationStorage(localization: localization)
+		let localizationProvider = LocalizationProvider(localization: localization, localStorage: localLocalizationStorage, remoteStorage: remoteStorage)
         Localization.current = Localization(provider: localizationProvider)
     }
     
