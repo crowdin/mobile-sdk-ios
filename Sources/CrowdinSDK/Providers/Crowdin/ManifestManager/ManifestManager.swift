@@ -55,7 +55,7 @@ class ManifestManager {
     var timestamp: TimeInterval?
     var languages: [String]?
     var customLanguages: [CustomLangugage]?
-    
+    var manifestURL: String?
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
     
     fileprivate init(hash: String) {
@@ -88,13 +88,14 @@ class ManifestManager {
         }
         addCompletion(completion: completion, for: hash)
         downloading = true
-        contentDeliveryAPI.getManifest { [weak self] manifest, timestamp, error in
+        contentDeliveryAPI.getManifest { [weak self] manifest, manifestURL, error in
             guard let self = self else { return }
             if let manifest = manifest {
                 self.files = manifest.files
                 self.timestamp = manifest.timestamp
                 self.languages = manifest.languages
                 self.customLanguages = manifest.customLanguages
+                self.manifestURL = manifestURL
                 self.save(manifestResponse: manifest)
                 self.loaded = true
                 self.downloaded = true
