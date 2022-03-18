@@ -13,11 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Configuration
     
-    private let distributionHash = "972b2fc38ef7ac1fb442228106i"
-    private let sourceLanguage = "en"
+    private let distributionHash = "your_distribution_hash"
+    private let sourceLanguage = "your_source_language"
     
-    private let clientId = "mJadRQTWzf9oA1JpdJRM"
-    private let clientSecret = "vvgZwmbnEJ9S1pHA0n8WQIP3DTHTkekKPtvwefUK"
+    private let clientId = "client_id"
+    private let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
@@ -37,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("LOG MESSAGE - \(logMessage)")
         }
 //        CrowdinSDK.currentLocalization = "fr"
+        
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
