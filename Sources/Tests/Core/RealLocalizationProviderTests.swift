@@ -8,7 +8,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class LocalizationProviderTests: XCTestCase {
+class RealLocalizationProviderTests: XCTestCase {
     let crowdinProviderConfig = CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en")
     var localizationProvider: LocalizationProvider!
     
@@ -25,5 +25,15 @@ class LocalizationProviderTests: XCTestCase {
         let localStorage = LocalLocalizationStorage(localization: localization)
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
         localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
+        
+        XCTAssertNotNil(localizationProvider)
+        XCTAssertTrue(localizationProvider.localization == localization)
+        XCTAssertTrue(localizationProvider.localizations == [])
+        XCTAssertTrue(localizationProvider.strings.isEmpty)
+        XCTAssertTrue(localizationProvider.plurals.isEmpty)
+        XCTAssertNil(localizationProvider.pluralsBundle, "Not initialized before fetch called")
+        XCTAssertNotNil(localizationProvider.pluralsFolder)
+        XCTAssertNotNil(localizationProvider.stringsDataSource)
+        XCTAssertNotNil(localizationProvider.pluralsDataSource)
     }
 }
