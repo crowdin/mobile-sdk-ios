@@ -18,10 +18,10 @@ protocol LocalizationProviderProtocol {
     var localization: String { get  set }
     var localizations: [String] { get }
     
-    var completion: LocalizationProviderCompletion? { get set }
-    var errorHandler: LocalizationProviderError? { get set }
-    
     func refreshLocalization()
+    func refreshLocalization(completion: @escaping ((Error?) -> Void))
+    
+    func prepare(with completion:  @escaping () -> Void)
     
     func deintegrate()
     func localizedString(for key: String) -> String?
@@ -46,9 +46,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     var localStorage: LocalLocalizationStorageProtocol
     var remoteStorage: RemoteLocalizationStorageProtocol
     
-    var completion: LocalizationProviderCompletion?
-    var errorHandler: LocalizationProviderError?
-    
     // Internal
     var strings: [String: String] { return localStorage.strings }
     var plurals: [AnyHashable: Any] { return localStorage.plurals }
@@ -65,6 +62,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         super.init()
+        self.refreshLocalization()
     }
     
     func deintegrate() {
@@ -76,32 +74,52 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     }
     
     func refreshLocalization() {
-        loadLocalLocalization()
-        fetchRemoteLocalization()
+        refreshLocalization(completion: { _ in })
+    }
+    
+    func refreshLocalization(completion: @escaping ((Error?) -> Void)) {
+        loadLocalLocalization { [weak self] _ in
+            guard let self = self else { return }
+            self.fetchRemoteLocalization(completion: completion)
+        }
+    }
+    
+    func prepare(with completion:  @escaping () -> Void) {
+        let shouldFetchLocalization = self.localizations.count == 0 // Remote storage doesn't contain any languages. Probably first run, no information about supported localizations.
+        remoteStorage.prepare { [weak self] in
+            guard let self = self else { return }
+            completion()
+            if shouldFetchLocalization {
+                self.refreshLocalization()
+            }
+        }
     }
     
     // Private method
-    func loadLocalLocalization() {
+    private func loadLocalLocalization(completion: @escaping ((Error?) -> Void)) {
         self.localStorage.localization = localization
         self.localStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
             guard localization == self.localization else { return }
             self.setup(with: localizations, strings: strings, plurals: plurals)
             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Localization fetched from local storage"))
-        }, errorHandler: errorHandler)
+            completion(nil)
+        }, errorHandler: completion)
     }
     
-    func fetchRemoteLocalization() {
+    private func fetchRemoteLocalization(completion: @escaping ((Error?) -> Void)) {
         self.remoteStorage.localization = localization
         self.remoteStorage.fetchData(completion: { [weak self] localizations, localization, strings, plurals in
             guard let self = self else { return }
+            
             guard localization == self.localization else {
-                self.saveLocalization(strings: strings, plurals: plurals, for: localization)    
+                self.saveLocalization(strings: strings, plurals: plurals, for: localization)
+                completion(nil)
                 return
             }
             self.setup(with: localizations, strings: strings, plurals: plurals)
-            self.completion?()
-        }, errorHandler: errorHandler)
+            completion(nil)
+        }, errorHandler: completion)
     }
     
     private
@@ -138,6 +156,10 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
     }
     
+    private func saveLocalization(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
+        self.localStorage.saveLocalizaion(strings: strings, plurals: plurals, for: localization)
+    }
+    
     // Localization methods
     func localizedString(for key: String) -> String? {
         var string = self.strings[key]
@@ -169,9 +191,5 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     func set(string: String, for key: String) {
         self.localStorage.strings[key] = string
         self.setupStrings()
-    }
-    
-    private func saveLocalization(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
-        self.localStorage.saveLocalizaion(strings: strings, plurals: plurals, for: localization)
     }
 }

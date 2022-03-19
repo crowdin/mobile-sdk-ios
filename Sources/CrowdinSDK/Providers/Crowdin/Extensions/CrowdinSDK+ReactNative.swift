@@ -77,22 +77,21 @@ extension CrowdinSDK {
         let remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: CrowdinProviderConfig(hashString: hashString, sourceLanguage: .empty))
         remoteLocalizationStorage.prepare {
             localizationProvider = LocalizationProvider(localization: localization, localStorage: localLocalizationStorage, remoteStorage: remoteLocalizationStorage)
-            localizationProvider?.completion = { [weak localizationProvider] in
-                guard let localizationProvider = localizationProvider else { return }
-                localizationProvider.loadLocalLocalization()
-                let result: [String: Any] = [
-                    "localization": localizationProvider.localStorage.localization,
-                    "strings": localizationProvider.localStorage.strings,
-                    "plurals": localizationProvider.localStorage.plurals
-                ]
-                completion(result)
-                CrowdinSDK.localizationProvider = nil
-            }
-            localizationProvider?.errorHandler = { error in
-                errorHandler(error)
-                CrowdinSDK.localizationProvider = nil
-            }
-            localizationProvider?.refreshLocalization()
+            localizationProvider?.refreshLocalization(completion: { error in
+                if let error = error {
+                    errorHandler(error)
+                    CrowdinSDK.localizationProvider = nil
+                } else {
+                    guard let localizationProvider = localizationProvider else { return }
+                    let result: [String: Any] = [
+                        "localization": localizationProvider.localStorage.localization,
+                        "strings": localizationProvider.localStorage.strings,
+                        "plurals": localizationProvider.localStorage.plurals
+                    ]
+                    completion(result)
+                    CrowdinSDK.localizationProvider = nil
+                }
+            })
         }
     }
 }

@@ -16,6 +16,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
+    fileprivate let languageResolver: LanguageResolver
+    
+    init(languageResolver: LanguageResolver) {
+        self.languageResolver = languageResolver
+    }
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
@@ -40,7 +45,6 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         self.plurals = nil
         self.errors = nil
         
-        let languageResolver: LanguageResolver = ManifestManager.shared(for: hash)
         let pathParser = CrowdinPathsParser(languageResolver: languageResolver)
         
         let completionBlock = BlockOperation { [weak self] in
@@ -96,7 +100,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
-        
+        operationQueue.operations.forEach({ $0.qualityOfService = .userInitiated })
         operationQueue.addOperation(completionBlock)
     }
     

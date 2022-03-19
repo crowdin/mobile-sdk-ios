@@ -16,6 +16,11 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var errors: [Error]? = nil
     //swiftlint:disable implicitly_unwrapped_optional
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
+    fileprivate let languageResolver: LanguageResolver
+    
+    init(languageResolver: LanguageResolver) {
+        self.languageResolver = languageResolver
+    }
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
@@ -40,7 +45,6 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
         self.plurals = nil
         self.errors = nil
         
-        let languageResolver: LanguageResolver = ManifestManager.shared(for: hash)
         let pathParser = CrowdinPathsParser(languageResolver: languageResolver)
         
         let completionBlock = BlockOperation {
