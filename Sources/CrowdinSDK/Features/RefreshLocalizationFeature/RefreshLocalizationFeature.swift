@@ -15,7 +15,7 @@ final class RefreshLocalizationFeature: RefreshLocalizationFeatureProtocol {
     static func refreshLocalization() {
         if let currentLocalization = Localization.current {
             ETagStorage.clear(for: currentLocalization.provider.localization)
-            currentLocalization.provider.refreshLocalization()
+            currentLocalization.provider.refreshLocalization { _ in }
         }
     }
 }
