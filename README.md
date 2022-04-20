@@ -48,21 +48,6 @@ The SDK provides:
 * Swift 4.2
 * iOS 9.0
 
-### SwiftUI support
-
-SwiftUI doesn’t have automatic support for now. It will work only when you pass localised string using `NSLocalizedString(“key”, comment: “comment”)`.
-It means that you will need to update all localised strings in SwiftUI application. For more comfortable usage you can use out String extension for localisation: `“key”.cw_localized`.
-
-Example: 
-
-> Text(NSLocalizedString(“key”, comment: “comment”))
-
-or
-
-> Text(“key”.cw_localized)
-
-After we add SwiftUI support you will need just simply remove call of `cw_localized` method.
-
 ## Dependencies
 
 * [Starscream](https://github.com/daltoniam/Starscream) - Websockets in swift for iOS and OSX.
@@ -237,6 +222,23 @@ Open *Info.plist* file and add:
 In AppDelegate you should call start method: `CrowdinSDK.start()` for Swift, and `[CrowdinSDK start]` for Objective-C.
 
 **Note!** Using this setup method you will unable to set up additional *Screenshots* and *Real-Time Preview* project features.
+
+
+### SwiftUI support
+
+SwiftUI doesn’t have automatic support for now. It will work only when you pass localised string using `NSLocalizedString(“key”, comment: “comment”)`.
+It means that you will need to update all localised strings in SwiftUI application. For more comfortable usage you can use out String extension for localisation: `“key”.cw_localized`.
+
+Example: 
+
+> Text(NSLocalizedString(“key”, comment: “comment”))
+
+or
+
+> Text(“key”.cw_localized)
+
+After we add SwiftUI support you will need just simply remove call of `cw_localized` method.
+
 
 ## Advanced Features
 
