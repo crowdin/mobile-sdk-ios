@@ -8,9 +8,7 @@
 
 import UIKit
 import CrowdinSDK
-#if DEBUG
-    import netfox
-#endif
+import netfox
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -24,9 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-#if DEBUG
         NFX.sharedInstance().start()
-#endif
         
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
                                                           sourceLanguage: sourceLanguage)
@@ -35,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                   scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
-            .with(settingsEnabled: true)
+//            .with(settingsEnabled: true)
             .with(realtimeUpdatesEnabled: true)
             .with(screenshotsEnabled: true)
         
