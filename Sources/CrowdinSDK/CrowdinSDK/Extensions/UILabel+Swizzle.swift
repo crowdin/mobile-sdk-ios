@@ -5,7 +5,8 @@
 //  Created by Serhii Londar on 1/23/19.
 //
 
-import Foundation
+#if os(iOS)
+
 import UIKit
 
 // MARK: -  extension with core functionality for language substitution.
@@ -150,3 +151,5 @@ extension UILabel {
         }
     }
 }
+
+#endif

@@ -6,6 +6,8 @@ import PackageDescription
 let package = Package(
     name: "CrowdinSDK",
     platforms: [
+        .macOS(.v10_10),
+        .watchOS(.v2),
         .iOS(.v9)
     ],
     products: [
@@ -20,13 +22,10 @@ let package = Package(
                 dependencies: ["BaseAPI", "Starscream"],
                 path: "Sources/CrowdinSDK",
                 exclude: [
-                    "Providers/Firebase/"
-                ],
-                resources: [
-                    .process("Resources/Settings/CrowdinLogsVC.storyboard"),
-                    .process("Resources/Settings/Images.xcassets"),
-                    .process("Resources/Settings/SettingsItemCell.xib"),
-                    .process("Resources/Settings/SettingsView.xib")
+                    "Providers/Firebase/",
+                    "Features",
+                    "Resources",
+                    "Settings"
                 ], swiftSettings: [
                     .define("CrowdinSDKSPM")
                 ])

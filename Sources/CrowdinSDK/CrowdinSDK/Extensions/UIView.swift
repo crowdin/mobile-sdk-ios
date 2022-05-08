@@ -5,6 +5,8 @@
 //  Created by Nazar Yavornytskyy on 3/27/21.
 //
 
+#if os(iOS)
+
 import UIKit
 
 // MARK: - Custom view presentation and dismissing.
@@ -18,3 +20,5 @@ public extension UIView {
         window.addSubview(self)
     }
 }
+
+#endif

@@ -6,8 +6,12 @@
 //
 
 import Foundation
-import UIKit
 import BaseAPI
+#if os(iOS)
+import UIKit
+#elseif os(watchOS)
+import WatchKit
+#endif
 
 protocol CrowdinAuth {
     var accessToken: String? { get }
@@ -140,8 +144,13 @@ class CrowdinAPI: BaseAPI {
     func versioned(_ headers: [String: String]?) -> [String: String] {
         var result = headers ?? [:]
         guard let bundle = Bundle(identifier: "org.cocoapods.CrowdinSDK"), let sdkVersionNumber = bundle.infoDictionary?["CFBundleShortVersionString"] as? String else { return result }
-        let systemVersion = UIDevice.current.systemVersion
+#if os(iOS)
+        let systemVersion = "iOS: \(UIDevice.current.systemVersion)"
         result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
+#elseif os(watchOS)
+        let systemVersion = "watchOS: \(WKInterfaceDevice.current().systemVersion)"
+        result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
+#endif
         return result
     }
     
