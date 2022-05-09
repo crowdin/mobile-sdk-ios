@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                   scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
-//            .with(settingsEnabled: true)
+            .with(settingsEnabled: true)
             .with(realtimeUpdatesEnabled: true)
             .with(screenshotsEnabled: true)
         
