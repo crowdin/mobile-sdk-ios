@@ -7,37 +7,42 @@
 
 import Foundation
 
-class CrowdinFolder: Folder {
+public final class CrowdinFolder: Folder {
+    enum Strings: String {
+        case dot = "."
+        case pathDelimiter = "/"
+    }
+    
     enum Folders: String {
         case Crowdin
         case Screenshots
     }
     
-    static let shared = CrowdinFolder()
+    public static let shared = CrowdinFolder()
     
     let screenshotsFolder: Folder
     
-    init() {
-        let name = Bundle.main.bundleId + String.dot + Folders.Crowdin.rawValue
+    public init() {
+        let name = Bundle.main.bundleId + Strings.dot.rawValue + Folders.Crowdin.rawValue
         guard let rootFolder = ApplicationSupportFolder() ?? CachesFolder() else {
             fatalError("Error while obtaining folder for saving Crowdin files, neither Application Support nor Caches directories is not available.")
         }
-        let path = rootFolder.path + String.pathDelimiter + name
-        self.screenshotsFolder = Folder(path: path + String.pathDelimiter + Folders.Screenshots.rawValue)
+        let path = rootFolder.path + Strings.pathDelimiter.rawValue + name
+        self.screenshotsFolder = Folder(path: path + Strings.pathDelimiter.rawValue + Folders.Screenshots.rawValue)
         super.init(path: path)
         self.createFoldersIfNeeded()
     }
     
-    func createFoldersIfNeeded() {
+    public func createFoldersIfNeeded() {
         self.createCrowdinFolderIfNeeded()
         self.createScreenshotsFolderIfNeeded()
     }
     
-    func createCrowdinFolderIfNeeded() {
+    public func createCrowdinFolderIfNeeded() {
         if !self.isCreated { try? self.create() }
     }
     
-    func createScreenshotsFolderIfNeeded() {
+    public func createScreenshotsFolderIfNeeded() {
         if !screenshotsFolder.isCreated { try? screenshotsFolder.create() }
     }
 }

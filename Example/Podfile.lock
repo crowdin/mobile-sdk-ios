@@ -3,13 +3,16 @@ PODS:
   - CrowdinSDK (1.4.1):
     - CrowdinSDK/Core (= 1.4.1)
     - CrowdinSDK/CrowdinProvider (= 1.4.1)
-  - CrowdinSDK/Core (1.4.1)
+  - CrowdinSDK/Core (1.4.1):
+    - CrowdinSDK/CrowdinFileSystem
   - CrowdinSDK/CrowdinAPI (1.4.1):
     - BaseAPI (~> 0.2.0)
     - CrowdinSDK/Core
+  - CrowdinSDK/CrowdinFileSystem (1.4.1)
   - CrowdinSDK/CrowdinProvider (1.4.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinFileSystem
   - CrowdinSDK/IntervalUpdate (1.4.1):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
@@ -74,7 +77,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 4f0d1ef6d80428f75d54fdc716f6f02103c04eb1
-  CrowdinSDK: 00c53864cb2f3e3f9e09ef82704361a4d6e85ae4
+  CrowdinSDK: f8111de1ce77f16c3fdb5b3fb91d5d05e064ed24
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
@@ -83,4 +86,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: fd95aae78daa6dceafb1b5d27e02d131308926e2
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

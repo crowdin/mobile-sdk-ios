@@ -65,6 +65,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     /// Remove add stored E-Tag headers for every file.
     func deintegrate() {
-        ETagStorage.clear()
+        FileEtagStorage.clear()
     }
 }

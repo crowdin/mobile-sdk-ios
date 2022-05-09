@@ -39,8 +39,13 @@ Pod::Spec.new do |spec|
   
   spec.subspec 'Core' do |core|
     core.source_files = 'Sources/CrowdinSDK/CrowdinSDK/**/*'
+    
+    core.dependency 'CrowdinSDK/CrowdinFileSystem'
   end
   
+  spec.subspec 'CrowdinFileSystem' do |core|
+    core.source_files = 'Sources/CrowdinSDK/CrowdinFileSystem/**/*'
+  end
 
   spec.test_spec 'Core_Tests' do |test_spec|
     test_spec.source_files = 'Sources/Tests/Core/*.swift'
@@ -51,6 +56,7 @@ Pod::Spec.new do |spec|
     provider.source_files = 'Sources/CrowdinSDK/Providers/Crowdin/**/*.swift'
     provider.dependency 'CrowdinSDK/Core'
     provider.dependency 'CrowdinSDK/CrowdinAPI'
+    provider.dependency 'CrowdinSDK/CrowdinFileSystem'
   end
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
