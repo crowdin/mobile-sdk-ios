@@ -8,6 +8,8 @@
 
 import UIKit
 import CrowdinSDK
+import netfox
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
@@ -20,6 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        NFX.sharedInstance().start()
+        
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
                                                           sourceLanguage: sourceLanguage)
         let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
@@ -37,6 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("LOG MESSAGE - \(logMessage)")
         }
 //        CrowdinSDK.currentLocalization = "fr"
+        
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.

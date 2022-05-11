@@ -46,6 +46,7 @@ PODS:
     - CrowdinSDK/RealtimeUpdate
     - CrowdinSDK/RefreshLocalization
     - CrowdinSDK/Screenshots
+  - netfox (1.21.0)
   - Realm (4.3.1):
     - Realm/Headers (= 4.3.1)
   - Realm/Headers (4.3.1)
@@ -58,6 +59,7 @@ PODS:
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
   - CrowdinSDK/Settings (from `../`)
+  - netfox
   - RealmSwift (= 4.3.1)
   - SwiftDate
   - SwiftLint
@@ -65,6 +67,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - BaseAPI
+    - netfox
     - Realm
     - RealmSwift
     - Starscream
@@ -77,13 +80,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 4f0d1ef6d80428f75d54fdc716f6f02103c04eb1
-  CrowdinSDK: f8111de1ce77f16c3fdb5b3fb91d5d05e064ed24
+  CrowdinSDK: 00c53864cb2f3e3f9e09ef82704361a4d6e85ae4
+  netfox: 9d5cc727fe7576c4c7688a2504618a156b7d44b7
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
 
-PODFILE CHECKSUM: fd95aae78daa6dceafb1b5d27e02d131308926e2
+PODFILE CHECKSUM: 87f20b1feaf7666499e607b45ca22d24d2f7b55e
 
 COCOAPODS: 1.11.3

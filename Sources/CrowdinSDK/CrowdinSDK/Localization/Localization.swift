@@ -66,11 +66,8 @@ class Localization {
     ///
     /// - Parameter provider: Localization provider implementation.
 	init(provider: LocalizationProviderProtocol) {
-        let localization = provider.localization
-        self.extractor = LocalLocalizationExtractor(localization: localization)
+        self.extractor = LocalLocalizationExtractor(localization: provider.localization)
         self._provider = Atomic(provider)
-        self.provider = provider
-        self.provider.localization = localization
 	}
 	
 	/// A list of all avalaible localization in SDK downloaded from current provider.

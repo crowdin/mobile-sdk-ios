@@ -95,12 +95,14 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     
     func saveLocalizaion(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
         let localStorage = LocalLocalizationStorage(localization: localization)
+        localStorage.fetchData()
         if let strings = strings {
             localStorage.strings.merge(with: strings)
         }
         if let plurals = plurals {
             localStorage.plurals.merge(with: plurals)
         }
+        localStorage.save()
     }
     
     func deintegrate() {

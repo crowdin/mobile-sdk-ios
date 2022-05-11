@@ -22,7 +22,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
 
     public var onLogCallback: ((String) -> Void)?
 
-    /// Current localization language code.
+    /// Current localization language code. If SDK is started than after setting new localization it triggers localization download.
 	public class var currentLocalization: String? {
 		get {
             return Localization.currentLocalization ?? Localization.current?.provider.localization
@@ -59,13 +59,18 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// Initialization method. Initialize library with passed localization provider.
     ///
     /// - Parameter remoteStorage: Custom localization remote storage which will be used to download localizations.
-    /// - Parameter completion: Remote storage preperation completion handler.
+    /// - Parameter completion: Remote storage preperation completion handler. Called when all required data is downloaded. 
     class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, completion: @escaping () -> Void) {
-        remoteStorage.prepare {
-            self.setRemoteStorage(remoteStorage)
-            self.initializeLib()
-            completion()
-        }
+        let localizations = remoteStorage.localizations + self.inBundleLocalizations;
+        let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
+        let localStorage = LocalLocalizationStorage(localization: localization)
+        let localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
+        
+        Localization.current = Localization(provider: localizationProvider)
+        
+        initializeLib()
+        
+        localizationProvider.prepare(with: completion)
     }
     
     /// Removes all stored information by SDK from application Documents folder. Use to clean up all files used by SDK.
@@ -81,16 +86,6 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     @available(*, deprecated, message: "Please use currentLocalization instead.")
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
         self.currentLocalization = localization
-    }
-	
-    /// Sets localization provider to SDK. If you want to use your own localization implementation you can set it by using this method. Note: your object should be inherited from @BaseLocalizationProvider class.
-    ///
-    /// - Parameter remoteStorage: Localization remote storage  which contains all strings, plurals and avalaible localizations values.
-    class func setRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol) {
-        let localizations = remoteStorage.localizations + self.inBundleLocalizations;
-        let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
-		let localizationProvider = LocalizationProvider(localization: localization, localizations: localizations, remoteStorage: remoteStorage)
-        Localization.current = Localization(provider: localizationProvider)
     }
     
     /// Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.

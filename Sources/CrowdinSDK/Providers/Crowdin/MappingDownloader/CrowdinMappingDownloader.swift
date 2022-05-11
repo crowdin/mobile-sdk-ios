@@ -16,6 +16,11 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var errors: [Error]? = nil
     //swiftlint:disable implicitly_unwrapped_optional
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
+    fileprivate let languageResolver: LanguageResolver
+    
+    init(languageResolver: LanguageResolver) {
+        self.languageResolver = languageResolver
+    }
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
@@ -34,13 +39,12 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     }
     
     func download(strings: [String], plurals: [String], xliffs: [String], with hash: String, for localization: String, baseURL: String?) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         
         self.strings = nil
         self.plurals = nil
         self.errors = nil
         
-        let languageResolver: LanguageResolver = ManifestManager.shared(for: hash)
         let pathParser = CrowdinPathsParser(languageResolver: languageResolver)
         
         let completionBlock = BlockOperation {
@@ -87,9 +91,9 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, String?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, url, error) in
-            completion(manifest?.files, manifest?.timestamp, url, error)
+        let manifestManager = ManifestManager.manifest(for: hash)
+        manifestManager.download {
+            completion(manifestManager.files, manifestManager.timestamp, manifestManager.manifestURL, nil)
         }
     }
     
