@@ -148,6 +148,7 @@ extension SettingsView {
             }
             logsCell.titleLabel.text = "Logs"
             logsCell.selectionStyle = .none
+            logsCell.statusView.backgroundColor = .clear
             cells.append(logsCell)
         }
         
@@ -165,6 +166,7 @@ extension SettingsView {
             }
             stopCell.titleLabel.text = "Stop"
             stopCell.selectionStyle = .none
+            stopCell.statusView.backgroundColor = .clear
             cells.append(stopCell)
         }
     }
