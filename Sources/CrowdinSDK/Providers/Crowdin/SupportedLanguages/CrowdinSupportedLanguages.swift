@@ -33,6 +33,10 @@ class CrowdinSupportedLanguages {
         }
     }
     var loaded: Bool { return supportedLanguages != nil }
+    var loading = false
+    
+    fileprivate var completions: [() -> Void] = []
+    fileprivate var errors: [(Error) -> Void] = []
     
     var supportedLanguages: LanguagesResponse? {
         didSet {
@@ -54,22 +58,37 @@ class CrowdinSupportedLanguages {
             self.downloadSupportedLanguages()
             return
         }
-        if Date().timeIntervalSince(lastUpdatedDate) > 7 * 24 * 60 * 60 {
+        if Date().timeIntervalSince(lastUpdatedDate) > 7 * 24 * 60 * 60 { // 1 week
             self.downloadSupportedLanguages()
         }
     }
     
     func downloadSupportedLanguages(completion: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-        api.getLanguages(limit: 500, offset: 0) { (supportedLanguages, err) in
-            if let err = err {
-                error?(err)
+        if let completion = completion { completions.append(completion) }
+        if let error = error { errors.append(error) }
+        
+        guard loading == false else { return }
+        
+        loading = true
+        
+        api.getLanguages(limit: 500, offset: 0) { [weak self] (supportedLanguages, error) in
+            guard let self = self else { return }
+            if let error = error {
+                CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to download supported languages with error: \(error.localizedDescription)"))
+                self.errors.forEach({ $0(error) })
+                self.errors.removeAll()
+                self.completions.removeAll()
+                self.loading = false
                 return
             }
             guard let supportedLanguages = supportedLanguages else { return }
             self.supportedLanguages = supportedLanguages
             self.lastUpdatedDate = Date()
             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Download supported languages success"))
-            completion?()
+            self.completions.forEach({ $0() })
+            self.completions.removeAll()
+            self.errors.removeAll()
+            self.loading = false
         }
     }
     

@@ -8,6 +8,8 @@
 
 import UIKit
 import CrowdinSDK
+import netfox
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
@@ -20,6 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        NFX.sharedInstance().start()
+        
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
                                                           sourceLanguage: sourceLanguage)
         let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
