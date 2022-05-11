@@ -52,6 +52,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     
     ///
     public class func stop() {
+        CrowdinSDK.stopRealtimeUpdatesFeatureIfNeeded()
         self.unswizzle()
         Localization.current = nil
     }
@@ -209,6 +210,7 @@ extension CrowdinSDK {
     enum Selectors: Selector {
         case initializeScreenshotFeature
         case initializeRealtimeUpdatesFeature
+        case stopRealtimeUpdates
         case initializeIntervalUpdateFeature
         case initializeSettings
 		case setupLogin
@@ -240,6 +242,13 @@ extension CrowdinSDK {
     private class func initializeRealtimeUpdatesFeatureIfNeeded() {
         if CrowdinSDK.responds(to: Selectors.initializeRealtimeUpdatesFeature.rawValue) {
             CrowdinSDK.perform(Selectors.initializeRealtimeUpdatesFeature.rawValue)
+        }
+    }
+    
+    /// Method for stoping real-time updates feature if RealtimeUpdate submodule is added and enabled.
+    private class func stopRealtimeUpdatesFeatureIfNeeded() {
+        if CrowdinSDK.responds(to: Selectors.stopRealtimeUpdates.rawValue) {
+            CrowdinSDK.perform(Selectors.stopRealtimeUpdates.rawValue)
         }
     }
 	

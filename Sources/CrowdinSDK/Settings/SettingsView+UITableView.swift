@@ -150,6 +150,23 @@ extension SettingsView {
             logsCell.selectionStyle = .none
             cells.append(logsCell)
         }
+        
+        if let stopCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+            stopCell.action = {
+                CrowdinSDK.stop()
+                if let settingsView = SettingsView.shared {
+                    settingsView.removeFromSuperview()
+                    settingsView.settingsWindow.isHidden = true
+                    if #available(iOS 13.0, *) {
+                        settingsView.settingsWindow.windowScene = nil
+                    }
+                    SettingsView.shared = nil
+                }
+            }
+            stopCell.titleLabel.text = "Stop"
+            stopCell.selectionStyle = .none
+            cells.append(stopCell)
+        }
     }
 }
 
