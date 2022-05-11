@@ -85,7 +85,7 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
     }
     
     override func main() {
-        let etag = eTagStorage.etag(for: self.filePath)
+        let etag = eTagStorage.etag(for: filePath)
         contentDeliveryAPI.getXliff(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (xliffDict, etag, error) in
             guard let self = self else { return }
             if let xliffDict = xliffDict {
