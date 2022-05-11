@@ -40,7 +40,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func download(strings: [String], plurals: [String], xliffs: [String], jsons: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         self.strings = nil
         self.plurals = nil
         self.errors = nil
@@ -105,26 +105,17 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, _, error) in
-            completion(manifest?.files, manifest?.timestamp, error)
+        let manifestManager = ManifestManager.manifest(for: hash)
+        manifestManager.download {
+            completion(manifestManager.files, manifestManager.timestamp, nil)
         }
     }
     
     func getLanguages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        self.contentDeliveryAPI.getManifest { (manifest, _, error) in
-            completion(manifest?.languages, error)
+        let manifestManager = ManifestManager.manifest(for: hash)
+        manifestManager.download {
+            completion(manifestManager.languages, nil)
         }
-    }
-    
-    func getLanguagesSync(for hash: String) -> [String]? {
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.init(configuration: .ephemeral))
-        let manifest = self.contentDeliveryAPI.getManifestSync()
-        if let error = manifest.error {
-            LocalizationUpdateObserver.shared.notifyError(with: [error])
-        }
-        return manifest.response?.languages
     }
     
     func add(error: Error?) {

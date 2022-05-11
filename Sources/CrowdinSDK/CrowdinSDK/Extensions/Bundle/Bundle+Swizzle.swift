@@ -28,7 +28,7 @@ extension Bundle {
     ///   - tableName: The receiver’s string table to search. If tableName is nil or is an empty string, the method attempts to use the table in Localizable.strings.
     /// - Returns: Localization value for localization key provided by crowdin. If there are no string for provided localization key, localization string from bundle will be returned.
     @objc func swizzled_LocalizedString(forKey key: String, value: String?, table tableName: String?) -> String {
-        var translation = Localization.current.localizedString(for: key)
+        var translation = Localization.current?.localizedString(for: key)
         if translation == nil {
             translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName)
         }

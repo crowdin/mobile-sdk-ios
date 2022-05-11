@@ -11,8 +11,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var localization: String
     var localizations: [String]
     var hashString: String
-    var stringsFileNames: [String] = []
-    var pluralsFileNames: [String] = []
     var name: String = "Crowdin"
     var manifestManager: ManifestManager
     
