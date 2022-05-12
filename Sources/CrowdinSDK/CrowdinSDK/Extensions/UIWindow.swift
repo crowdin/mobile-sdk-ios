@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 5/14/19.
 //
 
+#if os(iOS)
+
 import UIKit
 
 // MARK: - Extension for window screenshot creation.
@@ -18,3 +20,5 @@ extension UIView {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
+
+#endif

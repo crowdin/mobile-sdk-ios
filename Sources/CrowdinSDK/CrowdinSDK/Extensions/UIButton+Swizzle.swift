@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 1/27/19.
 //
 
+#if os(iOS)
+
 import UIKit
 
 // MARK: - Extension with all control states property.
@@ -211,3 +213,5 @@ extension UIButton {
         }
     }
 }
+
+#endif

@@ -170,32 +170,38 @@ extension CrowdinSDK {
         if Bundle.isSwizzled {
             Bundle.unswizzle()
         }
+#if os(iOS)
         if UILabel.isSwizzled {
             UILabel.unswizzle()
         }
         if UIButton.isSwizzled {
             UIButton.unswizzle()
         }
+#endif
     }
     
     /// Swizzle methods for UILabel and UIButton. Needed for screenshots and real-time preview.
     class func swizzleControlMethods() {
+#if os(iOS)
         if !UILabel.isSwizzled {
             UILabel.swizzle()
         }
         if !UIButton.isSwizzled {
             UIButton.swizzle()
         }
+#endif
     }
     
     /// Unswizzle methods for UILabel and UIButton.
     class func unswizzleControlMethods() {
+#if os(iOS)
         if UILabel.isSwizzled {
             UILabel.unswizzle()
         }
         if UIButton.isSwizzled {
             UIButton.unswizzle()
         }
+#endif
     }
 }
 

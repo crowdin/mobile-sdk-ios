@@ -1,11 +1,11 @@
 PODS:
-  - BaseAPI (0.2.0)
+  - BaseAPI (0.2.1)
   - CrowdinSDK (1.4.1):
     - CrowdinSDK/Core (= 1.4.1)
     - CrowdinSDK/CrowdinProvider (= 1.4.1)
   - CrowdinSDK/Core (1.4.1)
   - CrowdinSDK/CrowdinAPI (1.4.1):
-    - BaseAPI (~> 0.2.0)
+    - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
   - CrowdinSDK/CrowdinProvider (1.4.1):
     - CrowdinSDK/Core
@@ -15,7 +15,7 @@ PODS:
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
   - CrowdinSDK/LoginFeature (1.4.1):
-    - BaseAPI (~> 0.2.0)
+    - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
