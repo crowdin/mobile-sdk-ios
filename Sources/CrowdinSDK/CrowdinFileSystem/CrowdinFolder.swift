@@ -23,7 +23,7 @@ public final class CrowdinFolder: Folder {
     let screenshotsFolder: Folder
     
     public init() {
-        let name = Bundle.main.bundleId + Strings.dot.rawValue + Folders.Crowdin.rawValue
+        let name = (Bundle.main.bundleIdentifier ?? "") + Strings.dot.rawValue + Folders.Crowdin.rawValue
         guard let rootFolder = ApplicationSupportFolder() ?? CachesFolder() else {
             fatalError("Error while obtaining folder for saving Crowdin files, neither Application Support nor Caches directories is not available.")
         }
