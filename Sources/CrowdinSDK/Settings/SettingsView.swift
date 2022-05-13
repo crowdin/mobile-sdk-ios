@@ -8,7 +8,7 @@
 import UIKit
 
 final class SettingsView: UIView {
-    static let shared: SettingsView? = SettingsView.loadFromNib()
+    static var shared: SettingsView? = SettingsView.loadFromNib()
     
     var settingsWindow = SettingsWindow() {
         didSet {

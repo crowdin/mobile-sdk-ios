@@ -1,5 +1,5 @@
 PODS:
-  - BaseAPI (0.2.0)
+  - BaseAPI (0.2.1)
   - CrowdinSDK (1.4.1):
     - CrowdinSDK/Core (= 1.4.1)
     - CrowdinSDK/CrowdinProvider (= 1.4.1)
@@ -7,7 +7,7 @@ PODS:
     - CrowdinSDK/CrowdinFileSystem
   - CrowdinSDK/Core_Tests (1.4.1)
   - CrowdinSDK/CrowdinAPI (1.4.1):
-    - BaseAPI (~> 0.2.0)
+    - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
   - CrowdinSDK/CrowdinAPI_Tests (1.4.1)
   - CrowdinSDK/CrowdinFileSystem (1.4.1)
@@ -17,7 +17,7 @@ PODS:
     - CrowdinSDK/CrowdinFileSystem
   - CrowdinSDK/CrowdinProvider_Tests (1.4.1)
   - CrowdinSDK/LoginFeature (1.4.1):
-    - BaseAPI (~> 0.2.0)
+    - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -39,8 +39,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BaseAPI: 4f0d1ef6d80428f75d54fdc716f6f02103c04eb1
-  CrowdinSDK: f8111de1ce77f16c3fdb5b3fb91d5d05e064ed24
+  BaseAPI: 7a3abac9fa1e19147a5c87dcfbb1829a584cd1ca
+  CrowdinSDK: 09c492b3daec41caa1410e19ecdf4ef649f4b351
 
 PODFILE CHECKSUM: fceddbe439fbdf6f01a1c0846d9a124b7a7e4b56
 

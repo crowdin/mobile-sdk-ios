@@ -148,7 +148,26 @@ extension SettingsView {
             }
             logsCell.titleLabel.text = "Logs"
             logsCell.selectionStyle = .none
+            logsCell.statusView.backgroundColor = .clear
             cells.append(logsCell)
+        }
+        
+        if let stopCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
+            stopCell.action = {
+                CrowdinSDK.stop()
+                if let settingsView = SettingsView.shared {
+                    settingsView.removeFromSuperview()
+                    settingsView.settingsWindow.isHidden = true
+                    if #available(iOS 13.0, *) {
+                        settingsView.settingsWindow.windowScene = nil
+                    }
+                    SettingsView.shared = nil
+                }
+            }
+            stopCell.titleLabel.text = "Stop"
+            stopCell.selectionStyle = .none
+            stopCell.statusView.backgroundColor = .clear
+            cells.append(stopCell)
         }
     }
 }
