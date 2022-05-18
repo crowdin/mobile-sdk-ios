@@ -66,8 +66,9 @@ Before sending your pull requests, make sure you followed the list below:
 - Read this guidelines.
 - Read [Code of Conduct](/CODE_OF_CONDUCT.md).
 - Ensure that your code adheres to standard conventions, as used in the rest of the project.
-- Ensure that there are unit tests for your code.
-- Run unit tests.
+- Ensure that there are Unit tests for your code.
+- Ensure that your code will work correctly on **iOS**, **tvOS**, **watchOS**.
+- Run Unit tests.
 
 #### Philosophy of code contribution
 
