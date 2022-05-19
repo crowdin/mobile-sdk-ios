@@ -253,10 +253,10 @@ Add the code below to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-  pod 'CrowdinSDK'
-  pod 'CrowdinSDK/LoginFeature' // Required for Real-Time Preview
-  pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
-  pod 'CrowdinSDK/Settings' // Optional. To add 'settings' floating button
+    pod 'CrowdinSDK'
+    pod 'CrowdinSDK/LoginFeature' // Required for Real-Time Preview
+    pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
+    pod 'CrowdinSDK/Settings' // Optional. To add 'settings' floating button
 end
 ```
 
@@ -268,14 +268,14 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
 
 var loginConfig: CrowdinLoginConfig
 do {
-	loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
-		clientSecret: "{client_secret}",
-		scope: "project",
-		redirectURI: "{redirectURI}",
-		organizationName: "{organization_name}")
+    loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
+       clientSecret: "{client_secret}",
+       scope: "project",
+       redirectURI: "{redirectURI}",
+       organizationName: "{organization_name}")
 } catch {
-	print(error)
-	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+    print(error)
+    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
 }
 
 let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
@@ -284,7 +284,7 @@ let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: cro
     .with(realtimeUpdatesEnabled: true)
 
 CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-	// SDK is ready to use, put code to change language, etc. here
+    // SDK is ready to use, put code to change language, etc. here
 })
 ```
 
@@ -298,14 +298,14 @@ NSError *error;
 CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project" organizationName:@"{organization_name}" error:&error];
 
 if (!error) {
-	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
 
-	[CrowdinSDK startWithConfig:config completion:^{
-		// SDK is ready to use, put code to change language, etc. here
-	}];
+    [CrowdinSDK startWithConfig:config completion:^{
+       // SDK is ready to use, put code to change language, etc. here
+    }];
 } else {
-	NSLog(@"%@", error.localizedDescription);
-	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+    NSLog(@"%@", error.localizedDescription);
+    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
 }
 ```
 </details>
@@ -326,7 +326,7 @@ The last step is to handle authorization callback in your application:
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-	CrowdinSDK.handle(url: url)
+    CrowdinSDK.handle(url: url)
 }
 ```
 
@@ -344,8 +344,8 @@ If you are using **SceneDelegate**, you need to handle callback in the **SceneDe
 
 ```swift
 func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-	guard let url = URLContexts.first?.url else { return }
-	CrowdinSDK.handle(url: url)
+    guard let url = URLContexts.first?.url else { return }
+    CrowdinSDK.handle(url: url)
 }
 ```
 
@@ -370,10 +370,10 @@ Add the code below to your *Podfile*:
 ```swift
 use_frameworks!
 target 'your-app' do
-  pod 'CrowdinSDK'
-  pod 'CrowdinSDK/LoginFeature' // Required for Screenshots
-  pod 'CrowdinSDK/Screenshots' // Required for Screenshots
-  pod 'CrowdinSDK/Settings' // Optional. To add 'settings' button
+    pod 'CrowdinSDK'
+    pod 'CrowdinSDK/LoginFeature' // Required for Screenshots
+    pod 'CrowdinSDK/Screenshots' // Required for Screenshots
+    pod 'CrowdinSDK/Settings' // Optional. To add 'settings' button
 end
 ```
 
@@ -385,14 +385,14 @@ let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distributio
 
 var loginConfig: CrowdinLoginConfig
 do {
-	loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
-		clientSecret: "{client_secret}",
-		scope: "project.screenshot",
-		redirectURI: "{redirectURI}",
-		organizationName: "{organization_name}")
+   loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
+       clientSecret: "{client_secret}",
+       scope: "project.screenshot",
+       redirectURI: "{redirectURI}",
+       organizationName: "{organization_name}")
 } catch {
-	print(error)
-	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+    print(error)
+    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
 }
 
 let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
@@ -401,7 +401,7 @@ let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: cro
     .with(settingsEnabled: true)
 
 CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-	// SDK is ready to use, put code to change language, etc. here
+    // SDK is ready to use, put code to change language, etc. here
 })
 ```
 
@@ -415,14 +415,14 @@ NSError *error;
 CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project.screenshot" organizationName:@"{organization_name}" error:&error];
 
 if (!error) {
-	CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
 
-	[CrowdinSDK startWithConfig:config completion:^{
-		// SDK is ready to use, put code to change language, etc. here
-	}];
+    [CrowdinSDK startWithConfig:config completion:^{
+        // SDK is ready to use, put code to change language, etc. here
+    }];
 } else {
-	NSLog(@"%@", error.localizedDescription);
-	// CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+    NSLog(@"%@", error.localizedDescription);
+    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
 }
 ```
 </details>
@@ -443,7 +443,7 @@ The last step is to handle authorization callback in your application:
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-	CrowdinSDK.handle(url: url)
+    CrowdinSDK.handle(url: url)
 }
 ```
 
@@ -461,8 +461,8 @@ If you are using **SceneDelegate**, you need to handle callback in the **SceneDe
 
 ```swift
 func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-	guard let url = URLContexts.first?.url else { return }
-	CrowdinSDK.handle(url: url)
+    guard let url = URLContexts.first?.url else { return }
+    CrowdinSDK.handle(url: url)
 }
 ```
 
@@ -481,14 +481,14 @@ You could also define (optional) your own handler to take a screenshot (for exam
 
 ```swift
 let feature = ScreenshotFeature.shared {
-	feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
-	    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-	    self?.showToast(message)
-	}, errorHandler: { (error) in
-	    let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
-	    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-	    self?.showToast(message)
-	})
+    feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
+        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+        self?.showToast(message)
+    }, errorHandler: { (error) in
+        let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
+        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+        self?.showToast(message)
+    })
 }
 ```
 
