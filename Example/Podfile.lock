@@ -1,43 +1,43 @@
 PODS:
   - BaseAPI (0.2.1)
-  - CrowdinSDK (1.4.1):
-    - CrowdinSDK/Core (= 1.4.1)
-    - CrowdinSDK/CrowdinProvider (= 1.4.1)
-  - CrowdinSDK/Core (1.4.1):
+  - CrowdinSDK (1.4.2):
+    - CrowdinSDK/Core (= 1.4.2)
+    - CrowdinSDK/CrowdinProvider (= 1.4.2)
+  - CrowdinSDK/Core (1.4.2):
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/CrowdinAPI (1.4.1):
+  - CrowdinSDK/CrowdinAPI (1.4.2):
     - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
-  - CrowdinSDK/CrowdinFileSystem (1.4.1)
-  - CrowdinSDK/CrowdinProvider (1.4.1):
+  - CrowdinSDK/CrowdinFileSystem (1.4.2)
+  - CrowdinSDK/CrowdinProvider (1.4.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/IntervalUpdate (1.4.1):
+  - CrowdinSDK/IntervalUpdate (1.4.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.4.1):
+  - CrowdinSDK/LoginFeature (1.4.2):
     - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.4.1):
+  - CrowdinSDK/RealtimeUpdate (1.4.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
     - Starscream (~> 4.0.4)
-  - CrowdinSDK/RefreshLocalization (1.4.1):
+  - CrowdinSDK/RefreshLocalization (1.4.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.4.1):
+  - CrowdinSDK/Screenshots (1.4.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.4.1):
+  - CrowdinSDK/Settings (1.4.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -80,7 +80,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 7a3abac9fa1e19147a5c87dcfbb1829a584cd1ca
-  CrowdinSDK: 6436957b4fc33d49da8b0ef07e02cefa68104bbb
+  CrowdinSDK: 4123462636d052d9b6110fa6b314ddd5e2f5a3a9
   netfox: 9d5cc727fe7576c4c7688a2504618a156b7d44b7
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
@@ -90,4 +90,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 87f20b1feaf7666499e607b45ca22d24d2f7b55e
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
