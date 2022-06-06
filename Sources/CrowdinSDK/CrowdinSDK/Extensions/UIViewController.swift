@@ -4,9 +4,10 @@
 //
 //  Created by Serhii Londar on 4/16/19.
 
-import UIKit
 
 #if os(iOS)
+import UIKit
+
 // MARK: - Custom view controller presentation and dismiss.
 public extension UIViewController {
     private static let alertWindowAssociation = ObjectAssociation<UIWindow>()

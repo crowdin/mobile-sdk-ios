@@ -5,7 +5,10 @@
 //  Created by Serhii Londar on 2/10/19.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
+#endif
+import Foundation
 
 public protocol ReadWriteProtocol {
     func write(to path: String)
@@ -32,6 +35,7 @@ extension Dictionary: ReadWriteProtocol {
     }
 }
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 extension UIImage: ReadWriteProtocol {
     public static func read(from path: String) -> Self? {
         return self.init(contentsOfFile: path)
@@ -41,6 +45,7 @@ extension UIImage: ReadWriteProtocol {
         try? self.pngData()?.write(to: URL(fileURLWithPath: path))
     }
 }
+#endif
 
 /// TODO: Add custon JSONEncode & JSONDecoder support.
 public class CodableWrapper<T: Codable> {

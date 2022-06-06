@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 // MARK: - Extension for Bundle method swizzling.
 extension Bundle {

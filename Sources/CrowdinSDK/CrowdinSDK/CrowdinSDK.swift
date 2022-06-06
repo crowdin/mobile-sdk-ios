@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 1/24/19.
 //
 
-import UIKit
+//import UIKit
 import Foundation
 
 /// Closure type for localization update download handlers.

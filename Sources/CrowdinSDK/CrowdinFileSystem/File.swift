@@ -6,7 +6,10 @@
 //  Copyright © 2019 Crowdin. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
+#endif
+import Foundation
 
 public protocol PathProtocol {
     var path: String { get set }
@@ -83,7 +86,9 @@ class ReadWriteFile<T: ReadWriteProtocol>: File {
     }
 }
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 class UIImageFile: ReadWriteFile<UIImage> {}
+#endif
 
 class NSDictionaryFile: ReadWriteFile<NSDictionary> {}
 

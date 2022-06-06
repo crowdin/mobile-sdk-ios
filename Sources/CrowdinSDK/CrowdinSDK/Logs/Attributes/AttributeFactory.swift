@@ -4,11 +4,16 @@
 //
 //  Created by Nazar Yavornytskyy on 2/19/21.
 //
-
-import UIKit
+#if os(OSX)
+    import AppKit
+    typealias Color = NSColor
+#elseif os(iOS) || os(tvOS) || os(watchOS)
+    import UIKit
+    typealias Color = UIColor
+#endif
+import Foundation
 
 public struct AttributeFactory {
-
     static func make(_ attribute: LogAttribute) -> NSAttributedString {
         let empty = "Empty"
         let title = attribute.title
@@ -47,8 +52,7 @@ public struct AttributeFactory {
     }
     
     static func attributeWithTitle(_ title: String, _ text: String) -> NSAttributedString {
-        let titleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.blue]
-        
+        let titleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: Color.blue]
         let attribute = NSAttributedString(string: text)
         let attributes = NSMutableAttributedString(string: title, attributes: titleAttribute)
         attributes.append(AttributeFactory.make(.newLine))

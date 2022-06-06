@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 11.08.2020.
 //
 
-import UIKit
+import Foundation
 
 enum CrowdinLogType: String {
     
@@ -16,8 +16,7 @@ enum CrowdinLogType: String {
 }
 
 extension CrowdinLogType {
-    
-    var color: UIColor {
+    var color: Color {
         switch self {
         case .error:
             return .red
