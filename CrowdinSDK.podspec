@@ -29,12 +29,17 @@ Pod::Spec.new do |spec|
   spec.source           = { :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :tag => spec.version.to_s }
   spec.social_media_url    = 'https://twitter.com/crowdin'
   
+  spec.watchos.deployment_target = '2.0'
   spec.ios.deployment_target = '9.0'
   spec.tvos.deployment_target = '9.0'
+  spec.macos.deployment_target = '10.13'
   
-  spec.frameworks = 'UIKit'
+  spec.ios.frameworks = 'UIKit'
+  spec.tvos.frameworks = 'UIKit'
+  spec.osx.framework  = 'AppKit'
+  
   spec.static_framework = false
-  spec.swift_version = '4.2'
+  spec.swift_version = '5.0'
   spec.default_subspecs = 'Core', 'CrowdinProvider'
   
   spec.subspec 'Core' do |core|
@@ -48,6 +53,11 @@ Pod::Spec.new do |spec|
   end
 
   spec.test_spec 'Core_Tests' do |test_spec|
+    test_spec.watchos.deployment_target = '7.0'
+    test_spec.ios.deployment_target = '9.0'
+    test_spec.tvos.deployment_target = '9.0'
+    test_spec.macos.deployment_target = '10.13'
+    
     test_spec.source_files = 'Sources/Tests/Core/*.swift'
   end
   
@@ -60,6 +70,11 @@ Pod::Spec.new do |spec|
   end
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
+    test_spec.watchos.deployment_target = '7.0'
+    test_spec.ios.deployment_target = '9.0'
+    test_spec.tvos.deployment_target = '9.0'
+    test_spec.macos.deployment_target = '10.13'
+    
     test_spec.source_files = 'Sources/Tests/CrowdinProvider/*.swift'
     test_spec.resources = 'Resources/Tests/SupportedLanguages.json'
   end
@@ -72,6 +87,11 @@ Pod::Spec.new do |spec|
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
+    test_spec.watchos.deployment_target = '7.0'
+    test_spec.ios.deployment_target = '9.0'
+    test_spec.tvos.deployment_target = '9.0'
+    test_spec.macos.deployment_target = '10.13'
+    
     test_spec.source_files = 'Sources/Tests/CrowdinAPI/*.swift'
   end
   

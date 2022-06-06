@@ -4,8 +4,9 @@
 //
 //  Created by Serhii Londar on 1/24/19.
 //
-
-//import UIKit
+#if os(iOS) || os(tvOS) || os(watchOS)
+import UIKit
+#endif
 import Foundation
 
 /// Closure type for localization update download handlers.
@@ -171,7 +172,7 @@ extension CrowdinSDK {
         if Bundle.isSwizzled {
             Bundle.unswizzle()
         }
-#if os(iOS)
+#if os(iOS) || os(tvOS)
         if UILabel.isSwizzled {
             UILabel.unswizzle()
         }
@@ -183,7 +184,7 @@ extension CrowdinSDK {
     
     /// Swizzle methods for UILabel and UIButton. Needed for screenshots and real-time preview.
     class func swizzleControlMethods() {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
         if !UILabel.isSwizzled {
             UILabel.swizzle()
         }
@@ -195,7 +196,7 @@ extension CrowdinSDK {
     
     /// Unswizzle methods for UILabel and UIButton.
     class func unswizzleControlMethods() {
-#if os(iOS)
+#if os(iOS) || os(tvOS)
         if UILabel.isSwizzled {
             UILabel.unswizzle()
         }
