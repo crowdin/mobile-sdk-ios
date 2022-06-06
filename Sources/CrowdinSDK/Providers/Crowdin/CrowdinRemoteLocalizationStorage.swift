@@ -88,7 +88,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     /// Remove add stored E-Tag headers for every file and cached manifest file
     func deintegrate() {
-        ETagStorage.clear()
+        FileEtagStorage.clear()
         manifestManager.clear()
     }
 }

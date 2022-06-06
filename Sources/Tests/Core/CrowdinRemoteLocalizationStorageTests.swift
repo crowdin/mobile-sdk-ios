@@ -13,7 +13,7 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
     var remoteLocalizationStorage: CrowdinRemoteLocalizationStorage!
     
     override func setUp() {
-        ETagStorage.clear()
+        FileEtagStorage.clear()
     }
     
     override func tearDown() {

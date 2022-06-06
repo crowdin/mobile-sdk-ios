@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol PathProtocol {
+public protocol PathProtocol {
     var path: String { get set }
 }
 
-protocol FileProtocol: PathProtocol {
+public protocol FileProtocol: PathProtocol {
     var name: String { get set }
     var type: String { get set }
     var isCreated: Bool { get }
@@ -22,12 +22,12 @@ protocol FileProtocol: PathProtocol {
     func remove() throws
 }
 
-class File: FileProtocol, FileStatsProtocol {
-    var path: String
-    var name: String
-    var type: String
+public class File: FileProtocol, FileStatsProtocol {
+    public var path: String
+    public var name: String
+    public var type: String
     
-    init(path: String) {
+    public init(path: String) {
         self.path = path
         let url = URL(fileURLWithPath: path)
         guard let lastPathComponent = url.pathComponents.last else {
@@ -53,18 +53,18 @@ class File: FileProtocol, FileStatsProtocol {
         }
     }
     
-    var isCreated: Bool { return status == .file }
+    public var isCreated: Bool { return status == .file }
     
-    var content: Data? {
+    public var content: Data? {
         guard self.isCreated else { return nil }
         return try? Data(contentsOf: URL(fileURLWithPath: path))
     }
     
-    func remove() throws {
+    public func remove() throws {
         try FileManager.default.removeItem(atPath: path)
     }
 	
-	func create() {
+    public func create() {
 		FileManager.default.createFile(atPath: path, contents: nil, attributes: nil)
 	}
 }

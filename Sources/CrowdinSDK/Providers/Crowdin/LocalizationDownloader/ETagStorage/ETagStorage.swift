@@ -7,40 +7,14 @@
 
 import Foundation
 
-class ETagStorage {
-    let defaults = UserDefaults.standard
-    let localization: String
+protocol AnyEtagStorage {
+    init(localization: String)
     
-    init(localization: String) {
-        self.localization = localization
-    }
+    func save(etag: String?, for file: String)
+    func etag(for file: String) -> String?
     
-    fileprivate enum Strings: String {
-        case CrowdinETagsKey
-    }
+    func clear()
+    func clear(for file: String)
     
-    var etags: [String: String] {
-        get {
-            let map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
-            return map[localization] ?? [:]
-        }
-        set {
-            var map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
-            map[localization] = newValue
-            UserDefaults.standard.set(map, forKey: Strings.CrowdinETagsKey.rawValue)
-            UserDefaults.standard.synchronize()
-        }
-    }
-    
-    class func clear() {
-        UserDefaults.standard.removeObject(forKey: Strings.CrowdinETagsKey.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
-    class func clear(for localization: String) {
-        var map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
-        map[localization] = nil
-        UserDefaults.standard.set(map, forKey: Strings.CrowdinETagsKey.rawValue)
-        UserDefaults.standard.synchronize()
-    }
+    static func clear()
 }
