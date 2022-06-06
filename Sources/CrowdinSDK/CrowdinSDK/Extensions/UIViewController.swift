@@ -4,9 +4,10 @@
 //
 //  Created by Serhii Londar on 4/16/19.
 
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
-#if os(iOS)
 // MARK: - Custom view controller presentation and dismiss.
 public extension UIViewController {
     private static let alertWindowAssociation = ObjectAssociation<UIWindow>()
@@ -25,7 +26,7 @@ public extension UIViewController {
     /// https://stackoverflow.com/a/51723032/3697225
     @objc func cw_present() {
         self.topWindow = UIApplication.shared.keyWindow
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), #available(tvOS 13.0, *) {
             if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
                 self.alertWindow = UIWindow(windowScene: windowScene)
             } else {

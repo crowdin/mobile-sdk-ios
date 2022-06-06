@@ -6,15 +6,16 @@ import PackageDescription
 let package = Package(
     name: "CrowdinSDK",
     platforms: [
-        .macOS(.v10_10),
+        .macOS(.v10_13),
         .watchOS(.v2),
-        .iOS(.v9)
+        .iOS(.v9),
+        .tvOS(.v9)
     ],
     products: [
         .library(name: "CrowdinSDK", targets: ["CrowdinSDK"])
     ],
     dependencies: [
-        .package(url: "https://github.com/serhii-londar/BaseAPI.git", .upToNextMajor(from: "0.2.0")),
+        .package(url: "https://github.com/serhii-londar/BaseAPI.git", .upToNextMajor(from: "0.2.1")),
         .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMajor(from: "4.0.4"))
     ],
     targets: [
