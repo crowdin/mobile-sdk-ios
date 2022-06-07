@@ -10,26 +10,29 @@ The SDK provides:
 * Real-Time Preview – all the translations that are done in the Editor can be shown in your version of the application in real-time. View the translations already made and the ones you're currently typing in.
 * Screenshots – all the screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings.
 
-## Status
+<p align="center">
+ <a href="https://github.com/crowdin/mobile-sdk-ios/tree/master/Example">Example project</a> |
+ <a href="https://github.com/crowdin/mobile-sdk-ios/wiki">Wiki</a> |
+ <a href="https://support.crowdin.com/content-delivery">Crowdin docs</a> |
+ <a href="https://support.crowdin.com/enterprise/content-delivery">Crowdin Enterprise docs</a>
+</p>
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/CrowdinSDK?logo=pods&cacheSeconds=3600)](https://cocoapods.org/pods/CrowdinSDK)
 [![Cocoapods platforms](https://img.shields.io/cocoapods/p/CrowdinSDK?cacheSeconds=10000)](https://cocoapods.org/pods/CrowdinSDK)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-blue)](https://img.shields.io/badge/Swift_Package_Manager-compatible-red)
 [![GitHub Release Date](https://img.shields.io/github/release-date/crowdin/mobile-sdk-ios?cacheSeconds=10000)](https://github.com/crowdin/mobile-sdk-ios/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/issues)
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
-[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-blue)](https://img.shields.io/badge/Swift_Package_Manager-compatible-red)
 
 
 [![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines&cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
-[![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
 [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master?cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+[![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
 
 ## Table of Contents
 * [Requirements](#requirements)
 * [Dependencies](#dependencies)
 * [Installation](#installation)
-* [Wiki](#wiki)
 * [Setup](#setup)
 * [Advanced Features](#advanced-features)
   * [Real-Time Preview](#real-time-preview)
@@ -121,10 +124,6 @@ dependencies: [
     .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from:"1.4.0")
 ]
 ```
-
-## Wiki
-
-Visit the [Crowdin iOS SDK Wiki](https://github.com/crowdin/mobile-sdk-ios/wiki) to see additional project documentation. Here you can find information about the Example project, SDK Controls, and more.
 
 ## Setup
 
