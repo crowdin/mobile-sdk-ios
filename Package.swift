@@ -24,7 +24,7 @@ let package = Package(
                 path: "Sources/CrowdinSDK",
                 exclude: [
                     "Providers/Firebase/",
-                    "Features",
+//                    "Features/Settings",
                     "Resources",
                     "Settings"
                 ], swiftSettings: [
