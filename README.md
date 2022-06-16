@@ -1,4 +1,4 @@
-[<p align="center"><img src="https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png" data-canonical-src="https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png" width="200" height="200" align="center"/></p>](https://crowdin.com)
+[<p align="center"><img src="https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png" data-canonical-src="https://support.crowdin.com/assets/logos/crowdin-dark-symbol.png" width="150" height="150" align="center"/></p>](https://crowdin.com)
 
 # Crowdin iOS SDK
 
@@ -10,12 +10,16 @@ The SDK provides:
 * Real-Time Preview – all the translations that are done in the Editor can be shown in your version of the application in real-time. View the translations already made and the ones you're currently typing in.
 * Screenshots – all the screenshots made in the application may be automatically sent to your Crowdin project with tagged source strings.
 
-<p align="center">
- <a href="https://github.com/crowdin/mobile-sdk-ios/tree/master/Example">Example project</a> |
- <a href="https://github.com/crowdin/mobile-sdk-ios/wiki">Wiki</a> |
- <a href="https://support.crowdin.com/content-delivery">Crowdin docs</a> |
- <a href="https://support.crowdin.com/enterprise/content-delivery">Crowdin Enterprise docs</a>
-</p>
+<div align="center">
+
+  [**`Example project`**](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example) | 
+  [**`Wiki`**](https://github.com/crowdin/mobile-sdk-ios/wiki) | 
+  [**`Crowdin docs`**](https://support.crowdin.com/content-delivery) | 
+  [**`Crowdin Enterprise docs`**](https://support.crowdin.com/enterprise/content-delivery)
+
+</div>
+
+<div align="center">
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/CrowdinSDK?logo=pods&cacheSeconds=3600)](https://cocoapods.org/pods/CrowdinSDK)
 [![Cocoapods platforms](https://img.shields.io/cocoapods/p/CrowdinSDK?cacheSeconds=10000)](https://cocoapods.org/pods/CrowdinSDK)
@@ -24,10 +28,11 @@ The SDK provides:
 [![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
 
-
 [![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/crowdin/mobile-sdk-ios/14/master?logo=azure-pipelines&cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
 [![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master?cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
 [![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
+ 
+</div>
 
 ## Table of Contents
 * [Requirements](#requirements)
@@ -317,7 +322,7 @@ if (!error) {
 | `clientId`, `clientSecret` | Crowdin OAuth Client ID and Client Secret | `clientId: "gpY2yTbCVGEelrcx3TYB"`, `clientSecret: "Xz95t0ASVgbvKaZbFB4SMHQzdUl1MSgSTabEDx9T"`
 | `scope`                    | Define the access scope for personal tokens | `scope: "project"`
 | `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
-| `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
+| `organizationName`         | An Organization domain name.<br/>:information_source: for **Crowdin Enterprise users only** | `organizationName: "mycompany"`
 | `settingsEnabled`          | Enable [floating widget](https://github.com/crowdin/mobile-sdk-ios/wiki/SDK-Controls) to easily access the features of SDK | `settingsEnabled: true`
 | `realtimeUpdatesEnabled`   | Enable Real-Time Preview feature | `realtimeUpdatesEnabled: true`
 
@@ -434,7 +439,7 @@ if (!error) {
 | `clientId`, `clientSecret` | Crowdin OAuth Client ID and Client Secret | `clientId: "gpY2yTbCVGEelrcx3TYB"`, `clientSecret: "Xz95t0ASVgbvKaZbFB4SMHQzdUl1MSgSTabEDx9T"`
 | `scope`                    | Define the access scope for personal tokens | `scope: "project.screenshot"`
 | `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception.  | `redirectURI: "crowdintest://"`
-| `organizationName`         | An Organization domain name (for Crowdin Enterprise users only) | `organizationName: "mycompany"`
+| `organizationName`         | An Organization domain name.<br/>:information_source: for **Crowdin Enterprise users only** | `organizationName: "mycompany"`
 | `settingsEnabled`          | Enable [floating widget](https://github.com/crowdin/mobile-sdk-ios/wiki/SDK-Controls) to easily access the features of SDK | `settingsEnabled: true`
 | `screenshotsEnabled`       | Enable Screenshots feature | `screenshotsEnabled: true`
 
