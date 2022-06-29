@@ -13,6 +13,7 @@ The SDK provides:
 <div align="center">
 
   [**`Example project`**](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example) | 
+  [**`Video`**](https://www.youtube.com/watch?v=5eAeZqUHUxM) | 
   [**`Wiki`**](https://github.com/crowdin/mobile-sdk-ios/wiki) | 
   [**`Crowdin docs`**](https://support.crowdin.com/content-delivery) | 
   [**`Crowdin Enterprise docs`**](https://support.crowdin.com/enterprise/content-delivery)
