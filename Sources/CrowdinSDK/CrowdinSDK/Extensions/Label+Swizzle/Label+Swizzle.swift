@@ -1,5 +1,5 @@
 //
-//  UILabel.swift
+//  Label.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 1/23/19.

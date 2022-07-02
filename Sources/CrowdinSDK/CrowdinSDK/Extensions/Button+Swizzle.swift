@@ -4,7 +4,7 @@
 //
 //  Created by Serhii Londar on 1/27/19.
 //
-/*
+
 #if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
@@ -212,23 +212,4 @@ extension UIButton {
         }
     }
 }
-
-#elseif os(macOS)
-import AppKit
-
-extension NSButton {
-//    override var title: String {
-//        didSet {
-//
-//        }
-//    }
-    
-    open override var stringValue: String {
-        didSet {
-            print(stringValue)
-        }
-    }
-}
-
 #endif
-*/

@@ -5,8 +5,6 @@
 //  Created by Serhii Londar on 09.02.2020.
 //
 
-#if os(iOS)
-
 import Foundation
 
 class RUFilesDownloader: CrowdinDownloaderProtocol {
@@ -144,5 +142,3 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         }
     }
 }
-
-#endif

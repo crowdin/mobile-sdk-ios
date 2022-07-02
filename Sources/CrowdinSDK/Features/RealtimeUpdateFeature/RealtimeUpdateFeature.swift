@@ -8,6 +8,8 @@
 #if os(iOS)
 import UIKit
 #endif
+import Foundation
+import AppKit
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
@@ -25,8 +27,6 @@ protocol RealtimeUpdateFeatureProtocol {
     func unsubscribe(control: Refreshable)
     func refreshAllControls()
 }
-
-#if os(iOS)
 
 class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol?
@@ -211,12 +211,18 @@ extension RealtimeUpdateFeature {
     }
     
     func subscribeAllVisibleConrols() {
-        UIApplication.shared.windows.forEach({
+        Application.shared.windows.forEach({
+#if os(macOS)
+            if let view = $0.contentView {
+                subscribeAllControls(from: view)
+            }
+#else
             subscribeAllControls(from: $0)
+#endif
         })
     }
     
-    func subscribeAllControls(from view: UIView) {
+    func subscribeAllControls(from view: View) {
         view.subviews.forEach { (subview) in
             if let refreshable = subview as? Refreshable {
                 self.subscribe(control: refreshable)
@@ -236,4 +242,3 @@ extension RealtimeUpdateFeature {
         self.refreshControl(with: key, newText: newValue)
     }
 }
-#endif

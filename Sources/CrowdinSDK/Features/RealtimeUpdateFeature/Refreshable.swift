@@ -16,9 +16,7 @@ protocol Refreshable: NSObjectProtocol {
     func refresh()
 }
 
-#if os(iOS)
-
-extension UILabel: Refreshable {
+extension Label: Refreshable {
     func refresh(text: String) {
         if let values = self.localizationValues as? [CVarArg] {
             let newText = String(format: text, arguments: values)
@@ -41,7 +39,8 @@ extension UILabel: Refreshable {
         }
     }
 }
-/*
+
+#if os(iOS)
 extension UIButton: Refreshable {
     func refresh(text: String) {
         if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
@@ -67,5 +66,4 @@ extension UIButton: Refreshable {
         }
     }
 }
- */
 #endif

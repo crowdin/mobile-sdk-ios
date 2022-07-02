@@ -8,13 +8,16 @@
 import Foundation
 
 #if os(OSX)
-    import AppKit
-    
-    typealias Label = NSTextField
-    public typealias View = NSView
-    typealias ViewController = NSViewController
-    public typealias Image = NSImage
-    typealias Control = NSControl
+
+import AppKit
+
+typealias Label = NSTextField
+public typealias View = NSView
+typealias ViewController = NSViewController
+public typealias Image = NSImage
+typealias Control = NSControl
+typealias Window = NSWindow
+typealias Application = NSApplication
 
 extension NSView {
     var alpha: CGFloat { alphaValue }
@@ -31,13 +34,27 @@ extension Image {
     }
 }
 
-#elseif os(iOS) || os(tvOS) || os(watchOS)
-    import UIKit
+extension Label {
+    var text: String {
+        get {
+            stringValue
+        }
+        set {
+            stringValue = newValue
+        }
+    }
+}
 
-    typealias Label = UILabel
-    public typealias View = UIView
-    typealias ViewController = UIViewController
-    public typealias Image = UIImage
-    typealias Control = UIControl
+#elseif os(iOS) || os(tvOS) || os(watchOS)
+
+import UIKit
+
+typealias Label = UILabel
+public typealias View = UIView
+typealias ViewController = UIViewController
+public typealias Image = UIImage
+typealias Control = UIControl
+typealias Window = UIWindow
+typealias Application = UIApplication
 
 #endif

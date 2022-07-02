@@ -4,8 +4,8 @@
 //
 //  Created by Serhii Londar on 6/5/19.
 //
-/*
-#if os(iOS)
+
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 extension UIButton {
@@ -16,10 +16,9 @@ extension UIButton {
         }
     }
     
-    /// Unsubscribe UILabel for realtime updates.
+    /// Unsubscribe Label for realtime updates.
     @objc func unsubscribeForRealtimeUpdates() {
         RealtimeUpdateFeature.shared?.unsubscribe(control: self)
     }
 }
 #endif
-*/

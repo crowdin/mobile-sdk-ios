@@ -4,7 +4,7 @@
 //
 //  Created by Serhii Londar on 6/1/19.
 //
-#if os(iOS)
+
 import Foundation
 
 extension CrowdinSDK {
@@ -29,9 +29,8 @@ extension CrowdinSDK {
         realtimeUpdateFeature.stop()
     }
     
-    /// Reload localization for all UI controls(UILabel, UIButton). Works only if realtime update feature is enabled.
+    /// Reload localization for all UI controls(Label, Button). Works only if realtime update feature is enabled.
     public class func reloadUI() {
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
     }
 }
-#endif

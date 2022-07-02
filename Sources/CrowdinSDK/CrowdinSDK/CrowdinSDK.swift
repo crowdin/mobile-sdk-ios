@@ -176,34 +176,34 @@ extension CrowdinSDK {
         if Label.isSwizzled {
             Label.unswizzle()
         }
-//#if os(iOS) || os(tvOS)
-//        if UIButton.isSwizzled {
-//            UIButton.unswizzle()
-//        }
-//#endif
+#if os(iOS) || os(tvOS)
+        if UIButton.isSwizzled {
+            UIButton.unswizzle()
+        }
+#endif
     }
     
-    /// Swizzle methods for UILabel and UIButton. Needed for screenshots and real-time preview.
+    /// Swizzle methods for Label and Button. Needed for screenshots and real-time preview.
     class func swizzleControlMethods() {
         if !Label.isSwizzled {
             Label.swizzle()
         }
-//#if os(iOS) || os(tvOS)
-//        if !UIButton.isSwizzled {
-//            UIButton.swizzle()
-//        }
-//#endif
+#if os(iOS) || os(tvOS) || os(watchOS)
+        if !UIButton.isSwizzled {
+            UIButton.swizzle()
+        }
+#endif
     }
     
-    /// Unswizzle methods for UILabel and UIButton.
+    /// Unswizzle methods for Label and Button.
     class func unswizzleControlMethods() {
-#if os(iOS) || os(tvOS)
-        if UILabel.isSwizzled {
-            UILabel.unswizzle()
+        if Label.isSwizzled {
+            Label.unswizzle()
         }
-//        if UIButton.isSwizzled {
-//            UIButton.unswizzle()
-//        }
+#if os(iOS) || os(tvOS) || os(watchOS)
+        if UIButton.isSwizzled {
+            UIButton.unswizzle()
+        }
 #endif
     }
 }
