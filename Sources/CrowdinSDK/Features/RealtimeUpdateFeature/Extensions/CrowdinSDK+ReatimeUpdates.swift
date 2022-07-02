@@ -4,7 +4,7 @@
 //
 //  Created by Serhii Londar on 6/1/19.
 //
-
+#if os(iOS)
 import Foundation
 
 extension CrowdinSDK {
@@ -34,3 +34,4 @@ extension CrowdinSDK {
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }
     }
 }
+#endif

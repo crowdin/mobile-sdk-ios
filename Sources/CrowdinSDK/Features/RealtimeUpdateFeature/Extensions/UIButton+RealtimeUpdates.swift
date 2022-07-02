@@ -4,7 +4,8 @@
 //
 //  Created by Serhii Londar on 6/5/19.
 //
-
+/*
+#if os(iOS)
 import UIKit
 
 extension UIButton {
@@ -20,3 +21,5 @@ extension UIButton {
         RealtimeUpdateFeature.shared?.unsubscribe(control: self)
     }
 }
+#endif
+*/

@@ -5,6 +5,7 @@
 //  Created by Serhii Londar on 18.12.2020.
 //
 
+#if os(iOS)
 import UIKit
 
 extension UIApplication {
@@ -37,3 +38,4 @@ extension UIWindow {
         return controller
     }
 }
+#endif

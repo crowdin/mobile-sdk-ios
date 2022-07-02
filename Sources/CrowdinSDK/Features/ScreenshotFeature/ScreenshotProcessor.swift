@@ -6,14 +6,14 @@
 //  Created by Serhii Londar on 7/18/19.
 //
 
-import UIKit
+import Foundation
 
 public protocol ScreenshotProcessor {
-	func process(screenshot: UIImage, with controlsInfo: [ControlInformation]) -> UIImage
+	func process(screenshot: Image, with controlsInfo: [ControlInformation]) -> Image
 }
 
 class CrowdinScreenshotProcessor: ScreenshotProcessor {
-	func process(screenshot: UIImage, with controlsInfo: [ControlInformation]) -> UIImage {
+	func process(screenshot: Image, with controlsInfo: [ControlInformation]) -> Image {
 		return screenshot
 	}
 }

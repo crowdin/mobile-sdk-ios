@@ -5,19 +5,17 @@
 //  Created by Serhii Londar on 1/23/19.
 //
 
-#if os(iOS) || os(tvOS)
-
-import UIKit
+import Foundation
 
 // MARK: -  extension with core functionality for language substitution.
-extension UILabel {
+extension Label {
     /// Association object for storing localization key.
     private static let localizationKeyAssociation = ObjectAssociation<String>()
     
     /// Localization key.
     var localizationKey: String? {
-        get { return UILabel.localizationKeyAssociation[self] }
-        set { UILabel.localizationKeyAssociation[self] = newValue }
+        get { return Label.localizationKeyAssociation[self] }
+        set { Label.localizationKeyAssociation[self] = newValue }
     }
 	
     ///  Association object for storing localization format string values if such exists.
@@ -25,8 +23,8 @@ extension UILabel {
 	
     /// Array with localization format string values.
 	var localizationValues: [Any]? {
-		get { return UILabel.localizationValuesAssociation[self] }
-		set { UILabel.localizationValuesAssociation[self] = newValue }
+		get { return Label.localizationValuesAssociation[self] }
+		set { Label.localizationValuesAssociation[self] = newValue }
 	}
     
     // swiftlint:disable implicitly_unwrapped_optional
@@ -88,7 +86,7 @@ extension UILabel {
     ///
     /// - Parameter text: Title text.
     func original_setText(_ text: String) {
-        guard UILabel.swizzledText != nil else { return }
+        guard Label.swizzledText != nil else { return }
         swizzled_setText(text)
     }
     
@@ -97,7 +95,7 @@ extension UILabel {
     /// - Parameter attributedText: Attributed title text.
     func original_setAttributedText(_ attributedText: NSAttributedString?) {
         // TODO: Add saving attributes.
-        guard UILabel.swizzledAttributedText != nil else { return }
+        guard Label.swizzledAttributedText != nil else { return }
         swizzled_setAttributedText(attributedText)
     }
 
@@ -105,12 +103,19 @@ extension UILabel {
     /// Note: This method should be called only when we need to get localization key from localization string, currently it is needed for screenshots and realtime preview features.
     class func swizzle() {
         // swiftlint:disable force_unwrapping
-        originalText = class_getInstanceMethod(self, #selector(setter: UILabel.text))!
-        swizzledText = class_getInstanceMethod(self, #selector(UILabel.swizzled_setText(_:)))!
+#if os(iOS) || os(tvOS) || os(watchOS)
+        originalText = class_getInstanceMethod(self, #selector(setter: Label.text))!
+#elseif os(macOS)
+        originalText = class_getInstanceMethod(self, #selector(setter: Label.stringValue))!
+#endif
+        swizzledText = class_getInstanceMethod(self, #selector(Label.swizzled_setText(_:)))!
         method_exchangeImplementations(originalText, swizzledText)
-        
-        originalAttributedText = class_getInstanceMethod(self, #selector(setter: UILabel.attributedText))!
-        swizzledAttributedText = class_getInstanceMethod(self, #selector(UILabel.swizzled_setAttributedText(_:)))!
+#if os(iOS) || os(tvOS) || os(watchOS)
+        originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedText))!
+#elseif os(macOS)
+        originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedStringValue))!
+#endif
+        swizzledAttributedText = class_getInstanceMethod(self, #selector(Label.swizzled_setAttributedText(_:)))!
         method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
     }
     
@@ -151,5 +156,3 @@ extension UILabel {
         }
     }
 }
-
-#endif

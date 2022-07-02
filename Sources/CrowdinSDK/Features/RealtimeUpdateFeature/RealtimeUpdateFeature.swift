@@ -5,7 +5,9 @@
 //  Created by Serhii Londar on 3/5/19.
 //
 
+#if os(iOS)
 import UIKit
+#endif
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
@@ -23,6 +25,8 @@ protocol RealtimeUpdateFeatureProtocol {
     func unsubscribe(control: Refreshable)
     func refreshAllControls()
 }
+
+#if os(iOS)
 
 class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol?
@@ -232,3 +236,4 @@ extension RealtimeUpdateFeature {
         self.refreshControl(with: key, newText: newValue)
     }
 }
+#endif

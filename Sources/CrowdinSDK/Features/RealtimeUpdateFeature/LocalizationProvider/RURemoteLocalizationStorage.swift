@@ -4,6 +4,7 @@
 //
 //  Created by Serhii Londar on 08.02.2020.
 //
+#if os(iOS)
 
 import Foundation
 
@@ -38,3 +39,4 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         }
     }
 }
+#endif

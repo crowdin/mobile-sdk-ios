@@ -4,13 +4,12 @@
 //
 //  Created by Serhii Londar on 1/27/19.
 //
-
-#if os(iOS) || os(tvOS)
-
+/*
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 
 // MARK: - Extension with all control states property.
-extension UIControl.State {
+extension Control.State {
     static let all: [UIControl.State] = [.normal, .selected, .disabled, .highlighted]
 }
 
@@ -214,4 +213,22 @@ extension UIButton {
     }
 }
 
+#elseif os(macOS)
+import AppKit
+
+extension NSButton {
+//    override var title: String {
+//        didSet {
+//
+//        }
+//    }
+    
+    open override var stringValue: String {
+        didSet {
+            print(stringValue)
+        }
+    }
+}
+
 #endif
+*/

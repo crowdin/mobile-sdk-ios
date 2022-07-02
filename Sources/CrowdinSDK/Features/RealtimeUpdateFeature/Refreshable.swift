@@ -6,13 +6,17 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
+#endif
 
 protocol Refreshable: NSObjectProtocol {
     var key: String? { get }
     func refresh(text: String)
     func refresh()
 }
+
+#if os(iOS)
 
 extension UILabel: Refreshable {
     func refresh(text: String) {
@@ -37,7 +41,7 @@ extension UILabel: Refreshable {
         }
     }
 }
-
+/*
 extension UIButton: Refreshable {
     func refresh(text: String) {
         if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
@@ -63,3 +67,5 @@ extension UIButton: Refreshable {
         }
     }
 }
+ */
+#endif
