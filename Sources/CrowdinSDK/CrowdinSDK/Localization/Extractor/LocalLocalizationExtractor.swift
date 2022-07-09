@@ -134,7 +134,7 @@ final class LocalLocalizationExtractor {
     func localizedString(for key: String) -> String? {
         var string = self.localizationDict[key]
         if string == nil {
-            string = self.pluralsBundle?.bundle.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+            string = self.pluralsBundle?.bundle?.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
             // Plurals localization works as default bundle localization. In case localized string for key is missing the key string will be returned. To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
             if string == key {
                 string = nil

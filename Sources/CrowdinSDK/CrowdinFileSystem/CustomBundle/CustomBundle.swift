@@ -8,7 +8,7 @@
 import Foundation
 
 protocol BundleProtocol {
-    var bundle: Bundle { get }
+    var bundle: Bundle? { get }
 }
 
 protocol FolderBundleProtocol: BundleProtocol {
@@ -16,20 +16,22 @@ protocol FolderBundleProtocol: BundleProtocol {
 }
 
 class FolderBundle: FolderBundleProtocol {
-    var bundle: Bundle
+    var bundle: Bundle?
     var folder: FolderProtocol
     
     init(folder: FolderProtocol) {
         self.folder = folder
-        // swiftlint:disable force_unwrapping
-        self.bundle = Bundle(path: folder.path)!
+        self.bundle = Bundle(path: folder.path)
     }
     
     init(path: String) {
         self.folder = Folder(path: path)
-        try? self.folder.create()
-        // swiftlint:disable force_unwrapping
-        self.bundle = Bundle(path: folder.path)!
+        do {
+            try self.folder.create()
+        } catch {
+            CrowdinLogsCollector.shared.add(log: .error(with: error.localizedDescription))
+        }
+        self.bundle = Bundle(path: folder.path)
     }
 }
 

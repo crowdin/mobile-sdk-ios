@@ -89,7 +89,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         do {
             try localizationFile.save()
         } catch {
-            print(error.localizedDescription)
+            CrowdinLogsCollector.shared.add(log: .error(with: error.localizedDescription))
         }
     }
     
