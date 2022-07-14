@@ -29,7 +29,7 @@ class FolderBundle: FolderBundleProtocol {
         do {
             try self.folder.create()
         } catch {
-            CrowdinLogsCollector.shared.add(log: .error(with: error.localizedDescription))
+            print(error.localizedDescription)
         }
         self.bundle = Bundle(path: folder.path)
     }
