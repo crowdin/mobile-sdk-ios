@@ -42,8 +42,4 @@ class SettingsWindow: UIWindow {
         let buttonPoint = convert(point, to: settingsView)
         return settingsView.point(inside: buttonPoint, with: event)
     }
-    
-    deinit {
-        print(#function)
-    }
 }
