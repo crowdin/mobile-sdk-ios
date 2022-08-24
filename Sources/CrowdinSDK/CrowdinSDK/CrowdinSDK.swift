@@ -8,6 +8,7 @@
 import UIKit
 #endif
 import Foundation
+import AppKit
 
 /// Closure type for localization update download handlers.
 public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void
@@ -176,9 +177,13 @@ extension CrowdinSDK {
         if Label.isSwizzled {
             Label.unswizzle()
         }
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(watchOS)
         if UIButton.isSwizzled {
             UIButton.unswizzle()
+        }
+#elseif os(macOS)
+        if NSButton.isSwizzled {
+            NSButton.unswizzle()
         }
 #endif
     }
@@ -192,6 +197,10 @@ extension CrowdinSDK {
         if !UIButton.isSwizzled {
             UIButton.swizzle()
         }
+#elseif os(macOS)
+        if !NSButton.isSwizzled {
+            NSButton.swizzle()
+        }
 #endif
     }
     
@@ -203,6 +212,10 @@ extension CrowdinSDK {
 #if os(iOS) || os(tvOS) || os(watchOS)
         if UIButton.isSwizzled {
             UIButton.unswizzle()
+        }
+#elseif os(macOS)
+        if NSButton.isSwizzled {
+            NSButton.unswizzle()
         }
 #endif
     }

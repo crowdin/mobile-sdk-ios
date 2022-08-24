@@ -83,6 +83,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         socketManger?.subscribeOnUpdateDraft(localization: localization, stringId: id)
         socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
+        print(localizationKey.cw_localized)
     }
     
     func unsubscribe(control: Refreshable) {
@@ -183,8 +184,8 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         
         self.socketManger?.error = error
         self.socketManger?.connect = {
-            self.success?()
             self.subscribeAllVisibleConrols()
+            self.success?()
         }
         self.socketManger?.disconnect = disconnect
         self.socketManger?.start()

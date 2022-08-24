@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - Extension with all control states property.
-extension Control.State {
+extension UIControl.State {
     static let all: [UIControl.State] = [.normal, .selected, .disabled, .highlighted]
 }
 

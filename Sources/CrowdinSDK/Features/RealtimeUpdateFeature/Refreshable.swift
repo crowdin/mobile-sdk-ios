@@ -8,6 +8,8 @@
 import Foundation
 #if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
 #endif
 
 protocol Refreshable: NSObjectProtocol {
@@ -63,6 +65,30 @@ extension UIButton: Refreshable {
             } else {
                 self.cw_setTitle(key.cw_localized, for: state)
             }
+        }
+    }
+}
+#elseif os(macOS)
+extension NSButton: Refreshable {
+    func refresh(text: String) {
+        if let values = self.localizationValues as? [CVarArg] {
+            let newText = String(format: text, arguments: values)
+            self.cw_setTitle(newText)
+        } else {
+            self.cw_setTitle(text)
+        }
+    }
+    
+    var key: String? {
+        return self.localizationKey
+    }
+    
+    func refresh() {
+        guard let key = self.localizationKey else { return }
+        if let values = self.localizationValues as? [CVarArg] {
+            self.cw_setTitle(key.cw_localized(with: values))
+        } else {
+            self.cw_setTitle(key.cw_localized)
         }
     }
 }

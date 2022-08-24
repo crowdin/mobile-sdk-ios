@@ -12,6 +12,7 @@ import Foundation
 import AppKit
 
 typealias Label = NSTextField
+
 public typealias View = NSView
 typealias ViewController = NSViewController
 public typealias Image = NSImage
@@ -44,7 +45,6 @@ extension Label {
         }
     }
 }
-
 #elseif os(iOS) || os(tvOS) || os(watchOS)
 
 import UIKit
@@ -53,7 +53,6 @@ typealias Label = UILabel
 public typealias View = UIView
 typealias ViewController = UIViewController
 public typealias Image = UIImage
-typealias Control = UIControl
 typealias Window = UIWindow
 typealias Application = UIApplication
 
