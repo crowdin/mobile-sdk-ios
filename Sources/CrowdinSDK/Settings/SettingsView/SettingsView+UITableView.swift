@@ -9,8 +9,7 @@ import UIKit
 
 extension SettingsView {
     func registerCells() {
-        let nib = UINib(nibName: "SettingsItemCell", bundle: Bundle.module)
-        tableView.register(nib, forCellReuseIdentifier: "SettingsItemCell")
+        tableView.register(SettingsItemCell.self, forCellReuseIdentifier: "SettingsItemCell")
     }
     
     func setupCells() {
@@ -45,6 +44,7 @@ extension SettingsView {
                 }
                 loginCell.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
                 loginCell.selectionStyle = .none
+                loginCell.statusView.isHidden = false
                 cells.append(loginCell)
             }
         }
@@ -59,23 +59,7 @@ extension SettingsView {
             reloadCell.selectionStyle = .none
             cells.append(reloadCell)
         }
-        /*
-        if var feature = IntervalUpdateFeature.shared {
-            if let autoreloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-                autoreloadCell.action = {
-                    feature.enabled = !feature.enabled
-                    autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: Bundle.resourceBundle, compatibleWith: nil)
-                    self.tableView.reloadData()
-                    self.open = false
-                }
-                autoreloadCell.icon.image = UIImage(named: feature.enabled ? "auto-updates-on" : "auto-updates-off", in: Bundle.resourceBundle, compatibleWith: nil)
-                autoreloadCell.selectionStyle = .none
-                autoreloadCell.contentView.layer.cornerRadius = 30.0
-                autoreloadCell.contentView.clipsToBounds = true
-                cells.append(autoreloadCell)
-            }
-        }
-        */
+        
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
                 if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
@@ -111,6 +95,7 @@ extension SettingsView {
                     realtimeUpdateCell.titleLabel.text = feature.enabled ? "Real-time on" : "Real-time off"
                     realtimeUpdateCell.statusView.backgroundColor = feature.enabled ? self.enabledStatusColor : .clear
                     realtimeUpdateCell.selectionStyle = .none
+                    realtimeUpdateCell.statusView.isHidden = false
                     cells.append(realtimeUpdateCell)
                 }
             }
@@ -130,6 +115,7 @@ extension SettingsView {
                     }
                     screenshotCell.titleLabel.text = "Capture screenshot"
                     screenshotCell.selectionStyle = .none
+                    screenshotCell.statusView.isHidden = true
                     cells.append(screenshotCell)
                 }
             }
@@ -148,7 +134,7 @@ extension SettingsView {
             }
             logsCell.titleLabel.text = "Logs"
             logsCell.selectionStyle = .none
-            logsCell.statusView.backgroundColor = .clear
+            logsCell.statusView.isHidden = true
             cells.append(logsCell)
         }
         
@@ -166,7 +152,7 @@ extension SettingsView {
             }
             stopCell.titleLabel.text = "Stop"
             stopCell.selectionStyle = .none
-            stopCell.statusView.backgroundColor = .clear
+            stopCell.statusView.isHidden = true
             cells.append(stopCell)
         }
     }
@@ -182,7 +168,7 @@ extension SettingsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60;
+        return 60
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

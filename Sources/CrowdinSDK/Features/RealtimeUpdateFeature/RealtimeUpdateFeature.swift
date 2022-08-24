@@ -7,9 +7,10 @@
 
 #if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
 #endif
 import Foundation
-import AppKit
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
@@ -83,7 +84,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         socketManger?.subscribeOnUpdateDraft(localization: localization, stringId: id)
         socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
-        print(localizationKey.cw_localized)
     }
     
     func unsubscribe(control: Refreshable) {

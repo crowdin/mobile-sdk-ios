@@ -6,9 +6,10 @@
 //
 #if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
 #endif
 import Foundation
-import AppKit
 
 /// Closure type for localization update download handlers.
 public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void

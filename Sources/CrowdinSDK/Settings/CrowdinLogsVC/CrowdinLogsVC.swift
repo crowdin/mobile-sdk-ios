@@ -8,7 +8,6 @@
 import UIKit
 
 protocol CrowdinLogCellPresentation {
-    
     var log: CrowdinLog { get }
     var date: String { get }
     var type: String { get }
@@ -19,7 +18,6 @@ protocol CrowdinLogCellPresentation {
 }
 
 final class CrowdinLogCellViewModel: CrowdinLogCellPresentation {
-    
     private static var dateFormatter: DateFormatter = {
        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm:ss dd/MM/yyyy"
