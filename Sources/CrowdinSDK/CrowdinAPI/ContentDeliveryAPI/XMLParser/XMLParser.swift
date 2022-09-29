@@ -169,8 +169,7 @@ extension SwiftXMLParser: XMLParserDelegate {
     }
     
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
-        let append = string.trimmingCharacters(in: .whitespacesAndNewlines)
-        textInProcess.append(append)
+        textInProcess.append(string)
     }
     
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -182,8 +181,11 @@ extension SwiftXMLParser: XMLParserDelegate {
         let parent = dicStack[dicStack.endIndex - 2]
         
         if textInProcess.count > 0 {
+
+            let finishedText = textInProcess.trimmingCharacters(in: .whitespacesAndNewlines)
+
             if value.count > 0 {
-                value[TextKey] = textInProcess
+                value[TextKey] = finishedText
             } else {
                 //If the current element has only value, no Attributes, like <list> 1 </ list>
                 //Replace the dictionary directly with string
@@ -191,11 +193,11 @@ extension SwiftXMLParser: XMLParserDelegate {
                     //parent now looks like： {"list" : [1,{}]}
                     //Replace the empty dictionary with a string
                     array.removeLastObject()
-                    array.add(textInProcess)
+                    array.add(finishedText)
                 } else {
                     //parent now looks like： {"list" : {} }
                     //Replace the empty dictionary with a string
-                    parent[elementName] = textInProcess
+                    parent[elementName] = finishedText
                 }
             }
         } else {

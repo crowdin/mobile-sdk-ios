@@ -93,7 +93,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     func start() {
         guard CrowdinSDK.inSDKLocalizations.contains(localization) else {
             let message = "Unable to start real-time preview as there is no '\(localization)' language in Crowdin project target languages."
-            print(message)
             self.error?(NSError(domain: message, code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
