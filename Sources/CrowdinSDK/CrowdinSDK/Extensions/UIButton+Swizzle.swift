@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 1/27/19.
 //
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 
 // MARK: - Extension with all control states property.

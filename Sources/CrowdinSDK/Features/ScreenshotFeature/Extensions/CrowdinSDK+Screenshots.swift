@@ -7,6 +7,8 @@
 
 import Foundation
 
+#if !os(watchOS)
+
 extension CrowdinSDK {
     @objc class func initializeScreenshotFeature() {
         guard let config = CrowdinSDK.config else { return }
@@ -34,3 +36,5 @@ extension CrowdinSDK {
         screenshotFeature.captureScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
     }
 }
+
+#endif

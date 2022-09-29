@@ -10,37 +10,24 @@ import UIKit
 typealias SettingsItemCellAction = () -> Void
 
 class SettingsItemCell: UITableViewCell {
-    var titleLabel = UILabel()
-    var statusView = UIView()
-    var action: SettingsItemCellAction?
-    var shouldSetupConstraints = true
+    static var reuseIdentifier: String { String(describing: SettingsItemCell.self) }
+    
+    var settingsItemView = SettingsItemView(frame: .zero)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusView.translatesAutoresizingMaskIntoConstraints = false
+        settingsItemView.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(statusView)
+        contentView.addSubview(settingsItemView)
         
-        let offset = 8.0
         addConstraints([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: offset),
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: offset),
-            titleLabel.bottomAnchor.constraint(equalTo: statusView.topAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -offset),
-            statusView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: offset),
-            statusView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -offset),
-            statusView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -offset),
-            statusView.heightAnchor.constraint(equalToConstant: 4),
+            contentView.topAnchor.constraint(equalTo: settingsItemView.topAnchor),
+            contentView.leftAnchor.constraint(equalTo: settingsItemView.leftAnchor),
+            contentView.bottomAnchor.constraint(equalTo: settingsItemView.bottomAnchor),
+            contentView.rightAnchor.constraint(equalTo: settingsItemView.rightAnchor),
         ])
         
-        titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor(white: 233.0 / 255.0 , alpha: 1.0)
-        titleLabel.font = UIFont.systemFont(ofSize: 12)
-        
-        contentView.backgroundColor = .clear
         backgroundColor = .clear
     }
     

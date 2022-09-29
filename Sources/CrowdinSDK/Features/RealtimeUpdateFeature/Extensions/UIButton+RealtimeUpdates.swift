@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 6/5/19.
 //
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 
 extension UIButton {

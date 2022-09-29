@@ -4,7 +4,7 @@
 //
 //  Created by Serhii Londar on 1/24/19.
 //
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -178,7 +178,7 @@ extension CrowdinSDK {
         if Label.isSwizzled {
             Label.unswizzle()
         }
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
         if UIButton.isSwizzled {
             UIButton.unswizzle()
         }
@@ -194,7 +194,7 @@ extension CrowdinSDK {
         if !Label.isSwizzled {
             Label.swizzle()
         }
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
         if !UIButton.isSwizzled {
             UIButton.swizzle()
         }
@@ -210,7 +210,7 @@ extension CrowdinSDK {
         if Label.isSwizzled {
             Label.unswizzle()
         }
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
         if UIButton.isSwizzled {
             UIButton.unswizzle()
         }

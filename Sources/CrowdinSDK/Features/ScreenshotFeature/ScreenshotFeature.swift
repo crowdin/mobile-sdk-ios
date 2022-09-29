@@ -12,6 +12,8 @@ import Foundation
     import UIKit
 #endif
 
+#if !os(watchOS)
+
 class ScreenshotFeature {
     static var shared: ScreenshotFeature?
 	var screenshotUploader: ScreenshotUploader
@@ -39,9 +41,11 @@ class ScreenshotFeature {
     class var topViewController: ViewController? {
 #if os(OSX)
         return NSApplication.shared.keyWindow?.contentViewController
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif os(iOS) || os(tvOS)
     guard let window = UIApplication.shared.cw_KeyWindow, let topViewController = window.topViewController() else { return nil }
     return topViewController
 #endif
     }
 }
+
+#endif

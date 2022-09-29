@@ -8,9 +8,11 @@
 import CoreGraphics
 #if os(OSX)
     import AppKit
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif os(iOS) || os(tvOS)
     import UIKit
 #endif
+
+#if !os(watchOS)
 
 public struct ControlInformation {
 	var key: String
@@ -20,7 +22,7 @@ public struct ControlInformation {
 class ScreenshotInformationCollector {
 #if os(OSX)
     static let scale = NSScreen.main?.backingScaleFactor ?? 2.0
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif os(iOS) || os(tvOS)
     static let scale = UIScreen.main.scale
 #endif
     
@@ -38,7 +40,7 @@ class ScreenshotInformationCollector {
 #if os(OSX)
                     let newRect = CGRect(x: frame.origin.x * scale, y: (rootView.bounds.size.height - frame.origin.y - frame.size.height) * scale, width: frame.size.width * scale, height: frame.size.height * scale)
                     description.append(ControlInformation(key: localizationKey, rect: newRect))
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif os(iOS) || os(tvOS)
                     let newRect = CGRect(x: frame.origin.x * scale, y: frame.origin.y * scale, width: frame.size.width * scale, height: frame.size.height * scale)
                     description.append(ControlInformation(key: localizationKey, rect: newRect))
 #endif
@@ -49,3 +51,5 @@ class ScreenshotInformationCollector {
         return description
 	}
 }
+
+#endif

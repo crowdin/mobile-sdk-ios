@@ -8,6 +8,8 @@
 
 import Foundation
 
+#if !os(watchOS)
+
 public protocol ScreenshotProcessor {
 	func process(screenshot: Image, with controlsInfo: [ControlInformation]) -> Image
 }
@@ -17,3 +19,5 @@ class CrowdinScreenshotProcessor: ScreenshotProcessor {
 		return screenshot
 	}
 }
+
+#endif

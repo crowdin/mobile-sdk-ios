@@ -6,7 +6,7 @@
 //
 
 import Foundation
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -42,7 +42,7 @@ extension Label: Refreshable {
     }
 }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 extension UIButton: Refreshable {
     func refresh(text: String) {
         if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {

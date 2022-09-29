@@ -8,6 +8,8 @@
 import Foundation
 import CoreGraphics
 
+#if !os(watchOS)
+
 public protocol ScreenshotUploader {
 	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)
 }
@@ -121,3 +123,5 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		return results
 	}
 }
+
+#endif

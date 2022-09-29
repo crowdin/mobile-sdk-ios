@@ -45,7 +45,7 @@ extension Label {
         }
     }
 }
-#elseif os(iOS) || os(tvOS) || os(watchOS)
+#elseif os(iOS) || os(tvOS)
 
 import UIKit
 
@@ -55,5 +55,28 @@ typealias ViewController = UIViewController
 public typealias Image = UIImage
 typealias Window = UIWindow
 typealias Application = UIApplication
+
+#elseif os(watchOS)
+
+import WatchKit
+
+typealias Label = WKInterfaceLabel
+public typealias View = WKInterfaceObject
+typealias ViewController = WKInterfaceController
+public typealias Image = WKImage
+typealias Window = WKInterfaceController
+//typealias Application = WKApplication
+
+extension Label {
+    var text: String? {
+        set {
+            self.setText(newValue)
+        }
+        get {
+            nil
+        }
+    }
+}
+
 
 #endif

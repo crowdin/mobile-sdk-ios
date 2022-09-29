@@ -212,6 +212,7 @@ extension RealtimeUpdateFeature {
     }
     
     func subscribeAllVisibleConrols() {
+#if os(iOS) || os(tvOS) || os(macOS)
         Application.shared.windows.forEach({
 #if os(macOS)
             if let view = $0.contentView {
@@ -221,15 +222,18 @@ extension RealtimeUpdateFeature {
             subscribeAllControls(from: $0)
 #endif
         })
+#endif
     }
     
     func subscribeAllControls(from view: View) {
+#if os(iOS) || os(tvOS) || os(macOS)
         view.subviews.forEach { (subview) in
             if let refreshable = subview as? Refreshable {
                 self.subscribe(control: refreshable)
             }
             subscribeAllControls(from: subview)
         }
+#endif
     }
     
     func didChangeString(with id: Int, to newValue: String) {

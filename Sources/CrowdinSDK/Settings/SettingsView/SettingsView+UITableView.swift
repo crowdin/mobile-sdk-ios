@@ -8,174 +8,137 @@
 import UIKit
 
 extension SettingsView {
-    func registerCells() {
-        tableView.register(SettingsItemCell.self, forCellReuseIdentifier: "SettingsItemCell")
-    }
-    
     func setupCells() {
         cells = []
         
         if let loginFeature = LoginFeature.shared {
-            if let loginCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-                if !LoginFeature.isLogined {
-                    loginCell.titleLabel.text = "Log in"
-                    loginCell.action = { [weak self] in
-                        loginFeature.login(completion: {
-                            DispatchQueue.main.async {
-                                self?.reloadData()
-                                self?.reloadUI()
-                            }
-                            let message = "Successfully logined"
-                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                            self?.showToast(message)
-                        }, error: { [weak self] error in
-                            let message = "Login error - \(error.localizedDescription)"
-                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-                            self?.showToast(message)
-                        })
-                        self?.isHidden = false
-                        self?.reloadData()
-                    }
-                } else {
-                    loginCell.titleLabel.text = "Logged in"
-                    loginCell.action = { [weak self] in
-                        self?.showConfirmationLogoutAlert()
-                    }
+            let settingsItemView = SettingsItemView(frame: .zero)
+            if !LoginFeature.isLogined {
+                settingsItemView.title = "Log in"
+                settingsItemView.action = { [weak self] in
+                    loginFeature.login(completion: {
+                        DispatchQueue.main.async {
+                            self?.reloadData()
+                            self?.reloadUI()
+                        }
+                        let message = "Successfully logined"
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+                        self?.showToast(message)
+                    }, error: { [weak self] error in
+                        let message = "Login error - \(error.localizedDescription)"
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+                        self?.showToast(message)
+                    })
+                    self?.isHidden = false
+                    self?.reloadData()
                 }
-                loginCell.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
-                loginCell.selectionStyle = .none
-                loginCell.statusView.isHidden = false
-                cells.append(loginCell)
+            } else {
+                settingsItemView.title = "Logged in"
+                settingsItemView.action = { [weak self] in
+                    self?.showConfirmationLogoutAlert()
+                }
             }
+            settingsItemView.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
+            settingsItemView.statusView.isHidden = false
+            cells.append(settingsItemView)
+            
         }
         
-        if let reloadCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-            reloadCell.action = { [weak self] in
-                RefreshLocalizationFeature.refreshLocalization()
-                let message = RealtimeUpdateFeature.shared?.enabled == true ? "Localization fetched from Crowdin project" : "Localization fetched from distribution"
-                self?.showToast(message)
-            }
-            reloadCell.titleLabel.text = "Reload translations"
-            reloadCell.selectionStyle = .none
-            cells.append(reloadCell)
+        var settingsItemView = SettingsItemView(frame: .zero)
+        settingsItemView.action = { [weak self] in
+            RefreshLocalizationFeature.refreshLocalization()
+            let message = RealtimeUpdateFeature.shared?.enabled == true ? "Localization fetched from Crowdin project" : "Localization fetched from distribution"
+            self?.showToast(message)
         }
+        settingsItemView.title = "Reload translations"
+        cells.append(settingsItemView)
+        
         
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
-                if let realtimeUpdateCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-                    feature.error = { [weak self] error in
-                        let message = "Error while starting real-time preview - \(error.localizedDescription)"
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-                        self?.showToast(message)
-                    }
-                    
-                    feature.success = { [weak self] in
-                        let message = "Successfully started real-time preview"
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                        self?.reloadData()
-                        guard self?.realtimeUpdateFeatureEnabled == false else {
-                            self?.realtimeUpdateFeatureEnabled = RealtimeUpdateFeature.shared?.enabled == true
-                            return
-                        }
-                        
-                        self?.realtimeUpdateFeatureEnabled = RealtimeUpdateFeature.shared?.enabled == true
-                        self?.showToast(message)
-                    }
-                    feature.disconnect = { [weak self] in
-                        let message = "Real-time preview disabled"
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                        self?.reloadData()
-                        self?.showToast(message)
-                    }
-                    
-                    realtimeUpdateCell.action = {
-                        feature.enabled = !feature.enabled
-                        realtimeUpdateCell.titleLabel.text = feature.enabled ? "Real-time on" : "Real-time off"
-                    }
-                    realtimeUpdateCell.titleLabel.text = feature.enabled ? "Real-time on" : "Real-time off"
-                    realtimeUpdateCell.statusView.backgroundColor = feature.enabled ? self.enabledStatusColor : .clear
-                    realtimeUpdateCell.selectionStyle = .none
-                    realtimeUpdateCell.statusView.isHidden = false
-                    cells.append(realtimeUpdateCell)
+                settingsItemView = SettingsItemView(frame: .zero)
+                feature.error = { [weak self] error in
+                    let message = "Error while starting real-time preview - \(error.localizedDescription)"
+                    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+                    self?.showToast(message)
                 }
+                
+                feature.success = { [weak self] in
+                    let message = "Successfully started real-time preview"
+                    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+                    self?.reloadData()
+                    guard RealtimeUpdateFeature.shared?.enabled == false else {
+                        return
+                    }
+                    self?.showToast(message)
+                }
+                feature.disconnect = { [weak self] in
+                    let message = "Real-time preview disabled"
+                    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+                    self?.reloadData()
+                    self?.showToast(message)
+                }
+                
+                settingsItemView.action = {
+                    feature.enabled = !feature.enabled
+                    settingsItemView.title = feature.enabled ? "Real-time on" : "Real-time off"
+                }
+                settingsItemView.title = feature.enabled ? "Real-time on" : "Real-time off"
+                settingsItemView.statusView.backgroundColor = feature.enabled ? self.enabledStatusColor : .clear
+                settingsItemView.statusView.isHidden = false
+                cells.append(settingsItemView)
             }
             
             if let feature = ScreenshotFeature.shared {
-                if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-                    screenshotCell.action = { [weak self] in
-                        let message = "Successfully captured screenshot"
-                        feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
-                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                            self?.showToast(message)
-                        }, errorHandler: { (error) in
-                            let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
-                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-                            self?.showToast(message)
-                        })
-                    }
-                    screenshotCell.titleLabel.text = "Capture screenshot"
-                    screenshotCell.selectionStyle = .none
-                    screenshotCell.statusView.isHidden = true
-                    cells.append(screenshotCell)
+                let settingsItemView = SettingsItemView(frame: .zero)
+                settingsItemView.action = { [weak self] in
+                    let message = "Successfully captured screenshot"
+                    feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+                        self?.showToast(message)
+                    }, errorHandler: { (error) in
+                        let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
+                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+                        self?.showToast(message)
+                    })
                 }
+                settingsItemView.title = "Capture screenshot"
+                settingsItemView.statusView.isHidden = true
+                cells.append(settingsItemView)
             }
         }
         
-        if let logsCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-            logsCell.action = {
-                let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
-                let logsVC = logsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogsVC")
-                let logsNC = UINavigationController(rootViewController: logsVC)
-                logsVC.title = "Logs"
-                logsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: logsNC, action: #selector(UIViewController.cw_dismiss))
-                logsVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clear logs", style: .done, target: logsNC, action: #selector(UIViewController.cw_askToClearLogsAlert))
-                logsNC.modalPresentationStyle = .fullScreen
-                logsNC.cw_present()
-            }
-            logsCell.titleLabel.text = "Logs"
-            logsCell.selectionStyle = .none
-            logsCell.statusView.isHidden = true
-            cells.append(logsCell)
+        settingsItemView = SettingsItemView(frame: .zero)
+        settingsItemView.action = {
+            let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
+            let logsVC = logsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogsVC")
+            let logsNC = UINavigationController(rootViewController: logsVC)
+            logsVC.title = "Logs"
+            logsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: logsNC, action: #selector(UIViewController.cw_dismiss))
+            logsVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clear logs", style: .done, target: logsNC, action: #selector(UIViewController.cw_askToClearLogsAlert))
+            logsNC.modalPresentationStyle = .fullScreen
+            logsNC.cw_present()
         }
+        settingsItemView.title = "Logs"
+        settingsItemView.statusView.isHidden = true
+        cells.append(settingsItemView)
         
-        if let stopCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
-            stopCell.action = {
-                CrowdinSDK.stop()
-                if let settingsView = SettingsView.shared {
-                    settingsView.removeFromSuperview()
-                    settingsView.settingsWindow.isHidden = true
-                    if #available(iOS 13.0, *) {
-                        settingsView.settingsWindow.windowScene = nil
-                    }
-                    SettingsView.shared = nil
+        
+        
+        settingsItemView = SettingsItemView(frame: .zero)
+        settingsItemView.action = {
+            CrowdinSDK.stop()
+            if let settingsView = SettingsView.shared {
+                settingsView.removeFromSuperview()
+                settingsView.settingsWindow.isHidden = true
+                if #available(iOS 13.0, *) {
+                    settingsView.settingsWindow.windowScene = nil
                 }
+                SettingsView.shared = nil
             }
-            stopCell.titleLabel.text = "Stop"
-            stopCell.selectionStyle = .none
-            stopCell.statusView.isHidden = true
-            cells.append(stopCell)
         }
-    }
-}
-
-extension SettingsView: UITableViewDelegate {
-    
-}
-
-extension SettingsView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cells[indexPath.row]
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        cells[indexPath.row].action?()
+        settingsItemView.title = "Stop"
+        settingsItemView.statusView.isHidden = true
+        cells.append(settingsItemView)
     }
 }

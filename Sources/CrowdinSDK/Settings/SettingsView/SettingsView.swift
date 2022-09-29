@@ -16,7 +16,7 @@ final class SettingsView: UIView {
         }
     }
     
-    var cells = [SettingsItemCell]()
+    var cells = [SettingsItemView]()
     
     @IBOutlet weak var blurView: UIVisualEffectView!
     
@@ -26,23 +26,13 @@ final class SettingsView: UIView {
         }
     }
     
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
-            registerCells()
-            reloadData()
-        }
-    }
-    
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
     
     fileprivate let closedWidth: CGFloat = 60.0
     fileprivate let openedWidth: CGFloat = 200.0
     fileprivate let defaultItemHeight: CGFloat = 60.0
     let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
-    
-    var realtimeUpdateFeatureEnabled: Bool = false
     
     var open: Bool = false {
         didSet {
@@ -56,7 +46,8 @@ final class SettingsView: UIView {
     
     func reloadData() {
         setupCells()
-        tableView.reloadData()
+        stackView.arrangedSubviews.forEach({ stackView.removeArrangedSubview($0) })
+        cells.forEach({ stackView.addArrangedSubview($0) })
     }
     
     var logsVC: UIViewController? = nil

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,10 +13,9 @@
             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w3F-Kb-DWT">
+                <visualEffectView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w3F-Kb-DWT">
                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FjQ-ep-wqO">
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="FjQ-ep-wqO">
                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
@@ -46,21 +45,22 @@
                         <action selector="closeButtonPressed" destination="iN0-l3-epB" eventType="touchUpInside" id="r2f-lA-1Cb"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="upo-VE-mtW">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lez-pk-RTz">
                     <rect key="frame" x="0.0" y="60" width="60" height="0.0"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </tableView>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="upo-VE-mtW" secondAttribute="trailing" id="BQA-Pg-h7E"/>
                 <constraint firstItem="RNh-Ab-bb1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DS1-0h-Mo8"/>
+                <constraint firstItem="lez-pk-RTz" firstAttribute="top" secondItem="w3F-Kb-DWT" secondAttribute="bottom" id="JXj-sH-l7k"/>
                 <constraint firstAttribute="trailing" secondItem="8F6-PZ-nEt" secondAttribute="trailing" constant="15" id="Swi-0V-Uir"/>
+                <constraint firstItem="lez-pk-RTz" firstAttribute="top" secondItem="w3F-Kb-DWT" secondAttribute="bottom" id="TyF-qp-rsq"/>
+                <constraint firstItem="lez-pk-RTz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VG1-qZ-RmV"/>
                 <constraint firstItem="RNh-Ab-bb1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xf3-Jn-cvG"/>
-                <constraint firstItem="upo-VE-mtW" firstAttribute="top" secondItem="RNh-Ab-bb1" secondAttribute="bottom" id="fBx-5W-h4Q"/>
-                <constraint firstItem="upo-VE-mtW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lZs-bA-yhN"/>
-                <constraint firstAttribute="bottom" secondItem="upo-VE-mtW" secondAttribute="bottom" id="m2x-JA-GBJ"/>
+                <constraint firstAttribute="bottom" secondItem="lez-pk-RTz" secondAttribute="bottom" id="lS1-Yb-uU6"/>
+                <constraint firstItem="lez-pk-RTz" firstAttribute="top" secondItem="RNh-Ab-bb1" secondAttribute="bottom" id="mog-qe-hre"/>
                 <constraint firstItem="8F6-PZ-nEt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="r82-ND-Oay"/>
+                <constraint firstAttribute="trailing" secondItem="lez-pk-RTz" secondAttribute="trailing" id="s1z-CP-sNw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
@@ -72,9 +72,9 @@
                 <outlet property="blurView" destination="w3F-Kb-DWT" id="N6l-yc-B5s"/>
                 <outlet property="closeButton" destination="8F6-PZ-nEt" id="1jE-s5-8hg"/>
                 <outlet property="settingsButton" destination="RNh-Ab-bb1" id="m6e-iv-b88"/>
-                <outlet property="tableView" destination="upo-VE-mtW" id="R6u-Vd-fHd"/>
+                <outlet property="stackView" destination="lez-pk-RTz" id="aWw-vY-5eU"/>
             </connections>
-            <point key="canvasLocation" x="72" y="-87"/>
+            <point key="canvasLocation" x="72" y="-87.256371814092958"/>
         </view>
     </objects>
     <resources>

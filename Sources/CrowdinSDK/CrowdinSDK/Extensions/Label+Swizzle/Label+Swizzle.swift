@@ -103,14 +103,14 @@ extension Label {
     /// Note: This method should be called only when we need to get localization key from localization string, currently it is needed for screenshots and realtime preview features.
     class func swizzle() {
         // swiftlint:disable force_unwrapping
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
         originalText = class_getInstanceMethod(self, #selector(setter: Label.text))!
 #elseif os(macOS)
         originalText = class_getInstanceMethod(self, #selector(setter: Label.stringValue))!
 #endif
         swizzledText = class_getInstanceMethod(self, #selector(Label.swizzled_setText(_:)))!
         method_exchangeImplementations(originalText, swizzledText)
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
         originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedText))!
 #elseif os(macOS)
         originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedStringValue))!

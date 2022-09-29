@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 18.12.2020.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 
 extension UIApplication {

@@ -24,8 +24,8 @@ let package = Package(
                 path: "Sources/CrowdinSDK",
                 exclude: [
                     "Providers/Firebase/",
-//                    "Resources",
-//                    "Settings"
+                    "Resources",
+                    "Settings"
                 ], swiftSettings: [
                     .define("CrowdinSDKSPM")
                 ])
