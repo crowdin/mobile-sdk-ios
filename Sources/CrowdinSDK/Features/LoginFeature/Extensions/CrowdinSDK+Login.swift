@@ -24,6 +24,14 @@ extension CrowdinSDK {
         })
     }
     
+    public class func logout() {
+        LoginFeature.shared?.logout()
+    }
+    
+    public class var loggedIn: Bool {
+        LoginFeature.isLogined
+    }
+    
     @discardableResult
     public class func handle(url: URL) -> Bool {
         return LoginFeature.shared?.hadle(url: url) ?? false

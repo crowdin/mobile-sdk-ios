@@ -3,7 +3,7 @@
 
 import PackageDescription
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 let excludedPaths = ["Providers/Firebase/"]
 #else
 let excludedPaths = ["Providers/Firebase/", "Resources", "Settings"]
