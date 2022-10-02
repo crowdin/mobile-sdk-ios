@@ -8,28 +8,50 @@
 import UIKit
 
 final class CrowdinLogDetailsVC: UIViewController {
-    
-    @IBOutlet private weak var textView: UITextView!
-    
+    private var textView = UITextView()
     private var details: NSAttributedString?
     
     // MARK: - Lifecycle
     
+    init(details: NSAttributedString?) {
+        self.details = details
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        prepare()
-    }
-    
-    // MARK: - Public
-    
-    func setup(with details: NSAttributedString?) {
-        self.details = details
+        setupUI()
     }
     
     // MARK: - Private
     
-    private func prepare() {
+    private func setupUI() {
+        addViews()
+        layoutViews()
+        setupViews()
+    }
+    
+    private func addViews() {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(textView)
+    }
+    
+    private func layoutViews() {
+        view.addConstraints([
+            textView.topAnchor.constraint(equalTo: view.topAnchor),
+            textView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            textView.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ])
+    }
+    
+    private func setupViews() {
         textView.attributedText = details
     }
 }

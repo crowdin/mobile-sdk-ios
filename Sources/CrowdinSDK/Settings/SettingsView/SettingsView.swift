@@ -8,7 +8,7 @@
 import UIKit
 
 final class SettingsView: UIView {
-    static var shared: SettingsView? = SettingsView.loadFromNib()
+    static var shared: SettingsView? = SettingsView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
     
     var settingsWindow = SettingsWindow() {
         didSet {
@@ -18,21 +18,87 @@ final class SettingsView: UIView {
     
     var cells = [SettingsItemView]()
     
-    @IBOutlet weak var blurView: UIVisualEffectView!
-    
-    @IBOutlet weak var settingsButton: UIButton! {
-        didSet {
-            settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.module, compatibleWith: nil), for: .normal)
-        }
-    }
-    
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var stackView: UIStackView!
+    var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    var settingsButton = UIButton()
+    var closeButton = UIButton()
+    var stackView = UIStackView()
     
     fileprivate let closedWidth: CGFloat = 60.0
     fileprivate let openedWidth: CGFloat = 200.0
     fileprivate let defaultItemHeight: CGFloat = 60.0
     let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        layoutIfNeeded()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupUI()
+    }
+    
+    func setupUI() {
+        addViews()
+        layoutViews()
+        setupViews()
+    }
+    
+    func addViews() {
+        translatesAutoresizingMaskIntoConstraints = false
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(blurView)
+        addSubview(settingsButton)
+        addSubview(closeButton)
+        addSubview(stackView)
+    }
+    
+    func layoutViews() {
+        addConstraints([
+            blurView.topAnchor.constraint(equalTo: topAnchor),
+            blurView.leftAnchor.constraint(equalTo: leftAnchor),
+            blurView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            blurView.rightAnchor.constraint(equalTo: rightAnchor),
+            
+            settingsButton.topAnchor.constraint(equalTo: topAnchor),
+            settingsButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            settingsButton.widthAnchor.constraint(equalToConstant: 60),
+            settingsButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            closeButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: settingsButton.bottomAnchor),
+            stackView.leftAnchor.constraint(equalTo: leftAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor),
+        ])
+        translatesAutoresizingMaskIntoConstraints = true
+    }
+    
+    func setupViews() {
+        settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.module, compatibleWith: nil), for: .normal)
+        settingsButton.addTarget(self, action: #selector(settingsButtonPressed), for: .touchUpInside)
+        
+        closeButton.setImage(UIImage(named: "close_icon", in: Bundle.module, compatibleWith: nil), for: .normal)
+        closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+        closeButton.isHidden = true
+        
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        
+        clipsToBounds = true
+        
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
+        self.addGestureRecognizer(gesture)
+        self.isUserInteractionEnabled = true
+        gesture.delegate = self
+    }
     
     var open: Bool = false {
         didSet {
@@ -40,7 +106,7 @@ final class SettingsView: UIView {
             self.blurView.isHidden = open
             self.backgroundColor = open ? UIColor(red: 45.0 / 255.0, green: 49.0 / 255.0, blue: 49.0 / 255.0, alpha: 1.0) : .clear
             reloadUI()
-            closeButtonHidden(isHidden: open == false)
+            closeButton.isHidden = !open
         }
     }
     
@@ -67,43 +133,20 @@ final class SettingsView: UIView {
         }
     }
     
-    class func loadFromNib() -> SettingsView? {
-        return UINib(nibName: "SettingsView", bundle: Bundle.module).instantiate(withOwner: self, options: nil).first as? SettingsView
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
-        self.addGestureRecognizer(gesture)
-        self.isUserInteractionEnabled = true
-        gesture.delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
-        self.addGestureRecognizer(gesture)
-        self.isUserInteractionEnabled = true
-        gesture.delegate = self
-    }
-    
     // MARK: - IBActions
     
-    @IBAction func settingsButtonPressed() {
+    @objc
+    func settingsButtonPressed() {
         self.open = !self.open
         self.fixPositionIfNeeded()
     }
     
-    @IBAction func closeButtonPressed() {
+    @objc
+    func closeButtonPressed() {
         open = false
     }
     
     // MARK: - Private
-    
-    func closeButtonHidden(isHidden: Bool) {
-        closeButton.isHidden = isHidden
-    }
-    
     func fixPositionIfNeeded() {
         let x = validateXCoordinate(value: self.center.x)
         let y = validateYCoordinate(value: self.center.y)

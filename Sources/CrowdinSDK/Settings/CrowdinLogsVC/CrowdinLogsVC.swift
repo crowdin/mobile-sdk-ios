@@ -7,76 +7,6 @@
 
 import UIKit
 
-protocol CrowdinLogCellPresentation {
-    var log: CrowdinLog { get }
-    var date: String { get }
-    var type: String { get }
-    var message: String { get }
-    var textColor: UIColor { get }
-    var isShowArrow: Bool { get }
-    var attributedText: NSAttributedString? { get }
-}
-
-final class CrowdinLogCellViewModel: CrowdinLogCellPresentation {
-    private static var dateFormatter: DateFormatter = {
-       let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm:ss dd/MM/yyyy"
-        return dateFormatter
-    }()
-    
-    let log: CrowdinLog
-    
-    init(log: CrowdinLog) {
-        self.log = log
-    }
-    
-    var date: String {
-        CrowdinLogCellViewModel.dateFormatter.string(from: log.date)
-    }
-    
-    var type: String {
-        log.type.rawValue
-    }
-    
-    var message: String {
-        log.message
-    }
-    
-    var textColor: UIColor {
-        log.type.color
-    }
-    
-    var isShowArrow: Bool {
-        attributedText != nil
-    }
-    
-    var attributedText: NSAttributedString? {
-        log.attributedDetails
-    }
-}
-
-final class CrowdinLogCell: UITableViewCell {
-    
-    @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var typeLabel: UILabel!
-    @IBOutlet private weak var messageLabel: UILabel!
-    
-    func setup(with viewModel: CrowdinLogCellPresentation) {
-        self.dateLabel.text = viewModel.date
-        self.typeLabel.text = viewModel.type
-        self.typeLabel.textColor = viewModel.textColor
-        self.messageLabel.text = viewModel.message
-        
-        selectionStyle = .none
-        
-        guard viewModel.isShowArrow else {
-            return
-        }
-        
-        accessoryType = .disclosureIndicator
-    }
-}
-
 final class CrowdinLogsVC: UITableViewController {
     
     override func viewDidLoad() {
@@ -88,6 +18,7 @@ final class CrowdinLogsVC: UITableViewController {
     // swiftlint:disable implicitly_unwrapped_optional
     override var tableView: UITableView! {
         didSet {
+#if os(iOS)
             self.refreshControl = UIRefreshControl()
             self.refreshControl?.addTarget(self, action: #selector(reloadData), for: .valueChanged)
             if #available(iOS 10.0, *) {
@@ -96,12 +27,15 @@ final class CrowdinLogsVC: UITableViewController {
                 // swiftlint:disable force_unwrapping
                 tableView.addSubview(refreshControl!)
             }
+#endif
         }
     }
     
     @objc func reloadData() {
         tableView.reloadData()
+#if os(iOS)
         refreshControl?.endRefreshing()
+#endif
     }
     
     // MARK: - Private
@@ -118,10 +52,8 @@ final class CrowdinLogsVC: UITableViewController {
     
     private func openLogsDetails(cellViewModel: CrowdinLogCellViewModel) {
         let logsDetailsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
-        if let logDetailsVC: CrowdinLogDetailsVC = logsDetailsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogDetailsVC") as? CrowdinLogDetailsVC {
-            logDetailsVC.setup(with: cellViewModel.attributedText)
-            navigationController?.pushViewController(logDetailsVC, animated: true)
-        }
+        let logDetailsVC = CrowdinLogDetailsVC(details: cellViewModel.attributedText)
+        navigationController?.pushViewController(logDetailsVC, animated: true)
     }
     
     // MARK: - UITableViewDelegate
