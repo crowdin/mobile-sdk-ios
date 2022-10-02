@@ -44,7 +44,6 @@ final class CrowdinLogCell: UITableViewCell {
     }
     
     private func addViews() {
-        translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dateLabel)
         typeLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -13,6 +13,13 @@ final class CrowdinLogsVC: UITableViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name.refreshLogsName, object: nil)
+        
+        tableView.register(CrowdinLogCell.self, forCellReuseIdentifier: "CrowdinLogCell")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reloadData()
     }
     
     // swiftlint:disable implicitly_unwrapped_optional
@@ -51,7 +58,6 @@ final class CrowdinLogsVC: UITableViewController {
     }
     
     private func openLogsDetails(cellViewModel: CrowdinLogCellViewModel) {
-        let logsDetailsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
         let logDetailsVC = CrowdinLogDetailsVC(details: cellViewModel.attributedText)
         navigationController?.pushViewController(logDetailsVC, animated: true)
     }

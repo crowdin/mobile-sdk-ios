@@ -53,7 +53,6 @@ extension SettingsView {
         settingsItemView.title = "Reload translations"
         cells.append(settingsItemView)
         
-        
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
                 settingsItemView = SettingsItemView(frame: .zero)
@@ -110,8 +109,7 @@ extension SettingsView {
         
         settingsItemView = SettingsItemView(frame: .zero)
         settingsItemView.action = {
-            let logsVCStoryboard = UIStoryboard(name: "CrowdinLogsVC", bundle: Bundle.module)
-            let logsVC = logsVCStoryboard.instantiateViewController(withIdentifier: "CrowdinLogsVC")
+            let logsVC = CrowdinLogsVC()
             let logsNC = UINavigationController(rootViewController: logsVC)
             logsVC.title = "Logs"
             logsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: logsNC, action: #selector(UIViewController.cw_dismiss))
@@ -122,8 +120,6 @@ extension SettingsView {
         settingsItemView.title = "Logs"
         settingsItemView.statusView.isHidden = true
         cells.append(settingsItemView)
-        
-        
         
         settingsItemView = SettingsItemView(frame: .zero)
         settingsItemView.action = {

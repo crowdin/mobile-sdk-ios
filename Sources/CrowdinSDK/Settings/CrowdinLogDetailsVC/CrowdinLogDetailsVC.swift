@@ -14,8 +14,8 @@ final class CrowdinLogDetailsVC: UIViewController {
     // MARK: - Lifecycle
     
     init(details: NSAttributedString?) {
-        self.details = details
         super.init(nibName: nil, bundle: nil)
+        self.details = details
     }
     
     required init?(coder: NSCoder) {
@@ -53,5 +53,7 @@ final class CrowdinLogDetailsVC: UIViewController {
     
     private func setupViews() {
         textView.attributedText = details
+        textView.backgroundColor = .white
+        view.backgroundColor = .white
     }
 }
