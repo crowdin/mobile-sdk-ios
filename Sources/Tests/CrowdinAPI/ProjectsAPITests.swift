@@ -21,19 +21,19 @@ class ProjectsAPITests: XCTestCase {
     func testAPIInitialization() {
         api = ProjectsAPI()
         
-        XCTAssert(api.baseURL == "https://crowdin.com/api/v2/")
+        XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "projects")
         XCTAssertNil(api.organizationName)
-        XCTAssert(api.fullPath == "https://crowdin.com/api/v2/projects")
+        XCTAssert(api.fullPath == "https://api.crowdin.com/api/v2/projects")
     }
     
     func testAPIInitializationWithOrganization() {
         api = ProjectsAPI(organizationName: testOrganization)
         
-        XCTAssert(api.baseURL == "https://\(testOrganization).crowdin.com/api/v2/")
+        XCTAssert(api.baseURL == "https://\(testOrganization).api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "projects")
         XCTAssert(api.organizationName == testOrganization)
-        XCTAssert(api.fullPath == "https://\(testOrganization).crowdin.com/api/v2/projects")
+        XCTAssert(api.fullPath == "https://\(testOrganization).api.crowdin.com/api/v2/projects")
     }
     
     func testGetFilesList() {

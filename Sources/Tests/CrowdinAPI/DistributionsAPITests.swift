@@ -19,19 +19,19 @@ class DistributionsAPITests: XCTestCase {
     func testAPIInitialization() {
         api = DistributionsAPI(hashString: testHashString)
         
-        XCTAssert(api.baseURL == "https://crowdin.com/api/v2/")
+        XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "distributions/metadata?hash=\(testHashString)")
         XCTAssertNil(api.organizationName)
-        XCTAssert(api.fullPath == "https://crowdin.com/api/v2/distributions/metadata?hash=\(testHashString)")
+        XCTAssert(api.fullPath == "https://api.crowdin.com/api/v2/distributions/metadata?hash=\(testHashString)")
     }
     
     func testAPIInitializationWithOrganization() {
         api = DistributionsAPI(hashString: testHashString, organizationName: testOrganization)
         
-        XCTAssert(api.baseURL == "https://\(testOrganization).crowdin.com/api/v2/")
+        XCTAssert(api.baseURL == "https://\(testOrganization).api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "distributions/metadata?hash=\(testHashString)")
         XCTAssert(api.organizationName == testOrganization)
-        XCTAssert(api.fullPath == "https://\(testOrganization).crowdin.com/api/v2/distributions/metadata?hash=\(testHashString)")
+        XCTAssert(api.fullPath == "https://\(testOrganization).api.crowdin.com/api/v2/distributions/metadata?hash=\(testHashString)")
     }
     
     func testGetDistribution() {
