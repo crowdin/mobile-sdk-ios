@@ -27,9 +27,9 @@ class CrowdinAPI: BaseAPI {
     
     var baseURL: String {
         if let organizationName = organizationName {
-            return "https://\(organizationName).crowdin.com/api/v2/"
+            return "https://\(organizationName).api.crowdin.com/api/v2/"
         }
-        return "https://crowdin.com/api/v2/"
+        return "https://api.crowdin.com/api/v2/"
     }
     
     var apiPath: String {

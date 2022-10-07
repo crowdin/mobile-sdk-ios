@@ -19,19 +19,19 @@ class LanguagesAPITests: XCTestCase {
     func testAPIInitialization() {
         api = LanguagesAPI()
         
-        XCTAssert(api.baseURL == "https://crowdin.com/api/v2/")
+        XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "languages")
         XCTAssertNil(api.organizationName)
-        XCTAssert(api.fullPath == "https://crowdin.com/api/v2/languages")
+        XCTAssert(api.fullPath == "https://api.crowdin.com/api/v2/languages")
     }
     
     func testAPIInitializationWithOrganization() {
         api = LanguagesAPI(organizationName: testOrganization)
         
-        XCTAssert(api.baseURL == "https://\(testOrganization).crowdin.com/api/v2/")
+        XCTAssert(api.baseURL == "https://\(testOrganization).api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "languages")
         XCTAssert(api.organizationName == testOrganization)
-        XCTAssert(api.fullPath == "https://\(testOrganization).crowdin.com/api/v2/languages")
+        XCTAssert(api.fullPath == "https://\(testOrganization).api.crowdin.com/api/v2/languages")
     }
     
     func testGetLanguages() {
