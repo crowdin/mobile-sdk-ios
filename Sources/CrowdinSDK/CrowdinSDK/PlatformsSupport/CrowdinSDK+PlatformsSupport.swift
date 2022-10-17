@@ -70,7 +70,7 @@ typealias Window = WKInterfaceController
 extension Label {
     var text: String? {
         set {
-            self.setText(newValue)
+            setText(newValue)
         }
         get {
             nil

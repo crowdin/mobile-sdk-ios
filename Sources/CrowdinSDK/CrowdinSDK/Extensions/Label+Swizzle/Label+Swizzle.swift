@@ -107,6 +107,8 @@ extension Label {
         originalText = class_getInstanceMethod(self, #selector(setter: Label.text))!
 #elseif os(macOS)
         originalText = class_getInstanceMethod(self, #selector(setter: Label.stringValue))!
+#elseif os(watchOS)
+        originalText = class_getInstanceMethod(self, #selector(Label.setText(_:)))!
 #endif
         swizzledText = class_getInstanceMethod(self, #selector(Label.swizzled_setText(_:)))!
         method_exchangeImplementations(originalText, swizzledText)
@@ -114,6 +116,8 @@ extension Label {
         originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedText))!
 #elseif os(macOS)
         originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedStringValue))!
+#elseif os(watchOS)
+        originalAttributedText = class_getInstanceMethod(self, #selector(Label.setAttributedText(_:)))!
 #endif
         swizzledAttributedText = class_getInstanceMethod(self, #selector(Label.swizzled_setAttributedText(_:)))!
         method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
