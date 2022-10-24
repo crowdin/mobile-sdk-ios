@@ -119,7 +119,7 @@ extension SettingsView {
                 if let screenshotCell = tableView.dequeueReusableCell(withIdentifier: "SettingsItemCell") as? SettingsItemCell {
                     screenshotCell.action = { [weak self] in
                         let message = "Successfully captured screenshot"
-                        feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
+                        feature.captureScreenshot(name: String("\(Date().timeIntervalSince1970).png"), success: {
                             CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
                             self?.showToast(message)
                         }, errorHandler: { (error) in

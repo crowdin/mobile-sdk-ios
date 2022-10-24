@@ -22,6 +22,10 @@ class ScreenshotFeature {
 			errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
 			return
 		}
+        var name = name
+        if !name.hasSuffix(FileType.png.extension) {
+            name += FileType.png.extension
+        }
         self.captureScreenshot(view: vc.view, name: name, success: success, errorHandler: errorHandler)
     }
     
