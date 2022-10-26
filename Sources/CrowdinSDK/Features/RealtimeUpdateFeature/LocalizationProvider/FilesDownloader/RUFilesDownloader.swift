@@ -28,6 +28,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         self.languageResolver = laguageResolver
         self.enterprise = organizationName != nil
         self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: LoginFeature.shared)
+        self.operationQueue.maxConcurrentOperationCount = 1
     }
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
@@ -93,6 +94,11 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
                     return
                 }
             }
+            
+            let delayOperation = BlockOperation {
+                sleep(1)
+            }
+            delayOperation.addDependency(download)
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }

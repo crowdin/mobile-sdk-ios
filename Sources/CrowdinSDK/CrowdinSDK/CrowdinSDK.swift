@@ -4,8 +4,10 @@
 //
 //  Created by Serhii Londar on 1/24/19.
 //
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
 #endif
 import Foundation
 
@@ -172,36 +174,49 @@ extension CrowdinSDK {
         if Bundle.isSwizzled {
             Bundle.unswizzle()
         }
-#if os(iOS) || os(tvOS)
-        if UILabel.isSwizzled {
-            UILabel.unswizzle()
+
+        if Label.isSwizzled {
+            Label.unswizzle()
         }
+#if os(iOS) || os(tvOS)
         if UIButton.isSwizzled {
             UIButton.unswizzle()
+        }
+#elseif os(macOS)
+        if NSButton.isSwizzled {
+            NSButton.unswizzle()
         }
 #endif
     }
     
-    /// Swizzle methods for UILabel and UIButton. Needed for screenshots and real-time preview.
+    /// Swizzle methods for Label and Button. Needed for screenshots and real-time preview.
     class func swizzleControlMethods() {
-#if os(iOS) || os(tvOS)
-        if !UILabel.isSwizzled {
-            UILabel.swizzle()
+        if !Label.isSwizzled {
+            Label.swizzle()
         }
+#if os(iOS) || os(tvOS)
         if !UIButton.isSwizzled {
             UIButton.swizzle()
         }
+#elseif os(macOS)
+        if !NSButton.isSwizzled {
+            NSButton.swizzle()
+        }
 #endif
     }
     
-    /// Unswizzle methods for UILabel and UIButton.
+    /// Unswizzle methods for Label and Button.
     class func unswizzleControlMethods() {
-#if os(iOS) || os(tvOS)
-        if UILabel.isSwizzled {
-            UILabel.unswizzle()
+        if Label.isSwizzled {
+            Label.unswizzle()
         }
+#if os(iOS) || os(tvOS)
         if UIButton.isSwizzled {
             UIButton.unswizzle()
+        }
+#elseif os(macOS)
+        if NSButton.isSwizzled {
+            NSButton.unswizzle()
         }
 #endif
     }

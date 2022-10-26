@@ -5,11 +5,13 @@
 //  Created by Serhii Londar on 7/18/19.
 //
 
-import UIKit
+import Foundation
 import CoreGraphics
 
+#if !os(watchOS)
+
 public protocol ScreenshotUploader {
-	func uploadScreenshot(screenshot: UIImage, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)
+	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)
 }
 
 class CrowdinScreenshotUploader: ScreenshotUploader {
@@ -64,7 +66,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		}
 	}
 	
-	func uploadScreenshot(screenshot: UIImage, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?) {
+	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?) {
 		guard let projectId = self.projectId else {
 			self.loginAndGetProjectId(success: {
 				DispatchQueue.main.async {
@@ -121,3 +123,5 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		return results
 	}
 }
+
+#endif

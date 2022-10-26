@@ -5,7 +5,12 @@
 //  Created by Serhii Londar on 3/5/19.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+import Foundation
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
@@ -178,8 +183,8 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         
         self.socketManger?.error = error
         self.socketManger?.connect = {
-            self.success?()
             self.subscribeAllVisibleConrols()
+            self.success?()
         }
         self.socketManger?.disconnect = disconnect
         self.socketManger?.start()
@@ -206,18 +211,28 @@ extension RealtimeUpdateFeature {
     }
     
     func subscribeAllVisibleConrols() {
-        UIApplication.shared.windows.forEach({
+#if os(iOS) || os(tvOS) || os(macOS)
+        Application.shared.windows.forEach({
+#if os(macOS)
+            if let view = $0.contentView {
+                subscribeAllControls(from: view)
+            }
+#else
             subscribeAllControls(from: $0)
+#endif
         })
+#endif
     }
     
-    func subscribeAllControls(from view: UIView) {
+    func subscribeAllControls(from view: View) {
+#if os(iOS) || os(tvOS) || os(macOS)
         view.subviews.forEach { (subview) in
             if let refreshable = subview as? Refreshable {
                 self.subscribe(control: refreshable)
             }
             subscribeAllControls(from: subview)
         }
+#endif
     }
     
     func didChangeString(with id: Int, to newValue: String) {

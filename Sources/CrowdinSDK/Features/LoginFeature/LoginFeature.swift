@@ -5,8 +5,13 @@
 //  Created by Serhii Londar on 5/20/19.
 //
 
+#if os(iOS)
 import UIKit
 import SafariServices
+#elseif os(macOS)
+import AppKit
+#endif
+import Foundation
 
 protocol LoginFeatureProtocol {
 	static var shared: Self? { get }
@@ -15,6 +20,9 @@ protocol LoginFeatureProtocol {
 	
 	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
 	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
+    
+    func hadle(url: URL) -> Bool
+    
 	func logout()
 }
 
@@ -22,8 +30,9 @@ final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
 	var config: CrowdinLoginConfig
 	static var shared: LoginFeature?
     private var loginAPI: LoginAPI
-    
+#if os(iOS)
     fileprivate var safariVC: SFSafariViewController?
+#endif
     
     init(hashString: String, config: CrowdinLoginConfig) {
 		self.config = config
@@ -113,8 +122,10 @@ final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
 		tokenExpirationDate = nil
 	}
 	
-	func hadle(url: URL) -> Bool {
+    func hadle(url: URL) -> Bool {
+#if os(iOS)
         dismissSafariVC()
+#endif
         let errorHandler = loginError ?? { _ in }
         let result = loginAPI.hadle(url: url, completion: { (tokenResponse) in
             self.tokenExpirationDate = Date(timeIntervalSinceNow: TimeInterval(tokenResponse.expiresIn))
@@ -135,17 +146,37 @@ final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
     }
     
     fileprivate func showWarningAlert(with url: URL) {
-        let alert = UIAlertController(title: "CrowdinSDK", message: "The Real-Time Preview and Screenshots features require Crowdin Authorization. You will now be redirected to the Crowdin login page.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        let title = "CrowdinSDK"
+        let message = "The Real-Time Preview and Screenshots features require Crowdin Authorization. You will now be redirected to the Crowdin login page."
+        let okTitle = "OK"
+        let cancelTitle = "Cancel"
+#if os(iOS)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okTitle, style: .default, handler: { _ in
             alert.cw_dismiss()
             self.showSafariVC(with: url)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .destructive, handler: { _ in
             alert.cw_dismiss()
         }))
         alert.cw_present()
+#elseif os(macOS)
+        guard let window = NSApplication.shared.windows.first else { return }
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = message
+        let action = alert.addButton(withTitle: okTitle)
+        alert.addButton(withTitle: cancelTitle)
+        alert.alertStyle = .warning
+        alert.beginSheetModal(for: window) { response in
+            if response.rawValue == 1000 {
+                NSWorkspace.shared.open(url)
+            }
+        }
+#endif
     }
     
+#if os(iOS)
     fileprivate func showSafariVC(with url: URL) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self
@@ -157,14 +188,17 @@ final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
         safariVC?.cw_dismiss()
         safariVC = nil
     }
+#endif
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 }
 
+#if os(iOS)
 extension LoginFeature: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         dismissSafariVC()
     }
 }
+#endif

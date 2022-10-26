@@ -1,17 +1,19 @@
 //
-//  UIButton+RealtimeUpdates.swift
+//  Label+RealtimeUpdates.swift
 //  CrowdinSDK
 //
 //  Created by Serhii Londar on 6/5/19.
 //
 
-#if os(iOS) || os(tvOS)
+#if os(iOS)
 import UIKit
+#endif
+import Foundation
 
-extension UIButton {
-    /// Subscribe UIButton for realtime updates if it has at least one localization key for any state and realtime updates feature enabled.
+extension Label {
+    /// Subscribe Label for realtime updates if it has localization key and realtime updates feature enabled.
     @objc func subscribeForRealtimeUpdates() {
-        if self.localizationKeys != nil {
+        if self.localizationKey != nil {
             RealtimeUpdateFeature.shared?.subscribe(control: self)
         }
     }
@@ -21,4 +23,3 @@ extension UIButton {
         RealtimeUpdateFeature.shared?.unsubscribe(control: self)
     }
 }
-#endif
