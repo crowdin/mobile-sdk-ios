@@ -3,6 +3,14 @@
 
 import PackageDescription
 
+#if os(iOS)
+let excludedPaths = ["Providers/Firebase/"]
+#elseif os(tvOS)
+let excludedPaths = ["Providers/Firebase/"]
+#elseif os(macOS) || os(watchOS)
+let excludedPaths = ["Providers/Firebase/", "Resources", "Settings"]
+#endif
+
 let package = Package(
     name: "CrowdinSDK",
     platforms: [
@@ -22,12 +30,8 @@ let package = Package(
         .target(name: "CrowdinSDK",
                 dependencies: ["BaseAPI", "Starscream"],
                 path: "Sources/CrowdinSDK",
-                exclude: [
-                    "Providers/Firebase/",
-                    "Features",
-                    "Resources",
-                    "Settings"
-                ], swiftSettings: [
+                exclude: excludedPaths,
+                swiftSettings: [
                     .define("CrowdinSDKSPM")
                 ])
     ]

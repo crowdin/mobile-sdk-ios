@@ -5,7 +5,14 @@
 //  Created by Serhii Londar on 1/26/19.
 //
 
-import UIKit
+import Foundation
+#if os(OSX)
+    import AppKit
+#elseif os(iOS) || os(tvOS) || os(watchOS)
+    import UIKit
+#endif
+
+#if !os(watchOS)
 
 class ScreenshotFeature {
     static var shared: ScreenshotFeature?
@@ -26,10 +33,11 @@ class ScreenshotFeature {
         if !name.hasSuffix(FileType.png.extension) {
             name += FileType.png.extension
         }
+        guard let vc = ScreenshotFeature.topViewController else { return }
         self.captureScreenshot(view: vc.view, name: name, success: success, errorHandler: errorHandler)
     }
     
-    func captureScreenshot(view: UIView, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureScreenshot(view: View, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshot = view.screenshot else {
             errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -37,4 +45,15 @@ class ScreenshotFeature {
         let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
         screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
     }
+    
+    class var topViewController: ViewController? {
+#if os(OSX)
+        return NSApplication.shared.keyWindow?.contentViewController
+#elseif os(iOS) || os(tvOS)
+    guard let window = UIApplication.shared.cw_KeyWindow, let topViewController = window.topViewController() else { return nil }
+    return topViewController
+#endif
+    }
 }
+
+#endif

@@ -16,6 +16,22 @@ extension CrowdinSDK {
         LoginFeature.configureWith(with: hash, loginConfig: loginConfig)
 	}
     
+    public class func login() {
+        LoginFeature.shared?.login(completion: {
+            print("Logined")
+        }, error: { error in
+            print(error.localizedDescription)
+        })
+    }
+    
+    public class func logout() {
+        LoginFeature.shared?.logout()
+    }
+    
+    public class var loggedIn: Bool {
+        LoginFeature.isLogined
+    }
+    
     @discardableResult
     public class func handle(url: URL) -> Bool {
         return LoginFeature.shared?.hadle(url: url) ?? false

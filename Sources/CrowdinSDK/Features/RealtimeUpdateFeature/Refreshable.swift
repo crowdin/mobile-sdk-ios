@@ -6,7 +6,11 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 protocol Refreshable: NSObjectProtocol {
     var key: String? { get }
@@ -14,7 +18,7 @@ protocol Refreshable: NSObjectProtocol {
     func refresh()
 }
 
-extension UILabel: Refreshable {
+extension Label: Refreshable {
     func refresh(text: String) {
         if let values = self.localizationValues as? [CVarArg] {
             let newText = String(format: text, arguments: values)
@@ -38,6 +42,7 @@ extension UILabel: Refreshable {
     }
 }
 
+#if os(iOS) || os(tvOS)
 extension UIButton: Refreshable {
     func refresh(text: String) {
         if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
@@ -63,3 +68,28 @@ extension UIButton: Refreshable {
         }
     }
 }
+#elseif os(macOS)
+extension NSButton: Refreshable {
+    func refresh(text: String) {
+        if let values = self.localizationValues as? [CVarArg] {
+            let newText = String(format: text, arguments: values)
+            self.cw_setTitle(newText)
+        } else {
+            self.cw_setTitle(text)
+        }
+    }
+    
+    var key: String? {
+        return self.localizationKey
+    }
+    
+    func refresh() {
+        guard let key = self.localizationKey else { return }
+        if let values = self.localizationValues as? [CVarArg] {
+            self.cw_setTitle(key.cw_localized(with: values))
+        } else {
+            self.cw_setTitle(key.cw_localized)
+        }
+    }
+}
+#endif
