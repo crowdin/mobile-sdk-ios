@@ -53,7 +53,7 @@ Pod::Spec.new do |spec|
   end
 
   spec.test_spec 'Core_Tests' do |test_spec|
-    test_spec.watchos.deployment_target = '7.0'
+    test_spec.watchos.deployment_target = '2.0'
     test_spec.ios.deployment_target = '9.0'
     test_spec.tvos.deployment_target = '9.0'
     test_spec.macos.deployment_target = '10.13'
@@ -70,7 +70,7 @@ Pod::Spec.new do |spec|
   end
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
-    test_spec.watchos.deployment_target = '7.0'
+    test_spec.watchos.deployment_target = '2.0'
     test_spec.ios.deployment_target = '9.0'
     test_spec.tvos.deployment_target = '9.0'
     test_spec.macos.deployment_target = '10.13'
@@ -87,7 +87,7 @@ Pod::Spec.new do |spec|
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
-    test_spec.watchos.deployment_target = '7.0'
+    test_spec.watchos.deployment_target = '2.0'
     test_spec.ios.deployment_target = '9.0'
     test_spec.tvos.deployment_target = '9.0'
     test_spec.macos.deployment_target = '10.13'

@@ -25,6 +25,10 @@ class ScreenshotFeature {
 	}
 	
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        var name = name
+        if !name.hasSuffix(FileType.png.extension) {
+            name += FileType.png.extension
+        }
         guard let vc = ScreenshotFeature.topViewController else { return }
         self.captureScreenshot(view: vc.view, name: name, success: success, errorHandler: errorHandler)
     }
