@@ -25,10 +25,6 @@ class ScreenshotFeature {
 	}
 	
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
-        guard let window = UIApplication.shared.cw_KeyWindow, let vc = window.topViewController() else {
-			errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
-			return
-		}
         var name = name
         if !name.hasSuffix(FileType.png.extension) {
             name += FileType.png.extension
