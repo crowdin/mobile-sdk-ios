@@ -486,15 +486,10 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 You could also define (optional) your own handler to take a screenshot (for example, clicking on some button in your application):
 
 ```swift
-let feature = ScreenshotFeature.shared {
-    feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
-        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-        self?.showToast(message)
-    }, errorHandler: { (error) in
-        let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
-        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-        self?.showToast(message)
-    })
+CrowdinSDK.captureScreenshot(name: String(Date().timeIntervalSince1970)) {
+    print("Screenshot captured")
+} errorHandler: { error in
+    print("Screenshot capture failed with error - " + error?.localizedDescription)
 }
 ```
 
