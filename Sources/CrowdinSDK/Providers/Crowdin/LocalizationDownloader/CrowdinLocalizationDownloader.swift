@@ -40,6 +40,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func download(strings: [String], plurals: [String], xliffs: [String], jsons: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
+        self.operationQueue.cancelAllOperations()
+        
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         self.strings = nil
         self.plurals = nil
