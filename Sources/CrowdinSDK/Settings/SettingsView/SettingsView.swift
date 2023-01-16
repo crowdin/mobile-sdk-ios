@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 4/4/19.
 //
 
+#if os(iOS) || os(watchOS)
+
 import UIKit
 
 final class SettingsView: UIView {
@@ -211,3 +213,5 @@ final class SettingsView: UIView {
         LogMessageObserver.shared.notifyAll(message)
     }
 }
+
+#endif

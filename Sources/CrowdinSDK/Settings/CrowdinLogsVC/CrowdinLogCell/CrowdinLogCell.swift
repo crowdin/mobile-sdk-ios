@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 03.10.2022.
 //
 
+#if os(iOS) || os(watchOS)
+
 import UIKit
 
 final class CrowdinLogCell: UITableViewCell {
@@ -72,3 +74,5 @@ final class CrowdinLogCell: UITableViewCell {
         
     }
 }
+
+#endif

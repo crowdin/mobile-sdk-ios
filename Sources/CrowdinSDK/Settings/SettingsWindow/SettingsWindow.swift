@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 04.12.2020.
 //
 
+#if os(iOS) || os(watchOS)
+
 import UIKit
 import CoreGraphics
 
@@ -43,3 +45,5 @@ class SettingsWindow: UIWindow {
         return settingsView.point(inside: buttonPoint, with: event)
     }
 }
+
+#endif

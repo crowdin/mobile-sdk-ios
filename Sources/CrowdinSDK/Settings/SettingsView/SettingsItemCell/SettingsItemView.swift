@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 24.08.2022.
 //
 
+#if os(iOS) || os(watchOS)
+
 import UIKit
 
 class SettingsItemView: UIView {
@@ -56,3 +58,5 @@ class SettingsItemView: UIView {
         action?()
     }
 }
+
+#endif
