@@ -40,7 +40,7 @@ jobs:
         inputs:
           projectDirectory: Example
       - bash: |
-          pod lib lint --skip-tests
+          pod lib lint --skip-tests --verbose
         displayName: 'Lint pod library'
 
   - job: Build
