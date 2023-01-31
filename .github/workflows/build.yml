@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+    paths-ignore:
+      - 'README.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: DangerSwiftLint
+        run: |
+          brew install danger/tap/danger-swift
+          export DANGER_GITHUB_API_TOKEN='${{ secrets.GH_TOKEN }}'
+          danger-swift ci
+
+      - name: Lint pod library
+        working-directory: Example
+        run: pod lib lint --skip-tests
