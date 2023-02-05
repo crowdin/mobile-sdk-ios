@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 04.12.2020.
 //
 
-#if os(iOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
 
 import UIKit
 import CoreGraphics

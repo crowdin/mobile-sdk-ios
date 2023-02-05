@@ -5,7 +5,7 @@
 //  Created by Serhii Londar on 03.10.2022.
 //
 
-#if os(iOS) || os(watchOS)
+#if os(iOS) || os(tvOS)
 
 import Foundation
 import UIKit
