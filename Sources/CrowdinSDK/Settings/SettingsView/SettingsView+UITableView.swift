@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 4/6/19.
 //
 
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 extension SettingsView {
@@ -138,3 +140,5 @@ extension SettingsView {
         cells.append(settingsItemView)
     }
 }
+
+#endif

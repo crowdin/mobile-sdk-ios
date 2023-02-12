@@ -5,6 +5,8 @@
 //  Created by Nazar Yavornytskyy on 2/16/21.
 //
 
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 final class CrowdinLogDetailsVC: UIViewController {
@@ -57,3 +59,4 @@ final class CrowdinLogDetailsVC: UIViewController {
         view.backgroundColor = .white
     }
 }
+#endif

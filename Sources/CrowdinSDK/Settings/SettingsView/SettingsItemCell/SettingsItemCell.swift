@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 4/13/19.
 //
 
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 typealias SettingsItemCellAction = () -> Void
@@ -35,3 +37,5 @@ class SettingsItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+#endif

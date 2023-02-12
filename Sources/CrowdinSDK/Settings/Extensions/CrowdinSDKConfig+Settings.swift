@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 6/1/19.
 //
 
+#if os(iOS) || os(tvOS)
+
 import Foundation
 
 extension CrowdinSDKConfig {
@@ -25,3 +27,5 @@ extension CrowdinSDKConfig {
         return self
     }
 }
+
+#endif

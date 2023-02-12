@@ -8,6 +8,8 @@
 import Foundation
 import CoreGraphics
 
+#if os(iOS) || os(tvOS)
+
 extension CrowdinSDK {
     @objc class func initializeSettings() {
         guard let config = CrowdinSDK.config else { return }
@@ -26,3 +28,5 @@ extension CrowdinSDK {
         }
     }
 }
+
+#endif

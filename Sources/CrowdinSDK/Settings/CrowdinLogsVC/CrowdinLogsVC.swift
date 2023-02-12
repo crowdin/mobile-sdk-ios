@@ -5,6 +5,8 @@
 //  Created by Serhii Londar on 11.08.2020.
 //
 
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 final class CrowdinLogsVC: UITableViewController {
@@ -79,3 +81,5 @@ final class CrowdinLogsVC: UITableViewController {
         didSelect(indexPath)
     }
 }
+
+#endif
