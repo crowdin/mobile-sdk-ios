@@ -12,7 +12,7 @@ on:
 
 jobs:
   lint:
-    runs-on: macos-latest
+    runs-on: macos-latest-xl
 
     steps:
       - uses: actions/checkout@v3
@@ -24,11 +24,10 @@ jobs:
           danger-swift ci
 
       - name: Pod install
-        working-directory: Example
         run: pod install
 
       - name: Lint pod library
-        run: pod lib lint --skip-tests
+        run: pod lib lint --skip-tests --platforms=macos,ios,tvos
 
 #  test:
 #    runs-on: macos-latest
