@@ -1,0 +1,66 @@
+---
+slug: /
+---
+
+# Introduction
+
+Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately. So there is no need to update this application via App Store to get the new version with the localization.
+
+Send new translations from Crowdin to your application over-the-air with no need to update your app on App Store. The Crowdin SDK for iOS contains two additional components that you can connect: real-time translation preview and easy screenshots upload and tagging.
+
+[![Cocoapods](https://img.shields.io/cocoapods/v/CrowdinSDK?logo=pods&cacheSeconds=3600)](https://cocoapods.org/pods/CrowdinSDK)
+[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CrowdinSDK?cacheSeconds=10000)](https://cocoapods.org/pods/CrowdinSDK)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-blue)](https://img.shields.io/badge/Swift_Package_Manager-compatible-red)
+[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/crowdin/mobile-sdk-ios/14/master?cacheSeconds=800)](https://dev.azure.com/crowdin/mobile-sdk-ios/_build/latest?definitionId=14&branchName=master)
+[![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
+[![GitHub Repo stars](https://img.shields.io/github/stars/crowdin/mobile-sdk-ios?style=social)](https://github.com/crowdin/mobile-sdk-ios/stargazers)
+
+## Crowdin SDK provides
+
+### Affordability
+
+If you have less than 1M requests and 10GB of data transfer, you can use Crowdin's SDK for free. The higher tiers are reasonably [priced based on usage](https://crowdin.com/pricing#crowdin-pricing-addons).
+
+### High speed
+
+Crowdin sends translations via Amazon CloudFront. Users instantly receive translations from the closest server.
+
+### Security
+
+User data is stored exclusively on Amazon Servers, never compromising on data security.
+
+## Features
+
+### Over-The-Air Content Delivery
+
+![How it works](/img/scheme-how-it-works.png)
+
+Users receive the latest translations directly from a distribution on your Crowdin project. Save a lot of time when releasing new translations. No need to wait for them to be published via App Store.
+
+### Real-Time Preview
+
+<p align='center'><img src='img/realtime-preview.png' width='500' alt='Real-time preview'/></p>
+
+Translators can instantly preview translations they are making in Crowdin on their version of the application. Simplify LQA (linguistic quality assurance), so your team can do an in-context check of the translated content.
+
+### Screenshots
+
+<p align='center'><img src='img/screenshots.png' width='500' alt='Screenshots'/></p>
+
+Project owner and managers can make screenshots right within the app version where this component is enabled. Screenshots will automatically appear in the project with tagged source strings.
+
+## Bundles
+
+Bundles allow you to generate resource files from your project strings. You can upload strings to Crowdin in any format (e.g. spreadsheet file) or create keys using the Figma plugin. Then use bundles to generate resource files to be used in your mobile or web application in any format.
+
+By default, you can choose from the following three formats: Android XML, iOS Strings, and XLIFF.
+
+For more details, visit Knowledge Base:
+
+- [Bundles in OTA Content Delivery (crowdin.com)](https://support.crowdin.com/bundles/#bundles-in-ota-content-delivery)
+- [Bundles in OTA Content Delivery (Crowdin Enterprise)](https://support.crowdin.com/enterprise/bundles/#bundles-in-ota-content-delivery)
+
+## See also
+
+- [Installation](installation)
+- [Setup](setup)

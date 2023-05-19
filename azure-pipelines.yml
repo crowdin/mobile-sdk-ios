@@ -15,6 +15,7 @@ trigger:
       - LICENSE
       - CODE_OF_CONDUCT.md
       - CONTRIBUTING.md
+      - website/**
 
 variables:
   image: 'macOS-latest'

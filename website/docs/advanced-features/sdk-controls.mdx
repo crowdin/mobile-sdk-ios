@@ -1,0 +1,46 @@
+# SDK Controls
+
+Crowdin SDK Controls - UI widget for easy access to the main features of the Crowdin SDK. The component can be drag-and-dropped to any position of a device's screen, and it has the following states:
+
+| Collapsed (simple icon)                                                 | Expanded                                                                | Expanded (logged-in)                                                              |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| ![SDK Controls collapsed](/img/sdk-controls/sdk_controls_collapsed.png) | ![SDK Controls expanded](/img/sdk-controls/sdk_controls_expanded_1.png) | ![SDK Controls expanded logged-in](/img/sdk-controls/sdk_controls_expanded_2.png) |
+
+The expanded state provides the following action buttons:
+
+- *Log In/Out*: launch authorization flow or clear user authorization data on logout. Authorization is needed for the *Screenshots* and *Real-Time Preview* features.
+- *Real-time preview*: open/close WS connection that is required to work with Crowdin editor. Also, this is using in the "Reload Translations" option.
+- *Capture screenshots*: capture a screenshot of the current screen with all the tagged strings and upload it to Crowdin.
+- *Reload Translations*:
+  - if Real-Time Preview is ON: it will fetch all the **latest translations** from the Crowdin project and apply them to UI.
+  - if Real-Time preview is OFF: it will fetch the translations from the **distribution** and apply them to UI.
+- *Logs*: Provides a detailed log of all actions made by SDK (API calls, Content loading, etc). See [Debug and Logging](/guides/debug-and-logging) for more details.
+
+:::caution
+The SDK controls feature should not be used in a production environment. It is intended for use in development or staging only.
+:::
+
+### Installation
+
+Add the following code to your Podfile:
+
+```swift title="Podfile"
+use_frameworks!
+target 'your-app' do
+  pod 'CrowdinSDK'
+  pod 'CrowdinSDK/LoginFeature' // Required for Screenshots and Real-Time Preview
+  pod 'CrowdinSDK/Screenshots' // Required for Screenshots
+  pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
+  pod 'CrowdinSDK/Settings' // Add SDK Controls widget
+end
+```
+
+Add the following option to your Crowdin SDK configuration:
+
+```swift
+.with(settingsEnabled: true) // To enable SDK Controls widget
+```
+
+:::caution
+Please make sure that you made all the necessary configurations for the nedded features.
+:::
