@@ -63,12 +63,38 @@ Unsure where to begin contributing to Crowdin iOS SDK? You can start by looking 
 
 Before sending your pull requests, make sure you followed the list below:
 
-- Read this guidelines.
+- Read these guidelines.
 - Read [Code of Conduct](/CODE_OF_CONDUCT.md).
 - Ensure that your code adheres to standard conventions, as used in the rest of the project.
 - Ensure that there are Unit tests for your code.
 - Ensure that your code will work correctly on **iOS**, **tvOS**, **watchOS**.
 - Run Unit tests.
+
+#### Contributing to the docs
+
+The documentation is based on [Docusaurus](https://docusaurus.io/) framework. Source inside the [website](https://github.com/crowdin/mobile-sdk-ios/tree/master/website) directory.
+
+- Go to the `website` directory:
+
+  ```sh
+  cd website
+  ```
+
+- Install dependencies:
+
+   ```sh
+   npm install
+   ```
+
+- To build the docs, watch for changes and preview documentation locally at [http://localhost:3000/](http://localhost:3000/):
+
+   ```sh
+   npm start
+   ```
+
+- It's also possible to run `npm run build` for single build. Incremental builds are much faster than the first one as only changed files are built.
+
+Open `http://127.0.0.1:3000` in browser
 
 #### Philosophy of code contribution
 

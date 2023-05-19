@@ -1,0 +1,110 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+# Real-Time Preview
+
+All translations done in the Crowdin Editor can be displayed in your version of the application in real-time. See the translations that have already been done and the ones you're typing.
+
+## Setup
+
+### Swift
+
+Add the code below to your *Podfile*:
+
+```swift title="Podfile"
+use_frameworks!
+target 'your-app' do
+    pod 'CrowdinSDK'
+    pod 'CrowdinSDK/LoginFeature' // Required for Real-Time Preview
+    pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
+    pod 'CrowdinSDK/Settings' // Optional. To add 'settings' floating button
+end
+```
+
+Open *AppDelegate.swift* file and in the `application` method add:
+
+```swift title="AppDelegate.swift"
+let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
+    sourceLanguage: "{source_language}")
+
+var loginConfig: CrowdinLoginConfig
+do {
+    loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
+       clientSecret: "{client_secret}",
+       scope: "project",
+       redirectURI: "{redirectURI}",
+       organizationName: "{organization_name}")
+} catch {
+    print(error)
+    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
+
+let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+    .with(loginConfig: loginConfig)
+    .with(settingsEnabled: true)
+    .with(realtimeUpdatesEnabled: true)
+
+CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+    // SDK is ready to use, put code to change language, etc. here
+})
+```
+
+### Objective-C
+
+```objectivec
+CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@""];
+
+NSError *error;
+CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secter}" scope:@"project" organizationName:@"{organization_name}" error:&error];
+
+if (!error) {
+    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+
+    [CrowdinSDK startWithConfig:config completion:^{
+       // SDK is ready to use, put code to change language, etc. here
+    }];
+} else {
+    NSLog(@"%@", error.localizedDescription);
+    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
+}
+```
+
+### Authorization
+
+Crowdin Authorization is required for Real-Time Preview feature. So you need to handle authorization callback in your application:
+
+import authCallbackSwift from '!!raw-loader!../code-samples/auth-callback.swift';
+import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m';
+
+<Tabs groupId="language">
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift">{authCallbackSwift}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{authCallbackObjectiveC}</CodeBlock></TabItem>
+</Tabs>
+
+If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate**  class implement method:
+
+import sceneDelegateCallbackSwift from '!!raw-loader!../code-samples/scene-delegate-callback.swift';
+import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-delegate-callback.m';
+
+<Tabs groupId="language">
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift">{sceneDelegateCallbackSwift}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{sceneDelegateCallbackObjectiveC}</CodeBlock></TabItem>
+</Tabs>
+
+## Config options
+
+| Config option              | Description                                                                                                                                                                                                                                                                                                                                                                                                                        | Example                                                  |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| `hashString`               | Distribution Hash                                                                                                                                                                                                                                                                                                                                                                                                                  | `hashString: "7a0c1e...297uo3b"`                         |
+| `sourceLanguage`           | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)                                                                                                                                                                                                                                                                                                              | `sourceLanguage: "en"`                                   |
+| `clientId`, `clientSecret` | [Crowdin OAuth](https://support.crowdin.com/creating-oauth-app/) Client ID and Client Secret                                                                                                                                                                                                                                                                                                                                       | `clientId: "gpY...3TYB"`, `clientSecret: "Xz95...EDx9T"` |
+| `scope`                    | Define the access scope for personal tokens                                                                                                                                                                                                                                                                                                                                                                                        | `scope: "project"`                                       |
+| `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception. | `redirectURI: "crowdintest://"`                          |
+| `organizationName`         | An Organization domain name (for **Crowdin Enterprise users only**)                                                                                                                                                                                                                                                                                                                                                                | `organizationName: "mycompany"`                          |
+| `settingsEnabled`          | Enable [SDK Controls](/advanced-features/sdk-controls) to easily access the SDK features                                                                                                                                                                                                                                                                                                                                           | `settingsEnabled: true`                                  |
+| `realtimeUpdatesEnabled`   | Enable Real-Time Preview feature                                                                                                                                                                                                                                                                                                                                                                                                   | `realtimeUpdatesEnabled: true`                           |
+
+:::caution
+The Real-Time Preview feature should not be used in a production environment. It is intended for use in development or staging only.
+:::
