@@ -34,6 +34,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .with(settingsEnabled: true)
             .with(realtimeUpdatesEnabled: true)
             .with(screenshotsEnabled: true)
+            .with(fetchRemote: false)
+            .with(debugEnabled: true)
         
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
         // Now new log message comes as callback

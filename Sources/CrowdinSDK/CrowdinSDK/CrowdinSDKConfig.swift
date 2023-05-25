@@ -22,4 +22,10 @@ import Foundation
 		self.enterprise = enterprise
 		return self
 	}
+
+    var fetchRemote: Bool = true
+    public func with(fetchRemote: Bool) -> Self {
+        self.fetchRemote = fetchRemote
+        return self
+    }
 }

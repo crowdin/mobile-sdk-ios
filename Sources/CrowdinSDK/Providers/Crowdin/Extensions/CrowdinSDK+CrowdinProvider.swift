@@ -28,7 +28,10 @@ extension CrowdinSDK {
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let localization = currentLocalization ?? Bundle.main.preferredLanguage
-        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        let remoteStorage: RemoteLocalizationStorageProtocol = config.fetchRemote
+        ? CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        : SkipRemoteLocalizationStorage()
+        
         self.startWithRemoteStorage(remoteStorage, completion: completion)
     }
     
