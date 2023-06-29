@@ -39,7 +39,6 @@ final class CrowdinLogDetailsVC: UIViewController {
     }
     
     private func addViews() {
-        view.translatesAutoresizingMaskIntoConstraints = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textView)
     }
@@ -55,8 +54,6 @@ final class CrowdinLogDetailsVC: UIViewController {
     
     private func setupViews() {
         textView.attributedText = details
-        textView.backgroundColor = .white
-        view.backgroundColor = .white
     }
 }
 #endif
