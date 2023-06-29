@@ -22,7 +22,6 @@ let package = Package(
         .target(name: "CrowdinSDK",
                 dependencies: ["BaseAPI", "Starscream"],
                 path: "Sources/CrowdinSDK",
-                exclude: ["Providers/Firebase/"],
                 swiftSettings: [
                     .define("CrowdinSDKSPM")
                 ])
