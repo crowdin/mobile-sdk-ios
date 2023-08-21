@@ -78,8 +78,7 @@ class SocketAPI: NSObject {
 }
 
 extension SocketAPI: WebSocketDelegate {
-    
-    func didReceive(event: WebSocketEvent, client: WebSocket) {
+    func didReceive(event: WebSocketEvent, client: WebSocketClient) {
         switch event {
         case .connected:
             isConnected = true
@@ -93,7 +92,7 @@ extension SocketAPI: WebSocketDelegate {
         case .ping: break
         case .pong: break
         case .viabilityChanged: break
-            //the viability (connection status) of the connection has updated. 
+            //the viability (connection status) of the connection has updated.
             // e.g. connection is down, connection came back up https://github.com/daltoniam/Starscream/issues/798
         case .reconnectSuggested(let shouldReconnect):
             //the connection has upgrade to wifi from cellular. Consider reconnecting to take advantage of this
@@ -105,6 +104,8 @@ extension SocketAPI: WebSocketDelegate {
         case .error(let error):
             isConnected = false
             onError?(error ?? Errors.didDisconect)
+        case .peerClosed:
+            isConnected = false
         }
     }
 }
