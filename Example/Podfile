@@ -5,7 +5,7 @@ target 'AppleReminders' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'RealmSwift', '4.3.1'
+  pod 'RealmSwift'
   pod 'SwiftDate'
   pod 'SwiftLint'
   pod 'netfox', :configurations => ['Debug']
