@@ -30,8 +30,8 @@ Pod::Spec.new do |spec|
   spec.social_media_url    = 'https://twitter.com/crowdin'
   
   spec.watchos.deployment_target = '2.0'
-  spec.ios.deployment_target = '9.0'
-  spec.tvos.deployment_target = '9.0'
+  spec.ios.deployment_target = '11.0'
+  spec.tvos.deployment_target = '11.0'
   spec.macos.deployment_target = '10.13'
   
   spec.ios.frameworks = 'UIKit'
@@ -54,8 +54,8 @@ Pod::Spec.new do |spec|
 
   spec.test_spec 'Core_Tests' do |test_spec|
     test_spec.watchos.deployment_target = '2.0'
-    test_spec.ios.deployment_target = '9.0'
-    test_spec.tvos.deployment_target = '9.0'
+    test_spec.ios.deployment_target = '11.0'
+    test_spec.tvos.deployment_target = '11.0'
     test_spec.macos.deployment_target = '10.13'
     
     test_spec.source_files = 'Sources/Tests/Core/*.swift'
@@ -71,8 +71,8 @@ Pod::Spec.new do |spec|
   
   spec.test_spec 'CrowdinProvider_Tests' do |test_spec|
     test_spec.watchos.deployment_target = '2.0'
-    test_spec.ios.deployment_target = '9.0'
-    test_spec.tvos.deployment_target = '9.0'
+    test_spec.ios.deployment_target = '11.0'
+    test_spec.tvos.deployment_target = '11.0'
     test_spec.macos.deployment_target = '10.13'
     
     test_spec.source_files = 'Sources/Tests/CrowdinProvider/*.swift'
@@ -88,8 +88,8 @@ Pod::Spec.new do |spec|
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
     test_spec.watchos.deployment_target = '2.0'
-    test_spec.ios.deployment_target = '9.0'
-    test_spec.tvos.deployment_target = '9.0'
+    test_spec.ios.deployment_target = '11.0'
+    test_spec.tvos.deployment_target = '11.0'
     test_spec.macos.deployment_target = '10.13'
     
     test_spec.source_files = 'Sources/Tests/CrowdinAPI/*.swift'
