@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol EndRepeatDelegate: class {
+protocol EndRepeatDelegate: AnyObject {
     func pass(repeatEndDate: Date?)
 }
 
