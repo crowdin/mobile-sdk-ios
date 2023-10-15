@@ -18,7 +18,7 @@ class ManifestManagerTests: XCTestCase {
     func testDownloadManifest() {
         let expectation = XCTestExpectation(description: "Manifest download expectation")
         
-        let manifest = ManifestManager.manifest(for: crowdinTestHash)
+        let manifest = ManifestManager.manifest(for: crowdinTestHash, organizationName: nil)
         XCTAssertFalse(manifest.loaded)
         XCTAssertFalse(manifest.downloaded)
         
