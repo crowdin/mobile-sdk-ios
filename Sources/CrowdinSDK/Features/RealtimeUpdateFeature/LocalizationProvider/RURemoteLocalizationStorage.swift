@@ -23,8 +23,8 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     init(localization: String, hash: String, projectId: String, organizationName: String?) {
         self.localization = localization
         self.hash = hash
-        manifestManager = ManifestManager.manifest(for: hash)
-        self.fileDownloader = RUFilesDownloader(projectId: projectId, laguageResolver: manifestManager, organizationName: organizationName)
+        manifestManager = ManifestManager.manifest(for: hash, organizationName: organizationName)
+        self.fileDownloader = RUFilesDownloader(projectId: projectId, manifestManager: manifestManager, organizationName: organizationName)
     }
     
     func prepare(with completion: @escaping (() -> Void)) {

@@ -16,7 +16,7 @@ class LoginAPI: BaseAPI {
     var scope: String
     var redirectURI: String
     
-    init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String? = nil, session: URLSession = URLSession.shared) {
+    init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String?, session: URLSession = URLSession.shared) {
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.scope = scope

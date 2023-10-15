@@ -9,6 +9,7 @@ import Foundation
 
 class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var localization: String
+    var organizationName: String?
     var localizations: [String]
     var hashString: String
     var name: String = "Crowdin"
@@ -16,13 +17,16 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     
     private var crowdinDownloader: CrowdinLocalizationDownloader
     private var _localizations: [String]?
+    private let crowdinSupportedLanguages: CrowdinSupportedLanguages
     
     init(localization: String, config: CrowdinProviderConfig) {
         self.localization = localization
         self.hashString = config.hashString
-        self.manifestManager = ManifestManager.manifest(for: config.hashString)
-        self.crowdinDownloader = CrowdinLocalizationDownloader(languageResolver: manifestManager)
+        self.organizationName = config.organizationName
+        self.manifestManager = ManifestManager.manifest(for: config.hashString, organizationName: config.organizationName)
+        self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: manifestManager)
         self.localizations = self.manifestManager.iOSLanguages
+        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: config.organizationName)
     }
     
     func prepare(with completion: @escaping () -> Void) {
@@ -33,8 +37,8 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
     
     func downloadCrowdinSupportedLanguages(completion: @escaping () -> Void) {
-        if !CrowdinSupportedLanguages.shared.loaded {
-            CrowdinSupportedLanguages.shared.downloadSupportedLanguages(completion: {
+        if !crowdinSupportedLanguages.loaded {
+            crowdinSupportedLanguages.downloadSupportedLanguages(completion: {
                 completion()
             }, error: {
                 LocalizationUpdateObserver.shared.notifyError(with: [$0])
@@ -54,15 +58,16 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         })
     }
     
-    required init(localization: String, enterprise: Bool) {
+    required init(localization: String, enterprise: Bool, organizationName: String?) {
         self.localization = localization
         guard let hashString = Bundle.main.crowdinDistributionHash else {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
         self.hashString = hashString
-        self.manifestManager = ManifestManager.manifest(for: hashString)
-        self.crowdinDownloader = CrowdinLocalizationDownloader(languageResolver: self.manifestManager)
+        self.manifestManager = ManifestManager.manifest(for: hashString, organizationName: organizationName)
+        self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: self.manifestManager)
         self.localizations = []
+        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {

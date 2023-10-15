@@ -25,9 +25,9 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
     
-    init(hash: String, sourceLanguage: String) {
-        self.manifestManager = ManifestManager.manifest(for: hash)
-        self.downloader = CrowdinMappingDownloader(languageResolver: self.manifestManager)
+    init(hash: String, sourceLanguage: String, organizationName: String?) {
+        self.manifestManager = ManifestManager.manifest(for: hash, organizationName: organizationName)
+        self.downloader = CrowdinMappingDownloader(manifestManager: self.manifestManager)
         self.download(hash: hash, sourceLanguage: sourceLanguage)
     }
     

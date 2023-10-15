@@ -13,7 +13,7 @@ extension CrowdinSDK {
 		guard let config = CrowdinSDK.config else { return }
 		guard let loginConfig = config.loginConfig else { return }
         guard let hash = config.crowdinProviderConfig?.hashString else { return }
-        LoginFeature.configureWith(with: hash, loginConfig: loginConfig)
+        LoginFeature.configureWith(with: hash, organizationName: config.crowdinProviderConfig?.organizationName, loginConfig: loginConfig)
 	}
     
     public class func login() {

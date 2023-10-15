@@ -10,7 +10,7 @@ import Foundation
 class DistributionsAPI: CrowdinAPI {
     let hashString: String
     
-    init(hashString: String, organizationName: String? = nil, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
+    init(hashString: String, organizationName: String?, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
         self.hashString = hashString
         super.init(organizationName: organizationName, auth: auth, session: session)
     }

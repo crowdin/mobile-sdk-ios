@@ -16,10 +16,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
-    fileprivate let languageResolver: LanguageResolver
+    fileprivate let manifestManager: ManifestManager
     
-    init(languageResolver: LanguageResolver) {
-        self.languageResolver = languageResolver
+    init(manifestManager: ManifestManager) {
+        self.manifestManager = manifestManager
     }
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
@@ -47,7 +47,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         self.plurals = nil
         self.errors = nil
         
-        let pathParser = CrowdinPathsParser(languageResolver: languageResolver)
+        let pathParser = CrowdinPathsParser(languageResolver: manifestManager)
         
         let completionBlock = BlockOperation { [weak self] in
             guard let self = self else { return }
@@ -107,16 +107,16 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
-        let manifestManager = ManifestManager.manifest(for: hash)
-        manifestManager.download {
-            completion(manifestManager.files, manifestManager.timestamp, nil)
+        manifestManager.download { [weak self] in
+            guard let self else { return }
+            completion(self.manifestManager.files, self.manifestManager.timestamp, nil)
         }
     }
     
     func getLanguages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        let manifestManager = ManifestManager.manifest(for: hash)
-        manifestManager.download {
-            completion(manifestManager.languages, nil)
+        manifestManager.download { [weak self] in
+            guard let self else { return }
+            completion(self.manifestManager.languages, nil)
         }
     }
     

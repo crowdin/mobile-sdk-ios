@@ -74,7 +74,7 @@ extension CrowdinSDK {
     ///   - errorHandler: Error handler.
     public class func localizationDictionary(for localization: String, hashString: String, completion: @escaping ([AnyHashable: Any]) -> Void, errorHandler: @escaping (Error) -> Void) {
         let localLocalizationStorage = LocalLocalizationStorage(localization: localization)
-        let remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: CrowdinProviderConfig(hashString: hashString, sourceLanguage: .empty))
+        let remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: CrowdinProviderConfig(hashString: hashString, sourceLanguage: .empty, organizationName: nil))
         remoteLocalizationStorage.prepare {
             localizationProvider = LocalizationProvider(localization: localization, localStorage: localLocalizationStorage, remoteStorage: remoteLocalizationStorage)
             localizationProvider?.refreshLocalization(completion: { error in

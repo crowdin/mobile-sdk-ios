@@ -21,11 +21,11 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     let projectsAPI: ProjectsAPI
     let projectId: String
     let enterprise: Bool
-    let languageResolver: LanguageResolver
+    let manifestManager: ManifestManager
     
-    init(projectId: String, laguageResolver: LanguageResolver, organizationName: String? = nil) {
+    init(projectId: String, manifestManager: ManifestManager, organizationName: String?) {
         self.projectId = projectId
-        self.languageResolver = laguageResolver
+        self.manifestManager = manifestManager
         self.enterprise = organizationName != nil
         self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: LoginFeature.shared)
         self.operationQueue.maxConcurrentOperationCount = 1
@@ -51,7 +51,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         }
         
         fileIDs.forEach { (fileId) in
-            let targetLanguageId = languageResolver.crowdinLanguageCode(for: localization) ?? localization
+            let targetLanguageId = manifestManager.crowdinLanguageCode(for: localization) ?? localization
             let download = FileDataDownloadOperation(fileId: fileId, projectId: projectId, targetLanguageId: targetLanguageId, projectsAPI: projectsAPI) { [weak self] (data, error) in
                 guard let self = self else {
                     return
@@ -107,10 +107,9 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     }
     
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        let manifestManager = ManifestManager.manifest(for: hash)
         manifestManager.download { [weak self] in
             guard let self = self else { return }
-            guard let files = manifestManager.files else { completion(nil, nil); return; }
+            guard let files = self.manifestManager.files else { completion(nil, nil); return; }
             let fileNames = files.compactMap({ $0.split(separator: "/").last }).map({ String($0) })
             self.getAllProjectFiles { (projectFiles, error) in
                 guard let projectFiles = projectFiles else { completion(nil, error); return; }
@@ -126,9 +125,9 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     }
     
     func getLangiages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        let manifestManager = ManifestManager.manifest(for: hash)
-        manifestManager.download {
-            completion(manifestManager.languages, nil)
+        manifestManager.download { [weak self] in
+            guard let self else { return }
+            completion(self.manifestManager.languages, nil)
         }
     }
     

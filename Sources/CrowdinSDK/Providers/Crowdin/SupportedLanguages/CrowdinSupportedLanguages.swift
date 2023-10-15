@@ -10,19 +10,19 @@ import Foundation
 extension LanguagesResponseData: CrowdinLanguage { }
 
 class CrowdinSupportedLanguages {
-    static let shared = CrowdinSupportedLanguages()
-    let api = LanguagesAPI()
-    
     fileprivate enum Strings: String {
         case SupportedLanguages
         case Crowdin
     }
+    
     fileprivate enum Keys: String {
         case lastUpdatedDate = "CrowdinSupportedLanguages.lastUpdatedDate"
     }
+    
     fileprivate var filePath: String {
-        return CrowdinFolder.shared.path + String.pathDelimiter + Strings.Crowdin.rawValue + String.pathDelimiter + Strings.SupportedLanguages.rawValue + FileType.json.extension
+        return CrowdinFolder.shared.path + String.pathDelimiter + Strings.Crowdin.rawValue + String.pathDelimiter + Strings.SupportedLanguages.rawValue + (organizationName ?? "") + FileType.json.extension
     }
+    
     fileprivate var lastUpdatedDate: Date? {
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.lastUpdatedDate.rawValue)
@@ -32,6 +32,9 @@ class CrowdinSupportedLanguages {
             return UserDefaults.standard.value(forKey: Keys.lastUpdatedDate.rawValue) as? Date
         }
     }
+    
+    let organizationName: String?
+    let api: LanguagesAPI
     var loaded: Bool { return supportedLanguages != nil }
     var loading = false
     
@@ -44,7 +47,9 @@ class CrowdinSupportedLanguages {
         }
     }
     
-    init() {
+    init(organizationName: String?) {
+        self.organizationName = organizationName
+        api = LanguagesAPI(organizationName: organizationName)
         readSupportedLanguages()
         updateSupportedLanguagesIfNeeded()
     }
