@@ -18,6 +18,5 @@ enum Strings: String {
 enum Keys: String {
     case strings
     case plurals
-    
     case localizations
 }

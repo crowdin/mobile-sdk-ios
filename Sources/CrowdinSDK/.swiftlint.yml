@@ -22,6 +22,7 @@ whitelist_rules:
   - vertical_whitespace
   - void_return
   - custom_rules
+  - identifier_name
 
 excluded:
   - Carthage
