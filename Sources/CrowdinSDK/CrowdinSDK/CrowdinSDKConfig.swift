@@ -16,10 +16,5 @@ import Foundation
         return CrowdinSDKConfig()
     }
     
-    var enterprise: Bool = false
-	
-	func with(enterprise: Bool) -> Self {
-		self.enterprise = enterprise
-		return self
-	}
+    var enterprise: Bool { crowdinProviderConfig?.organizationName != nil }
 }

@@ -15,7 +15,7 @@ public protocol ScreenshotUploader {
 }
 
 class CrowdinScreenshotUploader: ScreenshotUploader {
-    var organizationName: String? = nil
+    var organizationName: String?
 	var hash: String
 	var sourceLanguage: String
 	
@@ -29,11 +29,11 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
 	
-	init(organizationName: String? = nil, hash: String, sourceLanguage: String) {
+	init(organizationName: String?, hash: String, sourceLanguage: String) {
         self.organizationName = organizationName
 		self.hash = hash
 		self.sourceLanguage = sourceLanguage
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {

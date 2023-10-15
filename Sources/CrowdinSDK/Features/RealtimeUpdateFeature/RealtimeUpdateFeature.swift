@@ -58,10 +58,10 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    required init(hash: String, sourceLanguage: String, organizationName: String? = nil) {
+    required init(hash: String, sourceLanguage: String, organizationName: String?) {
         self.hashString = hash
 		self.organizationName = organizationName
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
     }
 	
     func downloadDistribution(with successHandler: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
@@ -163,7 +163,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
         // Download manifest if it is not initialized.
-        let manifestManager = ManifestManager.manifest(for: hashString)
+        let manifestManager = ManifestManager.manifest(for: hashString, organizationName: organizationName)
         guard manifestManager.downloaded else {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }

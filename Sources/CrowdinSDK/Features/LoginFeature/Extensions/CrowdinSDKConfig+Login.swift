@@ -21,7 +21,6 @@ extension CrowdinSDKConfig {
 	
 	public func with(loginConfig: CrowdinLoginConfig) -> Self {
 		self.loginConfig = loginConfig
-        self.enterprise = loginConfig.organizationName != nil
 		return self
 	}
 }
