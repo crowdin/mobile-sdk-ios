@@ -13,10 +13,10 @@ extension CrowdinSDKConfig {
     // Realtime updates
     var crowdinProviderConfig: CrowdinProviderConfig? {
         get {
-            return CrowdinSDKConfig.crowdinProviderConfig
+            return Self.crowdinProviderConfig
         }
         set {
-            CrowdinSDKConfig.crowdinProviderConfig = newValue
+            Self.crowdinProviderConfig = newValue
         }
     }
 
@@ -27,5 +27,9 @@ extension CrowdinSDKConfig {
     public func with(crowdinProviderConfig: CrowdinProviderConfig) -> Self {
         self.crowdinProviderConfig = crowdinProviderConfig
         return self
+    }
+    
+    static func resetStoredConfig() {
+        Self.crowdinProviderConfig = nil
     }
 }

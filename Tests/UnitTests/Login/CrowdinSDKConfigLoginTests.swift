@@ -14,7 +14,7 @@ class CrowdinSDKConfigLoginTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        guard let loginConfig = try? CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://", organizationName: "organizationName") else { return }
+        guard let loginConfig = try? CrowdinLoginConfig(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "crowdintest://") else { return }
         config = CrowdinSDKConfig.config().with(loginConfig: loginConfig)
     }
     
@@ -34,7 +34,7 @@ class CrowdinSDKConfigLoginTests: XCTestCase {
     }
     
     func testChangeConfigAfterSetup() {
-        guard let loginConfig = try? CrowdinLoginConfig(clientId: "clientId1", clientSecret: "clientSecret1", scope: "scope1", redirectURI: "crowdintest://", organizationName: "organizationName1") else { return }
+        guard let loginConfig = try? CrowdinLoginConfig(clientId: "clientId1", clientSecret: "clientSecret1", scope: "scope1", redirectURI: "crowdintest://") else { return }
         config.loginConfig = loginConfig
         
         XCTAssertNotNil(config.loginConfig)
@@ -47,7 +47,5 @@ class CrowdinSDKConfigLoginTests: XCTestCase {
         XCTAssert(config.loginConfig?.scope == "scope1")
         XCTAssertNotNil(config.loginConfig?.redirectURI)
         XCTAssert(config.loginConfig?.redirectURI == "crowdintest://")
-        XCTAssertNotNil(config.loginConfig?.organizationName)
-        XCTAssert(config.loginConfig?.organizationName == "organizationName1")
     }
 }

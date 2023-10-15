@@ -2,6 +2,10 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinSDKConfigTests: XCTestCase {
+    static override func setUp() {
+        CrowdinSDKConfig.resetStoredConfig()
+    }
+    
     func testConfigInitialization() {
         let config = CrowdinSDKConfig.config()
         XCTAssertNil(config.crowdinProviderConfig)
@@ -13,12 +17,12 @@ class CrowdinSDKConfigTests: XCTestCase {
     }
     
     func testConfigFalseEnterprise() {
-        let config = CrowdinSDKConfig.config().with(enterprise: false)
+        let config = CrowdinSDKConfig.config().with(crowdinProviderConfig: CrowdinProviderConfig(hashString: "hashString", sourceLanguage: "sourceLanguage"))
         XCTAssert(config.enterprise == false, "Showuldn't be true as default value is false")
     }
     
     func testConfigTrueEnterprise() {
-        let config = CrowdinSDKConfig.config().with(enterprise: true)
+        let config = CrowdinSDKConfig.config().with(crowdinProviderConfig: CrowdinProviderConfig(hashString: "hashString", sourceLanguage: "sourceLanguage", organizationName: "organizationName"))
         XCTAssert(config.enterprise, "Showuld be true as per set-up")
     }
 }

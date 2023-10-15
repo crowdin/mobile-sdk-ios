@@ -17,7 +17,7 @@ class DistributionsAPITests: XCTestCase {
     let defaultTimeoutForExpectation = 2.0
     
     func testAPIInitialization() {
-        api = DistributionsAPI(hashString: testHashString)
+        api = DistributionsAPI(hashString: testHashString, organizationName: nil)
         
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "distributions/metadata?hash=\(testHashString)")

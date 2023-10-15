@@ -19,7 +19,7 @@ class ProjectsAPITests: XCTestCase {
     let defaultTimeoutForExpectation = 2.0
     
     func testAPIInitialization() {
-        api = ProjectsAPI()
+        api = ProjectsAPI(organizationName: nil)
         
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "projects")
