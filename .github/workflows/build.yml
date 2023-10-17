@@ -3,11 +3,10 @@ name: CI/CD
 on:
   push:
     branches:
-      - 'refs/heads/*'
-      - '!refs/tags/*'
+      - '*'
   pull_request:
     branches:
-      - '*'
+      - 'master'
     paths:
       - '*'
       - '!README.md'
