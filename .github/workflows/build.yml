@@ -4,22 +4,22 @@ on:
   push:
     branches:
       - '*'
+    paths-ignore:
+      - 'website/**'
+      - 'README.md'
+      - 'LICENSE'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
   pull_request:
     branches:
       - 'master'
-    paths:
-      - '*'
-      - '!README.md'
-      - '!LICENSE'
-      - '!CODE_OF_CONDUCT.md'
-      - '!CONTRIBUTING.md'
-      - '!website/**'
 
 jobs:
   danger-swiftlint:
     name: Danger SwiftLint
     runs-on: macos-latest
     continue-on-error: true
+    if: github.event_name == 'pull_request'
     env:
       DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -36,7 +36,6 @@ jobs:
 
   pod-lint:
     name: PodLint
-    needs: danger-swiftlint
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
