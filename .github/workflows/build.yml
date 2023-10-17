@@ -20,11 +20,8 @@ jobs:
     runs-on: macos-latest
     continue-on-error: true
     if: github.event_name == 'pull_request'
-    permissions:
-      pull-requests: read
-      issues: write
     env:
-      DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
     steps:
       - uses: actions/checkout@v3
