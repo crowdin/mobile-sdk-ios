@@ -2,7 +2,8 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinSDKConfigTests: XCTestCase {
-    static override func setUp() {
+    override func setUp() {
+        super.setUp()
         CrowdinSDKConfig.resetStoredConfig()
     }
     
