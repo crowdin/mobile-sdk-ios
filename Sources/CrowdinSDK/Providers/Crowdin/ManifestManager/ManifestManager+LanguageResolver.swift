@@ -37,6 +37,6 @@ extension ManifestManager: LanguageResolver {
     }
     
     func iOSLanguageCode(for crowdinLocalization: String) -> String? {
-        allLanguages.first(where: { $0.id == crowdinLocalization })?.osxLocale
+        allLanguages.first(where: { $0.id == crowdinLocalization })?.iOSLanguageCode
     }
 }

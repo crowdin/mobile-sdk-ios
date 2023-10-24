@@ -1,0 +1,108 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - 'website/**'
+      - 'README.md'
+      - 'LICENSE'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  danger-swiftlint:
+    name: Danger SwiftLint
+    runs-on: macos-latest
+    continue-on-error: true
+    if: github.event_name == 'pull_request'
+    env:
+      DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install SwiftLint and Danger Swift
+        run: |
+          brew install swiftlint
+          brew install danger/tap/danger-swift
+
+      - name: Run Danger SwiftLint
+        run: danger-swift ci
+
+  pod-lint:
+    name: PodLint
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CocoaPods
+        working-directory: Example
+        run: pod install
+
+      - name: Lint pod library
+        run: pod lib lint --skip-tests --platforms=macos,ios,tvos
+
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CocoaPods
+        working-directory: Example
+        run: pod install
+
+      - name: Install xcpretty
+        run: gem install xcpretty
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Build
+        working-directory: Example
+        run: |
+          xcodebuild build \
+          -workspace ./AppleReminders.xcworkspace \
+          -scheme AppleReminders \
+          -configuration Debug \
+          -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty && exit ${PIPESTATUS[0]}
+
+      # TODO: ObjCExample
+
+  test:
+    name: Test
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CocoaPods
+        working-directory: Tests
+        run: pod install
+
+      - name: Install xcpretty
+        run: gem install xcpretty
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Tests
+        working-directory: Tests
+        run: |
+          xcodebuild test \
+          -sdk iphonesimulator \
+          -workspace ./Tests.xcworkspace \
+          -scheme Tests \
+          -configuration Debug \
+          -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' \
+          -enableCodeCoverage YES | xcpretty && exit ${PIPESTATUS[0]}
+
+      - name: Upload coverage to Codecov
+        run: cd Tests & bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}

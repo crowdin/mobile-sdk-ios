@@ -70,6 +70,9 @@ Before sending your pull requests, make sure you followed the list below:
 - Ensure that your code will work correctly on **iOS**, **tvOS**, **watchOS**.
 - Run Unit tests.
 
+> **Note**
+> This project uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages and PR titles.
+
 #### Contributing to the docs
 
 The documentation is based on [Docusaurus](https://docusaurus.io/) framework. Source inside the [website](https://github.com/crowdin/mobile-sdk-ios/tree/master/website) directory.
