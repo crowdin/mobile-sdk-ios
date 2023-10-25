@@ -70,6 +70,10 @@ if (!error) {
 }
 ```
 
+:::caution
+If you get the `Error while capturing screenshot - The operation couldn’t be completed. (There are no localized strings detected on current screen. error 99999.)` when sending screenshots, please make sure that your **current locale** is your project **source (default) language**.
+:::
+
 ### Authorization
 
 Crowdin Authorization is required for Screenshots feature. So you need to handle authorization callback in your application:
