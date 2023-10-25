@@ -108,14 +108,14 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     
     func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         manifestManager.download { [weak self] in
-            guard let self else { return }
+            guard let self = self else { return }
             completion(self.manifestManager.files, self.manifestManager.timestamp, nil)
         }
     }
     
     func getLanguages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         manifestManager.download { [weak self] in
-            guard let self else { return }
+            guard let self = self else { return }
             completion(self.manifestManager.languages, nil)
         }
     }

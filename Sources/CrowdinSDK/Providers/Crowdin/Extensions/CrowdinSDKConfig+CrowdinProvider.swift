@@ -32,4 +32,6 @@ extension CrowdinSDKConfig {
     static func resetStoredConfig() {
         Self.crowdinProviderConfig = nil
     }
+    
+    var enterprise: Bool { crowdinProviderConfig?.organizationName != nil }
 }

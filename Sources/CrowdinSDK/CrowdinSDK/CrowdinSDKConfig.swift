@@ -15,6 +15,4 @@ import Foundation
     public static func config() -> CrowdinSDKConfig {
         return CrowdinSDKConfig()
     }
-    
-    var enterprise: Bool { crowdinProviderConfig?.organizationName != nil }
 }
