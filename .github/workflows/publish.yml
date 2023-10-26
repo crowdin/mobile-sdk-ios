@@ -1,0 +1,20 @@
+name: Publish
+
+on:
+  release:
+    types: [released]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: macos-latest
+    env:
+      COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install cocoapods
+        run: gem install cocoapods
+
+      - name: Publish
+        run: pod trunk push --allow-warnings --skip-tests --verbose
