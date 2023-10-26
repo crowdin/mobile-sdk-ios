@@ -56,9 +56,9 @@ After you've added *CrowdinSDK* to your Podfile, run `pod install` in your proje
 
 ## Swift Package Manager
 
-Once you have your Swift package set up, adding CrowdinSDK as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+Once you have your Swift package set up, adding CrowdinSDK as a dependency is as easy as adding it to the dependencies value of your `Package.swift`:
 
-```swift
+```swift title="Package.swift"
 dependencies: [
     .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from:"1.4.0")
 ]
