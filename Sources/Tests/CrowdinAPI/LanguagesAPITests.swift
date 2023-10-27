@@ -17,7 +17,7 @@ class LanguagesAPITests: XCTestCase {
     var testOrganization = "test_organization"
     
     func testAPIInitialization() {
-        api = LanguagesAPI()
+        api = LanguagesAPI(organizationName: nil)
         
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "languages")

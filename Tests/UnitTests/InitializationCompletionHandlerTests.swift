@@ -22,7 +22,6 @@ class InitializationCompletionHandlerTests: XCTestCase {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "wrong_hash",
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(enterprise: true)
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
             XCTAssert(true, "Initialization completion handler called")
             expectation.fulfill()

@@ -23,13 +23,14 @@ class CrowdinLoginAPITests: XCTestCase {
     }
     
     func testLoginAPIInitialization() {
-        loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI")
+        loginAPI = LoginAPI(clientId: "clientId", clientSecret: "clientSecret", scope: "scope", redirectURI: "redirectURI", organizationName: nil)
         XCTAssertNotNil(loginAPI)
         
         XCTAssert(loginAPI.clientId == "clientId")
         XCTAssert(loginAPI.clientSecret == "clientSecret")
         XCTAssert(loginAPI.scope == "scope")
         XCTAssert(loginAPI.redirectURI == "redirectURI")
+        XCTAssert(loginAPI.organizationName == nil)
         
         XCTAssertNil(loginAPI.organizationName)
     }

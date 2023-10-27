@@ -10,10 +10,12 @@ import Foundation
 @objcMembers public class CrowdinProviderConfig: NSObject {
     var hashString: String
     var sourceLanguage: String
+    var organizationName: String?
     
-    public init(hashString: String, sourceLanguage: String) {
+    public init(hashString: String, sourceLanguage: String, organizationName: String? = nil) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
+        self.organizationName = organizationName
     }
     
     @available(*, deprecated, renamed: "init(hashString:sourceLanguage:)")

@@ -21,7 +21,6 @@ class AddErrorHandlersTests: XCTestCase {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: "wrong_hash",
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-                                                        .with(enterprise: true)
         CrowdinSDK.currentLocalization = nil
         
         let expectation = XCTestExpectation(description: "Error handler is called")

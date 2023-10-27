@@ -15,11 +15,4 @@ import Foundation
     public static func config() -> CrowdinSDKConfig {
         return CrowdinSDKConfig()
     }
-    
-    var enterprise: Bool = false
-	
-	func with(enterprise: Bool) -> Self {
-		self.enterprise = enterprise
-		return self
-	}
 }

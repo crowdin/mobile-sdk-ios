@@ -6,7 +6,7 @@ class CrowdinAPITests: XCTestCase {
     var api: CrowdinAPI!
     
     func testAPIInitialization() {
-        api = CrowdinAPI()
+        api = CrowdinAPI(organizationName: nil)
         
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "")

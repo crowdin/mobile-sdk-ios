@@ -40,7 +40,7 @@ class CrowdinAPI: BaseAPI {
         baseURL + apiPath
     }
     
-    init(organizationName: String? = nil, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
+    init(organizationName: String?, auth: CrowdinAuth? = nil, session: URLSession = .shared) {
         self.organizationName = organizationName
         self.auth = auth
         super.init(session: session)

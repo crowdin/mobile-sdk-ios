@@ -14,27 +14,17 @@ private let URLSchemeDocumentationLink = "https://developer.apple.com/documentat
 	var clientSecret: String
 	var scope: String
 	var redirectURI: String
-	var organizationName: String? = nil
     
     public convenience init(clientId: String, clientSecret: String, scope: String) throws {
         guard let redirectURI = Bundle.main.urlSchemes?.first else { throw NSError(domain: "Application do not support any URL Scheme. To setup it, please check - \(URLSchemeDocumentationLink)", code: defaultCrowdinErrorCode, userInfo: nil) }
-        try self.init(with: clientId, clientSecret: clientSecret, scope: scope, redirectURI: redirectURI, organizationName: nil)
+        try self.init(with: clientId, clientSecret: clientSecret, scope: scope, redirectURI: redirectURI)
     }
     
     public convenience init(clientId: String, clientSecret: String, scope: String, redirectURI: String) throws {
-        try self.init(with: clientId, clientSecret: clientSecret, scope: scope, redirectURI: redirectURI, organizationName: nil)
+        try self.init(with: clientId, clientSecret: clientSecret, scope: scope, redirectURI: redirectURI)
     }
     
-    public convenience init(clientId: String, clientSecret: String, scope: String, organizationName: String) throws {
-        guard let redirectURI = Bundle.main.urlSchemes?.first else { throw NSError(domain: "Application do not support any URL Scheme. To setup it, please check - \(URLSchemeDocumentationLink)", code: defaultCrowdinErrorCode, userInfo: nil) }
-        try self.init(with: clientId, clientSecret: clientSecret, scope: scope, redirectURI: redirectURI, organizationName: organizationName)
-    }
-    
-    public convenience init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String) throws {
-        try self.init(with: clientId, clientSecret: clientSecret, scope: scope, redirectURI: redirectURI, organizationName: organizationName)
-    }
-    
-    private init(with clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String? = nil) throws {
+    private init(with clientId: String, clientSecret: String, scope: String, redirectURI: String) throws {
         guard !clientId.isEmpty else { throw NSError(domain: "clientId could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
         self.clientId = clientId
         guard !clientSecret.isEmpty else { throw NSError(domain: "clientSecret could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
@@ -44,6 +34,5 @@ private let URLSchemeDocumentationLink = "https://developer.apple.com/documentat
         guard !redirectURI.isEmpty else { throw NSError(domain: "redirectURI could not be empty.", code: defaultCrowdinErrorCode, userInfo: nil) }
         guard let urlSchemes = Bundle.main.urlSchemes, urlSchemes.contains(redirectURI) else { throw NSError(domain: "Application supported url schemes should contain \(redirectURI)", code: defaultCrowdinErrorCode, userInfo: nil) }
         self.redirectURI = redirectURI
-        self.organizationName = organizationName
 	}
 }

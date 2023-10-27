@@ -16,7 +16,7 @@ import Foundation
 protocol LoginFeatureProtocol {
 	static var shared: Self? { get }
 	static var isLogined: Bool { get }
-	static func configureWith(with hash: String, loginConfig: CrowdinLoginConfig)
+    static func configureWith(with hash: String, organizationName: String?, loginConfig: CrowdinLoginConfig)
 	
 	func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
 	func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void)
@@ -34,9 +34,9 @@ final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
     fileprivate var safariVC: SFSafariViewController?
 #endif
     
-    init(hashString: String, config: CrowdinLoginConfig) {
+    init(hashString: String, organizationName: String?, config: CrowdinLoginConfig) {
 		self.config = config
-        self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI, organizationName: config.organizationName)
+        self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI, organizationName: organizationName)
         super.init()
         if self.hashString != hashString {
             self.logout()
@@ -45,8 +45,8 @@ final class LoginFeature: NSObject, LoginFeatureProtocol, CrowdinAuth {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUnautorizedResponse), name: .CrowdinAPIUnautorizedNotification, object: nil)
 	}
 	
-    static func configureWith(with hashString: String, loginConfig: CrowdinLoginConfig) {
-        LoginFeature.shared = LoginFeature(hashString: hashString, config: loginConfig)
+    static func configureWith(with hashString: String, organizationName: String?, loginConfig: CrowdinLoginConfig) {
+        LoginFeature.shared = LoginFeature(hashString: hashString, organizationName: organizationName, config: loginConfig)
 	}
     
     var hashString: String {

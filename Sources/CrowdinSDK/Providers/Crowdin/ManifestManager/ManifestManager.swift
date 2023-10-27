@@ -51,25 +51,29 @@ class ManifestManager {
     }
     
     let hash: String
+    let organizationName: String?
     var files: [String]?
     var timestamp: TimeInterval?
     var languages: [String]?
     var customLanguages: [CustomLangugage]?
     var manifestURL: String?
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
+    var crowdinSupportedLanguages: CrowdinSupportedLanguages
     
-    fileprivate init(hash: String) {
+    fileprivate init(hash: String, organizationName: String?) {
         self.hash = hash
+        self.organizationName = organizationName
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
+        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
         self.load()
         ManifestManager.manifestMap[self.hash] = self
     }
     
-    class func manifest(for hash: String) -> ManifestManager {
+    class func manifest(for hash: String, organizationName: String?) -> ManifestManager {
         if let manifest = manifestMap[hash] {
             return manifest
         }
-        let manifest = ManifestManager(hash: hash)
+        let manifest = ManifestManager(hash: hash, organizationName: organizationName)
         return manifest
     }
     
@@ -126,7 +130,7 @@ class ManifestManager {
     }
     
     /// Path for current hash manifests file
-    private var manifestPath: String { ManifestManager.manifestsPath + hash + ".json" }
+    private var manifestPath: String { ManifestManager.manifestsPath + hash + (organizationName ?? "") + ".json" }
     
     /// Root path for manifests files
     static private let manifestsPath = CrowdinFolder.shared.path + "/Manifests/"
@@ -157,6 +161,5 @@ class ManifestManager {
     func clear() {
         ManifestManager.manifestMap.removeValue(forKey: hash)
         try? FileManager.default.removeItem(atPath: manifestPath)
-        
     }
 }
