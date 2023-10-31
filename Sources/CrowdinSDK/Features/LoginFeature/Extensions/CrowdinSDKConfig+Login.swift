@@ -19,8 +19,11 @@ extension CrowdinSDKConfig {
 		}
 	}
 	
-	public func with(loginConfig: CrowdinLoginConfig) -> Self {
-		self.loginConfig = loginConfig
+    public func with(loginConfig: CrowdinLoginConfig) -> Self {
+        self.loginConfig = loginConfig
+        if let organizationName = loginConfig.organizationName {
+            self.crowdinProviderConfig?.organizationName = organizationName
+        }
 		return self
 	}
 }
