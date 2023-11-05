@@ -57,8 +57,8 @@ PODS:
   - SwiftLint (0.52.4)
 
 DEPENDENCIES:
-  - CrowdinSDK (from `../`)
-  - CrowdinSDK/Settings (from `../`)
+  - CrowdinSDK
+  - CrowdinSDK/Settings
   - netfox
   - RealmSwift
   - SwiftDate
@@ -67,16 +67,13 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - BaseAPI
+    - CrowdinSDK
     - netfox
     - Realm
     - RealmSwift
     - Starscream
     - SwiftDate
     - SwiftLint
-
-EXTERNAL SOURCES:
-  CrowdinSDK:
-    :path: "../"
 
 SPEC CHECKSUMS:
   BaseAPI: 7a3abac9fa1e19147a5c87dcfbb1829a584cd1ca
@@ -88,6 +85,6 @@ SPEC CHECKSUMS:
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 34b7cb084abcc182784e3d1d0fa1a519ebf6eafb
+PODFILE CHECKSUM: f3fa8ed1a5903050c74ab34ecae62538abc23cf6
 
-COCOAPODS: 1.14.0
+COCOAPODS: 1.14.2
