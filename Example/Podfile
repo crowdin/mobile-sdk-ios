@@ -10,6 +10,6 @@ target 'AppleReminders' do
   pod 'SwiftLint'
   pod 'netfox', :configurations => ['Debug']
   
-  pod 'CrowdinSDK'
-  pod 'CrowdinSDK/Settings'
+  pod 'CrowdinSDK', :path => '../'
+  pod 'CrowdinSDK/Settings', :path => '../'
 end
