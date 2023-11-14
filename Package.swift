@@ -7,9 +7,9 @@ let package = Package(
     name: "CrowdinSDK",
     platforms: [
         .macOS(.v10_13),
-        .watchOS(.v5),
-        .iOS(.v9),
-        .tvOS(.v9)
+        .watchOS(.v4),
+        .iOS(.v12),
+        .tvOS(.v12)
     ],
     products: [
         .library(name: "CrowdinSDK", targets: ["CrowdinSDK"])
