@@ -12,12 +12,16 @@ struct ManifestResponse: Codable {
     public let timestamp: TimeInterval?
     public let languages: [String]?
     public let responseCustomLanguages: [String: ManifestResponseCustomLangugage]?    
+    public let content: [String: [String]]
+    public let mapping: [String]
     
     enum CodingKeys: String, CodingKey {
         case files
         case timestamp
         case languages
         case responseCustomLanguages = "custom_languages"
+        case content
+        case mapping
     }
     
     init(from decoder: Decoder) throws {
@@ -30,13 +34,17 @@ struct ManifestResponse: Codable {
         } else {
             responseCustomLanguages = nil
         }
+        self.content = (try? values.decodeIfPresent([String: [String]].self, forKey: .content)) ?? [String: [String]]()
+        self.mapping = (try? values.decodeIfPresent([String].self, forKey: .mapping)) ?? [String]()
     }
 
-    public init(files: [String], timestamp: TimeInterval, languages: [String]?, responseCustomLanguages: [String: ManifestResponseCustomLangugage]?) {
+    public init(files: [String], timestamp: TimeInterval, languages: [String]?, responseCustomLanguages: [String: ManifestResponseCustomLangugage]?, content: [String: [String]], mapping: [String]) {
         self.files = files
         self.timestamp = timestamp
         self.languages = languages
         self.responseCustomLanguages = responseCustomLanguages
+        self.content = content
+        self.mapping = mapping
     }
     
     // MARK: - ManifestResponseCustomLangugage

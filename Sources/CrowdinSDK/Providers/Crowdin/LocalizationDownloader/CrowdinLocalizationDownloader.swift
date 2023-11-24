@@ -24,7 +24,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
-        self.getFiles(for: hash) { [weak self] (files, timestamp, error) in
+        self.getFiles(for: localization) { [weak self] (files, timestamp, error) in
             guard let self = self else { return }
             if let files = files {
                 let strings = files.filter({ $0.isStrings })
@@ -47,15 +47,12 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         self.plurals = nil
         self.errors = nil
         
-        let pathParser = CrowdinPathsParser(languageResolver: manifestManager)
-        
         let completionBlock = BlockOperation { [weak self] in
             guard let self = self else { return }
             self.completion?(self.strings, self.plurals, self.errors)
         }
         
-        strings.forEach { (string) in
-            let filePath = pathParser.parse(string, localization: localization)
+        strings.forEach { filePath in
             let download = CrowdinStringsDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, error) in
                 guard let self = self else { return }
@@ -66,8 +63,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             operationQueue.addOperation(download)
         }
         
-        plurals.forEach { (plural) in
-            let filePath = pathParser.parse(plural, localization: localization)
+        plurals.forEach { filePath in
             let download = CrowdinPluralsDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (plurals, error) in
                 guard let self = self else { return }
@@ -78,8 +74,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             operationQueue.addOperation(download)
         }
         
-        xliffs.forEach { (xliff) in
-            let filePath = pathParser.parse(xliff, localization: localization)
+        xliffs.forEach { filePath in
             let download = CrowdinXliffDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, plurals, error) in
                 guard let self = self else { return }
@@ -91,8 +86,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             operationQueue.addOperation(download)
         }
         
-        jsons.forEach { (json) in
-            let filePath = pathParser.parse(json, localization: localization)
+        jsons.forEach { filePath in
             let download = CrowdinJsonDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, _, error) in
                 guard let self = self else { return }
@@ -106,10 +100,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         operationQueue.addOperation(completionBlock)
     }
     
-    func getFiles(for hash: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
+    func getFiles(for language: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         manifestManager.download { [weak self] in
             guard let self = self else { return }
-            completion(self.manifestManager.files, self.manifestManager.timestamp, nil)
+            completion(self.manifestManager.contentFiles(for: language), self.manifestManager.timestamp, nil)
         }
     }
     

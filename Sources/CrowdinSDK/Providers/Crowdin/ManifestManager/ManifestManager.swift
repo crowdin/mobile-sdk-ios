@@ -20,7 +20,7 @@ class ManifestManager {
     /// Dictionary with manifest managers for hashes.
     fileprivate static var manifestMap = [String: ManifestManager]()
     
-    /// Download status of manifest for current hash for current app session. True - after manifest downloaded from crowding.
+    /// Download status of manifest for current hash for current app session. True - after manifest downloaded from crowdin server.
     var downloaded: Bool {
         get {
             downloadedMap[hash] ?? false
@@ -30,7 +30,7 @@ class ManifestManager {
         }
     }
     
-    /// Indicates whether manifest information was loaded from server or from cache.
+    /// Indicates whether manifest information was loaded from cache.
     var loaded: Bool {
         get {
             loadedMap[hash] ?? false
@@ -52,10 +52,8 @@ class ManifestManager {
     
     let hash: String
     let organizationName: String?
-    var files: [String]?
-    var timestamp: TimeInterval?
-    var languages: [String]?
-    var customLanguages: [CustomLangugage]?
+    var manifest: ManifestResponse?
+    
     var manifestURL: String?
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
     var crowdinSupportedLanguages: CrowdinSupportedLanguages
@@ -70,15 +68,21 @@ class ManifestManager {
     }
     
     class func manifest(for hash: String, organizationName: String?) -> ManifestManager {
-        if let manifest = manifestMap[hash] {
-            return manifest
-        }
-        let manifest = ManifestManager(hash: hash, organizationName: organizationName)
-        return manifest
+        manifestMap[hash] ?? ManifestManager(hash: hash, organizationName: organizationName)
     }
+    
+    var languages: [String]? { manifest?.languages }
+    var files: [String]? { manifest?.files }
+    var timestamp: TimeInterval? { manifest?.timestamp }
+    var customLanguages: [CustomLangugage] { manifest?.customLanguages ?? [] }
+    var mappingFiles: [String] { manifest?.mapping ?? [] }
     
     var iOSLanguages: [String] {
         return self.languages?.compactMap({ self.iOSLanguageCode(for: $0) }) ?? []
+    }
+    
+    func contentFiles(for language: String) -> [String] {
+        manifest?.content[language] ?? []
     }
     
     func download(completion: @escaping () -> Void) {
@@ -95,15 +99,12 @@ class ManifestManager {
         contentDeliveryAPI.getManifest { [weak self] manifest, manifestURL, error in
             guard let self = self else { return }
             if let manifest = manifest {
-                self.files = manifest.files
-                self.timestamp = manifest.timestamp
-                self.languages = manifest.languages
-                self.customLanguages = manifest.customLanguages
+                self.manifest = manifest
+                
                 self.manifestURL = manifestURL
                 self.save(manifestResponse: manifest)
                 self.loaded = true
                 self.downloaded = true
-                self.downloading = false
             } else if let error = error {
                 LocalizationUpdateObserver.shared.notifyError(with: [error])
             } else {
@@ -111,7 +112,7 @@ class ManifestManager {
             }
             self.callCompletions(for: self.hash)
             self.removeCompletions(for: self.hash)
-            self.downloadingMap[self.hash] = false
+            self.downloading = false
         }
     }
     
@@ -144,10 +145,7 @@ class ManifestManager {
     private func load() {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: manifestPath)) else { return }
         guard let manifestResponse = try? JSONDecoder().decode(ManifestResponse.self, from: data) else { return }
-        files = manifestResponse.files
-        timestamp = manifestResponse.timestamp
-        languages = manifestResponse.languages
-        customLanguages = manifestResponse.customLanguages
+        self.manifest = manifestResponse
         loaded = true
     }
     
