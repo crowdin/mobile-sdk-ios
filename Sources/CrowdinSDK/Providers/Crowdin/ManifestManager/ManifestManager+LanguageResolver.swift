@@ -10,7 +10,7 @@ import Foundation
 extension ManifestManager: LanguageResolver {
     var allLanguages: [CrowdinLanguage] {
         let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
-        let customLaguages: [CrowdinLanguage] = customLanguages ?? []
+        let customLaguages: [CrowdinLanguage] = customLanguages
         let allLanguages: [CrowdinLanguage] = crowdinLanguages + customLaguages
         return allLanguages
     }
