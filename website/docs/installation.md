@@ -20,6 +20,14 @@
    end
    ```
 
+   :::tip
+   You can also specify the exact branch of the Crowdin iOS SDK in your Podfile:
+
+   ```swift
+   pod 'CrowdinSDK', :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :branch => 'dev'
+   ```
+   :::
+
 3. Working with App Extensions:
 
    Upon `pod install` result, you might experience some building issues in case your application embeds target extensions.
