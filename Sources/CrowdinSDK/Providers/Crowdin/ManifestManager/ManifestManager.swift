@@ -82,7 +82,8 @@ class ManifestManager {
     }
     
     func contentFiles(for language: String) -> [String] {
-        manifest?.content[language] ?? []
+        guard let crowdinLanguage = crowdinLanguageCode(for: language) else { return [] }
+        return manifest?.content[crowdinLanguage] ?? []
     }
     
     func download(completion: @escaping () -> Void) {
