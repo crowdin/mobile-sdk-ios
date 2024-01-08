@@ -1,18 +1,34 @@
 PODS:
-  - CrowdinSDK (1.6.0):
-    - CrowdinSDK/Core (= 1.6.0)
-    - CrowdinSDK/CrowdinProvider (= 1.6.0)
+  - BaseAPI (0.2.1)
+  - CrowdinSDK (1.6.1):
+    - CrowdinSDK/Core (= 1.6.1)
+    - CrowdinSDK/CrowdinProvider (= 1.6.1)
+  - CrowdinSDK/Core (1.6.1):
+    - CrowdinSDK/CrowdinFileSystem
+  - CrowdinSDK/CrowdinAPI (1.6.1):
+    - BaseAPI (~> 0.2.1)
+    - CrowdinSDK/Core
+  - CrowdinSDK/CrowdinFileSystem (1.6.1)
+  - CrowdinSDK/CrowdinProvider (1.6.1):
+    - CrowdinSDK/Core
+    - CrowdinSDK/CrowdinAPI
+    - CrowdinSDK/CrowdinFileSystem
 
 DEPENDENCIES:
   - CrowdinSDK (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - BaseAPI
 
 EXTERNAL SOURCES:
   CrowdinSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrowdinSDK: 46d933f021fb946fffa3af8617f4decec6d4078e
+  BaseAPI: 7a3abac9fa1e19147a5c87dcfbb1829a584cd1ca
+  CrowdinSDK: 76e4fe39ecc10ab311d8d4ddabbb2de4247ba83f
 
-PODFILE CHECKSUM: f3277f5a7ea93e9aea586360c382e16466237cd2
+PODFILE CHECKSUM: 530155f41b1d99b9cdd5bfd43d94fc0d9d7a9e49
 
-COCOAPODS: 1.14.0
+COCOAPODS: 1.14.2
