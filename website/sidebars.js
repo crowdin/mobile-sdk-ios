@@ -40,7 +40,8 @@ const sidebars = {
       ]
     },
     'example',
-    'security'
+    'security',
+    'faq'
   ],
 };
 
