@@ -49,6 +49,7 @@ class CrowdinAPI: BaseAPI {
     func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
         self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, completion: { data, response, error in
             if self.isUnautorized(response: response) {
+                CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
                 NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
                 return
             }
@@ -71,6 +72,8 @@ class CrowdinAPI: BaseAPI {
     
     func cw_postSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
         let result = self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body)
+        CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: result.data)
+        
         if self.isUnautorized(response: result.response) {
             NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
             return (nil, nil);
@@ -78,8 +81,6 @@ class CrowdinAPI: BaseAPI {
         guard let data = result.data else {
             return (nil, result.error)
         }
-        
-        CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: data)
         
         do {
             let response = try JSONDecoder().decode(T.self, from: data)
@@ -93,6 +94,7 @@ class CrowdinAPI: BaseAPI {
     func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
         self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), completion: { data, response, error in
             if self.isUnautorized(response: response) {
+                CrowdinAPILog.logRequest(method: RequestMethod.GET.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), responseData: data)
                 NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
                 return;
             }
@@ -115,6 +117,7 @@ class CrowdinAPI: BaseAPI {
     
     func cw_getSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil) -> (T?, Error?) {
         let result = self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers))
+        CrowdinAPILog.logRequest(method: RequestMethod.GET.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), responseData: result.data)
         if isUnautorized(response: result.response) {
             NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
             return (nil, nil)
@@ -122,8 +125,6 @@ class CrowdinAPI: BaseAPI {
         guard let data = result.data else {
             return (nil, result.error)
         }
-        
-        CrowdinAPILog.logRequest(method: RequestMethod.GET.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), responseData: data)
         
         do {
             let response = try JSONDecoder().decode(T.self, from: data)
