@@ -14,10 +14,10 @@ extension SettingsView {
         cells = []
         
         if let loginFeature = LoginFeature.shared {
-            let settingsItemView = SettingsItemView(frame: .zero)
+            let logInItemView = SettingsItemView(frame: .zero)
             if !LoginFeature.isLogined {
-                settingsItemView.title = "Log in"
-                settingsItemView.action = { [weak self] in
+                logInItemView.title = "Log in"
+                logInItemView.action = { [weak self] in
                     loginFeature.login(completion: {
                         DispatchQueue.main.async {
                             self?.reloadData()
@@ -35,29 +35,28 @@ extension SettingsView {
                     self?.reloadData()
                 }
             } else {
-                settingsItemView.title = "Logged in"
-                settingsItemView.action = { [weak self] in
+                logInItemView.title = "Logged in"
+                logInItemView.action = { [weak self] in
                     self?.showConfirmationLogoutAlert()
                 }
             }
-            settingsItemView.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
-            settingsItemView.statusView.isHidden = false
-            cells.append(settingsItemView)
-            
+            logInItemView.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
+            logInItemView.statusView.isHidden = false
+            cells.append(logInItemView)
         }
         
-        var settingsItemView = SettingsItemView(frame: .zero)
-        settingsItemView.action = { [weak self] in
+        let reloadItemView = SettingsItemView(frame: .zero)
+        reloadItemView.action = { [weak self] in
             RefreshLocalizationFeature.refreshLocalization()
             let message = RealtimeUpdateFeature.shared?.enabled == true ? "Localization fetched from Crowdin project" : "Localization fetched from distribution"
             self?.showToast(message)
         }
-        settingsItemView.title = "Reload translations"
-        cells.append(settingsItemView)
+        reloadItemView.title = "Reload translations"
+        cells.append(reloadItemView)
         
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
-                settingsItemView = SettingsItemView(frame: .zero)
+                let realTimeUpdateItemView = SettingsItemView(frame: .zero)
                 feature.error = { [weak self] error in
                     let message = "Error while starting real-time preview - \(error.localizedDescription)"
                     CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
@@ -80,19 +79,19 @@ extension SettingsView {
                     self?.showToast(message)
                 }
                 
-                settingsItemView.action = {
+                realTimeUpdateItemView.action = {
                     feature.enabled = !feature.enabled
-                    settingsItemView.title = feature.enabled ? "Real-time on" : "Real-time off"
+                    realTimeUpdateItemView.title = feature.enabled ? "Real-time on" : "Real-time off"
                 }
-                settingsItemView.title = feature.enabled ? "Real-time on" : "Real-time off"
-                settingsItemView.statusView.backgroundColor = feature.enabled ? self.enabledStatusColor : .clear
-                settingsItemView.statusView.isHidden = false
-                cells.append(settingsItemView)
+                realTimeUpdateItemView.title = feature.enabled ? "Real-time on" : "Real-time off"
+                realTimeUpdateItemView.statusView.backgroundColor = feature.enabled ? self.enabledStatusColor : .clear
+                realTimeUpdateItemView.statusView.isHidden = false
+                cells.append(realTimeUpdateItemView)
             }
             
             if let feature = ScreenshotFeature.shared {
-                let settingsItemView = SettingsItemView(frame: .zero)
-                settingsItemView.action = { [weak self] in
+                let screenshotItemView = SettingsItemView(frame: .zero)
+                screenshotItemView.action = { [weak self] in
                     let message = "Successfully captured screenshot"
                     feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
                         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
@@ -103,14 +102,14 @@ extension SettingsView {
                         self?.showToast(message)
                     })
                 }
-                settingsItemView.title = "Capture screenshot"
-                settingsItemView.statusView.isHidden = true
-                cells.append(settingsItemView)
+                screenshotItemView.title = "Capture screenshot"
+                screenshotItemView.statusView.isHidden = true
+                cells.append(screenshotItemView)
             }
         }
         
-        settingsItemView = SettingsItemView(frame: .zero)
-        settingsItemView.action = {
+        let logsItemView = SettingsItemView(frame: .zero)
+        logsItemView.action = {
             let logsVC = CrowdinLogsVC()
             let logsNC = UINavigationController(rootViewController: logsVC)
             logsVC.title = "Logs"
@@ -119,12 +118,12 @@ extension SettingsView {
             logsNC.modalPresentationStyle = .fullScreen
             logsNC.cw_present()
         }
-        settingsItemView.title = "Logs"
-        settingsItemView.statusView.isHidden = true
-        cells.append(settingsItemView)
+        logsItemView.title = "Logs"
+        logsItemView.statusView.isHidden = true
+        cells.append(logsItemView)
         
-        settingsItemView = SettingsItemView(frame: .zero)
-        settingsItemView.action = {
+        let stopItem = SettingsItemView(frame: .zero)
+        stopItem.action = {
             CrowdinSDK.stop()
             if let settingsView = SettingsView.shared {
                 settingsView.removeFromSuperview()
@@ -135,9 +134,9 @@ extension SettingsView {
                 SettingsView.shared = nil
             }
         }
-        settingsItemView.title = "Stop"
-        settingsItemView.statusView.isHidden = true
-        cells.append(settingsItemView)
+        stopItem.title = "Stop"
+        stopItem.statusView.isHidden = true
+        cells.append(stopItem)
     }
 }
 
