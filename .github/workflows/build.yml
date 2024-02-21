@@ -24,7 +24,7 @@ jobs:
       DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install SwiftLint and Danger Swift
         run: |
@@ -38,7 +38,7 @@ jobs:
     name: PodLint
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install CocoaPods
         working-directory: Example
@@ -51,7 +51,7 @@ jobs:
     name: Build
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install CocoaPods
         working-directory: Example
@@ -80,7 +80,7 @@ jobs:
     needs: build
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install CocoaPods
         working-directory: Tests
