@@ -7,7 +7,7 @@ let package = Package(
     name: "CrowdinSDK",
     platforms: [
         .macOS(.v10_13),
-        .watchOS(.v4),
+        .watchOS(.v5),
         .iOS(.v12),
         .tvOS(.v12)
     ],
