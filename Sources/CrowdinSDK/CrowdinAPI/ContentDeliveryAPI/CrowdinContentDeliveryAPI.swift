@@ -8,6 +8,7 @@
 import Foundation
 import BaseAPI
 
+typealias CrowdinAPIFileDataCompletion = ((Data?, String?, Error?) -> Void)
 typealias CrowdinAPIStringsCompletion = (([String: String]?, String?, Error?) -> Void)
 typealias CrowdinAPIPluralsCompletion = (([AnyHashable: Any]?, String?, Error?) -> Void)
 typealias CrowdinAPIXliffCompletion = (([AnyHashable: Any]?, String?, Error?) -> Void)
@@ -81,6 +82,18 @@ class CrowdinContentDeliveryAPI: BaseAPI {
                     return
                 }
                 completion(dictionary as? [String: String], etag, nil)
+            } else {
+                completion(nil, etag, error)
+            }
+        }
+    }
+    
+    // MARK - Localization download methods:
+    func getFileData(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIFileDataCompletion) {
+        self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
+            let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
+            if let data {
+                completion(data, etag, nil)
             } else {
                 completion(nil, etag, error)
             }
