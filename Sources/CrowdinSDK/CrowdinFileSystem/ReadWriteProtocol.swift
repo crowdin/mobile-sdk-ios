@@ -68,3 +68,19 @@ extension CodableWrapper: ReadWriteProtocol {
         return self.init(object: object)
     }
 }
+
+extension Data: ReadWriteProtocol {
+    public func write(to path: String) {
+        do {
+            let url = URL(fileURLWithPath: path)
+            try Folder(path: url.deletingLastPathComponent().relativePath).create()
+            try self.write(to: url)
+        } catch {
+            print(error)
+        }
+    }
+    
+    public static func read(from path: String) -> Data? {
+        try? Data(contentsOf: URL(fileURLWithPath: path))
+    }
+}

@@ -51,6 +51,7 @@ class ManifestManager {
     }
     
     let hash: String
+    let sourceLanguage: String
     let organizationName: String?
     var manifest: ManifestResponse?
     
@@ -58,8 +59,9 @@ class ManifestManager {
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
     var crowdinSupportedLanguages: CrowdinSupportedLanguages
     
-    fileprivate init(hash: String, organizationName: String?) {
+    fileprivate init(hash: String, sourceLanguage: String, organizationName: String?) {
         self.hash = hash
+        self.sourceLanguage = sourceLanguage
         self.organizationName = organizationName
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
         self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
@@ -67,8 +69,8 @@ class ManifestManager {
         ManifestManager.manifestMap[self.hash] = self
     }
     
-    class func manifest(for hash: String, organizationName: String?) -> ManifestManager {
-        manifestMap[hash] ?? ManifestManager(hash: hash, organizationName: organizationName)
+    class func manifest(for hash: String, sourceLanguage: String, organizationName: String?) -> ManifestManager {
+        manifestMap[hash] ?? ManifestManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
     }
     
     var languages: [String]? { manifest?.languages }
@@ -83,7 +85,13 @@ class ManifestManager {
     
     func contentFiles(for language: String) -> [String] {
         guard let crowdinLanguage = crowdinLanguageCode(for: language) else { return [] }
-        return manifest?.content[crowdinLanguage] ?? []
+        var files = manifest?.content[crowdinLanguage] ?? []
+        // Add xcstrings files from source language if language != sourceLanguage
+        if language != sourceLanguage {
+            let xcstrings = manifest?.content[sourceLanguage]?.filter({ $0.isXcstrings }) ?? []
+            files.append(contentsOf: xcstrings)
+        }
+        return files
     }
     
     func download(completion: @escaping () -> Void) {

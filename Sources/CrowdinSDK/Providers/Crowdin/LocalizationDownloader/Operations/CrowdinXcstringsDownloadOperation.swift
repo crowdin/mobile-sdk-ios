@@ -7,45 +7,45 @@
 
 import Foundation
 
-public struct Localizations: Decodable {
+public struct Localizations: Codable {
     public let sourceLanguage: String
     public let version: String
     public let strings: [String: StringInfo]
 }
 
-public struct StringInfo: Decodable {
+public struct StringInfo: Codable {
     public let extractionState: String?
     public let localizations: [String: StringLocalization]?
 }
 
-public struct StringLocalization: Decodable {
+public struct StringLocalization: Codable {
     public let stringUnit: StringUnit?
     public let variations: Variations?
     public let substitutions: [String: Substitution]?
 }
 
-public struct Substitution: Decodable {
+public struct Substitution: Codable {
     let argNum: Int
     let formatSpecifier: String
     let variations: Variations
 }
 
-public struct Variations: Decodable {
+public struct Variations: Codable {
     let plural: [String: StringUnitWrapper]?
     // Skip for v 1.0
     //    let device: DeviceVariations?
 }
 
 // Skip for v 1.0
-//public struct DeviceVariations: Decodable {
+//public struct DeviceVariations: Codable {
 //    let variations: [String: StringUnitWrapper]?
 //}
 
-public struct StringUnitWrapper: Decodable {
+public struct StringUnitWrapper: Codable {
     let stringUnit: StringUnit
 }
 
-public struct StringUnit: Decodable {
+public struct StringUnit: Codable {
     public let state: String
     public let value: String
 }
@@ -62,50 +62,52 @@ class XcstringsParser {
         case NSStringPluralRuleType
     }
     
-    static func parse(data: Data, localization: String) -> ([String: String]?, [AnyHashable: Any]?, Error?) {
+    static func parse(localizations: Localizations, localization: String) -> ([String: String]?, [AnyHashable: Any]?, Error?) {
         var strings: [String: String] = [:]
         var plurals: [String: Any] = [:]
         
+        let localizationStrings = localizations.strings
+        
+        for (key, value) in localizationStrings {
+            if let value = value.localizations?[localization] {
+                if let stringUnit = value.stringUnit, let substitutions = value.substitutions {
+                    var dict = [String: Any]()
+                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = stringUnit.value
+                    
+                    for (key, substitution) in substitutions {
+                        var pluralDict = Self.dictFor(substitution: substitution, with: substitutions)
+                        pluralDict?[Keys.NSStringFormatSpecTypeKey.rawValue] = Strings.NSStringPluralRuleType.rawValue
+                        pluralDict?[Keys.NSStringFormatValueTypeKey.rawValue] = substitution.formatSpecifier
+                        dict[key] = pluralDict
+                    }
+                    
+                    plurals[key] = dict
+                } else if let pluralVariation = value.variations?.plural {
+                    var pluralDict = pluralVariation.mapValues({ $0.stringUnit.value })
+                    pluralDict[Keys.NSStringFormatSpecTypeKey.rawValue] = Strings.NSStringPluralRuleType.rawValue
+                    pluralDict[Keys.NSStringFormatValueTypeKey.rawValue] = pluralDict.values.map({ Self.formats(from: $0) }).filter({ $0.count > 0 }).first?.first ?? "u"
+                    
+                    var dict = [String: Any]()
+                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = "%#@\(key)@"
+                    dict[key] = pluralDict
+                    
+                    plurals[key] = dict
+                } else if let stringUnit = value.stringUnit {
+                    strings[key] = stringUnit.value
+                }
+            }
+        }
+        return (strings, plurals, nil)
+    }
+    
+    static func parse(data: Data, localization: String) -> (strings: [String: String]?, plurals: [AnyHashable: Any]?, error: Error?) {
         do {
             let localizations = try JSONDecoder().decode(Localizations.self, from: data)
             
-            let localizationStrings = localizations.strings
-            
-            for (key, value) in localizationStrings {
-                if let value = value.localizations?[localization] {
-                    if let stringUnit = value.stringUnit, let substitutions = value.substitutions {
-                        var dict = [String: Any]()
-                        dict[Keys.NSStringLocalizedFormatKey.rawValue] = stringUnit.value
-                        
-                        for (key, substitution) in substitutions {
-                            var pluralDict = Self.dictFor(substitution: substitution, with: substitutions)
-                            pluralDict?[Keys.NSStringFormatSpecTypeKey.rawValue] = Strings.NSStringPluralRuleType.rawValue
-                            pluralDict?[Keys.NSStringFormatValueTypeKey.rawValue] = substitution.formatSpecifier
-                            dict[key] = pluralDict
-                        }
-                        
-                        plurals[key] = dict
-                    } else if let pluralVariation = value.variations?.plural {
-                        var pluralDict = pluralVariation.mapValues({ $0.stringUnit.value })
-                        pluralDict[Keys.NSStringFormatSpecTypeKey.rawValue] = Strings.NSStringPluralRuleType.rawValue
-                        pluralDict[Keys.NSStringFormatValueTypeKey.rawValue] = pluralDict.values.map({ Self.formats(from: $0) }).filter({ $0.count > 0 }).first?.first ?? "u"
-                        
-                        var dict = [String: Any]()
-                        dict[Keys.NSStringLocalizedFormatKey.rawValue] = "%#@\(key)@"
-                        dict[key] = pluralDict
-                        
-                        plurals[key] = dict
-                    } else if let stringUnit = value.stringUnit {
-                        strings[key] = stringUnit.value
-                    }
-                }
-            }
-            
+            return parse(localizations: localizations, localization: localization)
         } catch {
             return (nil, nil, error)
         }
-        
-        return (strings, plurals, nil)
     }
     
     static func dictFor(substitution: Substitution, with substitutions: [String: Substitution]) -> [String: Any]? {
@@ -149,24 +151,40 @@ class XcstringsParser {
     }
 }
 
+class XCStringsStorage {
+    private enum Strings: String {
+        case XCStrings
+    }
+    
+    static let folder = try! CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)
+    
+    static func getFile(path: String) -> Data? {
+        Data.read(from: folder.path + path)
+    }
+    
+    static func saveFile(_ data: Data, path: String) {
+        data.write(to: folder.path + path)
+    }
+}
+
 class CrowdinXcstringsDownloadOperation: CrowdinDownloadOperation {
     var timestamp: TimeInterval?
-    var eTagStorage: AnyEtagStorage
+    let eTagStorage: AnyEtagStorage
     var completion: CrowdinJsonDownloadOperationCompletion? = nil
     let localization: String
     
-    init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinJsonDownloadOperationCompletion?) {
+    init(filePath: String, localization: String, sourceLanguage: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinJsonDownloadOperationCompletion?) {
         self.localization = localization
         self.timestamp = timestamp
-        self.eTagStorage = FileEtagStorage(localization: localization)
+        self.eTagStorage = FileEtagStorage(localization: sourceLanguage)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
     
-    required init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+    required init(filePath: String, localization: String, sourceLanguage: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.localization = localization
         self.timestamp = timestamp
-        self.eTagStorage = FileEtagStorage(localization: localization)
+        self.eTagStorage = FileEtagStorage(localization: sourceLanguage)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
     
@@ -175,12 +193,15 @@ class CrowdinXcstringsDownloadOperation: CrowdinDownloadOperation {
         contentDeliveryAPI.getFileData(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] data, etag, error in
             guard let self = self else { return }
             self.eTagStorage.save(etag: etag, for: self.filePath)
-            if let data {
+            if let data, data.count > 0 {
+                XCStringsStorage.saveFile(data, path: filePath)
                 let parsed = XcstringsParser.parse(data: data, localization: localization)
-                
-                completion?(parsed.0, parsed.1, parsed.2)
-                
-                self.finish(with: parsed.2 != nil)
+                completion?(parsed.strings, parsed.plurals, parsed.error)
+                self.finish(with: parsed.error != nil)
+            } else if let data = XCStringsStorage.getFile(path: filePath) {
+                let parsed = XcstringsParser.parse(data: data, localization: localization)
+                completion?(parsed.strings, parsed.plurals, parsed.error)
+                self.finish(with: error != nil)
             } else {
                 self.finish(with: error != nil)
             }
