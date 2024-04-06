@@ -194,13 +194,13 @@ class CrowdinXcstringsDownloadOperation: CrowdinDownloadOperation {
             guard let self = self else { return }
             self.eTagStorage.save(etag: etag, for: self.filePath)
             if let data, data.count > 0 {
-                XCStringsStorage.saveFile(data, path: filePath)
-                let parsed = XcstringsParser.parse(data: data, localization: localization)
-                completion?(parsed.strings, parsed.plurals, parsed.error)
+                XCStringsStorage.saveFile(data, path: self.filePath)
+                let parsed = XcstringsParser.parse(data: data, localization: self.localization)
+                self.completion?(parsed.strings, parsed.plurals, parsed.error)
                 self.finish(with: parsed.error != nil)
-            } else if let data = XCStringsStorage.getFile(path: filePath) {
-                let parsed = XcstringsParser.parse(data: data, localization: localization)
-                completion?(parsed.strings, parsed.plurals, parsed.error)
+            } else if let data = XCStringsStorage.getFile(path: self.filePath) {
+                let parsed = XcstringsParser.parse(data: data, localization: self.localization)
+                self.completion?(parsed.strings, parsed.plurals, parsed.error)
                 self.finish(with: error != nil)
             } else {
                 self.finish(with: error != nil)
