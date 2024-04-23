@@ -99,7 +99,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         
         xcstrings.forEach { filePath in
-            let download = CrowdinXcstringsDownloadOperation(filePath: filePath, localization: localization, sourceLanguage: manifestManager.sourceLanguage, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
+            let download = CrowdinXcstringsDownloadOperation(filePath: filePath,
+                                                             localization: localization,
+                                                             language: manifestManager.xcstringsLanguage,
+                                                             timestamp: timestamp,
+                                                             contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, plurals, error) in
                 guard let self = self else { return }
                 self.add(strings: strings)

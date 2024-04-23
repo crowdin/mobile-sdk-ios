@@ -78,6 +78,7 @@ class ManifestManager {
     var timestamp: TimeInterval? { manifest?.timestamp }
     var customLanguages: [CustomLangugage] { manifest?.customLanguages ?? [] }
     var mappingFiles: [String] { manifest?.mapping ?? [] }
+    var xcstringsLanguage: String { languages?.sorted().first ?? sourceLanguage }
     
     var iOSLanguages: [String] {
         return self.languages?.compactMap({ self.iOSLanguageCode(for: $0) }) ?? []
@@ -86,9 +87,9 @@ class ManifestManager {
     func contentFiles(for language: String) -> [String] {
         guard let crowdinLanguage = crowdinLanguageCode(for: language) else { return [] }
         var files = manifest?.content[crowdinLanguage] ?? []
-        // Add xcstrings files from source language if language != sourceLanguage
-        if language != sourceLanguage {
-            let xcstrings = manifest?.content[sourceLanguage]?.filter({ $0.isXcstrings }) ?? []
+        // Add xcstrings files from source language if language != firstLanguage
+        if language != xcstringsLanguage { // Avoid duplications for first language in languages array.
+            let xcstrings = manifest?.content[xcstringsLanguage]?.filter({ $0.isXcstrings }) ?? []
             files.append(contentsOf: xcstrings)
         }
         return files
