@@ -143,3 +143,11 @@ Text("key".cw_localized)
 ```
 
 After we add SwiftUI support, you will just need to remove the `cw_localized` method call.
+
+## Apple Strings Catalog support
+
+The Crowdin SDK supports the [Apple Strings Catalog](https://store.crowdin.com/string_catalog) (`.xcstrings`) format out of the box. It doesn't require any additional setup. Just upload your localization files to Crowdin, set up the distribution and start using the SDK.
+
+:::caution
+Only the CDN Content Delivery feature is available for the Apple Strings Catalog format. The Screenshots and Real-Time Preview features are not yet supported.
+:::

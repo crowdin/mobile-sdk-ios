@@ -40,6 +40,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         return CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
     }
     var hashString: String
+    let sourceLanguage: String
     let organizationName: String?
 	
 	var distributionResponse: DistributionsResponse? = nil
@@ -60,6 +61,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     required init(hash: String, sourceLanguage: String, organizationName: String?) {
         self.hashString = hash
+        self.sourceLanguage = sourceLanguage
 		self.organizationName = organizationName
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
     }
@@ -134,7 +136,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
         oldProvider = Localization.current.provider
-        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
+        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, sourceLanguage: sourceLanguage, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
         
         Localization.current.provider.refreshLocalization { [weak self] error in
             guard let self = self else { return }
@@ -163,7 +165,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
         // Download manifest if it is not initialized.
-        let manifestManager = ManifestManager.manifest(for: hashString, organizationName: organizationName)
+        let manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName)
         guard manifestManager.downloaded else {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }

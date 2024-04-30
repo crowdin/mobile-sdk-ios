@@ -26,7 +26,7 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var plurals: [AnyHashable: Any] = [:]
     
     init(hash: String, sourceLanguage: String, organizationName: String?) {
-        self.manifestManager = ManifestManager.manifest(for: hash, organizationName: organizationName)
+        self.manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
         self.downloader = CrowdinMappingDownloader(manifestManager: self.manifestManager)
         self.download(hash: hash, sourceLanguage: sourceLanguage)
     }
@@ -35,7 +35,7 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         if manifestManager.downloaded == false {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }
-                self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)                                       
+                self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)  
             }
         } else {
             downloadMapping(hash: hash, sourceLanguage: sourceLanguage)

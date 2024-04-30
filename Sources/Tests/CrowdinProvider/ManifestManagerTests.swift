@@ -3,7 +3,7 @@ import XCTest
 
 class ManifestManagerTests: XCTestCase {
     let crowdinTestHash = "5290b1cfa1eb44bf2581e78106i"
-    
+    let sourceLanguage = "en"
     override func setUp() {
         
     }
@@ -18,7 +18,7 @@ class ManifestManagerTests: XCTestCase {
     func testDownloadManifest() {
         let expectation = XCTestExpectation(description: "Manifest download expectation")
         
-        let manifest = ManifestManager.manifest(for: crowdinTestHash, organizationName: nil)
+        let manifest = ManifestManager.manifest(for: crowdinTestHash, sourceLanguage: sourceLanguage, organizationName: nil)
         XCTAssertFalse(manifest.loaded)
         XCTAssertFalse(manifest.downloaded)
         

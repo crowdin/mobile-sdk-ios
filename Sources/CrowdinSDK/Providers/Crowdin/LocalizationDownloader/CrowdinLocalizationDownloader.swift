@@ -31,7 +31,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                 let plurals = files.filter({ $0.isStringsDict })
                 let xliffs = files.filter({ $0.isXliff })
                 let jsons = files.filter({ $0.isJson })
-                self.download(strings: strings, plurals: plurals, xliffs:xliffs, jsons: jsons, with: hash, timestamp: timestamp, for: localization)
+                let xcstrings = files.filter({ $0.isXcstrings })
+                self.download(strings: strings, plurals: plurals, xliffs:xliffs, jsons: jsons, xcstrings: xcstrings, with: hash, timestamp: timestamp, for: localization)
             } else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
@@ -39,7 +40,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
     }
     
-    func download(strings: [String], plurals: [String], xliffs: [String], jsons: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
+    func download(strings: [String], plurals: [String], xliffs: [String], jsons: [String], xcstrings: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
         self.operationQueue.cancelAllOperations()
         
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
@@ -96,6 +97,23 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
+        
+        xcstrings.forEach { filePath in
+            let download = CrowdinXcstringsDownloadOperation(filePath: filePath,
+                                                             localization: localization,
+                                                             language: manifestManager.xcstringsLanguage,
+                                                             timestamp: timestamp,
+                                                             contentDeliveryAPI: contentDeliveryAPI)
+            download.completion = { [weak self] (strings, plurals, error) in
+                guard let self = self else { return }
+                self.add(strings: strings)
+                self.add(plurals: plurals)
+                self.add(error: error)
+            }
+            completionBlock.addDependency(download)
+            operationQueue.addOperation(download)
+        }
+        
         operationQueue.operations.forEach({ $0.qualityOfService = .userInitiated })
         operationQueue.addOperation(completionBlock)
     }
