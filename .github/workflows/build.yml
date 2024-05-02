@@ -62,7 +62,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 14
 
       - name: Build
         working-directory: Example
@@ -71,7 +71,7 @@ jobs:
           -workspace ./AppleReminders.xcworkspace \
           -scheme AppleReminders \
           -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty && exit ${PIPESTATUS[0]}
+          -destination 'platform=iOS Simulator,name=iPhone SE (3rd generation)' | xcpretty && exit ${PIPESTATUS[0]}
 
       # TODO: ObjCExample
 
@@ -91,7 +91,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 14
 
       - name: Tests
         working-directory: Tests
@@ -101,7 +101,7 @@ jobs:
           -workspace ./Tests.xcworkspace \
           -scheme Tests \
           -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' \
+          -destination 'platform=iOS Simulator,name=iPhone SE (3rd generation)' \
           -enableCodeCoverage YES | xcpretty && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov
