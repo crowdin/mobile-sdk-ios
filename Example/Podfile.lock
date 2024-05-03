@@ -1,43 +1,43 @@
 PODS:
   - BaseAPI (0.2.1)
-  - CrowdinSDK (1.8.0):
-    - CrowdinSDK/Core (= 1.8.0)
-    - CrowdinSDK/CrowdinProvider (= 1.8.0)
-  - CrowdinSDK/Core (1.8.0):
+  - CrowdinSDK (1.9.0):
+    - CrowdinSDK/Core (= 1.9.0)
+    - CrowdinSDK/CrowdinProvider (= 1.9.0)
+  - CrowdinSDK/Core (1.9.0):
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/CrowdinAPI (1.8.0):
+  - CrowdinSDK/CrowdinAPI (1.9.0):
     - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
-  - CrowdinSDK/CrowdinFileSystem (1.8.0)
-  - CrowdinSDK/CrowdinProvider (1.8.0):
+  - CrowdinSDK/CrowdinFileSystem (1.9.0)
+  - CrowdinSDK/CrowdinProvider (1.9.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/IntervalUpdate (1.8.0):
+  - CrowdinSDK/IntervalUpdate (1.9.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.8.0):
+  - CrowdinSDK/LoginFeature (1.9.0):
     - BaseAPI (~> 0.2.1)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.8.0):
+  - CrowdinSDK/RealtimeUpdate (1.9.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
     - Starscream (~> 4.0.4)
-  - CrowdinSDK/RefreshLocalization (1.8.0):
+  - CrowdinSDK/RefreshLocalization (1.9.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.8.0):
+  - CrowdinSDK/Screenshots (1.9.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.8.0):
+  - CrowdinSDK/Settings (1.9.0):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -80,7 +80,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 7a3abac9fa1e19147a5c87dcfbb1829a584cd1ca
-  CrowdinSDK: ecf32ca2484705c1989527327b28b1b7306b59b3
+  CrowdinSDK: 65fd7989c86e5ff79c8734979bc61510238d8725
   netfox: 9d5cc727fe7576c4c7688a2504618a156b7d44b7
   Realm: 490aad28f1360e58fc22256d5d686d3a36525346
   RealmSwift: f6a9b56d747bbdd7931de1835896c5f024b6898a
