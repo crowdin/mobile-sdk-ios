@@ -25,7 +25,7 @@ extension SettingsView {
                         }
                         let message = "Logged in"
                         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                    }, error: { [weak self] error in
+                    }, error: { error in
                         let message = "Login error - \(error.localizedDescription)"
                         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
                     })
@@ -44,7 +44,7 @@ extension SettingsView {
         }
 
         let reloadItemView = SettingsItemView(frame: .zero)
-        reloadItemView.action = { [weak self] in
+        reloadItemView.action = {
             RefreshLocalizationFeature.refreshLocalization()
 
             let message = RealtimeUpdateFeature.shared?.enabled == true ? "Localization fetched from Crowdin project" : "Localization fetched from distribution"
@@ -57,7 +57,7 @@ extension SettingsView {
         if LoginFeature.isLogined {
             if var feature = RealtimeUpdateFeature.shared {
                 let realTimeUpdateItemView = SettingsItemView(frame: .zero)
-                feature.error = { [weak self] error in
+                feature.error = { error in
                     let message = "Error while starting real-time preview - \(error.localizedDescription)"
                     CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
                 }
@@ -90,7 +90,7 @@ extension SettingsView {
 
             if let feature = ScreenshotFeature.shared {
                 let screenshotItemView = SettingsItemView(frame: .zero)
-                screenshotItemView.action = { [weak self] in
+                screenshotItemView.action = {
                     let message = "Screenshot captured"
                     feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
                         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
