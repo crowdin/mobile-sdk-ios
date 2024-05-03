@@ -11,25 +11,25 @@ import UIKit
 
 final class SettingsView: UIView {
     static var shared: SettingsView? = SettingsView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-    
+
     var settingsWindow = SettingsWindow() {
         didSet {
             settingsWindow.settingsView = self
         }
     }
-    
+
     var cells = [SettingsItemView]()
-    
+
     var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     var settingsButton = UIButton()
     var closeButton = UIButton()
     var stackView = UIStackView()
-    
+
     fileprivate let closedWidth: CGFloat = 60.0
     fileprivate let openedWidth: CGFloat = 200.0
     fileprivate let defaultItemHeight: CGFloat = 60.0
     let enabledStatusColor = UIColor(red: 60.0 / 255.0, green: 130.0 / 255.0, blue: 130.0 / 255.0, alpha: 1.0)
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -40,13 +40,13 @@ final class SettingsView: UIView {
         super.init(coder: aDecoder)
         setupUI()
     }
-    
+
     func setupUI() {
         addViews()
         layoutViews()
         setupViews()
     }
-    
+
     func addViews() {
         translatesAutoresizingMaskIntoConstraints = false
         blurView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ final class SettingsView: UIView {
         addSubview(closeButton)
         addSubview(stackView)
     }
-    
+
     func layoutViews() {
         addConstraints([
             blurView.topAnchor.constraint(equalTo: topAnchor),
@@ -82,7 +82,7 @@ final class SettingsView: UIView {
         ])
         translatesAutoresizingMaskIntoConstraints = true
     }
-    
+
     func setupViews() {
         settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.module, compatibleWith: nil), for: .normal)
         settingsButton.addTarget(self, action: #selector(settingsButtonPressed), for: .touchUpInside)
@@ -101,7 +101,7 @@ final class SettingsView: UIView {
         self.isUserInteractionEnabled = true
         gesture.delegate = self
     }
-    
+
     var open: Bool = false {
         didSet {
             reloadData()
@@ -111,20 +111,20 @@ final class SettingsView: UIView {
             closeButton.isHidden = !open
         }
     }
-    
+
     func reloadData() {
         setupCells()
         stackView.arrangedSubviews.forEach({ stackView.removeArrangedSubview($0) })
         cells.forEach({ stackView.addArrangedSubview($0) })
     }
-    
+
     var logsVC: UIViewController? = nil
-    
+
     func dismissLogsVC() {
         logsVC?.cw_dismiss()
         logsVC = nil
     }
-    
+
     func reloadUI() {
         if open == true {
             self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)
@@ -134,20 +134,20 @@ final class SettingsView: UIView {
             self.frame.size.width = closedWidth
         }
     }
-    
+
     // MARK: - IBActions
-    
+
     @objc
     func settingsButtonPressed() {
         self.open = !self.open
         self.fixPositionIfNeeded()
     }
-    
+
     @objc
     func closeButtonPressed() {
         open = false
     }
-    
+
     // MARK: - Private
     func fixPositionIfNeeded() {
         let x = validateXCoordinate(value: self.center.x)
@@ -157,7 +157,7 @@ final class SettingsView: UIView {
             self.center = CGPoint(x: x, y: y)
         }
     }
-    
+
     func validateXCoordinate(value: CGFloat) -> CGFloat {
         guard let window = window else { return 0 }
         let minX = self.frame.size.width / 2.0
@@ -167,7 +167,7 @@ final class SettingsView: UIView {
         x = x > maxX ? maxX : x
         return x
     }
-    
+
     func validateYCoordinate(value: CGFloat) -> CGFloat {
         guard let window = window else { return 0 }
         let minY = self.frame.size.height / 2.0
@@ -177,7 +177,7 @@ final class SettingsView: UIView {
         y = y > maxY ? maxY : y
         return y
     }
-    
+
     func showConfirmationLogoutAlert() {
         let alert = UIAlertController(title: "CrowdinSDK", message: "Are you sure you want to log out?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self]_ in
@@ -190,7 +190,7 @@ final class SettingsView: UIView {
         }))
         alert.cw_present()
     }
-    
+
     func logout() {
         if let realtimeUpdateFeature = RealtimeUpdateFeature.shared, realtimeUpdateFeature.enabled {
             realtimeUpdateFeature.stop()
@@ -199,18 +199,8 @@ final class SettingsView: UIView {
             $0.logout()
         }
         reloadData()
-        let message = "Successfully logout"
-        CrowdinLogsCollector.shared.add(log: .info(with: message))
-        showToast(message)
-    }
-    
-    func showToast(_ message: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.makeToast(message)
-        }
-        
-        // Notify all subscribers about new log record is created
-        LogMessageObserver.shared.notifyAll(message)
+
+        CrowdinLogsCollector.shared.add(log: .info(with: "Logged out"))
     }
 }
 
