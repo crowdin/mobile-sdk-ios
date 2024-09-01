@@ -20,7 +20,7 @@ protocol RealtimeUpdateFeatureProtocol {
     var disconnect: (() -> Void)? { get set }
     var enabled: Bool { get set }
     
-	init(hash: String, sourceLanguage: String, organizationName: String?)
+	init(hash: String, sourceLanguage: String, organizationName: String?, minimumUpdateInterval: TimeInterval)
     
     func start()
     func stop()
@@ -29,7 +29,7 @@ protocol RealtimeUpdateFeatureProtocol {
     func refreshAllControls()
 }
 
-class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
+class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {    
     static var shared: RealtimeUpdateFeatureProtocol?
     
     var success: (() -> Void)?
@@ -39,9 +39,10 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         let localizations = Localization.current.provider.remoteStorage.localizations
         return CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
     }
-    var hashString: String
+    let hashString: String
     let sourceLanguage: String
     let organizationName: String?
+    let minimumManifestUpdateInterval: TimeInterval
 	
 	var distributionResponse: DistributionsResponse? = nil
     
@@ -59,11 +60,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     
-    required init(hash: String, sourceLanguage: String, organizationName: String?) {
+    required init(hash: String, sourceLanguage: String, organizationName: String?, minimumUpdateInterval minimumManifestUpdateInterval: TimeInterval) {
         self.hashString = hash
         self.sourceLanguage = sourceLanguage
 		self.organizationName = organizationName
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
+        self.minimumManifestUpdateInterval = minimumManifestUpdateInterval
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
     }
 	
     func downloadDistribution(with successHandler: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
@@ -120,7 +122,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
 		}
         setupRealtimeUpdatesLocalizationProvider(with: projectId) { [weak self] in
             guard let self = self else { return }
-            self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+            self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         }
     }
     
@@ -136,7 +138,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     
     func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
         oldProvider = Localization.current.provider
-        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, sourceLanguage: sourceLanguage, hash: self.hashString, projectId: projectId, organizationName: self.organizationName))
+        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, sourceLanguage: sourceLanguage, hash: self.hashString, projectId: projectId, organizationName: self.organizationName, minimumManifestUpdateInterval: self.minimumManifestUpdateInterval))
         
         Localization.current.provider.refreshLocalization { [weak self] error in
             guard let self = self else { return }
@@ -163,13 +165,13 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         }
     }
     
-    func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
+    func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String, minimumManifestUpdateInterval: TimeInterval) {
         // Download manifest if it is not initialized.
-        let manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName)
+        let manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         guard manifestManager.downloaded else {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }
-                self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+                self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
             }
             return
         }

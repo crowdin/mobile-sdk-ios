@@ -20,6 +20,8 @@ class ManifestManager {
     /// Dictionary with manifest managers for hashes.
     fileprivate static var manifestMap = [String: ManifestManager]()
     
+    private var minimumManifestUpdateInterval: TimeInterval
+    
     var fileTimestampStorage: FileTimestampStorage
     
     /// Download status of manifest for current hash for current app session. True - after manifest downloaded from crowdin server.
@@ -61,10 +63,11 @@ class ManifestManager {
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
     var crowdinSupportedLanguages: CrowdinSupportedLanguages
 
-    fileprivate init(hash: String, sourceLanguage: String, organizationName: String?) {
+    fileprivate init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.hash = hash
         self.sourceLanguage = sourceLanguage
         self.organizationName = organizationName
+        self.minimumManifestUpdateInterval = minimumManifestUpdateInterval
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
         self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
         self.fileTimestampStorage = FileTimestampStorage(hash: hash)
@@ -72,8 +75,8 @@ class ManifestManager {
         ManifestManager.manifestMap[self.hash] = self
     }
 
-    class func manifest(for hash: String, sourceLanguage: String, organizationName: String?) -> ManifestManager {
-        manifestMap[hash] ?? ManifestManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
+    class func manifest(for hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) -> ManifestManager {
+        manifestMap[hash] ?? ManifestManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
     }
 
     var languages: [String]? { manifest?.languages }
@@ -98,6 +101,15 @@ class ManifestManager {
     }
 
     func download(completion: @escaping () -> Void) {
+        let lastUpdateTimestamp = UserDefaults.standard.double(forKey: Constants.lastManifestUpdateTimeInterval)
+        let currentTime = Date().timeIntervalSince1970
+        let minimumInterval = minimumManifestUpdateInterval
+        
+        guard currentTime - lastUpdateTimestamp >= minimumInterval else {
+            completion()
+            return
+        }
+        
         guard downloaded == false else {
             completion()
             return
@@ -116,6 +128,7 @@ class ManifestManager {
                 self.save(manifestResponse: manifest)
                 self.loaded = true
                 self.downloaded = true
+                UserDefaults.standard.set(currentTime, forKey: Constants.lastManifestUpdateTimeInterval)
             } else if let error = error {
                 LocalizationUpdateObserver.shared.notifyError(with: [error])
             } else {
@@ -182,5 +195,9 @@ class ManifestManager {
         ManifestManager.manifestMap.removeValue(forKey: hash)
         try? FileManager.default.removeItem(atPath: manifestPath)
         fileTimestampStorage.clear()
+    }
+    
+    enum Constants {
+        static let lastManifestUpdateTimeInterval = "com.crowdin.ManifestManager.lastManifestUpdateTimeInterval"
     }
 }
