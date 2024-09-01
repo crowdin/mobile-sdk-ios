@@ -25,7 +25,7 @@ class FileTimestampStorage {
         try? data.write(to: URL(fileURLWithPath: storagePath))
     }
 
-    func updateTimestamp(for localization: String, filePath: String, timestamp: TimeInterval) {
+    func updateTimestamp(for localization: String, filePath: String, timestamp: TimeInterval?) {
         if fileTimestamps[localization] == nil {
             fileTimestamps[localization] = [:]
         }
