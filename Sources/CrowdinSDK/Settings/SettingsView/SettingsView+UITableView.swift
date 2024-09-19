@@ -20,8 +20,7 @@ extension SettingsView {
                 logInItemView.action = { [weak self] in
                     loginFeature.login(completion: {
                         DispatchQueue.main.async {
-                            self?.reloadData()
-                            self?.reloadUI()
+                            self?.reload()
                         }
                         let message = "Logged in"
                         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
@@ -34,8 +33,10 @@ extension SettingsView {
                 }
             } else {
                 logInItemView.title = "Logged in"
-                logInItemView.action = { [weak self] in
-                    self?.showConfirmationLogoutAlert()
+                logInItemView.action = {
+                    loginFeature.showLogoutClearCredentialsAlert(completion: { [weak self] in
+                        self?.reload()
+                    })
                 }
             }
             logInItemView.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
@@ -135,6 +136,11 @@ extension SettingsView {
         stopItem.title = "Stop"
         stopItem.statusView.isHidden = true
         cells.append(stopItem)
+    }
+    
+    func reload() {
+        reloadData()
+        reloadUI()
     }
 }
 

@@ -178,19 +178,6 @@ final class SettingsView: UIView {
         return y
     }
 
-    func showConfirmationLogoutAlert() {
-        let alert = UIAlertController(title: "CrowdinSDK", message: "Are you sure you want to log out?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self]_ in
-            alert.cw_dismiss()
-            self?.logout()
-            self?.reloadUI()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
-            alert.cw_dismiss()
-        }))
-        alert.cw_present()
-    }
-
     func logout() {
         if let realtimeUpdateFeature = RealtimeUpdateFeature.shared, realtimeUpdateFeature.enabled {
             realtimeUpdateFeature.stop()
