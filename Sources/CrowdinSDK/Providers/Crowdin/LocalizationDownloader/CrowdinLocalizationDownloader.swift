@@ -30,9 +30,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                 let strings = files.filter({ $0.isStrings })
                 let plurals = files.filter({ $0.isStringsDict })
                 let xliffs = files.filter({ $0.isXliff })
-                let jsons = files.filter({ $0.isJson })
                 let xcstrings = files.filter({ $0.isXcstrings })
-                self.download(strings: strings, plurals: plurals, xliffs:xliffs, jsons: jsons, xcstrings: xcstrings, with: hash, timestamp: timestamp, for: localization)
+                self.download(strings: strings, plurals: plurals, xliffs:xliffs, xcstrings: xcstrings, with: hash, timestamp: timestamp, for: localization)
             } else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
@@ -40,7 +39,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
     }
     
-    func download(strings: [String], plurals: [String], xliffs: [String], jsons: [String], xcstrings: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
+    func download(strings: [String], plurals: [String], xliffs: [String], xcstrings: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
         self.operationQueue.cancelAllOperations()
         
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
@@ -81,17 +80,6 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                 guard let self = self else { return }
                 self.add(strings: strings)
                 self.add(plurals: plurals)
-                self.add(error: error)
-            }
-            completionBlock.addDependency(download)
-            operationQueue.addOperation(download)
-        }
-        
-        jsons.forEach { filePath in
-            let download = CrowdinJsonDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
-            download.completion = { [weak self] (strings, _, error) in
-                guard let self = self else { return }
-                self.add(strings: strings)
                 self.add(error: error)
             }
             completionBlock.addDependency(download)
