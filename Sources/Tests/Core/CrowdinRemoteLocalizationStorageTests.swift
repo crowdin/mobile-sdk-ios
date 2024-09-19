@@ -32,7 +32,7 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
         let preparationExpectation = XCTestExpectation(description: "Provider preperation")
         
         remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: "en", config: crowdinProviderConfig)
-        
+        remoteLocalizationStorage.manifestManager.clear()
         remoteLocalizationStorage.prepare {
             preparationExpectation.fulfill()
         }
