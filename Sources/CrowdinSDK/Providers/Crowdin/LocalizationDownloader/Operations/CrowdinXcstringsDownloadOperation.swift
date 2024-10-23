@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias CrowdinDownloadOperationCompletion = ([String: String]?, [AnyHashable: Any]?, Error?) -> Void
+
 public struct Localizations: Codable {
     public let sourceLanguage: String
     public let version: String
@@ -170,10 +172,10 @@ class XCStringsStorage {
 class CrowdinXcstringsDownloadOperation: CrowdinDownloadOperation {
     var timestamp: TimeInterval?
     let eTagStorage: AnyEtagStorage
-    var completion: CrowdinJsonDownloadOperationCompletion? = nil
+    var completion: CrowdinDownloadOperationCompletion? = nil
     let localization: String
     
-    init(filePath: String, localization: String, language: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinJsonDownloadOperationCompletion?) {
+    init(filePath: String, localization: String, language: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinDownloadOperationCompletion?) {
         self.localization = localization
         self.timestamp = timestamp
         self.eTagStorage = FileEtagStorage(localization: language)

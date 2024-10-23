@@ -32,10 +32,6 @@ extension String {
         hasSuffix(FileExtensions.xliff.extension)
     }
     
-    var isJson: Bool {
-        hasSuffix(FileExtensions.json.extension)
-    }
-    
     var isXcstrings: Bool {
         hasSuffix(FileExtensions.xcstrings.extension)
     }
