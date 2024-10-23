@@ -29,11 +29,11 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
 	
-	init(organizationName: String?, hash: String, sourceLanguage: String) {
+	init(organizationName: String?, hash: String, sourceLanguage: String, minimumManifestUpdateInterval: TimeInterval) {
         self.organizationName = organizationName
 		self.hash = hash
 		self.sourceLanguage = sourceLanguage
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
+        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {

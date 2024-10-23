@@ -18,7 +18,7 @@ class ManifestManagerTests: XCTestCase {
     func testDownloadManifest() {
         let expectation = XCTestExpectation(description: "Manifest download expectation")
         
-        let manifest = ManifestManager.manifest(for: crowdinTestHash, sourceLanguage: sourceLanguage, organizationName: nil)
+        let manifest = ManifestManager.manifest(for: crowdinTestHash, sourceLanguage: sourceLanguage, organizationName: nil, minimumManifestUpdateInterval: 15 * 60)
         XCTAssertFalse(manifest.loaded)
         XCTAssertFalse(manifest.downloaded)
         
