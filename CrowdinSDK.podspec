@@ -73,7 +73,7 @@ Pod::Spec.new do |spec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'Sources/CrowdinSDK/CrowdinAPI/**/*.swift'
     subspec.dependency 'CrowdinSDK/Core'
-    subspec.dependency 'BaseAPI', '~> 0.2.1'
+    subspec.dependency 'BaseAPI', '~> 0.2.2'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
@@ -114,7 +114,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
-    feature.dependency 'BaseAPI', '~> 0.2.1'
+    feature.dependency 'BaseAPI', '~> 0.2.2'
   end
   
   spec.subspec 'IntervalUpdate' do |feature|
