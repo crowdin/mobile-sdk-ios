@@ -91,13 +91,15 @@ extension SettingsView {
             if let feature = ScreenshotFeature.shared {
                 let screenshotItemView = SettingsItemView(frame: .zero)
                 screenshotItemView.action = {
-                    let message = "Screenshot captured"
-                    feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                    }, errorHandler: { (error) in
-                        let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-                    })
+                    self.presentEnterScreenshotNameAlert { screenshotName in
+                        let message = "Screenshot captured"
+                        feature.updateOrUploadScreenshot(name: screenshotName, success: {
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+                        }, errorHandler: { (error) in
+                            let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+                        })
+                    }
                 }
 
                 screenshotItemView.title = "Capture screenshot"
@@ -135,6 +137,33 @@ extension SettingsView {
         stopItem.title = "Stop"
         stopItem.statusView.isHidden = true
         cells.append(stopItem)
+    }
+    
+    func presentEnterScreenshotNameAlert(title: String = "Enter screenshot name",
+                                         message: String = "Please provide screenshot name value",
+                                         onSubmit: @escaping (String) -> Void) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Enter screenshot name"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
+            if let text = alert.textFields?.first?.text {
+                onSubmit(text)
+            }
+            alert.cw_dismiss()
+        })
+        alert.addAction(UIAlertAction(title: "Use timestamp", style: .default) { _ in
+            onSubmit(String(Int(Date().timeIntervalSince1970)))
+            alert.cw_dismiss()
+        })
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            alert.cw_dismiss()
+        })
+        
+        alert.cw_present()
     }
 }
 
