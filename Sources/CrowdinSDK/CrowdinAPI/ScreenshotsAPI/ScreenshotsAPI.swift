@@ -60,7 +60,7 @@ class ScreenshotsAPI: CrowdinAPI {
             ListScreenshotsParameters.search.rawValue: query,
             ListScreenshotsParameters.orderBy.rawValue: "createdAt desc,updatedAt desc",
             ListScreenshotsParameters.offset.rawValue: "0",
-            ListScreenshotsParameters.limit.rawValue: "1"
+            ListScreenshotsParameters.limit.rawValue: "2"
         ]
         let url = baseUrl(with: projectId)
         self.cw_get(url: url, parameters: parameters, completion: completion)

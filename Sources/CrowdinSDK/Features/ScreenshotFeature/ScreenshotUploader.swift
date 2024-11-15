@@ -135,8 +135,11 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                 errorHandler?(error ?? NSError(domain: Errors.unknownError.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                 return
             }
-            if let screenshotData = response.data.first {
-                let screnshotId = screenshotData.data.id
+            if response.data.count > 0 {
+                if response.data.count > 1 {
+                    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .warning, message: "Encountered multiple screenshots with the same name - \(name); only one will be updated."))
+                }
+                let screnshotId = response.data[0].data.id
                 let storageAPI = StorageAPI(organizationName: self.organizationName, auth: LoginFeature.shared)
                 
                 guard let data = screenshot.pngData() else { return }
