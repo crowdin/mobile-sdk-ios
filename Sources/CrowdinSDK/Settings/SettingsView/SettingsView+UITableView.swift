@@ -150,26 +150,51 @@ extension SettingsView {
                                          onSubmit: @escaping (String) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        // Create submit action with disabled state initially
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak alert] _ in
+            guard let text = alert?.textFields?.first?.text,
+                  text.validateScreenshotName() else { return }
+            onSubmit(text.trimmingCharacters(in: .whitespacesAndNewlines))
+            alert?.cw_dismiss()
+        }
+        submitAction.isEnabled = false
+        
         alert.addTextField { textField in
-            textField.placeholder = "Enter screenshot name"
+            textField.placeholder = "Screenshot name (avoid \\/:*?\"<>|)"
+            // Add target to monitor text changes
+            textField.addTarget(alert, action: #selector(UIAlertController.textDidChange), for: .editingChanged)
         }
         
-        alert.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
-            if let text = alert.textFields?.first?.text {
-                onSubmit(text)
-            }
-            alert.cw_dismiss()
-        })
+        alert.addAction(submitAction)
         alert.addAction(UIAlertAction(title: "Use timestamp", style: .default) { _ in
             onSubmit(String(Int(Date().timeIntervalSince1970)))
             alert.cw_dismiss()
         })
-
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
             alert.cw_dismiss()
         })
         
+        // Store submit action reference using ObjectAssociation
+        alert.submitAction = submitAction
+        
         alert.cw_present()
+    }
+}
+
+// MARK: - Alert Text Field Validation
+private extension UIAlertController {
+    private static let submitActionAssociation = ObjectAssociation<UIAlertAction>()
+    
+    var submitAction: UIAlertAction? {
+        get { return Self.submitActionAssociation[self] }
+        set { Self.submitActionAssociation[self] = newValue }
+    }
+    
+    @objc func textDidChange() {
+        if let textField = textFields?.first,
+           let text = textField.text {
+            submitAction?.isEnabled = text.validateScreenshotName()
+        }
     }
 }
 

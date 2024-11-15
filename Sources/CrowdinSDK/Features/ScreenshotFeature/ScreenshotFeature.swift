@@ -40,6 +40,10 @@ class ScreenshotFeature {
     ///   - success: A closure to be called when the screenshot is successfully captured and uploaded.
     ///   - errorHandler: A closure to be called when an error occurs during the process. The closure receives an optional Error parameter.
     func captureScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard name.validateScreenshotName() else {
+            errorHandler(NSError(domain: String.screenshotValidationError(), code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
         var name = name
         if !name.hasSuffix(FileType.png.extension) {
             name += FileType.png.extension
@@ -64,6 +68,10 @@ class ScreenshotFeature {
     }
     
     func updateOrUploadScreenshot(name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        guard name.validateScreenshotName() else {
+            errorHandler(NSError(domain: String.screenshotValidationError(), code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
         var name = name
         if !name.hasSuffix(FileType.png.extension) {
             name += FileType.png.extension
@@ -80,7 +88,7 @@ class ScreenshotFeature {
     ///   - errorHandler: A closure to be called when an error occurs during the process. The closure receives an optional Error parameter.
     func updateOrUploadScreenshot(view: View, name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshot = view.screenshot else {
-            errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
+            errorHandler(NSError(domain: "Unable to create screenshot from view.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
         let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
