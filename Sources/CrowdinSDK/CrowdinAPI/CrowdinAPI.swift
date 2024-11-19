@@ -91,6 +91,51 @@ class CrowdinAPI: BaseAPI {
         }
     }
     
+    func cw_put<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
+        self.put(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, completion: { data, response, error in
+            if self.isUnautorized(response: response) {
+                CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
+                NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
+                return
+            }
+            guard let data = data else {
+                completion(nil, error)
+                return
+            }
+            
+            CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
+            
+            do {
+                let response = try JSONDecoder().decode(T.self, from: data)
+                completion(response, error)
+            } catch {
+                print(String(data: data, encoding: .utf8) ?? "Data is empty")
+                completion(nil, error)
+            }
+        })
+    }
+    
+    func cw_putSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
+        let result = self.put(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body)
+        CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: result.data)
+        
+        if self.isUnautorized(response: result.response) {
+            NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
+            return (nil, nil);
+        }
+        guard let data = result.data else {
+            return (nil, result.error)
+        }
+        
+        do {
+            let response = try JSONDecoder().decode(T.self, from: data)
+            return (response, result.error)
+        } catch {
+            print(String(data: data, encoding: .utf8) ?? "Data is empty")
+            return (nil, error)
+        }
+    }
+    
     func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
         self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), completion: { data, response, error in
             if self.isUnautorized(response: response) {

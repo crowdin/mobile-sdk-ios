@@ -92,13 +92,15 @@ extension SettingsView {
             if let feature = ScreenshotFeature.shared {
                 let screenshotItemView = SettingsItemView(frame: .zero)
                 screenshotItemView.action = {
-                    let message = "Screenshot captured"
-                    feature.captureScreenshot(name: String(Date().timeIntervalSince1970), success: {
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
-                    }, errorHandler: { (error) in
-                        let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
-                        CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
-                    })
+                    self.presentEnterScreenshotNameAlert { screenshotName in
+                        feature.updateOrUploadScreenshot(name: screenshotName, success: { result in
+                            let message = result == .new ? "New Screenshot Uploaded" : "Screenshot Updated"
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: message))
+                        }, errorHandler: { (error) in
+                            let message = "Error while capturing screenshot - \(error?.localizedDescription ?? "Unknown")"
+                            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: message))
+                        })
+                    }
                 }
 
                 screenshotItemView.title = "Capture screenshot"
@@ -141,6 +143,58 @@ extension SettingsView {
     func reload() {
         reloadData()
         reloadUI()
+    }
+    
+    func presentEnterScreenshotNameAlert(title: String = "Enter screenshot name",
+                                         message: String = "Please provide screenshot name value",
+                                         onSubmit: @escaping (String) -> Void) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        // Create submit action with disabled state initially
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak alert] _ in
+            guard let text = alert?.textFields?.first?.text,
+                  text.validateScreenshotName() else { return }
+            onSubmit(text.trimmingCharacters(in: .whitespacesAndNewlines))
+            alert?.cw_dismiss()
+        }
+        submitAction.isEnabled = false
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Screenshot name (avoid \\/:*?\"<>|)"
+            // Add target to monitor text changes
+            textField.addTarget(alert, action: #selector(UIAlertController.textDidChange), for: .editingChanged)
+        }
+        
+        alert.addAction(submitAction)
+        alert.addAction(UIAlertAction(title: "Use timestamp", style: .default) { _ in
+            onSubmit(String(Int(Date().timeIntervalSince1970)))
+            alert.cw_dismiss()
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            alert.cw_dismiss()
+        })
+        
+        // Store submit action reference using ObjectAssociation
+        alert.submitAction = submitAction
+        
+        alert.cw_present()
+    }
+}
+
+// MARK: - Alert Text Field Validation
+private extension UIAlertController {
+    private static let submitActionAssociation = ObjectAssociation<UIAlertAction>()
+    
+    var submitAction: UIAlertAction? {
+        get { return Self.submitActionAssociation[self] }
+        set { Self.submitActionAssociation[self] = newValue }
+    }
+    
+    @objc func textDidChange() {
+        if let textField = textFields?.first,
+           let text = textField.text {
+            submitAction?.isEnabled = text.validateScreenshotName()
+        }
     }
 }
 

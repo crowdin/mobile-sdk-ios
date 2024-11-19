@@ -1,12 +1,12 @@
 PODS:
-  - BaseAPI (0.2.1)
+  - BaseAPI (0.2.2)
   - CrowdinSDK (1.9.0):
     - CrowdinSDK/Core (= 1.9.0)
     - CrowdinSDK/CrowdinProvider (= 1.9.0)
   - CrowdinSDK/Core (1.9.0):
     - CrowdinSDK/CrowdinFileSystem
   - CrowdinSDK/CrowdinAPI (1.9.0):
-    - BaseAPI (~> 0.2.1)
+    - BaseAPI (~> 0.2.2)
     - CrowdinSDK/Core
   - CrowdinSDK/CrowdinFileSystem (1.9.0)
   - CrowdinSDK/CrowdinProvider (1.9.0):
@@ -18,7 +18,7 @@ PODS:
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
   - CrowdinSDK/LoginFeature (1.9.0):
-    - BaseAPI (~> 0.2.1)
+    - BaseAPI (~> 0.2.2)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -79,8 +79,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BaseAPI: 7a3abac9fa1e19147a5c87dcfbb1829a584cd1ca
-  CrowdinSDK: 65fd7989c86e5ff79c8734979bc61510238d8725
+  BaseAPI: 7d1c79778a5c85f8e05f5e5c9d7f9be6474a53eb
+  CrowdinSDK: 176f6db0a3681cbcf5a1c64bb2f8e264a042c0a6
   netfox: 9d5cc727fe7576c4c7688a2504618a156b7d44b7
   Realm: 490aad28f1360e58fc22256d5d686d3a36525346
   RealmSwift: f6a9b56d747bbdd7931de1835896c5f024b6898a
@@ -88,6 +88,6 @@ SPEC CHECKSUMS:
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 074b840e8445d9c503f88d22ae46cf4abf8bae59
+PODFILE CHECKSUM: ac5ff3869bd8ecdae9e8e3231cff600cc696330e
 
 COCOAPODS: 1.15.2
