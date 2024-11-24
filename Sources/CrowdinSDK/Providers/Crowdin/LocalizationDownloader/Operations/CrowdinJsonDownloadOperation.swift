@@ -12,21 +12,21 @@ typealias CrowdinJsonDownloadOperationCompletion = ([String: String]?, [AnyHasha
 class CrowdinJsonDownloadOperation: CrowdinDownloadOperation {
     var timestamp: TimeInterval?
     var eTagStorage: AnyEtagStorage
-    var completion: CrowdinJsonDownloadOperationCompletion? = nil
-    
+    var completion: CrowdinJsonDownloadOperationCompletion?
+
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinJsonDownloadOperationCompletion?) {
         self.timestamp = timestamp
         self.eTagStorage = FileEtagStorage(localization: localization)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
-    
+
     required init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.timestamp = timestamp
         self.eTagStorage = FileEtagStorage(localization: localization)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
-    
+
     override func main() {
         let etag = eTagStorage.etag(for: filePath)
         contentDeliveryAPI.getJson(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (strings, etag, error) in

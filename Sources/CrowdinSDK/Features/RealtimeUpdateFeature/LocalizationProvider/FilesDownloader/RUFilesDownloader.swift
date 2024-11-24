@@ -12,10 +12,10 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     var completion: CrowdinDownloaderCompletion!
 
     fileprivate let operationQueue = OperationQueue()
-    fileprivate var strings: [String: String]? = nil
-    fileprivate var plurals: [AnyHashable: Any]? = nil
-    fileprivate var errors: [Error]? = nil
-    
+    fileprivate var strings: [String: String]?
+    fileprivate var plurals: [AnyHashable: Any]?
+    fileprivate var errors: [Error]?
+
     // swiftlint:disable implicitly_unwrapped_optional
     var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     let projectsAPI: ProjectsAPI
@@ -23,7 +23,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     let enterprise: Bool
     let manifestManager: ManifestManager
     let loginFeature: AnyLoginFeature?
-    
+
     init(projectId: String, organizationName: String?, manifestManager: ManifestManager, loginFeature: AnyLoginFeature?) {
         self.projectId = projectId
         self.manifestManager = manifestManager
@@ -32,7 +32,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: loginFeature)
         self.operationQueue.maxConcurrentOperationCount = 1
     }
-    
+
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
         self.getFiles(for: hash) { (fileIDs, error) in
@@ -41,17 +41,17 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
             self.download(fileIDs: fileIDs, with: hash, for: localization)
         }
     }
-    
+
     func download(fileIDs: [String], with hash: String, for localization: String) {
         self.strings = nil
         self.plurals = nil
         self.errors = nil
-        
+
         let completionBlock = BlockOperation { [weak self] in
             guard let self = self else { return }
             self.completion(self.strings, self.plurals, self.errors)
         }
-        
+
         fileIDs.forEach { (fileId) in
             let targetLanguageId = manifestManager.crowdinLanguageCode(for: localization) ?? localization
             let download = FileDataDownloadOperation(fileId: fileId, projectId: projectId, targetLanguageId: targetLanguageId, projectsAPI: projectsAPI) { [weak self] (data, error) in
@@ -96,7 +96,7 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
                     return
                 }
             }
-            
+
             let delayOperation = BlockOperation {
                 sleep(1)
             }
@@ -104,10 +104,10 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
-        
+
         operationQueue.addOperation(completionBlock)
     }
-    
+
     func getFiles(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         manifestManager.download { [weak self] in
             guard let self = self else { return }
@@ -125,14 +125,14 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
             }
         }
     }
-    
+
     func getLangiages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
         manifestManager.download { [weak self] in
             guard let self = self else { return }
             completion(self.manifestManager.languages, nil)
         }
     }
-    
+
     func getAllProjectFiles(completion: @escaping (_ files: [ProjectsFilesListResponseDatum]?, _ error: Error?) -> Void) {
         let defaultFilesCount = 500
         var allFiles = [ProjectsFilesListResponseDatum]()

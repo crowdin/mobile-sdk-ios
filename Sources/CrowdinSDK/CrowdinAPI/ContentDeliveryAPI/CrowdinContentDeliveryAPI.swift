@@ -23,26 +23,26 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         case etag = "Etag"
         case ifNoneMatch = "If-None-Match"
     }
-    
+
     private typealias CrowdinAPIDataCompletion = ((Data?, URLResponse?, Error?) -> Void)
-    
+
     private let hash: String
     private let baseURL = "https://distributions.crowdin.net"
-    
+
     init(hash: String, session: URLSession) {
         self.hash = hash
         super.init(session: session)
     }
-    
+
     init(hash: String) {
         self.hash = hash
         super.init(session: URLSession.shared)
     }
-    
+
     private func manifestURL() -> String {
         "\(baseURL)/\(hash)/manifest.json"
     }
-    
+
     private func buildURL(filePath: String, timestamp: TimeInterval?) -> String {
         if let timestamp = timestamp {
             return "\(baseURL)/\(hash)\(filePath)?timestamp=\(String(timestamp))"
@@ -50,8 +50,8 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             return "\(baseURL)/\(hash)\(filePath)"
         }
     }
-    
-    // MARK - General download methods
+
+    // MARK: - General download methods
     private func getFile(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIDataCompletion) {
         let stringURL = buildURL(filePath: filePath, timestamp: timestamp)
         var headers: [String: String] = [:]
@@ -71,8 +71,8 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             )
         }
     }
-    
-    // MARK - Localization download methods:
+
+    // MARK: - Localization download methods:
     func getStrings(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -87,8 +87,8 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
-    // MARK - Localization download methods:
+
+    // MARK: - Localization download methods:
     func getFileData(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIFileDataCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -99,7 +99,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getPlurals(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIPluralsCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -114,7 +114,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getXliff(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIXliffCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -129,7 +129,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getJson(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -144,8 +144,8 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
-    // MARK - Mapping download methods:
+
+    // MARK: - Mapping download methods:
     func getStringsMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsMappingCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
             if let data = data {
@@ -159,7 +159,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getPluralsMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIPluralsMappingCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
             if let data = data {
@@ -173,7 +173,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getXliffMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIXliffMappingCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
             if let data = data {
@@ -187,7 +187,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getManifest(completion: @escaping CrowdinAPIManifestCompletion) {
         let stringURL = manifestURL()
         super.get(url: stringURL) { [weak self] (data, _, error) in
@@ -204,7 +204,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
             }
         }
     }
-    
+
     func getManifestSync() -> (response: ManifestResponse?, error: Error?) {
         let stringURL = manifestURL()
         let result = super.get(url: stringURL)

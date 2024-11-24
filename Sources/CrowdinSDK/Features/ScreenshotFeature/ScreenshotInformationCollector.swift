@@ -25,12 +25,12 @@ class ScreenshotInformationCollector {
 #elseif os(iOS) || os(tvOS)
     static let scale = UIScreen.main.scale
 #endif
-    
+
 	class func captureControlsInformation() -> [ControlInformation] {
         guard let topViewController = ScreenshotFeature.topViewController else { return [] }
         return self.getControlsInformation(from: topViewController.view, rootView: topViewController.view)
 	}
-	
+
     class func getControlsInformation(from view: View, rootView: View) -> [ControlInformation] {
 		var description = [ControlInformation]()
 		view.subviews.forEach { subview in

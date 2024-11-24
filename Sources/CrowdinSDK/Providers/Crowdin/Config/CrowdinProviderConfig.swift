@@ -11,19 +11,19 @@ import Foundation
     var hashString: String
     var sourceLanguage: String
     var organizationName: String?
-    
+
     public init(hashString: String, sourceLanguage: String, organizationName: String? = nil) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
         self.organizationName = organizationName
     }
-    
+
     @available(*, deprecated, renamed: "init(hashString:sourceLanguage:)")
     public init(hashString: String, localizations: [String], sourceLanguage: String) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
     }
-    
+
     public override init() {
         guard let hashString = Bundle.main.crowdinDistributionHash else {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")

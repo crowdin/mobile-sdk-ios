@@ -13,13 +13,13 @@ final class AtomicProperty<A> {
     init(_ value: A) {
         self._value = value
     }
-    
+
     var value: A {
         get {
             return queue.sync { self._value }
         }
     }
-    
+
     func mutate(_ transform: (inout A) -> Void) {
         queue.sync {
             transform(&self._value)
@@ -29,21 +29,21 @@ final class AtomicProperty<A> {
 
 public final class CrowdinLogsCollector {
     static let shared = CrowdinLogsCollector()
-    
+
     fileprivate var _logs = AtomicProperty<[CrowdinLog]>([])
-    
+
     var logs: [CrowdinLog] {
         return _logs.value
     }
-    
+
     func add(log: CrowdinLog) {
         _logs.mutate { $0.append(log) }
-        
+
         guard let config = CrowdinSDK.config, config.debugEnabled else { return }
-        
+
         print("CrowdinSDK: \(log.message)")
     }
-    
+
     func clear() {
         _logs.mutate { $0.removeAll() }
     }

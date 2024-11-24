@@ -16,19 +16,19 @@ extension CrowdinSDK {
             swizzleControlMethods()
         }
     }
-    
+
     public class func startRealtimeUpdates(success: (() -> Void)?, error: ((Error) -> Void)?) {
         guard var realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
         realtimeUpdateFeature.success = success
         realtimeUpdateFeature.error = error
         realtimeUpdateFeature.start()
     }
-    
+
     public class func stopRealtimeUpdates() {
         guard let realtimeUpdateFeature = RealtimeUpdateFeature.shared else { return }
         realtimeUpdateFeature.stop()
     }
-    
+
     /// Reload localization for all UI controls(Label, Button). Works only if realtime update feature is enabled.
     public class func reloadUI() {
         DispatchQueue.main.async { RealtimeUpdateFeature.shared?.refreshAllControls() }

@@ -9,7 +9,7 @@ import Foundation
 
 struct ProjectsDownloadFileResponse: Codable {
     var data: ProjectsDownloadFileResponseData
-    
+
     enum CodingKeys: String, CodingKey {
         case data
     }
@@ -18,7 +18,7 @@ struct ProjectsDownloadFileResponse: Codable {
 struct ProjectsDownloadFileResponseData: Codable {
     var url: String
     var expireIn: String
-    
+
     enum CodingKeys: String, CodingKey {
         case url
         case expireIn

@@ -10,9 +10,9 @@ import Foundation
 protocol CrowdinControl {
     var localizationKey: String? { get }
     var localizationValues: [Any]? { get }
-    
+
     static func swizzle()
     static func unswizzle()
-    
+
     static var isSwizzled: Bool { get }
 }

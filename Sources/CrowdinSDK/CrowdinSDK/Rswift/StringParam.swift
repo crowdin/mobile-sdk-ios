@@ -19,17 +19,17 @@ import Foundation
 enum FormatPart {
 	case spec(FormatSpecifier)
 	case reference(String)
-	
+
 	var formatSpecifier: FormatSpecifier? {
 		switch self {
 		case .spec(let formatSpecifier):
 			return formatSpecifier
-			
+
 		case .reference:
 			return nil
 		}
 	}
-	
+
 	static func formatParts(formatString: String) -> [FormatPart] {
 		return createFormatParts(formatString)
 	}
@@ -45,7 +45,7 @@ enum FormatSpecifier {
 	case cStringPointer
 	case voidPointer
 	case topType
-	
+
 	var type: String {
 		switch self {
 		case .object:
@@ -75,10 +75,10 @@ extension FormatSpecifier {
 		guard let last = string.last else {
 			return nil
 		}
-		
+
 		self.init(formatChar: last)
 	}
-	
+
 	init?(formatChar char: Swift.Character) {
         guard let lcChar = Swift.String(char).lowercased().first else { return nil }
 		switch lcChar {
@@ -127,7 +127,7 @@ let formatTypesRegEx: NSRegularExpression = {
 private func createFormatParts(_ formatString: String) -> [FormatPart] {
 	let nsString = formatString as NSString
 	let range = NSRange(location: 0, length: nsString.length)
-	
+
 	// Extract the list of chars (conversion specifiers) and their optional positional specifier
 	let chars = formatTypesRegEx.matches(in: formatString, options: [], range: range).map { match -> (String, Int?) in
 		let range: NSRange
@@ -139,7 +139,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 			range = match.range(at: 2)
 		}
 		let char = nsString.substring(with: range)
-		
+
 		let posRange = match.range(at: 1)
 		if posRange.location == NSNotFound {
 			// No positional specifier
@@ -151,7 +151,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 			return (char, Int(pos))
 		}
 	}
-	
+
 	// Build up params array
 	var params = [FormatPart]()
 	var nextNonPositional = 1
@@ -159,13 +159,13 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 		let insertionPos: Int
 		if let pos = pos {
 			insertionPos = pos
-		}  else {
+		} else {
 			insertionPos = nextNonPositional
 			nextNonPositional += 1
 		}
-		
+
 		let param: FormatPart?
-		
+
 		if let reference = referenceRegEx.firstSubstring(input: str) {
 			param = FormatPart.reference(reference)
 		} else if let char = str.first, let fs = FormatSpecifier(formatChar: char) {
@@ -173,18 +173,18 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 		} else {
 			param = nil
 		}
-		
+
 		if let param = param {
 			if insertionPos > 0 {
 				while params.count <= insertionPos - 1 {
 					params.append(FormatPart.spec(FormatSpecifier.topType))
 				}
-				
+
 				params[insertionPos - 1] = param
 			}
 		}
 	}
-	
+
 	return params
 }
 
@@ -192,15 +192,15 @@ extension NSRegularExpression {
 	fileprivate func firstSubstring(input: String) -> String? {
 		let nsInput = input as NSString
 		let inputRange = NSRange(location: 0, length: nsInput.length)
-		
+
 		guard let match = self.firstMatch(in: input, options: [], range: inputRange) else {
 			return nil
 		}
-		
+
 		guard match.numberOfRanges > 0 else {
 			return nil
 		}
-		
+
 		let range = match.range(at: 1)
 		return nsInput.substring(with: range)
 	}

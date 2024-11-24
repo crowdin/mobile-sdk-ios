@@ -9,7 +9,7 @@ import Foundation
 
 extension CrowdinSDKConfig {
     // Crowdin provider configuration
-    private static var crowdinProviderConfig: CrowdinProviderConfig? = nil
+    private static var crowdinProviderConfig: CrowdinProviderConfig?
     // Realtime updates
     var crowdinProviderConfig: CrowdinProviderConfig? {
         get {
@@ -28,10 +28,10 @@ extension CrowdinSDKConfig {
         self.crowdinProviderConfig = crowdinProviderConfig
         return self
     }
-    
+
     static func resetStoredConfig() {
         Self.crowdinProviderConfig = nil
     }
-    
+
     var enterprise: Bool { crowdinProviderConfig?.organizationName != nil }
 }

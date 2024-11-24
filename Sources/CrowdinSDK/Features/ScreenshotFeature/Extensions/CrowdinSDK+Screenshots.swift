@@ -23,7 +23,7 @@ extension CrowdinSDK {
             swizzleControlMethods()
         }
     }
-    
+
     /// Captures a screenshot of the current top view controller and upload it to Crowdin.
     /// - Parameters:
     ///   - name: The name to be assigned to the screenshot.
@@ -37,7 +37,7 @@ extension CrowdinSDK {
         }
         screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
     }
-    
+
     /// Captures a screenshot of a specific view and upload it to Crowdin.
     /// - Parameters:
     ///   - view: The view to capture in the screenshot.
@@ -52,7 +52,7 @@ extension CrowdinSDK {
         }
         screenshotFeature.captureScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
     }
-    
+
     /// Captures a screenshot of the current top view controller and updates it if it already exists in Crowdin.
     /// If several screnshots with passed name exist it will update the newest one.
     /// If screenshot with fiven name not exist new one will be created.
@@ -68,7 +68,7 @@ extension CrowdinSDK {
         }
         screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
     }
-    
+
     /// Captures a screenshot of a specific view and updates it if it already exists in Crowdin.
     /// If several screnshots with passed name exist it will update the newest one.
     /// If screenshot with fiven name not exist new one will be created.

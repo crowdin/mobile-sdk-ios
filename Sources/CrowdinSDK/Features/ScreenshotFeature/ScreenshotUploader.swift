@@ -24,20 +24,20 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
     var organizationName: String?
 	var hash: String
 	var sourceLanguage: String
-	
+
     let loginFeature: AnyLoginFeature?
     let storageAPI: StorageAPI
-    
+
 	var mappingManager: CrowdinMappingManagerProtocol
-	var projectId: Int? = nil
-	
+	var projectId: Int?
+
 	enum Errors: String {
 		case storageIdIsMissing = "Storage id is missing."
 		case screenshotIdIsMissing = "Screenshot id is missing."
 		case unknownError = "Unknown error."
         case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
-	
+
     init(organizationName: String?, hash: String, sourceLanguage: String, loginFeature: AnyLoginFeature?) {
         self.organizationName = organizationName
 		self.hash = hash
@@ -46,7 +46,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         self.loginFeature = loginFeature
         self.storageAPI = StorageAPI(organizationName: organizationName, auth: loginFeature)
 	}
-	
+
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         if let loginFeature {
             if loginFeature.isLogined {
@@ -62,7 +62,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
             errorHandler?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
         }
 	}
-	
+
 	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         let distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName, auth: loginFeature)
 		distrinbutionsAPI.getDistribution { (response, error) in
@@ -78,7 +78,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 			}
 		}
 	}
-	
+
 	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?) {
 		guard let projectId = self.projectId else {
 			self.loginAndGetProjectId(success: {
@@ -91,10 +91,10 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
             errorHandler?(NSError(domain: Errors.noLocalizedStringsDetected.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        
+
 		guard let data = screenshot.pngData() else { return }
         let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: loginFeature)
-        
+
         storageAPI.uploadNewFile(data: data, fileName: name, completion: { response, error in
 			if let error = error {
 				errorHandler?(error)
@@ -123,7 +123,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 			})
 		})
 	}
-    
+
     func updateOrUploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?) {
         guard let projectId = self.projectId else {
             self.loginAndGetProjectId(success: {
@@ -131,9 +131,9 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
             }, errorHandler: errorHandler)
             return
         }
-        
+
         let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: loginFeature)
-        
+
         screenshotsAPI.listScreenshots(projectId: projectId, query: name) { response, error in
             guard let response else {
                 errorHandler?(error ?? NSError(domain: Errors.unknownError.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
@@ -145,9 +145,9 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                 }
                 let screnshotId = response.data[0].data.id
                 let storageAPI = StorageAPI(organizationName: self.organizationName, auth: self.loginFeature)
-                
+
                 guard let data = screenshot.pngData() else { return }
-                
+
                 storageAPI.uploadNewFile(data: data, fileName: name, completion: { response, error in
                     if let error = error {
                         errorHandler?(error)
@@ -157,7 +157,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                         errorHandler?(NSError(domain: Errors.storageIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                         return
                     }
-                    
+
                     screenshotsAPI.updateScreenshot(projectId: projectId, screnshotId: screnshotId, storageId: storageId, name: name) { response, error in
                         if let error = error {
                             errorHandler?(error)
@@ -167,13 +167,13 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                             errorHandler?(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                             return
                         }
-                        
+
                         let values = self.proceed(controlsInformation: controlsInformation)
                         guard values.count > 0 else {
                             errorHandler?(NSError(domain: Errors.noLocalizedStringsDetected.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                             return
                         }
-                        
+
                         screenshotsAPI.createScreenshotTags(projectId: projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
                             if let error = error {
                                 errorHandler?(error)
@@ -188,10 +188,10 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                     success?(.new)
                 }, errorHandler: errorHandler)
             }
-            
+
         }
     }
-    
+
 	func proceed(controlsInformation: [ControlInformation]) -> [(id: Int, rect: CGRect)] {
 		var results = [(id: Int, rect: CGRect)]()
 		controlsInformation.forEach { (controlInformation) in

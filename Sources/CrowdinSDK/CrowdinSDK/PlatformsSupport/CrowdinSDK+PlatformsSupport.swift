@@ -22,7 +22,7 @@ typealias Application = NSApplication
 
 extension NSView {
     var alpha: CGFloat { alphaValue }
-    
+
     var screenshot: Image? { Image(data: dataWithPDF(inside: bounds)) }
 }
 
@@ -65,7 +65,7 @@ public typealias View = WKInterfaceObject
 typealias ViewController = WKInterfaceController
 public typealias Image = WKImage
 typealias Window = WKInterfaceController
-//typealias Application = WKApplication
+// typealias Application = WKApplication
 
 extension Label {
     var text: String? {

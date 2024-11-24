@@ -21,7 +21,7 @@ extension FileStatsProtocol where Self: PathProtocol {
     public var status: FileStatus {
         let fileManager = FileManager.default
         var isDir: ObjCBool = false
-        if fileManager.fileExists(atPath: path, isDirectory:&isDir) {
+        if fileManager.fileExists(atPath: path, isDirectory: &isDir) {
             if isDir.boolValue {
                 return .directory
             } else {

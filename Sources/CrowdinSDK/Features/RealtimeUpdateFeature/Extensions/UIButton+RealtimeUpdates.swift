@@ -15,7 +15,7 @@ extension UIButton {
             RealtimeUpdateFeature.shared?.subscribe(control: self)
         }
     }
-    
+
     /// Unsubscribe Label for realtime updates.
     @objc func unsubscribeForRealtimeUpdates() {
         RealtimeUpdateFeature.shared?.unsubscribe(control: self)

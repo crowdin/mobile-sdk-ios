@@ -9,7 +9,7 @@ import Foundation
 
 extension CrowdinSDK {
     static var loginFeature: AnyLoginFeature?
-    
+
 	class func setupLogin() {
         if let accessToken = config.accessToken {
             loginFeature = AccessTokenLoginFeature(accessToken: accessToken)
@@ -21,19 +21,19 @@ extension CrowdinSDK {
             CrowdinLogsCollector.shared.add(log: .error(with: "Login feature isn't configured."))
         }
 	}
-    
+
     public class func login(completion: (() -> Void)?, failure: ((Error) -> Void)?) {
         loginFeature?.login(completion: completion ?? { }, error: failure ?? { _ in })
     }
-    
+
     public class func logout(clearCreditials: Bool, completion: (() -> Void)?) {
         loginFeature?.logout(clearCreditials: clearCreditials, completion: completion)
     }
-    
+
     public class var loggedIn: Bool {
         Self.loginFeature?.isLogined ?? false
     }
-    
+
     @discardableResult
     public class func handle(url: URL) -> Bool {
         return CrowdinSDK.loginFeature?.hadle(url: url) ?? false

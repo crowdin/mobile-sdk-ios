@@ -12,7 +12,7 @@ typealias CreateScreenshotTagRequest = [CreateScreenshotTagRequestElement]
 struct CreateScreenshotTagRequestElement: Codable {
     let stringId: Int
     let position: CreateScreenshotTagPosition
-    
+
     enum CodingKeys: String, CodingKey {
         case stringId
         case position

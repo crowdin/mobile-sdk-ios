@@ -65,20 +65,20 @@ final class SettingsView: UIView {
             blurView.leftAnchor.constraint(equalTo: leftAnchor),
             blurView.bottomAnchor.constraint(equalTo: bottomAnchor),
             blurView.rightAnchor.constraint(equalTo: rightAnchor),
-            
+
             settingsButton.topAnchor.constraint(equalTo: topAnchor),
             settingsButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             settingsButton.widthAnchor.constraint(equalToConstant: 60),
             settingsButton.heightAnchor.constraint(equalToConstant: 60),
-            
+
             closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             closeButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
-            
+
             stackView.topAnchor.constraint(equalTo: settingsButton.bottomAnchor),
             stackView.leftAnchor.constraint(equalTo: leftAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         translatesAutoresizingMaskIntoConstraints = true
     }
@@ -86,16 +86,16 @@ final class SettingsView: UIView {
     func setupViews() {
         settingsButton.setImage(UIImage(named: "settings-button", in: Bundle.module, compatibleWith: nil), for: .normal)
         settingsButton.addTarget(self, action: #selector(settingsButtonPressed), for: .touchUpInside)
-        
+
         closeButton.setImage(UIImage(named: "close_icon", in: Bundle.module, compatibleWith: nil), for: .normal)
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         closeButton.isHidden = true
-        
+
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        
+
         clipsToBounds = true
-        
+
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         self.addGestureRecognizer(gesture)
         self.isUserInteractionEnabled = true
@@ -118,7 +118,7 @@ final class SettingsView: UIView {
         cells.forEach({ stackView.addArrangedSubview($0) })
     }
 
-    var logsVC: UIViewController? = nil
+    var logsVC: UIViewController?
 
     func dismissLogsVC() {
         logsVC?.cw_dismiss()
@@ -152,7 +152,7 @@ final class SettingsView: UIView {
     func fixPositionIfNeeded() {
         let x = validateXCoordinate(value: self.center.x)
         let y = validateYCoordinate(value: self.center.y)
-        
+
         UIView.animate(withDuration: 0.3) {
             self.center = CGPoint(x: x, y: y)
         }

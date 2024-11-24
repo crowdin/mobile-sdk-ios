@@ -8,7 +8,7 @@
 import Foundation
 
 struct AttributedTextFormatter {
-   
+
     static func make(
         method: String,
         url: String,
@@ -19,7 +19,7 @@ struct AttributedTextFormatter {
         error: Error? = nil
     ) -> NSAttributedString {
         let attributedText = NSMutableAttributedString()
-        
+
         [
             AttributeFactory.make(.method(method)),
             AttributeFactory.make(.separator),
@@ -37,13 +37,13 @@ struct AttributedTextFormatter {
         ].forEach {
             attributedText.append($0)
         }
-        
+
         return attributedText
     }
 }
 
 enum LogAttribute {
-    
+
     case path(String)
     case url(String)
     case method(String)
@@ -54,7 +54,7 @@ enum LogAttribute {
     case error(String)
     case newLine
     case separator
-    
+
     var title: String {
         switch self {
         case .path:

@@ -27,11 +27,11 @@ extension Label: Refreshable {
             self.original_setText(text)
         }
     }
-    
+
     var key: String? {
         return self.localizationKey
     }
-    
+
     func refresh() {
         guard let key = self.localizationKey else { return }
         if let values = self.localizationValues as? [CVarArg] {
@@ -52,11 +52,11 @@ extension UIButton: Refreshable {
             self.cw_setTitle(text, for: self.state)
         }
     }
-    
+
     var key: String? {
         return self.localizationKeys?[state.rawValue]
     }
-    
+
     func refresh() {
         UIControl.State.all.forEach { (state) in
             guard let key = self.localizationKeys?[state.rawValue] else { return }
@@ -78,11 +78,11 @@ extension NSButton: Refreshable {
             self.cw_setTitle(text)
         }
     }
-    
+
     var key: String? {
         return self.localizationKey
     }
-    
+
     func refresh() {
         guard let key = self.localizationKey else { return }
         if let values = self.localizationValues as? [CVarArg] {
