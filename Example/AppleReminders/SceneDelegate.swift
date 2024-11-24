@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private let clientId = "client_id"
     private let clientSecret = "client_secret"
+    private let accessToken = "access_token"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         NFX.sharedInstance().start()
@@ -31,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                   scope: "project")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
+            .with(accessToken: accessToken)
             .with(settingsEnabled: true)
             .with(realtimeUpdatesEnabled: true)
             .with(screenshotsEnabled: true)

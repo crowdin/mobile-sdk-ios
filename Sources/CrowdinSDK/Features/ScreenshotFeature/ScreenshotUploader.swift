@@ -25,6 +25,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	var hash: String
 	var sourceLanguage: String
 	
+    let loginFeature: AnyLoginFeature?
     let storageAPI: StorageAPI
     
 	var mappingManager: CrowdinMappingManagerProtocol
@@ -37,22 +38,25 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
 	
-	init(organizationName: String?, hash: String, sourceLanguage: String) {
+    init(organizationName: String?, hash: String, sourceLanguage: String, loginFeature: AnyLoginFeature?) {
         self.organizationName = organizationName
 		self.hash = hash
 		self.sourceLanguage = sourceLanguage
         self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
-        self.storageAPI = StorageAPI(organizationName: organizationName, auth: LoginFeature.shared)
+        self.loginFeature = loginFeature
+        self.storageAPI = StorageAPI(organizationName: organizationName, auth: loginFeature)
 	}
 	
 	func loginAndGetProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-        if LoginFeature.isLogined {
-            self.getProjectId(success: success, errorHandler: errorHandler)
-        } else if let loginFeature = LoginFeature.shared {
-            loginFeature.login(completion: {
+        if let loginFeature {
+            if loginFeature.isLogined {
                 self.getProjectId(success: success, errorHandler: errorHandler)
-            }) { err in
-                errorHandler?(err)
+            } else {
+                loginFeature.login(completion: {
+                    self.getProjectId(success: success, errorHandler: errorHandler)
+                }) { err in
+                    errorHandler?(err)
+                }
             }
         } else {
             errorHandler?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
@@ -60,7 +64,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-        let distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName, auth: LoginFeature.shared)
+        let distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName, auth: loginFeature)
 		distrinbutionsAPI.getDistribution { (response, error) in
 			if let error = error {
 				errorHandler?(error)
@@ -89,7 +93,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         }
         
 		guard let data = screenshot.pngData() else { return }
-		let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: LoginFeature.shared)
+        let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: loginFeature)
         
         storageAPI.uploadNewFile(data: data, fileName: name, completion: { response, error in
 			if let error = error {
@@ -128,7 +132,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
             return
         }
         
-        let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: LoginFeature.shared)
+        let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: loginFeature)
         
         screenshotsAPI.listScreenshots(projectId: projectId, query: name) { response, error in
             guard let response else {
@@ -140,7 +144,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                     CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .warning, message: "Encountered multiple screenshots with the same name - \(name); only one will be updated."))
                 }
                 let screnshotId = response.data[0].data.id
-                let storageAPI = StorageAPI(organizationName: self.organizationName, auth: LoginFeature.shared)
+                let storageAPI = StorageAPI(organizationName: self.organizationName, auth: self.loginFeature)
                 
                 guard let data = screenshot.pngData() else { return }
                 

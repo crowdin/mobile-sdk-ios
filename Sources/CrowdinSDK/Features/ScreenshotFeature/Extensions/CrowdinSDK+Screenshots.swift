@@ -18,7 +18,7 @@ extension CrowdinSDK {
         guard let config = CrowdinSDK.config else { return }
         if config.screenshotsEnabled {
             let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
-            let screenshotUploader = CrowdinScreenshotUploader(organizationName: config.crowdinProviderConfig?.organizationName, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage)
+            let screenshotUploader = CrowdinScreenshotUploader(organizationName: config.crowdinProviderConfig?.organizationName, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, loginFeature: CrowdinSDK.loginFeature)
             ScreenshotFeature.shared = ScreenshotFeature(screenshotUploader: screenshotUploader, screenshotProcessor: CrowdinScreenshotProcessor())
             swizzleControlMethods()
         }
