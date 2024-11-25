@@ -71,12 +71,28 @@ if (!error) {
 ```
 
 :::caution
-If you get the `Error while capturing screenshot - The operation couldn’t be completed. (There are no localized strings detected on current screen. error 99999.)` when sending screenshots, please make sure that your **current locale** is your project **source (default) language**.
+If you get the `Error while capturing screenshot - The operation couldn't be completed. (There are no localized strings detected on current screen. error 99999.)` when sending screenshots, please make sure that your **current locale** is your project **source (default) language**.
 :::
 
 ### Authorization
 
-Crowdin Authorization is required for Screenshots feature. So you need to handle authorization callback in your application:
+Crowdin Authorization is required for Screenshots feature. You can use one of two authentication methods. **Important**: If both authentication methods are configured, access token authentication will take priority over OAuth authentication.
+
+#### Access Token Authentication
+
+You can authenticate using an access token:
+
+```swift
+let crowdinSDKConfig = CrowdinSDKConfig.config()
+    .with(crowdinProviderConfig: crowdinProviderConfig)
+    .with(screenshotsEnabled: true)
+    .with(accessToken: "your_access_token")
+    .with(settingsEnabled: true)
+```
+
+#### OAuth Authentication
+
+Handle authorization callback in your application:
 
 import authCallbackSwift from '!!raw-loader!../code-samples/auth-callback.swift';
 import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m';
@@ -86,14 +102,14 @@ import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{authCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
-If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate**  class implement method:
+If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate** class implement method:
 
 import sceneDelegateCallbackSwift from '!!raw-loader!../code-samples/scene-delegate-callback.swift';
 import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-delegate-callback.m';
 
 <Tabs groupId="language">
   <TabItem value="swift" label="Swift"><CodeBlock language="swift">{sceneDelegateCallbackSwift}</CodeBlock></TabItem>
-  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{sceneDelegateCallbackObjectiveC}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{authCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
 ### Own handler
@@ -122,6 +138,7 @@ or even capture screenshots of a separate UIView.
 | `organizationName`         | An Organization domain name (for **Crowdin Enterprise users only**)                                                                                                                                                                                                                                                                                                                                                                | `organizationName: "mycompany"`                               |
 | `settingsEnabled`          | Enable [SDK Controls](/advanced-features/sdk-controls) to easily access the features of SDK                                                                                                                                                                                                                                                                                                                                        | `settingsEnabled: true`                                       |
 | `screenshotsEnabled`       | Enable Screenshots feature                                                                                                                                                                                                                                                                                                                                                                                                         | `screenshotsEnabled: true`                                    |
+| `accessToken`              | Access token for Crowdin API authentication. Note: When both access token and OAuth login config are provided, access token authentication takes priority                                                                                                                                                                                                                                                                            | `accessToken: "your_access_token"`                            |
 
 :::caution
 The Screenshots feature should not be used in a production environment. It is intended for use in development or staging only.

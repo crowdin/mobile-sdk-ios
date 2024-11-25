@@ -72,7 +72,23 @@ if (!error) {
 
 ### Authorization
 
-Crowdin Authorization is required for Real-Time Preview feature. So you need to handle authorization callback in your application:
+Crowdin Authorization is required for Real-Time Preview feature. You can use one of two authentication methods. **Important**: If both authentication methods are configured, access token authentication will take priority over OAuth authentication.
+
+#### Access Token Authentication
+
+You can authenticate using an access token:
+
+```swift
+let crowdinSDKConfig = CrowdinSDKConfig.config()
+    .with(crowdinProviderConfig: crowdinProviderConfig)
+    .with(realtimeUpdatesEnabled: true)
+    .with(accessToken: "your_access_token")
+    .with(settingsEnabled: true)
+```
+
+#### OAuth Authentication
+
+Handle authorization callback in your application:
 
 import authCallbackSwift from '!!raw-loader!../code-samples/auth-callback.swift';
 import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m';
@@ -104,6 +120,7 @@ import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-
 | `organizationName`         | An Organization domain name (for **Crowdin Enterprise users only**)                                                                                                                                                                                                                                                                                                                                                                | `organizationName: "mycompany"`                          |
 | `settingsEnabled`          | Enable [SDK Controls](/advanced-features/sdk-controls) to easily access the SDK features                                                                                                                                                                                                                                                                                                                                           | `settingsEnabled: true`                                  |
 | `realtimeUpdatesEnabled`   | Enable Real-Time Preview feature                                                                                                                                                                                                                                                                                                                                                                                                   | `realtimeUpdatesEnabled: true`                           |
+| `accessToken`              | Access token for Crowdin API authentication. Note: When both access token and OAuth login config are provided, access token authentication takes priority                                                                                                                                                                                                                                                                            | `accessToken: "your_access_token"`                       |
 
 :::caution
 The Real-Time Preview feature should not be used in a production environment. It is intended for use in development or staging only.
