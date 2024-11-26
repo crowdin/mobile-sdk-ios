@@ -68,6 +68,17 @@
                ReferencedContainer = "container:AppleReminders.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E81B4C172CF559C1008D7C25"
+               BuildableName = "AppleRemindersUITests.xctest"
+               BlueprintName = "AppleRemindersUITests"
+               ReferencedContainer = "container:AppleReminders.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
