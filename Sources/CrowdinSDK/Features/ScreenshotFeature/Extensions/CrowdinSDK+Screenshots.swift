@@ -61,12 +61,12 @@ extension CrowdinSDK {
     ///   - success: A closure to be called when the screenshot is successfully captured and updated.
     ///   - errorHandler: A closure to be called if an error occurs during the process.
     ///                   The closure receives an optional Error parameter indicating what went wrong.
-    public class func captureAndUpdateScreenshot(name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureAndUpdateScreenshot(name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        screenshotFeature.captureScreenshot(name: name, success: success, errorHandler: errorHandler)
+        screenshotFeature.updateOrUploadScreenshot(name: name, success: success, errorHandler: errorHandler)
     }
     
     /// Captures a screenshot of a specific view and updates it if it already exists in Crowdin.
@@ -78,12 +78,12 @@ extension CrowdinSDK {
     ///   - success: A closure to be called when the screenshot is successfully captured and updated.
     ///   - errorHandler: A closure to be called if an error occurs during the process.
     ///                   The closure receives an optional Error parameter indicating what went wrong.
-    public class func captureAndUpdateScreenshot(view: View, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureAndUpdateScreenshot(view: View, name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        screenshotFeature.captureScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
+        screenshotFeature.updateOrUploadScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
     }
 }
 

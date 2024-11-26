@@ -9,6 +9,7 @@
 import RealmSwift
 import SwiftUI
 import UIKit
+import CrowdinSDK
 
 final class MainVC: UIViewController {
     
@@ -101,6 +102,16 @@ final class MainVC: UIViewController {
         
         setupNavBar()
         setupSearch()
+        
+        CrowdinSDK.captureAndUpdateScreenshot(name: "{screenshot_name}") { result in
+            switch result {
+            case .new: print("New screenshot captured")
+            case .udpated: print("Screenshot updated")
+            }
+        } errorHandler: { error in
+            print("Error: \(error)")
+        }
+
     }
     
     deinit {

@@ -133,10 +133,13 @@ CrowdinSDK.captureScreenshot(name: String(Date().timeIntervalSince1970)) {
 2. Capture and update existing screenshot:
 ```swift
 
-CrowdinSDK.captureAndUpdateScreenshot(name: "{screenshot_name}") {
-    print("Screenshot updated")
+CrowdinSDK.captureAndUpdateScreenshot(name: "{screenshot_name}") { result in
+    switch result {
+        case .new: print("New screenshot captured")
+        case .udpated: print("Screenshot updated")
+    }
 } errorHandler: { error in
-    print("Screenshot update failed with error - " + (error?.localizedDescription ?? ""))
+    print("Error: \(error)")
 }
 ```
 

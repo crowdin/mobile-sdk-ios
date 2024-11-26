@@ -13,6 +13,8 @@ import CoreGraphics
 public protocol ScreenshotUploader {
 	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)
     func updateOrUploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?)
+    
+    func prepare(completion: @escaping (Error?) -> Void)
 }
 
 public enum ScreenshotUploadResult {
@@ -28,7 +30,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
     let loginFeature: AnyLoginFeature?
     let storageAPI: StorageAPI
     
-	var mappingManager: CrowdinMappingManagerProtocol
+	var mappingManager: CrowdinMappingManager
 	var projectId: Int? = nil
 	
 	enum Errors: String {
@@ -64,8 +66,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 	}
 	
 	func getProjectId(success: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
-        let distrinbutionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName, auth: loginFeature)
-		distrinbutionsAPI.getDistribution { (response, error) in
+        let distributionsAPI = DistributionsAPI(hashString: hash, organizationName: organizationName, auth: loginFeature)
+		distributionsAPI.getDistribution { (response, error) in
 			if let error = error {
 				errorHandler?(error)
 			} else if let id = response?.data.project.id, let projectId = Int(id) {
@@ -78,6 +80,28 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 			}
 		}
 	}
+    
+    func prepare(completion: @escaping (Error?) -> Void) {
+        downloadMappingIfNeeded(completion: { error in
+            DispatchQueue.main.async {
+                completion(error)
+            }
+        })
+    }
+    
+    func downloadMappingIfNeeded(completion: @escaping (Error?) -> Void) {
+        if mappingManager.downloaded {
+            completion(nil)
+        } else {
+            mappingManager.downloadCompletions.append({ errors in
+                if let errors, let error = self.combineErrors(errors) {
+                    completion(error)
+                    return
+                }
+                completion(nil)
+            })
+        }
+    }
 	
 	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?) {
 		guard let projectId = self.projectId else {
@@ -201,6 +225,25 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		}
 		return results
 	}
+    
+    func combineErrors(_ errors: [Error]) -> Error? {
+        // If no errors, return nil
+        guard !errors.isEmpty else { return nil }
+        
+        // If only one error, return that error
+        guard errors.count > 1 else { return errors.first }
+        
+        // Custom error type to combine multiple errors
+        struct MultipleErrors: Error {
+            let errors: [Error]
+            
+            var localizedDescription: String {
+                return errors.map { $0.localizedDescription }.joined(separator: "; ")
+            }
+        }
+        
+        return MultipleErrors(errors: errors)
+    }
 }
 
 #endif
