@@ -100,11 +100,8 @@ class ManifestManager {
             completion()
             return
         }
-        guard downloading == false else {
-            addCompletion(completion: completion, for: hash)
-            return
-        }
         addCompletion(completion: completion, for: hash)
+        guard downloading == false else { return }
         downloading = true
         contentDeliveryAPI.getManifest { [weak self] manifest, manifestURL, error in
             guard let self = self else { return }

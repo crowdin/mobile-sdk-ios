@@ -102,16 +102,6 @@ final class MainVC: UIViewController {
         
         setupNavBar()
         setupSearch()
-        
-        CrowdinSDK.captureAndUpdateScreenshot(name: "{screenshot_name}") { result in
-            switch result {
-            case .new: print("New screenshot captured")
-            case .udpated: print("Screenshot updated")
-            }
-        } errorHandler: { error in
-            print("Error: \(error)")
-        }
-
     }
     
     deinit {

@@ -17,6 +17,11 @@ import CoreGraphics
 public struct ControlInformation {
 	var key: String
 	var rect: CGRect
+    
+    public init(key: String, rect: CGRect) {
+        self.key = key
+        self.rect = rect
+    }
 }
 
 class ScreenshotInformationCollector {
