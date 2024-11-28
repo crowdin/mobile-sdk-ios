@@ -16,7 +16,15 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     private static let accessToken = "{access_token}"
     
     override class func setUp() {
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: Self.distributionHash,
+                                                          sourceLanguage: Self.sourceLanguage)
         
+        let crowdinSDKConfig = CrowdinSDKConfig.config()
+            .with(crowdinProviderConfig: crowdinProviderConfig)
+            .with(accessToken: Self.accessToken)
+            .with(screenshotsEnabled: true)
+        
+        CrowdinSDK.startWithConfigSync(crowdinSDKConfig)
     }
     
     override class func tearDown() {
@@ -26,51 +34,18 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     
     @MainActor
     func testScreenshots() throws {
-        
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: Self.distributionHash,
-                                                          sourceLanguage: Self.sourceLanguage)
-        
-        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-            .with(accessToken: Self.accessToken)
-            .with(screenshotsEnabled: true)
-        
-        let setupExpectation = self.expectation(description: "CrowdinSDK setup")
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-            setupExpectation.fulfill()
-        })
-        
-        wait(for: [setupExpectation], timeout: 30)
-
         let app = XCUIApplication()
         app.launchArguments = ["UI_TESTING"]
         app.launch()
         
-        let screenshotExpectation = self.expectation(description: "MAIN_SCREEN screenshot")
+        // MAIN SCREEN
+        var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN", image: XCUIScreen.main.screenshot().image, application: app)
+        XCTAssertNil(result.1)
         
-        CrowdinSDK.captureOrUpdateScreenshot(name: "MAIN_SCREEN", image: XCUIScreen.main.screenshot().image, application: app) { result in
-            print("Success - \(result)")
-            screenshotExpectation.fulfill()
-        } errorHandler: { error in
-            print(error?.localizedDescription ?? "")
-            screenshotExpectation.fulfill()
-        }
-        
-        wait(for: [screenshotExpectation], timeout: 30)
-        
-        
+        // ADD LIST
         app.otherElements.buttons.element(matching: .button, identifier: "addListBtn").tap()
         
-        let addListExpectation = self.expectation(description: "ADD_LIST screenshot")
-        
-        CrowdinSDK.captureOrUpdateScreenshot(name: "ADD_LIST", image: XCUIScreen.main.screenshot().image, application: app) { result in
-            print("Success - \(result)")
-            addListExpectation.fulfill()
-        } errorHandler: { error in
-            print(error?.localizedDescription ?? "")
-            addListExpectation.fulfill()
-        }
-        
-        wait(for: [addListExpectation], timeout: 30)
+        result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "ADD_LIST", image: XCUIScreen.main.screenshot().image, application: app)
+        XCTAssertNil(result.1)
     }
-
 }

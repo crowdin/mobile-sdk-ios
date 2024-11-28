@@ -15,6 +15,7 @@ public protocol ScreenshotUploader {
     func updateOrUploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?)
     
     func prepare(completion: @escaping (Error?) -> Void)
+    func prepareSync() -> Error?
 }
 
 public enum ScreenshotUploadResult {
@@ -72,8 +73,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 				errorHandler?(error)
 			} else if let id = response?.data.project.id, let projectId = Int(id) {
 				self.projectId = projectId
-				success?()
                 CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Get distribution success"))
+				success?()
 			} else {
 				errorHandler?(NSError(domain: Errors.unknownError.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                 CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Get distribution failed - \(Errors.unknownError.rawValue)"))
@@ -87,6 +88,17 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                 completion(error)
             }
         })
+    }
+    
+    func prepareSync() -> Error? {
+        let semaphore = DispatchSemaphore(value: 0)
+        var error: Error? = nil
+        downloadMappingIfNeeded {
+            error = $0
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return error
     }
     
     func downloadMappingIfNeeded(completion: @escaping (Error?) -> Void) {

@@ -25,7 +25,7 @@ extension XCUIElementQuery: @retroactive Sequence {
 extension XCUIApplication {
     func getAllControlsWithText() -> [XCUIElement] {
         var controls = [XCUIElement]()
-        for element in descendants(matching: .any) {
+        for element in descendants(matching: .staticText) {
             if !element.label.isEmpty {
                 controls.append(element)
             }
@@ -36,7 +36,6 @@ extension XCUIApplication {
     func getControlsInformation() -> [ControlInformation] {
         var controls = [ControlInformation]()
         for control in getAllControlsWithText() {
-            print(control.label)
             if let key = CrowdinSDK.keyFor(string: control.label) {
                 controls.append(ControlInformation(key: key, rect: control.rect))
             }
@@ -85,25 +84,33 @@ extension CrowdinSDK {
         CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
     
-    public class func captureOrUpdateScreenshotSync(name: String, image: UIImage, application: XCUIApplication) -> (ScreenshotUploadResult?, Error?) {
+    public class func captureOrUpdateScreenshotSync(name: String, image: UIImage, application: XCUIApplication) -> (result: ScreenshotUploadResult?, error: Error?) {
         var result: ScreenshotUploadResult?
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
-        CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: {
-            result = $0
-            semaphore.signal()
-        }, errorHandler: {
-            error = $0
-            semaphore.signal()
-        })
+        let controlsInformation = application.getControlsInformation()
+        DispatchQueue.global().async {
+            CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: controlsInformation, success: {
+                result = $0
+                semaphore.signal()
+            }, errorHandler: {
+                error = $0
+                semaphore.signal()
+            })
+        }
         _ = semaphore.wait(timeout: .distantFuture)
         return (result, error)
     }
     
+    /// Method to start sdk synchroniously.
+    /// - Warning: Method is used for UI tests, not recommended to use in production.
+    /// - Parameter config: Crowdin SDK config.
     public class func startWithConfigSync(_ config: CrowdinSDKConfig) {
         let semaphore = DispatchSemaphore(value: 1)
-        startWithConfig(config) {
-            semaphore.signal()
+        DispatchQueue.global().async {
+            startWithConfig(config) {
+                semaphore.signal()
+            }
         }
         _ = semaphore.wait(timeout: .distantFuture)
     }

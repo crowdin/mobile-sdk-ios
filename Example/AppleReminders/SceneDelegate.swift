@@ -23,6 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let accessToken = "access_token"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        // Check for launch arguments
+        let isTesting = ProcessInfo.processInfo.arguments.contains("UI_TESTING")
+        
         NFX.sharedInstance().start()
         
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
@@ -33,9 +36,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
             .with(loginConfig: loginConfig)
             .with(accessToken: accessToken)
-            .with(settingsEnabled: true)
-            .with(realtimeUpdatesEnabled: true)
-            .with(screenshotsEnabled: true)
+            .with(settingsEnabled: !isTesting)
+            .with(realtimeUpdatesEnabled: !isTesting)
+            .with(screenshotsEnabled: !isTesting)
         
         CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
         // Now new log message comes as callback

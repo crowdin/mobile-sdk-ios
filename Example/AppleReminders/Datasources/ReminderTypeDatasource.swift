@@ -22,6 +22,13 @@ class ReminderTypeDatasource: NSObject, UICollectionViewDataSource {
         
         let type = types[indexPath.row]
         cell.desiredType = type
+        if cell.desiredType == .today {
+            cell.accessibilityIdentifier = "TodayCell"
+            cell.isAccessibilityElement = true
+        } else {
+            cell.accessibilityIdentifier = nil
+            cell.isAccessibilityElement = false
+        }
         
         return cell
     }

@@ -46,8 +46,8 @@ class CrowdinAPI: BaseAPI {
         super.init(session: session)
     }
     
-    func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
-        self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, completion: { data, response, error in
+    func cw_post<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, callbackQueue: DispatchQueue? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
+        self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, callbackQueue: callbackQueue ?? .global(), completion: { data, response, error in
             
             CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
             
@@ -92,8 +92,8 @@ class CrowdinAPI: BaseAPI {
         }
     }
     
-    func cw_put<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, completion: @escaping (T?, Error?) -> Swift.Void) {
-        self.put(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, completion: { data, response, error in
+    func cw_put<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?, callbackQueue: DispatchQueue? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
+        self.put(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, callbackQueue: callbackQueue ?? .global(), completion: { data, response, error in
             
             CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), body: body, responseData: data)
             
@@ -138,8 +138,8 @@ class CrowdinAPI: BaseAPI {
         }
     }
     
-    func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
-        self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), completion: { data, response, error in
+    func cw_get<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, callbackQueue: DispatchQueue? = nil, completion: @escaping (T?, Error?) -> Swift.Void) {
+        self.get(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), callbackQueue: callbackQueue ?? .global(), completion: { data, response, error in
             
             CrowdinAPILog.logRequest(method: RequestMethod.GET.rawValue, url: url, parameters: parameters, headers: self.addDefaultHeaders(to: headers), responseData: data)
             
