@@ -8,6 +8,7 @@ import XCTest
 import UIKit
 import CrowdinSDK
 
+#if compiler(>=6.0)
 extension XCUIElementQuery: @retroactive Sequence {
     public typealias Iterator = AnyIterator<XCUIElement>
     public func makeIterator() -> Iterator {
@@ -21,6 +22,21 @@ extension XCUIElementQuery: @retroactive Sequence {
         }
     }
 }
+#else
+extension XCUIElementQuery: Sequence {
+    public typealias Iterator = AnyIterator<XCUIElement>
+    public func makeIterator() -> Iterator {
+        var index = UInt(0)
+        return AnyIterator {
+            guard index < self.count else { return nil }
+
+            let element = self.element(boundBy: Int(index))
+            index = index + 1
+            return element
+        }
+    }
+}
+#endif
 
 extension XCUIApplication {
     func getAllControlsWithText() -> [XCUIElement] {

@@ -8,6 +8,9 @@
 
 import XCTest
 import CrowdinSDK
+#if canImport(CrowdinXCTestScreenshots)
+import CrowdinXCTestScreenshots
+#endif
 
 final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     

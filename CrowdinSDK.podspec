@@ -140,8 +140,8 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/LoginFeature'
   end
 
-  spec.subspec 'XCTestScreenshotFeature' do |feature|
-    feature.name = 'XCTestScreenshotFeature'
+  spec.subspec 'CrowdinXCTestScreenshots' do |feature|
+    feature.name = 'CrowdinXCTestScreenshots'
     feature.ios.source_files = 'Sources/CrowdinSDK/Features/XCTestScreenshotFeature/*.swift'
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'

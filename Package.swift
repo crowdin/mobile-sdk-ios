@@ -13,7 +13,7 @@ let package = Package(
     ],
     products: [
         .library(name: "CrowdinSDK", targets: ["CrowdinSDK"]),
-        .library(name: "XCTestScreenshotFeature", targets: ["XCTestScreenshotFeature"])
+        .library(name: "CrowdinXCTestScreenshots", targets: ["CrowdinXCTestScreenshots"])
     ],
     dependencies: [
         .package(url: "https://github.com/serhii-londar/BaseAPI.git", .upToNextMajor(from: "0.2.1")),
@@ -21,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "XCTestScreenshotFeature",
+            name: "CrowdinXCTestScreenshots",
             dependencies: ["CrowdinSDK"],
             path: "Sources/CrowdinSDK/Features/XCTestScreenshotFeature"
         ),

@@ -15,7 +15,7 @@ target 'AppleReminders' do
 end
 
 target 'AppleRemindersUITests' do
-  pod 'CrowdinSDK/XCTestScreenshotFeature', :path => '../'
+  pod 'CrowdinSDK/CrowdinXCTestScreenshots', :path => '../'
 end
 
 post_install do |installer|
