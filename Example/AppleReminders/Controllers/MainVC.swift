@@ -9,7 +9,6 @@
 import RealmSwift
 import SwiftUI
 import UIKit
-import CrowdinSDK
 
 final class MainVC: UIViewController {
     

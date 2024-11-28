@@ -22,58 +22,6 @@ To configure iOS SDK integration you need to:
 - CDN will cache all translations in the release for up to 1 hour and even if new translations are released in Crowdin, CDN may return them with a delay.
 :::
 
-## Authentication
-
-The SDK supports two authentication methods for features like Screenshots and Real-Time Preview:
-
-1. Access Token Authentication (Recommended for simplicity)
-2. OAuth Authentication (Recommended for more control)
-
-:::caution Production Usage
-Features requiring authentication (Screenshots and Real-Time Preview) should NOT be enabled in production builds. These features are intended for development and testing purposes only.
-:::
-
-### Option 1: Access Token Authentication
-
-This is the simpler method, requiring only an access token:
-
-```swift
-let crowdinSDKConfig = CrowdinSDKConfig.config()
-    .with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(screenshotsEnabled: true) // Optional: Enable Screenshots feature
-    .with(realtimeUpdatesEnabled: true) // Optional: Enable Real-Time Preview
-    .with(accessToken: "your_access_token")
-    .with(settingsEnabled: true)
-```
-
-### Option 2: OAuth Authentication
-
-This method provides more control but requires additional setup:
-
-```swift
-var loginConfig: CrowdinLoginConfig
-do {
-    loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
-       clientSecret: "{client_secret}",
-       scope: "project",
-       redirectURI: "{redirectURI}")
-} catch {
-    print(error)
-    // Handle initialization error
-}
-
-let crowdinSDKConfig = CrowdinSDKConfig.config()
-    .with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(loginConfig: loginConfig)
-    .with(settingsEnabled: true)
-```
-
-:::info Priority
-When both authentication methods are configured, access token authentication takes priority over OAuth authentication.
-:::
-
-## Basic Setup Examples
-
 ### Swift
 
 Open the *AppDelegate.swift* file and add:
@@ -122,12 +70,13 @@ If you have a pure Objective-C project, you will need to take some additional st
 
 Add the following code to your Library Search Paths:
 
-1. Add to Library Search Paths:
-```bash
-$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
-```
+1.  Add to Library Search Paths:
 
-2. Add `use_frameworks!` to your Podfile.
+    ```bash
+    $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
+    ```
+
+2.  Add `use_frameworks!` to your Podfile.
 
 ## Alternative Setup: Info.plist
 
@@ -142,26 +91,28 @@ You can also configure basic SDK settings in Info.plist:
    - Objective-C: `[CrowdinSDK start]`
 
 :::caution
-Using Info.plist setup method, you cannot configure Screenshots and Real-Time Preview features.
+Using the `Info.plist` setup method, you cannot configure Screenshots and Real-Time Preview features.
 :::
 
 ## Additional Features
 
 ### Translations Update Interval
 
-Enable automatic translation updates at specified intervals:
+By default, SDK searches for new translation once per application load, but not more often than 15 minutes. You can update translations in application every defined interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
 
-1. Add to Podfile:
-```swift
-pod 'CrowdinSDK/IntervalUpdate'
-```
+1.  Add to `Podfile`:
 
-2. Configure in SDK:
-```swift
-.with(intervalUpdatesEnabled: true, interval: {interval})
-```
+    ```swift
+    pod 'CrowdinSDK/IntervalUpdate'
+    ```
 
-Where `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes (900 seconds).
+2.  Configure in SDK:
+
+    ```swift
+    .with(intervalUpdatesEnabled: true, interval: {interval})
+    ```
+
+    Where `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes (900 seconds).
 
 ## Change locale programmatically
 
@@ -187,6 +138,8 @@ or the convenience extension:
 Text("key".cw_localized)
 ```
 
+View the [Swift UI Localization guide](/guides/swift-ui) for more information.
+
 ## Apple Strings Catalog Support
 
 The Crowdin SDK supports the [Apple Strings Catalog](https://store.crowdin.com/string_catalog) (`.xcstrings`) format out of the box. It doesn't require any additional setup. Just upload your localization files to Crowdin, set up the distribution and start using the SDK.
@@ -197,18 +150,19 @@ Only the CDN Content Delivery feature is available for the Apple Strings Catalog
 
 ## Config Options Reference
 
-| Option                | Description                                          | Example                                |
-|----------------------|------------------------------------------------------|----------------------------------------|
-| `hashString`         | Distribution Hash                                    | `hashString: "7a0c1...o3b"`           |
-| `sourceLanguage`     | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | `sourceLanguage: "en"`            |
-| `organizationName`   | Organization domain (Enterprise only)                | `organizationName: "mycompany"`        |
-| `settingsEnabled`    | Enable SDK Controls                                  | `settingsEnabled: true`                |
-| `accessToken`        | Crowdin API access token                            | `accessToken: "your_token"`            |
+| Option             | Description                                                                                    | Example Value          |
+|--------------------|------------------------------------------------------------------------------------------------|------------------------|
+| `hashString`       | Distribution Hash                                                                              | `"7a0c1...o3b"`        |
+| `sourceLanguage`   | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | `sourceLanguage: "en"` |
+| `organizationName` | Organization domain (Enterprise only)                                                          | `"mycompany"`          |
+| `settingsEnabled`  | Enable SDK Controls                                                                            | `true`                 |
+| `accessToken`      | Crowdin API access token                                                                       | `"your_token"`         |
 
 ### OAuth Options
-| Option           | Description                                          | Example                            |
-|------------------|------------------------------------------------------|-----------------------------------|
-| `clientId`       | OAuth Client ID                                      | `clientId: "gpY2yT...x3TYB"`      |
-| `clientSecret`   | OAuth Client Secret                                  | `clientSecret: "Xz95t...EDx9T"`   |
-| `scope`          | OAuth scope (e.g., "project.screenshot", "project")  | `scope: "project"`                |
-| `redirectURI`    | Custom URL scheme for your app                       | `redirectURI: "crowdintest://"`   |
+
+| Option         | Description                                         | Example Value      |
+|----------------|-----------------------------------------------------|--------------------|
+| `clientId`     | OAuth Client ID                                     | `"gpY2yT...x3TYB"` |
+| `clientSecret` | OAuth Client Secret                                 | `"Xz95t...EDx9T"`  |
+| `scope`        | OAuth scope (e.g., "project.screenshot", "project") | `"project"`        |
+| `redirectURI`  | Custom URL scheme for your app                      | `"crowdintest://"` |
