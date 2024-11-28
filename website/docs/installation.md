@@ -83,6 +83,7 @@ dependencies: [
 
 :::tip
 For better version control, you can specify an exact version or version range:
+
 ```swift
 .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.9.0"))
 ```
