@@ -83,6 +83,10 @@ The main app must be configured with the same Crowdin configuration (distributio
 If your app is configured with the Crowdin settings button, it should be disabled during UI tests to prevent it from appearing in screenshots. See the [App UI Testing Mode Setup](#app-ui-testing-mode-setup) section for implementation details.
 :::
 
+:::note
+If you want to have screenshots tagged for source language you need to ensure it's added to target languages.
+:::
+
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{distribution_hash}",
                                                 sourceLanguage: "{source_language}")
@@ -94,7 +98,7 @@ let crowdinSDKConfig = CrowdinSDKConfig.config()
 CrowdinSDK.startWithConfig(crowdinSDKConfig)
 ```
 
-2. **UI Tests Configuration**:
+1. **UI Tests Configuration**:
 
 :::note
 For UI testing it's recommended to use access token authorization.
