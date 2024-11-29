@@ -122,7 +122,7 @@ extension CrowdinSDK {
     /// - Warning: Method is used for UI tests, not recommended to use in production.
     /// - Parameter config: Crowdin SDK config.
     public class func startWithConfigSync(_ config: CrowdinSDKConfig) {
-        let semaphore = DispatchSemaphore(value: 1)
+        let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             startWithConfig(config) {
                 semaphore.signal()

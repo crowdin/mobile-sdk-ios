@@ -14,9 +14,9 @@ import CrowdinXCTestScreenshots
 
 final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     
-    private static let distributionHash = "{distribution_hash}}"
-    private static let sourceLanguage = "{source_language}"
-    private static let accessToken = "{access_token}"
+    private static let distributionHash = "distribution_hash"
+    private static let sourceLanguage = "source_language"
+    private static let accessToken = "access_token"
     
     override class func setUp() {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: Self.distributionHash,
@@ -31,7 +31,6 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     }
     
     override class func tearDown() {
-        CrowdinSDK.stop()
         CrowdinSDK.deintegrate()
     }
     

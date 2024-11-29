@@ -16,7 +16,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var manifestManager: ManifestManager
     
     private var crowdinDownloader: CrowdinLocalizationDownloader
-    private var _localizations: [String]?
     private let crowdinSupportedLanguages: CrowdinSupportedLanguages
     
     init(localization: String, config: CrowdinProviderConfig) {
@@ -81,12 +80,11 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.crowdinDownloader.download(with: self.hashString, for: localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
             completion(self.localizations, localization, strings, plurals)
-            DispatchQueue.main.async {
-                LocalizationUpdateObserver.shared.notifyDownload()
-                
-                if let errors = errors {
-                    LocalizationUpdateObserver.shared.notifyError(with: errors)
-                }
+            
+            LocalizationUpdateObserver.shared.notifyDownload()
+            
+            if let errors = errors {
+                LocalizationUpdateObserver.shared.notifyError(with: errors)
             }
         }
     }

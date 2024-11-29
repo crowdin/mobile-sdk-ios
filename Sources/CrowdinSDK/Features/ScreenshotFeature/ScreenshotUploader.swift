@@ -122,12 +122,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 			}, errorHandler: errorHandler)
 			return
 		}
-        let values = self.proceed(controlsInformation: controlsInformation)
-        guard values.count > 0 else {
-            errorHandler?(NSError(domain: Errors.noLocalizedStringsDetected.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
-            return
-        }
-        
+
 		guard let data = screenshot.pngData() else { return }
         let screenshotsAPI = ScreenshotsAPI(organizationName: organizationName, auth: loginFeature)
         
@@ -149,6 +144,13 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 					errorHandler?(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
 					return
 				}
+                
+                let values = self.proceed(controlsInformation: controlsInformation)
+                guard values.count > 0 else {
+                    CrowdinLogsCollector.shared.add(log: .warning(with: "Screenshot uploaded without tags"))
+                    success?()
+                    return
+                }
 				screenshotsAPI.createScreenshotTags(projectId: projectId, screenshotId: screenshotId, frames: values, completion: { (_, error) in
 					if let error = error {
 						errorHandler?(error)
@@ -206,7 +208,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                         
                         let values = self.proceed(controlsInformation: controlsInformation)
                         guard values.count > 0 else {
-                            errorHandler?(NSError(domain: Errors.noLocalizedStringsDetected.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
+                            CrowdinLogsCollector.shared.add(log: .warning(with: "Screenshot uploaded without tags"))
+                            success?(.udpated)
                             return
                         }
                         
