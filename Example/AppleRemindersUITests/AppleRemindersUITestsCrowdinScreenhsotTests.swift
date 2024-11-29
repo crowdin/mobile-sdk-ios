@@ -13,7 +13,6 @@ import CrowdinXCTestScreenshots
 #endif
 
 final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
-    
     private static let distributionHash = "distribution_hash"
     private static let sourceLanguage = "source_language"
     private static let accessToken = "access_token"
@@ -36,18 +35,20 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     
     @MainActor
     func testScreenshots() throws {
-        let app = XCUIApplication()
-        app.launchArguments = ["UI_TESTING"]
-        app.launch()
-        
-        // MAIN SCREEN
-        var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN", image: XCUIScreen.main.screenshot().image, application: app)
-        XCTAssertNil(result.1)
-        
-        // ADD LIST
-        app.otherElements.buttons.element(matching: .button, identifier: "addListBtn").tap()
-        
-        result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "ADD_LIST", image: XCUIScreen.main.screenshot().image, application: app)
-        XCTAssertNil(result.1)
+        for localization in CrowdinSDK.inSDKLocalizations {
+            let app = XCUIApplication()
+            app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(localization)"]
+            app.launch()
+            
+            // MAIN SCREEN
+            var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN_\(localization)", image: XCUIScreen.main.screenshot().image, application: app)
+            XCTAssertNil(result.1)
+            
+            // ADD LIST
+            app.otherElements.buttons.element(matching: .button, identifier: "addListBtn").tap()
+            
+            result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "ADD_LIST_\(localization)", image: XCUIScreen.main.screenshot().image, application: app)
+            XCTAssertNil(result.1)
+        }
     }
 }

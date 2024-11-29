@@ -24,29 +24,60 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Check for launch arguments
-        let isTesting = ProcessInfo.processInfo.arguments.contains("UI_TESTING")
         
         NFX.sharedInstance().start()
         
+        let arguments = ProcessInfo.processInfo.arguments
+        
+        let isTesting = arguments.contains("UI_TESTING")
+
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
                                                           sourceLanguage: sourceLanguage)
-        let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
-                                                  clientSecret: clientSecret,
-                                                  scope: "project")
-        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-            .with(loginConfig: loginConfig)
-            .with(accessToken: accessToken)
-            .with(settingsEnabled: !isTesting)
-            .with(realtimeUpdatesEnabled: !isTesting)
-            .with(screenshotsEnabled: !isTesting)
         
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
-        // Now new log message comes as callback
-        CrowdinSDK.setOnLogCallback { logMessage in
-            print("LOG MESSAGE - \(logMessage)")
+        if isTesting, let locale = arguments.first(where: { $0.contains("CROWDIN_LANGUAGE_CODE") })?.split(separator: "=").last.map({ String($0) }) {
+            print(locale)
+            
+            let crowdinSDKConfig = CrowdinSDKConfig.config()
+                .with(crowdinProviderConfig: crowdinProviderConfig)
+                .with(accessToken: accessToken)
+                .with(screenshotsEnabled: true)
+            
+            CrowdinSDK.currentLocalization = locale
+            
+            CrowdinSDK.startWithConfig(crowdinSDKConfig) {
+                DispatchQueue.main.async {
+                    guard let windowScene = (scene as? UIWindowScene) else { return }
+                    
+                    let navController = UINavigationController(rootViewController: MainVC())
+
+                    self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+                    self.window?.windowScene = windowScene
+                    self.window?.rootViewController = navController
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+            
+            return
+            
+        } else {
+            let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
+                                                      clientSecret: clientSecret,
+                                                      scope: "project")
+            let crowdinSDKConfig = CrowdinSDKConfig.config()
+                .with(crowdinProviderConfig: crowdinProviderConfig)
+                .with(loginConfig: loginConfig)
+                .with(accessToken: accessToken)
+                .with(settingsEnabled: true)
+                .with(realtimeUpdatesEnabled: true)
+                .with(screenshotsEnabled: true)
+            
+            CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+            
+            // Now new log message comes as callback
+            CrowdinSDK.setOnLogCallback { logMessage in
+                print("LOG MESSAGE - \(logMessage)")
+            }
         }
-//        CrowdinSDK.currentLocalization = "fr"
-        
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
