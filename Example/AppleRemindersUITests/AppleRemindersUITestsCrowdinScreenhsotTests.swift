@@ -35,6 +35,8 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     
     @MainActor
     func testScreenshots() throws {
+        XCTAssert(CrowdinSDK.inSDKLocalizations.count > 0, "At least one target language should be set up in Crowdin.")
+        
         for localization in CrowdinSDK.inSDKLocalizations {
             let app = XCUIApplication()
             app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(localization)"]
