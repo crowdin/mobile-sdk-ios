@@ -6,7 +6,10 @@
 //
 import XCTest
 import UIKit
+
+#if CrowdinSDKSPM
 import CrowdinSDK
+#endif
 
 #if compiler(>=6.0)
 extension XCUIElementQuery: @retroactive Sequence {

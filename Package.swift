@@ -23,7 +23,10 @@ let package = Package(
         .target(
             name: "CrowdinXCTestScreenshots",
             dependencies: ["CrowdinSDK"],
-            path: "Sources/CrowdinSDK/Features/XCTestScreenshotFeature"
+            path: "Sources/CrowdinSDK/Features/XCTestScreenshotFeature",
+            swiftSettings: [
+                .define("CrowdinSDKSPM")
+            ]
         ),
         .target(
             name: "CrowdinSDK",
