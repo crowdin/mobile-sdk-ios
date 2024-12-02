@@ -16,7 +16,9 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var manifestManager: ManifestManager
     
     private var crowdinDownloader: CrowdinLocalizationDownloader
-    private let crowdinSupportedLanguages: CrowdinSupportedLanguages
+    private var crowdinSupportedLanguages: CrowdinSupportedLanguages {
+        manifestManager.crowdinSupportedLanguages
+    }
     
     init(localization: String, config: CrowdinProviderConfig) {
         self.localization = localization
@@ -25,7 +27,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.manifestManager = ManifestManager.manifest(for: config.hashString, sourceLanguage: config.sourceLanguage, organizationName: config.organizationName)
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: manifestManager)
         self.localizations = self.manifestManager.iOSLanguages
-        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: config.organizationName)
     }
     
     func prepare(with completion: @escaping () -> Void) {
@@ -66,7 +67,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName)
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: self.manifestManager)
         self.localizations = []
-        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
