@@ -18,6 +18,12 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     private static let accessToken = "access_token"
     
     override class func setUp() {
+        
+        // Required as we need to have list of localizations fetched from crowdin
+        startSDK(localization: sourceLanguage)
+    }
+    
+    class func startSDK(localization: String) {
         let crowdinProviderConfig = CrowdinProviderConfig(hashString: Self.distributionHash,
                                                           sourceLanguage: Self.sourceLanguage)
         
@@ -25,6 +31,8 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
             .with(crowdinProviderConfig: crowdinProviderConfig)
             .with(accessToken: Self.accessToken)
             .with(screenshotsEnabled: true)
+        
+        CrowdinSDK.currentLocalization = localization
         
         CrowdinSDK.startWithConfigSync(crowdinSDKConfig)
     }
@@ -38,6 +46,9 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
         XCTAssert(CrowdinSDK.inSDKLocalizations.count > 0, "At least one target language should be set up in Crowdin.")
         
         for localization in CrowdinSDK.inSDKLocalizations {
+            // Start SKD inside tests for selected localization.
+            Self.startSDK(localization: localization)
+            
             let app = XCUIApplication()
             app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(localization)"]
             app.launch()

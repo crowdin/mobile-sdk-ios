@@ -15,12 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Configuration
     
-    private let distributionHash = "distribution_hash"
-    private let sourceLanguage = "source_language"
+    private static let distributionHash = "distribution_hash"
+    private static let sourceLanguage = "source_language"
+    private static let accessToken = "access_token"
     
-    private let clientId = "client_id"
-    private let clientSecret = "client_secret"
-    private let accessToken = "access_token"
+    private static let clientId = "client_id"
+    private static let clientSecret = "client_secret"
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Check for launch arguments
@@ -31,15 +31,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let isTesting = arguments.contains("UI_TESTING")
 
-        let crowdinProviderConfig = CrowdinProviderConfig(hashString: distributionHash,
-                                                          sourceLanguage: sourceLanguage)
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: Self.distributionHash,
+                                                          sourceLanguage: Self.sourceLanguage)
         
         if isTesting, let locale = arguments.first(where: { $0.contains("CROWDIN_LANGUAGE_CODE") })?.split(separator: "=").last.map({ String($0) }) {
             print(locale)
             
             let crowdinSDKConfig = CrowdinSDKConfig.config()
                 .with(crowdinProviderConfig: crowdinProviderConfig)
-                .with(accessToken: accessToken)
+                .with(accessToken: Self.accessToken)
                 .with(screenshotsEnabled: true)
             
             CrowdinSDK.currentLocalization = locale
@@ -60,13 +60,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
             
         } else {
-            let loginConfig = try! CrowdinLoginConfig(clientId: clientId,
-                                                      clientSecret: clientSecret,
+            let loginConfig = try! CrowdinLoginConfig(clientId: Self.clientId,
+                                                      clientSecret: Self.clientSecret,
                                                       scope: "project")
             let crowdinSDKConfig = CrowdinSDKConfig.config()
                 .with(crowdinProviderConfig: crowdinProviderConfig)
                 .with(loginConfig: loginConfig)
-                .with(accessToken: accessToken)
+                .with(accessToken: Self.accessToken)
                 .with(settingsEnabled: true)
                 .with(realtimeUpdatesEnabled: true)
                 .with(screenshotsEnabled: true)
