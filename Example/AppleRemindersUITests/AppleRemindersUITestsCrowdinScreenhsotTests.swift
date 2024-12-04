@@ -50,15 +50,19 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
             Self.startSDK(localization: localization)
             
             let app = XCUIApplication()
+            // Pass selected localization in test to the app.
             app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(localization)"]
             app.launch()
+            
+            let addListBtn = app.otherElements.buttons.element(matching: .button, identifier: "addListBtn")
+            _ = app.waitForExistence(timeout: 5) // Timeout for app to start SDK and show UI.
             
             // MAIN SCREEN
             var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN_\(localization)", image: XCUIScreen.main.screenshot().image, application: app)
             XCTAssertNil(result.1)
             
             // ADD LIST
-            app.otherElements.buttons.element(matching: .button, identifier: "addListBtn").tap()
+            addListBtn.tap()
             
             result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "ADD_LIST_\(localization)", image: XCUIScreen.main.screenshot().image, application: app)
             XCTAssertNil(result.1)
