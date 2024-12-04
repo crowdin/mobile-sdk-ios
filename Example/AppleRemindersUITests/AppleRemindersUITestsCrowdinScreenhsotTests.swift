@@ -18,8 +18,7 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     private static let accessToken = "access_token"
     
     override class func setUp() {
-        
-        // Required as we need to have list of localizations fetched from crowdin
+        // Requires to start SDK before running testScreenshots as it needs to get all supported localizations from Crowdin.
         startSDK(localization: sourceLanguage)
     }
     

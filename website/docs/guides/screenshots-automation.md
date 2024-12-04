@@ -73,6 +73,14 @@ import CrowdinTestScreenshots
 
 To enable screenshots automation feature, you need to configure several components:
 
+:::note
+To enable screenshots tag you need to setup SDK in UI tests and in the app with the same localization. Localization should be in target language on crowdin.
+:::
+
+:::note
+Before test run the app from ui test it needs to be set up with localization you want to test.
+:::
+
 1. **Main App Configuration**:
 
 :::note
@@ -245,6 +253,85 @@ final class ScreenshotsUITests: XCTestCase {
 }
 ```
 
+### Advanced Example with Multiple Localizations
+
+For a more comprehensive example of screenshot automation with multiple localizations, you can refer to our [example UI tests](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleRemindersUITests/AppleRemindersUITestsCrowdinScreenhsotTests.swift) and corresponding [app configuration](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleReminders/SceneDelegate.swift).
+
+Key implementation points from the example:
+
+1. **Testing Multiple Localizations**:
+
+```swift
+final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
+    private static let distributionHash = "{distribution_hash}"
+    private static let sourceLanguage = "{source_language}"
+    private static let accessToken = "{access_token}"
+    
+    override class func setUp() {
+        // Requires to start SDK before running testScreenshots as it needs to get all supported localizations from Crowdin.
+        startSDK(localization: sourceLanguage)
+    }
+
+    class func startSDK(localization: String) {
+        let crowdinProviderConfig = CrowdinProviderConfig(hashString: Self.distributionHash,
+                                                          sourceLanguage: Self.sourceLanguage)
+        
+        let crowdinSDKConfig = CrowdinSDKConfig.config()
+            .with(crowdinProviderConfig: crowdinProviderConfig)
+            .with(accessToken: Self.accessToken)
+            .with(screenshotsEnabled: true)
+        
+        CrowdinSDK.currentLocalization = localization
+        
+        CrowdinSDK.startWithConfigSync(crowdinSDKConfig)
+    }
+    
+    @MainActor
+    func testScreenshots() throws {
+        XCTAssert(CrowdinSDK.inSDKLocalizations.count > 0, "At least one target language should be set up in Crowdin.")
+        
+        for localization in CrowdinSDK.inSDKLocalizations {
+            // Start SDK inside tests for selected localization
+            Self.startSDK(localization: localization)
+            
+            let app = XCUIApplication()
+            // Pass selected localization to the app
+            app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(localization)"]
+            app.launch()
+            
+            // Take screenshots with localization-specific names
+            let result = CrowdinSDK.captureOrUpdateScreenshotSync(
+                name: "MAIN_SCREEN_\(localization)", 
+                image: XCUIScreen.main.screenshot().image, 
+                application: app
+            )
+        }
+    }
+}
+```
+
+1. **App Configuration for Test Mode**:
+
+```swift
+// In SceneDelegate
+let arguments = ProcessInfo.processInfo.arguments
+let isTesting = arguments.contains("UI_TESTING")
+
+if isTesting, let locale = arguments.first(where: { $0.contains("CROWDIN_LANGUAGE_CODE") })?.split(separator: "=").last.map({ String($0) }) {
+    // Configure SDK for testing with specific locale
+    let crowdinSDKConfig = CrowdinSDKConfig.config()
+        .with(crowdinProviderConfig: crowdinProviderConfig)
+        .with(accessToken: Self.accessToken)
+        .with(screenshotsEnabled: true)
+    
+    CrowdinSDK.currentLocalization = locale
+    
+    CrowdinSDK.startWithConfig(crowdinSDKConfig) {
+        // Initialize UI after SDK is configured
+    }
+}
+```
+
 ## Conclusion
 
 Best Practices for Screenshot Automation:
@@ -254,6 +341,8 @@ Best Practices for Screenshot Automation:
 3. Set up appropriate test data in your app when CROWDIN_UI_TESTING argument is detected
 4. Verify screenshot capture results using XCTAssertNil(result.error)
 5. Clean up resources in tearDown method
+6. When testing multiple localizations, ensure proper communication of locale between tests and app
+7. Use localization-specific screenshot names for better organization
 
 :::info
 Screenshots are uploaded to your Crowdin project and can be used for context when translating strings.
