@@ -5,11 +5,12 @@
 //  Created by Serhii Londar on 27.11.2024.
 //
 import XCTest
-import UIKit
 
 #if CrowdinSDKSPM
 import CrowdinSDK
 #endif
+
+#if !os(watchOS) && !os(tvOS)
 
 #if compiler(>=6.0)
 extension XCUIElementQuery: @retroactive Sequence {
@@ -71,7 +72,7 @@ extension XCUIElement {
         
         let end = CGPoint(x: start.x + frame.width, y: start.y + frame.height)
         let rect = CGRect(origin: start, size: CGSize(width: end.x - start.x, height: end.y - start.y))
-        return rect.apply(scale: UIScreen.main.scale)
+        return rect.apply(scale: CWScreen.scale())
     }
 }
 
@@ -83,12 +84,12 @@ extension CGRect {
 
 
 extension CrowdinSDK {
-    public class func captureScreenshot(name: String, image: UIImage, application: XCUIApplication, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureScreenshot(name: String, image: Image, application: XCUIApplication, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
     
     
-    public class func captureScreenshotSync(name: String, image: UIImage, application: XCUIApplication) -> Error? {
+    public class func captureScreenshotSync(name: String, image: Image, application: XCUIApplication) -> Error? {
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
         CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: { }, errorHandler: {
@@ -99,11 +100,11 @@ extension CrowdinSDK {
         return error
     }
     
-    public class func captureOrUpdateScreenshot(name: String, image: UIImage, application: XCUIApplication, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureOrUpdateScreenshot(name: String, image: Image, application: XCUIApplication, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
     
-    public class func captureOrUpdateScreenshotSync(name: String, image: UIImage, application: XCUIApplication) -> (result: ScreenshotUploadResult?, error: Error?) {
+    public class func captureOrUpdateScreenshotSync(name: String, image: Image, application: XCUIApplication) -> (result: ScreenshotUploadResult?, error: Error?) {
         var result: ScreenshotUploadResult?
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
@@ -134,3 +135,5 @@ extension CrowdinSDK {
         _ = semaphore.wait(timeout: .distantFuture)
     }
 }
+
+#endif

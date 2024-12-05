@@ -11,11 +11,12 @@ import Foundation
 
 import AppKit
 
-typealias Label = NSTextField
-
 public typealias View = NSView
-typealias ViewController = NSViewController
 public typealias Image = NSImage
+public typealias CWScreen = NSScreen
+
+typealias Label = NSTextField
+typealias ViewController = NSViewController
 typealias Control = NSControl
 typealias Window = NSWindow
 typealias Application = NSApplication
@@ -45,27 +46,44 @@ extension Label {
         }
     }
 }
+
+extension CWScreen {
+    static func scale() -> CGFloat {
+        return NSScreen.main?.backingScaleFactor ?? 1
+    }
+}
+
+
 #elseif os(iOS) || os(tvOS)
 
 import UIKit
 
-typealias Label = UILabel
 public typealias View = UIView
-typealias ViewController = UIViewController
 public typealias Image = UIImage
+public typealias CWScreen = UIScreen
+
+typealias Label = UILabel
+typealias ViewController = UIViewController
 typealias Window = UIWindow
 typealias Application = UIApplication
+
+extension CWScreen {
+    static func scale() -> CGFloat {
+        return UIScreen.main.scale
+    }
+}
 
 #elseif os(watchOS)
 
 import WatchKit
 
-typealias Label = WKInterfaceLabel
 public typealias View = WKInterfaceObject
-typealias ViewController = WKInterfaceController
 public typealias Image = WKImage
+public typealias CWScreen = WKInterfaceDevice
+
+typealias Label = WKInterfaceLabel
+typealias ViewController = WKInterfaceController
 typealias Window = WKInterfaceController
-//typealias Application = WKApplication
 
 extension Label {
     var text: String? {
@@ -75,6 +93,12 @@ extension Label {
         get {
             nil
         }
+    }
+}
+
+extension CWScreen {
+    static func scale() -> CGFloat {
+        return WKInterfaceDevice.current().screenScale
     }
 }
 

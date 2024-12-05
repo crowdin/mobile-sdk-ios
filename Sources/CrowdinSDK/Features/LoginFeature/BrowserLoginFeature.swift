@@ -12,8 +12,6 @@ import SafariServices
 import AppKit
 #endif
 import Foundation
-import WebKit
-
 
 final class BrowserLoginFeature: NSObject, AnyLoginFeature {
     var config: CrowdinLoginConfig
