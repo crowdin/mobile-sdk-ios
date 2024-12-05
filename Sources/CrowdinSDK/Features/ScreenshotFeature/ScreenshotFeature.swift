@@ -108,6 +108,31 @@ class ScreenshotFeature {
         }
     }
     
+    func captureScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        if let error = screenshotUploader.prepareSync() {
+            errorHandler(error)
+            return
+        }
+        var name = name
+        if !name.hasSuffix(FileType.png.extension) {
+            name += FileType.png.extension
+        }
+        self.screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+    }
+    
+    
+    func captureOrUpdateScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        if let error = screenshotUploader.prepareSync() {
+            errorHandler(error)
+            return
+        }
+        var name = name
+        if !name.hasSuffix(FileType.png.extension) {
+            name += FileType.png.extension
+        }
+        self.screenshotUploader.updateOrUploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+    }
+    
     /// Returns the top view controller of the application's key window.
     /// - Returns: The top most view controller currently displayed, or nil if none is found.
     class var topViewController: ViewController? {

@@ -22,14 +22,13 @@ class CrowdinStringTestsLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         CrowdinSDK.currentLocalization = nil
-        _ = CrowdinSDK.addDownloadHandler {
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
             print("test_key".cw_localized)
             XCTAssert("test_key".cw_localized == "test_value [C]")
             XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "test value with parameter - value [C]")
             XCTAssert("test_key_with_int_parameter".cw_localized(with: [1]) == "test value with parameter - 1 [C]")
             expectation.fulfill()
-        }
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        })
         wait(for: [expectation], timeout: 60.0)
     }
     
@@ -37,14 +36,14 @@ class CrowdinStringTestsLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         CrowdinSDK.currentLocalization = "de"
-        _ = CrowdinSDK.addDownloadHandler {
+        
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
             print("test_key".cw_localized)
             XCTAssert("test_key".cw_localized == "Testwert [C]")
             XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "Testwert mit Parameter - value [C]")
             XCTAssert("test_key_with_int_parameter".cw_localized(with: [1]) == "Testwert mit Parameter - 1 [C]")
             expectation.fulfill()
-        }
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        })
         
         wait(for: [expectation], timeout: 60.0)
     }
@@ -53,14 +52,13 @@ class CrowdinStringTestsLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         CrowdinSDK.currentLocalization = "uk"
-        _ = CrowdinSDK.addDownloadHandler {
-                print("test_key".cw_localized)
-                XCTAssert("test_key".cw_localized == "Тестове значення [C]")
-                XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "значення тесту з параметром - value [C]")
-                XCTAssert("test_key_with_int_parameter".cw_localized(with: [1]) == "значення тесту з параметром - 1 [C]")
-                expectation.fulfill()
-        }
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            print("test_key".cw_localized)
+            XCTAssert("test_key".cw_localized == "Тестове значення [C]")
+            XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "значення тесту з параметром - value [C]")
+            XCTAssert("test_key_with_int_parameter".cw_localized(with: [1]) == "значення тесту з параметром - 1 [C]")
+            expectation.fulfill()
+        })
         
         wait(for: [expectation], timeout: 60.0)
     }
@@ -69,14 +67,13 @@ class CrowdinStringTestsLocalization: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         
         CrowdinSDK.currentLocalization = "en"
-        _ = CrowdinSDK.addDownloadHandler {
-                print("test_key".cw_localized)
-                XCTAssert("test_key".cw_localized == "test_value [C]")
-                XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "test value with parameter - value [C]")
-                XCTAssert("test_key_with_int_parameter".cw_localized(with: [1]) == "test value with parameter - 1 [C]")
-                expectation.fulfill()
-        }
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            print("test_key".cw_localized)
+            XCTAssert("test_key".cw_localized == "test_value [C]")
+            XCTAssert("test_key_with_string_parameter".cw_localized(with: ["value"]) == "test value with parameter - value [C]")
+            XCTAssert("test_key_with_int_parameter".cw_localized(with: [1]) == "test value with parameter - 1 [C]")
+            expectation.fulfill()
+        })
         
         wait(for: [expectation], timeout: 60.0)
     }

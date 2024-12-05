@@ -4,6 +4,7 @@
 //
 //  Created by Serhii Londar on 23.11.2024.
 //
+import Foundation
 
 protocol AnyLoginFeature: CrowdinAuth {
     var isLogined: Bool { get }
