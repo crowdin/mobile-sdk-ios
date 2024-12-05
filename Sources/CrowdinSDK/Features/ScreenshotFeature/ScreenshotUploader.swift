@@ -11,8 +11,8 @@ import CoreGraphics
 #if !os(watchOS)
 
 public protocol ScreenshotUploader {
-	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)
-    func updateOrUploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?)
+	func uploadScreenshot(screenshot: CWImage, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?)
+    func updateOrUploadScreenshot(screenshot: CWImage, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?)
     
     func prepare(completion: @escaping (Error?) -> Void)
     func prepareSync() -> Error?
@@ -115,7 +115,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         }
     }
 	
-	func uploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?) {
+	func uploadScreenshot(screenshot: CWImage, controlsInformation: [ControlInformation], name: String, success: (() -> Void)?, errorHandler: ((Error) -> Void)?) {
 		guard let projectId = self.projectId else {
 			self.loginAndGetProjectId(success: {
                 self.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
@@ -162,7 +162,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		})
 	}
     
-    func updateOrUploadScreenshot(screenshot: Image, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?) {
+    func updateOrUploadScreenshot(screenshot: CWImage, controlsInformation: [ControlInformation], name: String, success: ((ScreenshotUploadResult) -> Void)?, errorHandler: ((Error) -> Void)?) {
         guard let projectId = self.projectId else {
             self.loginAndGetProjectId(success: {
                 self.updateOrUploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)

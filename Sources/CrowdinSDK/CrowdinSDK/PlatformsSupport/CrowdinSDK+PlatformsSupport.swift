@@ -11,23 +11,23 @@ import Foundation
 
 import AppKit
 
-public typealias View = NSView
-public typealias Image = NSImage
+public typealias CWView = NSView
+public typealias CWImage = NSImage
 public typealias CWScreen = NSScreen
 
-typealias Label = NSTextField
-typealias ViewController = NSViewController
-typealias Control = NSControl
-typealias Window = NSWindow
-typealias Application = NSApplication
+typealias CWLabel = NSTextField
+typealias CWViewController = NSViewController
+typealias CWControl = NSControl
+typealias CWWindow = NSWindow
+typealias CWApplication = NSApplication
 
-extension NSView {
+extension CWView {
     var alpha: CGFloat { alphaValue }
     
-    var screenshot: Image? { Image(data: dataWithPDF(inside: bounds)) }
+    var screenshot: CWImage? { CWImage(data: dataWithPDF(inside: bounds)) }
 }
 
-extension Image {
+extension CWImage {
     func pngData() -> Data? {
         guard let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
         let bitmap = NSBitmapImageRep(cgImage: cgImage)
@@ -36,7 +36,7 @@ extension Image {
     }
 }
 
-extension Label {
+extension CWLabel {
     var text: String {
         get {
             stringValue
@@ -58,14 +58,14 @@ extension CWScreen {
 
 import UIKit
 
-public typealias View = UIView
-public typealias Image = UIImage
+public typealias CWView = UIView
+public typealias CWImage = UIImage
 public typealias CWScreen = UIScreen
 
-typealias Label = UILabel
-typealias ViewController = UIViewController
-typealias Window = UIWindow
-typealias Application = UIApplication
+typealias CWLabel = UILabel
+typealias CWViewController = UIViewController
+typealias CWWindow = UIWindow
+typealias CWApplication = UIApplication
 
 extension CWScreen {
     public static func scale() -> CGFloat {
@@ -77,15 +77,15 @@ extension CWScreen {
 
 import WatchKit
 
-public typealias View = WKInterfaceObject
-public typealias Image = WKImage
+public typealias CWView = WKInterfaceObject
+public typealias CWImage = WKImage
 public typealias CWScreen = WKInterfaceDevice
 
-typealias Label = WKInterfaceLabel
-typealias ViewController = WKInterfaceController
-typealias Window = WKInterfaceController
+typealias CWLabel = WKInterfaceLabel
+typealias CWViewController = WKInterfaceController
+typealias CWWindow = WKInterfaceController
 
-extension Label {
+extension CWLabel {
     var text: String? {
         set {
             setText(newValue)

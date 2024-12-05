@@ -45,7 +45,7 @@ extension CrowdinSDK {
     ///   - success: A closure to be called when the screenshot is successfully captured and uploaded.
     ///   - errorHandler: A closure to be called if an error occurs during the process.
     ///                   The closure receives an optional Error parameter indicating what went wrong.
-    public class func captureScreenshot(view: View, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureScreenshot(view: CWView, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -78,7 +78,7 @@ extension CrowdinSDK {
     ///   - success: A closure to be called when the screenshot is successfully captured and updated.
     ///   - errorHandler: A closure to be called if an error occurs during the process.
     ///                   The closure receives an optional Error parameter indicating what went wrong.
-    public class func captureAndUpdateScreenshot(view: View, name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureAndUpdateScreenshot(view: CWView, name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -86,7 +86,7 @@ extension CrowdinSDK {
         screenshotFeature.updateOrUploadScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
     }
     
-    public class func captureScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureScreenshot(name: String, screenshot: CWImage, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -95,7 +95,7 @@ extension CrowdinSDK {
     }
     
     
-    public class func captureOrUpdateScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureOrUpdateScreenshot(name: String, screenshot: CWImage, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return

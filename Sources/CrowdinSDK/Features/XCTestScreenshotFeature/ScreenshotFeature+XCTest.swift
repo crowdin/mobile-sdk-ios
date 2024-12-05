@@ -84,12 +84,12 @@ extension CGRect {
 
 
 extension CrowdinSDK {
-    public class func captureScreenshot(name: String, image: Image, application: XCUIApplication, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureScreenshot(name: String, image: CWImage, application: XCUIApplication, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
     
     
-    public class func captureScreenshotSync(name: String, image: Image, application: XCUIApplication) -> Error? {
+    public class func captureScreenshotSync(name: String, image: CWImage, application: XCUIApplication) -> Error? {
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
         CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: { }, errorHandler: {
@@ -100,11 +100,11 @@ extension CrowdinSDK {
         return error
     }
     
-    public class func captureOrUpdateScreenshot(name: String, image: Image, application: XCUIApplication, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureOrUpdateScreenshot(name: String, image: CWImage, application: XCUIApplication, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
     
-    public class func captureOrUpdateScreenshotSync(name: String, image: Image, application: XCUIApplication) -> (result: ScreenshotUploadResult?, error: Error?) {
+    public class func captureOrUpdateScreenshotSync(name: String, image: CWImage, application: XCUIApplication) -> (result: ScreenshotUploadResult?, error: Error?) {
         var result: ScreenshotUploadResult?
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
