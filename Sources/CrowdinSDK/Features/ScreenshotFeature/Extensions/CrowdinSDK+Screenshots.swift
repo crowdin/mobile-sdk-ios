@@ -8,7 +8,6 @@
 import Foundation
 
 #if !os(watchOS)
-import UIKit
 
 /// Extension that adds screenshot capture functionality to CrowdinSDK
 extension CrowdinSDK {
@@ -87,7 +86,7 @@ extension CrowdinSDK {
         screenshotFeature.updateOrUploadScreenshot(view: view, name: name, success: success, errorHandler: errorHandler)
     }
     
-    public class func captureScreenshot(name: String, screenshot: UIImage, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -96,7 +95,7 @@ extension CrowdinSDK {
     }
     
     
-    public class func captureOrUpdateScreenshot(name: String, screenshot: UIImage, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureOrUpdateScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return

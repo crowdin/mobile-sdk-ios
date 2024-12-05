@@ -48,7 +48,7 @@ extension Label {
 }
 
 extension CWScreen {
-    static func scale() -> CGFloat {
+    public static func scale() -> CGFloat {
         return NSScreen.main?.backingScaleFactor ?? 1
     }
 }
@@ -68,7 +68,7 @@ typealias Window = UIWindow
 typealias Application = UIApplication
 
 extension CWScreen {
-    static func scale() -> CGFloat {
+    public static func scale() -> CGFloat {
         return UIScreen.main.scale
     }
 }
@@ -97,7 +97,7 @@ extension Label {
 }
 
 extension CWScreen {
-    static func scale() -> CGFloat {
+    public static func scale() -> CGFloat {
         return WKInterfaceDevice.current().screenScale
     }
 }
