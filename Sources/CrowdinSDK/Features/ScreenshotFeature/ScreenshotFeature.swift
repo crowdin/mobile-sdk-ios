@@ -108,7 +108,7 @@ class ScreenshotFeature {
         }
     }
     
-    func captureScreenshot(name: String, screenshot: UIImage, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         if let error = screenshotUploader.prepareSync() {
             errorHandler(error)
             return
@@ -121,7 +121,7 @@ class ScreenshotFeature {
     }
     
     
-    func captureOrUpdateScreenshot(name: String, screenshot: UIImage, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureOrUpdateScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         if let error = screenshotUploader.prepareSync() {
             errorHandler(error)
             return

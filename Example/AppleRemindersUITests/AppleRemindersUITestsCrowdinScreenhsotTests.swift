@@ -44,6 +44,29 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     func testScreenshots() throws {
         XCTAssert(CrowdinSDK.inSDKLocalizations.count > 0, "At least one target language should be set up in Crowdin.")
         
+        let app = XCUIApplication()
+        // Pass selected localization in test to the app.
+        app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(Self.sourceLanguage)"]
+        app.launch()
+        
+        let addListBtn = app.otherElements.buttons.element(matching: .button, identifier: "addListBtn")
+        _ = app.waitForExistence(timeout: 5) // Timeout for app to start SDK and show UI.
+        
+        // MAIN SCREEN
+        var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN_\(Self.sourceLanguage)", image: XCUIScreen.main.screenshot().image, application: app)
+        XCTAssertNil(result.error)
+        
+        // ADD LIST
+        addListBtn.tap()
+        
+        result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "ADD_LIST_\(Self.sourceLanguage)", image: XCUIScreen.main.screenshot().image, application: app)
+        XCTAssertNil(result.error)
+    }
+    
+    @MainActor
+    func testScreenshotsForAllLocalizations() throws {
+        XCTAssert(CrowdinSDK.inSDKLocalizations.count > 0, "At least one target language should be set up in Crowdin.")
+        
         for localization in CrowdinSDK.inSDKLocalizations {
             // Start SKD inside tests for selected localization.
             Self.startSDK(localization: localization)
@@ -58,13 +81,13 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
             
             // MAIN SCREEN
             var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN_\(localization)", image: XCUIScreen.main.screenshot().image, application: app)
-            XCTAssertNil(result.1)
+            XCTAssertNil(result.error)
             
             // ADD LIST
             addListBtn.tap()
             
             result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "ADD_LIST_\(localization)", image: XCUIScreen.main.screenshot().image, application: app)
-            XCTAssertNil(result.1)
+            XCTAssertNil(result.error)
         }
     }
 }

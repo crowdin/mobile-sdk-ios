@@ -253,13 +253,11 @@ final class ScreenshotsUITests: XCTestCase {
 }
 ```
 
-### Advanced Example with Multiple Localizations
-
-For a more comprehensive example of screenshot automation with multiple localizations, you can refer to our [example UI tests](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleRemindersUITests/AppleRemindersUITestsCrowdinScreenhsotTests.swift) and corresponding [app configuration](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleReminders/SceneDelegate.swift).
+### Example
 
 Key implementation points from the example:
 
-1. **Testing Multiple Localizations**:
+1. **Testing Source Language Localization**:
 
 ```swift
 final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
@@ -290,25 +288,24 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
     func testScreenshots() throws {
         XCTAssert(CrowdinSDK.inSDKLocalizations.count > 0, "At least one target language should be set up in Crowdin.")
         
-        for localization in CrowdinSDK.inSDKLocalizations {
-            // Start SDK inside tests for selected localization
-            Self.startSDK(localization: localization)
-            
-            let app = XCUIApplication()
-            // Pass selected localization to the app
-            app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(localization)"]
-            app.launch()
-            
-            // Take screenshots with localization-specific names
-            let result = CrowdinSDK.captureOrUpdateScreenshotSync(
-                name: "MAIN_SCREEN_\(localization)", 
-                image: XCUIScreen.main.screenshot().image, 
-                application: app
-            )
-        }
+        let app = XCUIApplication()
+        // Pass selected localization in test to the app.
+        app.launchArguments = ["UI_TESTING", "CROWDIN_LANGUAGE_CODE=\(Self.sourceLanguage)"]
+        app.launch()
+        
+        let addListBtn = app.otherElements.buttons.element(matching: .button, identifier: "addListBtn")
+        _ = app.waitForExistence(timeout: 5) // Timeout for app to start SDK and show UI.
+        
+        // MAIN SCREEN
+        var result = CrowdinSDK.captureOrUpdateScreenshotSync(name: "MAIN_SCREEN_\(Self.sourceLanguage)", image: XCUIScreen.main.screenshot().image, application: app)
+        XCTAssertNil(result.error)
     }
 }
 ```
+
+:::note
+For a more comprehensive example of screenshot automation with multiple localizations, you can refer to our [example UI tests](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleRemindersUITests/AppleRemindersUITestsCrowdinScreenhsotTests.swift) and corresponding [app configuration](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleReminders/SceneDelegate.swift).
+:::
 
 1. **App Configuration for Test Mode**:
 
