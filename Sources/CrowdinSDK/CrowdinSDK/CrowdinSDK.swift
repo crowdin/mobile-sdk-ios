@@ -159,6 +159,13 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     public class func removeAllLogMessageHandlers() {
         LogMessageObserver.shared.removeAllLogMessageHandlers()
     }
+    
+    /// Get lokalization key for a string. First it will search in crowdin localization provider, than in local strings.
+    /// - Parameter string: String to get localization key for,
+    /// - Returns: Localization key for a given string.
+    public class func keyFor(string: String) -> String? {
+        Localization.current?.keyForString(string)
+    }
 }
 
 extension CrowdinSDK {

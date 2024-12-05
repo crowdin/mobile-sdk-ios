@@ -34,6 +34,7 @@ const sidebars = {
       collapsible: true,
       collapsed: false,
       items: [
+        'guides/screenshots-automation',
         'guides/debug-and-logging',
         'guides/swift-ui',
         'guides/sdk-structure',

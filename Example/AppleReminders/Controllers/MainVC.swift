@@ -412,21 +412,3 @@ fileprivate struct IntegratedController: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: ThisViewController, context: UIViewControllerRepresentableContext<IntegratedController>) {
     }
 }
-
-fileprivate struct CustomContentView: View {
-    var body: some View {
-        IntegratedController().edgesIgnoringSafeArea(.bottom)
-        
-        //IF Navigation title is needed for the preview, used the following:
-        //        NavigationView {
-        //            IntegratedController().edgesIgnoringSafeArea(.all)
-        //                .navigationBarTitle(Text("Navigation Title Text"), displayMode: .inline)  //inline sets a small navigation bar height
-        //        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomContentView()  //if preview isn't changing, change this struct to the struct conforming to View
-    }
-}

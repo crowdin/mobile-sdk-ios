@@ -13,9 +13,9 @@ extension SettingsView {
     func setupCells() {
         cells = []
 
-        if let loginFeature = LoginFeature.shared {
+        if let loginFeature = CrowdinSDK.loginFeature {
             let logInItemView = SettingsItemView(frame: .zero)
-            if !LoginFeature.isLogined {
+            if !loginFeature.isLogined {
                 logInItemView.title = "Log in"
                 logInItemView.action = { [weak self] in
                     loginFeature.login(completion: {
@@ -34,12 +34,12 @@ extension SettingsView {
             } else {
                 logInItemView.title = "Logged in"
                 logInItemView.action = {
-                    loginFeature.showLogoutClearCredentialsAlert(completion: { [weak self] in
+                    self.showLogoutClearCredentialsAlert(completion: { [weak self] in
                         self?.reload()
                     })
                 }
             }
-            logInItemView.statusView.backgroundColor = LoginFeature.isLogined ? self.enabledStatusColor : .clear
+            logInItemView.statusView.backgroundColor = loginFeature.isLogined ? self.enabledStatusColor : .clear
             logInItemView.statusView.isHidden = false
             cells.append(logInItemView)
         }
@@ -55,7 +55,7 @@ extension SettingsView {
         reloadItemView.title = "Reload translations"
         cells.append(reloadItemView)
 
-        if LoginFeature.isLogined {
+        if CrowdinSDK.loginFeature?.isLogined == true {
             if var feature = RealtimeUpdateFeature.shared {
                 let realTimeUpdateItemView = SettingsItemView(frame: .zero)
                 feature.error = { error in
@@ -179,6 +179,46 @@ extension SettingsView {
         
         alert.cw_present()
     }
+    
+    func showLogoutClearCredentialsAlert(completion: @escaping () -> Void) {
+        let title = "CrowdinSDK"
+        let message = "Do you want to clear your previous login session? All your credentials will be deleted."
+        let yesTitle = "YES"
+        let noTitle = "NO"
+        let cancelTitle = "Cancel"
+#if os(iOS)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: yesTitle, style: .default, handler: { _ in
+            alert.cw_dismiss()
+            CrowdinSDK.loginFeature?.logout(clearCreditials: true, completion: completion)
+            completion()
+        }))
+        alert.addAction(UIAlertAction(title: noTitle, style: .default, handler: { _ in
+            alert.cw_dismiss()
+            CrowdinSDK.loginFeature?.logout(clearCreditials: false, completion: completion)
+            completion()
+        }))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .destructive, handler: { _ in
+            alert.cw_dismiss()
+            completion()
+        }))
+        alert.cw_present()
+#elseif os(macOS)
+        guard let window = NSApplication.shared.windows.first else { return }
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = message
+        let action = alert.addButton(withTitle: yesTitle)
+        alert.addButton(withTitle: cancelTitle)
+        alert.alertStyle = .warning
+        alert.beginSheetModal(for: window) { response in
+            if response.rawValue == 1000 {
+                
+            }
+        }
+#endif
+    }
+    
 }
 
 // MARK: - Alert Text Field Validation

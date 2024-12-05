@@ -63,8 +63,15 @@ class ScreenshotFeature {
             errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
-        screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+        screenshotUploader.prepare { error in
+            if let error {
+                errorHandler(error)
+                return
+            }
+            
+            let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
+            self.screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+        }
     }
     
     func updateOrUploadScreenshot(name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
@@ -91,8 +98,39 @@ class ScreenshotFeature {
             errorHandler(NSError(domain: "Unable to create screenshot from view.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
-        screenshotUploader.updateOrUploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+        screenshotUploader.prepare { error in
+            if let error {
+                errorHandler(error)
+                return
+            }
+            let controlsInformation = ScreenshotInformationCollector.getControlsInformation(from: view, rootView: view)
+            self.screenshotUploader.updateOrUploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+        }
+    }
+    
+    func captureScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        if let error = screenshotUploader.prepareSync() {
+            errorHandler(error)
+            return
+        }
+        var name = name
+        if !name.hasSuffix(FileType.png.extension) {
+            name += FileType.png.extension
+        }
+        self.screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
+    }
+    
+    
+    func captureOrUpdateScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+        if let error = screenshotUploader.prepareSync() {
+            errorHandler(error)
+            return
+        }
+        var name = name
+        if !name.hasSuffix(FileType.png.extension) {
+            name += FileType.png.extension
+        }
+        self.screenshotUploader.updateOrUploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
     }
     
     /// Returns the top view controller of the application's key window.

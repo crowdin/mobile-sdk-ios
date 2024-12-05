@@ -12,11 +12,6 @@ import XCTest
 class InfoPlistInitializationTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        let crowdinProviderConfig = CrowdinProviderConfig()
-        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-        
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
         CrowdinSDK.deintegrate()
     }
     
@@ -34,9 +29,14 @@ class InfoPlistInitializationTests: XCTestCase {
             expectation.fulfill()
         }
         
+        let crowdinProviderConfig = CrowdinProviderConfig()
+        let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
+        
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        
         wait(for: [expectation], timeout: 60.0)
         
-        CrowdinSDK.removeErrorHandler(hendlerId)
+        CrowdinSDK.removeDownloadHandler(hendlerId)
     }
 }
 

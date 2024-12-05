@@ -87,6 +87,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'CrowdinSDK/LoginFeature'
+    
   end
   
   spec.subspec 'RealtimeUpdate' do |feature|
@@ -137,6 +138,16 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/CrowdinProvider'
     settings.dependency 'CrowdinSDK/CrowdinAPI'
     settings.dependency 'CrowdinSDK/LoginFeature'
+  end
+
+  spec.subspec 'CrowdinXCTestScreenshots' do |feature|
+    feature.name = 'CrowdinXCTestScreenshots'
+    feature.ios.source_files = 'Sources/CrowdinSDK/Features/XCTestScreenshotFeature/*.swift'
+    feature.dependency 'CrowdinSDK/Core'
+    feature.dependency 'CrowdinSDK/CrowdinProvider'
+    feature.dependency 'CrowdinSDK/CrowdinAPI'
+    feature.dependency 'CrowdinSDK/Screenshots'
+    feature.ios.frameworks = 'XCTest'
   end
 
 end

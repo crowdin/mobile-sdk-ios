@@ -182,9 +182,7 @@ final class SettingsView: UIView {
         if let realtimeUpdateFeature = RealtimeUpdateFeature.shared, realtimeUpdateFeature.enabled {
             realtimeUpdateFeature.stop()
         }
-        LoginFeature.shared.flatMap {
-            $0.logout()
-        }
+        CrowdinSDK.loginFeature?.logout()
         reloadData()
 
         CrowdinLogsCollector.shared.add(log: .info(with: "Logged out"))

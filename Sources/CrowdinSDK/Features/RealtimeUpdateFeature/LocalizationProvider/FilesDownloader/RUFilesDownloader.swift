@@ -22,12 +22,14 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     let projectId: String
     let enterprise: Bool
     let manifestManager: ManifestManager
+    let loginFeature: AnyLoginFeature?
     
-    init(projectId: String, manifestManager: ManifestManager, organizationName: String?) {
+    init(projectId: String, organizationName: String?, manifestManager: ManifestManager, loginFeature: AnyLoginFeature?) {
         self.projectId = projectId
         self.manifestManager = manifestManager
         self.enterprise = organizationName != nil
-        self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: LoginFeature.shared)
+        self.loginFeature = loginFeature
+        self.projectsAPI = ProjectsAPI(organizationName: organizationName, auth: loginFeature)
         self.operationQueue.maxConcurrentOperationCount = 1
     }
     

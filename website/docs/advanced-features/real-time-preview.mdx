@@ -4,7 +4,11 @@ import CodeBlock from '@theme/CodeBlock';
 
 # Real-Time Preview
 
-All translations done in the Crowdin Editor can be displayed in your version of the application in real-time. See the translations that have already been done and the ones you're typing.
+Experience instant preview of translations directly in your app with real-time sync from the Crowdin Editor. Watch your translations appear live as you type, and review existing translations in context within your application. This immediate feedback helps ensure translations fit perfectly in your app's interface and maintain the intended meaning.
+
+:::caution
+The Real-Time Preview feature is designed for development and staging environments only. Using this feature in production can expose untested translations and impact app stability. For production builds, disable Real-Time Preview and use the standard over-the-air translation updates.
+:::
 
 ## Setup
 
@@ -22,57 +26,36 @@ target 'your-app' do
 end
 ```
 
-Open *AppDelegate.swift* file and in the `application` method add:
+## Authorization
 
-```swift title="AppDelegate.swift"
-let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    sourceLanguage: "{source_language}",
-    organizationName: "{organization_name}")
+The Real-Time Preview feature requires authorization to leverage Crowdin's API for real-time updates.
 
-var loginConfig: CrowdinLoginConfig
-do {
-    loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
-       clientSecret: "{client_secret}",
-       scope: "project",
-       redirectURI: "{redirectURI}")
-} catch {
-    print(error)
-    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
-}
+Choose from two authorization methods based on your needs:
 
-let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(loginConfig: loginConfig)
-    .with(settingsEnabled: true)
-    .with(realtimeUpdatesEnabled: true)
+- **OAuth-based Authorization**: Uses `clientId` and `clientSecret` for web-based authorization. This method implements a secure OAuth flow that opens a dialog for users to authorize the application. Best suited for development environments and when user interaction is acceptable.
+- **API Token Authorization**: Uses the `accessToken` to pass the API Personal Access Token directly. This streamlined method is ideal for automated workflows, CI/CD pipelines, or scenarios where user interaction is not desired.
 
-CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-    // SDK is ready to use, put code to change language, etc. here
-})
-```
+If both methods are configured, access token authentication takes priority.
 
-### Objective-C
+### OAuth-based Authorization
 
-```objectivec
-CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@"" organizationName:@"{organization_name}"];
+Implements a secure web-based authorization flow using `clientId` and `clientSecret`. This method:
 
-NSError *error;
-CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secret}" scope:@"project" error:&error];
+- Opens a dialog for user authorization
+- Provides a secure authentication process
+- Is ideal for development and testing environments
 
-if (!error) {
-    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+To enable OAuth-based authorisation, add the following configuration to your `AppDelegate' class in the `application' method:
 
-    [CrowdinSDK startWithConfig:config completion:^{
-       // SDK is ready to use, put code to change language, etc. here
-    }];
-} else {
-    NSLog(@"%@", error.localizedDescription);
-    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
-}
-```
+import rtPreviewSetupOauthSwift from '!!raw-loader!../code-samples/rt-preview-oauth-setup.swift';
+import rtPreviewSetupOauthC from '!!raw-loader!../code-samples/rt-preview-oauth-setup.m';
 
-### Authorization
+<Tabs groupId="language">
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift" title="AppDelegate.swift">{rtPreviewSetupOauthSwift}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{rtPreviewSetupOauthC}</CodeBlock></TabItem>
+</Tabs>
 
-Crowdin Authorization is required for Real-Time Preview feature. So you need to handle authorization callback in your application:
+For OAuth authentication, you need to handle authorization callbacks in your application:
 
 import authCallbackSwift from '!!raw-loader!../code-samples/auth-callback.swift';
 import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m';
@@ -82,7 +65,7 @@ import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{authCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
-If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate**  class implement method:
+If you are using **SceneDelegate**, implement the callback in the **SceneDelegate** class:
 
 import sceneDelegateCallbackSwift from '!!raw-loader!../code-samples/scene-delegate-callback.swift';
 import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-delegate-callback.m';
@@ -92,19 +75,41 @@ import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{sceneDelegateCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
-## Config options
+### API Token Authorization
 
-| Config option              | Description                                                                                                                                                                                                                                                                                                                                                                                                                        | Example                                                  |
-|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| `hashString`               | Distribution Hash                                                                                                                                                                                                                                                                                                                                                                                                                  | `hashString: "7a0c1e...297uo3b"`                         |
-| `sourceLanguage`           | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)                                                                                                                                                                                                                                                                                                              | `sourceLanguage: "en"`                                   |
-| `clientId`, `clientSecret` | [Crowdin OAuth](https://support.crowdin.com/creating-oauth-app/) Client ID and Client Secret                                                                                                                                                                                                                                                                                                                                       | `clientId: "gpY...3TYB"`, `clientSecret: "Xz95...EDx9T"` |
-| `scope`                    | Define the access scope for personal tokens                                                                                                                                                                                                                                                                                                                                                                                        | `scope: "project"`                                       |
-| `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception. | `redirectURI: "crowdintest://"`                          |
-| `organizationName`         | An Organization domain name (for **Crowdin Enterprise users only**)                                                                                                                                                                                                                                                                                                                                                                | `organizationName: "mycompany"`                          |
-| `settingsEnabled`          | Enable [SDK Controls](/advanced-features/sdk-controls) to easily access the SDK features                                                                                                                                                                                                                                                                                                                                           | `settingsEnabled: true`                                  |
-| `realtimeUpdatesEnabled`   | Enable Real-Time Preview feature                                                                                                                                                                                                                                                                                                                                                                                                   | `realtimeUpdatesEnabled: true`                           |
+A streamlined approach using the `accessToken` option that bypasses OAuth authentication. This method:
 
-:::caution
-The Real-Time Preview feature should not be used in a production environment. It is intended for use in development or staging only.
-:::
+- Allows direct API token integration
+- Requires no user interaction
+- Is perfect for CI/CD pipelines and automated workflows
+
+import rtPreviewSetupApiSwift from '!!raw-loader!../code-samples/rt-preview-api-setup.swift';
+import rtPreviewSetupApiC from '!!raw-loader!../code-samples/rt-preview-api-setup.m';
+
+<Tabs groupId="language">
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift" title="AppDelegate.swift">{rtPreviewSetupApiSwift}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{rtPreviewSetupApiC}</CodeBlock></TabItem>
+</Tabs>
+
+## Config Options Reference
+
+| Option                   | Description                                                                                    | Required | Example Value          |
+|--------------------------|------------------------------------------------------------------------------------------------|----------|------------------------|
+| `hashString`             | Distribution Hash                                                                              | Yes      | `"7a0c1...o3b"`        |
+| `sourceLanguage`         | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | Yes      | `sourceLanguage: "en"` |
+| `organizationName`       | Organization domain (Enterprise only)                                                          | No       | `"mycompany"`          |
+| `settingsEnabled`        | Enable SDK Controls                                                                            | No       | `true`                 |
+| `realtimeUpdatesEnabled` | Enable Real-Time Preview feature                                                               | Yes      | `true`                 |
+| `accessToken`            | Crowdin API access token                                                                       | No*      | `"your_token"`         |
+
+* Either `accessToken` or OAuth configuration is required.
+
+### OAuth Options
+| Option         | Description                          | Required | Example Value      |
+|----------------|--------------------------------------|----------|--------------------|
+| `clientId`     | OAuth Client ID                      | Yes*     | `"gpY2yT...x3TYB"` |
+| `clientSecret` | OAuth Client Secret                  | Yes*     | `"Xz95t...EDx9T"`  |
+| `scope`        | OAuth scope (must include "project") | Yes*     | `"project"`        |
+| `redirectURI`  | Custom URL scheme for your app       | No       | `"crowdintest://"` |
+
+*Required only if using OAuth authentication instead of access token.
