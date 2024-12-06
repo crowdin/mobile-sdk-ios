@@ -36,11 +36,11 @@ class ScreenshotInformationCollector {
         return self.getControlsInformation(from: topViewController.view, rootView: topViewController.view)
 	}
 	
-    class func getControlsInformation(from view: View, rootView: View) -> [ControlInformation] {
+    class func getControlsInformation(from view: CWView, rootView: CWView) -> [ControlInformation] {
 		var description = [ControlInformation]()
 		view.subviews.forEach { subview in
             guard !subview.isHidden && subview.alpha != 0.0 else { return }
-			if let label = subview as? Label, let localizationKey = label.localizationKey {
+			if let label = subview as? CWLabel, let localizationKey = label.localizationKey {
                 if let frame = label.superview?.convert(label.frame, to: rootView), rootView.bounds.contains(frame), frame.isValid { // Check wheather control frame is visible on screen.
 #if os(OSX)
                     let newRect = CGRect(x: frame.origin.x * scale, y: (rootView.bounds.size.height - frame.origin.y - frame.size.height) * scale, width: frame.size.width * scale, height: frame.size.height * scale)

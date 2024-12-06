@@ -58,7 +58,7 @@ class ScreenshotFeature {
     ///   - name: The name to be assigned to the screenshot.
     ///   - success: A closure to be called when the screenshot is successfully captured and uploaded.
     ///   - errorHandler: A closure to be called when an error occurs during the process. The closure receives an optional Error parameter.
-    func captureScreenshot(view: View, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureScreenshot(view: CWView, name: String, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshot = view.screenshot else {
             errorHandler(NSError(domain: "Unable to create screenshot.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -93,7 +93,7 @@ class ScreenshotFeature {
     ///   - name: The name to be assigned to the screenshot.
     ///   - success: A closure to be called when the screenshot is successfully updated or uploaded.
     ///   - errorHandler: A closure to be called when an error occurs during the process. The closure receives an optional Error parameter.
-    func updateOrUploadScreenshot(view: View, name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func updateOrUploadScreenshot(view: CWView, name: String, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         guard let screenshot = view.screenshot else {
             errorHandler(NSError(domain: "Unable to create screenshot from view.", code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -108,7 +108,7 @@ class ScreenshotFeature {
         }
     }
     
-    func captureScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureScreenshot(name: String, screenshot: CWImage, controlsInformation: [ControlInformation], success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         if let error = screenshotUploader.prepareSync() {
             errorHandler(error)
             return
@@ -121,7 +121,7 @@ class ScreenshotFeature {
     }
     
     
-    func captureOrUpdateScreenshot(name: String, screenshot: Image, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureOrUpdateScreenshot(name: String, screenshot: CWImage, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         if let error = screenshotUploader.prepareSync() {
             errorHandler(error)
             return
@@ -135,7 +135,7 @@ class ScreenshotFeature {
     
     /// Returns the top view controller of the application's key window.
     /// - Returns: The top most view controller currently displayed, or nil if none is found.
-    class var topViewController: ViewController? {
+    class var topViewController: CWViewController? {
 #if os(OSX)
         return NSApplication.shared.keyWindow?.contentViewController
 #elseif os(iOS) || os(tvOS)

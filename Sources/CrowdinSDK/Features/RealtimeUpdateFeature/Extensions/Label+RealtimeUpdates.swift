@@ -10,7 +10,7 @@ import UIKit
 #endif
 import Foundation
 
-extension Label {
+extension CWLabel {
     /// Subscribe Label for realtime updates if it has localization key and realtime updates feature enabled.
     @objc func subscribeForRealtimeUpdates() {
         if self.localizationKey != nil {
