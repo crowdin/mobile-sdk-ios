@@ -8,14 +8,14 @@
 import Foundation
 
 // MARK: -  extension with core functionality for language substitution.
-extension Label {
+extension CWLabel {
     /// Association object for storing localization key.
     private static let localizationKeyAssociation = ObjectAssociation<String>()
     
     /// Localization key.
     var localizationKey: String? {
-        get { return Label.localizationKeyAssociation[self] }
-        set { Label.localizationKeyAssociation[self] = newValue }
+        get { return CWLabel.localizationKeyAssociation[self] }
+        set { CWLabel.localizationKeyAssociation[self] = newValue }
     }
 	
     ///  Association object for storing localization format string values if such exists.
@@ -23,8 +23,8 @@ extension Label {
 	
     /// Array with localization format string values.
 	var localizationValues: [Any]? {
-		get { return Label.localizationValuesAssociation[self] }
-		set { Label.localizationValuesAssociation[self] = newValue }
+		get { return CWLabel.localizationValuesAssociation[self] }
+		set { CWLabel.localizationValuesAssociation[self] = newValue }
 	}
     
     // swiftlint:disable implicitly_unwrapped_optional
@@ -86,7 +86,7 @@ extension Label {
     ///
     /// - Parameter text: Title text.
     func original_setText(_ text: String) {
-        guard Label.swizzledText != nil else { return }
+        guard CWLabel.swizzledText != nil else { return }
         swizzled_setText(text)
     }
     
@@ -95,7 +95,7 @@ extension Label {
     /// - Parameter attributedText: Attributed title text.
     func original_setAttributedText(_ attributedText: NSAttributedString?) {
         // TODO: Add saving attributes.
-        guard Label.swizzledAttributedText != nil else { return }
+        guard CWLabel.swizzledAttributedText != nil else { return }
         swizzled_setAttributedText(attributedText)
     }
 
@@ -104,22 +104,22 @@ extension Label {
     class func swizzle() {
         // swiftlint:disable force_unwrapping
 #if os(iOS) || os(tvOS)
-        originalText = class_getInstanceMethod(self, #selector(setter: Label.text))!
+        originalText = class_getInstanceMethod(self, #selector(setter: CWLabel.text))!
 #elseif os(macOS)
-        originalText = class_getInstanceMethod(self, #selector(setter: Label.stringValue))!
+        originalText = class_getInstanceMethod(self, #selector(setter: CWLabel.stringValue))!
 #elseif os(watchOS)
-        originalText = class_getInstanceMethod(self, #selector(Label.setText(_:)))!
+        originalText = class_getInstanceMethod(self, #selector(CWLabel.setText(_:)))!
 #endif
-        swizzledText = class_getInstanceMethod(self, #selector(Label.swizzled_setText(_:)))!
+        swizzledText = class_getInstanceMethod(self, #selector(CWLabel.swizzled_setText(_:)))!
         method_exchangeImplementations(originalText, swizzledText)
 #if os(iOS) || os(tvOS)
-        originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedText))!
+        originalAttributedText = class_getInstanceMethod(self, #selector(setter: CWLabel.attributedText))!
 #elseif os(macOS)
-        originalAttributedText = class_getInstanceMethod(self, #selector(setter: Label.attributedStringValue))!
+        originalAttributedText = class_getInstanceMethod(self, #selector(setter: CWLabel.attributedStringValue))!
 #elseif os(watchOS)
-        originalAttributedText = class_getInstanceMethod(self, #selector(Label.setAttributedText(_:)))!
+        originalAttributedText = class_getInstanceMethod(self, #selector(CWLabel.setAttributedText(_:)))!
 #endif
-        swizzledAttributedText = class_getInstanceMethod(self, #selector(Label.swizzled_setAttributedText(_:)))!
+        swizzledAttributedText = class_getInstanceMethod(self, #selector(CWLabel.swizzled_setAttributedText(_:)))!
         method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
     }
     

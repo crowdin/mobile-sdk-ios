@@ -22,8 +22,6 @@ To configure iOS SDK integration you need to:
 - CDN will cache all translations in the release for up to 1 hour and even if new translations are released in Crowdin, CDN may return them with a delay.
 :::
 
-## Setup with AppDelegate
-
 ### Swift
 
 Open the *AppDelegate.swift* file and add:
@@ -72,41 +70,49 @@ If you have a pure Objective-C project, you will need to take some additional st
 
 Add the following code to your Library Search Paths:
 
-```bash
-$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
-```
+1.  Add to Library Search Paths:
 
-Add `use_frameworks!` to your Podfile.
+    ```bash
+    $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
+    ```
 
-## Setup with Info.plist
+2.  Add `use_frameworks!` to your Podfile.
 
-Open *Info.plist* file and add:
+## Alternative Setup: Info.plist
 
-`CrowdinDistributionHash` - Crowdin CDN hash value for current project (String value).
+You can also configure basic SDK settings in Info.plist:
 
-`CrowdinSourceLanguage` - Source language code of your Crowdin project in the ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) format (String value).
+1. Add these keys to *Info.plist*:
+   - `CrowdinDistributionHash` (String) - Your Crowdin CDN hash
+   - `CrowdinSourceLanguage` (String) - Source language code in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format
 
-In AppDelegate you should call start method: `CrowdinSDK.start()` for Swift, and `[CrowdinSDK start]` for Objective-C.
+2. In AppDelegate call:
+   - Swift: `CrowdinSDK.start()`
+   - Objective-C: `[CrowdinSDK start]`
 
 :::caution
-Using this setup method, you will not be able to set up additional *Screenshots* and *Real-Time Preview* project features.
+Using the `Info.plist` setup method, you cannot configure Screenshots and Real-Time Preview features.
 :::
 
-## Translations update interval
+## Additional Features
+
+### Translations Update Interval
 
 By default, SDK searches for new translation once per application load, but not more often than 15 minutes. You can update translations in application every defined interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
 
-```swift
-pod 'CrowdinSDK/IntervalUpdate'
-```
+1.  Add to `Podfile`:
 
-Then enable this option in `CrowdinSDKConfig`:
+    ```swift
+    pod 'CrowdinSDK/IntervalUpdate'
+    ```
 
-```swift
-.with(intervalUpdatesEnabled: true, interval: {interval})
-```
+2.  Configure in SDK:
 
-Where `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes (900 seconds).
+    ```swift
+    .with(intervalUpdatesEnabled: true, interval: {interval})
+    ```
+
+    Where `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes (900 seconds).
 
 ## Change locale programmatically
 
@@ -116,38 +122,47 @@ By default, the SDK relies on the device locale. To change the SDK target langua
 CrowdinSDK.enableSDKLocalization(true, localization: "<language_code>")
 ```
 
-Where `<language_code>` - target language code in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format.
+Where `<language_code>` is the target language in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format.
 
-## Config options
+## SwiftUI Support
 
-| Config option    | Description                                                                                                           | Example                     |
-|------------------|-----------------------------------------------------------------------------------------------------------------------|-----------------------------|
-| `hashString`     | Distribution Hash                                                                                                     | `hashString: "7a0c1...o3b"` |
-| `sourceLanguage` | Source language code in your Crowdin project. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) | `sourceLanguage: "en"`      |
-
-## SwiftUI support
-
-SwiftUI doesn't have automatic support yet. It will work only when you pass localised string using `NSLocalizedString("key", comment: "comment")`.
-It means that you will need to update all localised strings in SwiftUI application. For more comfortable usage you can use out String extension for localisation: `"key".cw_localized`.
-
-Example:
+SwiftUI support requires explicit localization calls. Use either:
 
 ```swift
 Text(NSLocalizedString("key", comment: "comment"))
 ```
 
-or
+or the convenience extension:
 
 ```swift
 Text("key".cw_localized)
 ```
 
-After we add SwiftUI support, you will just need to remove the `cw_localized` method call.
+View the [Swift UI Localization guide](/guides/swift-ui) for more information.
 
-## Apple Strings Catalog support
+## Apple Strings Catalog Support
 
 The Crowdin SDK supports the [Apple Strings Catalog](https://store.crowdin.com/string_catalog) (`.xcstrings`) format out of the box. It doesn't require any additional setup. Just upload your localization files to Crowdin, set up the distribution and start using the SDK.
 
 :::caution
 Only the CDN Content Delivery feature is available for the Apple Strings Catalog format. The Screenshots and Real-Time Preview features are not yet supported.
 :::
+
+## Config Options Reference
+
+| Option             | Description                                                                                    | Example Value          |
+|--------------------|------------------------------------------------------------------------------------------------|------------------------|
+| `hashString`       | Distribution Hash                                                                              | `"7a0c1...o3b"`        |
+| `sourceLanguage`   | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | `sourceLanguage: "en"` |
+| `organizationName` | Organization domain (Enterprise only)                                                          | `"mycompany"`          |
+| `settingsEnabled`  | Enable SDK Controls                                                                            | `true`                 |
+| `accessToken`      | Crowdin API access token                                                                       | `"your_token"`         |
+
+### OAuth Options
+
+| Option         | Description                                         | Example Value      |
+|----------------|-----------------------------------------------------|--------------------|
+| `clientId`     | OAuth Client ID                                     | `"gpY2yT...x3TYB"` |
+| `clientSecret` | OAuth Client Secret                                 | `"Xz95t...EDx9T"`  |
+| `scope`        | OAuth scope (e.g., "project.screenshot", "project") | `"project"`        |
+| `redirectURI`  | Custom URL scheme for your app                      | `"crowdintest://"` |

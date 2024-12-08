@@ -64,19 +64,36 @@ After you've added *CrowdinSDK* to your Podfile, run `pod install` in your proje
 
 ## Swift Package Manager
 
-Once you have your Swift package set up, adding CrowdinSDK as a dependency is as easy as adding it to the dependencies value of your `Package.swift`:
+The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the Swift compiler.
+
+To add CrowdinSDK to your project using SPM:
+
+1. In Xcode, select File > Add Packages...
+2. Enter the package repository URL: `https://github.com/crowdin/mobile-sdk-ios.git`
+3. Select the version you want to use (latest release recommended)
+4. Click Add Package
+
+Alternatively, you can add it directly to your Package.swift:
 
 ```swift title="Package.swift"
 dependencies: [
-    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from:"1.4.0")
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from: "1.9.0")
 ]
 ```
 
+:::tip
+For better version control, you can specify an exact version or version range:
+
+```swift
+.package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.9.0"))
+```
+:::
+
 ## Requirements
 
-* Xcode 10.2
-* Swift 4.2
-* iOS 9.0
+* Xcode 15.0+
+* Swift 5.0+
+* iOS 12.0+
 
 :::tip
 R-Swift applications are also supported by the Crowdin iOS SDK.
@@ -84,8 +101,11 @@ R-Swift applications are also supported by the Crowdin iOS SDK.
 
 ## Dependencies
 
-* [Starscream](https://github.com/daltoniam/Starscream) - Websockets in swift for iOS and OSX.
+* [Starscream](https://github.com/daltoniam/Starscream) (~> 4.0.4) - Websockets in swift for iOS and OSX
+* [BaseAPI](https://github.com/serhii-londar/BaseAPI.git) (~> 0.2.2)
 
 ## See also
 
 - [Setup](setup.mdx)
+- [Screenshots](advanced-features/screenshots.mdx)
+- [Real time preview](advanced-features/real-time-preview.mdx)

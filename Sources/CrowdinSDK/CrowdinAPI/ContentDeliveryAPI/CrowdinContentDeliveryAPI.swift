@@ -58,7 +58,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         if let etag = etag {
             headers = [Strings.ifNoneMatch.rawValue: etag]
         }
-        super.get(url: stringURL, headers: headers) { data, response, error in
+        super.get(url: stringURL, headers: headers, callbackQueue: .global()) { data, response, error in
             completion(data, response, error)
             CrowdinAPILog.logRequest(
                 method: RequestMethod.GET.rawValue,
@@ -175,7 +175,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
     
     func getManifest(completion: @escaping CrowdinAPIManifestCompletion) {
         let stringURL = manifestURL()
-        super.get(url: stringURL) { [weak self] (data, _, error) in
+        super.get(url: stringURL, callbackQueue: .global()) { [weak self] (data, _, error) in
             guard self != nil else { return }
             if let data = data {
                 do {

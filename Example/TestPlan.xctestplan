@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "4D3747FA-FCFE-4AB6-9970-4F459F7A580C",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AppleReminders.xcodeproj",
+        "identifier" : "E81B4C172CF559C1008D7C25",
+        "name" : "AppleRemindersUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -16,8 +16,9 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var manifestManager: ManifestManager
     
     private var crowdinDownloader: CrowdinLocalizationDownloader
-    private var _localizations: [String]?
-    private let crowdinSupportedLanguages: CrowdinSupportedLanguages
+    private var crowdinSupportedLanguages: CrowdinSupportedLanguages {
+        manifestManager.crowdinSupportedLanguages
+    }
     
     init(localization: String, config: CrowdinProviderConfig) {
         self.localization = localization
@@ -26,7 +27,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.manifestManager = ManifestManager.manifest(for: config.hashString, sourceLanguage: config.sourceLanguage, organizationName: config.organizationName)
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: manifestManager)
         self.localizations = self.manifestManager.iOSLanguages
-        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: config.organizationName)
     }
     
     func prepare(with completion: @escaping () -> Void) {
@@ -67,7 +67,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName)
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: self.manifestManager)
         self.localizations = []
-        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
     }
     
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
@@ -81,12 +80,11 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.crowdinDownloader.download(with: self.hashString, for: localization) { [weak self] strings, plurals, errors in
             guard let self = self else { return }
             completion(self.localizations, localization, strings, plurals)
-            DispatchQueue.main.async {
-                LocalizationUpdateObserver.shared.notifyDownload()
-                
-                if let errors = errors {
-                    LocalizationUpdateObserver.shared.notifyError(with: errors)
-                }
+            
+            LocalizationUpdateObserver.shared.notifyDownload()
+            
+            if let errors = errors {
+                LocalizationUpdateObserver.shared.notifyError(with: errors)
             }
         }
     }

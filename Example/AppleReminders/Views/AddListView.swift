@@ -26,7 +26,7 @@ class AddListView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .clear
-        
+        button.accessibilityIdentifier = "addListBtn"
         return button
     }()
     
