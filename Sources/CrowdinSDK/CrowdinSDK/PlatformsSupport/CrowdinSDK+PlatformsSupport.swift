@@ -34,6 +34,11 @@ extension CWImage {
         bitmap.size = size
         return bitmap.representation(using: .png, properties: [:])
     }
+    
+    var scale: Double {
+        guard let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil) else { return 1 }
+        return Double(cgImage.width) / Double(size.width)
+    }
 }
 
 extension CWLabel {

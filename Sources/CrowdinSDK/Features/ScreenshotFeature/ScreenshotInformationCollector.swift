@@ -25,11 +25,7 @@ public struct ControlInformation {
 }
 
 class ScreenshotInformationCollector {
-#if os(OSX)
-    static let scale = NSScreen.main?.backingScaleFactor ?? 2.0
-#elseif os(iOS) || os(tvOS)
-    static let scale = UIScreen.main.scale
-#endif
+    static let scale = CWScreen.scale()
     
 	class func captureControlsInformation() -> [ControlInformation] {
         guard let topViewController = ScreenshotFeature.topViewController else { return [] }
