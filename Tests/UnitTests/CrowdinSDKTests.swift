@@ -11,6 +11,7 @@ import XCTest
 
 class CrowdinSDKTests: XCTestCase {
     override func setUp() {
+        CrowdinSDK.deintegrate()
 		super.setUp()
     }
 

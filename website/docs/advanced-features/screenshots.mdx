@@ -4,13 +4,24 @@ import CodeBlock from '@theme/CodeBlock';
 
 # Screenshots
 
-Enable this option if you want all screenshots taken in the application to be automatically sent to your Crowdin project with tagged strings. This provides additional context for translators.
+The Screenshots feature enhances the localization workflow by automatically capturing and uploading tagged screenshots from your application to your Crowdin project. This provides translators with valuable visual context, ensuring more accurate and contextually appropriate translations.
+
+:::caution
+The Screenshots feature is intended for development and staging environments only. Enabling this feature in production builds could expose sensitive UI information and impact app performance. For production releases, ensure the Screenshots feature is disabled to maintain security and optimal performance.
+:::
+
+## Overview
+
+You can capture and upload tagged screenshots to Crowdin in two ways:
+
+1. **SDK Controls Widget**: Use the built-in [SDK Controls](/advanced-features/sdk-controls) UI widget for easy management
+2. **Custom Handler**: Implement your own screenshot trigger (e.g., an in-app button or gesture, or an automated workflow)
 
 ## Setup
 
 ### Swift
 
-Add the code below to your *Podfile*:
+To enable the Screenshots feature in your application, add the following configuration to your *Podfile*:
 
 ```swift title="Podfile"
 use_frameworks!
@@ -22,61 +33,34 @@ target 'your-app' do
 end
 ```
 
-Open *AppDelegate.swift* file and in the `application` method add:
+## Authorization
 
-```swift title="AppDelegate.swift"
-let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{your_distribution_hash}",
-    sourceLanguage: "{source_language}",
-    organizationName: "{organization_name}")
+The Screenshots feature requires authorization to transmit screenshots to your Crowdin project. Choose from two authorization methods based on your needs:
 
-var loginConfig: CrowdinLoginConfig
-do {
-   loginConfig = try CrowdinLoginConfig(clientId: "{client_id}",
-       clientSecret: "{client_secret}",
-       scope: "project.screenshot",
-       redirectURI: "{redirectURI}")
-} catch {
-    print(error)
-    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
-}
+- **OAuth-based Authorization**: Uses `clientId` and `clientSecret` for web-based authorization. This method implements a secure OAuth flow that opens a dialog for users to authorize the application. Best suited for development environments and when user interaction is acceptable.
+- **API Token Authorization**: Uses the `accessToken` to pass the API Personal Access Token directly. This streamlined method is ideal for automated workflows, CI/CD pipelines, or scenarios where user interaction is not desired.
 
-let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
-    .with(screenshotsEnabled: true)
-    .with(loginConfig: loginConfig)
-    .with(settingsEnabled: true)
+If both methods are configured, access token authentication takes priority.
 
-CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
-    // SDK is ready to use, put code to change language, etc. here
-})
-```
+### OAuth-based Authorization
 
-### Objective-C
+Implements a secure web-based authorization flow using `clientId` and `clientSecret`. This method:
 
-```objectivec
-CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] initWithHashString:@"" sourceLanguage:@"" organizationName:@"{organization_name}"];
+- Opens a dialog for user authorization
+- Provides a secure authentication process
+- Is ideal for development and testing environments
 
-NSError *error;
-CrowdinLoginConfig *loginConfig = [[CrowdinLoginConfig alloc] initWithClientId:@"{client_id}" clientSecret:@"{client_secret}" scope:@"project.screenshot" error:&error];
+To enable OAuth-based authorization, add the following configuration to your `AppDelegate` class:
 
-if (!error) {
-    CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig] withLoginConfig:loginConfig];
+import screenshotsOauthSetupSwift from '!!raw-loader!../code-samples/screenshots-oauth-setup.swift';
+import screenshotsOauthSetupC from '!!raw-loader!../code-samples/screenshots-oauth-setup.m';
 
-    [CrowdinSDK startWithConfig:config completion:^{
-        // SDK is ready to use, put code to change language, etc. here
-    }];
-} else {
-    NSLog(@"%@", error.localizedDescription);
-    // CrowdinLoginConfig initialization error handling, typically for empty values and for wrong redirect URI value.
-}
-```
+<Tabs groupId="language">
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift" title="AppDelegate.swift">{screenshotsOauthSetupSwift}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{screenshotsOauthSetupC}</CodeBlock></TabItem>
+</Tabs>
 
-:::caution
-If you get the `Error while capturing screenshot - The operation couldn’t be completed. (There are no localized strings detected on current screen. error 99999.)` when sending screenshots, please make sure that your **current locale** is your project **source (default) language**.
-:::
-
-### Authorization
-
-Crowdin Authorization is required for Screenshots feature. So you need to handle authorization callback in your application:
+For OAuth authentication, you need to handle authorization callback in your application:
 
 import authCallbackSwift from '!!raw-loader!../code-samples/auth-callback.swift';
 import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m';
@@ -86,7 +70,7 @@ import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{authCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
-If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate**  class implement method:
+If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate** class implement method:
 
 import sceneDelegateCallbackSwift from '!!raw-loader!../code-samples/scene-delegate-callback.swift';
 import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-delegate-callback.m';
@@ -96,33 +80,84 @@ import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{sceneDelegateCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
-### Own handler
+### API Token Authorization
 
-You can also (optionally) define your own handler to take a screenshot (e.g. by clicking a button in your application):
+A streamlined approach using the `accessToken` option that bypasses OAuth authentication. This method:
 
-```swift
-CrowdinSDK.captureScreenshot(name: String(Date().timeIntervalSince1970)) {
-    print("Screenshot captured")
-} errorHandler: { error in
-    print("Screenshot capture failed with error - " + error?.localizedDescription)
-}
-```
+- Allows direct API token integration
+- Requires no user interaction
+- Is perfect for CI/CD pipelines and automated workflows
 
-or even capture screenshots of a separate UIView.
+import screenshotsAApiSetupSwift from '!!raw-loader!../code-samples/screenshots-api-setup.swift';
+import screenshotsApiSetupC from '!!raw-loader!../code-samples/screenshots-api-setup.m';
 
-## Config options
+<Tabs groupId="language">
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift" title="AppDelegate.swift">{screenshotsAApiSetupSwift}</CodeBlock></TabItem>
+  <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{screenshotsApiSetupC}</CodeBlock></TabItem>
+</Tabs>
 
-| Config option              | Description                                                                                                                                                                                                                                                                                                                                                                                                                        | Example                                                       |
-|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `hashString`               | Distribution Hash                                                                                                                                                                                                                                                                                                                                                                                                                  | `hashString: "7a0c1....97uo3b"`                               |
-| `sourceLanguage`           | Your Crowdin project source language. [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)                                                                                                                                                                                                                                                                                                                      | `sourceLanguage: "en"`                                        |
-| `clientId`, `clientSecret` | [Crowdin OAuth](https://support.crowdin.com/creating-oauth-app/) Client ID and Client Secret                                                                                                                                                                                                                                                                                                                                       | `clientId: "gpY2yT...x3TYB"`, `clientSecret: "Xz95t...EDx9T"` |
-| `scope`                    | Define the access scope for personal tokens                                                                                                                                                                                                                                                                                                                                                                                        | `scope: "project.screenshot"`                                 |
-| `redirectURI`              | A custom URL for your app. Read more in the [article](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app). It's an optional value. You should set it in case you want to use a specific URL scheme. In case you set a scheme which is not supported by your application init method will throw an exception. | `redirectURI: "crowdintest://"`                               |
-| `organizationName`         | An Organization domain name (for **Crowdin Enterprise users only**)                                                                                                                                                                                                                                                                                                                                                                | `organizationName: "mycompany"`                               |
-| `settingsEnabled`          | Enable [SDK Controls](/advanced-features/sdk-controls) to easily access the features of SDK                                                                                                                                                                                                                                                                                                                                        | `settingsEnabled: true`                                       |
-| `screenshotsEnabled`       | Enable Screenshots feature                                                                                                                                                                                                                                                                                                                                                                                                         | `screenshotsEnabled: true`                                    |
+## Custom Screenshot Handler
 
-:::caution
-The Screenshots feature should not be used in a production environment. It is intended for use in development or staging only.
-:::
+You can use one of two methods to take screenshots programmatically:
+
+1.  Basic screenshot capture:
+
+    ```swift
+    CrowdinSDK.captureScreenshot(name: String(Date().timeIntervalSince1970)) {
+        print("Screenshot captured")
+    } errorHandler: { error in
+        print("Screenshot capture failed with error - " + (error?.localizedDescription ?? ""))
+    }
+    ```
+
+2.  Capture and update existing screenshot:
+
+    ```swift
+
+    CrowdinSDK.captureAndUpdateScreenshot(name: "{screenshot_name}") { result in
+        switch result {
+            case .new: print("New screenshot captured")
+            case .udpated: print("Screenshot updated")
+        }
+    } errorHandler: { error in
+        print("Error: \(error)")
+    }
+    ```
+
+The `captureAndUpdateScreenshot` method is useful when you want to update an existing screenshot in your Crowdin project. This can help maintain screenshot organization by updating existing screenshots rather than creating new ones each time.
+
+You can also capture screenshots of specific UIView instances with either method.
+
+## Config Options Reference
+
+| Option               | Description                                                                                    | Required | Example Value          |
+|----------------------|------------------------------------------------------------------------------------------------|----------|------------------------|
+| `hashString`         | Distribution Hash                                                                              | Yes      | `"7a0c1...o3b"`        |
+| `sourceLanguage`     | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | Yes      | `sourceLanguage: "en"` |
+| `organizationName`   | Organization domain (Enterprise only)                                                          | No       | `"mycompany"`          |
+| `settingsEnabled`    | Enable SDK Controls                                                                            | No       | `true`                 |
+| `screenshotsEnabled` | Enable Screenshots feature                                                                     | Yes      | `true`                 |
+| `accessToken`        | Crowdin API access token                                                                       | No*      | `"your_token"`         |
+
+* Either `accessToken` or [OAuth configuration](#oauth-options) is required.
+
+### OAuth Options
+
+The `CrowdinLoginConfig` class provides OAuth configuration options:
+
+| Option         | Description                                     | Required | Example                |
+|----------------|-------------------------------------------------|----------|------------------------|
+| `clientId`     | OAuth Client ID                                 | Yes*     | `"gpY2yT...x3TYB"`     |
+| `clientSecret` | OAuth Client Secret                             | Yes*     | `"Xz95t...EDx9T"`      |
+| `scope`        | OAuth scope (must include "project.screenshot") | Yes*     | `"project.screenshot"` |
+| `redirectURI`  | Custom URL scheme for your app                  | No       | `"crowdintest://"`     |
+
+* Required only if using OAuth authentication instead of access token.
+
+## Troubleshooting
+
+If you get the error:
+
+> Error while capturing screenshot - The operation couldn't be completed. (There are no localized strings detected on current screen. error 99999.)
+
+Make sure that your **current locale** matches your project's **source (default) language**.

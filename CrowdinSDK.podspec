@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.9.0'
+  spec.version          = '1.10.1'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   spec.description      = <<-DESC
@@ -73,7 +73,7 @@ Pod::Spec.new do |spec|
     subspec.name = 'CrowdinAPI'
     subspec.source_files = 'Sources/CrowdinSDK/CrowdinAPI/**/*.swift'
     subspec.dependency 'CrowdinSDK/Core'
-    subspec.dependency 'BaseAPI', '~> 0.2.1'
+    subspec.dependency 'BaseAPI', '~> 0.2.2'
   end
   
   spec.test_spec 'CrowdinAPI_Tests' do |test_spec|
@@ -87,6 +87,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
     feature.dependency 'CrowdinSDK/LoginFeature'
+    
   end
   
   spec.subspec 'RealtimeUpdate' do |feature|
@@ -114,7 +115,7 @@ Pod::Spec.new do |spec|
     feature.dependency 'CrowdinSDK/Core'
     feature.dependency 'CrowdinSDK/CrowdinProvider'
     feature.dependency 'CrowdinSDK/CrowdinAPI'
-    feature.dependency 'BaseAPI', '~> 0.2.1'
+    feature.dependency 'BaseAPI', '~> 0.2.2'
   end
   
   spec.subspec 'IntervalUpdate' do |feature|
@@ -137,6 +138,16 @@ Pod::Spec.new do |spec|
     settings.dependency 'CrowdinSDK/CrowdinProvider'
     settings.dependency 'CrowdinSDK/CrowdinAPI'
     settings.dependency 'CrowdinSDK/LoginFeature'
+  end
+
+  spec.subspec 'CrowdinXCTestScreenshots' do |feature|
+    feature.name = 'CrowdinXCTestScreenshots'
+    feature.ios.source_files = 'Sources/CrowdinSDK/Features/XCTestScreenshotFeature/*.swift'
+    feature.dependency 'CrowdinSDK/Core'
+    feature.dependency 'CrowdinSDK/CrowdinProvider'
+    feature.dependency 'CrowdinSDK/CrowdinAPI'
+    feature.dependency 'CrowdinSDK/Screenshots'
+    feature.ios.frameworks = 'XCTest'
   end
 
 end

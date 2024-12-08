@@ -11,11 +11,11 @@ import Foundation
 #if !os(watchOS)
 
 public protocol ScreenshotProcessor {
-	func process(screenshot: Image, with controlsInfo: [ControlInformation]) -> Image
+	func process(screenshot: CWImage, with controlsInfo: [ControlInformation]) -> CWImage
 }
 
 class CrowdinScreenshotProcessor: ScreenshotProcessor {
-	func process(screenshot: Image, with controlsInfo: [ControlInformation]) -> Image {
+	func process(screenshot: CWImage, with controlsInfo: [ControlInformation]) -> CWImage {
 		return screenshot
 	}
 }

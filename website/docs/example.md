@@ -14,8 +14,13 @@ You can find all the needed configuration code in [*SceneDelegate.swift*](https:
 private let distributionHash = "your_distribution_hash" // Crowdin OTA Content Delivery distribution hash
 private let sourceLanguage = "source_language" // Crowdin project source language (e.g. "en")
     
+// Authentication - use either OAuth credentials or access token
+// OAuth authentication:
 private let clientId = "your_client_id" // Crowdin OAuth Client ID (needed for Screenshots and Real-Time Preview features)
 private let clientSecret = "your_client_secret" // Crowdin OAuth Client Secret (needed for Screenshots and Real-Time Preview features)
+
+// OR access token authentication (alternative to OAuth):
+private let accessToken = "your_access_token" // Crowdin access token (can be used instead of OAuth for Screenshots and Real-Time Preview features)
 ```
 
 To run the example project, clone the repo, and run `pod install` from the Example directory, then open `AppleReminders.xcworkspace`.

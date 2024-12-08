@@ -13,7 +13,7 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
     var remoteLocalizationStorage: CrowdinRemoteLocalizationStorage!
     
     override func setUp() {
-        FileEtagStorage.clear()
+        CrowdinSDK.deintegrate()
     }
     
     override func tearDown() {
@@ -37,9 +37,9 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
             preparationExpectation.fulfill()
         }
         
-        wait(for: [preparationExpectation], timeout: 60.0)
+        wait(for: [preparationExpectation], timeout: 120.0)
         
-        XCTAssertTrue(remoteLocalizationStorage.localizations.count == 3)
+        XCTAssertTrue(remoteLocalizationStorage.localizations.count == 3, "Should contain 3 localizations, contains \(remoteLocalizationStorage.localizations.count) instead")
         XCTAssertTrue(remoteLocalizationStorage.localizations.contains("en"))
         XCTAssertTrue(remoteLocalizationStorage.localizations.contains("de"))
         XCTAssertTrue(remoteLocalizationStorage.localizations.contains("uk"))

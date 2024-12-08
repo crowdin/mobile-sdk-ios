@@ -24,6 +24,8 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var pluralsMapping: [String: String] = [:]
     var stringsMapping: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
+    var downloaded: Bool = false
+    var downloadCompletions: [([Error]?) -> Void] = []
     
     init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
@@ -43,10 +45,13 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     }
     
     func downloadMapping(hash: String, sourceLanguage: String) {
-        self.downloader.download(with: hash, for: sourceLanguage) { (strings, plurals, _) in
+        self.downloader.download(with: hash, for: sourceLanguage) { (strings, plurals, errors) in
             self.stringsMapping = strings ?? [:]
             self.plurals = plurals ?? [:]
             self.extractPluralsMapping()
+            self.downloaded = true
+            self.downloadCompletions.forEach({ $0(errors) })
+            self.downloadCompletions.removeAll()
         }
     }
     

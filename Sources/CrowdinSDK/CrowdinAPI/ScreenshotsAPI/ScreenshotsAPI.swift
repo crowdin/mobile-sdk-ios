@@ -26,6 +26,14 @@ class ScreenshotsAPI: CrowdinAPI {
         self.cw_post(url: url, headers: headers, body: requestData, completion: completion)
     }
     
+    func updateScreenshot(projectId: Int, screnshotId: Int, storageId: Int, name: String, usePreviousTags: Bool = false, completion: @escaping (CreateScreenshotResponse?, Error?) -> Void) {
+        let request = UpdateScreenshotRequest(storageId: storageId, name: name, usePreviousTags: usePreviousTags)
+        let requestData = try? JSONEncoder().encode(request)
+        let url = baseUrl(with: projectId) + "/" + String(screnshotId)
+        let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
+        self.cw_put(url: url, headers: headers, body: requestData, completion: completion)
+    }
+    
     func createScreenshotTags(projectId: Int, screenshotId: Int, frames: [(id: Int, rect: CGRect)], completion: @escaping (CreateScreenshotTagResponse?, Error?) -> Void) {
         var elements = [CreateScreenshotTagRequestElement]()
         for frame in frames {
@@ -38,5 +46,29 @@ class ScreenshotsAPI: CrowdinAPI {
         let url = baseUrl(with: projectId) + "/\(screenshotId)/tags"
         let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
         self.cw_post(url: url, headers: headers, body: requestData, completion: completion)
+    }
+    
+    enum ListScreenshotsParameters: String {
+        case search
+        case orderBy
+        case limit
+        case offset
+    }
+    
+    func listScreenshots(projectId: Int, query: String, completion: @escaping (ScreenshotsListResponse?, Error?) -> Void) {
+        let parameters = [
+            ListScreenshotsParameters.search.rawValue: query,
+            ListScreenshotsParameters.orderBy.rawValue: "createdAt desc,updatedAt desc",
+            ListScreenshotsParameters.offset.rawValue: "0",
+            ListScreenshotsParameters.limit.rawValue: "2"
+        ]
+        let url = baseUrl(with: projectId)
+        self.cw_get(url: url, parameters: parameters, completion: completion)
+    }
+}
+
+extension String {
+    func urlEncoded() -> String {
+        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? self
     }
 }

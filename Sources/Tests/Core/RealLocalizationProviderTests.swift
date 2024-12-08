@@ -169,7 +169,7 @@ class RealLocalizationProviderTests: XCTestCase {
         testStringsLocalization(for: "uk")
     }
     
-    func testPluralsFoeEnLocalization() {
+    func testPluralsForEnLocalization() {
         testFetchDataAfterRemoteStoragePrepared(with: "en")
         
         Bundle.swizzle()
