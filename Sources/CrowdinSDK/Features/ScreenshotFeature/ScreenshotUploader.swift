@@ -45,7 +45,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         self.organizationName = organizationName
 		self.hash = hash
 		self.sourceLanguage = sourceLanguage
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
+        self.mappingManager = CrowdinMappingManager.shared(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         self.loginFeature = loginFeature
         self.storageAPI = StorageAPI(organizationName: organizationName, auth: loginFeature)
 	}

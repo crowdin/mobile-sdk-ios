@@ -9,12 +9,8 @@ import Foundation
 
 /// Class for managing manifest files: downlaoding, caching, clearing cache.
 class ManifestManager {
-    /// Dictionary with manifest downloading status for hashes.
-    fileprivate var downloadingMap = [String: Bool]()
-    /// Dictionary with manifest downloaded status for hashes. Stats only for downloading from server.
-    fileprivate var downloadedMap = [String: Bool]()
-    /// Dictionary with manifest loaded status for hashes. Status includes loading from hash and loading from server.
-    fileprivate var loadedMap = [String: Bool]()
+    /// Dictionary with manifest state for hashes.
+    fileprivate var state: ManifestState = .none
     /// Dictionary with manifest completion handlers array for hashes.
     fileprivate var completionsMap = [String: [() -> Void]]()
     /// Dictionary with manifest managers for hashes.
@@ -33,37 +29,7 @@ class ManifestManager {
     }
     
     var fileTimestampStorage: FileTimestampStorage
-    
-    /// Download status of manifest for current hash for current app session. True - after manifest downloaded from crowdin server.
-    var downloaded: Bool {
-        get {
-            downloadedMap[hash] ?? false
-        }
-        set {
-            downloadedMap[hash] = newValue
-        }
-    }
-    
-    /// Indicates whether manifest information was loaded from cache.
-    var loaded: Bool {
-        get {
-            loadedMap[hash] ?? false
-        }
-        set {
-            loadedMap[hash] = newValue
-        }
-    }
-    
-    /// Status of manifest downloading for current hash
-    fileprivate var downloading: Bool {
-        get {
-            downloadingMap[hash] ?? false
-        }
-        set {
-            downloadingMap[hash] = newValue
-        }
-    }
-    
+    var available: Bool { state == .downloaded || state == .local }
     let hash: String
     let sourceLanguage: String
     let organizationName: String?
@@ -120,21 +86,21 @@ class ManifestManager {
             return
         }
         
-        guard downloaded == false else {
+        guard state != .downloaded else {
             completion()
             return
         }
+        
         addCompletion(completion: completion, for: hash)
-        guard downloading == false else { return }
-        downloading = true
+        guard state != .downlaoding else { return }
+        state = .downlaoding
         contentDeliveryAPI.getManifest { [weak self] manifest, manifestURL, error in
             guard let self = self else { return }
             if let manifest = manifest {
                 self.manifest = manifest
                 self.manifestURL = manifestURL
                 self.save(manifestResponse: manifest)
-                self.loaded = true
-                self.downloaded = true
+                self.state = .downloaded
                 self.lastManifestUpdateInterval = currentTime
             } else if let error = error {
                 LocalizationUpdateObserver.shared.notifyError(with: [error])
@@ -143,7 +109,6 @@ class ManifestManager {
             }
             self.callCompletions(for: self.hash)
             self.removeCompletions(for: self.hash)
-            self.downloading = false
         }
     }
 
@@ -189,7 +154,7 @@ class ManifestManager {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: manifestPath)) else { return }
         guard let manifestResponse = try? JSONDecoder().decode(ManifestResponse.self, from: data) else { return }
         self.manifest = manifestResponse
-        loaded = true
+        self.state = .local
     }
 
     static func clear() {
@@ -202,5 +167,12 @@ class ManifestManager {
         ManifestManager.manifestMap.removeValue(forKey: hash)
         try? FileManager.default.removeItem(atPath: manifestPath)
         fileTimestampStorage.clear()
+    }
+    
+    enum ManifestState {
+        case none
+        case local
+        case downlaoding
+        case downloaded
     }
 }
