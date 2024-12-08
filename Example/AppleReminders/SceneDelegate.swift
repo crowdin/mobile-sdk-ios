@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DebugSwift
 import CrowdinSDK
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -23,8 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Check for launch arguments
-        
-        NFX.sharedInstance().start()
         
         let arguments = ProcessInfo.processInfo.arguments
         
@@ -59,6 +58,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
             
         } else {
+            DebugSwift.setup()
+            DebugSwift.show()
+            
             let loginConfig = try! CrowdinLoginConfig(clientId: Self.clientId,
                                                       clientSecret: Self.clientSecret,
                                                       scope: "project")
