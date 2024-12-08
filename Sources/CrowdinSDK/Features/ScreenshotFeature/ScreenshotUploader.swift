@@ -145,7 +145,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 					return
 				}
                 
-                let values = self.proceed(controlsInformation: controlsInformation)
+                let values = self.proceed(controlsInformation: controlsInformation, screenRect: CGRect(origin: .zero, size: screenshot.size.applying(CGAffineTransformScale(.identity, screenshot.scale, screenshot.scale))))
                 guard values.count > 0 else {
                     CrowdinLogsCollector.shared.add(log: .warning(with: "Screenshot uploaded without tags"))
                     success?()
@@ -206,7 +206,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                             return
                         }
                         
-                        let values = self.proceed(controlsInformation: controlsInformation)
+                        let values = self.proceed(controlsInformation: controlsInformation, screenRect: CGRect(origin: .zero, size: screenshot.size.applying(CGAffineTransformScale(.identity, screenshot.scale, screenshot.scale))))
                         guard values.count > 0 else {
                             CrowdinLogsCollector.shared.add(log: .warning(with: "Screenshot uploaded without tags"))
                             success?(.udpated)
@@ -231,13 +231,16 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         }
     }
     
-	func proceed(controlsInformation: [ControlInformation]) -> [(id: Int, rect: CGRect)] {
+    func proceed(controlsInformation: [ControlInformation], screenRect: CGRect) -> [(id: Int, rect: CGRect)] {
 		var results = [(id: Int, rect: CGRect)]()
 		controlsInformation.forEach { (controlInformation) in
 			if let id = mappingManager.id(for: controlInformation.key) {
 				results.append((id: id, rect: controlInformation.rect))
 			}
 		}
+        
+        results = results.filter({ screenRect.contains($0.rect) })
+        
 		return results
 	}
     
@@ -258,6 +261,15 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
         }
         
         return MultipleErrors(errors: errors)
+    }
+}
+
+extension CGRect {
+    func contains(rect: CGRect) -> Bool {
+        return self.contains(rect.origin) &&
+               self.contains(CGPoint(x: rect.maxX, y: rect.maxY)) &&
+               self.contains(CGPoint(x: rect.maxX, y: rect.minY)) &&
+               self.contains(CGPoint(x: rect.minX, y: rect.maxY))
     }
 }
 
