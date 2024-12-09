@@ -144,8 +144,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 					errorHandler?(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
 					return
 				}
-                
-                let values = self.proceed(controlsInformation: controlsInformation, screenRect: CGRect(origin: .zero, size: screenshot.size.applying(CGAffineTransformScale(.identity, screenshot.scale, screenshot.scale))))
+                let screenRect = CGRect(origin: .zero, size: screenshot.size.applying(CGAffineTransformScale(.identity, screenshot.scale, screenshot.scale)))
+                let values = self.proceed(controlsInformation: controlsInformation, screenRect: screenRect)
                 guard values.count > 0 else {
                     CrowdinLogsCollector.shared.add(log: .warning(with: "Screenshot uploaded without tags"))
                     success?()
@@ -205,8 +205,8 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
                             errorHandler?(NSError(domain: Errors.screenshotIdIsMissing.rawValue, code: defaultCrowdinErrorCode, userInfo: nil))
                             return
                         }
-                        
-                        let values = self.proceed(controlsInformation: controlsInformation, screenRect: CGRect(origin: .zero, size: screenshot.size.applying(CGAffineTransformScale(.identity, screenshot.scale, screenshot.scale))))
+                        let screenRect = CGRect(origin: .zero, size: screenshot.size.applying(CGAffineTransformScale(.identity, screenshot.scale, screenshot.scale)))
+                        let values = self.proceed(controlsInformation: controlsInformation, screenRect: screenRect)
                         guard values.count > 0 else {
                             CrowdinLogsCollector.shared.add(log: .warning(with: "Screenshot uploaded without tags"))
                             success?(.udpated)
@@ -233,13 +233,23 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
     
     func proceed(controlsInformation: [ControlInformation], screenRect: CGRect) -> [(id: Int, rect: CGRect)] {
 		var results = [(id: Int, rect: CGRect)]()
+        var controlsWithId = [(id: Int, rect: CGRect)]()
 		controlsInformation.forEach { (controlInformation) in
 			if let id = mappingManager.id(for: controlInformation.key) {
-				results.append((id: id, rect: controlInformation.rect))
+                controlsWithId.append((id: id, rect: controlInformation.rect))
 			}
 		}
         
-        results = results.filter({ screenRect.contains($0.rect) })
+        controlsWithId.forEach({
+            if screenRect.contains($0.rect)  {
+                results.append($0)
+            } else {
+                let visibleRect = screenRect.intersection($0.rect)
+                if visibleRect.isValid {
+                    results.append(($0.id, visibleRect))
+                }
+            }
+        })
         
 		return results
 	}

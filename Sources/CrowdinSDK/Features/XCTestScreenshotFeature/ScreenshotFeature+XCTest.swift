@@ -92,7 +92,9 @@ extension CrowdinSDK {
     public class func captureScreenshotSync(name: String, image: CWImage, application: XCUIApplication) -> Error? {
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
-        CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: { }, errorHandler: {
+        CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: {
+            semaphore.signal()
+        }, errorHandler: {
             error = $0
             semaphore.signal()
         })
