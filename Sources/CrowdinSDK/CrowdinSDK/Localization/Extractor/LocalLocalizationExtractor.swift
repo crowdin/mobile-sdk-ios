@@ -72,28 +72,6 @@ final class LocalLocalizationExtractor {
         }
         setupPluralsBundle()
     }
-	
-	static func extractLocalizationJSONFile(to path: String) {
-		let json = self.extractLocalizationJSON()
-		guard let data = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) else { return }
-		try? data.write(to: URL(fileURLWithPath: path))
-	}
-	
-	static func extractLocalizationJSON() -> [String: Any] {
-		var result = [String: Any]()
-		self.allLocalizations.forEach { (localization) in
-			let extractor = LocalLocalizationExtractor(localization: localization)
-			var dict = [String: Any]()
-			if !extractor.localizationDict.isEmpty {
-				dict[Keys.strings.rawValue] = extractor.localizationDict
-			}
-			if !extractor.localizationPluralsDict.isEmpty {
-				dict[Keys.plurals.rawValue] = extractor.localizationPluralsDict
-			}
-			result[localization] = dict
-		}
-		return result
-	}
     
     func extractLocalizationStrings(to path: String) -> StringsFile {
         let file = StringsFile(path: path + String.pathDelimiter + localization + FileType.strings.extension)

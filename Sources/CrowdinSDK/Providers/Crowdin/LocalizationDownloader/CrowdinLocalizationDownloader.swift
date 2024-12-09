@@ -32,7 +32,6 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                     self.download(strings: filesToDownload.filter({ $0.isStrings }),
                                   plurals: filesToDownload.filter({ $0.isStringsDict }),
                                   xliffs: filesToDownload.filter({ $0.isXliff }),
-                                  jsons: filesToDownload.filter({ $0.isJson }),
                                   xcstrings: filesToDownload.filter({ $0.isXcstrings }),
                                   with: hash, timestamp: timestamp, for: localization)
                 } else {
@@ -45,7 +44,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
     }
 
-    func download(strings: [String], plurals: [String], xliffs: [String], jsons: [String], xcstrings: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
+    func download(strings: [String], plurals: [String], xliffs: [String], xcstrings: [String], with hash: String, timestamp: TimeInterval?, for localization: String) {
         let timestamp = timestamp ?? Date().timeIntervalSince1970
         self.operationQueue.cancelAllOperations()
 
@@ -101,21 +100,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
-
-        jsons.forEach { filePath in
-            let download = CrowdinJsonDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
-            download.completion = { [weak self] (strings, _, error) in
-                guard let self = self else { return }
-                self.add(strings: strings)
-                self.add(error: error)
-                if error == nil {
-                    self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
-                }
-            }
-            completionBlock.addDependency(download)
-            operationQueue.addOperation(download)
-        }
-
+        
         xcstrings.forEach { filePath in
             let download = CrowdinXcstringsDownloadOperation(filePath: filePath,
                                                              localization: localization,
