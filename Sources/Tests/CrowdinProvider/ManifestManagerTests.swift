@@ -18,15 +18,13 @@ class ManifestManagerTests: XCTestCase {
     func testDownloadManifest() {
         let expectation = XCTestExpectation(description: "Manifest download expectation")
         
-        let manifest = ManifestManager.manifest(for: crowdinTestHash, sourceLanguage: sourceLanguage, organizationName: nil)
-        XCTAssertFalse(manifest.loaded)
-        XCTAssertFalse(manifest.downloaded)
+        let manifest = ManifestManager.manifest(for: crowdinTestHash, sourceLanguage: sourceLanguage, organizationName: nil, minimumManifestUpdateInterval: 15 * 60)
+        XCTAssertFalse(manifest.available)
         
         manifest.download {
             XCTAssert(manifest.hash == self.crowdinTestHash, "Manifest hash should be same as initial")
             
-            XCTAssert(manifest.loaded, "Manifest data is loaded")
-            XCTAssert(manifest.downloaded, "Manifest data is downloaded")
+            XCTAssert(manifest.available, "Manifest data is downloaded")
             
             XCTAssertNotNil(manifest.files, "Manifest contain files data")
             XCTAssertNotNil(manifest.timestamp, "Manifest contain timestamp data")
