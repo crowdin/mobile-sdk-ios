@@ -74,7 +74,8 @@ extension CrowdinSDK {
     ///   - errorHandler: Error handler.
     public class func localizationDictionary(for localization: String, hashString: String, completion: @escaping ([AnyHashable: Any]) -> Void, errorHandler: @escaping (Error) -> Void) {
         let localLocalizationStorage = LocalLocalizationStorage(localization: localization)
-        let remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: CrowdinProviderConfig(hashString: hashString, sourceLanguage: .empty, organizationName: nil))
+        // Hardcode value for minimumManifestUpdateInterval as ReactNative support will be removed.
+        let remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: CrowdinProviderConfig(hashString: hashString, sourceLanguage: .empty, organizationName: nil, minimumManifestUpdateInterval: 15 * 60))
         remoteLocalizationStorage.prepare {
             localizationProvider = LocalizationProvider(localization: localization, localStorage: localLocalizationStorage, remoteStorage: remoteLocalizationStorage)
             localizationProvider?.refreshLocalization(completion: { error in
