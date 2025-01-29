@@ -52,7 +52,7 @@ extension XCUIApplication {
         }
         return controls
     }
-    
+
     func getControlsInformation() -> [ControlInformation] {
         var controls = [ControlInformation]()
         for control in getAllControlsWithText() {
@@ -69,7 +69,7 @@ extension XCUIElement {
         let frame = frame
         let point = coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
         let start = point.screenPoint
-        
+
         let end = CGPoint(x: start.x + frame.width, y: start.y + frame.height)
         let rect = CGRect(origin: start, size: CGSize(width: end.x - start.x, height: end.y - start.y))
         return rect.apply(scale: CWScreen.scale())
@@ -87,8 +87,8 @@ extension CrowdinSDK {
     public class func captureScreenshot(name: String, image: CWImage, application: XCUIApplication, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
-    
-    
+
+
     public class func captureScreenshotSync(name: String, image: CWImage, application: XCUIApplication) -> Error? {
         var error: Error?
         let semaphore = DispatchSemaphore(value: 0)
@@ -101,11 +101,11 @@ extension CrowdinSDK {
         _ = semaphore.wait(timeout: .distantFuture)
         return error
     }
-    
+
     public class func captureOrUpdateScreenshot(name: String, image: CWImage, application: XCUIApplication, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
-    
+
     public class func captureOrUpdateScreenshotSync(name: String, image: CWImage, application: XCUIApplication) -> (result: ScreenshotUploadResult?, error: Error?) {
         var result: ScreenshotUploadResult?
         var error: Error?
@@ -123,7 +123,7 @@ extension CrowdinSDK {
         _ = semaphore.wait(timeout: .distantFuture)
         return (result, error)
     }
-    
+
     /// Method to start sdk synchroniously.
     /// - Warning: Method is used for UI tests, not recommended to use in production.
     /// - Parameter config: Crowdin SDK config.

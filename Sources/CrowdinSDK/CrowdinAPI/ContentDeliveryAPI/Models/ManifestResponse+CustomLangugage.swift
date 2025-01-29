@@ -16,7 +16,7 @@ struct CustomLangugage {
     let androidCode: String
     let osxCode: String
     let osxLocale: String
-    
+
     init(id: String, customLanguage: ManifestResponse.ManifestResponseCustomLangugage) {
         self.id = id
         self.locale = customLanguage.locale

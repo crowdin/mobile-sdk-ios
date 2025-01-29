@@ -13,7 +13,7 @@ class ScreenshotsAPI: CrowdinAPI {
     override var apiPath: String {
         return "projects"
     }
-    
+
     func baseUrl(with projectId: Int) -> String{
         return "\(fullPath)/\(projectId)/screenshots"
     }
@@ -25,7 +25,7 @@ class ScreenshotsAPI: CrowdinAPI {
         let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
         self.cw_post(url: url, headers: headers, body: requestData, completion: completion)
     }
-    
+
     func updateScreenshot(projectId: Int, screnshotId: Int, storageId: Int, name: String, usePreviousTags: Bool = false, completion: @escaping (CreateScreenshotResponse?, Error?) -> Void) {
         let request = UpdateScreenshotRequest(storageId: storageId, name: name, usePreviousTags: usePreviousTags)
         let requestData = try? JSONEncoder().encode(request)
@@ -33,7 +33,7 @@ class ScreenshotsAPI: CrowdinAPI {
         let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
         self.cw_put(url: url, headers: headers, body: requestData, completion: completion)
     }
-    
+
     func createScreenshotTags(projectId: Int, screenshotId: Int, frames: [(id: Int, rect: CGRect)], completion: @escaping (CreateScreenshotTagResponse?, Error?) -> Void) {
         var elements = [CreateScreenshotTagRequestElement]()
         for frame in frames {
@@ -47,14 +47,14 @@ class ScreenshotsAPI: CrowdinAPI {
         let headers = [RequestHeaderFields.contentType.rawValue: "application/json"]
         self.cw_post(url: url, headers: headers, body: requestData, completion: completion)
     }
-    
+
     enum ListScreenshotsParameters: String {
         case search
         case orderBy
         case limit
         case offset
     }
-    
+
     func listScreenshots(projectId: Int, query: String, completion: @escaping (ScreenshotsListResponse?, Error?) -> Void) {
         let parameters = [
             ListScreenshotsParameters.search.rawValue: query,

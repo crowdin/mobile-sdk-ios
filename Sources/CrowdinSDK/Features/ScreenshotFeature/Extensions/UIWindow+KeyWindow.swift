@@ -21,20 +21,20 @@ extension UIWindow {
         }
         return rootViewController
     }
-    
+
     func topViewController(controller: UIViewController? = UIApplication.shared.cw_KeyWindow?.rootVC) -> UIViewController? {
         if let presentedViewController = controller?.presentedViewController {
             return presentedViewController
         }
-        
+
         if let navigationController = controller as? UINavigationController {
             return navigationController
         }
-        
+
         if let tabController = controller as? UITabBarController {
             return tabController
         }
-        
+
         return controller
     }
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 extension NSNotification.Name {
-    
+
     static let refreshLogsName = NSNotification.Name(rawValue: "RefreshLogsNotificationName")
 }

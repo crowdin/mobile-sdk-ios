@@ -16,7 +16,7 @@ extension Bundle {
     var urlTypes: [[String: Any]]? {
         return infoDictionary?[Keys.CFBundleURLTypes.rawValue] as? [[String: Any]]
     }
-    
+
     /// Array of URL schemes supported by application.
     var urlSchemes: [String]? {
         var schemes = [String]()

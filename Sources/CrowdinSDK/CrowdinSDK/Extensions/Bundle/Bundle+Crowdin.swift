@@ -13,7 +13,7 @@ extension Bundle {
     var crowdinDistributionHash: String? {
         return infoDictionary?["CrowdinDistributionHash"] as? String
     }
-    
+
     /// Source language for current project on crowdin server.
     var crowdinSourceLanguage: String? {
         return infoDictionary?["CrowdinSourceLanguage"] as? String

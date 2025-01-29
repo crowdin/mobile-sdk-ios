@@ -18,12 +18,12 @@ protocol FolderBundleProtocol: BundleProtocol {
 class FolderBundle: FolderBundleProtocol {
     var bundle: Bundle?
     var folder: FolderProtocol
-    
+
     init(folder: FolderProtocol) {
         self.folder = folder
         self.bundle = Bundle(path: folder.path)
     }
-    
+
     init(path: String) {
         self.folder = Folder(path: path)
         do {
@@ -43,9 +43,9 @@ class FileBundle: FolderBundle, FileBundleProtocol {
     enum Strings: String {
         case pathDelimiter = "/"
     }
-    
+
     var file: File
-    
+
     init(path: String, fileName: String) {
         let folder = Folder(path: path)
         self.file = File(path: folder.path + Strings.pathDelimiter.rawValue + fileName)
@@ -63,10 +63,10 @@ class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {
     enum Strings: String {
         case pathDelimiter = "/"
     }
-    
+
 	var dictionary: Dictionary<AnyHashable, Any>
     var file: DictionaryFile
-    
+
     init(path: String, fileName: String, dictionary: [AnyHashable: Any]) {
         self.dictionary = dictionary
         let folder = Folder(path: path)
@@ -75,7 +75,7 @@ class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {
         try? self.file.save()
         super.init(path: path)
     }
-    
+
     func remove() {
 		try? self.folder.remove()
         try? self.file.remove()

@@ -8,7 +8,7 @@
 import Foundation
 
 extension UserDefaults {
-    
+
     /// Enum with simple key values which are used to save information in UserDefaults.
     ///
     /// - AppleLanguages: Key for saving localization languages array used by application.
@@ -19,7 +19,7 @@ extension UserDefaults {
         case mode = "CrowdinSDK.Localization.mode"
         case customLocalization = "CrowdinSDK.Localization.customLocalization"
 	}
-	
+
     /// Store custom languages priorities for in-app localization.
 	var appleLanguages: [String]? {
 		get {
@@ -30,7 +30,7 @@ extension UserDefaults {
 			UserDefaults.standard.synchronize()
 		}
 	}
-	
+
     /// Custom language in-app localization.
 	var appleLanguage: String? {
 		get {
@@ -45,7 +45,7 @@ extension UserDefaults {
             UserDefaults.standard.synchronize()
 		}
 	}
-    
+
     /// Property for storing SDK mode.
     var mode: Int {
         get {
@@ -56,7 +56,7 @@ extension UserDefaults {
             UserDefaults.standard.synchronize()
         }
     }
-    
+
     /// Store custom localization for crowdin provider.
     var customLocalization: String? {
         get {
@@ -67,7 +67,7 @@ extension UserDefaults {
             UserDefaults.standard.synchronize()
         }
     }
-	
+
     /// Clean custom priorities for in-app localizations.
 	func cleanAppleLanguages() {
 		self.appleLanguage = nil

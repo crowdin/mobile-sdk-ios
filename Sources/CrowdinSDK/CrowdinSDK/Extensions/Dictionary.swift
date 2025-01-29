@@ -23,19 +23,19 @@ extension Dictionary {
             }
         }
     }
-    
+
 	mutating func merge(with dict: [Key: Value]) {
 		for (k, v) in dict {
 			updateValue(v, forKey: k)
 		}
 	}
-	
+
 	static func += (left: inout [Key: Value], right: [Key: Value]) {
 		for (k, v) in right {
 			left[k] = v
 		}
 	}
-	
+
 	static func + (left: inout [Key: Value], right: [Key: Value]) -> [Key: Value] {
 		var result: [Key: Value] = [:]
 		for (k, v) in right {
@@ -46,7 +46,7 @@ extension Dictionary {
 		}
 		return result
 	}
-    
+
     mutating func trim(header key: Key, placeholder: Value) {
         updateValue(placeholder, forKey: key)
     }

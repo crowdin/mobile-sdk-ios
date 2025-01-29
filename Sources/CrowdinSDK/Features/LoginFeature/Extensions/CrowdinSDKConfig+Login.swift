@@ -12,7 +12,7 @@ import Foundation
 extension CrowdinSDKConfig {
     /// Static storage for login configuration
     private static var loginConfig: CrowdinLoginConfig?
-    
+
     /// The login configuration for Crowdin SDK
     /// This property manages authentication settings including client ID, client secret,
     /// and organization name (for enterprise usage)
@@ -24,7 +24,7 @@ extension CrowdinSDKConfig {
             CrowdinSDKConfig.loginConfig = newValue
         }
     }
-    
+
     /// Configures the SDK with login settings
     /// - Parameter loginConfig: The login configuration containing authentication details
     /// - Returns: The current CrowdinSDKConfig instance for chaining
@@ -43,10 +43,10 @@ extension CrowdinSDKConfig {
         }
         return self
     }
-    
+
     /// Static storage for access token
     private static var accessToken: String?
-    
+
     /// The access token used for authentication with Crowdin API
     /// This token is used to authorize requests to the Crowdin service
     var accessToken: String? {
@@ -57,7 +57,7 @@ extension CrowdinSDKConfig {
             CrowdinSDKConfig.accessToken = newValue
         }
     }
-    
+
     /// Configures the SDK with an access token for authentication
     /// - Parameter accessToken: The access token for Crowdin API authentication
     /// - Returns: The current CrowdinSDKConfig instance for chaining

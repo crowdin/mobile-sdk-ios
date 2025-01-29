@@ -8,7 +8,7 @@
 import Foundation
 
 public struct CrowdinAPILog {
-    
+
     static func logRequest(
         method: String,
         url: String,
@@ -27,15 +27,15 @@ public struct CrowdinAPILog {
             body: body,
             responseData: responseData
         )
-        
+
         guard url.contains("mapping") || url.contains("content") else {
             CrowdinLogsCollector.shared.add(log: .rest(with: message, attributedDetails: attributedText))
             return
         }
-        
+
         CrowdinLogsCollector.shared.add(log: .info(with: message, attributedDetails: attributedText))
     }
-    
+
     static func logRequest(
         type: CrowdinLogType = .info,
         stringURL: String,

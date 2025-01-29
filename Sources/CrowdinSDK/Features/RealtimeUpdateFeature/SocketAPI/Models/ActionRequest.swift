@@ -10,11 +10,11 @@ import Foundation
 struct ActionRequest: Codable {
     let action: String
     let event: String
-    
+
     enum Events: String {
         case subscribe
     }
-    
+
     static func subscribeAction(with event: String) -> ActionRequest {
         return ActionRequest(action: Events.subscribe.rawValue, event: event)
     }

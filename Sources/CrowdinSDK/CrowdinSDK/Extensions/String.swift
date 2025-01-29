@@ -14,7 +14,7 @@ extension String {
 	public var cw_localized: String {
 		return NSLocalizedString(self, comment: .empty)
 	}
-    
+
     /// Extension method for simplifying strings localization with argumets.
     ///
     /// - Parameter arguments: Formatted string arguments.
@@ -22,10 +22,10 @@ extension String {
     public func cw_localized(with arguments: [CVarArg]) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), arguments: arguments)
     }
-    
+
     /// Extension method for simplifying strings localization with argumets.
     /// - Parameter args: Formatted string arguments.
-    /// - Returns: Localized formatted string. 
+    /// - Returns: Localized formatted string.
     public func cw_localized(with args: CVarArg...) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), args)
     }
@@ -113,7 +113,7 @@ extension NSString {
         }
         return values
     }
-    
+
     /// Detect whether given range is valid and is it avalaible to use for current string.
     ///
     /// - Parameter range: NSRange value for checking.
@@ -140,20 +140,20 @@ extension String {
         let ranges = matches.compactMap({ $0.range })
         let nsStringValue = format as NSString
         let components = nsStringValue.splitBy(ranges: ranges)
-        
+
         let nsStringText = string as NSString
-        
+
         var valueRanges = [NSRange]()
         components.forEach({ valueRanges.append(nsStringText.range(of: $0)) })
-        
+
         guard valueRanges.count > 0 else { return nil }
-        
+
         let values = nsStringText.splitBy(ranges: valueRanges)
-        
+
         guard values.count == parts.count else { return nil }
-        
+
         var result = [Any]()
-        
+
         for index in 0...parts.count - 1 {
             let part = parts[index]
             let value = values[index]
@@ -175,7 +175,7 @@ extension String {
             guard let nonNilFormatValue = formatValue else { return nil }
             result.append(nonNilFormatValue)
         }
-        
+
         return result
     }
 }

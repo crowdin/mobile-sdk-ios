@@ -12,7 +12,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     func prepare(with completion: (() -> Void)) {
         completion()
     }
-    
+
     var name: String = "Empty"
     var additionalWord: String
     var localization: String {
@@ -23,28 +23,28 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
     var localizations: [String] = Bundle.main.inBundleLocalizations
     var strings: [String: String] = [:]
     var plurals: [AnyHashable: Any] = [:]
-    
+
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.refresh()
         completion(localizations, localization, strings, plurals)
     }
-    
+
     convenience init(additionalWord: String, localization: String) {
         self.init(localization: localization)
         self.additionalWord = additionalWord
     }
-    
+
     required init(localization: String) {
         self.additionalWord = "cw"
         self.localization = localization
     }
-    
+
     func refresh() {
         let extractor = LocalLocalizationExtractor(localization: self.localization)
         self.plurals = self.addAdditionalWordTo(plurals: extractor.localizationPluralsDict)
         self.strings = self.addAdditionalWordTo(strings: extractor.localizationDict)
     }
-    
+
     func addAdditionalWordTo(strings: [String: String]) -> [String: String] {
         var dict = strings
         for (key, value) in dict {
@@ -52,7 +52,7 @@ class InBundleLocalizationStorage: RemoteLocalizationStorageProtocol {
         }
         return dict
     }
-    
+
     func addAdditionalWordTo(plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
         var dict = plurals
         dict.keys.forEach({ (key) in
