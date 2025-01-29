@@ -11,7 +11,7 @@ final class FileEtagStorage: AnyEtagStorage {
     private static let fileName = "Etags.json"
     let localization: String
     let dictionaryFile: DictionaryFile
-    
+
     var etags: [String: [String: String]] {
         get {
             (dictionaryFile.file as? [String: [String: String]]) ?? [String: [String: String]]()
@@ -49,7 +49,7 @@ final class FileEtagStorage: AnyEtagStorage {
         localizationEtags[file] = nil
         etags[localization] = localizationEtags
     }
-    
+
     /// Remove file
     static func clear() {
         try? DictionaryFile(path: CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName).remove()

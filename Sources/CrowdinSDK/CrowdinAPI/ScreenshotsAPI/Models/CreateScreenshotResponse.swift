@@ -18,7 +18,7 @@ struct CreateScreenshotData: Codable {
     let tagsCount: Int
     let tags: [CreateScreenshotTag]
     let createdAt, updatedAt: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case userID = "userId"
@@ -34,7 +34,7 @@ struct CreateScreenshotTag: Codable {
     let id, screenshotID, stringID: Int
     let position: CreateScreenshotPosition
     let createdAt: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case screenshotID = "screenshotId"

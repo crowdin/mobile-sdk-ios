@@ -15,7 +15,7 @@ struct TopSuggestionResponse: Codable {
 struct TopSuggestionResponseData: Codable {
     let id, userID, time, text: String?
     let wordsCount: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case userID = "user_id"

@@ -12,11 +12,11 @@ class StorageAPI: CrowdinAPI {
     fileprivate enum StorageRequestHeaderFields: String {
         case CrowdinAPIFileName = "Crowdin-API-FileName"
     }
-    
+
     override var apiPath: String {
         return "storages"
     }
-    
+
     func uploadNewFile(data: Data, fileName: String? = nil, completion: @escaping (StorageUploadResponse?, Error?) -> Void) {
         let apiFileName = fileName ?? String(Date().timeIntervalSince1970)
         let apiFileNameWithExtension = apiFileName.hasSuffix(".png") ? apiFileName : apiFileName + ".png"

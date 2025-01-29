@@ -14,7 +14,7 @@ enum FileType: String {
     case strings
     case stringsdict
     case json
-    
+
     var `extension`: String {
         return ".\(self.rawValue)"
     }

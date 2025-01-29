@@ -15,7 +15,7 @@ class LoginAPI: BaseAPI {
     var clientSecret: String
     var scope: String
     var redirectURI: String
-    
+
     init(clientId: String, clientSecret: String, scope: String, redirectURI: String, organizationName: String?, session: URLSession = URLSession.shared) {
         self.clientId = clientId
         self.clientSecret = clientSecret
@@ -24,21 +24,21 @@ class LoginAPI: BaseAPI {
         self.organizationName = organizationName
         super.init(session: session)
     }
-    
+
     var loginURLString: String {
         if let organizationName = organizationName {
             return "https://accounts.crowdin.com/oauth/authorize?client_id=\(clientId)&response_type=code&scope=\(scope)&redirect_uri=\(redirectURI)&domain=\(organizationName)"
         }
         return "https://accounts.crowdin.com/oauth/authorize?client_id=\(clientId)&response_type=code&scope=\(scope)&redirect_uri=\(redirectURI)"
     }
-    
+
     private var tokenStringURL: String {
         if let organizationName = organizationName {
             return"https://accounts.crowdin.com/oauth/token?domain=\(organizationName)"
         }
         return "https://accounts.crowdin.com/oauth/token"
     }
-    
+
     func hadle(url: URL, completion: @escaping (TokenResponse) -> Void, error: @escaping (Error) -> Void) -> Bool {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         guard let queryItems = components?.queryItems else { return false }
@@ -46,7 +46,7 @@ class LoginAPI: BaseAPI {
         self.getAutorizationToken(with: code, success: completion, error: error)
         return true
     }
-    
+
     func getAutorizationToken(with code: String, success: ((TokenResponse) -> Void)?, error: ((Error) -> Void)?) {
         guard let url = URL(string: tokenStringURL) else {
             error?(NSError(domain: "Unable to create url from - \(tokenStringURL)", code: defaultCrowdinErrorCode, userInfo: nil))
@@ -59,7 +59,7 @@ class LoginAPI: BaseAPI {
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.httpMethod = "POST"
         let errorHandler = error
-        
+
         self.send(request: request) { (data, response, error) in
             if let data = data {
                 do {
@@ -75,7 +75,7 @@ class LoginAPI: BaseAPI {
             }
         }
     }
-    
+
     func refreshToken(refreshToken: String, success: ((TokenResponse) -> Void)?, error: ((Error) -> Void)?) {
         guard let url = URL(string: tokenStringURL) else { return }
         var request = URLRequest(url: url)
@@ -100,11 +100,11 @@ class LoginAPI: BaseAPI {
             }
         }
     }
-    
+
     func refreshTokenSync(refreshToken: String) -> TokenResponse? {
         var result: TokenResponse? = nil
         let semaphore = DispatchSemaphore(value: 0)
-        self.refreshToken (refreshToken: refreshToken, success: { response in
+        self.refreshToken(refreshToken: refreshToken, success: { response in
             result = response
             semaphore.signal()
         }) { _ in

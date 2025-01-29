@@ -12,9 +12,8 @@ extension String {
         let trimmedText = self.trimmingCharacters(in: .whitespacesAndNewlines)
         return !trimmedText.isEmpty && trimmedText.range(of: "[\\\\/:*?\"<>|]", options: .regularExpression) == nil
     }
-    
+
     static func screenshotValidationError() -> String {
         "Screenshot name should not be empty and not contain special characters - [\\\\/:*?\"<>|]"
     }
 }
-

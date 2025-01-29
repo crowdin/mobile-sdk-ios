@@ -13,7 +13,7 @@ extension Bundle {
     var preferredLanguage: String {
         return self.preferredLanguages.first ?? defaultLocalization
     }
-    
+
     var inBundleLocalizations: [String] {
         var localizations = self.localizations
         while let index = localizations.firstIndex(where: { $0 == "Base" }) {
@@ -21,7 +21,7 @@ extension Bundle {
         }
         return localizations
     }
-    
+
     /// Return ordered list of language codes according to device settings, and bundle localizations.
 	//	TODO: Add handling case when intersection of preffered languages from settings and localizations in bundle is empty.
     var preferredLanguages: [String] {
@@ -40,12 +40,12 @@ extension Bundle {
 		}
         return preferredLanguages
     }
-    
+
     /// Returns detected preffered language from device settings and passed localizations. If bundle localizations is empty then return default locazation - "en".
     func preferredLanguage(with availableLanguages: [String]) -> String {
         return Bundle.preferredLocalizations(from: availableLanguages, forPreferences: nil).first ?? defaultLocalization
     }
-    
+
     /// Return ordered list of language codes according to device settings, and passed localizations.
     func preferredLanguages(with availableLanguages: [String]) -> [String] {
         return Locale.preferredLocalizations.compactMap {

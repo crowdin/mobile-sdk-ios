@@ -11,39 +11,39 @@ import Foundation
 extension CWLabel {
     /// Association object for storing localization key.
     private static let localizationKeyAssociation = ObjectAssociation<String>()
-    
+
     /// Localization key.
     var localizationKey: String? {
         get { return CWLabel.localizationKeyAssociation[self] }
         set { CWLabel.localizationKeyAssociation[self] = newValue }
     }
-	
+
     ///  Association object for storing localization format string values if such exists.
 	private static let localizationValuesAssociation = ObjectAssociation<[Any]>()
-	
+
     /// Array with localization format string values.
 	var localizationValues: [Any]? {
 		get { return CWLabel.localizationValuesAssociation[self] }
 		set { CWLabel.localizationValuesAssociation[self] = newValue }
 	}
-    
+
     // swiftlint:disable implicitly_unwrapped_optional
     /// Original text method.
     static var originalText: Method!
-    
+
     /// Swizzled text method.
     static var swizzledText: Method!
-    
+
     /// Original attributedText method.
     static var originalAttributedText: Method!
-    
+
     /// Swizzled attributedText method.
     static var swizzledAttributedText: Method!
-    
+
     static var isSwizzled: Bool {
         return originalText != nil && swizzledText != nil && originalAttributedText != nil && swizzledAttributedText != nil
     }
-    
+
     /// Swizzled implementation for set text method.
     ///
     /// - Parameter text: Title string.
@@ -51,7 +51,7 @@ extension CWLabel {
 		proceed(text: text)
         swizzled_setText(text)
     }
-    
+
     /// Swizzled implementation for set attributed text method.
     ///
     /// - Parameter attributedText: Attributed title string.
@@ -60,18 +60,18 @@ extension CWLabel {
         proceed(text: attributedText?.string)
         swizzled_setAttributedText(attributedText)
     }
-    
+
     /// Method for string processing. Include localization key detection and storing.
     ///
     /// - Parameter text: Title text.
     func proceed(text: String?) {
         if let text = text {
             self.localizationKey = Localization.current.keyForString(text)
-            
+
             if self.localizationKey != nil {
                 self.subscribeForRealtimeUpdatesIfNeeded()
             }
-            
+
             if let key = localizationKey, let string = Localization.current.localizedString(for: key), string.isFormated {
                 self.localizationValues = Localization.current.findValues(for: text, with: string)
             }
@@ -81,7 +81,7 @@ extension CWLabel {
             self.unsubscribeFromRealtimeUpdatesIfNeeded()
         }
     }
-    
+
     /// Original method for setting title string after swizzling.
     ///
     /// - Parameter text: Title text.
@@ -89,7 +89,7 @@ extension CWLabel {
         guard CWLabel.swizzledText != nil else { return }
         swizzled_setText(text)
     }
-    
+
     /// Original method for setting attributed title string after swizzling.
     ///
     /// - Parameter attributedText: Attributed title text.
@@ -122,7 +122,7 @@ extension CWLabel {
         swizzledAttributedText = class_getInstanceMethod(self, #selector(CWLabel.swizzled_setAttributedText(_:)))!
         method_exchangeImplementations(originalAttributedText, swizzledAttributedText)
     }
-    
+
     /// Method for swizzling implementations back for text and attributedText methods.
     class func unswizzle() {
         if originalText != nil && swizzledText != nil {
@@ -136,7 +136,7 @@ extension CWLabel {
             swizzledAttributedText = nil
         }
     }
-    
+
     /// Selectors for working with real-time updates.
     ///
     /// - subscribeForRealtimeUpdates: Method for subscribing to real-time updates.
@@ -145,14 +145,14 @@ extension CWLabel {
         case subscribeForRealtimeUpdates
         case unsubscribeFromRealtimeUpdates
     }
-    
+
     /// Method for subscription to real-time updates if real-time feature enabled.
     func subscribeForRealtimeUpdatesIfNeeded() {
         if self.responds(to: Selectors.subscribeForRealtimeUpdates.rawValue) {
             self.perform(Selectors.subscribeForRealtimeUpdates.rawValue)
         }
     }
-    
+
     /// Method for unsubscribing from real-time updates if real-time feature enabled.
     func unsubscribeFromRealtimeUpdatesIfNeeded() {
         if self.responds(to: Selectors.unsubscribeFromRealtimeUpdates.rawValue) {

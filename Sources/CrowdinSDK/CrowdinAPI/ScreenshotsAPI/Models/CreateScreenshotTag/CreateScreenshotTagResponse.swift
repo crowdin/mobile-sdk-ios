@@ -20,7 +20,7 @@ struct CreateScreenshotTagData: Codable {
     let id, screenshotId, stringId: Int
     let position: CreateScreenshotTagPosition
     let createdAt: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case screenshotId

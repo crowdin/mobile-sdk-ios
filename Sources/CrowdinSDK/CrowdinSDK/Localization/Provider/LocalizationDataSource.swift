@@ -13,13 +13,13 @@ protocol LocalizationDataSourceProtocol {
 }
 
 class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
-    
+
     var strings: [String: String]
-    
+
     init(strings: [String: String]) {
         self.strings = strings
     }
-    
+
     func findKey(for string: String) -> String? {
         // Simple strings
         for (key, value) in strings {
@@ -39,7 +39,7 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
         }
         return nil
     }
-    
+
     func findValues(for string: String, with format: String) -> [Any]? {
         return String.findValues(for: string, with: format)
     }
@@ -51,7 +51,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         case NSStringFormatSpecTypeKey
         case NSStringFormatValueTypeKey
     }
-    
+
     private enum Rules: String {
         case zero
         case one
@@ -60,20 +60,20 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         case many
         case other
     }
-    
+
     var plurals: [AnyHashable: Any]
-    
+
     init(plurals: [AnyHashable: Any]) {
         self.plurals = plurals
     }
     func findKey(for string: String) -> String? {
         return findKeyAndValues(for: plurals, for: string).key
     }
-    
+
     func findValues(for string: String, with format: String) -> [Any]? {
         return findKeyAndValues(for: plurals, for: string).values
     }
-    
+
     func findKeyAndValues(for plurals: [AnyHashable: Any], for text: String) -> (key: String?, values: [Any]?) {
         guard let plurals = plurals as? [String: Any] else { return (nil, nil) }
         for (key, plural) in plurals {
@@ -105,7 +105,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         }
         return (nil, nil)
     }
-    
+
     private func valueForRule(_ rule: Rules) -> UInt {
         switch rule {
         case .zero:

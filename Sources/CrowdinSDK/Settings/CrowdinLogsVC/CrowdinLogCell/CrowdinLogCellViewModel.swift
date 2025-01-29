@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Serhii Londar on 03.10.2022.
 //
@@ -26,33 +26,33 @@ final class CrowdinLogCellViewModel: CrowdinLogCellPresentation {
         dateFormatter.dateFormat = "hh:mm:ss dd/MM/yyyy"
         return dateFormatter
     }()
-    
+
     let log: CrowdinLog
-    
+
     init(log: CrowdinLog) {
         self.log = log
     }
-    
+
     var date: String {
         CrowdinLogCellViewModel.dateFormatter.string(from: log.date)
     }
-    
+
     var type: String {
         log.type.rawValue
     }
-    
+
     var message: String {
         log.message
     }
-    
+
     var textColor: UIColor {
         log.type.color
     }
-    
+
     var isShowArrow: Bool {
         attributedText != nil
     }
-    
+
     var attributedText: NSAttributedString? {
         log.attributedDetails
     }

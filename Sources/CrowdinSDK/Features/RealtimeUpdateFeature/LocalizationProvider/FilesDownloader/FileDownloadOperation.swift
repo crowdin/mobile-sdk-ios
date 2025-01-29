@@ -13,7 +13,7 @@ class FileDataDownloadOperation: AsyncOperation {
     var targetLanguageId: String
     let projectsAPI: ProjectsAPI
     var completion: ((Data?, Error?) -> Void)
-    
+
     init(fileId: String, projectId: String, targetLanguageId: String, projectsAPI: ProjectsAPI, completion: @escaping (Data?, Error?) -> Void) {
         self.fileId = fileId
         self.projectId = projectId
@@ -21,7 +21,7 @@ class FileDataDownloadOperation: AsyncOperation {
         self.projectsAPI = projectsAPI
         self.completion = completion
     }
-    
+
     override func main() {
         self.projectsAPI.buildProjectFileTranslation(projectId: projectId, fileId: fileId, targetLanguageId: targetLanguageId) { [weak self] (response, error) in
             guard let self = self else { return }

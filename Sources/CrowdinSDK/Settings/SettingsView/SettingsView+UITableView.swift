@@ -129,7 +129,7 @@ extension SettingsView {
             if let settingsView = SettingsView.shared {
                 settingsView.removeFromSuperview()
                 settingsView.settingsWindow.isHidden = true
-                if #available(iOS 13.0, tvOS 13.0,  *) {
+                if #available(iOS 13.0, tvOS 13.0, *) {
                     settingsView.settingsWindow.windowScene = nil
                 }
                 SettingsView.shared = nil
@@ -139,17 +139,17 @@ extension SettingsView {
         stopItem.statusView.isHidden = true
         cells.append(stopItem)
     }
-    
+
     func reload() {
         reloadData()
         reloadUI()
     }
-    
+
     func presentEnterScreenshotNameAlert(title: String = "Enter screenshot name",
                                          message: String = "Please provide screenshot name value",
                                          onSubmit: @escaping (String) -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         // Create submit action with disabled state initially
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak alert] _ in
             guard let text = alert?.textFields?.first?.text,
@@ -158,13 +158,13 @@ extension SettingsView {
             alert?.cw_dismiss()
         }
         submitAction.isEnabled = false
-        
+
         alert.addTextField { textField in
             textField.placeholder = "Screenshot name (avoid \\/:*?\"<>|)"
             // Add target to monitor text changes
             textField.addTarget(alert, action: #selector(UIAlertController.textDidChange), for: .editingChanged)
         }
-        
+
         alert.addAction(submitAction)
         alert.addAction(UIAlertAction(title: "Use timestamp", style: .default) { _ in
             onSubmit(String(Int(Date().timeIntervalSince1970)))
@@ -173,13 +173,13 @@ extension SettingsView {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
             alert.cw_dismiss()
         })
-        
+
         // Store submit action reference using ObjectAssociation
         alert.submitAction = submitAction
-        
+
         alert.cw_present()
     }
-    
+
     func showLogoutClearCredentialsAlert(completion: @escaping () -> Void) {
         let title = "CrowdinSDK"
         let message = "Do you want to clear your previous login session? All your credentials will be deleted."
@@ -213,23 +213,23 @@ extension SettingsView {
         alert.alertStyle = .warning
         alert.beginSheetModal(for: window) { response in
             if response.rawValue == 1000 {
-                
+
             }
         }
 #endif
     }
-    
+
 }
 
 // MARK: - Alert Text Field Validation
 private extension UIAlertController {
     private static let submitActionAssociation = ObjectAssociation<UIAlertAction>()
-    
+
     var submitAction: UIAlertAction? {
         get { return Self.submitActionAssociation[self] }
         set { Self.submitActionAssociation[self] = newValue }
     }
-    
+
     @objc func textDidChange() {
         if let textField = textFields?.first,
            let text = textField.text {

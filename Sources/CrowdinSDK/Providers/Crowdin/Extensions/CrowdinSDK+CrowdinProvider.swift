@@ -12,13 +12,13 @@ extension CrowdinSDK {
     public class func start() {
         self.startWithConfig(CrowdinSDKConfig.config(), completion: { })
     }
-    
+
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     /// - Parameter completion: Crowdin SDK library initialization completion.
     public class func start(completion: @escaping () -> Void) {
         self.startWithConfig(CrowdinSDKConfig.config(), completion: completion)
     }
-    
+
     /// Initialization method. Initialize CrowdinProvider with passed parameters.
     ///
     /// - Parameters:
@@ -31,7 +31,7 @@ extension CrowdinSDK {
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
         self.startWithRemoteStorage(remoteStorage, completion: completion)
     }
-    
+
     /// Method. Add Log message callback.
     ///
     /// - Parameters:

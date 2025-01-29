@@ -12,16 +12,16 @@ public final class CrowdinFolder: Folder {
         case dot = "."
         case pathDelimiter = "/"
     }
-    
+
     enum Folders: String {
         case Crowdin
         case Screenshots
     }
-    
+
     public static let shared = CrowdinFolder()
-    
+
     let screenshotsFolder: Folder
-    
+
     public init() {
         let name = (Bundle.main.bundleIdentifier ?? "") + Strings.dot.rawValue + Folders.Crowdin.rawValue
         guard let rootFolder = ApplicationSupportFolder() ?? CachesFolder() else {
@@ -32,16 +32,16 @@ public final class CrowdinFolder: Folder {
         super.init(path: path)
         self.createFoldersIfNeeded()
     }
-    
+
     public func createFoldersIfNeeded() {
         self.createCrowdinFolderIfNeeded()
         self.createScreenshotsFolderIfNeeded()
     }
-    
+
     public func createCrowdinFolderIfNeeded() {
         if !self.isCreated { try? self.create() }
     }
-    
+
     public func createScreenshotsFolderIfNeeded() {
         if !screenshotsFolder.isCreated { try? screenshotsFolder.create() }
     }

@@ -20,7 +20,7 @@ public protocol FileProtocol: PathProtocol {
     var type: String { get set }
     var isCreated: Bool { get }
     var content: Data? { get }
-    
+
     func create()
     func remove() throws
 }
@@ -29,7 +29,7 @@ public class File: FileProtocol, FileStatsProtocol {
     public var path: String
     public var name: String
     public var type: String
-    
+
     public init(path: String) {
         self.path = path
         let url = URL(fileURLWithPath: path)
@@ -41,7 +41,7 @@ public class File: FileProtocol, FileStatsProtocol {
             fatalError("Error while detecting file name and type, from path - \(path)")
         }
         if components.count == 1 {
-            //Hidden file f.e. .DS_Store
+            // Hidden file f.e. .DS_Store
             name = ""
             type = String(components[0])
         } else if components.count > 1 {
@@ -55,18 +55,18 @@ public class File: FileProtocol, FileStatsProtocol {
             type = ""
         }
     }
-    
+
     public var isCreated: Bool { return status == .file }
-    
+
     public var content: Data? {
         guard self.isCreated else { return nil }
         return try? Data(contentsOf: URL(fileURLWithPath: path))
     }
-    
+
     public func remove() throws {
         try FileManager.default.removeItem(atPath: path)
     }
-	
+
     public func create() {
 		FileManager.default.createFile(atPath: path, contents: nil, attributes: nil)
 	}
@@ -74,12 +74,12 @@ public class File: FileProtocol, FileStatsProtocol {
 
 class ReadWriteFile<T: ReadWriteProtocol>: File {
     var file: T? = nil
-    
+
     override init(path: String) {
         super.init(path: path)
         self.file = T.read(from: path)
     }
-    
+
     func save() throws {
         guard let file = self.file else { return }
         file.write(to: self.path)

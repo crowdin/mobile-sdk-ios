@@ -13,7 +13,7 @@ protocol LocalLocalizationStorageProtocol: LocalizationStorageProtocol {
     var strings: [String: String] { get set }
     /// Plurals localization files content.
     var plurals: [AnyHashable: Any] { get set }
-    
+
     func saveLocalizaion(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String)
     func save()
 }
@@ -28,10 +28,10 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         // swiftlint:disable force_try
         self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
     }
-    
+
     /// Folder used for storing all localization files.
     var localizationFolder: FolderProtocol
-    
+
     /// Current localization.
     var localization: String {
         didSet {
@@ -40,12 +40,12 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
             self.fetchData()
         }
     }
-    
+
     /// List of all available localizations.
     var localizations: [String] {
         return self.localizationFolder.files.filter({ return $0.type == FileType.plist.rawValue }).map({ $0.name })
     }
-    
+
     private var _strings: Atomic<[String: String]> = Atomic([:])
     var strings: [String: String] {
         get {
@@ -55,7 +55,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
             _strings.mutate({ $0 = newValue })
         }
     }
-    
+
     private var _plurals: Atomic<[AnyHashable: Any]> = Atomic([:])
     var plurals: [AnyHashable: Any] {
         get {
@@ -65,7 +65,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
             _plurals.mutate({ $0 = newValue })
         }
     }
-    
+
     func fetchData() {
         let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: localizationFilePath)
@@ -76,12 +76,12 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
             self.plurals = plurals
         }
     }
-    
+
     func fetchData(completion: LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.fetchData()
         completion(self.localizations, self.localization, self.strings, self.plurals)
     }
-    
+
     func save() {
         let localizationFilePath = self.localizationFolder.path + String.pathDelimiter + localization + FileType.plist.extension
         let localizationFile = DictionaryFile(path: localizationFilePath)
@@ -92,7 +92,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
             print(error.localizedDescription)
         }
     }
-    
+
     func saveLocalizaion(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
         let localStorage = LocalLocalizationStorage(localization: localization)
         localStorage.fetchData()
@@ -104,7 +104,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
         }
         localStorage.save()
     }
-    
+
     func deintegrate() {
         try? self.localizationFolder.remove()
     }
