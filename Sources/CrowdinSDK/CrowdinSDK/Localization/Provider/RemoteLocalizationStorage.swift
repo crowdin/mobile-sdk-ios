@@ -12,5 +12,5 @@ import Foundation
     /// Storage name.
     var name: String { get set }
 
-    func prepare(with completion:  @escaping () -> Void)
+    func prepare(with completion: @escaping () -> Void)
 }

@@ -69,7 +69,7 @@ public extension SwiftXMLParser {
     func makeXML(dic: [String: Any]) -> String {
         // reset
         xml = ""
-        for (key,value) in dic {
+        for (key, value) in dic {
             dfs(object: value, key: key)
         }
         return xml
@@ -88,7 +88,7 @@ public extension SwiftXMLParser {
             // handle attributes first
             if let attributes = dic[AttributesKey] as? [String: String] {
                 var attributeString = ""
-                for (key,value) in attributes {
+                for (key, value) in attributes {
                     attributeString.append(" \(key) = \"\(value)\"")
                 }
                 xml.append("<\(tagKey)\(attributeString)>")
@@ -96,7 +96,7 @@ public extension SwiftXMLParser {
                 xml.append("<\(key)>")
             }
 
-            for (key,value) in dic where key != AttributesKey {
+            for (key, value) in dic where key != AttributesKey {
 
                 var isSimpleValue = true
                 if value is [Any] || value is [String: Any] {

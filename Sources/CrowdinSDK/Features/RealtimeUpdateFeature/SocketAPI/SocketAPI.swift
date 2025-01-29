@@ -92,10 +92,10 @@ extension SocketAPI: WebSocketDelegate {
         case .ping: break
         case .pong: break
         case .viabilityChanged: break
-            //the viability (connection status) of the connection has updated.
+            // the viability (connection status) of the connection has updated.
             // e.g. connection is down, connection came back up https://github.com/daltoniam/Starscream/issues/798
         case .reconnectSuggested(let shouldReconnect):
-            //the connection has upgrade to wifi from cellular. Consider reconnecting to take advantage of this
+            // the connection has upgrade to wifi from cellular. Consider reconnecting to take advantage of this
             if shouldReconnect {
                 reconnect()
             }

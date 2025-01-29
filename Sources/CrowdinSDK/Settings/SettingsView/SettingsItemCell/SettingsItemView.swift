@@ -42,7 +42,7 @@ class SettingsItemView: UIView {
         ])
 
         titleButton.titleLabel?.textAlignment = .center
-        titleButton.backgroundColor = UIColor(white: 233.0 / 255.0 , alpha: 1.0)
+        titleButton.backgroundColor = UIColor(white: 233.0 / 255.0, alpha: 1.0)
         titleButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         titleButton.setTitleColor(.black, for: .normal)
         titleButton.addTarget(self, action: #selector(callAction(_:)), for: .touchUpInside)

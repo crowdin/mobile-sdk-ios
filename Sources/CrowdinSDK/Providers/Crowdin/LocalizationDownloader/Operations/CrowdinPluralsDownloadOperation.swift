@@ -27,7 +27,7 @@ class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
 
     override func main() {
         let etag = eTagStorage.etag(for: filePath)
-        contentDeliveryAPI.getPlurals(filePath: filePath, etag: etag, timestamp: timestamp,completion: { [weak self] (plurals, etag, error) in
+        contentDeliveryAPI.getPlurals(filePath: filePath, etag: etag, timestamp: timestamp, completion: { [weak self] (plurals, etag, error) in
             guard let self = self else { return }
             self.eTagStorage.save(etag: etag, for: self.filePath)
             self.completion?(plurals, error)

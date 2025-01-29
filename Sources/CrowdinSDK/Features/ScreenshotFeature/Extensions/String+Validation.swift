@@ -17,4 +17,3 @@ extension String {
         "Screenshot name should not be empty and not contain special characters - [\\\\/:*?\"<>|]"
     }
 }
-

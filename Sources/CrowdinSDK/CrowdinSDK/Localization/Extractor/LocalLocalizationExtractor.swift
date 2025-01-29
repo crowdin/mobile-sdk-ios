@@ -66,7 +66,7 @@ final class LocalLocalizationExtractor {
 
         localizationPluralsDict = [:]
         stringsdictFiles.forEach { (file) in
-            guard let dict = NSMutableDictionary (contentsOfFile: file) else { return }
+            guard let dict = NSMutableDictionary(contentsOfFile: file) else { return }
 			guard let strings = dict as? [AnyHashable: Any] else { return }
 			self.localizationPluralsDict = self.localizationPluralsDict + strings
         }

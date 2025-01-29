@@ -39,9 +39,9 @@ public struct Variations: Codable {
 }
 
 // Skip for v 1.0
-//public struct DeviceVariations: Codable {
+// public struct DeviceVariations: Codable {
 //    let variations: [String: StringUnitWrapper]?
-//}
+// }
 
 public struct StringUnitWrapper: Codable {
     let stringUnit: StringUnit
@@ -51,7 +51,6 @@ public struct StringUnit: Codable {
     public let state: String
     public let value: String
 }
-
 
 class XcstringsParser {
     enum Keys: String {

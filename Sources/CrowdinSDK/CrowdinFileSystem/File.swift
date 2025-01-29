@@ -41,7 +41,7 @@ public class File: FileProtocol, FileStatsProtocol {
             fatalError("Error while detecting file name and type, from path - \(path)")
         }
         if components.count == 1 {
-            //Hidden file f.e. .DS_Store
+            // Hidden file f.e. .DS_Store
             name = ""
             type = String(components[0])
         } else if components.count > 1 {

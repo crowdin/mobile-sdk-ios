@@ -14,7 +14,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     fileprivate var strings: [String: String]? = nil
     fileprivate var plurals: [AnyHashable: Any]? = nil
     fileprivate var errors: [Error]? = nil
-    //swiftlint:disable implicitly_unwrapped_optional
+    // swiftlint:disable implicitly_unwrapped_optional
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     fileprivate let manifestManager: ManifestManager
 
@@ -31,7 +31,7 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
                 let plurals = files.filter({ $0.isStringsDict })
                 let xliffs = files.filter({ $0.isXliff })
                 self.download(strings: strings, plurals: plurals, xliffs: xliffs, with: hash, for: localization, baseURL: url)
-            }  else if let error = error {
+            } else if let error = error {
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
             }

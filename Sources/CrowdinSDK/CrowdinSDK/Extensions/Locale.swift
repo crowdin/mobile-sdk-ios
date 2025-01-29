@@ -16,7 +16,7 @@ extension Locale {
 
     /// Returns ordered list of preffered language codes detected from iOS language settings.
 	static var preferredLocalizations: [String] {
-        var localizations: [String] = Locale.preferredLanguages.compactMap ({
+        var localizations: [String] = Locale.preferredLanguages.compactMap({
 			var components = Locale.components(fromIdentifier: $0)
 			if let regionCode = Locale.current.regionCode, let countryCode = components[Keys.kCFLocaleCountryCodeKey.rawValue], regionCode == countryCode {
 				components[Keys.kCFLocaleCountryCodeKey.rawValue] = nil

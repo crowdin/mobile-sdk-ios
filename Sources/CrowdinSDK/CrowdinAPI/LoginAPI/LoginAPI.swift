@@ -104,7 +104,7 @@ class LoginAPI: BaseAPI {
     func refreshTokenSync(refreshToken: String) -> TokenResponse? {
         var result: TokenResponse? = nil
         let semaphore = DispatchSemaphore(value: 0)
-        self.refreshToken (refreshToken: refreshToken, success: { response in
+        self.refreshToken(refreshToken: refreshToken, success: { response in
             result = response
             semaphore.signal()
         }) { _ in

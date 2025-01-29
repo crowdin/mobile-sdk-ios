@@ -82,12 +82,10 @@ extension CGRect {
     }
 }
 
-
 extension CrowdinSDK {
     public class func captureScreenshot(name: String, image: CWImage, application: XCUIApplication, success: @escaping (() -> Void), errorHandler: @escaping ((Error?) -> Void)) {
         CrowdinSDK.captureScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
-
 
     public class func captureScreenshotSync(name: String, image: CWImage, application: XCUIApplication) -> Error? {
         var error: Error?

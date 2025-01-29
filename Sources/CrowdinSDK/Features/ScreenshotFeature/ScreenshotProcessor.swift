@@ -1,4 +1,3 @@
-
 //
 //  ScreenshotProcessor.swift
 //  CrowdinSDK

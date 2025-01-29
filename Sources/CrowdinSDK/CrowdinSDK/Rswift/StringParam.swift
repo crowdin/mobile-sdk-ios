@@ -159,7 +159,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart] {
 		let insertionPos: Int
 		if let pos = pos {
 			insertionPos = pos
-		}  else {
+		} else {
 			insertionPos = nextNonPositional
 			nextNonPositional += 1
 		}

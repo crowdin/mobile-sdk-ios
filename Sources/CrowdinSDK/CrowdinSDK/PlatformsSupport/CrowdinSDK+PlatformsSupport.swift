@@ -58,7 +58,6 @@ extension CWScreen {
     }
 }
 
-
 #elseif os(iOS) || os(tvOS)
 
 import UIKit

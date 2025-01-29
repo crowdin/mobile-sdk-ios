@@ -42,7 +42,7 @@ class ProjectsAPI: CrowdinAPI {
         self.cw_get(url: url, completion: completion)
     }
 
-    func downloadFileData(url: String, completion:  @escaping (Data?, Error?) -> Void) {
+    func downloadFileData(url: String, completion: @escaping (Data?, Error?) -> Void) {
         let decodedUrl = url.removingPercentEncoding ?? url
         self.get(url: decodedUrl, callbackQueue: .global()) { (data, _, error) in
             completion(data, error)
