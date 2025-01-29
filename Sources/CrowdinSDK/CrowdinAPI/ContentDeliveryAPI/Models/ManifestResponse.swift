@@ -11,7 +11,7 @@ struct ManifestResponse: Codable {
     public let files: [String]
     public let timestamp: TimeInterval?
     public let languages: [String]?
-    public let responseCustomLanguages: [String: ManifestResponseCustomLangugage]?    
+    public let responseCustomLanguages: [String: ManifestResponseCustomLangugage]?
     public let content: [String: [String]]
     public let mapping: [String]
 

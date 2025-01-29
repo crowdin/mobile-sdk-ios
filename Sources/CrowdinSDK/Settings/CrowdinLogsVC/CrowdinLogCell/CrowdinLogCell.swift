@@ -66,7 +66,7 @@ final class CrowdinLogCell: UITableViewCell {
             messageLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8.0),
             messageLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 8.0),
             messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
-            messageLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8.0),
+            messageLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8.0)
         ])
     }
 

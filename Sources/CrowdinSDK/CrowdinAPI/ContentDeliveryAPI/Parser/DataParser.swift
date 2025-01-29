@@ -27,7 +27,7 @@ class PropertyListDataParser: DataParser {
 
 class XLIFFDataParser: DataParser {
     typealias `Type` = [AnyHashable: Any]
-    
+
     static func parse(data: Data) -> [AnyHashable: Any]? {
         if let dictionary = SwiftXMLParser().makeDic(data: data) {
             return dictionary

@@ -146,7 +146,7 @@ class CrowdinAPI: BaseAPI {
             if self.isUnautorized(response: response) {
                 NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
                 completion(nil, NSError(domain: "CrowdinAPI Unautorized", code: 401, userInfo: nil))
-                return;
+                return
             }
             guard let data = data else {
                 completion(nil, error)

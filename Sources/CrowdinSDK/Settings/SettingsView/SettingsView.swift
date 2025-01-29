@@ -78,7 +78,7 @@ final class SettingsView: UIView {
             stackView.topAnchor.constraint(equalTo: settingsButton.bottomAnchor),
             stackView.leftAnchor.constraint(equalTo: leftAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         translatesAutoresizingMaskIntoConstraints = true
     }

@@ -59,7 +59,7 @@ class LoginAPI: BaseAPI {
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.httpMethod = "POST"
         let errorHandler = error
-        
+
         self.send(request: request) { (data, response, error) in
             if let data = data {
                 do {

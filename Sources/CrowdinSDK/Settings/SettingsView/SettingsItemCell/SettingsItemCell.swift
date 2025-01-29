@@ -27,7 +27,7 @@ class SettingsItemCell: UITableViewCell {
             contentView.topAnchor.constraint(equalTo: settingsItemView.topAnchor),
             contentView.leftAnchor.constraint(equalTo: settingsItemView.leftAnchor),
             contentView.bottomAnchor.constraint(equalTo: settingsItemView.bottomAnchor),
-            contentView.rightAnchor.constraint(equalTo: settingsItemView.rightAnchor),
+            contentView.rightAnchor.constraint(equalTo: settingsItemView.rightAnchor)
         ])
 
         backgroundColor = .clear

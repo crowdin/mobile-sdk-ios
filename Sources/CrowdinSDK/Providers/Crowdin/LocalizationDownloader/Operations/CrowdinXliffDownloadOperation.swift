@@ -48,8 +48,8 @@ class XliffDictionaryParser {
                                         } else if currentPath.count == 2, currentPath[1] == "string" {
                                             let key = currentPath[0]
                                             currentDict[key] = textKey
-                                            currentDict["NSStringFormatValueTypeKey"] = "u";
-                                            currentDict["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType";
+                                            currentDict["NSStringFormatValueTypeKey"] = "u"
+                                            currentDict["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
                                         }
                                     }
                                     plurals.mergeRecursively(with: currentDict)

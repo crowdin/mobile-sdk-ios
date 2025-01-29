@@ -38,7 +38,7 @@ class SettingsItemView: UIView {
             statusView.leftAnchor.constraint(equalTo: leftAnchor, constant: offset),
             statusView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -offset),
             statusView.rightAnchor.constraint(equalTo: rightAnchor, constant: -offset),
-            statusView.heightAnchor.constraint(equalToConstant: 4),
+            statusView.heightAnchor.constraint(equalToConstant: 4)
         ])
 
         titleButton.titleLabel?.textAlignment = .center

@@ -65,7 +65,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameter remoteStorage: Custom localization remote storage which will be used to download localizations.
     /// - Parameter completion: Remote storage preparation completion handler. Called when all required data is downloaded.
     class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, completion: @escaping () -> Void) {
-        let localizations = remoteStorage.localizations + self.inBundleLocalizations;
+        let localizations = remoteStorage.localizations + self.inBundleLocalizations
         let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
         let localStorage = LocalLocalizationStorage(localization: localization)
         let localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
