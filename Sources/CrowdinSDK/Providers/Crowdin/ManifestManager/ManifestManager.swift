@@ -78,7 +78,7 @@ class ManifestManager {
     var timestamp: TimeInterval? { manifest?.timestamp }
     var customLanguages: [CustomLangugage] { manifest?.customLanguages ?? [] }
     var mappingFiles: [String] { manifest?.mapping ?? [] }
-    var xcstringsLanguage: String { languages?.sorted().first ?? sourceLanguage }
+    var xcstringsLanguage: String { languages?.first ?? sourceLanguage }
 
     var iOSLanguages: [String] {
         return self.languages?.compactMap({ self.iOSLanguageCode(for: $0) }) ?? []
