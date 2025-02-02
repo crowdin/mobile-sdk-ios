@@ -27,7 +27,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         self.getFiles(for: localization) { [weak self] (files, timestamp, error) in
             guard let self = self else { return }
             if let files = files {
-                let filesToDownload = files.filter { self.manifestManager.hasFileChanged(filePath: $0, localization: localization) }
+                let xcstringsFiles = files.filter({ $0.isXcstrings })
+                let notXcstringsFiles = files.filter({ !$0.isXcstrings })
+                let notXcstringsFilesToDownload = notXcstringsFiles.filter { self.manifestManager.hasFileChanged(filePath: $0, localization: localization) }
+                let xcStringsFilesToDownlaod = xcstringsFiles.filter({ self.manifestManager.hasFileChanged(filePath: $0, localization: self.manifestManager.xcstringsLanguage) })
+                let filesToDownload = xcStringsFilesToDownlaod + notXcstringsFilesToDownload
                 if !filesToDownload.isEmpty {
                     self.download(strings: filesToDownload.filter({ $0.isStrings }),
                                   plurals: filesToDownload.filter({ $0.isStringsDict }),
@@ -113,7 +117,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                 self.add(plurals: plurals)
                 self.add(error: error)
                 if error == nil {
-                    self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
+                    self.updateTimestamp(for: self.manifestManager.xcstringsLanguage, filePath: filePath, timestamp: timestamp)
                 }
             }
             completionBlock.addDependency(download)
