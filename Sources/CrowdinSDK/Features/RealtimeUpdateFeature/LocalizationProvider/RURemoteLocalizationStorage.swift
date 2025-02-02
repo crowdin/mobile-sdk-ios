@@ -11,7 +11,7 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     var name: String = "RURemoteLocalizationProvider"
 
     func deintegrate() { }
-    
+
     var localization: String
     var localizations: [String] {
         manifestManager.iOSLanguages
@@ -26,11 +26,11 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         self.fileDownloader = RUFilesDownloader(projectId: projectId, organizationName: organizationName, manifestManager: manifestManager, loginFeature: CrowdinSDK.loginFeature)
     }
-    
+
     func prepare(with completion: @escaping (() -> Void)) {
         manifestManager.download(completion: completion)
     }
-    
+
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
         self.fileDownloader.download(with: hash, for: localization) { (strings, plurals, errors) in
             if let errors = errors { errors.forEach { errorHandler?($0) } }

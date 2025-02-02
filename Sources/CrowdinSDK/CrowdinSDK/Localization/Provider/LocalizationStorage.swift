@@ -15,13 +15,13 @@ public typealias LocalizationStorageError = (_ error: Error) -> Void
 @objc public protocol LocalizationStorageProtocol {
     /// List of all available localizations.
     var localizations: [String] { get }
-    
+
     /// Current localization.
     var localization: String { get set }
-    
+
     /// Method for clearing up all the data for localization storage.sb
     func deintegrate()
-    
+
     /// Method for data fetching.
     ///
     /// - Parameter completion: Completion block called after localization data fetched.

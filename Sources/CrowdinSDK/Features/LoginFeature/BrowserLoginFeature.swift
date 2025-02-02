@@ -15,12 +15,12 @@ import Foundation
 
 final class BrowserLoginFeature: NSObject, AnyLoginFeature {
     var config: CrowdinLoginConfig
-    
+
     private var loginAPI: LoginAPI
 #if os(iOS)
     fileprivate var safariVC: SFSafariViewController?
 #endif
-    
+
     init(hashString: String, organizationName: String?, config: CrowdinLoginConfig) {
         self.config = config
         self.loginAPI = LoginAPI(clientId: config.clientId, clientSecret: config.clientSecret, scope: config.scope, redirectURI: config.redirectURI, organizationName: organizationName)
@@ -41,7 +41,7 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
             return UserDefaults.standard.string(forKey: "crowdin.hash.key") ?? ""
         }
     }
-    
+
     var tokenExpirationDate: Date? {
         set {
             UserDefaults.standard.set(newValue, forKey: "crowdin.tokenExpirationDate.key")
@@ -51,7 +51,7 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
             return UserDefaults.standard.object(forKey: "crowdin.tokenExpirationDate.key") as? Date
         }
     }
-    
+
     var tokenResponse: TokenResponse? {
         set {
             let data = try? JSONEncoder().encode(newValue)
@@ -63,11 +63,11 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
             return try? JSONDecoder().decode(TokenResponse.self, from: data)
         }
     }
-    
+
     var isLogined: Bool {
         return tokenResponse?.accessToken != nil && tokenResponse?.refreshToken != nil
     }
-    
+
     var accessToken: String? {
         guard let tokenExpirationDate = tokenExpirationDate else { return nil }
         if tokenExpirationDate < Date() {
@@ -80,10 +80,10 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
         }
         return tokenResponse?.accessToken
     }
-    
+
     var loginCompletion: (() -> Void)?  = nil
     var loginError: ((Error) -> Void)?  = nil
-    
+
     func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
         self.loginCompletion = completion
         self.loginError = error
@@ -91,19 +91,19 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
             error(NSError(domain: "Unable to create URL for login", code: defaultCrowdinErrorCode, userInfo: nil))
             return
         }
-        
+
         self.showWarningAlert(with: url)
     }
-    
+
     func relogin(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
         logout()
         login(completion: completion, error: error)
     }
-    
+
     func logout() {
         logout(clearCreditials: false, completion: nil)
     }
-    
+
     func logout(clearCreditials: Bool = false, completion: (() -> Void)? = nil) {
 		tokenResponse = nil
 		tokenExpirationDate = nil
@@ -112,31 +112,31 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
         }
         completion?()
     }
-    
+
     func clearSafariViewServiceLibrary() {
         let fileManager = FileManager.default
-        
+
         // Define the path to the Library directory in the SafariViewService container
         let safariViewServiceLibraryPath = "\(NSHomeDirectory())/SystemData/com.apple.SafariViewService/Library"
-        
+
         do {
             // Get the list of files and directories in the SafariViewService Library path
             let items = try fileManager.contentsOfDirectory(atPath: safariViewServiceLibraryPath)
-            
+
             // Loop through the items and remove each one
             for item in items {
                 let fullPath = safariViewServiceLibraryPath + "/\(item)"
                 try fileManager.removeItem(atPath: fullPath)
                 print("Deleted item at path: \(fullPath)")
             }
-            
+
             print("Successfully cleared SafariViewService Library.")
-            
+
         } catch {
             print("Error clearing SafariViewService Library: \(error.localizedDescription)")
         }
     }
-	
+
     func hadle(url: URL) -> Bool {
 #if os(iOS)
         dismissSafariVC()
@@ -149,7 +149,7 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
         }, error: errorHandler)
         return result
 	}
-    
+
     @objc func receiveUnautorizedResponse() {
         // Try to refresh token.
         if let refreshToken = tokenResponse?.refreshToken, let response = loginAPI.refreshTokenSync(refreshToken: refreshToken) {
@@ -159,7 +159,7 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
             logout()
         }
     }
-    
+
     fileprivate func showWarningAlert(with url: URL) {
         let title = "CrowdinSDK"
         let message = "The Real-Time Preview and Screenshots features require Crowdin Authorization. You will now be redirected to the Crowdin login page."
@@ -190,7 +190,7 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
         }
 #endif
     }
-    
+
 #if os(iOS)
     fileprivate func showSafariVC(with url: URL) {
         let safariVC = SFSafariViewController(url: url)
@@ -198,13 +198,13 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
         safariVC.cw_present()
         self.safariVC = safariVC
     }
-    
+
     fileprivate func dismissSafariVC() {
         safariVC?.cw_dismiss()
         safariVC = nil
     }
 #endif
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

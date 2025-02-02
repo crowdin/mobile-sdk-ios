@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Serhii Londar on 18.06.2022.
 //
@@ -23,7 +23,7 @@ typealias CWApplication = NSApplication
 
 extension CWView {
     var alpha: CGFloat { alphaValue }
-    
+
     var screenshot: CWImage? { CWImage(data: dataWithPDF(inside: bounds)) }
 }
 
@@ -33,6 +33,11 @@ extension CWImage {
         let bitmap = NSBitmapImageRep(cgImage: cgImage)
         bitmap.size = size
         return bitmap.representation(using: .png, properties: [:])
+    }
+
+    var scale: Double {
+        guard let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil) else { return 1 }
+        return Double(cgImage.width) / Double(size.width)
     }
 }
 
@@ -52,7 +57,6 @@ extension CWScreen {
         return NSScreen.main?.backingScaleFactor ?? 1
     }
 }
-
 
 #elseif os(iOS) || os(tvOS)
 

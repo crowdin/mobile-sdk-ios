@@ -12,7 +12,7 @@ public struct TokenResponse: Codable {
 	public let expiresIn: Int
 	public let accessToken: String
 	public let refreshToken: String
-	
+
 	enum CodingKeys: String, CodingKey {
 		case tokenType = "token_type"
 		case expiresIn = "expires_in"

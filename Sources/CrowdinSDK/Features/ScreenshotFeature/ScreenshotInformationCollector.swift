@@ -17,7 +17,7 @@ import CoreGraphics
 public struct ControlInformation {
 	var key: String
 	var rect: CGRect
-    
+
     public init(key: String, rect: CGRect) {
         self.key = key
         self.rect = rect
@@ -25,17 +25,13 @@ public struct ControlInformation {
 }
 
 class ScreenshotInformationCollector {
-#if os(OSX)
-    static let scale = NSScreen.main?.backingScaleFactor ?? 2.0
-#elseif os(iOS) || os(tvOS)
-    static let scale = UIScreen.main.scale
-#endif
-    
+    static let scale = CWScreen.scale()
+
 	class func captureControlsInformation() -> [ControlInformation] {
         guard let topViewController = ScreenshotFeature.topViewController else { return [] }
         return self.getControlsInformation(from: topViewController.view, rootView: topViewController.view)
 	}
-	
+
     class func getControlsInformation(from view: CWView, rootView: CWView) -> [ControlInformation] {
 		var description = [ControlInformation]()
 		view.subviews.forEach { subview in

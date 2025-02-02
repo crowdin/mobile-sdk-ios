@@ -13,7 +13,7 @@ struct TokenRequest: Codable {
 	var clientSecret: String
 	var code: String
 	var redirectURI: String
-    
+
     enum CodingKeys: String, CodingKey {
         case grantType = "grant_type"
         case clientId = "client_id"
@@ -21,7 +21,7 @@ struct TokenRequest: Codable {
         case code
         case redirectURI = "redirect_uri"
     }
-    
+
     init(clientId: String, clientSecret: String, code: String, redirectURI: String) {
         self.clientId = clientId
         self.clientSecret = clientSecret

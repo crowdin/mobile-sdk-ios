@@ -10,13 +10,13 @@ import Foundation
 extension CrowdinSDK {
     /// Association object for storing localization keys for different states.
     private static let localizationProviderObjectAssociation = ObjectAssociation<LocalizationProvider>()
-    
+
     /// Dictionary with localization keys for different states.
     static var localizationProvider: LocalizationProvider? {
         get { return CrowdinSDK.localizationProviderObjectAssociation[self] }
         set { CrowdinSDK.localizationProviderObjectAssociation[self] = newValue }
     }
-    
+
     /// Get localization dictionary for current localizatiion in json format. Example:
     /// {
     /// "localization": "en",
@@ -31,7 +31,7 @@ extension CrowdinSDK {
     public class func localizationDictionary() -> [AnyHashable: Any] {
         return localizationDictionary(for: Localization.current.provider.localStorage.localization)
     }
-    
+
     /// Get localization dictionary for specific localizatiion in json format. Example:
     /// {
     /// "localization": "en",
@@ -48,7 +48,7 @@ extension CrowdinSDK {
         let localLocalizationStorage = LocalLocalizationStorage(localization: localization)
         localLocalizationStorage.fetchData()
         if localLocalizationStorage.strings.count == 0 {
-            
+
         }
         return [
             "localization": localLocalizationStorage.localization,
@@ -56,7 +56,7 @@ extension CrowdinSDK {
             "plurals": localLocalizationStorage.plurals
         ]
     }
-    
+
     /// Get localization dictionary for specific localizatiion in json format. Download localization from server and store it locally.
     /// {
     /// "localization": "en",

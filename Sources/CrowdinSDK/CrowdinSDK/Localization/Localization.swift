@@ -19,14 +19,14 @@ class Localization {
             _provider.mutate({ $0 = newValue })
         }
     }
-    
+
     /// Localization extractor.
     var extractor: LocalLocalizationExtractor
 
     // swiftlint:disable implicitly_unwrapped_optional
     /// Instance of shared @Localization class instance.
     static var current: Localization! = nil
-	
+
     /// Property for detecting and storing curent localization value depending on current SDK mode.
     static var currentLocalization: String? {
 		set {
@@ -43,7 +43,7 @@ class Localization {
             return customLocalization
 		}
 	}
-    
+
     /// Auto detects localization. For detection uses localizations from the bundle and from the current provider. Return "en" if SDK isn't initialized or there are no languages ether on crowdin and bundle.
     private static var autoDetectedLocalization: String {
         if let avalaibleLocalizations = Localization.current?.avalaibleLocalizations {
@@ -51,7 +51,7 @@ class Localization {
         }
         return defaultLocalization
     }
-	
+
     /// Property for storing specific localization value in UserDefaults. This value used for custom in SDK localization.
     private static var customLocalization: String? {
         set {
@@ -61,7 +61,7 @@ class Localization {
             return UserDefaults.standard.customLocalization
         }
     }
-	
+
     /// Initialize object with specific localization provider.
     ///
     /// - Parameter provider: Localization provider implementation.
@@ -69,15 +69,15 @@ class Localization {
         self.extractor = LocalLocalizationExtractor(localization: provider.localization)
         self._provider = Atomic(provider)
 	}
-	
+
 	/// A list of all avalaible localization in SDK downloaded from current provider.
 	var inProvider: [String] { provider.localizations }
-    
+
     /// A list of all the localizations contained in the bundle.
     var inBundle: [String] { Bundle.main.inBundleLocalizations }
-    
+
     var avalaibleLocalizations: [String] { Array(Set<String>(inProvider + inBundle)) }
-    
+
     /// Find localization key for a given text.
     ///
     /// - Parameter text: Text to find key for.
@@ -90,7 +90,7 @@ class Localization {
         }
         return key
     }
-    
+
     /// Find localization string for geiven key.
     ///
     /// - Parameter key: Key to find localization string for.
@@ -103,7 +103,7 @@ class Localization {
         }
         return string
     }
-	
+
     /// Method for detecting formated values in string by given format.
     ///
     /// - Parameters:

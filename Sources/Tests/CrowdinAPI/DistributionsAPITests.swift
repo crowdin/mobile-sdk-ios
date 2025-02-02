@@ -15,28 +15,28 @@ class DistributionsAPITests: XCTestCase {
     var testHashString = "dssdasd7as8dasd9asd9ds9ad9sa"
     var testOrganization = "test_organization"
     let defaultTimeoutForExpectation = 2.0
-    
+
     func testAPIInitialization() {
         api = DistributionsAPI(hashString: testHashString, organizationName: nil)
-        
+
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "distributions/metadata?hash=\(testHashString)")
         XCTAssertNil(api.organizationName)
         XCTAssert(api.fullPath == "https://api.crowdin.com/api/v2/distributions/metadata?hash=\(testHashString)")
     }
-    
+
     func testAPIInitializationWithOrganization() {
         api = DistributionsAPI(hashString: testHashString, organizationName: testOrganization)
-        
+
         XCTAssert(api.baseURL == "https://\(testOrganization).api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "distributions/metadata?hash=\(testHashString)")
         XCTAssert(api.organizationName == testOrganization)
         XCTAssert(api.fullPath == "https://\(testOrganization).api.crowdin.com/api/v2/distributions/metadata?hash=\(testHashString)")
     }
-    
+
     func testGetDistribution() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         session.data = """
         {
             "data": {
@@ -52,22 +52,22 @@ class DistributionsAPITests: XCTestCase {
         }
         """.data(using: .utf8)
         api = DistributionsAPI(hashString: testHashString, organizationName: testOrganization, session: session)
-        
+
         var result: DistributionsResponse? = nil
         api.getDistribution { (response, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         if let result = result {
             XCTAssert(result.data.wsUrl == "wss://ws-lb.crowdin.com")
-            
+
             XCTAssert(result.data.project.id == "202187")
             XCTAssert(result.data.project.wsHash == "df2142d1")
-            
+
             XCTAssert(result.data.user.id == "1383818")
         }
     }

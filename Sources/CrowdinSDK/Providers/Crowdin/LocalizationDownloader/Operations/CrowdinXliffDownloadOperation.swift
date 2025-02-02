@@ -48,8 +48,8 @@ class XliffDictionaryParser {
                                         } else if currentPath.count == 2, currentPath[1] == "string" {
                                             let key = currentPath[0]
                                             currentDict[key] = textKey
-                                            currentDict["NSStringFormatValueTypeKey"] = "u";
-                                            currentDict["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType";
+                                            currentDict["NSStringFormatValueTypeKey"] = "u"
+                                            currentDict["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
                                         }
                                     }
                                     plurals.mergeRecursively(with: currentDict)
@@ -70,20 +70,20 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
     var plurals: [AnyHashable: Any]?
     var timestamp: TimeInterval?
     var eTagStorage: AnyEtagStorage
-    
+
     init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinXliffDownloadOperationCompletion?) {
         self.timestamp = timestamp
         self.eTagStorage = FileEtagStorage(localization: localization)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
-    
+
     required init(filePath: String, localization: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.timestamp = timestamp
         self.eTagStorage = FileEtagStorage(localization: localization)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
-    
+
     override func main() {
         let etag = eTagStorage.etag(for: filePath)
         contentDeliveryAPI.getXliff(filePath: filePath, etag: etag, timestamp: timestamp) { [weak self] (xliffDict, etag, error) in
@@ -93,7 +93,7 @@ class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
                 self.strings = parseResult.0
                 self.plurals = parseResult.1
             }
-            self.eTagStorage.save(etag: etag, for: self.filePath) 
+            self.eTagStorage.save(etag: etag, for: self.filePath)
             self.completion?(self.strings, self.plurals, error)
             self.finish(with: error != nil)
         }

@@ -10,7 +10,7 @@ import Foundation
 class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     // swiftlint:disable implicitly_unwrapped_optional
     var completion: CrowdinDownloaderCompletion? = nil
-    
+
     fileprivate let operationQueue = OperationQueue()
     fileprivate var strings: [String: String]? = nil
     fileprivate var plurals: [AnyHashable: Any]? = nil
@@ -100,7 +100,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             completionBlock.addDependency(download)
             operationQueue.addOperation(download)
         }
-        
+
         xcstrings.forEach { filePath in
             let download = CrowdinXcstringsDownloadOperation(filePath: filePath,
                                                              localization: localization,

@@ -12,12 +12,12 @@ extension CrowdinSDK {
         IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
         IntervalUpdateFeature.shared?.start()
     }
-    
+
     public class func stopIntervalUpdates() {
         IntervalUpdateFeature.shared?.stop()
         IntervalUpdateFeature.shared = nil
     }
-    
+
     class func initializeIntervalUpdateFeature() {
         guard let config = CrowdinSDK.config else { return }
         if config.intervalUpdatesEnabled {

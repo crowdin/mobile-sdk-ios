@@ -15,13 +15,13 @@ public extension UIViewController {
         get { return UIViewController.alertWindowAssociation[self] }
         set { UIViewController.alertWindowAssociation[self] = newValue }
     }
-    
+
     private static let topWindowAssociation = ObjectAssociation<UIWindow>()
     var topWindow: UIWindow? {
         get { return UIViewController.topWindowAssociation[self] }
         set { UIViewController.topWindowAssociation[self] = newValue }
     }
-    
+
     /// Custom view controller presentation. View controller presenter on new window over all existing windows. To dismiss it cw_dismiss() method should be used.
     /// https://stackoverflow.com/a/51723032/3697225
     @objc func cw_present() {
@@ -35,7 +35,7 @@ public extension UIViewController {
         } else {
             self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         }
-        
+
         let viewController = UIViewController()
         self.alertWindow?.rootViewController = viewController
 
@@ -46,7 +46,7 @@ public extension UIViewController {
         self.alertWindow?.makeKeyAndVisible()
         self.alertWindow?.rootViewController?.present(self, animated: true, completion: nil)
     }
-    
+
     /// Dissmiss view controller presenter with cw_present() method.
     @objc func cw_dismiss() {
         self.dismiss(animated: false, completion: nil)
@@ -56,7 +56,7 @@ public extension UIViewController {
         self.topWindow?.makeKeyAndVisible()
         self.topWindow = nil
     }
-    
+
     @objc func cw_askToClearLogsAlert() {
         let alert = UIAlertController(title: "CrowdinSDK", message: "Are you sure you want to remove all logs?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in

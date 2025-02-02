@@ -12,31 +12,31 @@ import AppKit
 extension NSButton {
     /// Association object for storing localization keys for different states.
     private static let localizationKeyAssociation = ObjectAssociation<String>()
-    
+
     /// Dictionary with localization keys for different states.
     var localizationKey: String? {
         get { return NSButton.localizationKeyAssociation[self] }
         set { NSButton.localizationKeyAssociation[self] = newValue }
     }
-    
+
     /// Association object for storing localization format string values if such exists.
     private static let localizationValuesAssociation = ObjectAssociation<[Any]>()
-    
+
     /// Dictionary with localization format string values for different state.
     var localizationValues: [Any]? {
         get { return NSButton.localizationValuesAssociation[self] }
         set { NSButton.localizationValuesAssociation[self] = newValue }
     }
-    
+
     /// Association object for storing localization format string values if such exists.
     private static let usingAttributedTitleAssociation = ObjectAssociation<Bool>()
-    
+
     /// Store boolean value which indicates whether title was set as attributed string.
     var usingAttributedTitle: Bool {
         get { return NSButton.usingAttributedTitleAssociation[self] ?? false }
         set { NSButton.usingAttributedTitleAssociation[self] = newValue }
     }
-    
+
     // swiftlint:disable implicitly_unwrapped_optional
     /// Original setTitle(_:for:) method.
     static var originalSetTitle: Method!
@@ -46,11 +46,11 @@ extension NSButton {
     static var originalSetAttributedTitle: Method!
     /// Swizzled setAttributedTitle(_:for:) method.
     static var swizzledSetAttributedTitle: Method!
-    
+
     static var isSwizzled: Bool {
         return originalSetTitle != nil && swizzledSetTitle != nil && originalSetAttributedTitle != nil && swizzledSetAttributedTitle != nil
     }
-    
+
     /// Swizzled implementation for setTitle(_:for:) method.
     ///
     /// - Parameters:
@@ -61,7 +61,7 @@ extension NSButton {
         swizzled_setTitle(title)
         usingAttributedTitle = false
     }
-    
+
     /// Swizzled implementation for setAttributedTitle(_:for:) method.
     ///
     /// - Parameters:
@@ -74,7 +74,7 @@ extension NSButton {
         swizzled_setAttributedTitle(title)
         usingAttributedTitle = true
     }
-    
+
     /// Method for title string processing. Detect localization key for this string and store all needed values for this string.
     ///
     /// - Parameters:
@@ -98,7 +98,7 @@ extension NSButton {
             self.unsubscribeFromRealtimeUpdatesIfNeeded()
         }
     }
-    
+
     func cw_setTitle(_ title: String?) {
         if usingAttributedTitle {
             // TODO: Apply attributes.
@@ -107,7 +107,7 @@ extension NSButton {
             original_setTitle(title)
         }
     }
-    
+
     /// Original method for setting title string for button after swizzling.
     ///
     /// - Parameters:
@@ -117,7 +117,7 @@ extension NSButton {
         guard NSButton.swizzledSetTitle != nil else { return }
         swizzled_setTitle(title)
     }
-    
+
     /// Original method for setting attributed title string for button after swizzling.
     ///
     /// - Parameters:
@@ -136,12 +136,12 @@ extension NSButton {
         originalSetTitle = class_getInstanceMethod(self, #selector(setter: NSButton.title))!
         swizzledSetTitle = class_getInstanceMethod(self, #selector(NSButton.swizzled_setTitle(_:)))!
         method_exchangeImplementations(originalSetTitle, swizzledSetTitle)
-        
+
         originalSetAttributedTitle = class_getInstanceMethod(self, #selector(setter: NSButton.attributedTitle))!
         swizzledSetAttributedTitle = class_getInstanceMethod(self, #selector(NSButton.swizzled_setAttributedTitle(_:)))!
         method_exchangeImplementations(originalSetAttributedTitle, swizzledSetAttributedTitle)
     }
-    
+
     /// Method for swizzling implementations back for setTitle(_:for:) and setAttributedTitle(_:for:) methods.
     class func unswizzle() {
         if originalSetTitle != nil && swizzledSetTitle != nil {
@@ -155,7 +155,7 @@ extension NSButton {
             originalSetAttributedTitle = nil
         }
     }
-    
+
     /// Selectors for working with real-time updates.
     ///
     /// - subscribeForRealtimeUpdates: Method for subscribing to real-time updates.
@@ -164,14 +164,14 @@ extension NSButton {
         case subscribeForRealtimeUpdates
         case unsubscribeFromRealtimeUpdates
     }
-    
+
     /// Method for subscription to real-time updates if real-time feature enabled.
     func subscribeForRealtimeUpdatesIfNeeded() {
         if self.responds(to: Selectors.subscribeForRealtimeUpdates.rawValue) {
             self.perform(Selectors.subscribeForRealtimeUpdates.rawValue)
         }
     }
-    
+
     /// Method for unsubscribing from real-time updates if real-time feature enabled.
     func unsubscribeFromRealtimeUpdatesIfNeeded() {
         if self.responds(to: Selectors.unsubscribeFromRealtimeUpdates.rawValue) {

@@ -9,7 +9,7 @@ import Foundation
 
 extension CrowdinSDKConfig {
     private static var debugEnabled: Bool = false
-    
+
     /// Debug mode status
     var debugEnabled: Bool {
         get {
@@ -19,7 +19,7 @@ extension CrowdinSDKConfig {
             CrowdinSDKConfig.debugEnabled = newValue
         }
     }
-    
+
     /// Method for enabling/disabling debug mode through the config.
     /// - Parameter debugEnabled: A boolean value which indicate debug mode enabling status.
     public func with(debugEnabled: Bool) -> Self {

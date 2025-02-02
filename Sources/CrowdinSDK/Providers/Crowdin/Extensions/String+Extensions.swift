@@ -13,7 +13,7 @@ enum FileExtensions: String {
     case xliff
     case json
     case xcstrings
-    
+
     var `extension`: String {
         return ".\(self.rawValue)"
     }
@@ -23,15 +23,15 @@ extension String {
     var isStrings: Bool {
         hasSuffix(FileExtensions.strings.extension)
     }
-    
+
     var isStringsDict: Bool {
         hasSuffix(FileExtensions.stringsdict.extension)
     }
-    
+
     var isXliff: Bool {
         hasSuffix(FileExtensions.xliff.extension)
     }
-    
+
     var isXcstrings: Bool {
         hasSuffix(FileExtensions.xcstrings.extension)
     }

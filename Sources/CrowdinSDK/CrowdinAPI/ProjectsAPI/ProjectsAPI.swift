@@ -12,7 +12,7 @@ class ProjectsAPI: CrowdinAPI {
     override var apiPath: String {
         return "projects"
     }
-    
+
     func getFilesList(projectId: String, limit: Int? = nil, offset: Int? = nil, completion: @escaping (_ response: ProjectsFilesListResponse?, _ error: Error?) -> Void) {
         var parameters = [String: String]()
         if let limit = limit {
@@ -24,7 +24,7 @@ class ProjectsAPI: CrowdinAPI {
         let url = "\(fullPath)/\(projectId)/files"
         self.cw_get(url: url, parameters: parameters, completion: completion)
     }
-    
+
     func getFilesListSync(projectId: String, limit: Int? = nil, offset: Int? = nil) -> (response: ProjectsFilesListResponse?, error: Error?) {
         var parameters = [String: String]()
         if let limit = limit {
@@ -36,13 +36,13 @@ class ProjectsAPI: CrowdinAPI {
         let url = "\(fullPath)/\(projectId)/files"
         return self.cw_getSync(url: url, parameters: parameters)
     }
-    
+
     func downloadFile(projectId: String, fileId: String, completion: @escaping (ProjectsDownloadFileResponse?, Error?) -> Void) {
         let url = "\(fullPath)/\(projectId)/files/\(fileId)/download"
         self.cw_get(url: url, completion: completion)
     }
-    
-    func downloadFileData(url: String, completion:  @escaping (Data?, Error?) -> Void) {
+
+    func downloadFileData(url: String, completion: @escaping (Data?, Error?) -> Void) {
         let decodedUrl = url.removingPercentEncoding ?? url
         self.get(url: decodedUrl, callbackQueue: .global()) { (data, _, error) in
             completion(data, error)

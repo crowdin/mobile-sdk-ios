@@ -20,10 +20,10 @@ class ManifestManager {
     
     private var lastManifestUpdateInterval: TimeInterval? {
         get {
-            fileTimestampStorage.timestamp(for: "none", filePath: "manifest.json")
+            fileTimestampStorage.timestamp(for: "manifest", filePath: "manifest.json")
         }
         set {
-            fileTimestampStorage.updateTimestamp(for: "none", filePath: "manifest.json", timestamp: newValue)
+            fileTimestampStorage.updateTimestamp(for: "manifest", filePath: "manifest.json", timestamp: newValue)
             fileTimestampStorage.saveTimestamps()
         }
     }
@@ -140,8 +140,10 @@ class ManifestManager {
         completionsMap[hash]?.forEach({ $0() })
     }
 
+    /// Path for current hash manifests file
     private var manifestPath: String { ManifestManager.manifestsPath + hash + (organizationName ?? "") + ".json" }
 
+    /// Root path for manifests files
     static private let manifestsPath = CrowdinFolder.shared.path + "/Manifests/"
 
     private func save(manifestResponse: ManifestResponse) {
@@ -157,12 +159,14 @@ class ManifestManager {
         self.state = .local
     }
 
+    /// Removes all cached manifest data files
     static func clear() {
         manifestMap.removeAll()
         try? FileManager.default.removeItem(atPath: ManifestManager.manifestsPath)
         FileTimestampStorage.clear()
     }
 
+    /// Removes cached manifest data file for current hash
     func clear() {
         ManifestManager.manifestMap.removeValue(forKey: hash)
         try? FileManager.default.removeItem(atPath: manifestPath)

@@ -18,7 +18,7 @@ class BlockAsyncOperation: AsyncOperation, AnyBlockOperation {
     required init(block: @escaping () -> Void) {
         self.block = block
     }
-    
+
     override func main() {
         block()
     }

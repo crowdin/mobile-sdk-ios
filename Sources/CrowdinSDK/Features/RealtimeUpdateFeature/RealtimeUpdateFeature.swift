@@ -29,9 +29,9 @@ protocol RealtimeUpdateFeatureProtocol {
     func refreshAllControls()
 }
 
-class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {    
+class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol?
-    
+
     var success: (() -> Void)?
     var error: ((Error) -> Void)?
     var disconnect: (() -> Void)?
@@ -43,9 +43,8 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     let sourceLanguage: String
     let organizationName: String?
     let minimumManifestUpdateInterval: TimeInterval
-	
 	var distributionResponse: DistributionsResponse? = nil
-    
+
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
         set {
@@ -55,7 +54,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             return active
         }
     }
-    
+
     private var controls = NSHashTable<AnyObject>.weakObjects()
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
@@ -69,7 +68,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.minimumManifestUpdateInterval = minimumManifestUpdateInterval
         self.mappingManager = CrowdinMappingManager.shared(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
     }
-	
+
     func downloadDistribution(with successHandler: (() -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         let distributionsAPI = DistributionsAPI(hashString: self.hashString, organizationName: organizationName, auth: loginFeature)
 		distributionsAPI.getDistribution { (response, error) in
@@ -83,7 +82,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             }
 		}
 	}
-    
+
     func subscribe(control: Refreshable) {
         guard let localizationKey = control.key else { return }
         guard let id = self.mappingManager.id(for: localizationKey) else { return }
@@ -91,11 +90,11 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         socketManger?.subscribeOnUpdateTopSuggestion(localization: localization, stringId: id)
         controls.add(control)
     }
-    
+
     func unsubscribe(control: Refreshable) {
         controls.remove(control)
     }
-    
+
     func start() {
         guard CrowdinSDK.inSDKLocalizations.contains(localization) else {
             let message = "Unable to start real-time preview as there is no '\(localization)' language in Crowdin project target languages."
@@ -116,7 +115,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             error?(NSError(domain: "Login feature is not configured properly", code: defaultCrowdinErrorCode, userInfo: nil))
         }
     }
-    
+
     func _start() {
 		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id, let wsUrl = distributionResponse?.data.wsUrl else {
             self.downloadDistribution(with: {
@@ -129,7 +128,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         }
     }
-    
+
     func stop() {
         self.socketManger?.stop()
         self.socketManger?.didChangeString = nil
@@ -137,13 +136,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.socketManger = nil
         self.removeRealtimeUpdatesLocalizationProvider()
     }
-    
+
     var oldProvider: LocalizationProviderProtocol? = nil
-    
+
     func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
         oldProvider = Localization.current.provider
         Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, sourceLanguage: sourceLanguage, hash: self.hashString, projectId: projectId, organizationName: self.organizationName, minimumManifestUpdateInterval: self.minimumManifestUpdateInterval))
-        
         Localization.current.provider.refreshLocalization { [weak self] error in
             guard let self = self else { return }
             if let error = error {
@@ -157,7 +155,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             }
         }
     }
-    
+
     func removeRealtimeUpdatesLocalizationProvider() {
         if let ruLocalLocalizationStorage = Localization.current.provider.localStorage as? RULocalLocalizationStorage {
             ruLocalLocalizationStorage.deintegrate()
@@ -184,11 +182,11 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }
-        
+
         self.socketManger?.didChangePlural = { id, newValue in
             self.didChangePlural(with: id, to: newValue)
         }
-        
+
         self.socketManger?.error = error
         self.socketManger?.connect = {
             self.subscribeAllVisibleConrols()
@@ -197,7 +195,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.socketManger?.disconnect = disconnect
         self.socketManger?.start()
     }
-    
+
     func refreshAllControls() {
         self.controls.allObjects.forEach { (control) in
             if let refreshable = control as? Refreshable {
@@ -217,7 +215,7 @@ extension RealtimeUpdateFeature {
             }
         }
     }
-    
+
     func subscribeAllVisibleConrols() {
 #if os(iOS) || os(tvOS) || os(macOS)
         CWApplication.shared.windows.forEach({
@@ -231,7 +229,7 @@ extension RealtimeUpdateFeature {
         })
 #endif
     }
-    
+
     func subscribeAllControls(from view: CWView) {
 #if os(iOS) || os(tvOS) || os(macOS)
         view.subviews.forEach { (subview) in
@@ -242,13 +240,13 @@ extension RealtimeUpdateFeature {
         }
 #endif
     }
-    
+
     func didChangeString(with id: Int, to newValue: String) {
         guard let key = mappingManager.stringLocalizationKey(for: id) else { return }
         self.refreshControl(with: key, newText: newValue)
         Localization.current.provider.set(string: newValue, for: key)
     }
-    
+
     func didChangePlural(with id: Int, to newValue: String) {
         guard let key = mappingManager.pluralLocalizationKey(for: id) else { return }
         self.refreshControl(with: key, newText: newValue)

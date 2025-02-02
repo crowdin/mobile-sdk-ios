@@ -12,20 +12,20 @@ class CrowdinXliffMappingDownloadOperation: CrowdinDownloadOperation {
     var strings: [String: String]?
     var plurals: [AnyHashable: Any]?
     var error: Error?
-    
+
     init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: (([String: String]?, [AnyHashable: Any]?, Error?) -> Void)?) {
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
-    
+
     override init(filePath: String, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
-    
+
     override func main() {
         self.contentDeliveryAPI.getXliffMapping(filePath: self.filePath, etag: nil, timestamp: nil) { [weak self] (xliffDict, error) in
             guard let self = self else { return }
-            
+
             var strings = [String: String]()
             var plurals = [AnyHashable: Any]()
             if let xliff = xliffDict?["xliff"] as? [AnyHashable: Any], let files = xliff["file"] as? [[AnyHashable: Any]] {

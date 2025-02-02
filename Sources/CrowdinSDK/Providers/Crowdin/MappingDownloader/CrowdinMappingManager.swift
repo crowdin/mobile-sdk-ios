@@ -10,10 +10,10 @@ import Foundation
 public protocol CrowdinMappingManagerProtocol {
     func stringLocalizationKey(for id: Int) -> String?
     func pluralLocalizationKey(for id: Int) -> String?
-    
+
     func idFor(string: String) -> Int?
     func idFor(plural: String) -> Int?
-    
+
     func id(for string: String) -> Int?
     func key(for id: Int) -> String?
 }
@@ -43,18 +43,18 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         self.downloader = CrowdinMappingDownloader(manifestManager: self.manifestManager)
         self.download(hash: hash, sourceLanguage: sourceLanguage)
     }
-    
+
     func download(hash: String, sourceLanguage: String) {
         if manifestManager.available == false {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }
-                self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)  
+                self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)
             }
         } else {
             downloadMapping(hash: hash, sourceLanguage: sourceLanguage)
         }
     }
-    
+
     func downloadMapping(hash: String, sourceLanguage: String) {
         self.downloader.download(with: hash, for: sourceLanguage) { (strings, plurals, errors) in
             self.stringsMapping = strings ?? [:]
@@ -65,29 +65,29 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
             self.downloadCompletions.removeAll()
         }
     }
-    
+
     public func stringLocalizationKey(for id: Int) -> String? {
         return stringsMapping.first(where: { Int($0.value) == id })?.key
     }
-    
+
     public func pluralLocalizationKey(for id: Int) -> String? {
         return pluralsMapping.first(where: { Int($0.value) == id })?.key
     }
-    
+
     public func idFor(string: String) -> Int? {
         guard let stringId = stringsMapping.first(where: { $0.key == string })?.value else { return nil }
         return Int(stringId)
     }
-    
+
     public func idFor(plural: String) -> Int? {
         guard let pluralId = pluralsMapping.first(where: { $0.key == plural })?.value else { return nil }
         return Int(pluralId)
     }
-    
+
     public func key(for id: Int) -> String? {
         return self.stringLocalizationKey(for: id) ?? self.pluralLocalizationKey(for: id)
     }
-    
+
     public func id(for key: String) -> Int? {
         return self.idFor(string: key) ?? self.idFor(plural: key)
     }
@@ -97,7 +97,7 @@ extension CrowdinMappingManager {
     enum Keys: String {
         case NSStringLocalizedFormatKey
     }
-    
+
     func extractPluralsMapping() {
         pluralsMapping = [:]
         for (key, value) in plurals {
@@ -106,7 +106,7 @@ extension CrowdinMappingManager {
             if let idString = valueDict[Keys.NSStringLocalizedFormatKey.rawValue] as? String {
                 pluralsMapping[keyString] = idString
             }
-            
+
             // Get id for every internal key if it exist.
             for (_, value) in valueDict {
                 guard let valueDict = value as? [AnyHashable: Any] else { continue }
@@ -116,7 +116,7 @@ extension CrowdinMappingManager {
             }
         }
     }
-    
+
     private enum PluralRules: String {
         case zero
         case one
@@ -124,12 +124,12 @@ extension CrowdinMappingManager {
         case few
         case many
         case other
-        
+
         static var all: [PluralRules] {
             return [.zero, .one, .two, .few, .many, .other]
         }
     }
-    
+
     func idFromDict(_ dict: [AnyHashable: Any]) -> String? {
         for pluralRule in PluralRules.all {
             if let id = dict[pluralRule.rawValue] as? String {

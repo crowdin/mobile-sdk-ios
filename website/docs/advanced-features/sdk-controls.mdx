@@ -1,6 +1,6 @@
 # SDK Controls
 
-Crowdin SDK Controls - UI widget for easy access to the main features of the Crowdin SDK. The component can be drag-and-dropped to any position of a device's screen, and it has the following states:
+Crowdin SDK Controls - UI widget that provides quick access to core SDK functionality. This floating widget can be positioned anywhere on the screen and features both expanded and collapsed states. The widget enables direct interaction with key SDK features like translation preview and screenshot capture.
 
 | Collapsed (simple icon)                                                 | Expanded                                                                | Expanded (logged-in)                                                              |
 |-------------------------------------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
@@ -10,7 +10,7 @@ The expanded state provides the following action buttons:
 
 - *Log In/Out*: launch authorization flow or clear user authorization data on logout. Authorization is needed for the *Screenshots* and *Real-Time Preview* features.
 - *Real-time preview*: open/close WS connection that is required to work with Crowdin editor. Also, this is using in the "Reload Translations" option.
-- *Capture screenshots*: capture a screenshot of the current screen with all the tagged strings and upload it to Crowdin.
+- *Capture screenshots*: capture a screenshot of the current screen with all the tagged strings and upload it to Crowdin. You'll be prompted to enter a name for the screenshot.
 - *Reload Translations*:
   - if Real-Time Preview is ON: it will fetch all the **latest translations** from the Crowdin project and apply them to UI.
   - if Real-Time preview is OFF: it will fetch the translations from the **distribution** and apply them to UI.
@@ -42,5 +42,10 @@ Add the following option to your Crowdin SDK configuration:
 ```
 
 :::caution
-Please make sure that you made all the necessary configurations for the nedded features.
+Please make sure you have made all the necessary configurations for the features you need.
 :::
+
+## See Also
+
+- [Screenshots](advanced-features/screenshots.mdx)
+- [Real-Time Preview](advanced-features/real-time-preview.mdx)

@@ -65,7 +65,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameter remoteStorage: Custom localization remote storage which will be used to download localizations.
     /// - Parameter completion: Remote storage preparation completion handler. Called when all required data is downloaded.
     class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, completion: @escaping () -> Void) {
-        let localizations = remoteStorage.localizations + self.inBundleLocalizations;
+        let localizations = remoteStorage.localizations + self.inBundleLocalizations
         let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
         let localStorage = LocalLocalizationStorage(localization: localization)
         let localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
@@ -104,7 +104,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameter handler: Download handler closure.
     /// - Returns: Download handler id value. This value is used to remove this handler.
     public class func addDownloadHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateDownload) -> Int {
-        return LocalizationUpdateObserver.shared.addDownloadHandler(handler) 
+        return LocalizationUpdateObserver.shared.addDownloadHandler(handler)
     }
 
     /// Method for removing localization download completion handler by id.
@@ -124,7 +124,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameter handler: Download error closure.
     /// - Returns: Handler id needed to unsubscribe.
     public class func addErrorUpdateHandler(_ handler: @escaping CrowdinSDKLocalizationUpdateError) -> Int {
-        return LocalizationUpdateObserver.shared.addErrorHandler(handler) 
+        return LocalizationUpdateObserver.shared.addErrorHandler(handler)
     }
 
     /// Method for removing localization download error handler.
@@ -159,7 +159,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     public class func removeAllLogMessageHandlers() {
         LogMessageObserver.shared.removeAllLogMessageHandlers()
     }
-    
+
     /// Get lokalization key for a string. First it will search in crowdin localization provider, than in local strings.
     /// - Parameter string: String to get localization key for,
     /// - Returns: Localization key for a given string.

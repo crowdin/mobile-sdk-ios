@@ -17,7 +17,7 @@ extension CrowdinSDK {
             self.showSettings()
         }
     }
-    
+
     public class func showSettings() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if let settingsView = SettingsView.shared {
