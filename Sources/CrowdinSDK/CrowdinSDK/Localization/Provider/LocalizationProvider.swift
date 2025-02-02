@@ -15,7 +15,7 @@ protocol LocalizationProviderProtocol {
     var localStorage: LocalLocalizationStorageProtocol { get }
     var remoteStorage: RemoteLocalizationStorageProtocol { get }
 
-    var localization: String { get  set }
+    var localization: String { get set }
     var localizations: [String] { get }
 
     func refreshLocalization()

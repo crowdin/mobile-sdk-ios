@@ -12,7 +12,7 @@ extension CrowdinSDK {
         guard let config = CrowdinSDK.config else { return }
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         if config.realtimeUpdatesEnabled {
-            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: config.crowdinProviderConfig?.organizationName, loginFeature: CrowdinSDK.loginFeature)
+            RealtimeUpdateFeature.shared = RealtimeUpdateFeature(hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, organizationName: config.crowdinProviderConfig?.organizationName, minimumManifestUpdateInterval: crowdinProviderConfig.minimumManifestUpdateInterval, loginFeature: CrowdinSDK.loginFeature)
             swizzleControlMethods()
         }
     }
