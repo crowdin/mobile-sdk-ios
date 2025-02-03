@@ -152,10 +152,30 @@ By default, SDK searches for new translation once per application load, but not 
 By default, the SDK relies on the device locale. To change the SDK target language on the fly regardless of the device locale, use the following method:
 
 ```swift
+import CrowdinSDK
+
 CrowdinSDK.enableSDKLocalization(true, localization: "<language_code>")
 ```
 
 Where `<language_code>` is the target language in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format.
+
+You can also use the `CrowdinSDK.currentLocalization` property to get or set the current localization language code used by the Crowdin SDK. When you set this property, the SDK triggers a localization download if needed:
+
+```swift
+import CrowdinSDK
+
+// Set the current localization to German
+CrowdinSDK.currentLocalization = "de"
+
+// ...
+
+// Get the current localization
+if let currentLocale = CrowdinSDK.currentLocalization {
+    print("Current localization: \(currentLocale)")
+} else {
+    print("Using default localization")
+}
+```
 
 ### `addDownloadHandler` closure
 
