@@ -1,4 +1,4 @@
-# Example project
+# Example Project
 
 Crowdin [iOS SDK Example project](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example) is a simple todo app that illustrates how you can use Crowdin SDK features with a real iOS app. This app's primary purpose is to show the Crowdin SDK integration process in action and test the possibilities it provides.
 
@@ -8,7 +8,7 @@ In the Crowdin iOS SDK Example app, you can create reminders, add them to groups
 
 ## Configuration
 
-You can find all the needed configuration code in [*SceneDelegate.swift*](https://github.com/crowdin/mobile-sdk-ios/blob/master/Example/AppleReminders/SceneDelegate.swift) file. Fill in the following fields using your credentials and run the app.
+You can find all the needed configuration code in [`SceneDelegate.swift`](https://github.com/crowdin/mobile-sdk-ios/blob/master/Example/AppleReminders/SceneDelegate.swift) file. Fill in the following fields using your credentials and run the app.
 
 ```swift
 private let distributionHash = "your_distribution_hash" // Crowdin OTA Content Delivery distribution hash

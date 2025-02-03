@@ -21,7 +21,7 @@ You can capture and upload tagged screenshots to Crowdin in two ways:
 
 ### Swift
 
-To enable the Screenshots feature in your application, add the following configuration to your *Podfile*:
+To enable the Screenshots feature in your application, add the following configuration to your `Podfile`:
 
 ```swift title="Podfile"
 use_frameworks!
@@ -130,12 +130,14 @@ You can also capture screenshots of specific UIView instances with either method
 
 ## Config Options Reference
 
+The SDK configuration is done using the `CrowdinSDKConfig` class. The following options are available:
+
 | Option               | Description                                                                                    | Required | Example Value          |
 |----------------------|------------------------------------------------------------------------------------------------|----------|------------------------|
 | `hashString`         | Distribution Hash                                                                              | Yes      | `"7a0c1...o3b"`        |
 | `sourceLanguage`     | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | Yes      | `sourceLanguage: "en"` |
 | `organizationName`   | Organization domain (Enterprise only)                                                          | No       | `"mycompany"`          |
-| `settingsEnabled`    | Enable SDK Controls                                                                            | No       | `true`                 |
+| `settingsEnabled`    | Enable [SDK Controls](/advanced-features/sdk-controls)                                         | No       | `true`                 |
 | `screenshotsEnabled` | Enable Screenshots feature                                                                     | Yes      | `true`                 |
 | `accessToken`        | Crowdin API access token                                                                       | No*      | `"your_token"`         |
 
@@ -153,6 +155,10 @@ The `CrowdinLoginConfig` class provides OAuth configuration options:
 | `redirectURI`  | Custom URL scheme for your app                  | No       | `"crowdintest://"`     |
 
 * Required only if using OAuth authentication instead of access token.
+
+:::info
+Read more about creating an [OAuth application](https://support.crowdin.com/account-settings/#oauth) in Crowdin.
+:::
 
 ## Troubleshooting
 
