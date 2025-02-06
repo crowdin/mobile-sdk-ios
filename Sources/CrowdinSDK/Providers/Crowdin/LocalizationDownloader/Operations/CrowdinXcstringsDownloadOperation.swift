@@ -174,18 +174,18 @@ class CrowdinXcstringsDownloadOperation: CrowdinDownloadOperation {
     var completion: CrowdinDownloadOperationCompletion? = nil
     let localization: String
 
-    init(filePath: String, localization: String, language: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinDownloadOperationCompletion?) {
+    init(filePath: String, localization: String, xcstringsLanguage: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinDownloadOperationCompletion?) {
         self.localization = localization
         self.timestamp = timestamp
-        self.eTagStorage = FileEtagStorage(localization: language)
+        self.eTagStorage = FileEtagStorage(localization: xcstringsLanguage)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
         self.completion = completion
     }
 
-    required init(filePath: String, localization: String, language: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
+    required init(filePath: String, localization: String, xcstringsLanguage: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI) {
         self.localization = localization
         self.timestamp = timestamp
-        self.eTagStorage = FileEtagStorage(localization: language)
+        self.eTagStorage = FileEtagStorage(localization: xcstringsLanguage)
         super.init(filePath: filePath, contentDeliveryAPI: contentDeliveryAPI)
     }
 

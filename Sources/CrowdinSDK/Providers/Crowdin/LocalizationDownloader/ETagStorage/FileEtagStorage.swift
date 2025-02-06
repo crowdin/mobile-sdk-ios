@@ -9,49 +9,59 @@ import Foundation
 
 final class FileEtagStorage: AnyEtagStorage {
     private static let fileName = "Etags.json"
+    private let queue = DispatchQueue(label: "com.crowdin.FileEtagStorage")
     let localization: String
-    let dictionaryFile: DictionaryFile
-
-    var etags: [String: [String: String]] {
-        get {
-            (dictionaryFile.file as? [String: [String: String]]) ?? [String: [String: String]]()
-        }
-        set {
-            dictionaryFile.file = newValue
-            try? dictionaryFile.save()
-        }
+    private var dictionaryFile: DictionaryFile
+    
+    private func getEtags() -> [String: [String: String]] {
+        dictionaryFile.read()
+        return (dictionaryFile.file as? [String: [String: String]]) ?? [:]
     }
-
     init(localization: String) {
         self.localization = localization
-        dictionaryFile = DictionaryFile(path: CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName)
+        let path = CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName
+        self.dictionaryFile = DictionaryFile(path: path)
         if !dictionaryFile.isCreated {
             dictionaryFile.create()
         }
     }
-
     func save(etag: String?, for file: String) {
-        var localizationEtags = etags[localization] ?? [:]
-        localizationEtags[file] = etag
-        etags[localization] = localizationEtags
+        queue.sync {
+            var currentEtags = getEtags()
+            var localizationEtags = currentEtags[localization] ?? [:]
+            localizationEtags[file] = etag
+            currentEtags[localization] = localizationEtags
+            dictionaryFile.file = currentEtags
+            try? self.dictionaryFile.save()
+        }
     }
-
     func etag(for file: String) -> String? {
-        etags[localization]?[file]
+        queue.sync {
+            let currentEtags = getEtags()
+            return currentEtags[localization]?[file]
+        }
     }
-
     func clear() {
-        etags[localization] = nil
+        queue.sync {
+            var currentEtags = getEtags()
+            currentEtags[localization] = nil
+            dictionaryFile.file = currentEtags
+            try? self.dictionaryFile.save()
+        }
     }
-
     func clear(for file: String) {
-        var localizationEtags = etags[localization] ?? [:]
-        localizationEtags[file] = nil
-        etags[localization] = localizationEtags
+        queue.sync {
+            var currentEtags = getEtags()
+            var localizationEtags = currentEtags[localization] ?? [:]
+            localizationEtags[file] = nil
+            currentEtags[localization] = localizationEtags
+            dictionaryFile.file = currentEtags
+            try? self.dictionaryFile.save()
+        }
     }
-
     /// Remove file
     static func clear() {
-        try? DictionaryFile(path: CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName).remove()
+        let path = CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName
+        try? DictionaryFile(path: path).remove()
     }
 }

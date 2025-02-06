@@ -84,6 +84,10 @@ class ReadWriteFile<T: ReadWriteProtocol>: File {
         guard let file = self.file else { return }
         file.write(to: self.path)
     }
+
+    func read() {
+        self.file = T.read(from: self.path)
+    }
 }
 
 #if os(iOS) || os(tvOS) || os(watchOS)
