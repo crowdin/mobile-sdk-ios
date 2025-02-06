@@ -1,48 +1,48 @@
 PODS:
   - BaseAPI (0.2.2)
-  - CrowdinSDK (1.10.1):
-    - CrowdinSDK/Core (= 1.10.1)
-    - CrowdinSDK/CrowdinProvider (= 1.10.1)
-  - CrowdinSDK/Core (1.10.1):
+  - CrowdinSDK (1.10.2):
+    - CrowdinSDK/Core (= 1.10.2)
+    - CrowdinSDK/CrowdinProvider (= 1.10.2)
+  - CrowdinSDK/Core (1.10.2):
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/CrowdinAPI (1.10.1):
+  - CrowdinSDK/CrowdinAPI (1.10.2):
     - BaseAPI (~> 0.2.2)
     - CrowdinSDK/Core
-  - CrowdinSDK/CrowdinFileSystem (1.10.1)
-  - CrowdinSDK/CrowdinProvider (1.10.1):
+  - CrowdinSDK/CrowdinFileSystem (1.10.2)
+  - CrowdinSDK/CrowdinProvider (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/CrowdinXCTestScreenshots (1.10.1):
+  - CrowdinSDK/CrowdinXCTestScreenshots (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/Screenshots
-  - CrowdinSDK/IntervalUpdate (1.10.1):
+  - CrowdinSDK/IntervalUpdate (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.10.1):
+  - CrowdinSDK/LoginFeature (1.10.2):
     - BaseAPI (~> 0.2.2)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.10.1):
+  - CrowdinSDK/RealtimeUpdate (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
     - Starscream (~> 4.0.4)
-  - CrowdinSDK/RefreshLocalization (1.10.1):
+  - CrowdinSDK/RefreshLocalization (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.10.1):
+  - CrowdinSDK/Screenshots (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.10.1):
+  - CrowdinSDK/Settings (1.10.2):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
@@ -86,7 +86,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaseAPI: 7d1c79778a5c85f8e05f5e5c9d7f9be6474a53eb
-  CrowdinSDK: 5be152cc1eca5946707ef2ab438979da5b63b529
+  CrowdinSDK: 7b2b2449c735eb24b94082c92b61e1503abdaeac
   netfox: 9d5cc727fe7576c4c7688a2504618a156b7d44b7
   Realm: 490aad28f1360e58fc22256d5d686d3a36525346
   RealmSwift: f6a9b56d747bbdd7931de1835896c5f024b6898a
