@@ -22,9 +22,13 @@ To configure iOS SDK integration you need to:
 - CDN will cache all translations in the release for up to 1 hour and even if new translations are released in Crowdin, CDN may return them with a delay.
 :::
 
+## Getting Started
+
+There are several ways to set up the SDK, depending on your project. Make sure you have completed the steps in the [Installation](installation) section before proceeding.
+
 ### Swift
 
-Open the *AppDelegate.swift* file and add:
+Open the `AppDelegate.swift` file and add:
 
 ```swift
 import CrowdinSDK
@@ -43,7 +47,7 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
 
 ### Objective-C
 
-In the *AppDelegate.m* add:
+In the `AppDelegate.m` add:
 
 ```objectivec
 @import CrowdinSDK
@@ -62,7 +66,7 @@ CrowdinProviderConfig *crowdinProviderConfig = [[CrowdinProviderConfig alloc] in
 CrowdinSDKConfig *config = [[[CrowdinSDKConfig config] withCrowdinProviderConfig:crowdinProviderConfig]];
 
 [CrowdinSDK startWithConfig:config completion:^{
-// SDK is ready to use, put code to change language, etc. here
+  // SDK is ready to use, put code to change language, etc. here
 }];
 ```
 
@@ -76,22 +80,51 @@ Add the following code to your Library Search Paths:
     $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
     ```
 
-2.  Add `use_frameworks!` to your Podfile.
+2.  Add `use_frameworks!` to your `Podfile`.
 
-## Alternative Setup: Info.plist
+### Alternative Setup: Info.plist
 
-You can also configure basic SDK settings in Info.plist:
+Configure basic SDK settings in your project's `Info.plist` file:
 
 1. Add these keys to *Info.plist*:
    - `CrowdinDistributionHash` (String) - Your Crowdin CDN hash
    - `CrowdinSourceLanguage` (String) - Source language code in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format
 
-2. In AppDelegate call:
+2. In your `AppDelegate` call the following method:
    - Swift: `CrowdinSDK.start()`
    - Objective-C: `[CrowdinSDK start]`
 
 :::caution
-Using the `Info.plist` setup method, you cannot configure Screenshots and Real-Time Preview features.
+The `Info.plist` configuration method does not support Screenshots and Real-Time Preview features. To use these features, configure the SDK programmatically.
+:::
+
+## Config Options Reference
+
+The SDK configuration is done using the `CrowdinSDKConfig` class. The following options are available:
+
+| Option             | Description                                                                                                                 | Example Value          |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------|------------------------|
+| `hashString`       | Distribution Hash                                                                                                           | `"7a0c1...o3b"`        |
+| `sourceLanguage`   | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php))                              | `sourceLanguage: "en"` |
+| `organizationName` | Organization domain (Enterprise only)                                                                                       | `"mycompany"`          |
+| `settingsEnabled`  | Enable [SDK Controls](/advanced-features/sdk-controls)                                                                      | `true`                 |
+| `accessToken`      | Crowdin API Access Token. An alternative to the OAuth-based authorization in the Screenshots and Real-Time Preview features | `"your_token"`         |
+
+### OAuth Options
+
+The `CrowdinLoginConfig` class provides OAuth configuration options:
+
+| Option         | Description                                         | Example Value      |
+|----------------|-----------------------------------------------------|--------------------|
+| `clientId`     | Crowdin OAuth Client ID                             | `"gpY2yT...x3TYB"` |
+| `clientSecret` | Crowdin OAuth Client Secret                         | `"Xz95t...EDx9T"`  |
+| `scope`        | OAuth scope (e.g., `project.screenshot`, `project`) | `"project"`        |
+| `redirectURI`  | Custom URL scheme for your app                      | `"crowdintest://"` |
+
+The `CrowdinLoginConfig` configuration is required for the [Screenshots](/advanced-features/screenshots) and [Real-Time Preview](/advanced-features/real-time-preview) features only.
+
+:::info
+Read more about creating an [OAuth application](https://support.crowdin.com/account-settings/#oauth) in Crowdin.
 :::
 
 ## Additional Features
@@ -114,15 +147,49 @@ By default, SDK searches for new translation once per application load, but not 
 
     Where `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes (900 seconds).
 
-## Change locale programmatically
+### Change locale programmatically
 
 By default, the SDK relies on the device locale. To change the SDK target language on the fly regardless of the device locale, use the following method:
 
 ```swift
+import CrowdinSDK
+
 CrowdinSDK.enableSDKLocalization(true, localization: "<language_code>")
 ```
 
 Where `<language_code>` is the target language in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format.
+
+You can also use the `CrowdinSDK.currentLocalization` property to get or set the current localization language code used by the Crowdin SDK. When you set this property, the SDK triggers a localization download if needed:
+
+```swift
+import CrowdinSDK
+
+// Set the current localization to German
+CrowdinSDK.currentLocalization = "de"
+
+// ...
+
+// Get the current localization
+if let currentLocale = CrowdinSDK.currentLocalization {
+    print("Current localization: \(currentLocale)")
+} else {
+    print("Using default localization")
+}
+```
+
+### `addDownloadHandler` closure
+
+The `addDownloadHandler` method allows you to add a closure that will be called every time new localization is downloaded. This can be useful for performing actions such as updating the user interface or processing the newly downloaded localization data:
+
+```swift
+let handlerId = CrowdinSDK.addDownloadHandler {
+    print("New localization downloaded!")
+    // Perform additional actions, such as updating the UI
+}
+
+// Optionally, you can remove the handler later if needed
+CrowdinSDK.removeDownloadHandler(handlerId)
+```
 
 ## SwiftUI Support
 
@@ -147,22 +214,3 @@ The Crowdin SDK supports the following localization file formats:
 - [iOS Strings](https://store.crowdin.com/strings) and [Stringsdict](https://store.crowdin.com/stringsdict) (`.strings`, `.stringsdict`)
 - [Apple XLIFF](https://store.crowdin.com/xliff) (`.xliff`)
 - [Apple Strings Catalog](https://store.crowdin.com/string_catalog) (`.xcstrings`). ⚠️ Only the CDN Content Delivery feature is available for the Apple Strings Catalog format. The Screenshots and Real-Time Preview features are not yet supported.
-
-## Config Options Reference
-
-| Option             | Description                                                                                    | Example Value          |
-|--------------------|------------------------------------------------------------------------------------------------|------------------------|
-| `hashString`       | Distribution Hash                                                                              | `"7a0c1...o3b"`        |
-| `sourceLanguage`   | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | `sourceLanguage: "en"` |
-| `organizationName` | Organization domain (Enterprise only)                                                          | `"mycompany"`          |
-| `settingsEnabled`  | Enable SDK Controls                                                                            | `true`                 |
-| `accessToken`      | Crowdin API access token                                                                       | `"your_token"`         |
-
-### OAuth Options
-
-| Option         | Description                                         | Example Value      |
-|----------------|-----------------------------------------------------|--------------------|
-| `clientId`     | OAuth Client ID                                     | `"gpY2yT...x3TYB"` |
-| `clientSecret` | OAuth Client Secret                                 | `"Xz95t...EDx9T"`  |
-| `scope`        | OAuth scope (e.g., "project.screenshot", "project") | `"project"`        |
-| `redirectURI`  | Custom URL scheme for your app                      | `"crowdintest://"` |
