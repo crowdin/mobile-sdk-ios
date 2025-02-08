@@ -67,7 +67,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 15.4.0
+          xcode-version: latest-stable
       
       - name: Install xcbeautify
         run: brew install xcbeautify
@@ -91,7 +91,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 15.4.0
+          xcode-version: latest-stable
 
       - name: Build
         working-directory: Example
@@ -120,7 +120,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 15.4.0
+          xcode-version: latest-stable
 
       - name: Tests
         working-directory: Tests
