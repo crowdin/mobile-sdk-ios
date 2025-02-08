@@ -1,11 +1,9 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
+import { themes } from "prism-react-renderer";
+import { PluginOptions } from "@easyops-cn/docusaurus-search-local";
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: 'Crowdin iOS SDK',
   tagline: 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately',
   favicon: 'img/favicon.ico',
@@ -25,8 +23,7 @@ const config = {
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
+      '@docusaurus/preset-classic',
       ({
         docs: {
           routeBasePath: '/',
@@ -36,24 +33,22 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      } satisfies Preset.Options),
     ],
   ],
 
   themes: [
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
-      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
       ({
         hashed: true,
         docsRouteBasePath: '/',
         indexBlog: false,
-      }),
+      } satisfies PluginOptions),
     ]
   ],
 
   themeConfig:
-  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
         title: 'Crowdin iOS SDK',
@@ -98,11 +93,11 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Crowdin.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: themes.github,
+        darkTheme: themes.dracula,
         additionalLanguages: ['bash', 'swift', 'objectivec']
       },
-    }),
+    } satisfies Preset.ThemeConfig),
 };
 
 module.exports = config;

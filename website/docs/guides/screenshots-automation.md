@@ -19,7 +19,7 @@ First, add the screenshot feature to your UI Tests target. You can use either Co
 
 #### CocoaPods
 
-Add the following to your Podfile:
+Add the following to your `Podfile`:
 
 ```ruby
 target 'YourAppUITests' do

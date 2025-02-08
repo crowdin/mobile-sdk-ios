@@ -14,7 +14,7 @@ The Real-Time Preview feature is designed for development and staging environmen
 
 ### Swift
 
-Add the code below to your *Podfile*:
+Add the following code to your `Podfile`:
 
 ```swift title="Podfile"
 use_frameworks!
@@ -93,18 +93,23 @@ import rtPreviewSetupApiC from '!!raw-loader!../code-samples/rt-preview-api-setu
 
 ## Config Options Reference
 
+The SDK configuration is done using the `CrowdinSDKConfig` class. The following options are available:
+
 | Option                   | Description                                                                                    | Required | Example Value          |
 |--------------------------|------------------------------------------------------------------------------------------------|----------|------------------------|
 | `hashString`             | Distribution Hash                                                                              | Yes      | `"7a0c1...o3b"`        |
 | `sourceLanguage`         | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) | Yes      | `sourceLanguage: "en"` |
 | `organizationName`       | Organization domain (Enterprise only)                                                          | No       | `"mycompany"`          |
-| `settingsEnabled`        | Enable SDK Controls                                                                            | No       | `true`                 |
+| `settingsEnabled`        | Enable [SDK Controls](/advanced-features/sdk-controls)                                         | No       | `true`                 |
 | `realtimeUpdatesEnabled` | Enable Real-Time Preview feature                                                               | Yes      | `true`                 |
 | `accessToken`            | Crowdin API access token                                                                       | No*      | `"your_token"`         |
 
 * Either `accessToken` or OAuth configuration is required.
 
 ### OAuth Options
+
+The `CrowdinLoginConfig` class provides OAuth configuration options:
+
 | Option         | Description                          | Required | Example Value      |
 |----------------|--------------------------------------|----------|--------------------|
 | `clientId`     | OAuth Client ID                      | Yes*     | `"gpY2yT...x3TYB"` |
@@ -113,3 +118,7 @@ import rtPreviewSetupApiC from '!!raw-loader!../code-samples/rt-preview-api-setu
 | `redirectURI`  | Custom URL scheme for your app       | No       | `"crowdintest://"` |
 
 *Required only if using OAuth authentication instead of access token.
+
+:::info
+Read more about creating an [OAuth application](https://support.crowdin.com/account-settings/#oauth) in Crowdin.
+:::
