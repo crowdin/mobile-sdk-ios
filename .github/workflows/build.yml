@@ -36,7 +36,7 @@ jobs:
 
   pod-lint:
     name: PodLint
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
 
@@ -100,7 +100,7 @@ jobs:
           -workspace ./AppleReminders.xcworkspace \
           -scheme AppleReminders \
           -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone SE (3rd generation)' | xcbeautify && exit ${PIPESTATUS[0]}
+          -destination 'platform=iOS Simulator,name=iPhone 15' | xcbeautify && exit ${PIPESTATUS[0]}
 
       # TODO: ObjCExample
 
@@ -130,7 +130,7 @@ jobs:
           -workspace ./Tests.xcworkspace \
           -scheme Tests \
           -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone SE (3rd generation)' \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
           -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov
