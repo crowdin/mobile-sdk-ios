@@ -52,7 +52,7 @@ jobs:
   spm-build:
     name: Build Swift Package
     runs-on: macos-15
-    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.event.action != 'synchronize')
+    if: github.event_name == 'pull_request'
     strategy:
       matrix:
         platform: [iOS, macOS, tvOS, watchOS]
