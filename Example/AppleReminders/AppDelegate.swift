@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import DebugSwift
+//import DebugSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        DebugSwift.setup()
-        DebugSwift.show()
+//        DebugSwift.setup()
+//        DebugSwift.show()
 
         return true
     }

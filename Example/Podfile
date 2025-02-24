@@ -8,7 +8,7 @@ target 'AppleReminders' do
   pod 'RealmSwift'
   pod 'SwiftDate'
   pod 'SwiftLint'
-  pod 'DebugSwift', :configurations => ['Debug']
+#  pod 'DebugSwift', :configurations => ['Debug']
   
   pod 'CrowdinSDK', :path => '../'
   pod 'CrowdinSDK/Settings', :path => '../'
