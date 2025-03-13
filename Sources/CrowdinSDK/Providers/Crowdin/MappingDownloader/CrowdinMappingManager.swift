@@ -19,6 +19,8 @@ public protocol CrowdinMappingManagerProtocol {
 }
 
 public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
+    private static var instances: [String: CrowdinMappingManager] = [:]
+    
     let downloader: CrowdinDownloaderProtocol
     let manifestManager: ManifestManager
     var pluralsMapping: [String: String] = [:]
@@ -26,15 +28,24 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var plurals: [AnyHashable: Any] = [:]
     var downloaded: Bool = false
     var downloadCompletions: [([Error]?) -> Void] = []
-
-    init(hash: String, sourceLanguage: String, organizationName: String?) {
-        self.manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
+    
+    class func shared(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) -> CrowdinMappingManager {
+        if let instance = instances[hash] {
+            return instance
+        }
+        let instance = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
+        instances[hash] = instance
+        return instance
+    }
+    
+    init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
+        self.manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         self.downloader = CrowdinMappingDownloader(manifestManager: self.manifestManager)
         self.download(hash: hash, sourceLanguage: sourceLanguage)
     }
 
     func download(hash: String, sourceLanguage: String) {
-        if manifestManager.downloaded == false {
+        if manifestManager.available == false {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }
                 self.downloadMapping(hash: hash, sourceLanguage: sourceLanguage)

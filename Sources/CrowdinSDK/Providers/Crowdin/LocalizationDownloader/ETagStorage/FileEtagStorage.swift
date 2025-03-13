@@ -17,6 +17,7 @@ final class FileEtagStorage: AnyEtagStorage {
         dictionaryFile.read()
         return (dictionaryFile.file as? [String: [String: String]]) ?? [:]
     }
+    
     init(localization: String) {
         self.localization = localization
         let path = CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName
@@ -25,6 +26,7 @@ final class FileEtagStorage: AnyEtagStorage {
             dictionaryFile.create()
         }
     }
+    
     func save(etag: String?, for file: String) {
         queue.sync {
             var currentEtags = getEtags()
@@ -35,12 +37,14 @@ final class FileEtagStorage: AnyEtagStorage {
             try? self.dictionaryFile.save()
         }
     }
+    
     func etag(for file: String) -> String? {
         queue.sync {
             let currentEtags = getEtags()
             return currentEtags[localization]?[file]
         }
     }
+    
     func clear() {
         queue.sync {
             var currentEtags = getEtags()
@@ -49,6 +53,7 @@ final class FileEtagStorage: AnyEtagStorage {
             try? self.dictionaryFile.save()
         }
     }
+    
     func clear(for file: String) {
         queue.sync {
             var currentEtags = getEtags()
@@ -59,6 +64,7 @@ final class FileEtagStorage: AnyEtagStorage {
             try? self.dictionaryFile.save()
         }
     }
+    
     /// Remove file
     static func clear() {
         let path = CrowdinFolder.shared.path + "/" + FileEtagStorage.fileName
