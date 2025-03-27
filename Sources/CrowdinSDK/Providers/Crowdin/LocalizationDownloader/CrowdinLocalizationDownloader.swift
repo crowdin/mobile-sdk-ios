@@ -17,6 +17,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate var errors: [Error]? = nil
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     fileprivate let manifestManager: ManifestManager
+    
+    // Add a lock to protect shared resources
+    fileprivate let lock = NSLock()
 
     init(manifestManager: ManifestManager) {
         self.manifestManager = manifestManager
@@ -42,8 +45,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                     self.completion?(nil, nil, nil)
                 }
             } else if let error = error {
+                self.lock.lock()
                 self.errors = [error]
                 self.completion?(nil, nil, self.errors)
+                self.lock.unlock()
             }
         }
     }
@@ -53,13 +58,20 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         self.operationQueue.cancelAllOperations()
 
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
+        
+        // Initialize shared resources with lock protection
+        lock.lock()
         self.strings = nil
         self.plurals = nil
         self.errors = nil
+        lock.unlock()
 
         let completionBlock = BlockOperation { [weak self] in
             guard let self = self else { return }
+            // Access shared resources with lock protection
+            self.lock.lock()
             self.completion?(self.strings, self.plurals, self.errors)
+            self.lock.unlock()
         }
 
         strings.forEach { filePath in
@@ -144,29 +156,35 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
 
     func add(error: Error?) {
         guard let error = error else { return }
+        lock.lock()
         if self.errors != nil {
             self.errors?.append(error)
         } else {
             self.errors = [error]
         }
+        lock.unlock()
     }
 
     func add(strings: [String: String]?) {
         guard let strings = strings else { return }
+        lock.lock()
         if self.strings != nil {
             self.strings?.merge(with: strings)
         } else {
             self.strings = strings
         }
+        lock.unlock()
     }
 
     func add(plurals: [AnyHashable: Any]?) {
         guard let plurals = plurals else { return }
+        lock.lock()
         if self.plurals != nil {
             self.plurals?.merge(with: plurals)
         } else {
             self.plurals = plurals
         }
+        lock.unlock()
     }
     
     func updateTimestamp(for localization: String, filePath: String, timestamp: TimeInterval) {

@@ -1,48 +1,48 @@
 PODS:
   - BaseAPI (0.2.2)
-  - CrowdinSDK (1.10.2):
-    - CrowdinSDK/Core (= 1.10.2)
-    - CrowdinSDK/CrowdinProvider (= 1.10.2)
-  - CrowdinSDK/Core (1.10.2):
+  - CrowdinSDK (1.10.3):
+    - CrowdinSDK/Core (= 1.10.3)
+    - CrowdinSDK/CrowdinProvider (= 1.10.3)
+  - CrowdinSDK/Core (1.10.3):
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/CrowdinAPI (1.10.2):
+  - CrowdinSDK/CrowdinAPI (1.10.3):
     - BaseAPI (~> 0.2.2)
     - CrowdinSDK/Core
-  - CrowdinSDK/CrowdinFileSystem (1.10.2)
-  - CrowdinSDK/CrowdinProvider (1.10.2):
+  - CrowdinSDK/CrowdinFileSystem (1.10.3)
+  - CrowdinSDK/CrowdinProvider (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinFileSystem
-  - CrowdinSDK/CrowdinXCTestScreenshots (1.10.2):
+  - CrowdinSDK/CrowdinXCTestScreenshots (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/Screenshots
-  - CrowdinSDK/IntervalUpdate (1.10.2):
+  - CrowdinSDK/IntervalUpdate (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/LoginFeature (1.10.2):
+  - CrowdinSDK/LoginFeature (1.10.3):
     - BaseAPI (~> 0.2.2)
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/RealtimeUpdate (1.10.2):
+  - CrowdinSDK/RealtimeUpdate (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
     - Starscream (~> 4.0.4)
-  - CrowdinSDK/RefreshLocalization (1.10.2):
+  - CrowdinSDK/RefreshLocalization (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
-  - CrowdinSDK/Screenshots (1.10.2):
+  - CrowdinSDK/Screenshots (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
     - CrowdinSDK/LoginFeature
-  - CrowdinSDK/Settings (1.10.2):
+  - CrowdinSDK/Settings (1.10.3):
     - CrowdinSDK/Core
     - CrowdinSDK/CrowdinAPI
     - CrowdinSDK/CrowdinProvider
