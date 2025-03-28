@@ -8,7 +8,6 @@
 
 import UIKit
 import CrowdinSDK
-import netfox
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -24,8 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Check for launch arguments
-        
-        NFX.sharedInstance().start()
         
         let arguments = ProcessInfo.processInfo.arguments
         

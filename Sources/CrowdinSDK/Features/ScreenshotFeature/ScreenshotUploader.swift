@@ -40,12 +40,11 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		case unknownError = "Unknown error."
         case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
-
-    init(organizationName: String?, hash: String, sourceLanguage: String, loginFeature: AnyLoginFeature?) {
+    init(organizationName: String?, hash: String, sourceLanguage: String, minimumManifestUpdateInterval: TimeInterval, loginFeature: AnyLoginFeature?) {
         self.organizationName = organizationName
 		self.hash = hash
 		self.sourceLanguage = sourceLanguage
-        self.mappingManager = CrowdinMappingManager(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
+        self.mappingManager = CrowdinMappingManager.shared(hash: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         self.loginFeature = loginFeature
         self.storageAPI = StorageAPI(organizationName: organizationName, auth: loginFeature)
 	}

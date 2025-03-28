@@ -7,12 +7,17 @@
 //
 
 import UIKit
+//import DebugSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        true
+        
+//        DebugSwift.setup()
+//        DebugSwift.show()
+
+        return true
     }
 
     // MARK: UISceneSession Lifecycle
