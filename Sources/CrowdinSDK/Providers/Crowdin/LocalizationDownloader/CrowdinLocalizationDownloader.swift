@@ -186,7 +186,6 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         lock.unlock()
     }
-    
     func updateTimestamp(for localization: String, filePath: String, timestamp: TimeInterval) {
         manifestManager.fileTimestampStorage.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
         manifestManager.fileTimestampStorage.saveTimestamps()

@@ -80,12 +80,10 @@ class ManifestManager {
         let lastUpdateTimestamp = lastManifestUpdateInterval ?? 0
         let currentTime = Date().timeIntervalSince1970
         let minimumInterval = minimumManifestUpdateInterval
-        
         guard currentTime - lastUpdateTimestamp >= minimumInterval else {
             completion()
             return
         }
-        
         guard state != .downloaded else {
             completion()
             return

@@ -14,14 +14,11 @@ import Foundation
 
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
-    
     var success: (() -> Void)? { get set }
     var error: ((Error) -> Void)? { set get }
     var disconnect: (() -> Void)? { get set }
     var enabled: Bool { get set }
-    
 	init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval, loginFeature: AnyLoginFeature?)
-    
     func start()
     func stop()
     func subscribe(control: Refreshable)
@@ -59,7 +56,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     private var socketManger: CrowdinSocketManagerProtocol?
     private var mappingManager: CrowdinMappingManagerProtocol
     private let loginFeature: AnyLoginFeature?
-    
     required init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval, loginFeature: AnyLoginFeature?) {
         self.hashString = hash
         self.sourceLanguage = sourceLanguage
@@ -166,7 +162,6 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             self.refreshAllControls()
         }
     }
-    
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String, minimumManifestUpdateInterval: TimeInterval) {
         // Download manifest if it is not initialized.
         let manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)

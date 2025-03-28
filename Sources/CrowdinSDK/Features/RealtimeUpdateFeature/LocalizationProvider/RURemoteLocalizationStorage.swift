@@ -19,7 +19,6 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     let hash: String
     let fileDownloader: RUFilesDownloader
     let manifestManager: ManifestManager
-    
     init(localization: String, sourceLanguage: String, hash: String, projectId: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.localization = localization
         self.hash = hash

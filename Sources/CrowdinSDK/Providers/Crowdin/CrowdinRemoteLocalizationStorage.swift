@@ -57,7 +57,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             completion()
         })
     }
-    
     required init(localization: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.localization = localization
         guard let hashString = Bundle.main.crowdinDistributionHash else {

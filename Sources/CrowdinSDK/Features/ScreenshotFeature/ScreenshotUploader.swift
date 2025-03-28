@@ -40,7 +40,6 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		case unknownError = "Unknown error."
         case noLocalizedStringsDetected = "There are no localized strings detected on current screen."
 	}
-	
     init(organizationName: String?, hash: String, sourceLanguage: String, minimumManifestUpdateInterval: TimeInterval, loginFeature: AnyLoginFeature?) {
         self.organizationName = organizationName
 		self.hash = hash

@@ -12,7 +12,6 @@ import Foundation
     var sourceLanguage: String
     var organizationName: String?
     var minimumManifestUpdateInterval: TimeInterval
-    
     public init(hashString: String, sourceLanguage: String, organizationName: String? = nil, minimumManifestUpdateInterval: TimeInterval = Constants.defaultMinimumManifestUpdateInterval) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
@@ -38,7 +37,6 @@ import Foundation
         self.sourceLanguage = crowdinSourceLanguage
         self.minimumManifestUpdateInterval = Constants.defaultMinimumManifestUpdateInterval
     }
-    
     public enum Constants {
         // New default minimum interval for manifest updates
         public static let defaultMinimumManifestUpdateInterval: TimeInterval = 15 * 60 // 15 minutes
