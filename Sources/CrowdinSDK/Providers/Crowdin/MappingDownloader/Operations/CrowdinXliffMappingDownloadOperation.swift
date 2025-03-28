@@ -8,7 +8,7 @@
 import Foundation
 
 class CrowdinXliffMappingDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([String: String]?, [AnyHashable: Any]?, Error?) -> Void)? = nil
+    var completion: (([String: String]?, [AnyHashable: Any]?, Error?) -> Void)?
     var strings: [String: String]?
     var plurals: [AnyHashable: Any]?
     var error: Error?

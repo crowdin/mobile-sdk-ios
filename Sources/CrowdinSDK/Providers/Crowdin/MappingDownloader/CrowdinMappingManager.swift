@@ -20,7 +20,7 @@ public protocol CrowdinMappingManagerProtocol {
 
 public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     private static var instances: [String: CrowdinMappingManager] = [:]
-    
+
     let downloader: CrowdinDownloaderProtocol
     let manifestManager: ManifestManager
     var pluralsMapping: [String: String] = [:]
@@ -28,7 +28,7 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
     var plurals: [AnyHashable: Any] = [:]
     var downloaded: Bool = false
     var downloadCompletions: [([Error]?) -> Void] = []
-    
+
     class func shared(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) -> CrowdinMappingManager {
         if let instance = instances[hash] {
             return instance
@@ -37,7 +37,7 @@ public class CrowdinMappingManager: CrowdinMappingManagerProtocol {
         instances[hash] = instance
         return instance
     }
-    
+
     init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         self.downloader = CrowdinMappingDownloader(manifestManager: self.manifestManager)

@@ -14,7 +14,7 @@ class ScreenshotsAPI: CrowdinAPI {
         return "projects"
     }
 
-    func baseUrl(with projectId: Int) -> String{
+    func baseUrl(with projectId: Int) -> String {
         return "\(fullPath)/\(projectId)/screenshots"
     }
 

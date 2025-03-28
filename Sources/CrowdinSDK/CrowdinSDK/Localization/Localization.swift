@@ -111,6 +111,6 @@ class Localization {
     ///   - format: String format.
     /// - Returns: Detected values. If values aren't detected than method will return nil.
 	func findValues(for string: String, with format: String) -> [Any]? {
-		return provider.values(for:string, with:format)
+		return provider.values(for: string, with: format)
 	}
 }

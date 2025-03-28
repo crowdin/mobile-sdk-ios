@@ -73,7 +73,7 @@ public class File: FileProtocol, FileStatsProtocol {
 }
 
 class ReadWriteFile<T: ReadWriteProtocol>: File {
-    var file: T? = nil
+    var file: T?
 
     override init(path: String) {
         super.init(path: path)

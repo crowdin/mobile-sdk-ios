@@ -8,12 +8,12 @@
 import Foundation
 
 class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
-    fileprivate var completion: CrowdinDownloaderCompletion? = nil
+    fileprivate var completion: CrowdinDownloaderCompletion?
 
     fileprivate let operationQueue = OperationQueue()
-    fileprivate var strings: [String: String]? = nil
-    fileprivate var plurals: [AnyHashable: Any]? = nil
-    fileprivate var errors: [Error]? = nil
+    fileprivate var strings: [String: String]?
+    fileprivate var plurals: [AnyHashable: Any]?
+    fileprivate var errors: [Error]?
     // swiftlint:disable implicitly_unwrapped_optional
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     fileprivate let manifestManager: ManifestManager

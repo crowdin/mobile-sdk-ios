@@ -81,8 +81,8 @@ final class BrowserLoginFeature: NSObject, AnyLoginFeature {
         return tokenResponse?.accessToken
     }
 
-    var loginCompletion: (() -> Void)?  = nil
-    var loginError: ((Error) -> Void)?  = nil
+    var loginCompletion: (() -> Void)?
+    var loginError: ((Error) -> Void)?
 
     func login(completion: @escaping () -> Void, error: @escaping (Error) -> Void) {
         self.loginCompletion = completion

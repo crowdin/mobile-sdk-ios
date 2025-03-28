@@ -35,11 +35,11 @@ class FileTimestampStorage {
     func timestamp(for localization: String, filePath: String) -> TimeInterval? {
         return fileTimestamps[localization]?[filePath]
     }
-    
+
     func clear() {
         try? FileManager.default.removeItem(atPath: storagePath)
     }
-    
+
     static func clear() {
         try? FileManager.default.removeItem(atPath: CrowdinFolder.shared.path + "/FileTimestamps/")
     }

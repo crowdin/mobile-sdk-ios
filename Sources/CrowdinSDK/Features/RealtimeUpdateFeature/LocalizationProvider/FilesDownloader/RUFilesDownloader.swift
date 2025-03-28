@@ -12,9 +12,9 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     var completion: CrowdinDownloaderCompletion!
 
     fileprivate let operationQueue = OperationQueue()
-    fileprivate var strings: [String: String]? = nil
-    fileprivate var plurals: [AnyHashable: Any]? = nil
-    fileprivate var errors: [Error]? = nil
+    fileprivate var strings: [String: String]?
+    fileprivate var plurals: [AnyHashable: Any]?
+    fileprivate var errors: [Error]?
 
     // swiftlint:disable implicitly_unwrapped_optional
     var contentDeliveryAPI: CrowdinContentDeliveryAPI!

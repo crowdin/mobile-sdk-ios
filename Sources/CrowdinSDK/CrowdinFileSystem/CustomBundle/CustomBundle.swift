@@ -54,7 +54,7 @@ class FileBundle: FolderBundle, FileBundleProtocol {
 }
 
 protocol DictionaryBundleProtocol: BundleProtocol {
-	var dictionary: Dictionary<AnyHashable, Any> { get }
+	var dictionary: [AnyHashable: Any] { get }
     var file: DictionaryFile { get }
     func remove()
 }
@@ -64,7 +64,7 @@ class DictionaryBundle: FolderBundle, DictionaryBundleProtocol {
         case pathDelimiter = "/"
     }
 
-	var dictionary: Dictionary<AnyHashable, Any>
+	var dictionary: [AnyHashable: Any]
     var file: DictionaryFile
 
     init(path: String, fileName: String, dictionary: [AnyHashable: Any]) {

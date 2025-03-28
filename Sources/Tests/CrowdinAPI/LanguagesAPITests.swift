@@ -13,30 +13,30 @@ class LanguagesAPITests: XCTestCase {
     // swiftlint:disable implicitly_unwrapped_optional
     var api: LanguagesAPI!
     let defaultTimeoutForExpectation = 2.0
-    
+
     var testOrganization = "test_organization"
-    
+
     func testAPIInitialization() {
         api = LanguagesAPI(organizationName: nil)
-        
+
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "languages")
         XCTAssertNil(api.organizationName)
         XCTAssert(api.fullPath == "https://api.crowdin.com/api/v2/languages")
     }
-    
+
     func testAPIInitializationWithOrganization() {
         api = LanguagesAPI(organizationName: testOrganization)
-        
+
         XCTAssert(api.baseURL == "https://\(testOrganization).api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "languages")
         XCTAssert(api.organizationName == testOrganization)
         XCTAssert(api.fullPath == "https://\(testOrganization).api.crowdin.com/api/v2/languages")
     }
-    
+
     func testGetLanguages() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         session.data = """
         {
           "data": [
@@ -96,24 +96,24 @@ class LanguagesAPITests: XCTestCase {
         }
         """.data(using: .utf8)
         api = LanguagesAPI(organizationName: testOrganization, session: session)
-        
-        var result: LanguagesResponse? = nil
+
+        var result: LanguagesResponse?
         api.getLanguages(limit: 2, offset: 0) { (response, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         if let result = result {
             XCTAssert(result.data.count == 2)
             XCTAssertNotNil(result.data.first)
-            
+
             if let language = result.data.first {
                 XCTAssert(language.data.id == "ach")
                 XCTAssert(language.data.name == "Acholi")
-                
+
                 XCTAssert(language.data.editorCode == "ach")
                 XCTAssert(language.data.twoLettersCode == "ach")
                 XCTAssert(language.data.locale == "ach-UG")
@@ -126,7 +126,7 @@ class LanguagesAPITests: XCTestCase {
                 XCTAssert(language.data.textDirection == .ltr)
                 XCTAssertNil(language.data.dialectOf)
             }
-            
+
             XCTAssert(result.pagination.limit == 2)
             XCTAssert(result.pagination.offset == 0)
         }

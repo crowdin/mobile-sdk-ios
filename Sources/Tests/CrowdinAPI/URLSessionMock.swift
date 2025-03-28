@@ -30,7 +30,7 @@ class URLSessionDataTaskMock: URLSessionDataTask {
     init(closure: @escaping () -> Void) {
         self.closure = closure
     }
-    
+
     override func resume() {
         closure()
     }

@@ -171,7 +171,7 @@ class XCStringsStorage {
 class CrowdinXcstringsDownloadOperation: CrowdinDownloadOperation {
     var timestamp: TimeInterval?
     let eTagStorage: AnyEtagStorage
-    var completion: CrowdinDownloadOperationCompletion? = nil
+    var completion: CrowdinDownloadOperationCompletion?
     let localization: String
 
     init(filePath: String, localization: String, xcstringsLanguage: String, timestamp: TimeInterval?, contentDeliveryAPI: CrowdinContentDeliveryAPI, completion: CrowdinDownloadOperationCompletion?) {

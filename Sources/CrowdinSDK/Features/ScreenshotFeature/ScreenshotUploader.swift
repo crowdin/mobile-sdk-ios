@@ -32,7 +32,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
     let storageAPI: StorageAPI
 
 	var mappingManager: CrowdinMappingManager
-	var projectId: Int? = nil
+	var projectId: Int?
 
 	enum Errors: String {
 		case storageIdIsMissing = "Storage id is missing."
@@ -91,7 +91,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 
     func prepareSync() -> Error? {
         let semaphore = DispatchSemaphore(value: 0)
-        var error: Error? = nil
+        var error: Error?
         downloadMappingIfNeeded {
             error = $0
             semaphore.signal()
@@ -240,7 +240,7 @@ class CrowdinScreenshotUploader: ScreenshotUploader {
 		}
 
         controlsWithId.forEach({
-            if screenRect.contains($0.rect)  {
+            if screenRect.contains($0.rect) {
                 results.append($0)
             } else {
                 let visibleRect = screenRect.intersection($0.rect)

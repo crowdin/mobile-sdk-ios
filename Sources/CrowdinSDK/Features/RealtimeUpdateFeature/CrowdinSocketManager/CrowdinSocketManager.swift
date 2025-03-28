@@ -12,11 +12,11 @@ protocol CrowdinSocketManagerProtocol {
     init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver)
 
     var active: Bool { get }
-    var connect: (() -> Void)? { set get }
-    var error: ((Error) -> Void)? { set get }
-    var disconnect: (() -> Void)? { set get }
-    var didChangeString: ((Int, String) -> Void)? { set get }
-    var didChangePlural: ((Int, String) -> Void)? { set get }
+    var connect: (() -> Void)? { get set }
+    var error: ((Error) -> Void)? { get set }
+    var disconnect: (() -> Void)? { get set }
+    var didChangeString: ((Int, String) -> Void)? { get set }
+    var didChangePlural: ((Int, String) -> Void)? { get set }
 
     func start()
     func stop()
@@ -33,23 +33,23 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
         return socketAPI.isConnected
     }
 
-    var connect: (() -> Void)? = nil {
+    var connect: (() -> Void)? {
         didSet {
             self.socketAPI.onConnect = connect
         }
     }
-    var error: ((Error) -> Void)? = nil {
+    var error: ((Error) -> Void)? {
         didSet {
             self.socketAPI.onError = error
         }
     }
-    var disconnect: (() -> Void)? = nil {
+    var disconnect: (() -> Void)? {
         didSet {
             self.socketAPI.onDisconnect = disconnect
         }
     }
-    var didChangeString: ((Int, String) -> Void)? = nil
-    var didChangePlural: ((Int, String) -> Void)? = nil
+    var didChangeString: ((Int, String) -> Void)?
+    var didChangePlural: ((Int, String) -> Void)?
 
 	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver) {
 		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)

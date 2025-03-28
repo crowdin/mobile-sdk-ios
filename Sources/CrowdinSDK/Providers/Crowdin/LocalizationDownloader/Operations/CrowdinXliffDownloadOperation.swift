@@ -65,7 +65,7 @@ class XliffDictionaryParser {
 }
 
 class CrowdinXliffDownloadOperation: CrowdinDownloadOperation {
-    var completion: CrowdinXliffDownloadOperationCompletion? = nil
+    var completion: CrowdinXliffDownloadOperationCompletion?
     var strings: [String: String]?
     var plurals: [AnyHashable: Any]?
     var timestamp: TimeInterval?

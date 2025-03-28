@@ -15,7 +15,7 @@ import Foundation
 protocol RealtimeUpdateFeatureProtocol {
     static var shared: RealtimeUpdateFeatureProtocol? { get set }
     var success: (() -> Void)? { get set }
-    var error: ((Error) -> Void)? { set get }
+    var error: ((Error) -> Void)? { get set }
     var disconnect: (() -> Void)? { get set }
     var enabled: Bool { get set }
 	init(hash: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval, loginFeature: AnyLoginFeature?)
@@ -40,7 +40,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     let sourceLanguage: String
     let organizationName: String?
     let minimumManifestUpdateInterval: TimeInterval
-	var distributionResponse: DistributionsResponse? = nil
+	var distributionResponse: DistributionsResponse?
 
     var active: Bool { return socketManger?.active ?? false }
     var enabled: Bool {
@@ -133,7 +133,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         self.removeRealtimeUpdatesLocalizationProvider()
     }
 
-    var oldProvider: LocalizationProviderProtocol? = nil
+    var oldProvider: LocalizationProviderProtocol?
 
     func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
         oldProvider = Localization.current.provider

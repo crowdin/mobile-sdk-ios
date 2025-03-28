@@ -118,7 +118,7 @@ final class SettingsView: UIView {
         cells.forEach({ stackView.addArrangedSubview($0) })
     }
 
-    var logsVC: UIViewController? = nil
+    var logsVC: UIViewController?
 
     func dismissLogsVC() {
         logsVC?.cw_dismiss()

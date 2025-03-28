@@ -9,10 +9,7 @@ import XCTest
 @testable import CrowdinSDK
 
 class LocaleExtensionTests: XCTestCase {
-	override func setUp() {
-		super.setUp()
-	}
-	
+
 	func testPreferredLocalizations() {
 		XCTAssert(Locale.preferredLocalizations.contains("en"), "Should containg en localization")
 	}

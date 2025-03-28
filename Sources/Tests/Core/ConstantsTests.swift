@@ -12,11 +12,11 @@ class ConstantsTests: XCTestCase {
     func testDefaultLocalizationValue() {
         XCTAssert(defaultLocalization == "en")
     }
-    
+
     func testBaseLocalizationValue() {
         XCTAssert(baseLocalization == "Base")
     }
-    
+
     func testDefaultCrowdinErrorCodeValue() {
         XCTAssert(defaultCrowdinErrorCode == 99999)
     }

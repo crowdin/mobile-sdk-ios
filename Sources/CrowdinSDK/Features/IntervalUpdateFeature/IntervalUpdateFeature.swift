@@ -36,7 +36,7 @@ final class IntervalUpdateFeature: IntervalUpdateFeatureProtocol {
     static var shared: IntervalUpdateFeatureProtocol?
 
     var interval: TimeInterval
-    var timer: Timer? = nil
+    var timer: Timer?
 
     convenience init() {
         self.init(interval: IntervalUpdateFeature.minimumTimeInterval)

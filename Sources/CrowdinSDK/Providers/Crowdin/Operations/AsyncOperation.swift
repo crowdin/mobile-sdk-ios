@@ -44,7 +44,7 @@ class AsyncOperation: Operation, AnyAsyncOperation {
     }
     override func start() {
         if isCancelled { state = .finished; return }
-        guard !hasCancelledDependencies else{ cancel(); return }
+        guard !hasCancelledDependencies else { cancel(); return }
         state = .executing
         main()
     }
@@ -61,7 +61,7 @@ class AsyncOperation: Operation, AnyAsyncOperation {
 }
 
 private extension AsyncOperation {
-    var hasCancelledDependencies: Bool{
-        return dependencies.reduce(false){ $0 || $1.isCancelled }
+    var hasCancelledDependencies: Bool {
+        return dependencies.reduce(false) { $0 || $1.isCancelled }
     }
 }

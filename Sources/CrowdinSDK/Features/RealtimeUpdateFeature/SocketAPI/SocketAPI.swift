@@ -17,11 +17,11 @@ class SocketAPI: NSObject {
 	var wsUrl: String
 
     var ws: WebSocket
-    var onConnect: (() -> Void)? = nil
-    var onError: ((Error) -> Void)? = nil
-    var onDisconnect: (() -> Void)? = nil
-    var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)? = nil
-    var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)? = nil
+    var onConnect: (() -> Void)?
+    var onError: ((Error) -> Void)?
+    var onDisconnect: (() -> Void)?
+    var didReceiveUpdateDraft: ((UpdateDraftResponse) -> Void)?
+    var didReceiveUpdateTopSuggestion: ((TopSuggestionResponse) -> Void)?
 
     var isConnected = false
 

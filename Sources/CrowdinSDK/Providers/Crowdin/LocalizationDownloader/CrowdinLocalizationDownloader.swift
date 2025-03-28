@@ -9,15 +9,15 @@ import Foundation
 
 class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     // swiftlint:disable implicitly_unwrapped_optional
-    var completion: CrowdinDownloaderCompletion? = nil
+    var completion: CrowdinDownloaderCompletion?
 
     fileprivate let operationQueue = OperationQueue()
-    fileprivate var strings: [String: String]? = nil
-    fileprivate var plurals: [AnyHashable: Any]? = nil
-    fileprivate var errors: [Error]? = nil
+    fileprivate var strings: [String: String]?
+    fileprivate var plurals: [AnyHashable: Any]?
+    fileprivate var errors: [Error]?
     fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
     fileprivate let manifestManager: ManifestManager
-    
+
     // Add a lock to protect shared resources
     fileprivate let lock = NSLock()
 
@@ -58,7 +58,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         self.operationQueue.cancelAllOperations()
 
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
-        
+
         // Initialize shared resources with lock protection
         lock.lock()
         self.strings = nil

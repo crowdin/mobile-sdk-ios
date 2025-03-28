@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: -  extension with core functionality for language substitution.
+// MARK: - extension with core functionality for language substitution.
 extension CWLabel {
     /// Association object for storing localization key.
     private static let localizationKeyAssociation = ObjectAssociation<String>()

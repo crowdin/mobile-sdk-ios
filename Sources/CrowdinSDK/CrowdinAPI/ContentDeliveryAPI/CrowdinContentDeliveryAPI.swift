@@ -51,7 +51,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
 
-    // MARK - General download methods
+    // MARK: - General download methods
     private func getFile(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIDataCompletion) {
         let stringURL = buildURL(filePath: filePath, timestamp: timestamp)
         var headers: [String: String] = [:]
@@ -72,7 +72,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
 
-    // MARK - Localization download methods:
+    // MARK: - Localization download methods:
     func getStrings(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -88,7 +88,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
 
-    // MARK - Localization download methods:
+    // MARK: - Localization download methods:
     func getFileData(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIFileDataCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, response, error) in
             let etag = (response as? HTTPURLResponse)?.allHeaderFields[Strings.etag.rawValue] as? String
@@ -130,7 +130,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         }
     }
 
-    // MARK - Mapping download methods:
+    // MARK: - Mapping download methods:
     func getStringsMapping(filePath: String, etag: String?, timestamp: TimeInterval?, completion: @escaping CrowdinAPIStringsMappingCompletion) {
         self.getFile(filePath: filePath, etag: etag, timestamp: timestamp) { (data, _, error) in
             if let data = data {

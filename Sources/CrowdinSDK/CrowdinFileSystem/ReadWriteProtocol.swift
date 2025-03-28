@@ -30,7 +30,7 @@ extension Dictionary: ReadWriteProtocol {
         NSDictionary(dictionary: self).write(toFile: path, atomically: true)
     }
 
-    public static func read(from path: String) -> Dictionary<Key, Value>? {
+    public static func read(from path: String) -> [Key: Value]? {
         return NSDictionary(contentsOfFile: path) as? Dictionary
     }
 }

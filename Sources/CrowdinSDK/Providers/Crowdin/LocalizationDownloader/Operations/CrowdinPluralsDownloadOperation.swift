@@ -8,7 +8,7 @@
 import Foundation
 
 class CrowdinPluralsDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
+    var completion: (([AnyHashable: Any]?, Error?) -> Void)?
     var timestamp: TimeInterval?
     var eTagStorage: AnyEtagStorage
 

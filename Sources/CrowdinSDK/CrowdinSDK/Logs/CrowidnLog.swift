@@ -34,7 +34,7 @@ public struct CrowdinLog {
     let date = Date()
     let type: CrowdinLogType
     let message: String
-    var attributedDetails: NSAttributedString? = nil
+    var attributedDetails: NSAttributedString?
 
     static func info(with message: String, attributedDetails: NSAttributedString? = nil) -> CrowdinLog {
         var log = CrowdinLog(type: .info, message: message)

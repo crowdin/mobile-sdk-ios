@@ -15,9 +15,9 @@ class ManifestManager {
     fileprivate var completionsMap = [String: [() -> Void]]()
     /// Dictionary with manifest managers for hashes.
     fileprivate static var manifestMap = [String: ManifestManager]()
-    
+
     private var minimumManifestUpdateInterval: TimeInterval
-    
+
     private var lastManifestUpdateInterval: TimeInterval? {
         get {
             fileTimestampStorage.timestamp(for: "manifest", filePath: "manifest.json")
@@ -27,7 +27,7 @@ class ManifestManager {
             fileTimestampStorage.saveTimestamps()
         }
     }
-    
+
     var fileTimestampStorage: FileTimestampStorage
     var available: Bool { state == .downloaded || state == .local }
     let hash: String
@@ -88,7 +88,7 @@ class ManifestManager {
             completion()
             return
         }
-        
+
         addCompletion(completion: completion, for: hash)
         guard state != .downlaoding else { return }
         state = .downlaoding
@@ -170,7 +170,7 @@ class ManifestManager {
         try? FileManager.default.removeItem(atPath: manifestPath)
         fileTimestampStorage.clear()
     }
-    
+
     enum ManifestState {
         case none
         case local

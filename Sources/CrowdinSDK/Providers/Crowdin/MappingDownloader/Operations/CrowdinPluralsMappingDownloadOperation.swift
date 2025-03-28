@@ -8,7 +8,7 @@
 import Foundation
 
 class CrowdinPluralsMappingDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([AnyHashable: Any]?, Error?) -> Void)? = nil
+    var completion: (([AnyHashable: Any]?, Error?) -> Void)?
     var plurals: [AnyHashable: Any]?
     var error: Error?
 

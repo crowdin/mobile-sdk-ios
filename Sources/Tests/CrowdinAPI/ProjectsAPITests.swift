@@ -12,33 +12,33 @@ class ProjectsAPITests: XCTestCase {
     var session = URLSessionMock()
     // swiftlint:disable implicitly_unwrapped_optional
     var api: ProjectsAPI!
-    
+
     var testOrganization = "test_organization"
     var testProjectId = "352187"
     var testFileId = "6"
     let defaultTimeoutForExpectation = 2.0
-    
+
     func testAPIInitialization() {
         api = ProjectsAPI(organizationName: nil)
-        
+
         XCTAssert(api.baseURL == "https://api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "projects")
         XCTAssertNil(api.organizationName)
         XCTAssert(api.fullPath == "https://api.crowdin.com/api/v2/projects")
     }
-    
+
     func testAPIInitializationWithOrganization() {
         api = ProjectsAPI(organizationName: testOrganization)
-        
+
         XCTAssert(api.baseURL == "https://\(testOrganization).api.crowdin.com/api/v2/")
         XCTAssert(api.apiPath == "projects")
         XCTAssert(api.organizationName == testOrganization)
         XCTAssert(api.fullPath == "https://\(testOrganization).api.crowdin.com/api/v2/projects")
     }
-    
+
     func testGetFilesList() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         session.data = """
         {
           "data": [
@@ -90,24 +90,24 @@ class ProjectsAPITests: XCTestCase {
         }
         """.data(using: .utf8)
         api = ProjectsAPI(organizationName: testOrganization, session: session)
-        
-        var result: ProjectsFilesListResponse? = nil
+
+        var result: ProjectsFilesListResponse?
         api.getFilesList(projectId: testProjectId, limit: 2, offset: 0) { (response, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         if let result = result {
             XCTAssert(result.data.count == 2)
             XCTAssertNotNil(result.data.first)
-            
+
             if let file = result.data.first {
                 XCTAssert(file.data.id == 6)
                 XCTAssert(file.data.projectID == 352187)
-                
+
                 XCTAssertNil(file.data.branchID)
                 XCTAssertNil(file.data.directoryID)
                 XCTAssert(file.data.name == "crowdin_sample_webpage.html")
@@ -117,15 +117,15 @@ class ProjectsAPITests: XCTestCase {
                 XCTAssert(file.data.status == "active")
                 XCTAssert(file.data.priority == "normal")
             }
-            
+
             XCTAssert(result.pagination.offset == 0)
             XCTAssert(result.pagination.limit == 25)
         }
     }
-    
+
     func testBuildProjectFileTranslation() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         session.data = """
         {
             "data": {
@@ -135,27 +135,27 @@ class ProjectsAPITests: XCTestCase {
         }
         """.data(using: .utf8)
         api = ProjectsAPI(organizationName: testOrganization, session: session)
-        
-        var result: ProjectsDownloadFileResponse? = nil
+
+        var result: ProjectsDownloadFileResponse?
         api.buildProjectFileTranslation(projectId: testProjectId, fileId: testFileId, targetLanguageId: "en") { (response, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         XCTAssertNotNil(result?.data)
-        
+
         if let data = result?.data {
             XCTAssert(data.url == "https://crowdin-tmp.downloads.crowdin.com/exported_files/6")
             XCTAssert(data.expireIn == "2020-02-11T10:39:18+00:00")
         }
     }
-    
+
     func testDownloadFile() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         session.data = """
         {
             "data": {
@@ -165,18 +165,18 @@ class ProjectsAPITests: XCTestCase {
         }
         """.data(using: .utf8)
         api = ProjectsAPI(organizationName: testOrganization, session: session)
-        
-        var result: ProjectsDownloadFileResponse? = nil
+
+        var result: ProjectsDownloadFileResponse?
         api.downloadFile(projectId: testProjectId, fileId: testFileId) { (response, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         XCTAssertNotNil(result?.data)
-        
+
         if let data = result?.data {
             XCTAssert(data.url == "https://crowdin-tmp.downloads.crowdin.com/exported_files/6")
             XCTAssert(data.expireIn == "2020-02-11T10:39:18+00:00")

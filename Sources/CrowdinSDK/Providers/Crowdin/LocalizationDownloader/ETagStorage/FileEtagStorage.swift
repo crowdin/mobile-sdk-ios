@@ -12,7 +12,7 @@ final class FileEtagStorage: AnyEtagStorage {
     private let queue = DispatchQueue(label: "com.crowdin.FileEtagStorage")
     let localization: String
     private var dictionaryFile: DictionaryFile
-    
+
     private func getEtags() -> [String: [String: String]] {
         dictionaryFile.read()
         return (dictionaryFile.file as? [String: [String: String]]) ?? [:]

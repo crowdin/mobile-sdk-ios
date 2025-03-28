@@ -8,7 +8,7 @@
 import Foundation
 
 class CrowdinStringsMappingDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([String: String]?, Error?) -> Void)? = nil
+    var completion: (([String: String]?, Error?) -> Void)?
     var strings: [String: String]?
     var error: Error?
 

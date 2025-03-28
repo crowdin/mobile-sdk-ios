@@ -9,7 +9,7 @@ import Foundation
 
 extension CrowdinSDKConfig {
     private static var intervalUpdatesEnabled: Bool = false
-    private static var intervalUpdatesInterval: TimeInterval? = nil
+    private static var intervalUpdatesInterval: TimeInterval?
 
     // Time interval for localization updates. Minimum value is 15 minutes.
     var localizationUpdatesInterval: TimeInterval? {

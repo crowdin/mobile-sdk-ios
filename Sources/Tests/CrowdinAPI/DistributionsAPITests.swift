@@ -53,7 +53,7 @@ class DistributionsAPITests: XCTestCase {
         """.data(using: .utf8)
         api = DistributionsAPI(hashString: testHashString, organizationName: testOrganization, session: session)
 
-        var result: DistributionsResponse? = nil
+        var result: DistributionsResponse?
         api.getDistribution { (response, _) in
             result = response
             expectation.fulfill()

@@ -13,7 +13,7 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
     // swiftlint:disable implicitly_unwrapped_optional
     var crowdinContentDeliveryAPI: CrowdinContentDeliveryAPI!
     let defaultTimeoutForExpectation = 2.0
-    
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -30,47 +30,47 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         key = value;
         """
         session.data = fileString.data(using: .utf8)
-        
-        var result: [String: String]? = nil
+
+        var result: [String: String]?
         crowdinContentDeliveryAPI.getStrings(filePath: "filePath", etag: nil, timestamp: nil) { (strings, _, _) in
             result = strings
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         XCTAssert(result?.count == 1)
         XCTAssert(result?.contains(where: { $0 == "key" && $1 == "value" }) ?? false)
     }
-    
+
     func testCrowdinContentDeliveryAPIGetStringsMapping() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         key1 = 0;
         key2 = 1;
         """
         session.data = fileString.data(using: .utf8)
-        
-        var result: [String: String]? = nil
+
+        var result: [String: String]?
         crowdinContentDeliveryAPI.getStrings(filePath: "filePath", etag: nil, timestamp: nil) { (strings, _, _) in
             result = strings
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         XCTAssert(result?.count == 2)
         XCTAssert(result?.contains(where: { $0 == "key1" && $1 == "0" }) ?? false)
         XCTAssert(result?.contains(where: { $0 == "key2" && $1 == "1" }) ?? false)
     }
-    
+
     func testCrowdinContentDeliveryAPIGetPlurals() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         <?xml version="1.0" encoding="UTF-8"?>
@@ -99,25 +99,25 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         </plist>
         """
         session.data = fileString.data(using: .utf8)
-        
-        var result: [AnyHashable: Any]? = nil
+
+        var result: [AnyHashable: Any]?
         crowdinContentDeliveryAPI.getPlurals(filePath: "filePath", etag: nil, timestamp: nil) { (response, _, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         if let result = result {
             XCTAssert(result.isEmpty == false)
             XCTAssert(result["johns_pineapples_count"] != nil)
         }
     }
-    
+
     func testCrowdinContentDeliveryAPIGetPluralsMapping() {
         let expectation = XCTestExpectation(description: "Wait for callback")
-        
+
         crowdinContentDeliveryAPI = CrowdinContentDeliveryAPI(hash: "hash", session: session)
         let fileString = """
         <?xml version="1.0" encoding="UTF-8"?>
@@ -147,14 +147,14 @@ class CrowdinContentDeliveryAPITests: XCTestCase {
         """
         session.data = fileString.data(using: .utf8)
         var result: [AnyHashable: Any]?
-        
+
         crowdinContentDeliveryAPI.getPluralsMapping(filePath: "filePath", etag: nil, timestamp: nil) { (response, _) in
             result = response
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: defaultTimeoutForExpectation)
-        
+
         XCTAssertNotNil(result)
         XCTAssertTrue(result?.isEmpty == .some(false))
         XCTAssertNotNil(result?["johns_pineapples_count"])

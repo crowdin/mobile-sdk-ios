@@ -8,7 +8,7 @@
 import Foundation
 
 class CrowdinStringsDownloadOperation: CrowdinDownloadOperation {
-    var completion: (([String: String]?, Error?) -> Void)? = nil
+    var completion: (([String: String]?, Error?) -> Void)?
     var timestamp: TimeInterval?
     var eTagStorage: AnyEtagStorage
 
