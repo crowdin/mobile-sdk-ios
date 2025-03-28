@@ -32,7 +32,7 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
         let preparationExpectation = XCTestExpectation(description: "Provider preperation")
         
         remoteLocalizationStorage = CrowdinRemoteLocalizationStorage(localization: "en", config: crowdinProviderConfig)
-        
+        remoteLocalizationStorage.manifestManager.clear()
         remoteLocalizationStorage.prepare {
             preparationExpectation.fulfill()
         }
@@ -90,12 +90,15 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
         
         remoteLocalizationStorage.localization = "de"
         remoteLocalizationStorage.fetchData { localizations, localization, strings, plurals in
+            print("localizations - \(localizations)")
             XCTAssertTrue(localization == "de")
             XCTAssertTrue(localizations?.count == 3)
             
+            print("localizations - \(strings)")
             XCTAssertNotNil(strings)
             XCTAssertTrue(strings?.count == 5)
             
+            print("localizations - \(plurals)")
             XCTAssertNotNil(plurals)
             XCTAssertTrue(plurals?.count == 2)
             

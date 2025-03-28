@@ -19,11 +19,10 @@ class RURemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     let hash: String
     let fileDownloader: RUFilesDownloader
     let manifestManager: ManifestManager
-
-    init(localization: String, sourceLanguage: String, hash: String, projectId: String, organizationName: String?) {
+    init(localization: String, sourceLanguage: String, hash: String, projectId: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.localization = localization
         self.hash = hash
-        manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName)
+        manifestManager = ManifestManager.manifest(for: hash, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
         self.fileDownloader = RUFilesDownloader(projectId: projectId, organizationName: organizationName, manifestManager: manifestManager, loginFeature: CrowdinSDK.loginFeature)
     }
 
