@@ -11,8 +11,8 @@ extension LanguagesResponseData: CrowdinLanguage { }
 
 class CrowdinSupportedLanguages {
     fileprivate enum Strings: String {
-        case SupportedLanguages
-        case Crowdin
+        case supportedLanguages = "SupportedLanguages"
+        case crowdin = "Crowdin"
     }
 
     fileprivate enum Keys: String {
@@ -20,7 +20,8 @@ class CrowdinSupportedLanguages {
     }
 
     fileprivate var filePath: String {
-        return CrowdinFolder.shared.path + String.pathDelimiter + Strings.Crowdin.rawValue + String.pathDelimiter + Strings.SupportedLanguages.rawValue + (organizationName ?? "") + FileType.json.extension
+        // swiftlint:disable line_length
+        return CrowdinFolder.shared.path + String.pathDelimiter + Strings.crowdin.rawValue + String.pathDelimiter + Strings.supportedLanguages.rawValue + (organizationName ?? "") + FileType.json.extension
     }
 
     fileprivate var lastUpdatedDate: Date? {

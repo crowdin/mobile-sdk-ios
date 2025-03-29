@@ -62,6 +62,6 @@ class AsyncOperation: Operation, AnyAsyncOperation {
 
 private extension AsyncOperation {
     var hasCancelledDependencies: Bool{
-        return dependencies.reduce(false){ $0 || $1.isCancelled }
+        return dependencies.reduce(false) { $0 || $1.isCancelled }
     }
 }

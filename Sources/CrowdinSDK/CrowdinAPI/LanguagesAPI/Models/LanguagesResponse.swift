@@ -70,7 +70,20 @@ public struct LanguagesResponseData: Codable {
         case dialectOf
     }
 
-    public init(id: String, name: String, editorCode: String, twoLettersCode: String, threeLettersCode: String, locale: String, androidCode: String, osxCode: String, osxLocale: String, pluralCategoryNames: [LanguagesResponsePluralCategoryName], pluralRules: String, pluralExamples: [String], textDirection: LanguagesResponseTextDirection, dialectOf: String?) {
+    public init(id: String,
+                name: String,
+                editorCode: String,
+                twoLettersCode: String,
+                threeLettersCode: String,
+                locale: String,
+                androidCode: String,
+                osxCode: String,
+                osxLocale: String,
+                pluralCategoryNames: [LanguagesResponsePluralCategoryName],
+                pluralRules: String,
+                pluralExamples: [String],
+                textDirection: LanguagesResponseTextDirection,
+                dialectOf: String?) {
         self.id = id
         self.name = name
         self.editorCode = editorCode

@@ -15,7 +15,7 @@ extension UserDefaults {
     /// - mode: Key for saving SDK mode value.
     /// - customLocalization: Key for saving current localization language code.
 	enum Keys: String {
-		case AppleLanguages
+		case appleLanguages = "AppleLanguages"
         case mode = "CrowdinSDK.Localization.mode"
         case customLocalization = "CrowdinSDK.Localization.customLocalization"
 	}
@@ -23,10 +23,10 @@ extension UserDefaults {
     /// Store custom languages priorities for in-app localization.
 	var appleLanguages: [String]? {
 		get {
-			return UserDefaults.standard.array(forKey: Keys.AppleLanguages.rawValue) as? [String]
+			return UserDefaults.standard.array(forKey: Keys.appleLanguages.rawValue) as? [String]
 		}
 		set {
-			UserDefaults.standard.set(newValue, forKey: Keys.AppleLanguages.rawValue)
+			UserDefaults.standard.set(newValue, forKey: Keys.appleLanguages.rawValue)
 			UserDefaults.standard.synchronize()
 		}
 	}

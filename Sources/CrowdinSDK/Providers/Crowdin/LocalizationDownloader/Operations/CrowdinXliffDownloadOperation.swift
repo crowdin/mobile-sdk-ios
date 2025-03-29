@@ -24,7 +24,9 @@ class XliffDictionaryParser {
                     if original.isStrings || original.isXib || original.isStorybaord { // Parse strings
                         if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
                             for transUnit in transUnits {
-                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let target = transUnit["target"] as? [String: Any], let textKey = target["XMLParserTextKey"] as? String {
+                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String],
+                                    let id = attributes["id"], let target = transUnit["target"] as? [String: Any],
+                                    let textKey = target["XMLParserTextKey"] as? String {
                                     strings[id] = textKey
                                 }
                             }
@@ -32,7 +34,9 @@ class XliffDictionaryParser {
                     } else if original.isStringsDict { // Parse Plurals
                         if let body = file["body"] as? [AnyHashable: Any], let transUnits = body["trans-unit"] as? [[String: Any]] {
                             for transUnit in transUnits {
-                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String], let id = attributes["id"], let target = transUnit["target"] as? [String: Any], let textKey = target["XMLParserTextKey"] as? String {
+                                if let attributes = transUnit["XMLParserAttributesKey"] as? [String: String],
+                                    let id = attributes["id"], let target = transUnit["target"] as? [String: Any],
+                                    let textKey = target["XMLParserTextKey"] as? String {
                                     var path = id.split(separator: "/").map({ String($0) }).map({ $0.split(separator: ":").map({ String($0) }) })
                                     if path.count > 1 {
                                         path.removeLast()

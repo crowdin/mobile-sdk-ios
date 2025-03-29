@@ -14,8 +14,8 @@ public final class CrowdinFolder: Folder {
     }
 
     enum Folders: String {
-        case Crowdin
-        case Screenshots
+        case crowdin = "Crowdin"
+        case screenshots = "Screenshots"
     }
 
     public static let shared = CrowdinFolder()
@@ -23,12 +23,12 @@ public final class CrowdinFolder: Folder {
     let screenshotsFolder: Folder
 
     public init() {
-        let name = (Bundle.main.bundleIdentifier ?? "") + Strings.dot.rawValue + Folders.Crowdin.rawValue
+        let name = (Bundle.main.bundleIdentifier ?? "") + Strings.dot.rawValue + Folders.crowdin.rawValue
         guard let rootFolder = ApplicationSupportFolder() ?? CachesFolder() else {
             fatalError("Error while obtaining folder for saving Crowdin files, neither Application Support nor Caches directories is not available.")
         }
         let path = rootFolder.path + Strings.pathDelimiter.rawValue + name
-        self.screenshotsFolder = Folder(path: path + Strings.pathDelimiter.rawValue + Folders.Screenshots.rawValue)
+        self.screenshotsFolder = Folder(path: path + Strings.pathDelimiter.rawValue + Folders.screenshots.rawValue)
         super.init(path: path)
         self.createFoldersIfNeeded()
     }
