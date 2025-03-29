@@ -32,7 +32,10 @@ jobs:
           brew install danger/tap/danger-swift
 
       - name: Run Danger SwiftLint
-        run: danger-swift ci
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+          danger-swift ci
 
   pod-lint:
     name: PodLint
@@ -51,6 +54,7 @@ jobs:
 
   spm-build:
     name: Build Swift Package
+    needs: danger-swiftlint
     runs-on: macos-15
     strategy:
       matrix:
