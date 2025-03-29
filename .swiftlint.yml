@@ -35,7 +35,7 @@ excluded:
   - .build
 
 included:
-  - Sources/CrowdinSDK
+  - Sources
 
 colon:
   apply_to_dictionaries: false
