@@ -18,7 +18,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/serhii-londar/BaseAPI.git", .upToNextMajor(from: "0.2.1")),
         .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMajor(from: "4.0.4")),
-        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins.git", .upToNextMajor(from: "0.1.0"))
     ],
     targets: [
         .target(
@@ -27,9 +26,6 @@ let package = Package(
             path: "Sources/CrowdinSDK/Features/XCTestScreenshotFeature",
             swiftSettings: [
                 .define("CrowdinSDKSPM")
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
         .target(
@@ -39,9 +35,6 @@ let package = Package(
             exclude: ["Features/XCTestScreenshotFeature"],
             swiftSettings: [
                 .define("CrowdinSDKSPM")
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         )
     ]
