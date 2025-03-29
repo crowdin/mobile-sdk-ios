@@ -100,7 +100,13 @@ extension CrowdinSDK {
         return error
     }
 
-    public class func captureOrUpdateScreenshot(name: String, image: CWImage, application: XCUIApplication, success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureOrUpdateScreenshot(
+        name: String,
+        image: CWImage,
+        application: XCUIApplication,
+        success: @escaping ((ScreenshotUploadResult) -> Void),
+        errorHandler: @escaping ((Error?) -> Void)
+    ) {
         CrowdinSDK.captureOrUpdateScreenshot(name: name, screenshot: image, controlsInformation: application.getControlsInformation(), success: success, errorHandler: errorHandler)
     }
 

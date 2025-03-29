@@ -20,7 +20,7 @@ public class CrowdinTester {
     /// - Parameter localization: Localization code for testing.
     public init(localization: String) {
         self.localization = localization
-        let path = CrowdinFolder.shared.path + String.pathDelimiter + Strings.Crowdin.rawValue + String.pathDelimiter + localization + FileType.plist.extension
+        let path = CrowdinFolder.shared.path + String.pathDelimiter + Strings.crowdin.rawValue + String.pathDelimiter + localization + FileType.plist.extension
         self.localizationFile = DictionaryFile(path: path)
     }
 

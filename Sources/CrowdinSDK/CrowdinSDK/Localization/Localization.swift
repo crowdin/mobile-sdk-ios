@@ -9,6 +9,7 @@ import Foundation
 
 /// Helper class for working with localization providers and extractors. Store all needed information such as: mode, current localization value, ect.
 class Localization {
+    // swiftlint:disable identifier_name
     var _provider: Atomic<LocalizationProviderProtocol>
     /// Current localization provider.
     var provider: LocalizationProviderProtocol {
@@ -44,7 +45,9 @@ class Localization {
 		}
 	}
 
-    /// Auto detects localization. For detection uses localizations from the bundle and from the current provider. Return "en" if SDK isn't initialized or there are no languages ether on crowdin and bundle.
+    /// Auto detects localization.
+    /// For detection uses localizations from the bundle and from the current provider.
+    /// Return "en" if SDK isn't initialized or there are no languages ether on crowdin and bundle.
     private static var autoDetectedLocalization: String {
         if let avalaibleLocalizations = Localization.current?.avalaibleLocalizations {
             return Bundle.main.preferredLanguage(with: avalaibleLocalizations)
@@ -111,6 +114,6 @@ class Localization {
     ///   - format: String format.
     /// - Returns: Detected values. If values aren't detected than method will return nil.
 	func findValues(for string: String, with format: String) -> [Any]? {
-		return provider.values(for:string, with:format)
+		return provider.values(for: string, with: format)
 	}
 }

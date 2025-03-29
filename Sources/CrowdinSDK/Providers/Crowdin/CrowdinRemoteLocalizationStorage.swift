@@ -24,7 +24,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.localization = localization
         self.hashString = config.hashString
         self.organizationName = config.organizationName
-        self.manifestManager = ManifestManager.manifest(for: config.hashString, sourceLanguage: config.sourceLanguage, organizationName: config.organizationName, minimumManifestUpdateInterval: config.minimumManifestUpdateInterval)
+        self.manifestManager = ManifestManager.manifest(
+            for: config.hashString,
+            sourceLanguage: config.sourceLanguage,
+            organizationName: config.organizationName,
+            minimumManifestUpdateInterval: config.minimumManifestUpdateInterval
+        )
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: manifestManager)
         self.localizations = self.manifestManager.iOSLanguages
     }
@@ -63,7 +68,12 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
         self.hashString = hashString
-        self.manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
+        self.manifestManager = ManifestManager.manifest(
+            for: hashString,
+            sourceLanguage: sourceLanguage,
+            organizationName: organizationName,
+            minimumManifestUpdateInterval: minimumManifestUpdateInterval
+        )
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: self.manifestManager)
         self.localizations = []
     }

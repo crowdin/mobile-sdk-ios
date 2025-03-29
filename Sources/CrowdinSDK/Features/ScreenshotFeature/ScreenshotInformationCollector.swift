@@ -39,7 +39,9 @@ class ScreenshotInformationCollector {
 			if let label = subview as? CWLabel, let localizationKey = label.localizationKey {
                 if let frame = label.superview?.convert(label.frame, to: rootView), rootView.bounds.contains(frame), frame.isValid { // Check wheather control frame is visible on screen.
 #if os(OSX)
-                    let newRect = CGRect(x: frame.origin.x * scale, y: (rootView.bounds.size.height - frame.origin.y - frame.size.height) * scale, width: frame.size.width * scale, height: frame.size.height * scale)
+                    let x = frame.origin.x * scale
+                    let y = (rootView.bounds.size.height - frame.origin.y - frame.size.height) * scale
+                    let newRect = CGRect(x: x, y: y, width: frame.size.width * scale, height: frame.size.height * scale)
                     description.append(ControlInformation(key: localizationKey, rect: newRect))
 #elseif os(iOS) || os(tvOS)
                     let newRect = CGRect(x: frame.origin.x * scale, y: frame.origin.y * scale, width: frame.size.width * scale, height: frame.size.height * scale)

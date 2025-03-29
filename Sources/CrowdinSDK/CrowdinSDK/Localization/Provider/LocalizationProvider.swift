@@ -32,8 +32,8 @@ protocol LocalizationProviderProtocol {
 
 class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     private enum Strings: String {
-        case Plurals
-        case LocalizableStringsdict = "Localizable.stringsdict"
+        case plurals = "Plurals"
+        case localizableStringsdict = "Localizable.stringsdict"
     }
     // Public
     var localization: String {
@@ -58,7 +58,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         self.localization = localization
         self.localStorage = localStorage
         self.remoteStorage = remoteStorage
-        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.Plurals.rawValue)
+        self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.plurals.rawValue)
         self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
         self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
         super.init()
@@ -150,7 +150,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
 		pluralsBundle?.remove()
 		pluralsFolder.directories.forEach { try? $0.remove() }
         let localizationFolderName = localStorage.localization + String.minus + UUID().uuidString
-        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.LocalizableStringsdict.rawValue, dictionary: self.plurals)
+        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.localizableStringsdict.rawValue, dictionary: self.plurals)
     }
 
     // Setup strings
@@ -168,7 +168,9 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         var string = self.strings[key]
         if string == nil {
 			string = self.pluralsBundle?.bundle?.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
-            // Plurals localization works as default bundle localization. In case localized string for key is missing the key string will be returned. To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
+            // Plurals localization works as default bundle localization.
+            // In case localized string for key is missing the key string will be returned.
+            // To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
             if string == key {
                 string = nil
             }

@@ -26,7 +26,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     init(localization: String) {
         self.localization = localization
         // swiftlint:disable force_try
-        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.Crowdin.rawValue)
+        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.crowdin.rawValue)
     }
 
     /// Folder used for storing all localization files.
