@@ -9,7 +9,7 @@ import Foundation
 import Starscream
 
 protocol CrowdinSocketManagerProtocol {
-    init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver)
+    init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver, organizationName: String?, auth: CrowdinAuth?)
 
     var active: Bool { get }
     var connect: (() -> Void)? { set get }
@@ -51,8 +51,8 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
     var didChangeString: ((Int, String) -> Void)? = nil
     var didChangePlural: ((Int, String) -> Void)? = nil
 
-	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver) {
-		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl)
+	required init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, languageResolver: LanguageResolver, organizationName: String? = nil, auth: CrowdinAuth? = nil) {
+		self.socketAPI = SocketAPI(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, organizationName: organizationName, auth: auth)
         self.languageResolver = languageResolver
         super.init()
         self.socketAPI.didReceiveUpdateTopSuggestion = updateTopSuggestion(_:)

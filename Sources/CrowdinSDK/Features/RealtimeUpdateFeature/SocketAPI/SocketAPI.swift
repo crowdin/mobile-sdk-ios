@@ -15,6 +15,10 @@ class SocketAPI: NSObject {
 	let projectWsHash: String
 	let userId: String
 	var wsUrl: String
+    
+    private let websocketAPI: WebsocketAPI
+    private let organizationName: String?
+    private let auth: CrowdinAuth?
 
     var ws: WebSocket
     var onConnect: (() -> Void)? = nil
@@ -25,12 +29,15 @@ class SocketAPI: NSObject {
 
     var isConnected = false
 
-	init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String) {
+	init(hashString: String, projectId: String, projectWsHash: String, userId: String, wsUrl: String, organizationName: String? = nil, auth: CrowdinAuth? = nil) {
         self.hashString = hashString
 		self.projectId = projectId
 		self.projectWsHash = projectWsHash
 		self.userId = userId
 		self.wsUrl = wsUrl
+        self.organizationName = organizationName
+        self.auth = auth
+        self.websocketAPI = WebsocketAPI(organizationName: organizationName, auth: auth)
 
         // swiftlint:disable force_unwrapping
         ws = WebSocket(request: URLRequest(url: URL(string: wsUrl)!))
@@ -53,18 +60,44 @@ class SocketAPI: NSObject {
 
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
         let event = "\(Events.updateDraft.rawValue):\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)"
-        let action = ActionRequest.subscribeAction(with: event)
-        guard let data = action.data else { return }
-
-        ws.write(data: data)
+        
+        // Get ticket for the event asynchronously
+        websocketAPI.getWebsocketTicket(event: event) { [weak self] response, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                self.onError?(error)
+                return
+            }
+            
+            if let ticket = response?.data.ticket {
+                let action = ActionRequest.subscribeAction(with: event, ticket: ticket)
+                guard let data = action.data else { return }
+                
+                self.ws.write(data: data)
+            }
+        }
     }
 
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
         let event = "\(Events.topSuggestion.rawValue):\(projectWsHash):\(projectId):\(localization):\(stringId)"
-        let action = ActionRequest.subscribeAction(with: event)
-        guard let data = action.data else { return }
-
-        self.ws.write(data: data)
+        
+        // Get ticket for the event asynchronously
+        websocketAPI.getWebsocketTicket(event: event) { [weak self] response, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                self.onError?(error)
+                return
+            }
+            
+            if let ticket = response?.data.ticket {
+                let action = ActionRequest.subscribeAction(with: event, ticket: ticket)
+                guard let data = action.data else { return }
+                
+                self.ws.write(data: data)
+            }
+        }
     }
 
     func websocketDidReceiveText(_ text: String) {
