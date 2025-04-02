@@ -29,7 +29,9 @@ struct ManifestResponse: Codable {
         files = try values.decode([String].self, forKey: .files)
         timestamp = try values.decodeIfPresent(TimeInterval.self, forKey: .timestamp)
         languages = try values.decodeIfPresent([String].self, forKey: .languages)
-        if let customLanguages = try? values.decodeIfPresent([String : ManifestResponseCustomLangugage].self, forKey: .responseCustomLanguages) { // Do not throw error while encode custom_languages, as server can return empty array for manifests without language mappings.
+        if let customLanguages = try? values.decodeIfPresent([String : ManifestResponseCustomLangugage].self, forKey: .responseCustomLanguages) {
+            // Do not throw error while encode custom_languages
+            // Server can return empty array for manifests without language mappings.
             responseCustomLanguages = customLanguages
         } else {
             responseCustomLanguages = nil

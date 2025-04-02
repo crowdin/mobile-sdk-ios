@@ -10,6 +10,7 @@ import XCTest
 
 class RealLocalizationProviderTests: XCTestCase {
     let crowdinProviderConfig = CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en")
+    // swiftlint:disable implicitly_unwrapped_optional
     var localizationProvider: LocalizationProvider!
     
     var providerExpectedStringsKeys = [
@@ -82,14 +83,12 @@ class RealLocalizationProviderTests: XCTestCase {
         
         wait(for: [expectation], timeout: 60.0)
         
-        
         XCTAssertFalse(localizationProvider.strings.isEmpty)
         XCTAssertTrue(localizationProvider.strings.count == providerExpectedStringsKeys.count)
         let stringsKeys = localizationProvider.strings.keys
         providerExpectedStringsKeys.forEach({
             XCTAssertTrue(stringsKeys.contains($0), "\(stringsKeys) should contains - \($0)")
         })
-        
         
         XCTAssertFalse(localizationProvider.plurals.isEmpty)
         XCTAssertTrue(localizationProvider.plurals.count == providerPluralsExpectedKeys.count)
@@ -109,7 +108,6 @@ class RealLocalizationProviderTests: XCTestCase {
     func testFetchDataAfterRemoteStoragePreparedForUkLocalization() {
         testFetchDataAfterRemoteStoragePrepared(with: "uk")
     }
-    
     
     var providerExpectedEnStrings = [
         "nqC-BB-OHN.text": "List of strings:",
@@ -153,6 +151,7 @@ class RealLocalizationProviderTests: XCTestCase {
             XCTAssertNotNil(localizationProvider.localizedString(for: $0))
             XCTAssertNotNil(strings[$0])
             
+            // swiftlint:disable line_length
             XCTAssert(localizationProvider.localizedString(for: $0) == strings[$0], "\(String(describing: localizationProvider.localizedString(for: $0))) should be equal to \(String(describing: strings[$0]))")
         }
     }
@@ -175,16 +174,16 @@ class RealLocalizationProviderTests: XCTestCase {
         Bundle.swizzle()
         Localization.current = Localization(provider: localizationProvider)
          
-        let plural1 = localizationProvider.localizedString(for:"johns_pineapples_count")
+        let plural1 = localizationProvider.localizedString(for: "johns_pineapples_count")
         XCTAssertNotNil(plural1)
         XCTAssertTrue(plural1 == "%#@v1_pineapples_count@")
+        // swiftlint:disable force_unwrapping
         print(String(format: plural1!, 0))
         XCTAssertTrue(String(format: plural1!, 0) == "John has 0 pineapples [CW]", String(format: plural1!, 0))
         XCTAssertTrue(String(format: plural1!, 1) == "John has one pineapple [CW]", String(format: plural1!, 1))
         XCTAssertTrue(String(format: plural1!, 10) == "John has 10 pineapples [CW]", String(format: plural1!, 10))
         
-        
-        let plural2 = localizationProvider.localizedString(for:"lu_completed_runs")
+        let plural2 = localizationProvider.localizedString(for: "lu_completed_runs")
         XCTAssertNotNil(plural2)
         XCTAssertTrue(plural2 == "%1$#@lu_completed_runs@")
         

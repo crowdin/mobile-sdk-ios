@@ -11,6 +11,7 @@ import Foundation
 // MARK: - String localization extension.
 extension String {
 	/// Extension method for simplifying strings localization.
+    // swiftlint:disable identifier_name
 	public var cw_localized: String {
 		return NSLocalizedString(self, comment: .empty)
 	}
@@ -53,7 +54,8 @@ extension String {
 extension String {
     /// Detect whether formated string mached to a given string.
     /// Additional explentaion:
-    /// For example if we want to check whether formated string "my %@ value" is matchin to string "my awesome value". The result will be true as all strings parts from formated string("my ", " value") are included in string "my awesome value".
+    /// For example if we want to check whether formated string "my %@ value" is matchin to string "my awesome value".
+    /// The result will be true as all strings parts from formated string("my ", " value") are included in string "my awesome value".
     ///
     /// - Parameters:
     ///   - formatedString: Formated string.
@@ -127,7 +129,9 @@ extension NSString {
 extension String {
     /// Method for values detection passed for localization string creation for given string and format string.
     /// Additional explenation:
-    /// For example, we have a string "String with string parameter - test, and an integer parameter - 2". The format string is "String with string parameter - %@, and integer parameter - %llu". Result of this method will be an array of two objects - ["test", 2].
+    /// For example, we have a string "String with string parameter - test, and an integer parameter - 2".
+    /// The format string is "String with string parameter - %@, and integer parameter - %llu".
+    /// Result of this method will be an array of two objects - ["test", 2].
     ///
     /// - Parameters:
     ///   - string: String for searching values.

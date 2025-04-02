@@ -6,7 +6,8 @@ class LocalLocalizationStorageTests: XCTestCase {
         // Clear all crowdin data:
         CrowdinSDK.deintegrate()
     }
-    
+   
+    // swiftlint:disable implicitly_unwrapped_optional
     var localLocalizationStorage: LocalLocalizationStorage!
     
     override func tearDown() {
@@ -99,6 +100,7 @@ class LocalLocalizationStorageTests: XCTestCase {
         XCTAssertTrue(localLocalizationStorage.localizations == ["en"])
         XCTAssertTrue(localLocalizationStorage.plurals.keys.count == 1)
         XCTAssertTrue(localLocalizationStorage.plurals.keys.contains("test_key_en"))
+        // swiftlint:disable force_cast
         XCTAssertTrue(localLocalizationStorage.plurals as! [String: AnyHashable] == pluralsDictEn)
     }
     
@@ -114,6 +116,7 @@ class LocalLocalizationStorageTests: XCTestCase {
         XCTAssertTrue(localLocalizationStorage.localizations == ["en"])
         XCTAssertTrue(localLocalizationStorage.plurals.keys.count == 1)
         XCTAssertTrue(localLocalizationStorage.plurals.keys.contains("test_key_en"))
+        // swiftlint:disable force_cast
         XCTAssertTrue(localLocalizationStorage.plurals as! [String: AnyHashable] == pluralsDictEn)
     }
     
@@ -144,6 +147,7 @@ class LocalLocalizationStorageTests: XCTestCase {
         // Check plurals:
         XCTAssertTrue(localLocalizationStorage.plurals.keys.count == 1)
         XCTAssertTrue(localLocalizationStorage.plurals.keys.contains("test_key_en"))
+        // swiftlint:disable force_cast
         XCTAssertTrue(localLocalizationStorage.plurals as! [String: AnyHashable] == pluralsDictEn)
         
         // Switch language:

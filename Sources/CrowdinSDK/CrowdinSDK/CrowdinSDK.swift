@@ -92,7 +92,8 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
         self.currentLocalization = localization
     }
 
-    /// Utils method for extracting all localization strings and plurals to Documents folder. This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
+    /// Utils method for extracting all localization strings and plurals to Documents folder.
+    /// This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
     public class func extractAllLocalization() {
         guard let folder = try? CrowdinFolder.shared.createFolder(with: "Extracted") else { return }
         LocalLocalizationExtractor.extractAllLocalizationStrings(to: folder.path)

@@ -39,7 +39,9 @@ class ScreenshotsAPI: CrowdinAPI {
         for frame in frames {
             let key = frame.id
             let value = frame.rect
-            elements.append(CreateScreenshotTagRequestElement(stringId: key, position: CreateScreenshotTagPosition(x: Int(value.origin.x), y: Int(value.origin.y), width: Int(value.size.width), height: Int(value.size.height))))
+            let tagPosition = CreateScreenshotTagPosition(x: Int(value.origin.x), y: Int(value.origin.y), width: Int(value.size.width), height: Int(value.size.height))
+            let tagElement = CreateScreenshotTagRequestElement(stringId: key, position: tagPosition)
+            elements.append(tagElement)
         }
         let request = elements
         let requestData = try? JSONEncoder().encode(request)

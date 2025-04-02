@@ -12,7 +12,7 @@ let baseLocalization = "Base"
 let defaultCrowdinErrorCode = 99999
 
 enum Strings: String {
-    case Crowdin
+    case crowdin = "Crowdin"
 }
 
 enum Keys: String {

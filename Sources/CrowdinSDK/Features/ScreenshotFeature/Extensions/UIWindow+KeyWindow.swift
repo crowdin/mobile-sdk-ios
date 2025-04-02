@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIApplication {
+    // swiftlint:disable identifier_name
     var cw_KeyWindow: UIWindow? {
         return windows.first(where: { $0.isKind(of: UIWindow.self) })
     }
