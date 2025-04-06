@@ -73,6 +73,22 @@ Before sending your pull requests, make sure you followed the list below:
 > **Note**
 > This project uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages and PR titles.
 
+### Code Style
+
+This project uses [SwiftLint](https://github.com/realm/SwiftLint) to enforce code style and best practices. SwiftLint is integrated in two ways:
+
+1. **Build-time integration**: SwiftLint is integrated directly into the Swift Package Manager build process using the [SwiftLintPlugins](https://github.com/SimplyDanny/SwiftLintPlugins) package. It will run automatically when you build the package.
+
+2. **Git pre-commit hook**: SwiftLint will run automatically when you commit changes, preventing commits that introduce linting errors.
+
+To run SwiftLint manually:
+
+```bash
+./run_swiftlint.sh
+```
+
+The SwiftLint configuration is defined in `.swiftlint.yml` in the root directory.
+
 #### Contributing to the docs
 
 The documentation is based on [Docusaurus](https://docusaurus.io/) framework. Source inside the [website](https://github.com/crowdin/mobile-sdk-ios/tree/master/website) directory.
