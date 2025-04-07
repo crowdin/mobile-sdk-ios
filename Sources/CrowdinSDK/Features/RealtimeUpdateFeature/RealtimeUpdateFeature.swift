@@ -195,7 +195,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             return
         }
 
-        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: manifestManager)
+        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: manifestManager, organizationName: organizationName, auth: loginFeature)
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }
