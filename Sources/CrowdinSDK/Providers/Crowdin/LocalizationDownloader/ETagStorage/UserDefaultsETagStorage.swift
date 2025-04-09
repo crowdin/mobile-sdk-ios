@@ -13,7 +13,7 @@ final class UserDefaultsETagStorage: AnyEtagStorage {
     let localization: String
 
     fileprivate enum Strings: String {
-        case CrowdinETagsKey
+        case crowdinETagsKey = "CrowdinETagsKey"
     }
 
     init(localization: String) {
@@ -21,37 +21,37 @@ final class UserDefaultsETagStorage: AnyEtagStorage {
     }
 
     func save(etag: String?, for file: String) {
-        var map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
+        var map = UserDefaults.standard.object(forKey: Strings.crowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
 
         var etags = map[localization] ?? [:]
         etags[file] = etag
         map[localization] = etags
 
-        UserDefaults.standard.set(map, forKey: Strings.CrowdinETagsKey.rawValue)
+        UserDefaults.standard.set(map, forKey: Strings.crowdinETagsKey.rawValue)
         UserDefaults.standard.synchronize()
     }
 
     func etag(for file: String) -> String? {
-        let map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
+        let map = UserDefaults.standard.object(forKey: Strings.crowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
         return map[localization]?[file]
     }
 
     func clear(for file: String) {
-        var map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
+        var map = UserDefaults.standard.object(forKey: Strings.crowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
         map[localization]?[file] = nil
-        UserDefaults.standard.set(map, forKey: Strings.CrowdinETagsKey.rawValue)
+        UserDefaults.standard.set(map, forKey: Strings.crowdinETagsKey.rawValue)
         UserDefaults.standard.synchronize()
     }
 
     func clear() {
-        var map = UserDefaults.standard.object(forKey: Strings.CrowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
+        var map = UserDefaults.standard.object(forKey: Strings.crowdinETagsKey.rawValue) as? [String: [String: String]] ?? [String: [String: String]]()
         map[localization] = nil
-        UserDefaults.standard.set(map, forKey: Strings.CrowdinETagsKey.rawValue)
+        UserDefaults.standard.set(map, forKey: Strings.crowdinETagsKey.rawValue)
         UserDefaults.standard.synchronize()
     }
 
     static func clear() {
-        UserDefaults.standard.removeObject(forKey: Strings.CrowdinETagsKey.rawValue)
+        UserDefaults.standard.removeObject(forKey: Strings.crowdinETagsKey.rawValue)
         UserDefaults.standard.synchronize()
     }
 }

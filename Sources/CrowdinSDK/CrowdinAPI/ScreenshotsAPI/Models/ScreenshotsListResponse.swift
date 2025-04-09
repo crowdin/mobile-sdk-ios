@@ -13,8 +13,8 @@ struct ScreenshotsListResponse: Codable, Hashable {
     let pagination: ScreenshotsListResponsePagination
 
     enum CodingKeys: String, CodingKey {
-        case data = "data"
-        case pagination = "pagination"
+        case data
+        case pagination
     }
 }
 
@@ -29,7 +29,7 @@ struct ScreenshotsListResponseDatum: Codable, Hashable {
     let data: ScreenshotsListResponseData
 
     enum CodingKeys: String, CodingKey {
-        case data = "data"
+        case data
     }
 }
 
@@ -82,8 +82,8 @@ struct ScreenshotsListResponseSize: Codable, Hashable {
     let height: Int
 
     enum CodingKeys: String, CodingKey {
-        case width = "width"
-        case height = "height"
+        case width
+        case height
     }
 }
 
@@ -102,11 +102,11 @@ struct ScreenshotsListResponseTag: Codable, Hashable {
     let createdAt: String
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case screenshotID = "screenshotId"
-        case stringID = "stringId"
-        case position = "position"
-        case createdAt = "createdAt"
+        case id
+        case screenshotID
+        case stringID
+        case position
+        case createdAt
     }
 }
 
@@ -124,10 +124,10 @@ struct ScreenshotsListResponsePosition: Codable, Hashable {
     let height: Int
 
     enum CodingKeys: String, CodingKey {
-        case x = "x"
-        case y = "y"
-        case width = "width"
-        case height = "height"
+        case x
+        case y
+        case width
+        case height
     }
 }
 
@@ -143,7 +143,7 @@ struct ScreenshotsListResponsePagination: Codable, Hashable {
     let limit: Int
 
     enum CodingKeys: String, CodingKey {
-        case offset = "offset"
-        case limit = "limit"
+        case offset
+        case limit
     }
 }

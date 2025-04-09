@@ -8,8 +8,8 @@
 import Foundation
 
 public class SwiftXMLParser: NSObject {
-    public let TextKey = "XMLParserTextKey"
-    public let AttributesKey = "XMLParserAttributesKey"
+    public let textKey = "XMLParserTextKey"
+    public let attributesKey = "XMLParserAttributesKey"
 
     // if true, attributes in xml will be transformed as a standalone dictionary
     // For example: <sysmsg type="paymsg"></sysmsg> will be transformed to { "sysmsg" : { "_XMLAttributes" : { "type" : "paymsg" } } }
@@ -86,7 +86,7 @@ public extension SwiftXMLParser {
             let tagKey = key
 
             // handle attributes first
-            if let attributes = dic[AttributesKey] as? [String: String] {
+            if let attributes = dic[attributesKey] as? [String: String] {
                 var attributeString = ""
                 for (key, value) in attributes {
                     attributeString.append(" \(key) = \"\(value)\"")
@@ -96,7 +96,7 @@ public extension SwiftXMLParser {
                 xml.append("<\(key)>")
             }
 
-            for (key, value) in dic where key != AttributesKey {
+            for (key, value) in dic where key != attributesKey {
 
                 var isSimpleValue = true
                 if value is [Any] || value is [String: Any] {
@@ -134,7 +134,7 @@ extension SwiftXMLParser: XMLParserDelegate {
             // transformed attributes as a standalone dictionary
             // it will help us transform it back to xml
             if attributeDict.count > 0 {
-                childDic.setObject(attributeDict, forKey: AttributesKey as NSString)
+                childDic.setObject(attributeDict, forKey: attributesKey as NSString)
             }
         } else {
             // attributes as key,value pair
@@ -185,7 +185,7 @@ extension SwiftXMLParser: XMLParserDelegate {
             let finishedText = textInProcess.trimmingCharacters(in: .whitespacesAndNewlines)
 
             if value.count > 0 {
-                value[TextKey] = finishedText
+                value[textKey] = finishedText
             } else {
                 // If the current element has only value, no Attributes, like <list> 1 </ list>
                 // Replace the dictionary directly with string

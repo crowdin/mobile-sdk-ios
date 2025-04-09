@@ -1,4 +1,4 @@
-whitelist_rules:
+only_rules:
   - closure_spacing
   - colon
   - empty_enum_arguments
@@ -28,6 +28,14 @@ whitelist_rules:
 excluded:
   - Carthage
   - Pods
+  - Example
+  - ObjCExample
+  - Tests
+  - website
+  - .build
+
+included:
+  - Sources
 
 colon:
   apply_to_dictionaries: false

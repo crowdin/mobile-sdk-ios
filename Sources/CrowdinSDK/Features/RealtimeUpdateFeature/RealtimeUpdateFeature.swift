@@ -112,12 +112,16 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         }
     }
 
+    // swiftlint:disable identifier_name
     func _start() {
-		guard let projectId = distributionResponse?.data.project.id, let projectWsHash = distributionResponse?.data.project.wsHash, let userId = distributionResponse?.data.user.id, let wsUrl = distributionResponse?.data.wsUrl else {
+        guard let projectId = distributionResponse?.data.project.id,
+              let projectWsHash = distributionResponse?.data.project.wsHash,
+              let userId = distributionResponse?.data.user.id,
+              let wsUrl = distributionResponse?.data.wsUrl else {
             self.downloadDistribution(with: {
                 self._start()
             }, errorHandler: error)
-			return
+            return
 		}
         setupRealtimeUpdatesLocalizationProvider(with: projectId) { [weak self] in
             guard let self = self else { return }
@@ -134,10 +138,23 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
 
     var oldProvider: LocalizationProviderProtocol? = nil
-
+    
     func setupRealtimeUpdatesLocalizationProvider(with projectId: String, completion: @escaping () -> Void) {
         oldProvider = Localization.current.provider
-        Localization.current.provider = LocalizationProvider(localization: self.localization, localStorage: RULocalLocalizationStorage(localization: self.localization), remoteStorage: RURemoteLocalizationStorage(localization: self.localization, sourceLanguage: sourceLanguage, hash: self.hashString, projectId: projectId, organizationName: self.organizationName, minimumManifestUpdateInterval: self.minimumManifestUpdateInterval))
+        let localStorage = RULocalLocalizationStorage(localization: self.localization)
+        let remoteStorage = RURemoteLocalizationStorage(
+            localization: self.localization,
+            sourceLanguage: sourceLanguage,
+            hash: self.hashString,
+            projectId: projectId,
+            organizationName: self.organizationName,
+            minimumManifestUpdateInterval: self.minimumManifestUpdateInterval
+        )
+        Localization.current.provider = LocalizationProvider(
+            localization: self.localization,
+            localStorage: localStorage,
+            remoteStorage: remoteStorage
+        )
         Localization.current.provider.refreshLocalization { [weak self] error in
             guard let self = self else { return }
             if let error = error {
@@ -164,7 +181,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
     func setupSocketManager(with projectId: String, projectWsHash: String, userId: String, wsUrl: String, minimumManifestUpdateInterval: TimeInterval) {
         // Download manifest if it is not initialized.
-        let manifestManager = ManifestManager.manifest(for: hashString, sourceLanguage: sourceLanguage, organizationName: organizationName, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
+        let manifestManager = ManifestManager.manifest(
+            for: hashString,
+            sourceLanguage: sourceLanguage,
+            organizationName: organizationName,
+            minimumManifestUpdateInterval: minimumManifestUpdateInterval
+        )
         guard manifestManager.available else {
             manifestManager.download { [weak self] in
                 guard let self = self else { return }
@@ -173,7 +195,16 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             return
         }
 
-        self.socketManger = CrowdinSocketManager(hashString: hashString, projectId: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, languageResolver: manifestManager, organizationName: organizationName, auth: loginFeature)
+        self.socketManger = CrowdinSocketManager(
+            hashString: hashString,
+            projectId: projectId,
+            projectWsHash: projectWsHash,
+            userId: userId,
+            wsUrl: wsUrl,
+            languageResolver: manifestManager,
+            organizationName: organizationName,
+            auth: loginFeature
+        )
         self.socketManger?.didChangeString = { id, newValue in
             self.didChangeString(with: id, to: newValue)
         }

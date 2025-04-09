@@ -10,6 +10,7 @@ import XCTest
 
 class CrowdinRemoteLocalizationStorageTests: XCTestCase {
     let crowdinProviderConfig = CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en")
+    // swiftlint:disable implicitly_unwrapped_optional
     var remoteLocalizationStorage: CrowdinRemoteLocalizationStorage!
     
     override func setUp() {

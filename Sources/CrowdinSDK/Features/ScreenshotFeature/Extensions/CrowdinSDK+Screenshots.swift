@@ -18,7 +18,13 @@ extension CrowdinSDK {
         guard let config = CrowdinSDK.config else { return }
         if config.screenshotsEnabled {
             let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
-            let screenshotUploader = CrowdinScreenshotUploader(organizationName: config.crowdinProviderConfig?.organizationName, hash: crowdinProviderConfig.hashString, sourceLanguage: crowdinProviderConfig.sourceLanguage, minimumManifestUpdateInterval: crowdinProviderConfig.minimumManifestUpdateInterval, loginFeature: CrowdinSDK.loginFeature)
+            let screenshotUploader = CrowdinScreenshotUploader(
+                organizationName: config.crowdinProviderConfig?.organizationName,
+                hash: crowdinProviderConfig.hashString,
+                sourceLanguage: crowdinProviderConfig.sourceLanguage,
+                minimumManifestUpdateInterval: crowdinProviderConfig.minimumManifestUpdateInterval,
+                loginFeature: CrowdinSDK.loginFeature
+            )
             ScreenshotFeature.shared = ScreenshotFeature(screenshotUploader: screenshotUploader, screenshotProcessor: CrowdinScreenshotProcessor())
             swizzleControlMethods()
         }
@@ -94,7 +100,13 @@ extension CrowdinSDK {
         screenshotFeature.captureScreenshot(name: name, screenshot: screenshot, controlsInformation: controlsInformation, success: success, errorHandler: errorHandler)
     }
 
-    public class func captureOrUpdateScreenshot(name: String, screenshot: CWImage, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    public class func captureOrUpdateScreenshot(
+        name: String,
+        screenshot: CWImage,
+        controlsInformation: [ControlInformation],
+        success: @escaping ((ScreenshotUploadResult) -> Void),
+        errorHandler: @escaping ((Error?) -> Void)
+    ) {
         guard let screenshotFeature = ScreenshotFeature.shared else {
             errorHandler(NSError(domain: "Screenshots feature disabled", code: defaultCrowdinErrorCode, userInfo: nil))
             return

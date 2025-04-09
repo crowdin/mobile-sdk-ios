@@ -120,7 +120,13 @@ class ScreenshotFeature {
         self.screenshotUploader.uploadScreenshot(screenshot: screenshot, controlsInformation: controlsInformation, name: name, success: success, errorHandler: errorHandler)
     }
 
-    func captureOrUpdateScreenshot(name: String, screenshot: CWImage, controlsInformation: [ControlInformation], success: @escaping ((ScreenshotUploadResult) -> Void), errorHandler: @escaping ((Error?) -> Void)) {
+    func captureOrUpdateScreenshot(
+        name: String,
+        screenshot: CWImage,
+        controlsInformation: [ControlInformation],
+        success: @escaping ((ScreenshotUploadResult) -> Void),
+        errorHandler: @escaping ((Error?) -> Void)
+    ) {
         if let error = screenshotUploader.prepareSync() {
             errorHandler(error)
             return

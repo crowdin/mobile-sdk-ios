@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "BaseAPI",
-        "repositoryURL": "https://github.com/serhii-londar/BaseAPI.git",
-        "state": {
-          "branch": null,
-          "revision": "8e736fa8302647749fb1b4ebe3c59e920174a095",
-          "version": "0.2.1"
-        }
-      },
-      {
-        "package": "Starscream",
-        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
-        "state": {
-          "branch": null,
-          "revision": "ac6c0fc9da221873e01bd1a0d4818498a71eef33",
-          "version": "4.0.6"
-        }
+  "pins" : [
+    {
+      "identity" : "baseapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/serhii-londar/BaseAPI.git",
+      "state" : {
+        "revision" : "8e736fa8302647749fb1b4ebe3c59e920174a095",
+        "version" : "0.2.1"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream.git",
+      "state" : {
+        "revision" : "ac6c0fc9da221873e01bd1a0d4818498a71eef33",
+        "version" : "4.0.6"
+      }
+    }
+  ],
+  "version" : 2
 }
