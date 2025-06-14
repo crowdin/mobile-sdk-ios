@@ -9,6 +9,8 @@ import Foundation
 
 // MARK: - Extension for Bundle method swizzling.
 extension Bundle {
+    private static let swizzledMethodProcessingKey = "com.crowdin.sdk.swizzledMethodProcessing"
+    
     // swiftlint:disable implicitly_unwrapped_optional
     /// Original localizedString(forKey:value:table:) method.
     static var original: Method!
@@ -23,10 +25,19 @@ extension Bundle {
     ///
     /// - Parameters:
     ///   - key: The key for a string in the table identified by tableName.
-    ///   - value: The value to return if key is nil or if a localized string for key can’t be found in the table.
-    ///   - tableName: The receiver’s string table to search. If tableName is nil or is an empty string, the method attempts to use the table in Localizable.strings.
+    ///   - value: The value to return if key is nil or if a localized string for key can't be found in the table.
+    ///   - tableName: The receiver's string table to search. If tableName is nil or is an empty string, the method attempts to use the table in Localizable.strings.
     /// - Returns: Localization value for localization key provided by crowdin. If there are no string for provided localization key, localization string from bundle will be returned.
     @objc func swizzled_LocalizedString(forKey key: String, value: String?, table tableName: String?) -> String {
+        if Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] != nil {
+            return swizzled_LocalizedString(forKey: key, value: value, table: tableName)
+        }
+        
+        Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = true
+        defer {
+            Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = nil
+        }
+        
         var translation = Localization.current?.localizedString(for: key)
         if translation == nil {
             translation = swizzled_LocalizedString(forKey: key, value: value, table: tableName)
