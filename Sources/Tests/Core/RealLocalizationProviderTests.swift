@@ -31,6 +31,7 @@ class RealLocalizationProviderTests: XCTestCase {
     
     override func tearDown() {
         localizationProvider.deintegrate()
+        ManifestManager.clear()
     }
     
     func testInitialization() {
