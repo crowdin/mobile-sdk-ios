@@ -8,16 +8,73 @@
 import Foundation
 
 protocol LocalizationDataSourceProtocol {
+    associatedtype Values
     func findKey(for string: String) -> String?
     func findValues(for string: String, with format: String) -> [Any]?
+    func update(with values: Values)
+}
+
+class AnyLocalizationDataSource<T>: LocalizationDataSourceProtocol {
+    typealias Values = T
+    
+    private let accessQueue = DispatchQueue(label: "com.crowdin.AnyLocalizationDataSource.accessQueue", attributes: .concurrent)
+    
+    private let _findKey: (String) -> String?
+    private let _findValues: (String, String) -> [Any]?
+    private let _update: (T) -> Void
+    
+    init<DS: LocalizationDataSourceProtocol>(_ dataSource: DS) where DS.Values == T {
+        self._findKey = dataSource.findKey
+        self._findValues = dataSource.findValues
+        self._update = dataSource.update
+    }
+    
+    func findKey(for string: String) -> String? {
+        var result: String?
+        accessQueue.sync {
+            result = _findKey(string)
+        }
+        return result
+    }
+    
+    func findValues(for string: String, with format: String) -> [Any]? {
+        var result: [Any]?
+        accessQueue.sync {
+            result = _findValues(string, format)
+        }
+        return result
+    }
+    
+    func update(with values: T) {
+        accessQueue.async(flags: .barrier) {
+            self._update(values)
+        }
+    }
 }
 
 class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
-
-    var strings: [String: String]
+    typealias Values = [String: String]
+    
+    private let accessQueue = DispatchQueue(label: "com.crowdin.StringsLocalizationDataSource.accessQueue", attributes: .concurrent)
+    private var _strings: [String: String]
+    var strings: [String: String] {
+        get {
+            var strings: [String: String] = [:]
+            accessQueue.sync {
+                strings = self._strings
+            }
+            return strings
+        }
+    }
 
     init(strings: [String: String]) {
-        self.strings = strings
+        self._strings = strings
+    }
+
+    func update(with values: [String: String]) {
+        accessQueue.async(flags: .barrier) {
+            self._strings = values
+        }
     }
 
     func findKey(for string: String) -> String? {
@@ -46,6 +103,8 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
 }
 
 class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
+    typealias Values = [AnyHashable: Any]
+    
     private enum Keys: String {
         case NSStringLocalizedFormatKey
         case NSStringFormatSpecTypeKey
@@ -61,11 +120,28 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         case other
     }
 
-    var plurals: [AnyHashable: Any]
+    private let accessQueue = DispatchQueue(label: "com.crowdin.PluralsLocalizationDataSource.accessQueue", attributes: .concurrent)
+    private var _plurals: [AnyHashable: Any]
+    var plurals: [AnyHashable: Any] {
+        get {
+            var plurals: [AnyHashable: Any] = [:]
+            accessQueue.sync {
+                plurals = self._plurals
+            }
+            return plurals
+        }
+    }
 
     init(plurals: [AnyHashable: Any]) {
-        self.plurals = plurals
+        self._plurals = plurals
     }
+
+    func update(with values: [AnyHashable: Any]) {
+        accessQueue.async(flags: .barrier) {
+            self._plurals = values
+        }
+    }
+
     func findKey(for string: String) -> String? {
         return findKeyAndValues(for: plurals, for: string).key
     }
