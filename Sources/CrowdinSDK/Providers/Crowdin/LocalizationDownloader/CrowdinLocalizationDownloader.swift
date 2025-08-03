@@ -31,6 +31,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             guard let self = self else { return }
             if let files = files {
                 let xcstringsFiles = files.filter({ $0.isXcstrings })
+                // For xcstrings we need to parse existing files when localization is changed, otherwise we wont get localization strings from xcstrings files.
+                self.parseXCStrings(files: xcstringsFiles, for: localization)
                 let notXcstringsFiles = files.filter({ !$0.isXcstrings })
                 let notXcstringsFilesToDownload = notXcstringsFiles.filter { self.manifestManager.hasFileChanged(filePath: $0, localization: localization) }
                 let xcStringsFilesToDownlaod = xcstringsFiles.filter({ self.manifestManager.hasFileChanged(filePath: $0, localization: self.manifestManager.xcstringsLanguage) })
@@ -42,7 +44,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                                   xcstrings: filesToDownload.filter({ $0.isXcstrings }),
                                   with: hash, timestamp: timestamp, for: localization)
                 } else {
-                    self.completion?(nil, nil, nil)
+                    self.completion?(self.strings, self.plurals, self.errors)
                 }
             } else if let error = error {
                 self.lock.lock()
@@ -186,8 +188,20 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         }
         lock.unlock()
     }
+    
     func updateTimestamp(for localization: String, filePath: String, timestamp: TimeInterval) {
         manifestManager.fileTimestampStorage.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
         manifestManager.fileTimestampStorage.saveTimestamps()
+    }
+    
+    private func parseXCStrings(files: [String], for localization: String) {
+        for xcstringsFile in files {
+            if let data = XCStringsStorage.getFile(path: xcstringsFile) {
+                let parsed = XcstringsParser.parse(data: data, localization: localization)
+                self.add(strings: parsed.strings)
+                self.add(plurals: parsed.plurals)
+                self.add(error: parsed.error)
+            }
+        }
     }
 }
