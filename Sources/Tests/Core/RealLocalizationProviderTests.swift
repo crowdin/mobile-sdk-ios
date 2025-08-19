@@ -31,6 +31,7 @@ class RealLocalizationProviderTests: XCTestCase {
     
     override func tearDown() {
         localizationProvider.deintegrate()
+        ManifestManager.clear()
     }
     
     func testInitialization() {
@@ -194,4 +195,41 @@ class RealLocalizationProviderTests: XCTestCase {
         Localization.current = nil
     }
     
+    func testRaceCondition() {
+        let localization = "en"
+        let localStorage = LocalLocalizationStorage(localization: localization)
+        let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
+        
+        remoteStorage.prepare {
+            let expectation = self.expectation(description: "Race condition test finished")
+            
+            let dispatchGroup = DispatchGroup()
+            
+            // Simulate background updates
+            for _ in 0..<100 {
+                dispatchGroup.enter()
+                DispatchQueue.global().async {
+                    self.localizationProvider.refreshLocalization { _ in
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            
+            // Simulate main thread access
+            for i in 0..<100 {
+                dispatchGroup.enter()
+                DispatchQueue.main.async {
+                    _ = self.localizationProvider.key(for: "some string \(i)")
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                expectation.fulfill()
+            }
+            
+            self.wait(for: [expectation], timeout: 60.0)
+        }
+    }
 }
