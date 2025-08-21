@@ -50,7 +50,7 @@ jobs:
         run: pod install
 
       - name: Lint pod library
-        run: pod lib lint --skip-tests --platforms=macos,ios,tvos --allow-warnings
+        run: pod lib lint --skip-tests --platforms=macos,ios,tvos --allow-warnings --ios-simulator-name="iPhone 16" --macos-simulator-name="Mac" --tvos-simulator-name="Apple TV"
 
   spm-build:
     name: Build Swift Package
