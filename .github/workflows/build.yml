@@ -117,9 +117,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: Tests/Pods
+          key: ${{ runner.os }}-pods-tests-${{ hashFiles('Tests/Podfile.lock') }}
+
+      - name: Cache Xcode Derived Data
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-xcode-derived-${{ hashFiles('Tests/**/*.swift', 'Tests/**/*.m', 'Tests/**/*.h') }}
+
       - name: Install CocoaPods
         working-directory: Tests
-        run: pod install
+        run: |
+          if [ ! -d "Pods" ]; then
+            pod install
+          fi
 
       - name: Install xcbeautify
         run: brew install xcbeautify
