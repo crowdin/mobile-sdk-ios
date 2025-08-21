@@ -14,6 +14,9 @@ on:
     branches:
       - 'master'
 
+env:
+  XCODE_VERSION: '16.4'
+
 jobs:
   danger-swiftlint:
     name: Danger SwiftLint
@@ -69,7 +72,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 16.0
+          xcode-version: ${{ env.XCODE_VERSION }}
       
       - name: Install xcbeautify
         run: brew install xcbeautify
@@ -94,7 +97,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 16.0
+          xcode-version: ${{ env.XCODE_VERSION }}
 
       - name: Build
         working-directory: Example
@@ -123,7 +126,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 16.0
+          xcode-version: ${{ env.XCODE_VERSION }}
 
       - name: Tests
         working-directory: Tests
