@@ -41,6 +41,7 @@ jobs:
     name: PodLint
     needs: test
     runs-on: macos-15
+    timeout-minutes: 40
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
@@ -118,6 +119,7 @@ jobs:
     name: Test
     needs: build
     runs-on: macos-15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
