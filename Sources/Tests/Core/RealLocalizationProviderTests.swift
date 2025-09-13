@@ -26,7 +26,11 @@ class RealLocalizationProviderTests: XCTestCase {
     ]
     
     override func setUp() {
-
+        // Ensure global state from other tests doesn't affect these tests
+        Bundle.unswizzle()
+        Localization.current = nil
+        CrowdinSDK.currentLocalization = nil
+        ManifestManager.clear()
     }
     
     override func tearDown() {
@@ -69,6 +73,7 @@ class RealLocalizationProviderTests: XCTestCase {
     func testFetchDataAfterRemoteStoragePrepared(with localization: String) {
         let localStorage = LocalLocalizationStorage(localization: localization)
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
+        remoteStorage.manifestManager.clear()
         localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
         let expectation = expectation(description: "Localization refreshed")
         
