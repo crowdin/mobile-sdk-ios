@@ -44,7 +44,13 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                                   xcstrings: filesToDownload.filter({ $0.isXcstrings }),
                                   with: hash, timestamp: timestamp, for: localization)
                 } else {
-                    self.completion?(self.strings, self.plurals, self.errors)
+                    // No files to download; safely read accumulated state
+                    self.lock.lock()
+                    let strings = self.strings
+                    let plurals = self.plurals
+                    let errors = self.errors
+                    self.lock.unlock()
+                    self.completion?(strings, plurals, errors)
                 }
             } else if let error = error {
                 self.lock.lock()
