@@ -165,17 +165,20 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
 
     // Localization methods
     func localizedString(for key: String) -> String? {
-        var string = self.strings[key]
-        if string == nil {
-			string = self.pluralsBundle?.bundle?.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+        // If key exists in plurals, use plurals bundle for proper plural handling
+        if plurals[key] != nil {
+            let string = self.pluralsBundle?.bundle?.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
             // Plurals localization works as default bundle localization.
             // In case localized string for key is missing the key string will be returned.
             // To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
             if string == key {
-                string = nil
+                return nil
             }
+            return string
         }
-        return string
+
+        // Otherwise use strings
+        return self.strings[key]
     }
 
     func key(for string: String) -> String? {
