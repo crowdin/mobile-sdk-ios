@@ -83,7 +83,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             minimumManifestUpdateInterval: minimumManifestUpdateInterval
         )
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: self.manifestManager)
-        self.localizations = []
+        self.localizations = self.manifestManager.iOSLanguages
     }
 
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
