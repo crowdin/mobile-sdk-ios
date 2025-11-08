@@ -102,15 +102,17 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         case other
     }
 
-    private let accessQueue = DispatchQueue(label: "com.crowdin.PluralsLocalizationDataSource.accessQueue", attributes: .concurrent)
+    // Use a lightweight lock to avoid blocking the main thread during reads in high-contention scenarios
+    private let lock = NSLock()
     private var _plurals: [AnyHashable: Any]
     var plurals: [AnyHashable: Any] {
-        get {
-            var plurals: [AnyHashable: Any] = [:]
-            accessQueue.sync {
-                plurals = self._plurals
-            }
-            return plurals
+        // Attempt non-blocking read to avoid deadlocking UI during concurrent updates
+        if lock.try() {
+            defer { lock.unlock() }
+            return _plurals
+        } else {
+            // If write is in progress, return empty snapshot to keep UI responsive
+            return [:]
         }
     }
 
@@ -119,9 +121,9 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
     }
 
     func update(with values: [AnyHashable: Any]) {
-        accessQueue.async(flags: .barrier) {
-            self._plurals = values
-        }
+        lock.lock()
+        _plurals = values
+        lock.unlock()
     }
 
     func findKey(for string: String) -> String? {
