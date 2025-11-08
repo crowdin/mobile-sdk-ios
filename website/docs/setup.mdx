@@ -40,6 +40,9 @@ In the `application` method add:
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{distribution_hash}",
   sourceLanguage: "{source_language}")
 
+let crowdinSDKConfig = CrowdinSDKConfig.config()
+  .with(crowdinProviderConfig: crowdinProviderConfig)
+
 CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
     // SDK is ready to use, put code to change language, etc. here
 })

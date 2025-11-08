@@ -5,6 +5,9 @@ on:
     types: [released]
   workflow_dispatch:
 
+env:
+  XCODE_VERSION: '16.4'
+
 jobs:
   publish:
     runs-on: macos-latest
@@ -12,6 +15,10 @@ jobs:
       COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
 
       - name: Install cocoapods
         run: gem install cocoapods
