@@ -43,7 +43,15 @@ class AsyncOperation: Operation, AnyAsyncOperation {
         return true
     }
     override func start() {
-        if isCancelled { state = .finished; return }
+        if isCancelled { 
+            // If cancelled before starting, transition through the states properly
+            willChangeValue(forKey: "isFinished")
+            willChangeValue(forKey: "isExecuting")
+            state = .finished
+            didChangeValue(forKey: "isExecuting")
+            didChangeValue(forKey: "isFinished")
+            return 
+        }
         guard !hasCancelledDependencies else{ cancel(); return }
         state = .executing
         main()
@@ -52,7 +60,12 @@ class AsyncOperation: Operation, AnyAsyncOperation {
         fatalError("Should be overriden in child class")
     }
     override func cancel() {
-        state = .finished
+        super.cancel()
+        // Only transition to finished if we're already executing
+        // If we're still ready, the operation queue will handle it
+        if state == .executing {
+            state = .finished
+        }
     }
     func finish(with fail: Bool) {
         self.failed = fail
