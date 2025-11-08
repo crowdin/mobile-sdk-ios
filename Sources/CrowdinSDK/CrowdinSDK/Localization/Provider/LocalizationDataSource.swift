@@ -17,8 +17,6 @@ protocol LocalizationDataSourceProtocol {
 class AnyLocalizationDataSource<T>: LocalizationDataSourceProtocol {
     typealias Values = T
     
-    private let accessQueue = DispatchQueue(label: "com.crowdin.AnyLocalizationDataSource.accessQueue", attributes: .concurrent)
-    
     private let _findKey: (String) -> String?
     private let _findValues: (String, String) -> [Any]?
     private let _update: (T) -> Void
@@ -29,27 +27,11 @@ class AnyLocalizationDataSource<T>: LocalizationDataSourceProtocol {
         self._update = dataSource.update
     }
     
-    func findKey(for string: String) -> String? {
-        var result: String?
-        accessQueue.sync {
-            result = _findKey(string)
-        }
-        return result
-    }
+    func findKey(for string: String) -> String? { _findKey(string) }
     
-    func findValues(for string: String, with format: String) -> [Any]? {
-        var result: [Any]?
-        accessQueue.sync {
-            result = _findValues(string, format)
-        }
-        return result
-    }
+    func findValues(for string: String, with format: String) -> [Any]? { _findValues(string, format) }
     
-    func update(with values: T) {
-        accessQueue.async(flags: .barrier) {
-            self._update(values)
-        }
-    }
+    func update(with values: T) { _update(values) }
 }
 
 class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
