@@ -17,6 +17,9 @@ class LocalLocalizationStorageTests: XCTestCase {
     
     func testLocalLocalizationStorageInit() {
         localLocalizationStorage = LocalLocalizationStorage(localization: "en")
+        localLocalizationStorage.deintegrate()
+        
+        localLocalizationStorage = LocalLocalizationStorage(localization: "en")
         
         XCTAssertNotNil(localLocalizationStorage)
         XCTAssertNotNil(localLocalizationStorage.localizationFolder)

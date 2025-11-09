@@ -10,6 +10,9 @@ import Foundation
 extension LanguagesResponseData: CrowdinLanguage { }
 
 class CrowdinSupportedLanguages {
+    /// Serial queue for thread-safe access to mutable state
+    private let queue = DispatchQueue(label: "com.crowdin.sdk.supportedLanguages", attributes: [])
+    
     fileprivate enum Strings: String {
         case supportedLanguages = "SupportedLanguages"
         case crowdin = "Crowdin"
@@ -36,15 +39,30 @@ class CrowdinSupportedLanguages {
 
     let organizationName: String?
     let api: LanguagesAPI
-    var loaded: Bool { return supportedLanguages != nil }
-    var loading = false
+    
+    var loaded: Bool {
+        queue.sync { _supportedLanguages != nil }
+    }
+    
+    private var _loading = false
+    var loading: Bool {
+        get { queue.sync { _loading } }
+        set { queue.sync { _loading = newValue } }
+    }
 
-    fileprivate var completions: [() -> Void] = []
-    fileprivate var errors: [(Error) -> Void] = []
+    fileprivate var _completions: [() -> Void] = []
+    fileprivate var _errors: [(Error) -> Void] = []
 
+    private var _supportedLanguages: LanguagesResponse?
     var supportedLanguages: LanguagesResponse? {
-        didSet {
-            saveSupportedLanguages()
+        get {
+            queue.sync { _supportedLanguages }
+        }
+        set {
+            queue.sync {
+                _supportedLanguages = newValue
+                saveSupportedLanguages()
+            }
         }
     }
 
@@ -56,45 +74,62 @@ class CrowdinSupportedLanguages {
     }
 
     func updateSupportedLanguagesIfNeeded() {
-        guard self.supportedLanguages != nil else {
-            self.downloadSupportedLanguages()
-            return
+        let shouldDownload = queue.sync { () -> Bool in
+            guard _supportedLanguages != nil else { return true }
+            guard let lastUpdatedDate = lastUpdatedDate else { return true }
+            return Date().timeIntervalSince(lastUpdatedDate) > 7 * 24 * 60 * 60 // 1 week
         }
-        guard let lastUpdatedDate = lastUpdatedDate else {
-            self.downloadSupportedLanguages()
-            return
-        }
-        if Date().timeIntervalSince(lastUpdatedDate) > 7 * 24 * 60 * 60 { // 1 week
+        
+        if shouldDownload {
             self.downloadSupportedLanguages()
         }
     }
 
     func downloadSupportedLanguages(completion: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-        if let completion = completion { completions.append(completion) }
-        if let error = error { errors.append(error) }
-
-        guard loading == false else { return }
-
-        loading = true
+        let shouldStartDownload = queue.sync { () -> Bool in
+            if let completion = completion { _completions.append(completion) }
+            if let error = error { _errors.append(error) }
+            
+            guard !_loading else { return false }
+            _loading = true
+            return true
+        }
+        
+        guard shouldStartDownload else { return }
 
         api.getLanguages(limit: 500, offset: 0) { [weak self] (supportedLanguages, error) in
             guard let self = self else { return }
-            if let error = error {
-                CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to download supported languages with error: \(error.localizedDescription)"))
-                self.errors.forEach({ $0(error) })
-                self.errors.removeAll()
-                self.completions.removeAll()
-                self.loading = false
-                return
+            
+            let callbacks: (completions: [() -> Void], errors: [(Error) -> Void]) = self.queue.sync {
+                defer {
+                    self._completions.removeAll()
+                    self._errors.removeAll()
+                    self._loading = false
+                }
+                
+                if let error = error {
+                    CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to download supported languages with error: \(error.localizedDescription)"))
+                    return ([], self._errors)
+                }
+                
+                guard let supportedLanguages = supportedLanguages else {
+                    return ([], [])
+                }
+                
+                self._supportedLanguages = supportedLanguages
+                self.lastUpdatedDate = Date()
+                self.saveSupportedLanguages()
+                CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Download supported languages success"))
+                
+                return (self._completions, [])
             }
-            guard let supportedLanguages = supportedLanguages else { return }
-            self.supportedLanguages = supportedLanguages
-            self.lastUpdatedDate = Date()
-            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Download supported languages success"))
-            self.completions.forEach({ $0() })
-            self.completions.removeAll()
-            self.errors.removeAll()
-            self.loading = false
+            
+            // Call callbacks outside the queue to avoid deadlocks
+            if let error = error {
+                callbacks.errors.forEach({ $0(error) })
+            } else {
+                callbacks.completions.forEach({ $0() })
+            }
         }
     }
 
@@ -109,12 +144,17 @@ class CrowdinSupportedLanguages {
     }
 
     fileprivate func saveSupportedLanguages() {
-        guard let data = try? JSONEncoder().encode(supportedLanguages) else { return }
+        // This is called from within queue.sync in the supportedLanguages setter
+        // so we don't need additional synchronization here
+        guard let data = try? JSONEncoder().encode(_supportedLanguages) else { return }
         try? data.write(to: URL(fileURLWithPath: filePath), options: Data.WritingOptions.atomic)
     }
 
     fileprivate func readSupportedLanguages() {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else { return }
-        self.supportedLanguages = try? JSONDecoder().decode(LanguagesResponse.self, from: data)
+        let languages = try? JSONDecoder().decode(LanguagesResponse.self, from: data)
+        queue.sync {
+            _supportedLanguages = languages
+        }
     }
 }

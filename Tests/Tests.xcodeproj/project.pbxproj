@@ -17,6 +17,9 @@
 		E88AE26D234D3F01000B6FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26C234D3F01000B6FC0 /* Assets.xcassets */; };
 		E88AE270234D3F01000B6FC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26E234D3F01000B6FC0 /* LaunchScreen.storyboard */; };
 		E88AE286234D3F01000B6FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE285234D3F01000B6FC0 /* UITests.swift */; };
+		E890E4572DFDD3310029D0AA /* MockLocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */; };
+		E890E4582DFDD3310029D0AA /* BundleSwizzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E890E4552DFDD3310029D0AA /* BundleSwizzleTests.swift */; };
+		E890E4592DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */; };
 		E8B03C3A2DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C282DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift */; };
 		E8B03C3B2DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C292DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift */; };
 		E8B03C3C2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C2B2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift */; };
@@ -72,6 +75,9 @@
 		E88AE281234D3F01000B6FC0 /* TestsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E88AE285234D3F01000B6FC0 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
 		E88AE287234D3F01000B6FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E890E4552DFDD3310029D0AA /* BundleSwizzleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleSwizzleTests.swift; sourceTree = "<group>"; };
+		E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalizationProvider.swift; sourceTree = "<group>"; };
+		E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSupportedLanguagesThreadSafetyTests.swift; sourceTree = "<group>"; };
 		E8B03C282DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLoginConfigTests.swift; sourceTree = "<group>"; };
 		E8B03C292DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKConfigLoginTests.swift; sourceTree = "<group>"; };
 		E8B03C2B2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDownloadHandlersTests.swift; sourceTree = "<group>"; };
@@ -218,6 +224,9 @@
 				E8B03C2E2DB8FBC7006DD844 /* BundleTests.swift */,
 				E8B03C2F2DB8FBC7006DD844 /* CrowdinLocalizationDownloaderTests.swift */,
 				E8B03C302DB8FBC7006DD844 /* CrowdinSDKTests.swift */,
+				E890E4552DFDD3310029D0AA /* BundleSwizzleTests.swift */,
+				E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */,
+				E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */,
 				E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */,
 				E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */,
 				E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */,
@@ -316,6 +325,7 @@
 				};
 			};
 			buildConfigurationList = E88AE25B234D3F00000B6FC0 /* Build configuration list for PBXProject "Tests" */;
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -484,6 +494,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E890E4572DFDD3310029D0AA /* MockLocalizationProvider.swift in Sources */,
+				E890E4582DFDD3310029D0AA /* BundleSwizzleTests.swift in Sources */,
+				E890E4592DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift in Sources */,
 				E8B03C3A2DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift in Sources */,
 				E8B03C3B2DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift in Sources */,
 				E8B03C3C2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift in Sources */,

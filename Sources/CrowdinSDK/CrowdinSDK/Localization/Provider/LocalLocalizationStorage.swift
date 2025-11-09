@@ -43,7 +43,7 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
 
     /// List of all available localizations.
     var localizations: [String] {
-        return self.localizationFolder.files.filter({ return $0.type == FileType.plist.rawValue }).map({ $0.name })
+        return self.localizationFolder.files.filter({ $0.type == FileType.plist.rawValue }).compactMap({ $0.name.split(separator: ".").first }).map({ String($0) })
     }
 
     private var _strings: Atomic<[String: String]> = Atomic([:])
