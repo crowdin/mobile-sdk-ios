@@ -43,9 +43,11 @@ class ManifestManager {
     let sourceLanguage: String
     let organizationName: String?
     fileprivate var _manifest: ManifestResponse?
+    /// Direct access to manifest. External callers should use thread-safe properties (languages, files, etc.)
+    /// Internal methods already use queue.sync to protect access to _manifest
     var manifest: ManifestResponse? {
-        get { queue.sync { _manifest } }
-        set { queue.sync { _manifest = newValue } }
+        get { _manifest }
+        set { _manifest = newValue }
     }
 
     var manifestURL: String?
