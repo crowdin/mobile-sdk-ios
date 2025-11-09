@@ -95,14 +95,15 @@ class ManifestManager {
     }
 
     var iOSLanguages: [String] {
+        // Access supportedLanguages outside queue.sync to avoid nested synchronization
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        
         return queue.sync {
             guard let languages = _manifest?.languages else { return [] }
             
             var resolvedLanguages = [String]()
             var unresolvedLanguages = [String]()
             
-            // Get all languages once to avoid nested queue.sync calls
-            let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
             let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
             let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
             
@@ -127,9 +128,10 @@ class ManifestManager {
     }
 
     func contentFiles(for language: String) -> [String] {
+        // Access supportedLanguages outside queue.sync to avoid nested synchronization
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        
         return queue.sync {
-            // Get crowdin language code inline to avoid nested queue.sync
-            let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
             let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
             let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
             

@@ -9,8 +9,10 @@ import Foundation
 
 extension ManifestManager: LanguageResolver {
     var allLanguages: [CrowdinLanguage] {
+        // Access supportedLanguages outside queue.sync to avoid nested synchronization
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        
         return queue.sync {
-            let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
             let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
             let allLanguages: [CrowdinLanguage] = crowdinLanguages + customLaguages
             return allLanguages
@@ -25,9 +27,10 @@ extension ManifestManager: LanguageResolver {
     }
 
     func crowdinSupportedLanguage(for localization: String) -> CrowdinLanguage? {
+        // Access supportedLanguages outside queue.sync to avoid nested synchronization
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        
         return queue.sync {
-            // Get all languages inline to avoid nested queue.sync
-            let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
             let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
             let languages: [CrowdinLanguage] = crowdinLanguages + customLaguages
             
@@ -47,9 +50,10 @@ extension ManifestManager: LanguageResolver {
     }
 
     func iOSLanguageCode(for crowdinLocalization: String) -> String? {
+        // Access supportedLanguages outside queue.sync to avoid nested synchronization
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        
         return queue.sync {
-            // Get all languages inline to avoid nested queue.sync
-            let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
             let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
             let languages: [CrowdinLanguage] = crowdinLanguages + customLaguages
             
