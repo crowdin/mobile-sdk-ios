@@ -37,7 +37,7 @@ class AnyLocalizationDataSource<T>: LocalizationDataSourceProtocol {
 class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
     typealias Values = [String: String]
     
-    private let accessQueue = DispatchQueue(label: "com.crowdin.StringsLocalizationDataSource.accessQueue", attributes: .concurrent)
+    private let accessQueue = DispatchQueue(label: "com.crowdin.StringsLocalizationDataSource.accessQueue")
     private var _strings: [String: String]
     var strings: [String: String] {
         get {
@@ -54,29 +54,36 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
     }
 
     func update(with values: [String: String]) {
-        accessQueue.async(flags: .barrier) {
+        accessQueue.sync {
             self._strings = values
         }
     }
 
     func findKey(for string: String) -> String? {
-        // Simple strings
-        for (key, value) in strings {
-            if string == value { return key }
-        }
-        // Formated strings
-        for (key, value) in strings {
-            if String.findMatch(for: value, with: string) {
-                if let values = String.findValues(for: string, with: value) {
-                    // Check if localized strign is equal to text.
-                    // swiftlint:disable force_cast
-                    if key.cw_localized(with: values as! [CVarArg]) == string {
-                        return key
+        // Access _strings directly within the queue to avoid reentrant sync on accessQueue.
+        var result: String?
+        accessQueue.sync {
+            // Simple strings
+            for (key, value) in self._strings {
+                if string == value {
+                    result = key
+                    return
+                }
+            }
+            // Formated strings
+            for (key, value) in self._strings {
+                if String.findMatch(for: value, with: string) {
+                    if let values = String.findValues(for: string, with: value) {
+                        // swiftlint:disable force_cast
+                        if key.cw_localized(with: values as! [CVarArg]) == string {
+                            result = key
+                            return
+                        }
                     }
                 }
             }
         }
-        return nil
+        return result
     }
 
     func findValues(for string: String, with format: String) -> [Any]? {
@@ -102,7 +109,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
         case other
     }
 
-    private let accessQueue = DispatchQueue(label: "com.crowdin.PluralsLocalizationDataSource.accessQueue", attributes: .concurrent)
+    private let accessQueue = DispatchQueue(label: "com.crowdin.PluralsLocalizationDataSource.accessQueue")
     private var _plurals: [AnyHashable: Any]
     var plurals: [AnyHashable: Any] {
         get {
@@ -125,11 +132,21 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
     }
 
     func findKey(for string: String) -> String? {
-        return findKeyAndValues(for: plurals, for: string).key
+        // Access _plurals directly within the queue to avoid reentrant sync on accessQueue.
+        var result: String?
+        accessQueue.sync {
+            result = findKeyAndValues(for: self._plurals, for: string).key
+        }
+        return result
     }
 
     func findValues(for string: String, with format: String) -> [Any]? {
-        return findKeyAndValues(for: plurals, for: string).values
+        // Access _plurals directly within the queue to avoid reentrant sync on accessQueue.
+        var result: [Any]?
+        accessQueue.sync {
+            result = findKeyAndValues(for: self._plurals, for: string).values
+        }
+        return result
     }
 
     func findKeyAndValues(for plurals: [AnyHashable: Any], for text: String) -> (key: String?, values: [Any]?) {

@@ -13,7 +13,11 @@ class ManifestManager {
     let queue = DispatchQueue(label: "com.crowdin.sdk.manifestmanager", attributes: [])
     
     /// Dictionary with manifest state for hashes.
-    fileprivate var state: ManifestState = .none
+    fileprivate var _state: ManifestState = .none
+    fileprivate var state: ManifestState {
+        get { _state }
+        set { _state = newValue }
+    }
     /// Dictionary with manifest completion handlers array for hashes.
     fileprivate var completionsMap = [String: [() -> Void]]()
     /// Dictionary with manifest managers for hashes.
@@ -33,12 +37,16 @@ class ManifestManager {
     
     var fileTimestampStorage: FileTimestampStorage
     var available: Bool {
-        queue.sync { state == .downloaded || state == .local }
+        queue.sync { _state == .downloaded || _state == .local }
     }
     let hash: String
     let sourceLanguage: String
     let organizationName: String?
-    var manifest: ManifestResponse?
+    fileprivate var _manifest: ManifestResponse?
+    var manifest: ManifestResponse? {
+        get { queue.sync { _manifest } }
+        set { queue.sync { _manifest = newValue } }
+    }
 
     var manifestURL: String?
     var contentDeliveryAPI: CrowdinContentDeliveryAPI
@@ -61,39 +69,39 @@ class ManifestManager {
     }
 
     var languages: [String]? {
-        queue.sync { manifest?.languages }
+        queue.sync { _manifest?.languages }
     }
     
     var files: [String]? {
-        queue.sync { manifest?.files }
+        queue.sync { _manifest?.files }
     }
     
     var timestamp: TimeInterval? {
-        queue.sync { manifest?.timestamp }
+        queue.sync { _manifest?.timestamp }
     }
     
     var customLanguages: [CustomLangugage] {
-        queue.sync { manifest?.customLanguages ?? [] }
+        queue.sync { _manifest?.customLanguages ?? [] }
     }
     
     var mappingFiles: [String] {
-        queue.sync { manifest?.mapping ?? [] }
+        queue.sync { _manifest?.mapping ?? [] }
     }
     
     var xcstringsLanguage: String {
-        queue.sync { manifest?.languages?.first ?? sourceLanguage }
+        queue.sync { _manifest?.languages?.first ?? sourceLanguage }
     }
 
     var iOSLanguages: [String] {
         return queue.sync {
-            guard let languages = self.manifest?.languages else { return [] }
+            guard let languages = _manifest?.languages else { return [] }
             
             var resolvedLanguages = [String]()
             var unresolvedLanguages = [String]()
             
             // Get all languages once to avoid nested queue.sync calls
             let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
-            let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
+            let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
             let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
             
             // Try to resolve each language through the language mapping
@@ -120,7 +128,7 @@ class ManifestManager {
         return queue.sync {
             // Get crowdin language code inline to avoid nested queue.sync
             let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
-            let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
+            let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
             let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
             
             var crowdinLanguageCandidate = allLangs.first(where: { $0.iOSLanguageCode == language })
@@ -135,10 +143,10 @@ class ManifestManager {
             
             guard let crowdinLanguage = crowdinLanguageCandidate?.id else { return [] }
             
-            var files = manifest?.content[crowdinLanguage] ?? []
-            let xcstringsLang = manifest?.languages?.first ?? sourceLanguage
+            var files = _manifest?.content[crowdinLanguage] ?? []
+            let xcstringsLang = _manifest?.languages?.first ?? sourceLanguage
             if language != xcstringsLang {
-                let xcstrings = manifest?.content[xcstringsLang]?.filter({ $0.isXcstrings }) ?? []
+                let xcstrings = _manifest?.content[xcstringsLang]?.filter({ $0.isXcstrings }) ?? []
                 files.append(contentsOf: xcstrings)
             }
             return files
@@ -153,19 +161,19 @@ class ManifestManager {
             let minimumInterval = self.minimumManifestUpdateInterval
 
             // If minimum interval not reached OR already downloaded -> just complete immediately (no new network call)
-            if currentTime - lastUpdateTimestamp < minimumInterval || self.state == .downloaded {
+            if currentTime - lastUpdateTimestamp < minimumInterval || _state == .downloaded {
                 return .completeImmediately
             }
 
             // If already downloading, add completion and wait for active download to finish
-            if self.state == .downlaoding {
+            if _state == .downlaoding {
                 self.addCompletion(completion: completion, for: self.hash)
                 return .wait
             }
 
             // Start new download
             self.addCompletion(completion: completion, for: self.hash)
-            self.state = .downlaoding
+            _state = .downlaoding
             return .start
         }
 
@@ -186,17 +194,17 @@ class ManifestManager {
             guard let self = self else { return }
             let completions: [() -> Void]? = self.queue.sync {
                 if let manifest = manifest {
-                    self.manifest = manifest
+                    self._manifest = manifest
                     self.manifestURL = manifestURL
                     self.save(manifestResponse: manifest)
-                    self.state = .downloaded
+                    self._state = .downloaded
                     self.lastManifestUpdateInterval = currentTime
                 } else if let error = error {
                     LocalizationUpdateObserver.shared.notifyError(with: [error])
-                    self.state = .none
+                    self._state = .none
                 } else {
                     LocalizationUpdateObserver.shared.notifyError(with: [NSError(domain: "Unknown error while downloading manifest", code: defaultCrowdinErrorCode, userInfo: nil)])
-                    self.state = .none
+                    self._state = .none
                 }
                 let completions = self.completionsMap[self.hash]
                 self.completionsMap.removeValue(forKey: self.hash)
@@ -208,7 +216,7 @@ class ManifestManager {
 
     func hasFileChanged(filePath: String, localization: String) -> Bool {
         return queue.sync {
-            guard let currentTimestamp = manifest?.timestamp else { return false }
+            guard let currentTimestamp = _manifest?.timestamp else { return false }
             return fileTimestampStorage.timestamp(for: localization, filePath: filePath) != currentTimestamp
         }
     }
@@ -251,8 +259,8 @@ class ManifestManager {
     private func load() {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: manifestPath)) else { return }
         guard let manifestResponse = try? JSONDecoder().decode(ManifestResponse.self, from: data) else { return }
-        self.manifest = manifestResponse
-        self.state = .local
+        self._manifest = manifestResponse
+        self._state = .local
     }
 
     /// Removes all cached manifest data files

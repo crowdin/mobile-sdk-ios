@@ -60,8 +60,9 @@ cd Tests && pod install
 # Run tests via xcodebuild (CI approach)
 xcodebuild test \
   -workspace ./Tests.xcworkspace \
-  -scheme Tests \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -scheme TestsTests \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -enableCodeCoverage YES
 ```
 
 Tests are in two locations:

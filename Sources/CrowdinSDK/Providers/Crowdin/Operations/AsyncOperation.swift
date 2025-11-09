@@ -12,7 +12,7 @@ protocol AnyAsyncOperation {
     func finish(with fail: Bool)
 }
 
-class AsyncOperation: Operation, AnyAsyncOperation {
+class AsyncOperation: Operation, AnyAsyncOperation, @unchecked Sendable {
     var failed: Bool = false
     enum State: String {
         case ready, executing, finished
@@ -43,16 +43,19 @@ class AsyncOperation: Operation, AnyAsyncOperation {
         return true
     }
     override func start() {
-        if isCancelled { 
-            // If cancelled before starting, transition through the states properly
-            willChangeValue(forKey: "isFinished")
-            willChangeValue(forKey: "isExecuting")
+        if isCancelled {
+            // Transition through executing state to ensure proper KVO notifications
+            state = .executing
             state = .finished
-            didChangeValue(forKey: "isExecuting")
-            didChangeValue(forKey: "isFinished")
-            return 
+            return
         }
-        guard !hasCancelledDependencies else{ cancel(); return }
+        guard !hasCancelledDependencies else {
+            // Cancel and ensure state transitions
+            state = .executing
+            super.cancel()
+            state = .finished
+            return
+        }
         state = .executing
         main()
     }
