@@ -11,7 +11,7 @@ import Foundation
 
 struct IconAPI {
     func fetchIcon(urlString: String, completion: @escaping (Result<Data?, Error>) -> Void) {
-        let imgURLString = "https://logo.clearbit.com/\(urlString)"
+        let imgURLString = "https://icons.duckduckgo.com/ip3/\(urlString)"
         guard let url = URL(string: imgURLString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
