@@ -78,12 +78,14 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
     }
 
     func findKey(for string: String) -> String? {
+        // Get a consistent snapshot of strings to avoid thread safety issues
+        let currentStrings = strings
         // Simple strings
-        for (key, value) in strings {
+        for (key, value) in currentStrings {
             if string == value { return key }
         }
         // Formated strings
-        for (key, value) in strings {
+        for (key, value) in currentStrings {
             if String.findMatch(for: value, with: string) {
                 if let values = String.findValues(for: string, with: value) {
                     // Check if localized strign is equal to text.
