@@ -12,7 +12,7 @@ protocol AnyAsyncOperation {
     func finish(with fail: Bool)
 }
 
-class AsyncOperation: Operation, AnyAsyncOperation {
+class AsyncOperation: Operation, AnyAsyncOperation, @unchecked Sendable {
     var failed: Bool = false
     enum State: String {
         case ready, executing, finished
@@ -43,8 +43,19 @@ class AsyncOperation: Operation, AnyAsyncOperation {
         return true
     }
     override func start() {
-        if isCancelled { state = .finished; return }
-        guard !hasCancelledDependencies else{ cancel(); return }
+        if isCancelled {
+            // Transition through executing state to ensure proper KVO notifications
+            state = .executing
+            state = .finished
+            return
+        }
+        guard !hasCancelledDependencies else {
+            // Cancel and ensure state transitions
+            state = .executing
+            super.cancel()
+            state = .finished
+            return
+        }
         state = .executing
         main()
     }
@@ -52,7 +63,12 @@ class AsyncOperation: Operation, AnyAsyncOperation {
         fatalError("Should be overriden in child class")
     }
     override func cancel() {
-        state = .finished
+        super.cancel()
+        // Only transition to finished if we're already executing
+        // If we're still ready, the operation queue will handle it
+        if state == .executing {
+            state = .finished
+        }
     }
     func finish(with fail: Bool) {
         self.failed = fail
