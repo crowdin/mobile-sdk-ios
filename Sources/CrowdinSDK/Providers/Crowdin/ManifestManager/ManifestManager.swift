@@ -131,7 +131,7 @@ class ManifestManager {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
         let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
         
-        return queue.sync {
+        return queue.sync { () -> [String] in
             let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
             let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
             
@@ -145,9 +145,18 @@ class ManifestManager {
                 crowdinLanguageCandidate = allLangs.first(where: { $0.iOSLanguageCode == alternateiOSLocaleCode })
             }
             
-            guard let crowdinLanguage = crowdinLanguageCandidate?.id else { return [] }
+            guard let crowdinLanguage = crowdinLanguageCandidate else { return [] }
             
-            var files = _manifest?.content[crowdinLanguage] ?? []
+            var files = _manifest?.content[crowdinLanguage.id] ?? []
+            
+             if files.isEmpty {
+                 files = _manifest?.content[crowdinLanguage.twoLettersCode] ?? []
+             }
+
+             if files.isEmpty {
+                 files = _manifest?.content[crowdinLanguage.osxLocale] ?? []
+             }
+            
             let xcstringsLang = _manifest?.languages?.first ?? sourceLanguage
             if language != xcstringsLang {
                 let xcstrings = _manifest?.content[xcstringsLang]?.filter({ $0.isXcstrings }) ?? []
