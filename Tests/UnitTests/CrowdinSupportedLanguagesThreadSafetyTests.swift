@@ -287,9 +287,12 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         let supportedLanguages = manifest.crowdinSupportedLanguages
         
-        // Create a barrier to ensure threads start simultaneously
-        let barrier = DispatchGroup()
-        let startSignal = DispatchSemaphore(value: 0)
+        // Use suspended queues to coordinate start instead of semaphore to avoid priority inversion warnings
+        let readerQueue = DispatchQueue(label: "com.crowdin.test.reader", qos: .userInitiated, attributes: .concurrent)
+        let writerQueue = DispatchQueue(label: "com.crowdin.test.writer", qos: .background, attributes: .concurrent)
+        
+        readerQueue.suspend()
+        writerQueue.suspend()
         
         let iterations = 10
         let expectation = XCTestExpectation(description: "Thread sanitizer test")
@@ -297,35 +300,27 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         // Start reader threads
         for _ in 0..<iterations {
-            barrier.enter()
-            DispatchQueue.global(qos: .userInitiated).async {
-                startSignal.wait()
+            readerQueue.async {
                 // Read operation
                 _ = supportedLanguages.supportedLanguages?.data.map { $0.data }
                 expectation.fulfill()
-                barrier.leave()
             }
         }
         
         // Start writer threads (via download)
         for _ in 0..<iterations {
-            barrier.enter()
-            DispatchQueue.global(qos: .background).async {
-                startSignal.wait()
+            writerQueue.async {
                 // Write operation through download
                 supportedLanguages.downloadSupportedLanguages(completion: {
                     expectation.fulfill()
                 })
-                barrier.leave()
             }
         }
         
-        // Release all threads simultaneously to maximize race chance
-        for _ in 0..<(iterations * 2) {
-            startSignal.signal()
-        }
+        // Release all threads simultaneously
+        readerQueue.resume()
+        writerQueue.resume()
         
         wait(for: [expectation], timeout: 120.0)
-        barrier.wait()
     }
 }
