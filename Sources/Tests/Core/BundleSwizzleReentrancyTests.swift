@@ -12,8 +12,8 @@ import XCTest
 private class DummyLocalStorage: LocalLocalizationStorageProtocol {
     var localization: String
     var localizations: [String] { [] }
-    var strings: [String : String] = [:]
-    var plurals: [AnyHashable : Any] = [:]
+    var strings: [String: String] = [:]
+    var plurals: [AnyHashable: Any] = [:]
 
     init(localization: String) {
         self.localization = localization
@@ -23,7 +23,7 @@ private class DummyLocalStorage: LocalLocalizationStorageProtocol {
         completion(localizations, localization, strings, plurals)
     }
 
-    func saveLocalizaion(strings: [String : String]?, plurals: [AnyHashable : Any]?, for localization: String) { }
+    func saveLocalizaion(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) { }
     func save() { }
     func fetchData() { }
     func deintegrate() { }
