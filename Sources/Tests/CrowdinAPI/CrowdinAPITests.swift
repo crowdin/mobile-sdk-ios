@@ -22,4 +22,20 @@ class CrowdinAPITests: XCTestCase {
         XCTAssert(api.organizationName == "test")
         XCTAssert(api.fullPath == "https://test.api.crowdin.com/api/v2/")
     }
+
+    func testUserAgentHeader() {
+        api = CrowdinAPI(organizationName: nil)
+        let headers = CrowdinAPI.versioned(nil)
+        XCTAssertNotNil(headers["User-Agent"])
+        let userAgent = headers["User-Agent"]!
+        XCTAssertTrue(userAgent.contains("crowdin-ios-sdk/"))
+        
+        #if os(iOS) || os(tvOS)
+        XCTAssertTrue(userAgent.contains("iOS/"))
+        #elseif os(watchOS)
+        XCTAssertTrue(userAgent.contains("watchOS/"))
+        #elseif os(macOS)
+        XCTAssertTrue(userAgent.contains("macOS/"))
+        #endif
+    }
 }

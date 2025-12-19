@@ -55,7 +55,7 @@ class LoginAPI: BaseAPI {
         var request = URLRequest(url: url)
         let tokenRequest = TokenRequest(clientId: clientId, clientSecret: clientSecret, code: code, redirectURI: redirectURI)
         request.httpBody = try? JSONEncoder().encode(tokenRequest)
-        request.allHTTPHeaderFields = [:]
+        request.allHTTPHeaderFields = CrowdinAPI.versioned(nil)
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.httpMethod = "POST"
         let errorHandler = error
@@ -81,7 +81,7 @@ class LoginAPI: BaseAPI {
         var request = URLRequest(url: url)
         let tokenRequest = RefreshTokenRequest(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, refreshToken: refreshToken)
         request.httpBody = try? JSONEncoder().encode(tokenRequest)
-        request.allHTTPHeaderFields = [:]
+        request.allHTTPHeaderFields = CrowdinAPI.versioned(nil)
         request.allHTTPHeaderFields?["Content-Type"] = "application/json"
         request.httpMethod = "POST"
         let errorHandler = error

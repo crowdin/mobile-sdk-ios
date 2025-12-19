@@ -40,7 +40,9 @@ class SocketAPI: NSObject {
         self.websocketAPI = WebsocketAPI(organizationName: organizationName, auth: auth)
 
         // swiftlint:disable force_unwrapping
-        ws = WebSocket(request: URLRequest(url: URL(string: wsUrl)!))
+        var request = URLRequest(url: URL(string: wsUrl)!)
+        request.allHTTPHeaderFields = CrowdinAPI.versioned(nil)
+        ws = WebSocket(request: request)
         super.init()
         ws.delegate = self
     }

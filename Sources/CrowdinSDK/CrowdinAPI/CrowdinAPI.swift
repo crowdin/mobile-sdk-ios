@@ -212,15 +212,28 @@ class CrowdinAPI: BaseAPI {
         return result
     }
 
-    func versioned(_ headers: [String: String]?) -> [String: String] {
+    static func versioned(_ headers: [String: String]?) -> [String: String] {
         var result = headers ?? [:]
-        guard let bundle = Bundle(identifier: "org.cocoapods.CrowdinSDK"), let sdkVersionNumber = bundle.infoDictionary?["CFBundleShortVersionString"] as? String else { return result }
+        var sdkVersionNumber: String?
+        if let bundle = Bundle(identifier: "org.cocoapods.CrowdinSDK"), let version = bundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            sdkVersionNumber = version
+        } else {
+            let bundle = Bundle(for: CrowdinAPI.self)
+            if let version = bundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+                sdkVersionNumber = version
+            }
+        }
+        let version = sdkVersionNumber ?? "unknown"
 #if os(iOS) || os(tvOS)
         let systemVersion = "iOS: \(UIDevice.current.systemVersion)"
-        result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
+        result["User-Agent"] = "crowdin-ios-sdk/\(version) iOS/\(systemVersion)"
 #elseif os(watchOS)
         let systemVersion = "watchOS: \(WKInterfaceDevice.current().systemVersion)"
-        result["User-Agent"] = "crowdin-ios-sdk/\(sdkVersionNumber) iOS/\(systemVersion)"
+        result["User-Agent"] = "crowdin-ios-sdk/\(version) watchOS/\(systemVersion)"
+#elseif os(macOS)
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersion
+        let systemVersion = "macOS: \(osVersion.majorVersion).\(osVersion.minorVersion).\(osVersion.patchVersion)"
+        result["User-Agent"] = "crowdin-ios-sdk/\(version) macOS/\(systemVersion)"
 #endif
         return result
     }
@@ -228,7 +241,7 @@ class CrowdinAPI: BaseAPI {
     func addDefaultHeaders(to headers: [String: String]?) -> [String: String] {
         var result = headers ?? [:]
         result = authorized(result)
-        result = versioned(result)
+        result = CrowdinAPI.versioned(result)
         return result
     }
 
