@@ -8,6 +8,5 @@
 import Foundation
 
 extension CrowdinSDK {
-    public static let currentVersion = "1.12.1"
+    public static let currentVersion = "1.12.3"
 }
-
