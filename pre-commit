@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Sync version from Podspec to Swift code
+./sync_pod_version.sh
+if [ $? -ne 0 ]; then
+    echo "Error syncing version."
+    exit 1
+fi
+
 # Run SwiftLint on the Sources directory
 ./run_swiftlint.sh
 
