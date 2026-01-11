@@ -6,7 +6,7 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 git config core.hooksPath "$GIT_ROOT"
 
 # Make scripts executable
-chmod +x pre-commit
-chmod +x sync_pod_version.sh
+chmod +x "$GIT_ROOT/pre-commit"
+chmod +x "$GIT_ROOT/sync_pod_version.sh"
 
 echo "Git hooks installed successfully."
