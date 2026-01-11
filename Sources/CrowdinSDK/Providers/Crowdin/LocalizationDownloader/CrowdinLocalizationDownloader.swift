@@ -104,9 +104,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         strings.forEach { filePath in
             let download = CrowdinStringsDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, error) in
-                guard let self = self else { return }
                 context.add(strings: strings)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
                 }
@@ -118,9 +118,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         plurals.forEach { filePath in
             let download = CrowdinPluralsDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (plurals, error) in
-                guard let self = self else { return }
                 context.add(plurals: plurals)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
                 }
@@ -132,10 +132,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         xliffs.forEach { filePath in
             let download = CrowdinXliffDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, plurals, error) in
-                guard let self = self else { return }
                 context.add(strings: strings)
                 context.add(plurals: plurals)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
                 }
@@ -151,10 +151,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                                                              timestamp: timestamp,
                                                              contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, plurals, error) in
-                guard let self = self else { return }
                 context.add(strings: strings)
                 context.add(plurals: plurals)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: self.manifestManager.xcstringsLanguage, filePath: filePath, timestamp: timestamp)
                 }
