@@ -8,5 +8,6 @@ git config core.hooksPath "$GIT_ROOT"
 # Make scripts executable
 chmod +x "$GIT_ROOT/pre-commit"
 chmod +x "$GIT_ROOT/sync_pod_version.sh"
+chmod +x "$GIT_ROOT/run_swiftlint.sh"
 
 echo "Git hooks installed successfully."
