@@ -51,8 +51,8 @@ class CrowdinTesterTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
             let tester = CrowdinTester(localization: "de")
-            XCTAssert(tester.inSDKPluralsKeys.count == 2, "Downloaded localization contains 2 plural keys")
-            XCTAssert(tester.inSDKStringsKeys.count == 5, "Downloaded localization contains 5 string keys")
+            XCTAssert(tester.inSDKPluralsKeys.count == 2, "Downloaded localization should contain 2 plural keys, but contain - \(tester.inSDKPluralsKeys.count)")
+            XCTAssert(tester.inSDKStringsKeys.count == 5, "Downloaded localization should contain 5 string keys, but contain - \(tester.inSDKStringsKeys.count)")
             
             expectation.fulfill()
         }
