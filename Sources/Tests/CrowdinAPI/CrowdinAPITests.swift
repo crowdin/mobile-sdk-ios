@@ -27,7 +27,10 @@ class CrowdinAPITests: XCTestCase {
         api = CrowdinAPI(organizationName: nil)
         let headers = CrowdinAPI.versioned(nil)
         XCTAssertNotNil(headers["User-Agent"])
-        let userAgent = headers["User-Agent"]!
+        guard let userAgent = headers["User-Agent"] else {
+            XCTFail("User-Agent header is missing")
+            return
+        }
         XCTAssertTrue(userAgent.contains("crowdin-ios-sdk/"))
         
         #if os(iOS)
