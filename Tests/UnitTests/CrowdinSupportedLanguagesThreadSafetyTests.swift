@@ -21,6 +21,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         CrowdinSDK.removeAllDownloadHandlers()
         CrowdinSDK.deintegrate()
         CrowdinSDK.stop()
+        ManifestManager.clear()
         super.tearDown()
     }
     
