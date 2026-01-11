@@ -216,17 +216,17 @@ class CrowdinAPI: BaseAPI {
         var result = headers ?? [:]
         let version = CrowdinSDK.currentVersion
 #if os(iOS)
-        let systemVersion = "iOS: \(UIDevice.current.systemVersion)"
+        let systemVersion = UIDevice.current.systemVersion
         result["User-Agent"] = "crowdin-ios-sdk/\(version) iOS/\(systemVersion)"
 #elseif os(tvOS)
-        let systemVersion = "tvOS: \(UIDevice.current.systemVersion)"
+        let systemVersion = UIDevice.current.systemVersion
         result["User-Agent"] = "crowdin-ios-sdk/\(version) tvOS/\(systemVersion)"
 #elseif os(watchOS)
-        let systemVersion = "watchOS: \(WKInterfaceDevice.current().systemVersion)"
+        let systemVersion = WKInterfaceDevice.current().systemVersion
         result["User-Agent"] = "crowdin-ios-sdk/\(version) watchOS/\(systemVersion)"
 #elseif os(macOS)
         let osVersion = ProcessInfo.processInfo.operatingSystemVersion
-        let systemVersion = "macOS: \(osVersion.majorVersion).\(osVersion.minorVersion).\(osVersion.patchVersion)"
+        let systemVersion = "\(osVersion.majorVersion).\(osVersion.minorVersion).\(osVersion.patchVersion)"
         result["User-Agent"] = "crowdin-ios-sdk/\(version) macOS/\(systemVersion)"
 #endif
         return result
