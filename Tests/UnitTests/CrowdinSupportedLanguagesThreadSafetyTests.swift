@@ -59,6 +59,8 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             DispatchQueue.global(qos: .background).async {
                 supportedLanguages.downloadSupportedLanguages(completion: {
                     expectation.fulfill()
+                }, error: { _ in
+                    expectation.fulfill()
                 })
             }
         }
@@ -167,6 +169,8 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             if i % 10 == 0 {
                 DispatchQueue.global(qos: .background).async {
                     supportedLanguages.downloadSupportedLanguages(completion: {
+                        expectation.fulfill()
+                    }, error: { _ in
                         expectation.fulfill()
                     })
                 }
