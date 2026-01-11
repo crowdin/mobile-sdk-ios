@@ -12,6 +12,14 @@ import XCTest
 class CrowdinStringTestsLocalization: XCTestCase {
     let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en"))
     
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["CROWDIN_LIVE_TESTS"] == "1",
+            "Requires live Crowdin distribution. Set CROWDIN_LIVE_TESTS=1 to run."
+        )
+    }
+    
     override func tearDown() {
         CrowdinSDK.removeAllDownloadHandlers()
         CrowdinSDK.deintegrate()
@@ -78,4 +86,3 @@ class CrowdinStringTestsLocalization: XCTestCase {
         wait(for: [expectation], timeout: 60.0)
     }
 }
-

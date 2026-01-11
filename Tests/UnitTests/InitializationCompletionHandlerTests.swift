@@ -10,6 +10,14 @@ import XCTest
 @testable import CrowdinSDK
 
 class InitializationCompletionHandlerTests: XCTestCase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["CROWDIN_LIVE_TESTS"] == "1",
+            "Requires live Crowdin distribution. Set CROWDIN_LIVE_TESTS=1 to run."
+        )
+    }
+    
     override func tearDown() {
         CrowdinSDK.deintegrate()
         CrowdinSDK.stop()

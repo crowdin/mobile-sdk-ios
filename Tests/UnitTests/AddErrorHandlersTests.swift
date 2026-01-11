@@ -10,6 +10,14 @@ import XCTest
 @testable import CrowdinSDK
 
 class AddErrorHandlersTests: XCTestCase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["CROWDIN_LIVE_TESTS"] == "1",
+            "Requires live Crowdin distribution. Set CROWDIN_LIVE_TESTS=1 to run."
+        )
+    }
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         CrowdinSDK.removeAllErrorHandlers()

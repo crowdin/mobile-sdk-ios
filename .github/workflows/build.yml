@@ -186,6 +186,7 @@ jobs:
           -scheme Tests \
           -configuration Debug \
           -destination '${{ steps.select_sim.outputs.destination }}' \
+          -parallel-testing-enabled NO \
           -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov

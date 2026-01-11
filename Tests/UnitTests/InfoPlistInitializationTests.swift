@@ -10,8 +10,12 @@ import XCTest
 @testable import CrowdinSDK
 
 class InfoPlistInitializationTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["CROWDIN_LIVE_TESTS"] == "1",
+            "Requires live Crowdin distribution. Set CROWDIN_LIVE_TESTS=1 to run."
+        )
         CrowdinSDK.deintegrate()
     }
     
@@ -39,4 +43,3 @@ class InfoPlistInitializationTests: XCTestCase {
         CrowdinSDK.removeDownloadHandler(hendlerId)
     }
 }
-

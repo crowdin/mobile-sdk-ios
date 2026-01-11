@@ -11,6 +11,14 @@ import XCTest
 
 class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["CROWDIN_LIVE_TESTS"] == "1",
+            "Requires live Crowdin distribution. Set CROWDIN_LIVE_TESTS=1 to run."
+        )
+    }
+    
     override func setUp() {
         super.setUp()
         CrowdinSDK.deintegrate()
@@ -141,6 +149,8 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         let initialLoadExpectation = XCTestExpectation(description: "Initial load")
         supportedLanguages.downloadSupportedLanguages(completion: {
             initialLoadExpectation.fulfill()
+        }, error: { _ in
+            initialLoadExpectation.fulfill()
         })
         wait(for: [initialLoadExpectation], timeout: 60.0)
         
@@ -222,6 +232,8 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             // Concurrently trigger supportedLanguages download
             DispatchQueue.global(qos: .background).async {
                 manifest.crowdinSupportedLanguages.downloadSupportedLanguages(completion: {
+                    expectation.fulfill()
+                }, error: { _ in
                     expectation.fulfill()
                 })
             }
@@ -317,6 +329,8 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             writerQueue.async {
                 // Write operation through download
                 supportedLanguages.downloadSupportedLanguages(completion: {
+                    expectation.fulfill()
+                }, error: { _ in
                     expectation.fulfill()
                 })
             }

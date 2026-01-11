@@ -10,9 +10,13 @@ import XCTest
 @testable import CrowdinSDK
 
 class CrowdinSDKTests: XCTestCase {
-    override func setUp() {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["CROWDIN_LIVE_TESTS"] == "1",
+            "Requires live Crowdin distribution. Set CROWDIN_LIVE_TESTS=1 to run."
+        )
         CrowdinSDK.deintegrate()
-		super.setUp()
     }
 
     override func tearDown() {
