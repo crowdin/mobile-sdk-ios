@@ -12,18 +12,36 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     fileprivate let manifestManager: ManifestManager
     
     class DownloadContext {
-        var strings: [String: String]? = nil
-        var plurals: [AnyHashable: Any]? = nil
-        var errors: [Error]? = nil
+        private var _strings: [String: String]? = nil
+        private var _plurals: [AnyHashable: Any]? = nil
+        private var _errors: [Error]? = nil
         let lock = NSLock()
+        
+        var strings: [String: String]? {
+            lock.lock()
+            defer { lock.unlock() }
+            return _strings
+        }
+        
+        var plurals: [AnyHashable: Any]? {
+            lock.lock()
+            defer { lock.unlock() }
+            return _plurals
+        }
+        
+        var errors: [Error]? {
+            lock.lock()
+            defer { lock.unlock() }
+            return _errors
+        }
         
         func add(error: Error?) {
             guard let error = error else { return }
             lock.lock()
-            if self.errors != nil {
-                self.errors?.append(error)
+            if self._errors != nil {
+                self._errors?.append(error)
             } else {
-                self.errors = [error]
+                self._errors = [error]
             }
             lock.unlock()
         }
@@ -31,10 +49,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         func add(strings: [String: String]?) {
             guard let strings = strings else { return }
             lock.lock()
-            if self.strings != nil {
-                self.strings?.merge(with: strings)
+            if self._strings != nil {
+                self._strings?.merge(with: strings)
             } else {
-                self.strings = strings
+                self._strings = strings
             }
             lock.unlock()
         }
@@ -42,10 +60,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         func add(plurals: [AnyHashable: Any]?) {
             guard let plurals = plurals else { return }
             lock.lock()
-            if self.plurals != nil {
-                self.plurals?.merge(with: plurals)
+            if self._plurals != nil {
+                self._plurals?.merge(with: plurals)
             } else {
-                self.plurals = plurals
+                self._plurals = plurals
             }
             lock.unlock()
         }
