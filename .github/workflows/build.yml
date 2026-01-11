@@ -156,10 +156,7 @@ jobs:
 
       - name: Install CocoaPods
         working-directory: Tests
-        run: |
-          if [ ! -d "Pods" ]; then
-            pod install
-          fi
+        run: pod install
 
       - name: Install xcbeautify
         run: brew install xcbeautify
