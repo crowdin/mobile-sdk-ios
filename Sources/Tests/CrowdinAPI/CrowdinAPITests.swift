@@ -30,8 +30,10 @@ class CrowdinAPITests: XCTestCase {
         let userAgent = headers["User-Agent"]!
         XCTAssertTrue(userAgent.contains("crowdin-ios-sdk/"))
         
-        #if os(iOS) || os(tvOS)
+        #if os(iOS)
         XCTAssertTrue(userAgent.contains("iOS/"))
+        #elseif os(tvOS)
+        XCTAssertTrue(userAgent.contains("tvOS/"))
         #elseif os(watchOS)
         XCTAssertTrue(userAgent.contains("watchOS/"))
         #elseif os(macOS)
