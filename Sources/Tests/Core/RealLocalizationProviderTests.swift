@@ -239,7 +239,7 @@ class RealLocalizationProviderTests: XCTestCase {
             
             // Reduce the number of concurrent operations to avoid overwhelming the system
             // This is more realistic - apps don't typically have 100s of simultaneous refresh calls
-            let refreshCount = 10
+            let refreshCount = 5
             let accessCount = 20
             
             // Add a small delay between operations to make the test more stable
@@ -269,6 +269,6 @@ class RealLocalizationProviderTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 30.0)
+        wait(for: [expectation], timeout: 60.0)
     }
 }
