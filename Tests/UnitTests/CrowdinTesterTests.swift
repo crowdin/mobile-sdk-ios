@@ -17,7 +17,11 @@ class CrowdinTesterTests: XCTestCase {
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
         
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        let expectation = XCTestExpectation(description: "SDK started")
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 60.0)
     }
     
     
@@ -28,7 +32,6 @@ class CrowdinTesterTests: XCTestCase {
     }
     
     func testDownloadedLocalizations() {
-        CrowdinSDK.currentLocalization = "en"
         let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
             let tester = CrowdinTester(localization: "en")
@@ -37,13 +40,14 @@ class CrowdinTesterTests: XCTestCase {
             
             expectation.fulfill()
         }
+        
+        CrowdinSDK.currentLocalization = "en"
+        
         wait(for: [expectation], timeout: 60.0)
     }
     
     
     func testChangeAndDownloadLocalizations() {
-        CrowdinSDK.currentLocalization = "de"
-        
         let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
             let tester = CrowdinTester(localization: "de")
@@ -52,6 +56,9 @@ class CrowdinTesterTests: XCTestCase {
             
             expectation.fulfill()
         }
+        
+        CrowdinSDK.currentLocalization = "de"
+        
         wait(for: [expectation], timeout: 60.0)
     }
 	
