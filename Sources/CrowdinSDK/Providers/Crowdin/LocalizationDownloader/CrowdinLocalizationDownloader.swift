@@ -188,6 +188,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     func getFiles(for language: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         manifestManager.download { [weak self] in
             guard let self = self else { return }
+            guard self.manifestManager.manifest != nil else {
+                let error = NSError(domain: "Manifest download failed", code: defaultCrowdinErrorCode, userInfo: nil)
+                completion(nil, nil, error)
+                return
+            }
             completion(self.manifestManager.contentFiles(for: language), self.manifestManager.timestamp, nil)
         }
     }
