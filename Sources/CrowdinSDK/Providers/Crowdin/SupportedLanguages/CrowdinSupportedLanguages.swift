@@ -109,13 +109,13 @@ class CrowdinSupportedLanguages {
                 
                 if let error = error {
                     CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to download supported languages with error: \(error.localizedDescription)"))
-                    return ([], self._errors)
+                    return (self._completions, self._errors)
                 }
                 
                 guard let supportedLanguages = supportedLanguages else {
                     let error = NSError(domain: "Unknown error while downloading supported languages", code: defaultCrowdinErrorCode, userInfo: nil)
                     CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to download supported languages with error: \(error.localizedDescription)"))
-                    return ([], self._errors)
+                    return (self._completions, self._errors)
                 }
                 
                 self._supportedLanguages = supportedLanguages
@@ -129,9 +129,11 @@ class CrowdinSupportedLanguages {
             // Call callbacks outside the queue to avoid deadlocks
             if let error = error {
                 callbacks.errors.forEach({ $0(error) })
+                callbacks.completions.forEach({ $0() })
             } else if supportedLanguages == nil {
                 let error = NSError(domain: "Unknown error while downloading supported languages", code: defaultCrowdinErrorCode, userInfo: nil)
                 callbacks.errors.forEach({ $0(error) })
+                callbacks.completions.forEach({ $0() })
             } else {
                 callbacks.completions.forEach({ $0() })
             }
