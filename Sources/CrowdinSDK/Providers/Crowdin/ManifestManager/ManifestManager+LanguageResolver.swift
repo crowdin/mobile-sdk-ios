@@ -10,7 +10,7 @@ import Foundation
 extension ManifestManager: LanguageResolver {
     var allLanguages: [CrowdinLanguage] {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
             let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
@@ -28,7 +28,7 @@ extension ManifestManager: LanguageResolver {
 
     func crowdinSupportedLanguage(for localization: String) -> CrowdinLanguage? {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
             let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
@@ -51,7 +51,7 @@ extension ManifestManager: LanguageResolver {
 
     func iOSLanguageCode(for crowdinLocalization: String) -> String? {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
             let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []

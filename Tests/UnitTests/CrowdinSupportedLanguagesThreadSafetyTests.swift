@@ -51,7 +51,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             // Read from one thread
             DispatchQueue.global(qos: .userInitiated).async {
                 // This read can race with the write happening in downloadSupportedLanguages callback
-                _ = supportedLanguages.supportedLanguages?.data.count
+                _ = supportedLanguages.supportedLanguages?.count
                 expectation.fulfill()
             }
             
@@ -149,7 +149,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         for i in 0..<iterations {
             // Multiple read operations from different threads
             DispatchQueue.global(qos: .userInteractive).async {
-                _ = supportedLanguages.supportedLanguages?.data.first?.data.id
+                _ = supportedLanguages.supportedLanguages?.first?.id
                 expectation.fulfill()
             }
             
@@ -159,7 +159,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             }
             
             DispatchQueue.global(qos: .default).async {
-                _ = supportedLanguages.supportedLanguages?.data.map { $0.data.name }
+                _ = supportedLanguages.supportedLanguages?.map { $0.name }
                 expectation.fulfill()
             }
             
@@ -172,7 +172,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
                 }
             } else {
                 DispatchQueue.global(qos: .background).async {
-                    _ = supportedLanguages.supportedLanguages?.data.count
+                    _ = supportedLanguages.supportedLanguages?.count
                     expectation.fulfill()
                 }
             }
@@ -302,7 +302,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         for _ in 0..<iterations {
             readerQueue.async {
                 // Read operation
-                _ = supportedLanguages.supportedLanguages?.data.map { $0.data }
+                _ = supportedLanguages.supportedLanguages
                 expectation.fulfill()
             }
         }

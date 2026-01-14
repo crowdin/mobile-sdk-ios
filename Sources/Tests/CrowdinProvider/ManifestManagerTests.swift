@@ -41,23 +41,20 @@ class ManifestManagerTests: XCTestCase {
         let manifestManager = ManifestManager.manifest(for: "test_hash", sourceLanguage: "en", organizationName: nil, minimumManifestUpdateInterval: 60)
         
         // 1. Setup Supported Languages (Mocking what Crowdin returns)
-        let esData = LanguagesResponseData(
-            id: "es-ES", name: "Spanish", editorCode: "es", twoLettersCode: "es", threeLettersCode: "spa",
-            locale: "es-ES", androidCode: "es-rES", osxCode: "es.lproj", osxLocale: "es",
-            pluralCategoryNames: [], pluralRules: "", pluralExamples: [], textDirection: .ltr, dialectOf: nil
-        )
-        let svData = LanguagesResponseData(
-            id: "sv-SE", name: "Swedish", editorCode: "sv", twoLettersCode: "sv", threeLettersCode: "swe",
-            locale: "sv-SE", androidCode: "sv-rSE", osxCode: "sv.lproj", osxLocale: "sv",
-            pluralCategoryNames: [], pluralRules: "", pluralExamples: [], textDirection: .ltr, dialectOf: nil
-        )
+        struct MockLanguage: CrowdinLanguage {
+            var id: String
+            var name: String
+            var twoLettersCode: String
+            var threeLettersCode: String
+            var locale: String
+            var osxCode: String
+            var osxLocale: String
+        }
         
-        let languagesResponse = LanguagesResponse(data: [
-            LanguagesResponseDatum(data: esData),
-            LanguagesResponseDatum(data: svData)
-        ], pagination: LanguagesResponsePagination(offset: 0, limit: 2))
-        
-        manifestManager.crowdinSupportedLanguages.supportedLanguages = languagesResponse
+        let esLang = MockLanguage(id: "es-ES", name: "Spanish", twoLettersCode: "es", threeLettersCode: "spa", locale: "es-ES", osxCode: "es.lproj", osxLocale: "es")
+        let svLang = MockLanguage(id: "sv-SE", name: "Swedish", twoLettersCode: "sv", threeLettersCode: "swe", locale: "sv-SE", osxCode: "sv.lproj", osxLocale: "sv")
+
+        manifestManager.crowdinSupportedLanguages.supportedLanguages = [esLang, svLang]
         
         // 2. Setup Manifest (Mocking user's manifest)
         let content: [String: [String]] = [

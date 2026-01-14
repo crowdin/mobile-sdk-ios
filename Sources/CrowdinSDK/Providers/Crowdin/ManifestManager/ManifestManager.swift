@@ -60,7 +60,7 @@ class ManifestManager {
         self.organizationName = organizationName
         self.minimumManifestUpdateInterval = minimumManifestUpdateInterval
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
-        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
+        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(hash: hash)
         self.fileTimestampStorage = FileTimestampStorage(hash: hash)
         self.load()
         ManifestManager.manifestMap[self.hash] = self
@@ -96,7 +96,7 @@ class ManifestManager {
 
     var iOSLanguages: [String] {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
             guard let languages = _manifest?.languages else { return [] }
@@ -129,7 +129,7 @@ class ManifestManager {
 
     func contentFiles(for language: String) -> [String] {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync { () -> [String] in
             let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
