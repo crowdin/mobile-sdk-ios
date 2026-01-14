@@ -65,13 +65,13 @@ jobs:
         platform: [iOS, macOS, tvOS, watchOS]
         include:
           - platform: iOS
-            destination: 'platform=iOS Simulator,name=iPhone 15'
+            destination: 'platform=iOS Simulator'
           - platform: macOS
             destination: 'platform=macOS'
           - platform: tvOS
-            destination: 'platform=tvOS Simulator,name=Apple TV'
+            destination: 'platform=tvOS Simulator'
           - platform: watchOS
-            destination: 'platform=watchOS Simulator,name=Apple Watch Ultra 2 (49mm)'
+            destination: 'platform=watchOS Simulator'
     steps:
       - uses: actions/checkout@v4
 
@@ -89,6 +89,25 @@ jobs:
             DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("iOS"))) | map(.value) | flatten | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .udid')
             if [ ! -z "$DEVICE_ID" ] && [ "$DEVICE_ID" != "null" ]; then
                DESTINATION="platform=iOS Simulator,id=$DEVICE_ID"
+            else
+               echo "No iOS simulator found"
+               exit 1
+            fi
+          elif [ "${{ matrix.platform }}" == "tvOS" ]; then
+            DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("tvOS"))) | map(.value) | flatten | sort_by(.name) | last | .udid')
+            if [ ! -z "$DEVICE_ID" ] && [ "$DEVICE_ID" != "null" ]; then
+               DESTINATION="platform=tvOS Simulator,id=$DEVICE_ID"
+            else
+               echo "No tvOS simulator found"
+               exit 1
+            fi
+          elif [ "${{ matrix.platform }}" == "watchOS" ]; then
+            DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("watchOS"))) | map(.value) | flatten | sort_by(.name) | last | .udid')
+            if [ ! -z "$DEVICE_ID" ] && [ "$DEVICE_ID" != "null" ]; then
+               DESTINATION="platform=watchOS Simulator,id=$DEVICE_ID"
+            else
+               echo "No watchOS simulator found"
+               exit 1
             fi
           fi
           xcodebuild build -scheme CrowdinSDK -destination "$DESTINATION" | xcbeautify && exit ${PIPESTATUS[0]}
@@ -116,9 +135,8 @@ jobs:
         run: |
           DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("iOS"))) | map(.value) | flatten | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .udid')
           if [ -z "$DEVICE_ID" ] || [ "$DEVICE_ID" == "null" ]; then
-            echo "No iPhone simulator found. Using fallback."
-            echo "destination=platform=iOS Simulator,name=iPhone 15" >> $GITHUB_OUTPUT
-            exit 0
+            echo "No iPhone simulator found."
+            exit 1
           fi
           echo "Selected Simulator UDID: $DEVICE_ID"
           echo "destination=platform=iOS Simulator,id=$DEVICE_ID" >> $GITHUB_OUTPUT
