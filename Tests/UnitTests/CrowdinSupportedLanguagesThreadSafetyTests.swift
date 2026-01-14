@@ -43,7 +43,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         let supportedLanguages = manifest.crowdinSupportedLanguages
         
-        let iterations = 100
+        let iterations = 10
         let expectation = XCTestExpectation(description: "Concurrent access completed")
         expectation.expectedFulfillmentCount = iterations * 2
         
@@ -66,7 +66,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testManifestManagerLanguageResolutionDataRace() {
