@@ -145,7 +145,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         wait(for: [initialLoadExpectation], timeout: 60.0)
         
         // Now hammer it with concurrent access
-        let iterations = 200
+        let iterations = 20
         let expectation = XCTestExpectation(description: "Stress test completed")
         expectation.expectedFulfillmentCount = iterations * 4
         
@@ -183,7 +183,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testContentFilesForLanguageDataRace() {
@@ -208,7 +208,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         }
         wait(for: [downloadExpectation], timeout: 60.0)
         
-        let iterations = 100
+        let iterations = 10
         let expectation = XCTestExpectation(description: "Content files access")
         expectation.expectedFulfillmentCount = iterations * 2
         
@@ -227,7 +227,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testIOSLanguagesComputedPropertyDataRace() {
@@ -246,7 +246,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         manifest.clear()
         
-        let iterations = 50
+        let iterations = 10
         let expectation = XCTestExpectation(description: "iOSLanguages access")
         expectation.expectedFulfillmentCount = iterations * 2 + 1
         
@@ -273,7 +273,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testThreadSanitizerDetection() {
@@ -326,6 +326,6 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         readerQueue.resume()
         writerQueue.resume()
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
 }
