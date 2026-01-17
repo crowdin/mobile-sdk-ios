@@ -157,8 +157,9 @@ class XCStringsStorage {
         case XCStrings
     }
 
-    // swiftlint:disable force_try
-    static let folder = try! CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)
+    static let folder: FolderProtocol = {
+        (try? CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)) ?? CrowdinFolder.shared
+    }()
 
     static func getFile(path: String) -> Data? {
         Data.read(from: folder.path + path)

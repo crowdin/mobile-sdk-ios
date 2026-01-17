@@ -10,7 +10,8 @@ import Foundation
 class RULocalLocalizationStorage: LocalLocalizationStorage {
     override init(localization: String) {
         super.init(localization: localization)
-        // swiftlint:disable force_try
-        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: "RealtimeUpdates")
+        if let folder = try? CrowdinFolder.shared.createFolder(with: "RealtimeUpdates") {
+            self.localizationFolder = folder
+        }
     }
 }
