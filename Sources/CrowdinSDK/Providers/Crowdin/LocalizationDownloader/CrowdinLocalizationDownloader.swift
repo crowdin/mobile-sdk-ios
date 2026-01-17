@@ -111,7 +111,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                   context: DownloadContext,
                   completion: @escaping CrowdinDownloaderCompletion) {
         let timestamp = timestamp ?? Date().timeIntervalSince1970
-        // We do NOT cancel all operations here to allow concurrent downloads (e.g. race condition tests)
+        // Cancel any pending operations to prevent resource leaks from overlapping downloads
+        operationQueue.cancelAllOperations()
 
         let contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         
