@@ -13,14 +13,17 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        TestLog.log("setUp: deintegrate", label: "Suite")
         CrowdinSDK.deintegrate()
     }
     
     override func tearDown() {
+        TestLog.log("tearDown: cleanup start", label: "Suite")
         CrowdinSDK.removeAllErrorHandlers()
         CrowdinSDK.removeAllDownloadHandlers()
         CrowdinSDK.deintegrate()
         CrowdinSDK.stop()
+        TestLog.log("tearDown: cleanup done", label: "Suite")
         super.tearDown()
     }
     
@@ -44,26 +47,39 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         let iterations = 100
         let expectation = XCTestExpectation(description: "Concurrent access completed")
-        expectation.expectedFulfillmentCount = iterations * 2
+        let expected = iterations * 2
+        expectation.expectedFulfillmentCount = expected
+        let counter = ConcurrentCounter()
+        let timer = TestLog.startProgressTimer(label: "ConcurrentReadWrite", expected: expected, counter: counter)
+        TestLog.log("START iterations=\(iterations)", label: "ConcurrentReadWrite")
         
         // Simulate concurrent reads while download is happening
-        for _ in 0..<iterations {
+        for i in 0..<iterations {
             // Read from one thread
             DispatchQueue.global(qos: .userInitiated).async {
-                // This read can race with the write happening in downloadSupportedLanguages callback
-                _ = supportedLanguages.supportedLanguages?.data.count
-                expectation.fulfill()
+                let count = supportedLanguages.supportedLanguages?.data.count
+                if count == nil {
+                    TestLog.log("reader: supportedLanguages is nil", label: "ConcurrentReadWrite")
+                } else if i % 25 == 0 {
+                    TestLog.log("reader: count=\(count ?? -1)", label: "ConcurrentReadWrite")
+                }
+                _ = count
+                _ = TestLog.fulfill(expectation, counter: counter, label: "reader", expected: expected)
             }
             
             // Trigger download from another thread which will write to supportedLanguages
             DispatchQueue.global(qos: .background).async {
+                TestLog.log("writer: downloadSupportedLanguages start", label: "ConcurrentReadWrite")
                 supportedLanguages.downloadSupportedLanguages(completion: {
-                    expectation.fulfill()
+                    TestLog.log("writer: downloadSupportedLanguages done", label: "ConcurrentReadWrite")
+                    _ = TestLog.fulfill(expectation, counter: counter, label: "writer", expected: expected)
                 })
             }
         }
         
         wait(for: [expectation], timeout: 120.0)
+        TestLog.stopTimer(timer)
+        TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "ConcurrentReadWrite")
     }
     
     func testManifestManagerLanguageResolutionDataRace() {
@@ -136,7 +152,9 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         // First, ensure we have some data
         let initialLoadExpectation = XCTestExpectation(description: "Initial load")
+        TestLog.log("initial download start", label: "RapidAccess")
         supportedLanguages.downloadSupportedLanguages(completion: {
+            TestLog.log("initial download done", label: "RapidAccess")
             initialLoadExpectation.fulfill()
         })
         wait(for: [initialLoadExpectation], timeout: 60.0)
@@ -144,41 +162,53 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         // Now hammer it with concurrent access
         let iterations = 200
         let expectation = XCTestExpectation(description: "Stress test completed")
-        expectation.expectedFulfillmentCount = iterations * 4
+        let expected = iterations * 4
+        expectation.expectedFulfillmentCount = expected
+        let counter = ConcurrentCounter()
+        let timer = TestLog.startProgressTimer(label: "RapidAccess", expected: expected, counter: counter)
+        TestLog.log("START iterations=\(iterations)", label: "RapidAccess")
         
         for i in 0..<iterations {
             // Multiple read operations from different threads
             DispatchQueue.global(qos: .userInteractive).async {
-                _ = supportedLanguages.supportedLanguages?.data.first?.data.id
-                expectation.fulfill()
+                let id = supportedLanguages.supportedLanguages?.data.first?.data.id
+                if i % 25 == 0 { TestLog.log("read first id=\(String(describing: id))", label: "RapidAccess") }
+                _ = TestLog.fulfill(expectation, counter: counter, label: "read.firstId", expected: expected)
             }
             
             DispatchQueue.global(qos: .userInitiated).async {
-                _ = supportedLanguages.loaded
-                expectation.fulfill()
+                let loaded = supportedLanguages.loaded
+                if i % 25 == 0 { TestLog.log("read loaded=\(loaded)", label: "RapidAccess") }
+                _ = TestLog.fulfill(expectation, counter: counter, label: "read.loaded", expected: expected)
             }
             
             DispatchQueue.global(qos: .default).async {
-                _ = supportedLanguages.supportedLanguages?.data.map { $0.data.name }
-                expectation.fulfill()
+                let names = supportedLanguages.supportedLanguages?.data.map { $0.data.name }
+                if i % 25 == 0 { TestLog.log("read names.count=\(names?.count ?? -1)", label: "RapidAccess") }
+                _ = TestLog.fulfill(expectation, counter: counter, label: "read.names", expected: expected)
             }
             
             // Periodically trigger downloads which write to supportedLanguages
             if i % 10 == 0 {
                 DispatchQueue.global(qos: .background).async {
+                    TestLog.log("writer: download start (i=\(i))", label: "RapidAccess")
                     supportedLanguages.downloadSupportedLanguages(completion: {
-                        expectation.fulfill()
+                        TestLog.log("writer: download done (i=\(i))", label: "RapidAccess")
+                        _ = TestLog.fulfill(expectation, counter: counter, label: "write.download", expected: expected)
                     })
                 }
             } else {
                 DispatchQueue.global(qos: .background).async {
-                    _ = supportedLanguages.supportedLanguages?.data.count
-                    expectation.fulfill()
+                    let c = supportedLanguages.supportedLanguages?.data.count
+                    if i % 25 == 0 { TestLog.log("bg count=\(c ?? -1)", label: "RapidAccess") }
+                    _ = TestLog.fulfill(expectation, counter: counter, label: "bg.count", expected: expected)
                 }
             }
         }
         
         wait(for: [expectation], timeout: 120.0)
+        TestLog.stopTimer(timer)
+        TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "RapidAccess")
     }
     
     func testContentFilesForLanguageDataRace() {
@@ -198,31 +228,42 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         // Clear and download manifest
         manifest.clear()
         let downloadExpectation = XCTestExpectation(description: "Download completed")
+        TestLog.log("manifest download start", label: "ContentFilesRace")
         manifest.download {
+            TestLog.log("manifest download done", label: "ContentFilesRace")
             downloadExpectation.fulfill()
         }
         wait(for: [downloadExpectation], timeout: 60.0)
         
         let iterations = 100
         let expectation = XCTestExpectation(description: "Content files access")
-        expectation.expectedFulfillmentCount = iterations * 2
+        let expected = iterations * 2
+        expectation.expectedFulfillmentCount = expected
+        let counter = ConcurrentCounter()
+        let timer = TestLog.startProgressTimer(label: "ContentFilesRace", expected: expected, counter: counter)
+        TestLog.log("START iterations=\(iterations)", label: "ContentFilesRace")
         
-        for _ in 0..<iterations {
+        for i in 0..<iterations {
             // Read contentFiles which internally reads supportedLanguages
             DispatchQueue.global(qos: .userInitiated).async {
-                _ = manifest.contentFiles(for: "en")
-                expectation.fulfill()
+                let files = manifest.contentFiles(for: "en")
+                if i % 20 == 0 { TestLog.log("contentFiles count=\(files.count)", label: "ContentFilesRace") }
+                _ = TestLog.fulfill(expectation, counter: counter, label: "read.contentFiles", expected: expected)
             }
             
             // Concurrently trigger supportedLanguages download
             DispatchQueue.global(qos: .background).async {
+                TestLog.log("writer: download start (i=\(i))", label: "ContentFilesRace")
                 manifest.crowdinSupportedLanguages.downloadSupportedLanguages(completion: {
-                    expectation.fulfill()
+                    TestLog.log("writer: download done (i=\(i))", label: "ContentFilesRace")
+                    _ = TestLog.fulfill(expectation, counter: counter, label: "write.download", expected: expected)
                 })
             }
         }
         
         wait(for: [expectation], timeout: 120.0)
+        TestLog.stopTimer(timer)
+        TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "ContentFilesRace")
     }
     
     func testIOSLanguagesComputedPropertyDataRace() {
@@ -243,32 +284,41 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         let iterations = 50
         let expectation = XCTestExpectation(description: "iOSLanguages access")
-        expectation.expectedFulfillmentCount = iterations * 2 + 1
+        let expected = iterations * 2 + 1
+        expectation.expectedFulfillmentCount = expected
+        let counter = ConcurrentCounter()
+        let timer = TestLog.startProgressTimer(label: "iOSLanguagesRace", expected: expected, counter: counter)
+        TestLog.log("START iterations=\(iterations)", label: "iOSLanguagesRace")
         
         // Start manifest download in background
         DispatchQueue.global(qos: .background).async {
+            TestLog.log("manifest download start", label: "iOSLanguagesRace")
             manifest.download {
-                expectation.fulfill()
+                TestLog.log("manifest download done", label: "iOSLanguagesRace")
+                _ = TestLog.fulfill(expectation, counter: counter, label: "download.done", expected: expected)
             }
         }
         
         // While downloading, hammer iOSLanguages property
-        for _ in 0..<iterations {
+        for i in 0..<iterations {
             DispatchQueue.global(qos: .userInitiated).async {
                 let languages = manifest.iOSLanguages
-                // Force use of the result
+                if i % 10 == 0 { TestLog.log("iOSLanguages count=\(languages.count)", label: "iOSLanguagesRace") }
                 _ = languages.count
-                expectation.fulfill()
+                _ = TestLog.fulfill(expectation, counter: counter, label: "read.iOSLanguages", expected: expected)
             }
             
             DispatchQueue.global(qos: .default).async {
                 // Also access through other methods
-                _ = manifest.crowdinSupportedLanguage(for: "en")
-                expectation.fulfill()
+                let lang = manifest.crowdinSupportedLanguage(for: "en")
+                if i % 10 == 0 { TestLog.log("crowdinSupportedLanguage(en) -> \(String(describing: lang))", label: "iOSLanguagesRace") }
+                _ = TestLog.fulfill(expectation, counter: counter, label: "read.crowdinLang", expected: expected)
             }
         }
         
         wait(for: [expectation], timeout: 120.0)
+        TestLog.stopTimer(timer)
+        TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "iOSLanguagesRace")
     }
     
     func testThreadSanitizerDetection() {
@@ -296,31 +346,41 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         
         let iterations = 10
         let expectation = XCTestExpectation(description: "Thread sanitizer test")
-        expectation.expectedFulfillmentCount = iterations * 2
+        let expected = iterations * 2
+        expectation.expectedFulfillmentCount = expected
+        let counter = ConcurrentCounter()
+        let timer = TestLog.startProgressTimer(label: "TSan", expected: expected, counter: counter)
+        TestLog.log("START iterations=\(iterations)", label: "TSan")
         
         // Start reader threads
-        for _ in 0..<iterations {
+        for i in 0..<iterations {
             readerQueue.async {
                 // Read operation
-                _ = supportedLanguages.supportedLanguages?.data.map { $0.data }
-                expectation.fulfill()
+                let values = supportedLanguages.supportedLanguages?.data.map { $0.data }
+                if i % 3 == 0 { TestLog.log("reader values.count=\(values?.count ?? -1)", label: "TSan") }
+                _ = TestLog.fulfill(expectation, counter: counter, label: "reader", expected: expected)
             }
         }
         
         // Start writer threads (via download)
-        for _ in 0..<iterations {
+        for i in 0..<iterations {
             writerQueue.async {
                 // Write operation through download
+                TestLog.log("writer: download start (i=\(i))", label: "TSan")
                 supportedLanguages.downloadSupportedLanguages(completion: {
-                    expectation.fulfill()
+                    TestLog.log("writer: download done (i=\(i))", label: "TSan")
+                    _ = TestLog.fulfill(expectation, counter: counter, label: "writer", expected: expected)
                 })
             }
         }
         
         // Release all threads simultaneously
+        TestLog.log("queues resume", label: "TSan")
         readerQueue.resume()
         writerQueue.resume()
         
         wait(for: [expectation], timeout: 120.0)
+        TestLog.stopTimer(timer)
+        TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "TSan")
     }
 }

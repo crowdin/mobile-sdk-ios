@@ -17,23 +17,24 @@
 		E88AE26D234D3F01000B6FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26C234D3F01000B6FC0 /* Assets.xcassets */; };
 		E88AE270234D3F01000B6FC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E88AE26E234D3F01000B6FC0 /* LaunchScreen.storyboard */; };
 		E88AE286234D3F01000B6FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AE285234D3F01000B6FC0 /* UITests.swift */; };
-		E890E4572DFDD3310029D0AA /* MockLocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */; };
-		E890E4582DFDD3310029D0AA /* BundleSwizzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E890E4552DFDD3310029D0AA /* BundleSwizzleTests.swift */; };
-		E890E4592DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */; };
-		E8B03C3A2DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C282DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift */; };
-		E8B03C3B2DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C292DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift */; };
-		E8B03C3C2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C2B2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift */; };
-		E8B03C3D2DB8FBC7006DD844 /* AddErrorHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C2C2DB8FBC7006DD844 /* AddErrorHandlersTests.swift */; };
-		E8B03C3E2DB8FBC7006DD844 /* BundleStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C2D2DB8FBC7006DD844 /* BundleStringTests.swift */; };
-		E8B03C3F2DB8FBC7006DD844 /* BundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C2E2DB8FBC7006DD844 /* BundleTests.swift */; };
-		E8B03C412DB8FBC7006DD844 /* CrowdinSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C302DB8FBC7006DD844 /* CrowdinSDKTests.swift */; };
-		E8B03C422DB8FBC7006DD844 /* CrowdinStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */; };
-		E8B03C432DB8FBC7006DD844 /* CrowdinTesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */; };
-		E8B03C442DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */; };
-		E8B03C452DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C342DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift */; };
-		E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */; };
-		E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */; };
-		E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */; };
+		E8AAC26E2F1D1CEA00967932 /* CrowdinLoginConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2562F1D1CEA00967932 /* CrowdinLoginConfigTests.swift */; };
+		E8AAC26F2F1D1CEA00967932 /* CrowdinSDKConfigLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2572F1D1CEA00967932 /* CrowdinSDKConfigLoginTests.swift */; };
+		E8AAC2702F1D1CEA00967932 /* TestLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2592F1D1CEA00967932 /* TestLogging.swift */; };
+		E8AAC2712F1D1CEA00967932 /* AddDownloadHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC25B2F1D1CEA00967932 /* AddDownloadHandlersTests.swift */; };
+		E8AAC2722F1D1CEA00967932 /* AddErrorHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC25C2F1D1CEA00967932 /* AddErrorHandlersTests.swift */; };
+		E8AAC2732F1D1CEA00967932 /* BundleStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC25D2F1D1CEA00967932 /* BundleStringTests.swift */; };
+		E8AAC2742F1D1CEA00967932 /* BundleSwizzleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC25E2F1D1CEA00967932 /* BundleSwizzleTests.swift */; };
+		E8AAC2752F1D1CEA00967932 /* BundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC25F2F1D1CEA00967932 /* BundleTests.swift */; };
+		E8AAC2772F1D1CEA00967932 /* CrowdinSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2612F1D1CEA00967932 /* CrowdinSDKTests.swift */; };
+		E8AAC2782F1D1CEA00967932 /* CrowdinStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2622F1D1CEA00967932 /* CrowdinStringTests.swift */; };
+		E8AAC2792F1D1CEA00967932 /* CrowdinSupportedLanguagesThreadSafetyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2632F1D1CEA00967932 /* CrowdinSupportedLanguagesThreadSafetyTests.swift */; };
+		E8AAC27A2F1D1CEA00967932 /* CrowdinTesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2642F1D1CEA00967932 /* CrowdinTesterTests.swift */; };
+		E8AAC27B2F1D1CEA00967932 /* EnableSDKLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2652F1D1CEA00967932 /* EnableSDKLocalizationTests.swift */; };
+		E8AAC27C2F1D1CEA00967932 /* FileTimestampStorageCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2662F1D1CEA00967932 /* FileTimestampStorageCrashTests.swift */; };
+		E8AAC27D2F1D1CEA00967932 /* FileTimestampStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2672F1D1CEA00967932 /* FileTimestampStorageTests.swift */; };
+		E8AAC27E2F1D1CEA00967932 /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC2692F1D1CEA00967932 /* InfoPlistInitializationTests.swift */; };
+		E8AAC27F2F1D1CEA00967932 /* InitializationCompletionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC26A2F1D1CEA00967932 /* InitializationCompletionHandlerTests.swift */; };
+		E8AAC2802F1D1CEA00967932 /* MockLocalizationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AAC26B2F1D1CEA00967932 /* MockLocalizationProvider.swift */; };
 		E8BD50CC23527390006D77FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50CE23527390006D77FD /* Localizable.strings */; };
 		E8BD50D92352F6C6006D77FD /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50DB2352F6C6006D77FD /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
@@ -75,25 +76,26 @@
 		E88AE281234D3F01000B6FC0 /* TestsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E88AE285234D3F01000B6FC0 /* UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
 		E88AE287234D3F01000B6FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E890E4552DFDD3310029D0AA /* BundleSwizzleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleSwizzleTests.swift; sourceTree = "<group>"; };
-		E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalizationProvider.swift; sourceTree = "<group>"; };
-		E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSupportedLanguagesThreadSafetyTests.swift; sourceTree = "<group>"; };
-		E8B03C282DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLoginConfigTests.swift; sourceTree = "<group>"; };
-		E8B03C292DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKConfigLoginTests.swift; sourceTree = "<group>"; };
-		E8B03C2B2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDownloadHandlersTests.swift; sourceTree = "<group>"; };
-		E8B03C2C2DB8FBC7006DD844 /* AddErrorHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddErrorHandlersTests.swift; sourceTree = "<group>"; };
-		E8B03C2D2DB8FBC7006DD844 /* BundleStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStringTests.swift; sourceTree = "<group>"; };
-		E8B03C2E2DB8FBC7006DD844 /* BundleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleTests.swift; sourceTree = "<group>"; };
-		E8B03C2F2DB8FBC7006DD844 /* CrowdinLocalizationDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLocalizationDownloaderTests.swift; sourceTree = "<group>"; };
-		E8B03C302DB8FBC7006DD844 /* CrowdinSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKTests.swift; sourceTree = "<group>"; };
-		E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinStringTests.swift; sourceTree = "<group>"; };
-		E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinTesterTests.swift; sourceTree = "<group>"; };
-		E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableSDKLocalizationTests.swift; sourceTree = "<group>"; };
-		E8B03C342DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTimestampStorageCrashTests.swift; sourceTree = "<group>"; };
-		E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTimestampStorageTests.swift; sourceTree = "<group>"; };
-		E8B03C362DB8FBC7006DD844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
-		E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
+		E8AAC2562F1D1CEA00967932 /* CrowdinLoginConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLoginConfigTests.swift; sourceTree = "<group>"; };
+		E8AAC2572F1D1CEA00967932 /* CrowdinSDKConfigLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKConfigLoginTests.swift; sourceTree = "<group>"; };
+		E8AAC2592F1D1CEA00967932 /* TestLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLogging.swift; sourceTree = "<group>"; };
+		E8AAC25B2F1D1CEA00967932 /* AddDownloadHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDownloadHandlersTests.swift; sourceTree = "<group>"; };
+		E8AAC25C2F1D1CEA00967932 /* AddErrorHandlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddErrorHandlersTests.swift; sourceTree = "<group>"; };
+		E8AAC25D2F1D1CEA00967932 /* BundleStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStringTests.swift; sourceTree = "<group>"; };
+		E8AAC25E2F1D1CEA00967932 /* BundleSwizzleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleSwizzleTests.swift; sourceTree = "<group>"; };
+		E8AAC25F2F1D1CEA00967932 /* BundleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleTests.swift; sourceTree = "<group>"; };
+		E8AAC2602F1D1CEA00967932 /* CrowdinLocalizationDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLocalizationDownloaderTests.swift; sourceTree = "<group>"; };
+		E8AAC2612F1D1CEA00967932 /* CrowdinSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKTests.swift; sourceTree = "<group>"; };
+		E8AAC2622F1D1CEA00967932 /* CrowdinStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinStringTests.swift; sourceTree = "<group>"; };
+		E8AAC2632F1D1CEA00967932 /* CrowdinSupportedLanguagesThreadSafetyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSupportedLanguagesThreadSafetyTests.swift; sourceTree = "<group>"; };
+		E8AAC2642F1D1CEA00967932 /* CrowdinTesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinTesterTests.swift; sourceTree = "<group>"; };
+		E8AAC2652F1D1CEA00967932 /* EnableSDKLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableSDKLocalizationTests.swift; sourceTree = "<group>"; };
+		E8AAC2662F1D1CEA00967932 /* FileTimestampStorageCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTimestampStorageCrashTests.swift; sourceTree = "<group>"; };
+		E8AAC2672F1D1CEA00967932 /* FileTimestampStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTimestampStorageTests.swift; sourceTree = "<group>"; };
+		E8AAC2682F1D1CEA00967932 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8AAC2692F1D1CEA00967932 /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
+		E8AAC26A2F1D1CEA00967932 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
+		E8AAC26B2F1D1CEA00967932 /* MockLocalizationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalizationProvider.swift; sourceTree = "<group>"; };
 		E8BD50C42352735F006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50C52352736A006D77FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50CD23527390006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -163,7 +165,7 @@
 			children = (
 				920E2A18234F5A2200FD3E12 /* Default-568h@2x.png */,
 				E88AE262234D3F00000B6FC0 /* Tests */,
-				E8B03C392DB8FBC7006DD844 /* UnitTests */,
+				E8AAC26C2F1D1CEA00967932 /* UnitTests */,
 				E88AE284234D3F01000B6FC0 /* UITests */,
 				E88AE261234D3F00000B6FC0 /* Products */,
 				862A5C7DAE8D195457C96A61 /* Pods */,
@@ -205,36 +207,45 @@
 			path = UITests;
 			sourceTree = "<group>";
 		};
-		E8B03C2A2DB8FBC7006DD844 /* Login */ = {
+		E8AAC2582F1D1CEA00967932 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				E8B03C282DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift */,
-				E8B03C292DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift */,
+				E8AAC2562F1D1CEA00967932 /* CrowdinLoginConfigTests.swift */,
+				E8AAC2572F1D1CEA00967932 /* CrowdinSDKConfigLoginTests.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
 		};
-		E8B03C392DB8FBC7006DD844 /* UnitTests */ = {
+		E8AAC25A2F1D1CEA00967932 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				E8B03C2A2DB8FBC7006DD844 /* Login */,
-				E8B03C2B2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift */,
-				E8B03C2C2DB8FBC7006DD844 /* AddErrorHandlersTests.swift */,
-				E8B03C2D2DB8FBC7006DD844 /* BundleStringTests.swift */,
-				E8B03C2E2DB8FBC7006DD844 /* BundleTests.swift */,
-				E8B03C2F2DB8FBC7006DD844 /* CrowdinLocalizationDownloaderTests.swift */,
-				E8B03C302DB8FBC7006DD844 /* CrowdinSDKTests.swift */,
-				E890E4552DFDD3310029D0AA /* BundleSwizzleTests.swift */,
-				E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */,
-				E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */,
-				E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */,
-				E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */,
-				E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */,
-				E8B03C342DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift */,
-				E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */,
-				E8B03C362DB8FBC7006DD844 /* Info.plist */,
-				E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */,
-				E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */,
+				E8AAC2592F1D1CEA00967932 /* TestLogging.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		E8AAC26C2F1D1CEA00967932 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E8AAC2582F1D1CEA00967932 /* Login */,
+				E8AAC25A2F1D1CEA00967932 /* Support */,
+				E8AAC25B2F1D1CEA00967932 /* AddDownloadHandlersTests.swift */,
+				E8AAC25C2F1D1CEA00967932 /* AddErrorHandlersTests.swift */,
+				E8AAC25D2F1D1CEA00967932 /* BundleStringTests.swift */,
+				E8AAC25E2F1D1CEA00967932 /* BundleSwizzleTests.swift */,
+				E8AAC25F2F1D1CEA00967932 /* BundleTests.swift */,
+				E8AAC2602F1D1CEA00967932 /* CrowdinLocalizationDownloaderTests.swift */,
+				E8AAC2612F1D1CEA00967932 /* CrowdinSDKTests.swift */,
+				E8AAC2622F1D1CEA00967932 /* CrowdinStringTests.swift */,
+				E8AAC2632F1D1CEA00967932 /* CrowdinSupportedLanguagesThreadSafetyTests.swift */,
+				E8AAC2642F1D1CEA00967932 /* CrowdinTesterTests.swift */,
+				E8AAC2652F1D1CEA00967932 /* EnableSDKLocalizationTests.swift */,
+				E8AAC2662F1D1CEA00967932 /* FileTimestampStorageCrashTests.swift */,
+				E8AAC2672F1D1CEA00967932 /* FileTimestampStorageTests.swift */,
+				E8AAC2682F1D1CEA00967932 /* Info.plist */,
+				E8AAC2692F1D1CEA00967932 /* InfoPlistInitializationTests.swift */,
+				E8AAC26A2F1D1CEA00967932 /* InitializationCompletionHandlerTests.swift */,
+				E8AAC26B2F1D1CEA00967932 /* MockLocalizationProvider.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -407,9 +418,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -494,23 +509,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E890E4572DFDD3310029D0AA /* MockLocalizationProvider.swift in Sources */,
-				E890E4582DFDD3310029D0AA /* BundleSwizzleTests.swift in Sources */,
-				E890E4592DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift in Sources */,
-				E8B03C3A2DB8FBC7006DD844 /* CrowdinLoginConfigTests.swift in Sources */,
-				E8B03C3B2DB8FBC7006DD844 /* CrowdinSDKConfigLoginTests.swift in Sources */,
-				E8B03C3C2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift in Sources */,
-				E8B03C3D2DB8FBC7006DD844 /* AddErrorHandlersTests.swift in Sources */,
-				E8B03C3E2DB8FBC7006DD844 /* BundleStringTests.swift in Sources */,
-				E8B03C3F2DB8FBC7006DD844 /* BundleTests.swift in Sources */,
-				E8B03C412DB8FBC7006DD844 /* CrowdinSDKTests.swift in Sources */,
-				E8B03C422DB8FBC7006DD844 /* CrowdinStringTests.swift in Sources */,
-				E8B03C432DB8FBC7006DD844 /* CrowdinTesterTests.swift in Sources */,
-				E8B03C442DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift in Sources */,
-				E8B03C452DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift in Sources */,
-				E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */,
-				E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */,
-				E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */,
+				E8AAC26E2F1D1CEA00967932 /* CrowdinLoginConfigTests.swift in Sources */,
+				E8AAC26F2F1D1CEA00967932 /* CrowdinSDKConfigLoginTests.swift in Sources */,
+				E8AAC2702F1D1CEA00967932 /* TestLogging.swift in Sources */,
+				E8AAC2712F1D1CEA00967932 /* AddDownloadHandlersTests.swift in Sources */,
+				E8AAC2722F1D1CEA00967932 /* AddErrorHandlersTests.swift in Sources */,
+				E8AAC2732F1D1CEA00967932 /* BundleStringTests.swift in Sources */,
+				E8AAC2742F1D1CEA00967932 /* BundleSwizzleTests.swift in Sources */,
+				E8AAC2752F1D1CEA00967932 /* BundleTests.swift in Sources */,
+				E8AAC2772F1D1CEA00967932 /* CrowdinSDKTests.swift in Sources */,
+				E8AAC2782F1D1CEA00967932 /* CrowdinStringTests.swift in Sources */,
+				E8AAC2792F1D1CEA00967932 /* CrowdinSupportedLanguagesThreadSafetyTests.swift in Sources */,
+				E8AAC27A2F1D1CEA00967932 /* CrowdinTesterTests.swift in Sources */,
+				E8AAC27B2F1D1CEA00967932 /* EnableSDKLocalizationTests.swift in Sources */,
+				E8AAC27C2F1D1CEA00967932 /* FileTimestampStorageCrashTests.swift in Sources */,
+				E8AAC27D2F1D1CEA00967932 /* FileTimestampStorageTests.swift in Sources */,
+				E8AAC27E2F1D1CEA00967932 /* InfoPlistInitializationTests.swift in Sources */,
+				E8AAC27F2F1D1CEA00967932 /* InitializationCompletionHandlerTests.swift in Sources */,
+				E8AAC2802F1D1CEA00967932 /* MockLocalizationProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
