@@ -54,6 +54,12 @@ enum TestLog {
         }
         return nil
     }()
+
+    static func resetLogFile() {
+        guard let fileURL = logFileURL else { return }
+        try? FileManager.default.removeItem(at: fileURL)
+        FileManager.default.createFile(atPath: fileURL.path, contents: nil)
+    }
     
     static func nowString() -> String {
         let formatter = DateFormatter()
@@ -136,24 +142,30 @@ enum TestLog {
         timer?.cancel()
     }
     
+    static func logFileContent() -> String? {
+        guard let fileURL = logFileURL, FileManager.default.fileExists(atPath: fileURL.path) else { return nil }
+        return try? String(contentsOf: fileURL)
+    }
+
+    static func attachLogFile(to testCase: XCTestCase, name: String = "CrowdinThreadingLog") {
+        guard let content = logFileContent() else { return }
+        let attachment = XCTAttachment(string: content)
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        testCase.add(attachment)
+    }
+
     static func dumpLogFile() {
         // Dump to stderr so CI captures it
         fputs("\n=== TEST LOG FILE DUMP ===\n", stderr)
-        
-        if let fileURL = logFileURL, FileManager.default.fileExists(atPath: fileURL.path) {
-            if let content = try? String(contentsOf: fileURL) {
-                fputs(content, stderr)
-            }
+        if let content = logFileContent() {
+            fputs(content, stderr)
         }
-        
         fputs("\n=== END LOG FILE ===\n", stderr)
         fflush(stderr)
-        
         // Also try to print to stdout
-        if let fileURL = logFileURL, FileManager.default.fileExists(atPath: fileURL.path) {
-            if let content = try? String(contentsOf: fileURL) {
-                print("\n=== TEST LOG FILE DUMP ===\n\(content)\n=== END LOG FILE ===\n")
-            }
+        if let content = logFileContent() {
+            print("\n=== TEST LOG FILE DUMP ===\n\(content)\n=== END LOG FILE ===\n")
         }
     }
 }

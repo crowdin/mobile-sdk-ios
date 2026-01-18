@@ -25,6 +25,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        TestLog.resetLogFile()
         TestLog.log("setUp: deintegrate", label: "Suite")
         CrowdinSDK.deintegrate()
     }
@@ -38,6 +39,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         TestLog.log("tearDown: cleanup done", label: "Suite")
         // Dump logs on test failure or completion
         TestLog.dumpLogFile()
+        TestLog.attachLogFile(to: self)
         super.tearDown()
     }
     
