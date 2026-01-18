@@ -158,7 +158,7 @@ jobs:
           -scheme Tests \
           -configuration Debug \
           -destination 'platform=iOS Simulator,name=iPhone 16' \
-          -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
+          -enableCodeCoverage YES && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov
         run: cd Tests & bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}

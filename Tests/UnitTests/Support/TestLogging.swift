@@ -89,14 +89,18 @@ enum TestLog {
     static func log(_ message: String, label: String) {
         let formatted = "[TEST][\(nowString())][tid=\(threadId())][qos=\(qosString())][\(label)] \(message)"
         
-        // 1. Try NSLog (captured by Xcode and some CI systems)
-        NSLog(formatted)
+        // 1. Use NSLog (some gets through xcbeautify)
+        NSLog("%@", formatted)
         
-        // 2. Write to stderr (captured by most CI systems)
+        // 2. Write directly to stdout (bypasses some filtering)
+        print(formatted)
+        fflush(stdout)
+        
+        // 3. Write to stderr
         fputs(formatted + "\n", stderr)
         fflush(stderr)
         
-        // 3. Write to file for guaranteed persistence
+        // 4. Write to file for XCTAttachment
         if let fileURL = logFileURL {
             if let data = (formatted + "\n").data(using: .utf8) {
                 if !FileManager.default.fileExists(atPath: fileURL.path) {
@@ -108,6 +112,14 @@ enum TestLog {
                     handle.closeFile()
                 }
             }
+        }
+    }
+    
+    static func logActivity(_ name: String, block: () -> Void) {
+        XCTContext.runActivity(named: name) { _ in
+            log("ACTIVITY START: \(name)", label: "Activity")
+            block()
+            log("ACTIVITY END: \(name)", label: "Activity")
         }
     }
     

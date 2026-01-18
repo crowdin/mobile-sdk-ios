@@ -52,6 +52,10 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             TestLog.dumpLogFile()
         }
         
+        XCTContext.runActivity(named: "Setup test environment") { _ in
+            TestLog.log("Test hash: 5290b1cfa1eb44bf2581e78106i", label: "ConcurrentReadWrite")
+        }
+        
         // This test exposes the data race where supportedLanguages is written
         // from network callback thread and read from other threads simultaneously
         
@@ -74,7 +78,10 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
         expectation.expectedFulfillmentCount = expected
         let counter = ConcurrentCounter()
         let timer = TestLog.startProgressTimer(label: "ConcurrentReadWrite", expected: expected, counter: counter, intervalSeconds: 2.0)
-        TestLog.log("START iterations=\(iterations) expected=\(expected)", label: "ConcurrentReadWrite")
+        
+        XCTContext.runActivity(named: "Running \(iterations) concurrent readers and \(iterations) writers (total: \(expected) operations)") { _ in
+            TestLog.log("START iterations=\(iterations) expected=\(expected)", label: "ConcurrentReadWrite")
+        }
         
         // Simulate concurrent reads while download is happening
         for i in 0..<iterations {
@@ -101,10 +108,15 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
             }
         }
         
-        TestLog.log("waiting for expectations, timeout=120s", label: "ConcurrentReadWrite")
+        XCTContext.runActivity(named: "Waiting for all concurrent operations to complete (timeout: 120s)") { _ in
+            TestLog.log("waiting for expectations, timeout=120s", label: "ConcurrentReadWrite")
+        }
         wait(for: [expectation], timeout: 120.0)
         TestLog.stopTimer(timer)
-        TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "ConcurrentReadWrite")
+        
+        XCTContext.runActivity(named: "All operations completed: \(counter.value)/\(expected)") { _ in
+            TestLog.log("END fulfilled=\(counter.value)/\(expected)", label: "ConcurrentReadWrite")
+        }
     }
     
     func testManifestManagerLanguageResolutionDataRace() {
