@@ -11,6 +11,18 @@ import XCTest
 
 class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     
+    override class func setUp() {
+        super.setUp()
+        TestLog.log("TEST CLASS SETUP", label: "Suite")
+        TestLog.log("Process ID: \(ProcessInfo.processInfo.processIdentifier)", label: "Suite")
+        TestLog.log("Active processor count: \(ProcessInfo.processInfo.activeProcessorCount)", label: "Suite")
+        if let logPath = TestLog.logFileURL?.path {
+            TestLog.log("Log file path: \(logPath)", label: "Suite")
+        } else {
+            TestLog.log("WARNING: No writable log file path found", label: "Suite")
+        }
+    }
+    
     override func setUp() {
         super.setUp()
         TestLog.log("setUp: deintegrate", label: "Suite")
@@ -32,6 +44,12 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     // MARK: - Data Race Tests
     
     func testConcurrentReadWriteToSupportedLanguages() {
+        TestLog.log("========== TEST START: testConcurrentReadWriteToSupportedLanguages ==========", label: "Suite")
+        defer {
+            TestLog.log("========== TEST END: testConcurrentReadWriteToSupportedLanguages ==========", label: "Suite")
+            TestLog.dumpLogFile()
+        }
+        
         // This test exposes the data race where supportedLanguages is written
         // from network callback thread and read from other threads simultaneously
         
@@ -140,6 +158,12 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     }
     
     func testRapidConcurrentAccessToSupportedLanguagesProperty() {
+        TestLog.log("========== TEST START: testRapidConcurrentAccessToSupportedLanguagesProperty ==========", label: "Suite")
+        defer {
+            TestLog.log("========== TEST END: testRapidConcurrentAccessToSupportedLanguagesProperty ==========", label: "Suite")
+            TestLog.dumpLogFile()
+        }
+        
         // This test hammers the supportedLanguages property with concurrent reads and writes
         // to maximize the chance of exposing the race condition
         
@@ -223,6 +247,12 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     }
     
     func testContentFilesForLanguageDataRace() {
+        TestLog.log("========== TEST START: testContentFilesForLanguageDataRace ==========", label: "Suite")
+        defer {
+            TestLog.log("========== TEST END: testContentFilesForLanguageDataRace ==========", label: "Suite")
+            TestLog.dumpLogFile()
+        }
+        
         // This test specifically targets the contentFiles(for:) method which
         // accesses crowdinSupportedLanguages.supportedLanguages multiple times
         
@@ -281,6 +311,12 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     }
     
     func testIOSLanguagesComputedPropertyDataRace() {
+        TestLog.log("========== TEST START: testIOSLanguagesComputedPropertyDataRace ==========", label: "Suite")
+        defer {
+            TestLog.log("========== TEST END: testIOSLanguagesComputedPropertyDataRace ==========", label: "Suite")
+            TestLog.dumpLogFile()
+        }
+        
         // This test focuses on iOSLanguages which has complex logic
         // reading supportedLanguages multiple times
         
@@ -340,6 +376,12 @@ class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
     }
     
     func testThreadSanitizerDetection() {
+        TestLog.log("========== TEST START: testThreadSanitizerDetection ==========", label: "Suite")
+        defer {
+            TestLog.log("========== TEST END: testThreadSanitizerDetection ==========", label: "Suite")
+            TestLog.dumpLogFile()
+        }
+        
         // This test is specifically designed to trigger Thread Sanitizer
         // when run with -sanitize=thread flag
         

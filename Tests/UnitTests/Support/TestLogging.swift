@@ -26,9 +26,33 @@ final class ConcurrentCounter {
 }
 
 enum TestLog {
-    static let logFileURL: URL = {
-        let tempDir = FileManager.default.temporaryDirectory
-        return tempDir.appendingPathComponent("CrowdinTests-\(ProcessInfo.processInfo.processIdentifier).log")
+    static let logFileURL: URL? = {
+        // Try multiple log locations
+        var paths: [URL] = [
+            FileManager.default.temporaryDirectory.appendingPathComponent("CrowdinTests-\(ProcessInfo.processInfo.processIdentifier).log"),
+            URL(fileURLWithPath: "/tmp/CrowdinTests-\(ProcessInfo.processInfo.processIdentifier).log")
+        ]
+        
+        // Add home directory path only on macOS
+        #if os(macOS)
+        paths.insert(
+            FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".crowdin_test_logs.txt"),
+            at: 1
+        )
+        #endif
+        
+        for path in paths {
+            let dirURL = path.deletingLastPathComponent()
+            do {
+                try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
+                // Try to write a test byte
+                try "".write(to: path, atomically: true, encoding: .utf8)
+                return path
+            } catch {
+                continue
+            }
+        }
+        return nil
     }()
     
     static func nowString() -> String {
@@ -58,18 +82,25 @@ enum TestLog {
     
     static func log(_ message: String, label: String) {
         let formatted = "[TEST][\(nowString())][tid=\(threadId())][qos=\(qosString())][\(label)] \(message)"
-        // Try NSLog for system log capture
+        
+        // 1. Try NSLog (captured by Xcode and some CI systems)
         NSLog(formatted)
-        // Also write to stderr
+        
+        // 2. Write to stderr (captured by most CI systems)
         fputs(formatted + "\n", stderr)
         fflush(stderr)
-        // Also write to file for guaranteed capture
-        if let data = (formatted + "\n").data(using: .utf8) {
-            FileManager.default.createFile(atPath: logFileURL.path, contents: nil)
-            if let handle = FileHandle(forWritingAtPath: logFileURL.path) {
-                handle.seekToEndOfFile()
-                handle.write(data)
-                handle.closeFile()
+        
+        // 3. Write to file for guaranteed persistence
+        if let fileURL = logFileURL {
+            if let data = (formatted + "\n").data(using: .utf8) {
+                if !FileManager.default.fileExists(atPath: fileURL.path) {
+                    FileManager.default.createFile(atPath: fileURL.path, contents: nil)
+                }
+                if let handle = FileHandle(forWritingAtPath: fileURL.path) {
+                    handle.seekToEndOfFile()
+                    handle.write(data)
+                    handle.closeFile()
+                }
             }
         }
     }
@@ -106,8 +137,23 @@ enum TestLog {
     }
     
     static func dumpLogFile() {
-        guard FileManager.default.fileExists(atPath: logFileURL.path) else { return }
-        guard let content = try? String(contentsOf: logFileURL) else { return }
-        print("\n=== TEST LOG FILE DUMP ===\n\(content)\n=== END LOG FILE ===\n")
+        // Dump to stderr so CI captures it
+        fputs("\n=== TEST LOG FILE DUMP ===\n", stderr)
+        
+        if let fileURL = logFileURL, FileManager.default.fileExists(atPath: fileURL.path) {
+            if let content = try? String(contentsOf: fileURL) {
+                fputs(content, stderr)
+            }
+        }
+        
+        fputs("\n=== END LOG FILE ===\n", stderr)
+        fflush(stderr)
+        
+        // Also try to print to stdout
+        if let fileURL = logFileURL, FileManager.default.fileExists(atPath: fileURL.path) {
+            if let content = try? String(contentsOf: fileURL) {
+                print("\n=== TEST LOG FILE DUMP ===\n\(content)\n=== END LOG FILE ===\n")
+            }
+        }
     }
 }
