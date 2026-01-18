@@ -26,6 +26,11 @@ final class ConcurrentCounter {
 }
 
 enum TestLog {
+    static let logFileURL: URL = {
+        let tempDir = FileManager.default.temporaryDirectory
+        return tempDir.appendingPathComponent("CrowdinTests-\(ProcessInfo.processInfo.processIdentifier).log")
+    }()
+    
     static func nowString() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
@@ -52,8 +57,21 @@ enum TestLog {
     }
     
     static func log(_ message: String, label: String) {
-        print("[TEST][\(nowString())][tid=\(threadId())][qos=\(qosString())][\(label)] \(message)")
-        fflush(stdout)
+        let formatted = "[TEST][\(nowString())][tid=\(threadId())][qos=\(qosString())][\(label)] \(message)"
+        // Try NSLog for system log capture
+        NSLog(formatted)
+        // Also write to stderr
+        fputs(formatted + "\n", stderr)
+        fflush(stderr)
+        // Also write to file for guaranteed capture
+        if let data = (formatted + "\n").data(using: .utf8) {
+            FileManager.default.createFile(atPath: logFileURL.path, contents: nil)
+            if let handle = FileHandle(forWritingAtPath: logFileURL.path) {
+                handle.seekToEndOfFile()
+                handle.write(data)
+                handle.closeFile()
+            }
+        }
     }
     
     @discardableResult
@@ -85,5 +103,11 @@ enum TestLog {
     static func stopTimer(_ timer: DispatchSourceTimer?) {
         timer?.setEventHandler {}
         timer?.cancel()
+    }
+    
+    static func dumpLogFile() {
+        guard FileManager.default.fileExists(atPath: logFileURL.path) else { return }
+        guard let content = try? String(contentsOf: logFileURL) else { return }
+        print("\n=== TEST LOG FILE DUMP ===\n\(content)\n=== END LOG FILE ===\n")
     }
 }
