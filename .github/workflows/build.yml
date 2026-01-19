@@ -160,6 +160,7 @@ jobs:
           -scheme Tests \
           -configuration Debug \
           -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -parallel-testing-enabled NO \
           -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov
