@@ -92,7 +92,7 @@
 		E8B03C362DB8FBC7006DD844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
 		E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
-		E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestGate.swift; sourceTree = "<group>"; };
+		E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/Core/IntegrationTestGate.swift; sourceTree = "<group>"; };
 		E8BD50C42352735F006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50C52352736A006D77FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50CD23527390006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -397,13 +397,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
