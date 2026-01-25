@@ -1,7 +1,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class FileTimestampStorageCrashTests: XCTestCase {
+class FileTimestampStorageCrashTests: IntegrationTestCase {
     
     var storage: FileTimestampStorage!
     let testHash = "crash_test_hash"
@@ -12,7 +12,8 @@ class FileTimestampStorageCrashTests: XCTestCase {
     }
     
     override func tearDown() {
-        storage.clear()
+        storage?.clear()
+        storage = nil
         FileTimestampStorage.clear()
         super.tearDown()
     }

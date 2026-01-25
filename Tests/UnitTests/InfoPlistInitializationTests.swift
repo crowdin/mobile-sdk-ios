@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class InfoPlistInitializationTests: XCTestCase {
+class InfoPlistInitializationTests: IntegrationTestCase {
     override func setUp() {
         super.setUp()
         CrowdinSDK.deintegrate()
@@ -39,4 +39,3 @@ class InfoPlistInitializationTests: XCTestCase {
         CrowdinSDK.removeDownloadHandler(hendlerId)
     }
 }
-
