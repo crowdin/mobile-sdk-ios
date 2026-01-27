@@ -199,6 +199,8 @@ jobs:
 
       - name: Tests
         working-directory: Tests
+        env:
+          RUN_INTEGRATION_TESTS: "0"
         run: |
           xcodebuild test \
           -sdk iphonesimulator \

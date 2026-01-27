@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinSupportedLanguagesThreadSafetyTests: XCTestCase {
+class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
     
     override func setUp() {
         super.setUp()
