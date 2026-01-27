@@ -32,7 +32,7 @@
 		E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */; };
 		E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */; };
 		E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */; };
-		E8B57CB02F1EF363009C98D6 /* ../../Sources/Tests/Core/IntegrationTestGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B57CAF2F1EF363009C98D6 /* ../../Sources/Tests/Core/IntegrationTestGate.swift */; };
+		E8B57CB02F1EF363009C98D6 /* IntegrationTestGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */; };
 		E8BD50CC23527390006D77FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50CE23527390006D77FD /* Localizable.strings */; };
 		E8BD50D92352F6C6006D77FD /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50DB2352F6C6006D77FD /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
@@ -83,7 +83,7 @@
 		E8B03C362DB8FBC7006DD844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
 		E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
-		E8B57CAF2F1EF363009C98D6 /* ../../Sources/Tests/Core/IntegrationTestGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/Core/IntegrationTestGate.swift; sourceTree = "<group>"; };
+		E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/Core/IntegrationTestGate.swift; sourceTree = "<group>"; };
 		E8BD50C42352735F006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50C52352736A006D77FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50CD23527390006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 		E8B03C392DB8FBC7006DD844 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				E8B57CAF2F1EF363009C98D6 /* ../../Sources/Tests/Core/IntegrationTestGate.swift */,
+				E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */,
 				E8B03C2A2DB8FBC7006DD844 /* Login */,
 				E8B03C2B2DB8FBC7006DD844 /* AddDownloadHandlersTests.swift */,
 				E8B03C2C2DB8FBC7006DD844 /* AddErrorHandlersTests.swift */,
@@ -348,13 +348,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -434,7 +430,7 @@
 				E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */,
 				E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */,
 				E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */,
-				E8B57CB02F1EF363009C98D6 /* ../../Sources/Tests/Core/IntegrationTestGate.swift in Sources */,
+				E8B57CB02F1EF363009C98D6 /* IntegrationTestGate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
