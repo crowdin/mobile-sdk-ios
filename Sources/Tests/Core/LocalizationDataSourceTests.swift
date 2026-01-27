@@ -10,7 +10,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class LocalizationDataSourceTests: IntegrationTestCase {
+class LocalizationDataSourceTests: XCTestCase {
     
     // MARK: - StringsLocalizationDataSource Tests
     

@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class InfoPlistInitializationTests: IntegrationTestCase {
+class InfoPlistInitializationTests: XCTestCase {
     override func setUp() {
         super.setUp()
         CrowdinSDK.deintegrate()

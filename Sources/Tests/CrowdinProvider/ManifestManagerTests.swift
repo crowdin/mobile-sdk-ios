@@ -2,8 +2,6 @@ import XCTest
 @testable import CrowdinSDK
 
 class ManifestManagerTests: XCTestCase {
-    let crowdinTestHash = "5290b1cfa1eb44bf2581e78106i"
-    let sourceLanguage = "en"
     override func setUp() {
         super.setUp()
         ManifestManager.clear()

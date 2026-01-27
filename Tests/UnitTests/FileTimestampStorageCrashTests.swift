@@ -1,7 +1,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class FileTimestampStorageCrashTests: IntegrationTestCase {
+class FileTimestampStorageCrashTests: XCTestCase {
     
     var storage: FileTimestampStorage!
     let testHash = "crash_test_hash"

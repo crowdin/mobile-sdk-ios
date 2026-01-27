@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class InitializationCompletionHandlerTests: IntegrationTestCase {
+class InitializationCompletionHandlerTests: XCTestCase {
     override func tearDown() {
         CrowdinSDK.deintegrate()
         CrowdinSDK.stop()
