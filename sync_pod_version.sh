@@ -1,17 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
 # Configuration
-PODSPEC_FILE="CrowdinSDK.podspec"
-SWIFT_VERSION_FILE="Sources/CrowdinSDK/CrowdinSDK/CrowdinSDK+Version.swift"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PODSPEC_FILE="$ROOT_DIR/CrowdinSDK.podspec"
+SWIFT_VERSION_FILE="$ROOT_DIR/Sources/CrowdinSDK/CrowdinSDK/CrowdinSDK+Version.swift"
 
 # Ensure files exist
 if [ ! -f "$PODSPEC_FILE" ]; then
     echo "Error: $PODSPEC_FILE not found."
     exit 1
 fi
+if [ ! -f "$SWIFT_VERSION_FILE" ]; then
+    echo "Error: $SWIFT_VERSION_FILE not found."
+    exit 1
+fi
 
 # Extract version from Podspec
-VERSION=$(grep "spec.version" "$PODSPEC_FILE" | sed -n "s/.*spec.version.*= *'\([^']*\)'.*/\1/p")
+VERSION=$(sed -n "s/.*spec.version.*= *'\\([^']*\\)'.*/\\1/p" "$PODSPEC_FILE")
 
 if [ -z "$VERSION" ]; then
     echo "Error: Could not extract version from $PODSPEC_FILE"
@@ -20,6 +26,7 @@ fi
 
 # Create temp file with expected content
 TEMP_FILE=$(mktemp)
+trap 'rm -f "$TEMP_FILE"' EXIT
 cat <<EOF > "$TEMP_FILE"
 //
 //  CrowdinSDK+Version.swift
@@ -40,6 +47,4 @@ if ! cmp -s "$TEMP_FILE" "$SWIFT_VERSION_FILE"; then
     mv "$TEMP_FILE" "$SWIFT_VERSION_FILE"
     echo "Auto-updated $SWIFT_VERSION_FILE to version $VERSION"
     git add "$SWIFT_VERSION_FILE"
-else
-    rm "$TEMP_FILE"
 fi
