@@ -89,6 +89,16 @@ To run SwiftLint manually:
 
 The SwiftLint configuration is defined in `.swiftlint.yml` in the root directory.
 
+### Development Setup
+
+To set up the development environment, including git hooks for automatic version synchronization and linting:
+
+```bash
+./install_hooks.sh
+```
+
+This will configure git to use the hooks defined in the root directory.
+
 #### Contributing to the docs
 
 The documentation is based on [Docusaurus](https://docusaurus.io/) framework. Source inside the [website](https://github.com/crowdin/mobile-sdk-ios/tree/master/website) directory.

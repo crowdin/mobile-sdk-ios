@@ -44,7 +44,8 @@ class ProjectsAPI: CrowdinAPI {
 
     func downloadFileData(url: String, completion: @escaping (Data?, Error?) -> Void) {
         let decodedUrl = url.removingPercentEncoding ?? url
-        self.get(url: decodedUrl, callbackQueue: .global()) { (data, _, error) in
+        let headers = CrowdinAPI.versioned(nil)
+        self.get(url: decodedUrl, parameters: nil, headers: headers, callbackQueue: .global()) { (data, _, error) in
             completion(data, error)
         }
     }

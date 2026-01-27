@@ -39,6 +39,9 @@ class CrowdinMappingDownloader: CrowdinDownloaderProtocol {
     }
 
     func download(strings: [String], plurals: [String], xliffs: [String], with hash: String, for localization: String, baseURL: String?) {
+        // Cancel any pending operations to prevent resource leaks from overlapping downloads
+        operationQueue.cancelAllOperations()
+        
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
 
         self.strings = nil

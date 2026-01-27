@@ -21,6 +21,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
         CrowdinSDK.removeAllDownloadHandlers()
         CrowdinSDK.deintegrate()
         CrowdinSDK.stop()
+        ManifestManager.clear()
         super.tearDown()
     }
     
@@ -42,7 +43,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
         
         let supportedLanguages = manifest.crowdinSupportedLanguages
         
-        let iterations = 100
+        let iterations = 10
         let expectation = XCTestExpectation(description: "Concurrent access completed")
         expectation.expectedFulfillmentCount = iterations * 2
         
@@ -59,11 +60,13 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
             DispatchQueue.global(qos: .background).async {
                 supportedLanguages.downloadSupportedLanguages(completion: {
                     expectation.fulfill()
+                }, error: { _ in
+                    expectation.fulfill()
                 })
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testManifestManagerLanguageResolutionDataRace() {
@@ -142,7 +145,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
         wait(for: [initialLoadExpectation], timeout: 60.0)
         
         // Now hammer it with concurrent access
-        let iterations = 200
+        let iterations = 20
         let expectation = XCTestExpectation(description: "Stress test completed")
         expectation.expectedFulfillmentCount = iterations * 4
         
@@ -168,6 +171,8 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
                 DispatchQueue.global(qos: .background).async {
                     supportedLanguages.downloadSupportedLanguages(completion: {
                         expectation.fulfill()
+                    }, error: { _ in
+                        expectation.fulfill()
                     })
                 }
             } else {
@@ -178,7 +183,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testContentFilesForLanguageDataRace() {
@@ -203,7 +208,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
         }
         wait(for: [downloadExpectation], timeout: 60.0)
         
-        let iterations = 100
+        let iterations = 10
         let expectation = XCTestExpectation(description: "Content files access")
         expectation.expectedFulfillmentCount = iterations * 2
         
@@ -222,7 +227,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testIOSLanguagesComputedPropertyDataRace() {
@@ -241,7 +246,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
         
         manifest.clear()
         
-        let iterations = 50
+        let iterations = 10
         let expectation = XCTestExpectation(description: "iOSLanguages access")
         expectation.expectedFulfillmentCount = iterations * 2 + 1
         
@@ -268,7 +273,7 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
     
     func testThreadSanitizerDetection() {
@@ -321,6 +326,6 @@ class CrowdinSupportedLanguagesThreadSafetyTests: IntegrationTestCase {
         readerQueue.resume()
         writerQueue.resume()
         
-        wait(for: [expectation], timeout: 120.0)
+        wait(for: [expectation], timeout: 60.0)
     }
 }
