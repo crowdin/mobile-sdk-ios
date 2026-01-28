@@ -65,13 +65,13 @@ jobs:
         platform: [iOS, macOS, tvOS, watchOS]
         include:
           - platform: iOS
-            destination: 'platform=iOS Simulator,name=iPhone 16'
+            destination: 'platform=iOS Simulator'
           - platform: macOS
             destination: 'platform=macOS'
           - platform: tvOS
-            destination: 'platform=tvOS Simulator,name=Apple TV'
+            destination: 'platform=tvOS Simulator'
           - platform: watchOS
-            destination: 'platform=watchOS Simulator,name=Apple Watch Ultra 2 (49mm)'
+            destination: 'platform=watchOS Simulator'
     steps:
       - uses: actions/checkout@v4
 
@@ -83,8 +83,36 @@ jobs:
         run: brew install xcbeautify
 
       - name: Build Package for ${{ matrix.platform }}
+        env:
+          PLATFORM: ${{ matrix.platform }}
+          DESTINATION: ${{ matrix.destination }}
         run: |
-          xcodebuild build -scheme CrowdinSDK -destination '${{ matrix.destination }}' | xcbeautify && exit ${PIPESTATUS[0]}
+          if [ "$PLATFORM" == "iOS" ]; then
+            DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("iOS"))) | map(.value) | flatten | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .udid')
+            if [ ! -z "$DEVICE_ID" ] && [ "$DEVICE_ID" != "null" ]; then
+               DESTINATION="platform=iOS Simulator,id=$DEVICE_ID"
+            else
+               echo "No iOS simulator found"
+               exit 1
+            fi
+          elif [ "$PLATFORM" == "tvOS" ]; then
+            DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("tvOS"))) | map(.value) | flatten | sort_by(.name) | last | .udid')
+            if [ ! -z "$DEVICE_ID" ] && [ "$DEVICE_ID" != "null" ]; then
+               DESTINATION="platform=tvOS Simulator,id=$DEVICE_ID"
+            else
+               echo "No tvOS simulator found"
+               exit 1
+            fi
+          elif [ "$PLATFORM" == "watchOS" ]; then
+            DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("watchOS"))) | map(.value) | flatten | sort_by(.name) | last | .udid')
+            if [ ! -z "$DEVICE_ID" ] && [ "$DEVICE_ID" != "null" ]; then
+               DESTINATION="platform=watchOS Simulator,id=$DEVICE_ID"
+            else
+               echo "No watchOS simulator found"
+               exit 1
+            fi
+          fi
+          xcodebuild build -scheme CrowdinSDK -destination "$DESTINATION" | xcbeautify && exit ${PIPESTATUS[0]}
 
   build:
     name: Build
@@ -104,6 +132,17 @@ jobs:
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
 
+      - name: Select Simulator
+        id: select_sim
+        run: |
+          DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("iOS"))) | map(.value) | flatten | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .udid')
+          if [ -z "$DEVICE_ID" ] || [ "$DEVICE_ID" == "null" ]; then
+            echo "No iPhone simulator found."
+            exit 1
+          fi
+          echo "Selected Simulator UDID: $DEVICE_ID"
+          echo "destination=platform=iOS Simulator,id=$DEVICE_ID" >> $GITHUB_OUTPUT
+
       - name: Build
         working-directory: Example
         run: |
@@ -111,7 +150,7 @@ jobs:
           -workspace ./AppleReminders.xcworkspace \
           -scheme AppleReminders \
           -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone 16' | xcbeautify && exit ${PIPESTATUS[0]}
+          -destination '${{ steps.select_sim.outputs.destination }}' | xcbeautify && exit ${PIPESTATUS[0]}
 
       # TODO: ObjCExample
 
@@ -137,10 +176,7 @@ jobs:
 
       - name: Install CocoaPods
         working-directory: Tests
-        run: |
-          if [ ! -d "Pods" ]; then
-            pod install
-          fi
+        run: pod install
 
       - name: Install xcbeautify
         run: brew install xcbeautify
@@ -149,15 +185,30 @@ jobs:
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
 
+      - name: Select Simulator
+        id: select_sim
+        run: |
+          DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("iOS"))) | map(.value) | flatten | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .udid')
+          if [ -z "$DEVICE_ID" ] || [ "$DEVICE_ID" == "null" ]; then
+            echo "No iPhone simulator found. Listing all devices:"
+            xcrun simctl list devices
+            exit 1
+          fi
+          echo "Selected Simulator UDID: $DEVICE_ID"
+          echo "destination=platform=iOS Simulator,id=$DEVICE_ID" >> $GITHUB_OUTPUT
+
       - name: Tests
         working-directory: Tests
+        env:
+          RUN_INTEGRATION_TESTS: "0"
         run: |
           xcodebuild test \
           -sdk iphonesimulator \
           -workspace ./Tests.xcworkspace \
           -scheme Tests \
           -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -destination '${{ steps.select_sim.outputs.destination }}' \
+          -parallel-testing-enabled NO \
           -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov

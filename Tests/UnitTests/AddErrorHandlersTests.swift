@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class AddErrorHandlersTests: XCTestCase {
+class AddErrorHandlersTests: IntegrationTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         CrowdinSDK.removeAllErrorHandlers()

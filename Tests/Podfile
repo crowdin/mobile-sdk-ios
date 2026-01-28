@@ -10,8 +10,4 @@ target 'Tests' do
   target 'TestsTests' do
     inherit! :search_paths
   end
-
-  target 'TestsUITests' do
-    inherit! :search_paths
-  end
 end
