@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class ManifestManagerConcurrencyTests: XCTestCase {
+class ManifestManagerConcurrencyTests: IntegrationTestCase {
     let testHash = "5290b1cfa1eb44bf2581e78106i"
     let sourceLanguage = "en"
     

@@ -51,16 +51,6 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E88AE280234D3F01000B6FC0"
-               BuildableName = "TestsUITests.xctest"
-               BlueprintName = "TestsUITests"
-               ReferencedContainer = "container:Tests.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"

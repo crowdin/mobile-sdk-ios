@@ -12,7 +12,8 @@ class FileTimestampStorageCrashTests: XCTestCase {
     }
     
     override func tearDown() {
-        storage.clear()
+        storage?.clear()
+        storage = nil
         FileTimestampStorage.clear()
         super.tearDown()
     }

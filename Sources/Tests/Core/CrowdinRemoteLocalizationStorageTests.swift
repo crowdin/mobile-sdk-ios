@@ -8,7 +8,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinRemoteLocalizationStorageTests: XCTestCase {
+class CrowdinRemoteLocalizationStorageTests: IntegrationTestCase {
     let crowdinProviderConfig = CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en")
     // swiftlint:disable implicitly_unwrapped_optional
     var remoteLocalizationStorage: CrowdinRemoteLocalizationStorage!
@@ -18,8 +18,9 @@ class CrowdinRemoteLocalizationStorageTests: XCTestCase {
     }
     
     override func tearDown() {
-        remoteLocalizationStorage.deintegrate()
+        remoteLocalizationStorage?.deintegrate()
         remoteLocalizationStorage = nil
+        super.tearDown()
     }
     
     func testInitialization() {

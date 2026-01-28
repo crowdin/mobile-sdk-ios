@@ -43,6 +43,9 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
     }
 
     func download(fileIDs: [String], with hash: String, for localization: String) {
+        // Cancel any pending operations to prevent resource leaks from overlapping downloads
+        operationQueue.cancelAllOperations()
+        
         self.strings = nil
         self.plurals = nil
         self.errors = nil
