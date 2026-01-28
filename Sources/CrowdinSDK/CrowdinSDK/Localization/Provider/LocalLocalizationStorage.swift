@@ -25,7 +25,12 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     /// - Parameter localization: Current localization.
     init(localization: String) {
         self.localization = localization
-        self.localizationFolder = (try? CrowdinFolder.shared.createFolder(with: Strings.crowdin.rawValue)) ?? CrowdinFolder.shared
+        do {
+            self.localizationFolder = try CrowdinFolder.shared.createFolder(with: Strings.crowdin.rawValue)
+        } catch {
+            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to create Crowdin localization folder '\(Strings.crowdin.rawValue)': \(error.localizedDescription)"))
+            self.localizationFolder = CrowdinFolder.shared
+        }
     }
 
     /// Folder used for storing all localization files.

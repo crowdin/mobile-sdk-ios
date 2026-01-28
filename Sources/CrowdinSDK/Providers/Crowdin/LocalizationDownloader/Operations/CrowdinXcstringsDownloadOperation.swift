@@ -158,7 +158,17 @@ class XCStringsStorage {
     }
 
     static let folder: FolderProtocol = {
-        (try? CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)) ?? CrowdinFolder.shared
+        do {
+            return try CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)
+        } catch {
+            CrowdinLogsCollector.shared.add(
+                log: CrowdinLog(
+                    type: .error,
+                    message: "XCStringsStorage: Failed to create '\(Strings.XCStrings.rawValue)' folder. Falling back to root CrowdinFolder. Error: \(error.localizedDescription)"
+                )
+            )
+            return CrowdinFolder.shared
+        }
     }()
 
     static func getFile(path: String) -> Data? {
