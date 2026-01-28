@@ -67,4 +67,4 @@ jobs:
           -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Upload coverage to Codecov
-        run: cd Tests & bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
+        run: cd Tests && bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}

@@ -79,7 +79,7 @@ Before sending your pull requests, make sure you followed the list below:
 >   -workspace ./Tests.xcworkspace \
 >   -scheme Tests \
 >   -configuration Debug \
->   -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+>   -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
 > ```
 
 > **Note**
