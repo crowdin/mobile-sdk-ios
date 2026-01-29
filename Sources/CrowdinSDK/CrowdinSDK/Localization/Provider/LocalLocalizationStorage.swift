@@ -110,6 +110,8 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     }
 
     func deintegrate() {
-        try? self.localizationFolder.remove()
+        if localizationFolder.path != CrowdinFolder.shared.path {
+            try? self.localizationFolder.remove()
+        }
     }
 }

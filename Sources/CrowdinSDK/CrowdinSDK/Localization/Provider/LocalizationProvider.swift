@@ -66,7 +66,10 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     }
 
     func deintegrate() {
-        try? CrowdinFolder.shared.remove()
+        let isLocalStorageUsingRoot = (localStorage as? LocalLocalizationStorage)?.localizationFolder.path == CrowdinFolder.shared.path
+        if !isLocalStorageUsingRoot {
+            try? CrowdinFolder.shared.remove()
+        }
         try? pluralsFolder.remove()
         pluralsBundle?.remove()
         remoteStorage.deintegrate()
