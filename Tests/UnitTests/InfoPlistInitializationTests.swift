@@ -39,4 +39,3 @@ class InfoPlistInitializationTests: XCTestCase {
         CrowdinSDK.removeDownloadHandler(hendlerId)
     }
 }
-

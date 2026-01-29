@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinStringTestsLocalization: XCTestCase {
+class CrowdinStringTestsLocalization: IntegrationTestCase {
     let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en"))
     
     override func tearDown() {
@@ -78,4 +78,3 @@ class CrowdinStringTestsLocalization: XCTestCase {
         wait(for: [expectation], timeout: 60.0)
     }
 }
-

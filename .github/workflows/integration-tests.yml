@@ -1,0 +1,70 @@
+name: Weekly Integration Tests
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  XCODE_VERSION: '16.4'
+
+jobs:
+  integration-tests:
+    name: Integration Tests
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: Tests/Pods
+          key: ${{ runner.os }}-pods-tests-${{ hashFiles('Tests/Podfile.lock') }}
+
+      - name: Cache Xcode Derived Data
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-xcode-derived-${{ hashFiles('Tests/**/*.swift', 'Tests/**/*.m', 'Tests/**/*.h') }}
+
+      - name: Install CocoaPods
+        working-directory: Tests
+        run: pod install
+
+      - name: Install xcbeautify
+        run: brew install xcbeautify
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Select Simulator
+        id: select_sim
+        run: |
+          DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries | map(select(.key | contains("iOS"))) | map(.value) | flatten | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .udid')
+          if [ -z "$DEVICE_ID" ] || [ "$DEVICE_ID" == "null" ]; then
+            echo "No iPhone simulator found. Listing all devices:"
+            xcrun simctl list devices
+            exit 1
+          fi
+          echo "Selected Simulator UDID: $DEVICE_ID"
+          echo "destination=platform=iOS Simulator,id=$DEVICE_ID" >> $GITHUB_OUTPUT
+
+      - name: Run Integration Tests
+        working-directory: Tests
+        env:
+          RUN_INTEGRATION_TESTS: "1"
+        run: |
+          xcodebuild test \
+          -sdk iphonesimulator \
+          -workspace ./Tests.xcworkspace \
+          -scheme Tests \
+          -configuration Debug \
+          -destination '${{ steps.select_sim.outputs.destination }}' \
+          -parallel-testing-enabled NO \
+          -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
+
+      - name: Upload coverage to Codecov
+        run: cd Tests && bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}

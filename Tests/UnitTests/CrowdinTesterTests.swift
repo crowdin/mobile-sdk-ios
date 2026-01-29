@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinTesterTests: XCTestCase {
+class CrowdinTesterTests: IntegrationTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -17,7 +17,11 @@ class CrowdinTesterTests: XCTestCase {
                                                           sourceLanguage: "en")
         let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: crowdinProviderConfig)
         
-        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: { })
+        let expectation = XCTestExpectation(description: "SDK started")
+        CrowdinSDK.startWithConfig(crowdinSDKConfig, completion: {
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 60.0)
     }
     
     
@@ -28,7 +32,6 @@ class CrowdinTesterTests: XCTestCase {
     }
     
     func testDownloadedLocalizations() {
-        CrowdinSDK.currentLocalization = "en"
         let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
             let tester = CrowdinTester(localization: "en")
@@ -37,21 +40,25 @@ class CrowdinTesterTests: XCTestCase {
             
             expectation.fulfill()
         }
+        
+        CrowdinSDK.currentLocalization = "en"
+        
         wait(for: [expectation], timeout: 60.0)
     }
     
     
     func testChangeAndDownloadLocalizations() {
-        CrowdinSDK.currentLocalization = "de"
-        
         let expectation = XCTestExpectation(description: "Download handler is called")
         _ = CrowdinSDK.addDownloadHandler {
             let tester = CrowdinTester(localization: "de")
-            XCTAssert(tester.inSDKPluralsKeys.count == 2, "Downloaded localization contains 2 plural keys")
-            XCTAssert(tester.inSDKStringsKeys.count == 5, "Downloaded localization contains 5 string keys")
+            XCTAssert(tester.inSDKPluralsKeys.count == 2, "Downloaded localization should contain 2 plural keys, but contain - \(tester.inSDKPluralsKeys.count)")
+            XCTAssert(tester.inSDKStringsKeys.count == 5, "Downloaded localization should contain 5 string keys, but contain - \(tester.inSDKStringsKeys.count)")
             
             expectation.fulfill()
         }
+        
+        CrowdinSDK.currentLocalization = "de"
+        
         wait(for: [expectation], timeout: 60.0)
     }
 	

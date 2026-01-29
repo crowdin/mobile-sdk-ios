@@ -58,6 +58,7 @@ class CrowdinContentDeliveryAPI: BaseAPI {
         if let etag = etag {
             headers = [Strings.ifNoneMatch.rawValue: etag]
         }
+        headers = CrowdinAPI.versioned(headers)
         super.get(url: stringURL, headers: headers, callbackQueue: .global()) { data, response, error in
             completion(data, response, error)
             CrowdinAPILog.logRequest(
@@ -175,7 +176,8 @@ class CrowdinContentDeliveryAPI: BaseAPI {
 
     func getManifest(completion: @escaping CrowdinAPIManifestCompletion) {
         let stringURL = manifestURL()
-        super.get(url: stringURL, callbackQueue: .global()) { [weak self] (data, _, error) in
+        let headers = CrowdinAPI.versioned(nil)
+        super.get(url: stringURL, headers: headers, callbackQueue: .global()) { [weak self] (data, _, error) in
             guard self != nil else { return }
             if let data = data {
                 do {
@@ -192,7 +194,8 @@ class CrowdinContentDeliveryAPI: BaseAPI {
 
     func getManifestSync() -> (response: ManifestResponse?, error: Error?) {
         let stringURL = manifestURL()
-        let result = super.get(url: stringURL)
+        let headers = CrowdinAPI.versioned(nil)
+        let result = super.get(url: stringURL, headers: headers)
         if let data = result.data {
             do {
                 let response = try JSONDecoder().decode(ManifestResponse.self, from: data)

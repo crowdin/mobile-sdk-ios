@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class CrowdinSDKTests: XCTestCase {
+class CrowdinSDKTests: IntegrationTestCase {
     override func setUp() {
         CrowdinSDK.deintegrate()
 		super.setUp()

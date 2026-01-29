@@ -71,6 +71,18 @@ Before sending your pull requests, make sure you followed the list below:
 - Run Unit tests.
 
 > **Note**
+> Integration tests are available in this project but are disabled by default to avoid external dependencies during regular development. They run automatically on a weekly schedule via GitHub Actions. To enable them locally, set the `RUN_INTEGRATION_TESTS=1` environment variable when running tests:
+> ```bash
+> cd Tests
+> RUN_INTEGRATION_TESTS=1 xcodebuild test \
+>   -sdk iphonesimulator \
+>   -workspace ./Tests.xcworkspace \
+>   -scheme Tests \
+>   -configuration Debug \
+>   -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
+> ```
+
+> **Note**
 > This project uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages and PR titles.
 
 ### Code Style
@@ -88,6 +100,16 @@ To run SwiftLint manually:
 ```
 
 The SwiftLint configuration is defined in `.swiftlint.yml` in the root directory.
+
+### Development Setup
+
+To set up the development environment, including git hooks for automatic version synchronization and linting:
+
+```bash
+./install_hooks.sh
+```
+
+This will configure git to use the hooks defined in the root directory.
 
 #### Contributing to the docs
 

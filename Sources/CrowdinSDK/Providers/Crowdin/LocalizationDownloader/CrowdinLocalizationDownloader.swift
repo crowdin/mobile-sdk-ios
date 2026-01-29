@@ -8,20 +8,40 @@
 import Foundation
 
 class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
-    // Context to safe data during download
+    fileprivate let operationQueue = OperationQueue()
+    fileprivate let manifestManager: ManifestManager
+    
     class DownloadContext {
-        var strings: [String: String]?
-        var plurals: [AnyHashable: Any]?
-        var errors: [Error]?
+        private var _strings: [String: String]? = nil
+        private var _plurals: [AnyHashable: Any]? = nil
+        private var _errors: [Error]? = nil
         let lock = NSLock()
+        
+        var strings: [String: String]? {
+            lock.lock()
+            defer { lock.unlock() }
+            return _strings
+        }
+        
+        var plurals: [AnyHashable: Any]? {
+            lock.lock()
+            defer { lock.unlock() }
+            return _plurals
+        }
+        
+        var errors: [Error]? {
+            lock.lock()
+            defer { lock.unlock() }
+            return _errors
+        }
         
         func add(error: Error?) {
             guard let error = error else { return }
             lock.lock()
-            if self.errors != nil {
-                self.errors?.append(error)
+            if self._errors != nil {
+                self._errors?.append(error)
             } else {
-                self.errors = [error]
+                self._errors = [error]
             }
             lock.unlock()
         }
@@ -29,10 +49,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         func add(strings: [String: String]?) {
             guard let strings = strings else { return }
             lock.lock()
-            if self.strings != nil {
-                self.strings?.merge(with: strings)
+            if self._strings != nil {
+                self._strings?.merge(with: strings)
             } else {
-                self.strings = strings
+                self._strings = strings
             }
             lock.unlock()
         }
@@ -40,29 +60,24 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         func add(plurals: [AnyHashable: Any]?) {
             guard let plurals = plurals else { return }
             lock.lock()
-            if self.plurals != nil {
-                self.plurals?.merge(with: plurals)
+            if self._plurals != nil {
+                self._plurals?.merge(with: plurals)
             } else {
-                self.plurals = plurals
+                self._plurals = plurals
             }
             lock.unlock()
         }
     }
-    
-    fileprivate let operationQueue = OperationQueue()
-    fileprivate var contentDeliveryAPI: CrowdinContentDeliveryAPI!
-    fileprivate let manifestManager: ManifestManager
-    
+
     init(manifestManager: ManifestManager) {
         self.manifestManager = manifestManager
     }
 
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
+        let context = DownloadContext()
         self.getFiles(for: localization) { [weak self] (files, timestamp, error) in
             guard let self = self else { return }
             if let files = files {
-                let context = DownloadContext()
-                
                 let xcstringsFiles = files.filter({ $0.isXcstrings })
                 // For xcstrings we need to parse existing files when localization is changed, otherwise we wont get localization strings from xcstrings files.
                 self.parseXCStrings(files: xcstringsFiles, for: localization, context: context)
@@ -80,7 +95,8 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                     completion(context.strings, context.plurals, context.errors)
                 }
             } else if let error = error {
-                completion(nil, nil, [error])
+                context.add(error: error)
+                completion(nil, nil, context.errors)
             }
         }
     }
@@ -95,23 +111,21 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                   context: DownloadContext,
                   completion: @escaping CrowdinDownloaderCompletion) {
         let timestamp = timestamp ?? Date().timeIntervalSince1970
-        // Cancel all operations only if needed. For concurrent downloads we might not want to cancel everything.
-        // self.operationQueue.cancelAllOperations()
+        // Cancel any pending operations to prevent resource leaks from overlapping downloads
+        operationQueue.cancelAllOperations()
 
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
+        let contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash, session: URLSession.shared)
         
         let completionBlock = BlockOperation {
-            context.lock.lock()
             completion(context.strings, context.plurals, context.errors)
-            context.lock.unlock()
         }
 
         strings.forEach { filePath in
             let download = CrowdinStringsDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, error) in
-                guard let self = self else { return }
                 context.add(strings: strings)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
                 }
@@ -123,9 +137,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         plurals.forEach { filePath in
             let download = CrowdinPluralsDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (plurals, error) in
-                guard let self = self else { return }
                 context.add(plurals: plurals)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
                 }
@@ -137,10 +151,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
         xliffs.forEach { filePath in
             let download = CrowdinXliffDownloadOperation(filePath: filePath, localization: localization, timestamp: timestamp, contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, plurals, error) in
-                guard let self = self else { return }
                 context.add(strings: strings)
                 context.add(plurals: plurals)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)
                 }
@@ -156,10 +170,10 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
                                                              timestamp: timestamp,
                                                              contentDeliveryAPI: contentDeliveryAPI)
             download.completion = { [weak self] (strings, plurals, error) in
-                guard let self = self else { return }
                 context.add(strings: strings)
                 context.add(plurals: plurals)
                 context.add(error: error)
+                guard let self = self else { return }
                 if error == nil {
                     self.updateTimestamp(for: self.manifestManager.xcstringsLanguage, filePath: filePath, timestamp: timestamp)
                 }
@@ -175,6 +189,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
     func getFiles(for language: String, completion: @escaping ([String]?, TimeInterval?, Error?) -> Void) {
         manifestManager.download { [weak self] in
             guard let self = self else { return }
+            guard self.manifestManager.manifest != nil else {
+                let error = NSError(domain: "Manifest download failed", code: defaultCrowdinErrorCode, userInfo: nil)
+                completion(nil, nil, error)
+                return
+            }
             completion(self.manifestManager.contentFiles(for: language), self.manifestManager.timestamp, nil)
         }
     }

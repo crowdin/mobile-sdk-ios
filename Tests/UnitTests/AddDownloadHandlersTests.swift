@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class AddDownloadHandlersTests: XCTestCase {
+class AddDownloadHandlersTests: IntegrationTestCase {
     let crowdinSDKConfig = CrowdinSDKConfig.config().with(crowdinProviderConfig: CrowdinProviderConfig(hashString: "5290b1cfa1eb44bf2581e78106i", sourceLanguage: "en"))
     
     override func tearDown() {

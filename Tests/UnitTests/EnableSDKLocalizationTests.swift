@@ -9,7 +9,7 @@
 import XCTest
 @testable import CrowdinSDK
 
-class EnableSDKLocalizationTests: XCTestCase {
+class EnableSDKLocalizationTests: IntegrationTestCase {
 
     override func setUp() {
         super.setUp()
