@@ -25,8 +25,12 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     /// - Parameter localization: Current localization.
     init(localization: String) {
         self.localization = localization
-        // swiftlint:disable force_try
-        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: Strings.crowdin.rawValue)
+        do {
+            self.localizationFolder = try CrowdinFolder.shared.createFolder(with: Strings.crowdin.rawValue)
+        } catch {
+            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to create Crowdin localization folder '\(Strings.crowdin.rawValue)': \(error.localizedDescription)"))
+            self.localizationFolder = CrowdinFolder.shared
+        }
     }
 
     /// Folder used for storing all localization files.
@@ -106,6 +110,8 @@ class LocalLocalizationStorage: LocalLocalizationStorageProtocol {
     }
 
     func deintegrate() {
-        try? self.localizationFolder.remove()
+        if localizationFolder.path != CrowdinFolder.shared.path {
+            try? self.localizationFolder.remove()
+        }
     }
 }
