@@ -13,8 +13,7 @@ extension ManifestManager: LanguageResolver {
         let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
-            let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
-            let allLanguages: [CrowdinLanguage] = crowdinLanguages + customLaguages
+            let allLanguages: [CrowdinLanguage] = crowdinLanguages
             return allLanguages
         }
     }
@@ -31,8 +30,7 @@ extension ManifestManager: LanguageResolver {
         let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
-            let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
-            let languages: [CrowdinLanguage] = crowdinLanguages + customLaguages
+            let languages: [CrowdinLanguage] = crowdinLanguages
             
             var language = languages.first(where: { $0.iOSLanguageCode == localization })
             if language == nil {
@@ -54,8 +52,7 @@ extension ManifestManager: LanguageResolver {
         let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
-            let customLaguages: [CrowdinLanguage] = manifest?.customLanguages ?? []
-            let languages: [CrowdinLanguage] = crowdinLanguages + customLaguages
+            let languages: [CrowdinLanguage] = crowdinLanguages
             
             return languages.first(where: { $0.id == crowdinLocalization })?.iOSLanguageCode
         }

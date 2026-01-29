@@ -10,6 +10,7 @@ import Foundation
 class CrowdinSupportedLanguages {
     /// Serial queue for thread-safe access to mutable state
     private let queue = DispatchQueue(label: "com.crowdin.sdk.supportedLanguages", attributes: [])
+    private let fileTimestampStorage: FileTimestampStorage
     
     fileprivate enum Strings: String {
         case supportedLanguages = "SupportedLanguages"
@@ -19,6 +20,11 @@ class CrowdinSupportedLanguages {
     fileprivate enum Keys: String {
         case etag = "CrowdinSupportedLanguages.etag"
         case lastUpdatedDate = "CrowdinSupportedLanguages.lastUpdatedDate"
+    }
+
+    fileprivate enum TimestampKeys {
+        static let localization = "supportedLanguages"
+        static let filePath = "languages.json"
     }
 
     fileprivate var filePath: String {
@@ -50,6 +56,7 @@ class CrowdinSupportedLanguages {
 
     fileprivate var _completions: [() -> Void] = []
     fileprivate var _errors: [(Error) -> Void] = []
+    private var pendingManifestTimestamp: TimeInterval?
 
     private var _supportedLanguages: [CrowdinLanguage]?
     var supportedLanguages: [CrowdinLanguage]? {
@@ -64,11 +71,11 @@ class CrowdinSupportedLanguages {
         }
     }
 
-    init(hash: String) {
+    init(hash: String, fileTimestampStorage: FileTimestampStorage) {
         self.hash = hash
+        self.fileTimestampStorage = fileTimestampStorage
         self.migrate()
         self.readSupportedLanguages()
-        self.updateSupportedLanguagesIfNeeded()
     }
     
     private func migrate() {
@@ -85,22 +92,71 @@ class CrowdinSupportedLanguages {
         }
     }
 
-    func updateSupportedLanguagesIfNeeded() {
-        self.downloadSupportedLanguages()
+    func updateSupportedLanguagesIfNeeded(manifestTimestamp: TimeInterval?, completion: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
+        enum Action {
+            case start
+            case wait
+            case completeImmediately
+        }
+
+        let decision: (action: Action, shouldCleanup: Bool) = queue.sync {
+            if let completion = completion { _completions.append(completion) }
+            if let error = error { _errors.append(error) }
+
+            if _loading { return (.wait, false) }
+
+            let cachedTimestamp = fileTimestampStorage.timestamp(for: TimestampKeys.localization, filePath: TimestampKeys.filePath)
+            if let manifestTimestamp = manifestTimestamp {
+                if cachedTimestamp == manifestTimestamp, _supportedLanguages != nil {
+                    return (.completeImmediately, false)
+                }
+                let shouldCleanup = cachedTimestamp != manifestTimestamp
+                if shouldCleanup {
+                    _supportedLanguages = nil
+                }
+                _loading = true
+                pendingManifestTimestamp = manifestTimestamp
+                return (.start, shouldCleanup)
+            }
+
+            if _supportedLanguages != nil {
+                return (.completeImmediately, false)
+            }
+
+            _loading = true
+            pendingManifestTimestamp = nil
+            return (.start, false)
+        }
+
+        switch decision.action {
+        case .wait:
+            return
+        case .completeImmediately:
+            completeWithoutDownload()
+            return
+        case .start:
+            if decision.shouldCleanup {
+                clearCachedSupportedLanguages()
+            }
+            startDownload()
+        }
     }
 
     func downloadSupportedLanguages(completion: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
-        let shouldStartDownload = queue.sync { () -> Bool in
-            if let completion = completion { _completions.append(completion) }
-            if let error = error { _errors.append(error) }
-            
-            guard !_loading else { return false }
-            _loading = true
-            return true
-        }
-        
-        guard shouldStartDownload else { return }
+        updateSupportedLanguagesIfNeeded(manifestTimestamp: nil, completion: completion, error: error)
+    }
 
+    func clearCache() {
+        queue.sync {
+            _errors.removeAll()
+            _completions.removeAll()
+            _loading = false
+            pendingManifestTimestamp = nil
+        }
+        clearCachedSupportedLanguages()
+    }
+
+    private func startDownload() {
         let urlString = "https://distributions.crowdin.net/\(hash)/languages.json"
         guard let url = URL(string: urlString) else {
             notifyError(NSError(domain: "Invalid URL", code: 0, userInfo: nil))
@@ -155,6 +211,29 @@ class CrowdinSupportedLanguages {
         }
         task.resume()
     }
+
+    private func clearCachedSupportedLanguages() {
+        try? FileManager.default.removeItem(atPath: filePath)
+        etag = nil
+        fileTimestampStorage.updateTimestamp(for: TimestampKeys.localization, filePath: TimestampKeys.filePath, timestamp: nil)
+        fileTimestampStorage.saveTimestamps()
+        queue.sync { _supportedLanguages = nil }
+    }
+
+    private func completeWithoutDownload() {
+        let callbacks: [() -> Void] = queue.sync {
+            let completions = self._completions
+            self._errors.removeAll()
+            self._completions.removeAll()
+            self._loading = false
+            self.pendingManifestTimestamp = nil
+            return completions
+        }
+
+        DispatchQueue.main.async {
+            callbacks.forEach { $0() }
+        }
+    }
     
     private func notifyError(_ error: Error) {
         let callbacks: [(Error) -> Void] = queue.sync {
@@ -162,6 +241,7 @@ class CrowdinSupportedLanguages {
              self._errors.removeAll()
              self._completions.removeAll()
              self._loading = false
+             self.pendingManifestTimestamp = nil
              return errors
         }
         
@@ -172,6 +252,7 @@ class CrowdinSupportedLanguages {
     }
     
     private func notifySuccess(_ languages: [CrowdinLanguage]?) {
+        let manifestTimestamp = pendingManifestTimestamp
         let callbacks: [() -> Void] = queue.sync {
             if let languages = languages {
                 self._supportedLanguages = languages
@@ -181,7 +262,13 @@ class CrowdinSupportedLanguages {
             self._errors.removeAll()
             self._completions.removeAll()
             self._loading = false
+            self.pendingManifestTimestamp = nil
             return completions
+        }
+
+        if let manifestTimestamp = manifestTimestamp {
+            fileTimestampStorage.updateTimestamp(for: TimestampKeys.localization, filePath: TimestampKeys.filePath, timestamp: manifestTimestamp)
+            fileTimestampStorage.saveTimestamps()
         }
         
         CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .info, message: "Download supported languages success"))
@@ -212,6 +299,21 @@ class CrowdinSupportedLanguages {
         queue.sync {
             _supportedLanguages = languages
         }
+    }
+
+    static func clearAllCaches() {
+        let folderPath = CrowdinFolder.shared.path + String.pathDelimiter + Strings.crowdin.rawValue
+        if let files = try? FileManager.default.contentsOfDirectory(atPath: folderPath) {
+            for file in files where file.starts(with: Strings.supportedLanguages.rawValue) {
+                let fullPath = folderPath + String.pathDelimiter + file
+                try? FileManager.default.removeItem(atPath: fullPath)
+            }
+        }
+
+        let defaults = UserDefaults.standard
+        let keysToRemove = defaults.dictionaryRepresentation().keys.filter { $0.hasPrefix(Keys.etag.rawValue) }
+        keysToRemove.forEach { defaults.removeObject(forKey: $0) }
+        defaults.synchronize()
     }
 }
 

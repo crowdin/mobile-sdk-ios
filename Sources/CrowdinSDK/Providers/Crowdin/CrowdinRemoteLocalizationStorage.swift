@@ -35,40 +35,43 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
     }
 
     func prepare(with completion: @escaping () -> Void) {
-        self.downloadCrowdinSupportedLanguages { [weak self] in
-            guard let self = self else { return }
-            self.downloadManifest(completion: completion)
-        }
+        self.downloadManifest(completion: completion)
     }
 
     func downloadCrowdinSupportedLanguages(completion: @escaping () -> Void) {
-        if !crowdinSupportedLanguages.loaded {
-            crowdinSupportedLanguages.downloadSupportedLanguages(completion: {
-                completion()
-            }, error: {
-                LocalizationUpdateObserver.shared.notifyError(with: [$0])
-                completion()
-            })
-        } else {
+        crowdinSupportedLanguages.updateSupportedLanguagesIfNeeded(manifestTimestamp: manifestManager.timestamp, completion: {
             completion()
-        }
+        }, error: {
+            LocalizationUpdateObserver.shared.notifyError(with: [$0])
+            completion()
+        })
     }
 
     func downloadManifest(completion: @escaping () -> Void) {
         self.manifestManager.download(completion: { [weak self] in
             guard let self = self else { return }
-            self.localizations = self.manifestManager.iOSLanguages
-            // Only update localization if it wasn't explicitly set and if CrowdinSDK has a current localization
-            // or if the current localization is not in the available localizations
-            if let currentLocalization = CrowdinSDK.currentLocalization,
-               self.localizations.contains(currentLocalization) {
-                self.localization = currentLocalization
-            } else if !self.localizations.contains(self.localization) {
-                // Fallback to preferred language only if current localization is not available
-                self.localization = Bundle.main.preferredLanguage(with: self.localizations)
-            }
-            completion()
+            self.crowdinSupportedLanguages.updateSupportedLanguagesIfNeeded(manifestTimestamp: self.manifestManager.timestamp, completion: {
+                self.updateLocalizationSelection()
+                completion()
+            }, error: { error in
+                LocalizationUpdateObserver.shared.notifyError(with: [error])
+                self.updateLocalizationSelection()
+                completion()
+            })
         })
+    }
+
+    private func updateLocalizationSelection() {
+        self.localizations = self.manifestManager.iOSLanguages
+        // Only update localization if it wasn't explicitly set and if CrowdinSDK has a current localization
+        // or if the current localization is not in the available localizations
+        if let currentLocalization = CrowdinSDK.currentLocalization,
+           self.localizations.contains(currentLocalization) {
+            self.localization = currentLocalization
+        } else if !self.localizations.contains(self.localization) {
+            // Fallback to preferred language only if current localization is not available
+            self.localization = Bundle.main.preferredLanguage(with: self.localizations)
+        }
     }
     required init(localization: String, sourceLanguage: String, organizationName: String?, minimumManifestUpdateInterval: TimeInterval) {
         self.localization = localization
