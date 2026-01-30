@@ -17,6 +17,8 @@ final class CrowdinLogsVC: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name.refreshLogsName, object: nil)
 
         tableView.register(CrowdinLogCell.self, forCellReuseIdentifier: "CrowdinLogCell")
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60.0
     }
 
     override func viewDidAppear(_ animated: Bool) {
