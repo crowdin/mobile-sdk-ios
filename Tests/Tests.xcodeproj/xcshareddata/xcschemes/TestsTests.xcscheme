@@ -84,7 +84,7 @@
          <EnvironmentVariable
             key = "RUN_INTEGRATION_TESTS"
             value = "1"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>

@@ -107,7 +107,10 @@ class ManifestManager {
             var resolvedLanguages = [String]()
             var unresolvedLanguages = [String]()
             
-            let allLangs: [CrowdinLanguage] = crowdinLanguages
+            let allLangs: [CrowdinLanguage] = ManifestManager.mergeLanguages(
+                supported: crowdinLanguages,
+                custom: _manifest?.customLanguages ?? []
+            )
             
             // Try to resolve each language through the language mapping
             for language in languages {
@@ -134,7 +137,10 @@ class ManifestManager {
         let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync { () -> [String] in
-            let allLangs: [CrowdinLanguage] = crowdinLanguages
+            let allLangs: [CrowdinLanguage] = ManifestManager.mergeLanguages(
+                supported: crowdinLanguages,
+                custom: _manifest?.customLanguages ?? []
+            )
             
             var crowdinLanguageCandidate = allLangs.first(where: { $0.iOSLanguageCode == language })
             if crowdinLanguageCandidate == nil {
@@ -245,6 +251,15 @@ class ManifestManager {
             }
         }
         fileTimestampStorage.saveTimestamps()
+    }
+    
+    static func mergeLanguages(supported: [CrowdinLanguage], custom: [CustomLangugage]) -> [CrowdinLanguage] {
+        guard !custom.isEmpty else { return supported }
+        var merged = supported
+        for customLanguage in custom where !merged.contains(where: { $0.id == customLanguage.id }) {
+            merged.append(customLanguage)
+        }
+        return merged
     }
 
     private func addCompletion(completion: @escaping () -> Void, for hash: String) {

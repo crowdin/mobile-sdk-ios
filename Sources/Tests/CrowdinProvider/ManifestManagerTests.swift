@@ -67,4 +67,34 @@ class ManifestManagerTests: XCTestCase {
         // Cleanup
         manifestManager.clear()
     }
+
+    func testContentFilesForCustomLanguage() {
+        let manifestManager = ManifestManager.manifest(for: "test_hash_custom", sourceLanguage: "en", organizationName: nil, minimumManifestUpdateInterval: 60)
+
+        let customLanguage = ManifestResponse.ManifestResponseCustomLangugage(
+            locale: "tlh-PQ",
+            twoLettersCode: "tlh",
+            threeLettersCode: "tlh",
+            localeWithUnderscore: "tlh_PQ",
+            androidCode: "tlh-rPQ",
+            osxCode: "tlh.lproj",
+            osxLocale: "tlh"
+        )
+
+        let manifestResponse = ManifestResponse(
+            files: ["/Localizable.strings"],
+            timestamp: 1234567890,
+            languages: ["tlh-PQ"],
+            responseCustomLanguages: ["tlh-PQ": customLanguage],
+            content: ["tlh-PQ": ["/content/tlh.strings"]],
+            mapping: []
+        )
+
+        manifestManager.manifest = manifestResponse
+
+        let customFiles = manifestManager.contentFiles(for: "tlh")
+        XCTAssertEqual(customFiles, ["/content/tlh.strings"], "Should find custom language files")
+
+        manifestManager.clear()
+    }
 }
