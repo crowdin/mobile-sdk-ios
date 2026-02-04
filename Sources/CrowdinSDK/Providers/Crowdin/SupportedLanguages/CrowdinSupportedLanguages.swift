@@ -277,16 +277,6 @@ class CrowdinSupportedLanguages {
         }
     }
 
-    func downloadSupportedLanguagesSync() {
-        let semaphore = DispatchSemaphore(value: 0)
-        self.downloadSupportedLanguages(completion: {
-            semaphore.signal()
-        }, error: { _ in
-            semaphore.signal()
-        })
-        _ = semaphore.wait(timeout: .now() + 60)
-    }
-
     fileprivate func saveSupportedLanguages() {
         guard let languages = _supportedLanguages as? [DistributionLanguage], 
               let data = try? JSONEncoder().encode(languages) else { return }
