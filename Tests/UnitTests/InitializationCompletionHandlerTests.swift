@@ -31,3 +31,57 @@ class InitializationCompletionHandlerTests: XCTestCase {
     }
 
 }
+
+private class TrackingMockLocalizationProvider: MockLocalizationProvider {
+    var setLocalizationCalls: [String] = []
+
+    override func setLocalization(_ localization: String, completion: @escaping ((Error?) -> Void)) {
+        setLocalizationCalls.append(localization)
+        super.setLocalization(localization, completion: completion)
+    }
+}
+
+class SetCurrentLocalizationCompletionTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        Localization.current = nil
+        CrowdinSDK.currentLocalization = nil
+    }
+
+    override func tearDown() {
+        Localization.current = nil
+        CrowdinSDK.currentLocalization = nil
+        super.tearDown()
+    }
+
+    func testSetCurrentLocalizationWithCompletionUpdatesProvider() {
+        let provider = TrackingMockLocalizationProvider(
+            localization: "en",
+            localStorage: MockLocalStorage(),
+            remoteStorage: MockRemoteStorage()
+        )
+        Localization.current = Localization(provider: provider)
+
+        let completionExpectation = expectation(description: "Localization completion called")
+        CrowdinSDK.setCurrentLocalization("de") { error in
+            XCTAssertNil(error)
+            completionExpectation.fulfill()
+        }
+        wait(for: [completionExpectation], timeout: 1.0)
+
+        XCTAssertEqual(provider.setLocalizationCalls, ["de"])
+        XCTAssertEqual(provider.localization, "de")
+        XCTAssertEqual(CrowdinSDK.currentLocalization, "de")
+    }
+
+    func testSetCurrentLocalizationWithCompletionWithoutInitializedProviderCallsCompletion() {
+        let completionExpectation = expectation(description: "Localization completion called")
+        CrowdinSDK.setCurrentLocalization("de") { error in
+            XCTAssertNil(error)
+            completionExpectation.fulfill()
+        }
+        wait(for: [completionExpectation], timeout: 1.0)
+
+        XCTAssertEqual(CrowdinSDK.currentLocalization, "de")
+    }
+}

@@ -23,6 +23,10 @@ class MockLocalizationProvider: LocalizationProviderProtocol {
     
     func refreshLocalization() {}
     func refreshLocalization(completion: @escaping ((Error?) -> Void)) {}
+    func setLocalization(_ localization: String, completion: @escaping ((Error?) -> Void)) {
+        self.localization = localization
+        completion(nil)
+    }
     func prepare(with completion: @escaping () -> Void) {}
     func deintegrate() {}
     
@@ -63,4 +67,4 @@ class MockRemoteStorage: RemoteLocalizationStorageProtocol {
     func fetchData(completion: ([String]?, String, [String : String]?, [AnyHashable : Any]?) -> Void, errorHandler: ((Error) -> Void)?) {}
     func prepare(with completion: @escaping () -> Void) { completion() }
     func deintegrate() {}
-} 
+}
