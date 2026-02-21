@@ -39,18 +39,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 .with(accessToken: Self.accessToken)
                 .with(screenshotsEnabled: true)
             
-            CrowdinSDK.currentLocalization = locale
+            CrowdinSDK.setCurrentLocalization(locale) { _ in }
             
             CrowdinSDK.startWithConfig(crowdinSDKConfig) {
                 DispatchQueue.main.async {
                     guard let windowScene = (scene as? UIWindowScene) else { return }
-                    
-                    let navController = UINavigationController(rootViewController: MainVC())
-
-                    self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-                    self.window?.windowScene = windowScene
-                    self.window?.rootViewController = navController
-                    self.window?.makeKeyAndVisible()
+                    self.setupMainInterface(for: windowScene, animated: false)
                 }
             }
             
@@ -80,15 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        //Create Nav Controller
-        let navController = UINavigationController(rootViewController: MainVC())
-
-        //source: https://www.youtube.com/watch?v=Htn4h51BQsk
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        window?.rootViewController = navController
-        window?.makeKeyAndVisible()
+        setupMainInterface(for: windowScene, animated: false)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -123,5 +109,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else { return }
         CrowdinSDK.handle(url: url)
     }
-}
 
+    func reloadLocalizedUI() {
+        guard let windowScene = window?.windowScene else { return }
+        setupMainInterface(for: windowScene, animated: true)
+    }
+
+    private func setupMainInterface(for windowScene: UIWindowScene, animated: Bool) {
+        let navController = UINavigationController(rootViewController: MainVC())
+
+        if window == nil {
+            // source: https://www.youtube.com/watch?v=Htn4h51BQsk
+            window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+            window?.windowScene = windowScene
+        }
+
+        guard let window = window else { return }
+
+        if animated {
+            UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve, .allowAnimatedContent], animations: {
+                window.rootViewController = navController
+            })
+        } else {
+            window.rootViewController = navController
+        }
+
+        window.makeKeyAndVisible()
+    }
+}

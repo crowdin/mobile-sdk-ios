@@ -60,7 +60,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             self.localizations = self.manifestManager.iOSLanguages
             // Only update localization if it wasn't explicitly set and if CrowdinSDK has a current localization
             // or if the current localization is not in the available localizations
-            if let currentLocalization = CrowdinSDK.currentLocalization,
+            if let currentLocalization = Localization.currentLocalization ?? Localization.current?.provider.localization,
                self.localizations.contains(currentLocalization) {
                 self.localization = currentLocalization
             } else if !self.localizations.contains(self.localization) {

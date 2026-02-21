@@ -11,6 +11,7 @@ import SwiftUI
 import UIKit
 
 final class MainVC: UIViewController {
+    private let footerHeight: CGFloat = 75
     
     let realm = MyRealm.getConfig()
     
@@ -23,7 +24,6 @@ final class MainVC: UIViewController {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.separatorStyle = .none
         tv.backgroundColor = .systemGroupedBackground
-        tv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         return tv
     }()
     
@@ -102,6 +102,14 @@ final class MainVC: UIViewController {
         setupNavBar()
         setupSearch()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutTableHeaderIfNeeded()
+        // Keep the footer controls above any table/search content after layout updates.
+        view.bringSubviewToFront(footerView)
+        updateTableInsetsForFooter()
+    }
     
     deinit {
         realmListToken?.invalidate()
@@ -157,7 +165,17 @@ final class MainVC: UIViewController {
         footerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         footerView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         footerView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: 0).isActive = true
-        footerView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        footerView.heightAnchor.constraint(equalToConstant: footerHeight).isActive = true
+    }
+
+    private func updateTableInsetsForFooter() {
+        // Compute real overlap between the table and footer to avoid rows appearing under controls.
+        let overlap = max(0, tableView.frame.maxY - footerView.frame.minY)
+        let bottomInset = overlap + 12
+        if tableView.contentInset.bottom != bottomInset {
+            tableView.contentInset.bottom = bottomInset
+            tableView.scrollIndicatorInsets.bottom = bottomInset
+        }
     }
     
     private func setupNavBar() {
@@ -186,8 +204,21 @@ final class MainVC: UIViewController {
         searchController = UISearchController(searchResultsController: searchControllerVC)
         searchController?.searchResultsUpdater = self
         searchController?.obscuresBackgroundDuringPresentation = false
+        searchController?.hidesNavigationBarDuringPresentation = false
         searchController?.searchBar.placeholder = "Search".localized
-        navigationItem.searchController = searchController
+        searchController?.searchBar.sizeToFit()
+        tableView.tableHeaderView = searchController?.searchBar
+        definesPresentationContext = true
+    }
+
+    private func layoutTableHeaderIfNeeded() {
+        guard let headerView = tableView.tableHeaderView else { return }
+        let targetSize = CGSize(width: tableView.bounds.width, height: UIView.layoutFittingCompressedSize.height)
+        let height = headerView.sizeThatFits(targetSize).height
+        if headerView.frame.width != tableView.bounds.width || headerView.frame.height != height {
+            headerView.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: height)
+            tableView.tableHeaderView = headerView
+        }
     }
 }
 
