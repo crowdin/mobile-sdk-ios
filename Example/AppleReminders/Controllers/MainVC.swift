@@ -188,19 +188,10 @@ final class MainVC: UIViewController {
         searchController?.obscuresBackgroundDuringPresentation = false
         searchController?.searchBar.placeholder = "Search".localized
         navigationItem.searchController = searchController
-        if #available(iOS 26.0, *) {
-            // Keep search UI in the navigation bar to avoid toolbar integration overlapping the footer.
+        if #available(iOS 16.0, *) {
+            // Keep search UI in the navigation bar
             navigationItem.preferredSearchBarPlacement = .stacked
-            navigationItem.setSearchBarPlacementAllowsToolbarIntegration(false)
         }
-    }
-}
-
-private extension UINavigationItem {
-    func setSearchBarPlacementAllowsToolbarIntegration(_ value: Bool) {
-        let selector = NSSelectorFromString("setSearchBarPlacementAllowsToolbarIntegration:")
-        guard responds(to: selector) else { return }
-        setValue(value, forKey: "searchBarPlacementAllowsToolbarIntegration")
     }
 }
 

@@ -83,13 +83,12 @@ class CrowdinSupportedLanguages {
         UserDefaults.standard.removeObject(forKey: Keys.lastUpdatedDate.rawValue)
         UserDefaults.standard.synchronize()
         
+        // Only remove legacy (pre-hash) supported languages cache files.
+        // Legacy files have the pattern "SupportedLanguages.json" (without a hash).
+        let legacyFileName = Strings.supportedLanguages.rawValue + FileType.json.extension
         let folderPath = CrowdinFolder.shared.path + String.pathDelimiter + Strings.crowdin.rawValue
-        if let files = try? FileManager.default.contentsOfDirectory(atPath: folderPath) {
-            for file in files where file.starts(with: Strings.supportedLanguages.rawValue) && !file.contains(hash) {
-                let fullPath = folderPath + String.pathDelimiter + file
-                try? FileManager.default.removeItem(atPath: fullPath)
-            }
-        }
+        let legacyFilePath = folderPath + String.pathDelimiter + legacyFileName
+        try? FileManager.default.removeItem(atPath: legacyFilePath)
     }
 
     func updateSupportedLanguagesIfNeeded(manifestTimestamp: TimeInterval?, completion: (() -> Void)? = nil, error: ((Error) -> Void)? = nil) {
@@ -257,6 +256,12 @@ class CrowdinSupportedLanguages {
             if let languages = languages {
                 self._supportedLanguages = languages
                 self.saveSupportedLanguages()
+            } else if self._supportedLanguages == nil {
+                // On 304 (Not Modified), load from cache if we don't have it in memory yet
+                let cachedData = try? Data(contentsOf: URL(fileURLWithPath: self.filePath))
+                if let data = cachedData {
+                    self._supportedLanguages = try? JSONDecoder().decode([DistributionLanguage].self, from: data)
+                }
             }
             let completions = self._completions
             self._errors.removeAll()
@@ -278,8 +283,19 @@ class CrowdinSupportedLanguages {
     }
 
     fileprivate func saveSupportedLanguages() {
-        guard let languages = _supportedLanguages as? [DistributionLanguage], 
-              let data = try? JSONEncoder().encode(languages) else { return }
+        // Read the current supported languages on the serial queue for thread safety
+        let currentLanguages: [CrowdinLanguage]? = queue.sync { _supportedLanguages }
+        
+        guard let crowdlanguages = currentLanguages else { return }
+        
+        // Cast each element individually to DistributionLanguage. A direct cast from
+        // [CrowdinLanguage] to [DistributionLanguage] will always fail for existential arrays.
+        let distributionLanguages = crowdlanguages.compactMap { $0 as? DistributionLanguage }
+        
+        // Ensure all elements were successfully cast; if not, avoid writing a partial cache.
+        guard distributionLanguages.count == crowdlanguages.count,
+              let data = try? JSONEncoder().encode(distributionLanguages) else { return }
+        
         try? data.write(to: URL(fileURLWithPath: filePath), options: Data.WritingOptions.atomic)
     }
 
