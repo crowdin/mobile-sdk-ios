@@ -10,7 +10,11 @@ import Foundation
 class RULocalLocalizationStorage: LocalLocalizationStorage {
     override init(localization: String) {
         super.init(localization: localization)
-        // swiftlint:disable force_try
-        self.localizationFolder = try! CrowdinFolder.shared.createFolder(with: "RealtimeUpdates")
+        do {
+            self.localizationFolder = try CrowdinFolder.shared.createFolder(with: "RealtimeUpdates")
+        } catch {
+            CrowdinLogsCollector.shared.add(log: CrowdinLog(type: .error, message: "Failed to create RealtimeUpdates folder: \(error.localizedDescription). Falling back to root CrowdinFolder."))
+            self.localizationFolder = CrowdinFolder.shared
+        }
     }
 }
