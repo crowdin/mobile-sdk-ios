@@ -64,10 +64,12 @@ class CrowdinSupportedLanguages {
             queue.sync { _supportedLanguages }
         }
         set {
-            queue.sync {
+            let languagesToSave: [CrowdinLanguage]? = queue.sync {
                 _supportedLanguages = newValue
-                saveSupportedLanguages()
+                return newValue
             }
+            // Save to disk outside of the queue
+            saveSupportedLanguages(languages: languagesToSave)
         }
     }
 
@@ -252,10 +254,11 @@ class CrowdinSupportedLanguages {
     
     private func notifySuccess(_ languages: [CrowdinLanguage]?) {
         let manifestTimestamp = pendingManifestTimestamp
-        let callbacks: [() -> Void] = queue.sync {
+        
+        // Extract data to save and callbacks in a single sync block
+        let (languagesToSave, callbacks): ([CrowdinLanguage]?, [() -> Void]) = queue.sync {
             if let languages = languages {
                 self._supportedLanguages = languages
-                self.saveSupportedLanguages()
             } else if self._supportedLanguages == nil {
                 // On 304 (Not Modified), load from cache if we don't have it in memory yet
                 let cachedData = try? Data(contentsOf: URL(fileURLWithPath: self.filePath))
@@ -268,8 +271,13 @@ class CrowdinSupportedLanguages {
             self._completions.removeAll()
             self._loading = false
             self.pendingManifestTimestamp = nil
-            return completions
+            
+            // Return both languages and callbacks
+            return (self._supportedLanguages, completions)
         }
+        
+        // Save to disk outside of the queue to avoid file I/O blocking the queue
+        saveSupportedLanguages(languages: languagesToSave)
 
         if let manifestTimestamp = manifestTimestamp {
             fileTimestampStorage.updateTimestamp(for: TimestampKeys.localization, filePath: TimestampKeys.filePath, timestamp: manifestTimestamp)
@@ -282,11 +290,8 @@ class CrowdinSupportedLanguages {
         }
     }
 
-    fileprivate func saveSupportedLanguages() {
-        // Read the current supported languages on the serial queue for thread safety
-        let currentLanguages: [CrowdinLanguage]? = queue.sync { _supportedLanguages }
-        
-        guard let crowdlanguages = currentLanguages else { return }
+    fileprivate func saveSupportedLanguages(languages: [CrowdinLanguage]?) {
+        guard let crowdlanguages = languages else { return }
         
         // Cast each element individually to DistributionLanguage. A direct cast from
         // [CrowdinLanguage] to [DistributionLanguage] will always fail for existential arrays.

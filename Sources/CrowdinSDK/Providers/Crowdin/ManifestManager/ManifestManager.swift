@@ -63,9 +63,6 @@ class ManifestManager {
         self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
         self.crowdinSupportedLanguages = CrowdinSupportedLanguages(hash: hash, fileTimestampStorage: fileTimestampStorage)
         self.load()
-        if let manifestTimestamp = self.manifest?.timestamp {
-            self.crowdinSupportedLanguages.updateSupportedLanguagesIfNeeded(manifestTimestamp: manifestTimestamp)
-        }
         ManifestManager.manifestMap[self.hash] = self
     }
 
