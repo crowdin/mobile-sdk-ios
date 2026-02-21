@@ -62,13 +62,19 @@ final class CrowdinSupportedLanguagesTests: XCTestCase {
         CrowdinLanguagesURLProtocolStub.expectedPath = "/\(hash)/languages.json"
         CrowdinLanguagesURLProtocolStub.requestHandler = { request in
             let data = Self.sampleLanguagesJSON()
+            guard let url = request.url else {
+                throw NSError(domain: "Invalid URL", code: -1)
+            }
             let response = HTTPURLResponse(
-                url: request.url!,
+                url: url,
                 statusCode: 200,
                 httpVersion: nil,
                 headerFields: ["Etag": "test-etag"]
-            )!
-            return (response, data)
+            )
+            guard let httpResponse = response else {
+                throw NSError(domain: "Invalid response", code: -1)
+            }
+            return (httpResponse, data)
         }
         URLProtocol.registerClass(CrowdinLanguagesURLProtocolStub.self)
         defer {
