@@ -89,8 +89,10 @@ class XcstringsParser {
                     pluralDict[Keys.NSStringFormatValueTypeKey.rawValue] = pluralDict.values.map({ Self.formats(from: $0) }).filter({ $0.count > 0 }).first?.first ?? "u"
 
                     var dict = [String: Any]()
-                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = "%#@\(key)@"
-                    dict[key] = pluralDict
+                    // Use a sanitized variable name to avoid issues with format specifiers in the key
+                    let variableName = Self.sanitizeFormatVariable(key)
+                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = "%#@\(variableName)@"
+                    dict[variableName] = pluralDict
 
                     plurals[key] = dict
                 } else if let stringUnit = value.stringUnit {
@@ -149,6 +151,21 @@ class XcstringsParser {
         }
 
         return specifiers
+    }
+    
+    /// Sanitizes a key name to be used as a variable name in stringsdict format string.
+    /// Removes % characters and other special characters that could interfere with format string parsing.
+    /// - Parameter key: The original key name
+    /// - Returns: A sanitized variable name safe to use in format strings
+    static func sanitizeFormatVariable(_ key: String) -> String {
+        // Replace % and @ characters with underscores to avoid conflicts with format specifiers
+        let sanitized = key.replacingOccurrences(of: "%", with: "_")
+                          .replacingOccurrences(of: "@", with: "_")
+        // If the result is empty or starts with a number, prefix with "var_"
+        if sanitized.isEmpty || sanitized.first?.isNumber == true {
+            return "var_" + sanitized
+        }
+        return sanitized
     }
 }
 
