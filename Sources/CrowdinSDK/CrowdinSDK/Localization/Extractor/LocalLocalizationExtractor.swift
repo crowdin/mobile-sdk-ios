@@ -111,14 +111,18 @@ final class LocalLocalizationExtractor {
 
     // Localization methods
     func localizedString(for key: String) -> String? {
-        var string = self.localizationDict[key]
+        // Check plurals first - if a key has plurals defined, those take precedence over simple strings
+        // This fixes the issue where keys exist in both .strings and .stringsdict files
+        var string = self.pluralsBundle?.bundle?.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
+        // Plurals localization works as default bundle localization. In case localized string for key is missing the key string will be returned.
+        // To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
+        if string == key {
+            string = nil
+        }
+        
+        // If no plural exists, fall back to simple strings
         if string == nil {
-            string = self.pluralsBundle?.bundle?.swizzled_LocalizedString(forKey: key, value: nil, table: nil)
-            // Plurals localization works as default bundle localization. In case localized string for key is missing the key string will be returned.
-            // To prevent issues with localization where key equals value(for example for english language) we need to set nil here.
-            if string == key {
-                string = nil
-            }
+            string = self.localizationDict[key]
         }
         return string
     }
