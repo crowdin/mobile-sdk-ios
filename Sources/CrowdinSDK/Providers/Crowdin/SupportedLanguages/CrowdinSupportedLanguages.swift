@@ -254,30 +254,31 @@ class CrowdinSupportedLanguages {
     
     private func notifySuccess(_ languages: [CrowdinLanguage]?) {
         let manifestTimestamp = pendingManifestTimestamp
-        
-        // Extract data to save and callbacks in a single sync block
+
+        // On a 304 Not Modified response, check outside queue.sync whether we need to load from disk,
+        // then read from disk outside the queue to avoid blocking it with file I/O.
+        let needsDiskLoad: Bool = languages == nil && queue.sync { _supportedLanguages == nil }
+        let diskLanguages: [CrowdinLanguage]? = needsDiskLoad ? loadLanguagesFromDisk() : nil
+
+        // Update in-memory state and collect callbacks in a single sync block
         let (languagesToSave, callbacks): ([CrowdinLanguage]?, [() -> Void]) = queue.sync {
             if let languages = languages {
                 self._supportedLanguages = languages
-            } else if self._supportedLanguages == nil {
-                // On 304 (Not Modified), load from cache if we don't have it in memory yet
-                let cachedData = try? Data(contentsOf: URL(fileURLWithPath: self.filePath))
-                if let data = cachedData {
-                    self._supportedLanguages = try? JSONDecoder().decode([DistributionLanguage].self, from: data)
-                }
+            } else if let diskLanguages = diskLanguages {
+                self._supportedLanguages = diskLanguages
             }
             let completions = self._completions
             self._errors.removeAll()
             self._completions.removeAll()
             self._loading = false
             self.pendingManifestTimestamp = nil
-            
-            // Return both languages and callbacks
             return (self._supportedLanguages, completions)
         }
-        
-        // Save to disk outside of the queue to avoid file I/O blocking the queue
-        saveSupportedLanguages(languages: languagesToSave)
+
+        // Only persist to disk when data arrived from the network (not re-written from disk on 304).
+        if languages != nil {
+            saveSupportedLanguages(languages: languagesToSave)
+        }
 
         if let manifestTimestamp = manifestTimestamp {
             fileTimestampStorage.updateTimestamp(for: TimestampKeys.localization, filePath: TimestampKeys.filePath, timestamp: manifestTimestamp)
@@ -288,6 +289,11 @@ class CrowdinSupportedLanguages {
         DispatchQueue.main.async {
             callbacks.forEach { $0() }
         }
+    }
+
+    private func loadLanguagesFromDisk() -> [CrowdinLanguage]? {
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else { return nil }
+        return try? JSONDecoder().decode([DistributionLanguage].self, from: data)
     }
 
     fileprivate func saveSupportedLanguages(languages: [CrowdinLanguage]?) {
