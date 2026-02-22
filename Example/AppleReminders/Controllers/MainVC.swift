@@ -60,6 +60,8 @@ final class MainVC: UIViewController {
         
         setupTableView()
         addListView()
+        setupNavBar()
+        
         footerView.addListBtn.addTarget(self, action: #selector(addListBtnTapped), for: .touchUpInside)
         footerView.settingsBtn.addTarget(self, action: #selector(settingsBtnTapped), for: .touchUpInside)
         footerView.addGroupBtn.addTarget(self, action: #selector(addGroupBtnTapped), for: .touchUpInside)
@@ -113,9 +115,6 @@ final class MainVC: UIViewController {
             case .error: break
             }
         }
-        
-        setupNavBar()
-        setupSearch()
     }
     
     private func setupTableView() {
@@ -164,7 +163,7 @@ final class MainVC: UIViewController {
         addViews(views: footerView)
         
         footerView.translatesAutoresizingMaskIntoConstraints = false
-        footerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        footerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         footerView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         footerView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: 0).isActive = true
         footerView.heightAnchor.constraint(equalToConstant: footerHeight).isActive = true
@@ -208,11 +207,11 @@ final class MainVC: UIViewController {
         searchController?.obscuresBackgroundDuringPresentation = false
         searchController?.hidesNavigationBarDuringPresentation = false
         searchController?.searchBar.placeholder = "Search".localized
-        searchController?.searchBar.sizeToFit()
-        // Intentionally attach the search bar to the table view header instead of navigationItem.searchController.
-        // This keeps the search UI visually tied to this table view and working even when this VC is not embedded
-        // in a navigation controller using large titles.
-        tableView.tableHeaderView = searchController?.searchBar
+        
+        // Use navigation item search controller for better reliability
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         definesPresentationContext = true
     }
 
@@ -254,6 +253,11 @@ extension MainVC {
         })
         
         updateDatasource()
+        
+        // Setup search after datasource is configured
+        if searchController == nil {
+            setupSearch()
+        }
     }
     
     func updateDatasource() {
