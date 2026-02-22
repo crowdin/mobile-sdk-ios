@@ -11,6 +11,8 @@ import SwiftUI
 import UIKit
 
 final class MainVC: UIViewController {
+    private let footerHeight: CGFloat = 75
+    private let footerInsetPadding: CGFloat = 12
     
     let realm = MyRealm.getConfig()
     
@@ -23,7 +25,6 @@ final class MainVC: UIViewController {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.separatorStyle = .none
         tv.backgroundColor = .systemGroupedBackground
-        tv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         return tv
     }()
     
@@ -59,6 +60,8 @@ final class MainVC: UIViewController {
         
         setupTableView()
         addListView()
+        setupNavBar()
+        
         footerView.addListBtn.addTarget(self, action: #selector(addListBtnTapped), for: .touchUpInside)
         footerView.settingsBtn.addTarget(self, action: #selector(settingsBtnTapped), for: .touchUpInside)
         footerView.addGroupBtn.addTarget(self, action: #selector(addGroupBtnTapped), for: .touchUpInside)
@@ -81,8 +84,22 @@ final class MainVC: UIViewController {
         }
     }
     
+    deinit {
+        realmListToken?.invalidate()
+        print("MainVC deinit")
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutTableHeaderIfNeeded()
+        updateTableInsetsForFooter()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Keep the footer controls above any table/search content.
+        view.bringSubviewToFront(footerView)
         
         realmListToken = realm?.objects(ReminderList.self).observe { [weak self] changes in
             guard let self = self else { return }
@@ -98,14 +115,6 @@ final class MainVC: UIViewController {
             case .error: break
             }
         }
-        
-        setupNavBar()
-        setupSearch()
-    }
-    
-    deinit {
-        realmListToken?.invalidate()
-        print("MainVC deinit")
     }
     
     private func setupTableView() {
@@ -154,10 +163,20 @@ final class MainVC: UIViewController {
         addViews(views: footerView)
         
         footerView.translatesAutoresizingMaskIntoConstraints = false
-        footerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        footerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         footerView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         footerView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: 0).isActive = true
-        footerView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        footerView.heightAnchor.constraint(equalToConstant: footerHeight).isActive = true
+    }
+
+    private func updateTableInsetsForFooter() {
+        // Compute real overlap between the table and footer to avoid rows appearing under controls.
+        let overlap = max(0, tableView.frame.maxY - footerView.frame.minY)
+        let bottomInset = overlap + footerInsetPadding
+        if tableView.contentInset.bottom != bottomInset {
+            tableView.contentInset.bottom = bottomInset
+            tableView.scrollIndicatorInsets.bottom = bottomInset
+        }
     }
     
     private func setupNavBar() {
@@ -186,8 +205,24 @@ final class MainVC: UIViewController {
         searchController = UISearchController(searchResultsController: searchControllerVC)
         searchController?.searchResultsUpdater = self
         searchController?.obscuresBackgroundDuringPresentation = false
+        searchController?.hidesNavigationBarDuringPresentation = false
         searchController?.searchBar.placeholder = "Search".localized
+        
+        // Use navigation item search controller for better reliability
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
+        definesPresentationContext = true
+    }
+
+    private func layoutTableHeaderIfNeeded() {
+        guard let headerView = tableView.tableHeaderView else { return }
+        let targetSize = CGSize(width: tableView.bounds.width, height: UIView.layoutFittingCompressedSize.height)
+        let height = headerView.sizeThatFits(targetSize).height
+        if headerView.frame.width != tableView.bounds.width || headerView.frame.height != height {
+            headerView.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: height)
+            tableView.tableHeaderView = headerView
+        }
     }
 }
 
@@ -218,6 +253,11 @@ extension MainVC {
         })
         
         updateDatasource()
+        
+        // Setup search after datasource is configured
+        if searchController == nil {
+            setupSearch()
+        }
     }
     
     func updateDatasource() {

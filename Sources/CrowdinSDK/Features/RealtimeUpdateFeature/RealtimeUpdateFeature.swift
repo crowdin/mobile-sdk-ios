@@ -34,7 +34,7 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     var disconnect: (() -> Void)?
     var localization: String {
         let localizations = Localization.current.provider.remoteStorage.localizations
-        return CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
+        return Localization.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
     }
     let hashString: String
     let sourceLanguage: String
