@@ -59,9 +59,9 @@ class ManifestManager {
         self.sourceLanguage = sourceLanguage
         self.organizationName = organizationName
         self.minimumManifestUpdateInterval = minimumManifestUpdateInterval
-        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
-        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(organizationName: organizationName)
         self.fileTimestampStorage = FileTimestampStorage(hash: hash)
+        self.contentDeliveryAPI = CrowdinContentDeliveryAPI(hash: hash)
+        self.crowdinSupportedLanguages = CrowdinSupportedLanguages(hash: hash, fileTimestampStorage: fileTimestampStorage)
         self.load()
         ManifestManager.manifestMap[self.hash] = self
     }
@@ -96,7 +96,7 @@ class ManifestManager {
 
     var iOSLanguages: [String] {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync {
             guard let languages = _manifest?.languages else { return [] }
@@ -104,8 +104,10 @@ class ManifestManager {
             var resolvedLanguages = [String]()
             var unresolvedLanguages = [String]()
             
-            let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
-            let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
+            let allLangs: [CrowdinLanguage] = ManifestManager.mergeLanguages(
+                supported: crowdinLanguages,
+                custom: _manifest?.customLanguages ?? []
+            )
             
             // Try to resolve each language through the language mapping
             for language in languages {
@@ -129,11 +131,13 @@ class ManifestManager {
 
     func contentFiles(for language: String) -> [String] {
         // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages?.data.map({ $0.data }) ?? []
+        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
         
         return queue.sync { () -> [String] in
-            let customLaguages: [CrowdinLanguage] = _manifest?.customLanguages ?? []
-            let allLangs: [CrowdinLanguage] = crowdinLanguages + customLaguages
+            let allLangs: [CrowdinLanguage] = ManifestManager.mergeLanguages(
+                supported: crowdinLanguages,
+                custom: _manifest?.customLanguages ?? []
+            )
             
             var crowdinLanguageCandidate = allLangs.first(where: { $0.iOSLanguageCode == language })
             if crowdinLanguageCandidate == nil {
@@ -224,6 +228,9 @@ class ManifestManager {
                 return completions
             }
             completions?.forEach { $0() }
+            if let manifestTimestamp = self.manifest?.timestamp {
+                self.crowdinSupportedLanguages.updateSupportedLanguagesIfNeeded(manifestTimestamp: manifestTimestamp)
+            }
         }
     }
 
@@ -241,6 +248,15 @@ class ManifestManager {
             }
         }
         fileTimestampStorage.saveTimestamps()
+    }
+    
+    static func mergeLanguages(supported: [CrowdinLanguage], custom: [CustomLangugage]) -> [CrowdinLanguage] {
+        guard !custom.isEmpty else { return supported }
+        var merged = supported
+        for customLanguage in custom where !merged.contains(where: { $0.id == customLanguage.id }) {
+            merged.append(customLanguage)
+        }
+        return merged
     }
 
     private func addCompletion(completion: @escaping () -> Void, for hash: String) {
@@ -280,6 +296,7 @@ class ManifestManager {
     static func clear() {
         manifestMap.removeAll()
         try? FileManager.default.removeItem(atPath: ManifestManager.manifestsPath)
+        CrowdinSupportedLanguages.clearAllCaches()
         FileTimestampStorage.clear()
     }
 
@@ -287,6 +304,7 @@ class ManifestManager {
     func clear() {
         ManifestManager.manifestMap.removeValue(forKey: hash)
         try? FileManager.default.removeItem(atPath: manifestPath)
+        crowdinSupportedLanguages.clearCache()
         fileTimestampStorage.clear()
     }
     
