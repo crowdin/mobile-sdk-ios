@@ -174,6 +174,19 @@ if let currentLocale = CrowdinSDK.currentLocalization {
 
 This is the recommended way to change the language programmatically. The SDK will download the new localization if it's not already available. If set to `nil` - the localization will be detected automatically based on the languages available in Crowdin and the system's preferred languages.
 
+If you need to update UI only after the localization refresh finishes, use the completion-based API:
+
+```swift
+CrowdinSDK.setCurrentLocalization("<language_code>") { error in
+    if let error = error {
+        print("Localization switch failed: \(error.localizedDescription)")
+        return
+    }
+
+    // Reload your UI here.
+}
+```
+
 
 :::caution
 The UI doesn't update automatically. You must manually update the UI after changing the localization.
