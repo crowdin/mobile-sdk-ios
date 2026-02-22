@@ -29,6 +29,8 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     public var onLogCallback: ((String) -> Void)?
 
     /// Current localization language code. If SDK is started than after setting new localization it triggers localization download.
+    ///
+    /// - Note: Deprecated. Use ``setCurrentLocalization(_:completion:)`` instead for async operation with completion handler.
     @available(*, deprecated, message: "Please use setCurrentLocalization(_:completion:) to update localization.")
 	public class var currentLocalization: String? {
 		get {

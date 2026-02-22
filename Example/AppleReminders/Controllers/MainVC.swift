@@ -12,6 +12,7 @@ import UIKit
 
 final class MainVC: UIViewController {
     private let footerHeight: CGFloat = 75
+    private let footerInsetPadding: CGFloat = 12
     
     let realm = MyRealm.getConfig()
     
@@ -81,8 +82,22 @@ final class MainVC: UIViewController {
         }
     }
     
+    deinit {
+        realmListToken?.invalidate()
+        print("MainVC deinit")
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutTableHeaderIfNeeded()
+        updateTableInsetsForFooter()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Keep the footer controls above any table/search content.
+        view.bringSubviewToFront(footerView)
         
         realmListToken = realm?.objects(ReminderList.self).observe { [weak self] changes in
             guard let self = self else { return }
@@ -101,19 +116,6 @@ final class MainVC: UIViewController {
         
         setupNavBar()
         setupSearch()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        layoutTableHeaderIfNeeded()
-        // Keep the footer controls above any table/search content after layout updates.
-        view.bringSubviewToFront(footerView)
-        updateTableInsetsForFooter()
-    }
-    
-    deinit {
-        realmListToken?.invalidate()
-        print("MainVC deinit")
     }
     
     private func setupTableView() {
@@ -171,7 +173,7 @@ final class MainVC: UIViewController {
     private func updateTableInsetsForFooter() {
         // Compute real overlap between the table and footer to avoid rows appearing under controls.
         let overlap = max(0, tableView.frame.maxY - footerView.frame.minY)
-        let bottomInset = overlap + 12
+        let bottomInset = overlap + footerInsetPadding
         if tableView.contentInset.bottom != bottomInset {
             tableView.contentInset.bottom = bottomInset
             tableView.scrollIndicatorInsets.bottom = bottomInset
@@ -207,6 +209,9 @@ final class MainVC: UIViewController {
         searchController?.hidesNavigationBarDuringPresentation = false
         searchController?.searchBar.placeholder = "Search".localized
         searchController?.searchBar.sizeToFit()
+        // Intentionally attach the search bar to the table view header instead of navigationItem.searchController.
+        // This keeps the search UI visually tied to this table view and working even when this VC is not embedded
+        // in a navigation controller using large titles.
         tableView.tableHeaderView = searchController?.searchBar
         definesPresentationContext = true
     }

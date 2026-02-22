@@ -104,7 +104,6 @@ class SettingsVC: UITableViewController {
     private func setLocalizationLoading(_ loading: Bool) {
         isLocalizationLoading = loading
         tableView.allowsSelection = !loading
-        tableView.isUserInteractionEnabled = !loading
         navigationItem.rightBarButtonItem?.isEnabled = !loading
         
         if loading {
