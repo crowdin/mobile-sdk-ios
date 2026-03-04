@@ -17,6 +17,9 @@ public typealias CrowdinSDKLocalizationUpdateDownload = () -> Void
 /// Closure type for localization update error handlers.
 public typealias CrowdinSDKLocalizationUpdateError = ([Error]) -> Void
 
+/// Closure type for localization switch completion handlers.
+public typealias CrowdinSDKLocalizationChangeCompletion = (Error?) -> Void
+
 /// Closure type for Log messages handlers.
 public typealias CrowdinSDKLogMessage = (String) -> Void
 
@@ -90,6 +93,15 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     @available(*, deprecated, message: "Please use currentLocalization instead.")
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
         self.currentLocalization = localization
+    }
+
+    /// Method for changing SDK localization and getting notified when localization refresh completes.
+    ///
+    /// - Parameters:
+    ///   - localization: Localization code to use. If `nil`, localization will be auto-detected.
+    ///   - completion: Completion handler called when localization refresh finishes.
+    public class func setCurrentLocalization(_ localization: String?, completion: @escaping CrowdinSDKLocalizationChangeCompletion) {
+        Localization.setCurrentLocalization(localization, completion: completion)
     }
 
     /// Utils method for extracting all localization strings and plurals to Documents folder.
