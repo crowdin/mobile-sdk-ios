@@ -107,16 +107,6 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
         Localization.setCurrentLocalization(localization, completion: completion)
     }
 
-    /// Method for changing SDK localization and getting notified when localization refresh completes.
-    ///
-    /// - Parameters:
-    ///   - localization: Localization code to use. If `nil`, localization will be auto-detected.
-    ///   - completion: Completion handler called when localization refresh finishes.
-    @available(*, deprecated, message: "Please use setCurrentLocalization(_:completion:) instead.")
-    public class func setLocalization(_ localization: String?, completion: @escaping CrowdinSDKLocalizationChangeCompletion) {
-        self.setCurrentLocalization(localization, completion: completion)
-    }
-
     /// Utils method for extracting all localization strings and plurals to Documents folder.
     /// This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
     public class func extractAllLocalization() {
