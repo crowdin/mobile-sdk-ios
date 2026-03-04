@@ -31,7 +31,7 @@ final class AppleRemindersUITestsCrowdinScreenhsotTests: XCTestCase {
             .with(accessToken: Self.accessToken)
             .with(screenshotsEnabled: true)
         
-        CrowdinSDK.currentLocalization = localization
+        CrowdinSDK.setCurrentLocalization(localization) { _ in }
         
         CrowdinSDK.startWithConfigSync(crowdinSDKConfig)
     }
