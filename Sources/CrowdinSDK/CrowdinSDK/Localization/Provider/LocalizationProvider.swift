@@ -15,7 +15,7 @@ protocol LocalizationProviderProtocol {
     var localStorage: LocalLocalizationStorageProtocol { get }
     var remoteStorage: RemoteLocalizationStorageProtocol { get }
 
-    var localization: String { get set }
+    var localization: String { get }
     var localizations: [String] { get }
 
     func refreshLocalization()
@@ -24,6 +24,7 @@ protocol LocalizationProviderProtocol {
     func prepare(with completion: @escaping () -> Void)
 
     func deintegrate()
+    func setLocalization(_ localization: String, completion: @escaping ((Error?) -> Void))
     func localizedString(for key: String) -> String?
     func key(for string: String) -> String?
     func values(for string: String, with format: String) -> [Any]?
@@ -36,11 +37,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
         case localizableStringsdict = "Localizable.stringsdict"
     }
     // Public
-    var localization: String {
-        didSet {
-            self.refreshLocalization()
-        }
-    }
+    var localization: String
     var localizations: [String] { return remoteStorage.localizations }
 
     var localStorage: LocalLocalizationStorageProtocol
@@ -99,6 +96,11 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
                 completion()
             }
         }
+    }
+
+    func setLocalization(_ localization: String, completion: @escaping ((Error?) -> Void)) {
+        self.localization = localization
+        self.refreshLocalization(completion: completion)
     }
 
     // Private method
