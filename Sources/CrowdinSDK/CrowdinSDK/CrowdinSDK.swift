@@ -93,7 +93,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameters:
     ///   - sdkLocalization: Bool value which indicate whether to use SDK localization or native in bundle localization.
     ///   - localization: Localization code to use.
-    @available(*, deprecated, message: "Please use setCurrentLocalization(_:completion:) instead.")
+    @available(*, deprecated, message: "Please use setCurrentLocalization(_:completion:) and getCurrentLocalization() methods instead.")
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
         self.currentLocalization = localization
     }
@@ -106,6 +106,13 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     public class func setCurrentLocalization(_ localization: String?, completion: @escaping CrowdinSDKLocalizationChangeCompletion) {
         Localization.setCurrentLocalization(localization, completion: completion)
     }
+    
+    /// Method to get current SDK localization.
+    /// - Returns: Current SDK localization
+    public class func getCurrentLocalization() -> String? {
+        return Localization.currentLocalization
+    }
+
 
     /// Utils method for extracting all localization strings and plurals to Documents folder.
     /// This method will extract all localization for all languages and store it in Extracted subfolder in Crowdin folder.
