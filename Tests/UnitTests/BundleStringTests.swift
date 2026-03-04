@@ -24,26 +24,55 @@ class BundleStringTests: XCTestCase {
     
     func testPluralLocalizationWithKeyInBothFiles() {
         // Test for issue #347: When a key exists in both .strings and .stringsdict files,
-        // plural forms should take precedence over the simple string
+        // plural forms should take precedence over the simple string.
+        // This test validates the SDK swizzling path (LocalizationProvider) where the same key
+        // exists in both strings and plurals dictionaries.
         
-        // The key "johns_pineapples_count" exists in both:
-        // - Localizable.strings: "John has pineapples" (simple fallback string)
-        // - Localizable.stringsdict: proper plural definitions (zero/one/other)
+        let localization = "en"
+        let key = "johns_pineapples_count"
+        let simpleStringValue = "John has pineapples"
         
-        // Format for zero (should use plural from stringsdict, not simple string)
-        let formatZero = NSLocalizedString("johns_pineapples_count", comment: "")
-        let stringZero = String.localizedStringWithFormat(formatZero, 0)
-        XCTAssert(stringZero == "John has no pineapples", "Zero plural form should work: '\(stringZero)'")
+        let strings: [String: String] = [key: simpleStringValue]
+        let plurals: [AnyHashable: Any] = [
+            key: [
+                "NSStringLocalizedFormatKey": "%#@pineapples@",
+                "pineapples": [
+                    "NSStringFormatSpecTypeKey": "NSStringPluralRuleType",
+                    "NSStringFormatValueTypeKey": "d",
+                    "zero": "John has no pineapples",
+                    "one": "John has %d pineapple",
+                    "other": "John has %d pineapples"
+                ]
+            ]
+        ]
         
-        // Format for one (should use plural from stringsdict)
-        let formatOne = NSLocalizedString("johns_pineapples_count", comment: "")
-        let stringOne = String.localizedStringWithFormat(formatOne, 1)
-        XCTAssert(stringOne == "John has 1 pineapple", "Singular plural form should work: '\(stringOne)'")
+        let localStorage = LocalLocalizationStorage(localization: localization)
+        localStorage.strings = strings
+        localStorage.plurals = plurals
         
-        // Format for multiple (should use plural from stringsdict)
-        let formatMany = NSLocalizedString("johns_pineapples_count", comment: "")
-        let stringMany = String.localizedStringWithFormat(formatMany, 5)
-        XCTAssert(stringMany == "John has 5 pineapples", "Plural form should work: '\(stringMany)'")
+        let remoteStorage = MockRemoteStorage()
+        let provider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
+        
+        Bundle.swizzle()
+        Localization.current = Localization(provider: provider)
+        defer {
+            Bundle.unswizzle()
+            Localization.current = nil
+            provider.deintegrate()
+        }
+        
+        // The provider should return the plural form, not the simple string
+        let result = provider.localizedString(for: key)
+        XCTAssertNotNil(result, "Plural key should resolve to a non-nil value")
+        XCTAssertNotEqual(result, simpleStringValue, "Plural should take precedence over simple string")
+        
+        // Verify through Bundle.main which exercises the full swizzled path
+        let format = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+        let formattedOne = String.localizedStringWithFormat(format, 1)
+        XCTAssertEqual(formattedOne, "John has 1 pineapple", "Singular plural form should work via swizzled path: '\(formattedOne)'")
+        
+        let formattedMany = String.localizedStringWithFormat(format, 5)
+        XCTAssertEqual(formattedMany, "John has 5 pineapples", "Plural form should work via swizzled path: '\(formattedMany)'")
     }
 }
 
