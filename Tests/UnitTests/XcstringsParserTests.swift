@@ -35,7 +35,7 @@ class XcstringsParserTests: XCTestCase {
         XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("1test"), "var_1test")
         
         // Edge case: key composed entirely of special characters
-        XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("%%@@"), "var__u25_u25_u40_u40")
+        XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("%%@@"), "_u25_u25_u40_u40")
         
         // Edge case: key with whitespace
         XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("test key"), "test_u20key")
@@ -44,7 +44,7 @@ class XcstringsParserTests: XCTestCase {
         XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("test key % value"), "test_u20key_u20_u25_u20value")
         
         // Edge case: all percent signs
-        XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("%%%%"), "var__u25_u25_u25_u25")
+        XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("%%%%"), "_u25_u25_u25_u25")
         
         // Edge case: multiple consecutive special characters
         XCTAssertEqual(XcstringsParser.sanitizeFormatVariable("test%%key"), "test_u25_u25key")

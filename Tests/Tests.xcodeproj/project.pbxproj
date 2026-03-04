@@ -33,6 +33,7 @@
 		E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */; };
 		E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */; };
 		E8B57CB02F1EF363009C98D6 /* IntegrationTestGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */; };
+		E8C123452F27A000009C98D6 /* XcstringsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C123442F27A000009C98D6 /* XcstringsParserTests.swift */; };
 		E8BD50CC23527390006D77FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50CE23527390006D77FD /* Localizable.strings */; };
 		E8BD50D92352F6C6006D77FD /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = E8BD50DB2352F6C6006D77FD /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
 		E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
 		E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/Core/IntegrationTestGate.swift; sourceTree = "<group>"; };
+		E8C123442F27A000009C98D6 /* XcstringsParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcstringsParserTests.swift; sourceTree = "<group>"; };
 		E8BD50C42352735F006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50C52352736A006D77FD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		E8BD50CD23527390006D77FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				E8B03C362DB8FBC7006DD844 /* Info.plist */,
 				E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */,
 				E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */,
+				E8C123442F27A000009C98D6 /* XcstringsParserTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */,
 				E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */,
 				E8B57CB02F1EF363009C98D6 /* IntegrationTestGate.swift in Sources */,
+				E8C123452F27A000009C98D6 /* XcstringsParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
