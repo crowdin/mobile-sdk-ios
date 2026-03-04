@@ -31,19 +31,27 @@ class Localization {
     /// Property for detecting and storing curent localization value depending on current SDK mode.
     static var currentLocalization: String? {
 		set {
-            self.customLocalization = newValue
-            if let localization = newValue {
-                Localization.current?.provider.localization = localization
-                Localization.current?.extractor.localization = localization
-            } else {
-                Localization.current?.provider.localization = autoDetectedLocalization
-                Localization.current?.extractor.localization = autoDetectedLocalization
-            }
+            setCurrentLocalization(newValue)
 		}
 		get {
             return customLocalization
 		}
 	}
+
+    static func setCurrentLocalization(_ localization: String?) {
+        setCurrentLocalization(localization, completion: { _ in })
+    }
+
+    static func setCurrentLocalization(_ localization: String?, completion: @escaping ((Error?) -> Void)) {
+        self.customLocalization = localization
+        let targetLocalization = localization ?? autoDetectedLocalization
+        Localization.current?.extractor.localization = targetLocalization
+        guard let provider = Localization.current?.provider else {
+            completion(nil)
+            return
+        }
+        provider.setLocalization(targetLocalization, completion: completion)
+    }
 
     /// Auto detects localization.
     /// For detection uses localizations from the bundle and from the current provider.
