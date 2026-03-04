@@ -49,6 +49,7 @@ class BundleStringTests: XCTestCase {
         let localStorage = LocalLocalizationStorage(localization: localization)
         localStorage.strings = strings
         localStorage.plurals = plurals
+        localStorage.save()
         
         let remoteStorage = MockRemoteStorage()
         let provider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
