@@ -158,7 +158,10 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
         Localization.current.provider.refreshLocalization { [weak self] error in
             guard let self = self else { return }
             if let error = error {
-                self.error?(error)
+                DispatchQueue.main.async {
+                    self.removeRealtimeUpdatesLocalizationProvider()
+                    self.error?(error)
+                }
             } else {
                 DispatchQueue.main.async {
                     self.subscribeAllVisibleConrols()

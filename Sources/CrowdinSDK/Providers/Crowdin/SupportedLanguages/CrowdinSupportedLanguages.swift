@@ -262,8 +262,13 @@ class CrowdinSupportedLanguages {
             } else if self._supportedLanguages == nil {
                 // On 304 (Not Modified), load from cache if we don't have it in memory yet
                 let cachedData = try? Data(contentsOf: URL(fileURLWithPath: self.filePath))
-                if let data = cachedData {
-                    self._supportedLanguages = try? JSONDecoder().decode([DistributionLanguage].self, from: data)
+                if let data = cachedData,
+                   let languagesMap = try? JSONDecoder().decode([String: DistributionLanguage].self, from: data) {
+                    self._supportedLanguages = languagesMap.map { (key, value) in
+                        var lang = value
+                        lang.id = key
+                        return lang
+                    }
                 }
             }
             let completions = self._completions
@@ -292,21 +297,32 @@ class CrowdinSupportedLanguages {
 
     fileprivate func saveSupportedLanguages(languages: [CrowdinLanguage]?) {
         guard let crowdlanguages = languages else { return }
-        
+
         // Cast each element individually to DistributionLanguage. A direct cast from
         // [CrowdinLanguage] to [DistributionLanguage] will always fail for existential arrays.
         let distributionLanguages = crowdlanguages.compactMap { $0 as? DistributionLanguage }
-        
+
         // Ensure all elements were successfully cast; if not, avoid writing a partial cache.
-        guard distributionLanguages.count == crowdlanguages.count,
-              let data = try? JSONEncoder().encode(distributionLanguages) else { return }
-        
+        guard distributionLanguages.count == crowdlanguages.count else { return }
+
+        // Save as [id: DistributionLanguage] dict so the id (dict key) is preserved on disk.
+        // id is excluded from DistributionLanguage.CodingKeys (it comes from the CDN dict key),
+        // so saving as an array would lose all ids and cause empty targetLanguageId on reload.
+        let dict = Dictionary(uniqueKeysWithValues: distributionLanguages.map { ($0.id, $0) })
+        guard let data = try? JSONEncoder().encode(dict) else { return }
+
         try? data.write(to: URL(fileURLWithPath: filePath), options: Data.WritingOptions.atomic)
     }
 
     fileprivate func readSupportedLanguages() {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else { return }
-        let languages = try? JSONDecoder().decode([DistributionLanguage].self, from: data)
+        // Decode as [id: DistributionLanguage] and restore id from the dict key.
+        guard let languagesMap = try? JSONDecoder().decode([String: DistributionLanguage].self, from: data) else { return }
+        let languages: [DistributionLanguage] = languagesMap.map { (key, value) in
+            var lang = value
+            lang.id = key
+            return lang
+        }
         queue.sync {
             _supportedLanguages = languages
         }
