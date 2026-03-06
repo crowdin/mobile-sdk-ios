@@ -69,7 +69,6 @@ Pod::Spec.new do |spec|
       'Sources/Tests/CrowdinProvider/*.swift',
       'Sources/Tests/Core/IntegrationTestGate.swift'
     ]
-    test_spec.resources = 'Resources/Tests/SupportedLanguages.json'
   end
   
   spec.subspec 'CrowdinAPI' do |subspec|

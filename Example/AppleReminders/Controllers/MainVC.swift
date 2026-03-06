@@ -188,6 +188,10 @@ final class MainVC: UIViewController {
         searchController?.obscuresBackgroundDuringPresentation = false
         searchController?.searchBar.placeholder = "Search".localized
         navigationItem.searchController = searchController
+        if #available(iOS 16.0, *) {
+            // Keep search UI in the navigation bar
+            navigationItem.preferredSearchBarPlacement = .stacked
+        }
     }
 }
 

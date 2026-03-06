@@ -19,23 +19,20 @@ class ManifestManagerTests: XCTestCase {
         let manifestManager = ManifestManager.manifest(for: "test_hash", sourceLanguage: "en", organizationName: nil, minimumManifestUpdateInterval: 60)
         
         // 1. Setup Supported Languages (Mocking what Crowdin returns)
-        let esData = LanguagesResponseData(
-            id: "es-ES", name: "Spanish", editorCode: "es", twoLettersCode: "es", threeLettersCode: "spa",
-            locale: "es-ES", androidCode: "es-rES", osxCode: "es.lproj", osxLocale: "es",
-            pluralCategoryNames: [], pluralRules: "", pluralExamples: [], textDirection: .ltr, dialectOf: nil
-        )
-        let svData = LanguagesResponseData(
-            id: "sv-SE", name: "Swedish", editorCode: "sv", twoLettersCode: "sv", threeLettersCode: "swe",
-            locale: "sv-SE", androidCode: "sv-rSE", osxCode: "sv.lproj", osxLocale: "sv",
-            pluralCategoryNames: [], pluralRules: "", pluralExamples: [], textDirection: .ltr, dialectOf: nil
-        )
+        struct MockLanguage: CrowdinLanguage {
+            var id: String
+            var name: String
+            var twoLettersCode: String
+            var threeLettersCode: String
+            var locale: String
+            var osxCode: String
+            var osxLocale: String
+        }
         
-        let languagesResponse = LanguagesResponse(data: [
-            LanguagesResponseDatum(data: esData),
-            LanguagesResponseDatum(data: svData)
-        ], pagination: LanguagesResponsePagination(offset: 0, limit: 2))
-        
-        manifestManager.crowdinSupportedLanguages.supportedLanguages = languagesResponse
+        let esLang = MockLanguage(id: "es-ES", name: "Spanish", twoLettersCode: "es", threeLettersCode: "spa", locale: "es-ES", osxCode: "es.lproj", osxLocale: "es")
+        let svLang = MockLanguage(id: "sv-SE", name: "Swedish", twoLettersCode: "sv", threeLettersCode: "swe", locale: "sv-SE", osxCode: "sv.lproj", osxLocale: "sv")
+
+        manifestManager.crowdinSupportedLanguages.supportedLanguages = [esLang, svLang]
         
         // 2. Setup Manifest (Mocking user's manifest)
         let content: [String: [String]] = [
@@ -68,6 +65,36 @@ class ManifestManagerTests: XCTestCase {
         XCTAssertEqual(svFiles, ["/content/sv.strings"], "Should find Swedish files")
         
         // Cleanup
+        manifestManager.clear()
+    }
+
+    func testContentFilesForCustomLanguage() {
+        let manifestManager = ManifestManager.manifest(for: "test_hash_custom", sourceLanguage: "en", organizationName: nil, minimumManifestUpdateInterval: 60)
+
+        let customLanguage = ManifestResponse.ManifestResponseCustomLangugage(
+            locale: "tlh-PQ",
+            twoLettersCode: "tlh",
+            threeLettersCode: "tlh",
+            localeWithUnderscore: "tlh_PQ",
+            androidCode: "tlh-rPQ",
+            osxCode: "tlh.lproj",
+            osxLocale: "tlh"
+        )
+
+        let manifestResponse = ManifestResponse(
+            files: ["/Localizable.strings"],
+            timestamp: 1234567890,
+            languages: ["tlh-PQ"],
+            responseCustomLanguages: ["tlh-PQ": customLanguage],
+            content: ["tlh-PQ": ["/content/tlh.strings"]],
+            mapping: []
+        )
+
+        manifestManager.manifest = manifestResponse
+
+        let customFiles = manifestManager.contentFiles(for: "tlh")
+        XCTAssertEqual(customFiles, ["/content/tlh.strings"], "Should find custom language files")
+
         manifestManager.clear()
     }
 }
