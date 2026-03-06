@@ -92,7 +92,12 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
     }
 
     func start() {
-        guard CrowdinSDK.inSDKLocalizations.contains(localization) else {
+        // Fast-fail only when we have reliable (non-empty) language data that confirms the
+        // language is absent. If inSDKLocalizations is empty the manifest may not have loaded
+        // yet (first launch, no cache); in that case let _start() proceed so the manifest
+        // downloads and the check is performed with accurate data.
+        let sdkLocalizations = CrowdinSDK.inSDKLocalizations
+        if !sdkLocalizations.isEmpty && !sdkLocalizations.contains(localization) {
             let message = "Unable to start real-time preview as there is no '\(localization)' language in Crowdin project target languages."
             self.error?(NSError(domain: message, code: defaultCrowdinErrorCode, userInfo: nil))
             return
@@ -123,6 +128,16 @@ class RealtimeUpdateFeature: RealtimeUpdateFeatureProtocol {
             }, errorHandler: error)
             return
 		}
+        // By this point the distribution is available and the manifest should be loaded
+        // (the SDK initialisation downloads it before completing). Perform the definitive
+        // language check so that users who bypassed the early guard (empty inSDKLocalizations)
+        // still get a clear error when their language is genuinely absent.
+        let sdkLocalizations = CrowdinSDK.inSDKLocalizations
+        if !sdkLocalizations.isEmpty && !sdkLocalizations.contains(localization) {
+            let message = "Unable to start real-time preview as there is no '\(localization)' language in Crowdin project target languages."
+            self.error?(NSError(domain: message, code: defaultCrowdinErrorCode, userInfo: nil))
+            return
+        }
         setupRealtimeUpdatesLocalizationProvider(with: projectId) { [weak self] in
             guard let self = self else { return }
             self.setupSocketManager(with: projectId, projectWsHash: projectWsHash, userId: userId, wsUrl: wsUrl, minimumManifestUpdateInterval: minimumManifestUpdateInterval)
