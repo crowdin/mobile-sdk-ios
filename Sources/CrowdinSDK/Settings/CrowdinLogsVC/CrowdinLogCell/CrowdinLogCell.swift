@@ -31,12 +31,7 @@ final class CrowdinLogCell: UITableViewCell {
         self.messageLabel.text = viewModel.message
 
         selectionStyle = .none
-
-        guard viewModel.isShowArrow else {
-            return
-        }
-
-        accessoryType = .disclosureIndicator
+        accessoryType = viewModel.isShowArrow ? .disclosureIndicator : .none
     }
 
     private func setupUI() {
@@ -47,31 +42,36 @@ final class CrowdinLogCell: UITableViewCell {
 
     private func addViews() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(dateLabel)
+        contentView.addSubview(dateLabel)
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(typeLabel)
+        contentView.addSubview(typeLabel)
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(messageLabel)
+        contentView.addSubview(messageLabel)
     }
 
     private func layoutViews() {
-        addConstraints([
-            dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8.0),
-            dateLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 8.0),
+        let margins = contentView.layoutMarginsGuide
+        contentView.addConstraints([
+            dateLabel.topAnchor.constraint(equalTo: margins.topAnchor),
+            dateLabel.leftAnchor.constraint(equalTo: margins.leftAnchor),
 
-            typeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8.0),
-            typeLabel.leftAnchor.constraint(equalTo: dateLabel.rightAnchor, constant: 8.0),
-            typeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8.0),
+            typeLabel.topAnchor.constraint(equalTo: margins.topAnchor),
+            typeLabel.leftAnchor.constraint(greaterThanOrEqualTo: dateLabel.rightAnchor, constant: 8.0),
+            typeLabel.rightAnchor.constraint(equalTo: margins.rightAnchor),
 
             messageLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8.0),
-            messageLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 8.0),
-            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
-            messageLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8.0)
+            messageLabel.leftAnchor.constraint(equalTo: margins.leftAnchor),
+            messageLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
+            messageLabel.rightAnchor.constraint(equalTo: margins.rightAnchor)
         ])
     }
 
     private func setupViews() {
-
+        typeLabel.textAlignment = .right
+        typeLabel.setContentHuggingPriority(.required, for: .horizontal)
+        typeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        messageLabel.numberOfLines = 0
+        messageLabel.lineBreakMode = .byWordWrapping
     }
 }
 
