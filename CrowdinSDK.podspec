@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = 'CrowdinSDK'
-  spec.version          = '1.14.0'
+  spec.version          = '1.15.0'
   spec.summary          = 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately'
   
   spec.description      = <<-DESC
@@ -69,7 +69,6 @@ Pod::Spec.new do |spec|
       'Sources/Tests/CrowdinProvider/*.swift',
       'Sources/Tests/Core/IntegrationTestGate.swift'
     ]
-    test_spec.resources = 'Resources/Tests/SupportedLanguages.json'
   end
   
   spec.subspec 'CrowdinAPI' do |subspec|
