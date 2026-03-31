@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>reminders_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@reminders@</string>
+        <key>reminders</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>zero</key>
+            <string>Немає нагадувань</string>
+            <key>one</key>
+            <string>%d нагадування</string>
+            <key>few</key>
+            <string>%d нагадування</string>
+            <key>many</key>
+            <string>%d нагадувань</string>
+            <key>other</key>
+            <string>%d нагадування</string>
+        </dict>
+    </dict>
+    <key>lists_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@lists@</string>
+        <key>lists</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>zero</key>
+            <string>Немає списків</string>
+            <key>one</key>
+            <string>%d список</string>
+            <key>few</key>
+            <string>%d списки</string>
+            <key>many</key>
+            <string>%d списків</string>
+            <key>other</key>
+            <string>%d списки</string>
+        </dict>
+    </dict>
+    <key>subtasks_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@subtasks@</string>
+        <key>subtasks</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>zero</key>
+            <string>Немає підзавдань</string>
+            <key>one</key>
+            <string>%d підзавдання</string>
+            <key>few</key>
+            <string>%d підзавдання</string>
+            <key>many</key>
+            <string>%d підзавдань</string>
+            <key>other</key>
+            <string>%d підзавдання</string>
+        </dict>
+    </dict>
+</dict>
+</plist>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Simple plural: number of reminders -->
+    <key>reminders_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@reminders@</string>
+        <key>reminders</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>zero</key>
+            <string>No reminders</string>
+            <key>one</key>
+            <string>%d reminder</string>
+            <key>other</key>
+            <string>%d reminders</string>
+        </dict>
+    </dict>
+    <!-- Plural with a format parameter: lists count -->
+    <key>lists_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@lists@</string>
+        <key>lists</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>zero</key>
+            <string>No lists</string>
+            <key>one</key>
+            <string>%d list</string>
+            <key>other</key>
+            <string>%d lists</string>
+        </dict>
+    </dict>
+    <!-- Plural for subtasks -->
+    <key>subtasks_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@subtasks@</string>
+        <key>subtasks</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>zero</key>
+            <string>No subtasks</string>
+            <key>one</key>
+            <string>%d subtask</string>
+            <key>other</key>
+            <string>%d subtasks</string>
+        </dict>
+    </dict>
+</dict>
+</plist>

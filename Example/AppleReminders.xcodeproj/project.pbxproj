@@ -66,7 +66,10 @@
 		E053C3E425E7B57A0061E270 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3E125E7B57A0061E270 /* EmptyDataView.swift */; };
 		E81B4C272CF559C9008D7C25 /* AppleRemindersUITestsCrowdinScreenhsotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B4C242CF559C9008D7C25 /* AppleRemindersUITestsCrowdinScreenhsotTests.swift */; };
 		E82913D9257300E70068A629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E82913D7257300E70068A629 /* Localizable.strings */; };
+		A1000001000000000000AA01 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A1000005000000000000AA01 /* Localizable.stringsdict */; };
 		E837B5F32596484F00656C9B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E837B5F22596484F00656C9B /* SettingsVC.swift */; };
+		E85EE7112F7BFDEA00531DD7 /* LocalizationTestingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */; };
+		E85EE7132F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */; };
 		E879E42026CF140600C9ED7B /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879E41F26CF140600C9ED7B /* Tests.swift */; };
 /* End PBXBuildFile section */
 
@@ -154,7 +157,12 @@
 		E81B4C242CF559C9008D7C25 /* AppleRemindersUITestsCrowdinScreenhsotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleRemindersUITestsCrowdinScreenhsotTests.swift; sourceTree = "<group>"; };
 		E82913D8257300E70068A629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E82913E6257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1000002000000000000AA01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		A1000003000000000000AA01 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		A1000004000000000000AA01 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E837B5F22596484F00656C9B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTestingVC.swift; sourceTree = "<group>"; };
+		E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeyDetailVC.swift; sourceTree = "<group>"; };
 		E879E41D26CF140600C9ED7B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E879E41F26CF140600C9ED7B /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		E879E42126CF140600C9ED7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -251,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				E82913D7257300E70068A629 /* Localizable.strings */,
+				A1000005000000000000AA01 /* Localizable.stringsdict */,
 				12CE2EE224AE745D0001B53B /* Datasources */,
 				12CE2EB224AD85790001B53B /* Model */,
 				12B7B5F023E39BC400532696 /* Controllers */,
@@ -291,6 +300,8 @@
 				12CAD6A224098E720024A248 /* CreateReminderTVC.swift */,
 				127576A42411FC7700F14068 /* PriorityTVC.swift */,
 				120822662414670A005DE838 /* PickListTVC.swift */,
+				E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */,
+				E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */,
 				12F4D62A2450ADE300F1D006 /* SubtaskTVC.swift */,
 				122F69C62457E83E0094FEFE /* RepeatTVC.swift */,
 				12576272245943F000C056B4 /* EndRepeatTVC.swift */,
@@ -499,6 +510,7 @@
 			files = (
 				12706DE523DBB9330001D243 /* LaunchScreen.storyboard in Resources */,
 				E82913D9257300E70068A629 /* Localizable.strings in Resources */,
+				A1000001000000000000AA01 /* Localizable.stringsdict in Resources */,
 				12706DE223DBB9330001D243 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,6 +621,7 @@
 				1212DAC223F321F300D5B2C4 /* EllipsisBarBtn.swift in Sources */,
 				12706E0D23DBE1430001D243 /* ReminderListTVCell.swift in Sources */,
 				12706DDD23DBB9320001D243 /* MainVC.swift in Sources */,
+				E85EE7112F7BFDEA00531DD7 /* LocalizationTestingVC.swift in Sources */,
 				12344C2824BB957F00A889C7 /* ReminderHeaderView.swift in Sources */,
 				E053C3E225E7B57A0061E270 /* EmptyDataViewModel.swift in Sources */,
 				129CACD224C3C46F005FE8AD /* AddListToGroupTVC.swift in Sources */,
@@ -643,6 +656,7 @@
 				12CAD6A7240B40B60024A248 /* ToggleTVCell.swift in Sources */,
 				12772C7823EDDC8200185A39 /* Resources.swift in Sources */,
 				12082265241457B4005DE838 /* ReminderContactTVCell.swift in Sources */,
+				E85EE7132F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift in Sources */,
 				12C40E682432C82900610A5E /* CreateReminderCellManager.swift in Sources */,
 				1256E1DC23FC681300A61976 /* Dates.swift in Sources */,
 				12772C7A23EDE4CA00185A39 /* CreateListIconCVCell.swift in Sources */,
@@ -713,6 +727,16 @@
 				E8FABB3225BD9884007F1468 /* fr */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A1000005000000000000AA01 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1000002000000000000AA01 /* en */,
+				A1000003000000000000AA01 /* uk */,
+				A1000004000000000000AA01 /* fr */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
