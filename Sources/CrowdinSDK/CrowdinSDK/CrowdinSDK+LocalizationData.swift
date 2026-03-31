@@ -17,7 +17,7 @@ public extension CrowdinSDK {
     /// All localization string keys available for the current localization,
     /// sorted alphabetically.
     static var allStringKeys: [String] {
-        guard let strings = Localization.current?.provider.strings else { return [] }
+        guard let strings = Localization.current?.provider.localStorage.strings else { return [] }
         return strings.keys.sorted()
     }
 
@@ -28,7 +28,7 @@ public extension CrowdinSDK {
     /// - Parameter key: The localization key to look up.
     /// - Returns: The raw format string, or `nil` if the key is not found.
     static func rawString(forKey key: String) -> String? {
-        return Localization.current?.provider.strings[key]
+        return Localization.current?.provider.localStorage.strings[key]
     }
 
     // MARK: - Plurals
@@ -36,7 +36,7 @@ public extension CrowdinSDK {
     /// All plural localization keys available for the current localization,
     /// sorted alphabetically.
     static var allPluralKeys: [String] {
-        guard let plurals = Localization.current?.provider.plurals as? [String: Any] else { return [] }
+        guard let plurals = Localization.current?.provider.localStorage.plurals as? [String: Any] else { return [] }
         return plurals.keys.sorted()
     }
 
@@ -48,7 +48,7 @@ public extension CrowdinSDK {
     /// - Returns: A dictionary mapping plural rule names to their format strings.
     static func pluralForms(forKey key: String) -> [String: String] {
         guard
-            let plurals = Localization.current?.provider.plurals as? [String: Any],
+            let plurals = Localization.current?.provider.localStorage.plurals as? [String: Any],
             let pluralEntry = plurals[key] as? [AnyHashable: Any]
         else { return [:] }
 
