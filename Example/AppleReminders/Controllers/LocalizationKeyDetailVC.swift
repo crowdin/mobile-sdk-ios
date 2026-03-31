@@ -224,14 +224,24 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     /// Manual fallback: pick the appropriate plural form based on a simple
     /// CLDR-style rule for the current locale and format it with `count`.
+    ///
+    /// iOS stringsdict honours an explicit `"zero"` form for count == 0
+    /// regardless of CLDR rules (CLDR only defines a "zero" category for
+    /// a handful of languages like Arabic, but Apple lets any stringsdict
+    /// supply one as a literal override). We mirror that behaviour here by
+    /// putting "zero" at the top of the priority list whenever count is 0.
     private func applyPluralFallback(count: Int) -> String {
         guard !pluralForms.isEmpty else { return "No plural forms available." }
 
         let langCode = Locale.current.languageCode ?? "en"
         let rule = selectPluralRule(count: count, languageCode: langCode)
 
-        // Find the matching form; fall back through the priority order.
-        let priority = [rule, "other", "one", "many", "few", "two", "zero"]
+        // When count is 0 try the explicit "zero" form first, then the CLDR
+        // rule, then the standard fallback chain.
+        let priority: [String] = count == 0
+            ? ["zero", rule, "other", "one", "many", "few", "two"]
+            : [rule, "other", "one", "many", "few", "two", "zero"]
+
         guard let form = priority.compactMap({ r in pluralForms.first(where: { $0.rule == r }) }).first else {
             return pluralForms.first?.format ?? "–"
         }
