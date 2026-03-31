@@ -50,12 +50,17 @@ public extension CrowdinSDK {
 
     /// All plural localization keys available for the current localization,
     /// sorted alphabetically. Merges remote downloaded keys with in-bundle keys.
+    ///
+    /// Both `localStorage.plurals` and `extractor.localizationPluralsDict` are
+    /// `[AnyHashable: Any]`. Keys from a plist-loaded `NSDictionary` are
+    /// `NSString`, which Swift wraps in `AnyHashable` — a dictionary-level cast
+    /// to `[String: Any]` fails for those even when every key is a string.
+    /// We therefore extract keys via `compactMap { $0 as? String }` to handle
+    /// both pure-Swift `[String: Any]` and plist-sourced dictionaries safely.
     static var allPluralKeys: [String] {
         guard let localization = Localization.current else { return [] }
-        let remoteKeys = (localization.provider.localStorage.plurals as? [String: Any])
-            .map { Set($0.keys) } ?? []
-        let bundleKeys = (localization.extractor.localizationPluralsDict as? [String: Any])
-            .map { Set($0.keys) } ?? []
+        let remoteKeys = Set(localization.provider.localStorage.plurals.keys.compactMap { $0 as? String })
+        let bundleKeys = Set(localization.extractor.localizationPluralsDict.keys.compactMap { $0 as? String })
         return remoteKeys.union(bundleKeys).sorted()
     }
 
@@ -69,10 +74,12 @@ public extension CrowdinSDK {
     static func pluralForms(forKey key: String) -> [String: String] {
         guard let localization = Localization.current else { return [:] }
 
-        // Try remote downloaded plurals first, then fall back to in-bundle.
-        let remotePlurals = localization.provider.localStorage.plurals as? [String: Any]
-        let bundlePlurals = localization.extractor.localizationPluralsDict as? [String: Any]
-        let pluralEntry = (remotePlurals?[key] ?? bundlePlurals?[key]) as? [AnyHashable: Any]
+        // Both dicts are [AnyHashable: Any]; subscript with String works because
+        // AnyHashable(NSString("key")) == AnyHashable(String("key")).
+        let remotePlurals = localization.provider.localStorage.plurals
+        let bundlePlurals = localization.extractor.localizationPluralsDict
+
+        let pluralEntry = (remotePlurals[key] ?? bundlePlurals[key]) as? [AnyHashable: Any]
 
         guard let entry = pluralEntry else { return [:] }
         return extractForms(from: entry)
@@ -80,14 +87,30 @@ public extension CrowdinSDK {
 
     // MARK: - Private helpers
 
+    /// Walks a single plural entry (one key in a stringsdict plist) and returns
+    /// a flat `[rule: formatString]` mapping, skipping stringsdict meta-keys.
     private static func extractForms(from pluralEntry: [AnyHashable: Any]) -> [String: String] {
         var forms: [String: String] = [:]
         for (k, value) in pluralEntry {
             guard
                 let strKey = k as? String,
-                strKey != "NSStringLocalizedFormatKey",
-                let variableDict = value as? [String: String]
+                strKey != "NSStringLocalizedFormatKey"
             else { continue }
+
+            // Each variable sub-dict may use String or NSString keys.
+            // Build a [String: String] view regardless of the concrete key type.
+            let variableDict: [String: String]
+            if let direct = value as? [String: String] {
+                variableDict = direct
+            } else if let anyHashable = value as? [AnyHashable: Any] {
+                variableDict = anyHashable.reduce(into: [:]) { result, pair in
+                    if let k = pair.key as? String, let v = pair.value as? String {
+                        result[k] = v
+                    }
+                }
+            } else {
+                continue
+            }
 
             for (rule, format) in variableDict {
                 guard
