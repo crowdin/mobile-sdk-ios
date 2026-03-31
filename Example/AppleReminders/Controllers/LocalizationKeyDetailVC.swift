@@ -99,6 +99,7 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     let key: String
     let type: KeyType
+    let source: LocalizationDataSource
 
     // Strings
     private var rawFormat: String?
@@ -111,9 +112,10 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     // MARK: - Init
 
-    init(key: String, type: KeyType) {
+    init(key: String, type: KeyType, source: LocalizationDataSource = .crowdin) {
         self.key = key
         self.type = type
+        self.source = source
         super.init(style: .insetGrouped)
         loadData()
     }
@@ -124,7 +126,7 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Key Detail"
+        title = source == .crowdin ? "Key Detail (Crowdin)" : "Key Detail (Local)"
         tableView.register(UITableViewCell.self,    forCellReuseIdentifier: "InfoCell")
         tableView.register(TextFieldCell.self,      forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.register(TranslationResultCell.self, forCellReuseIdentifier: TranslationResultCell.reuseIdentifier)
@@ -139,11 +141,11 @@ final class LocalizationKeyDetailVC: UITableViewController {
     private func loadData() {
         switch type {
         case .string:
-            rawFormat = CrowdinSDK.rawString(forKey: key)
+            rawFormat = CrowdinSDK.rawString(forKey: key, from: source)
             params = parseParams(from: rawFormat ?? "")
 
         case .plural:
-            let forms = CrowdinSDK.pluralForms(forKey: key)
+            let forms = CrowdinSDK.pluralForms(forKey: key, from: source)
             pluralForms = ruleOrder.compactMap { rule in
                 guard let format = forms[rule] else { return nil }
                 return (rule: rule, format: format)
@@ -193,15 +195,16 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
         case .string:
             guard !params.isEmpty else {
-                // No parameters — plain lookup.
-                let result = key.cw_localized
+                // No parameters — plain lookup via the selected source.
+                let result = localizedString(forKey: key)
                 return (result == key ? "No translation found for this key." : result, false)
             }
             guard params.allSatisfy({ !$0.value.isEmpty }) else {
                 return ("Fill in all \(params.count) parameter(s) above to see the translation.", true)
             }
+            let format = localizedString(forKey: key)
             let args = params.map { $0.cvarArg }
-            return (key.cw_localized(with: args), false)
+            return (String(format: format, arguments: args), false)
 
         case .plural:
             guard !pluralCount.isEmpty else {
@@ -210,15 +213,33 @@ final class LocalizationKeyDetailVC: UITableViewController {
             guard let count = Int(pluralCount) else {
                 return ("Count must be a valid integer.", true)
             }
-            // Try the standard path first: NSLocalizedString + String(format:).
+            // For the bundle source, or when Crowdin has not downloaded a
+            // stringsdict, fall back to manually selecting the plural form.
+            if source == .bundle {
+                return (applyPluralFallback(count: count), false)
+            }
+            // Crowdin source: try the standard SDK path first.
             let localized = key.cw_localized
             if !localized.contains("%#@") {
                 // Simple format string (e.g. "%d items") — apply count directly.
                 return (String(format: localized, count), false)
             }
-            // The format contains a stringsdict variable reference (%#@…@).
-            // Fall back to manually selecting and formatting the correct plural form.
+            // The format still contains a stringsdict variable reference — fall
+            // back to manual form selection.
             return (applyPluralFallback(count: count), false)
+        }
+    }
+
+    /// Returns a localized string for `key` using the selected data source.
+    /// - For `.crowdin`: goes through the Crowdin SDK (swizzled `Bundle`).
+    /// - For `.bundle`: reads the raw format string stored by the extractor,
+    ///   bypassing any Crowdin override.
+    private func localizedString(forKey key: String) -> String {
+        switch source {
+        case .crowdin:
+            return key.cw_localized
+        case .bundle:
+            return CrowdinSDK.rawString(forKey: key, from: .bundle) ?? key
         }
     }
 

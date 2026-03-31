@@ -14,6 +14,10 @@ import CrowdinSDK
 /// Displays all downloaded localization keys split into two tabs — Strings and
 /// Plurals — and lets the developer drill into each key to test its translation
 /// with arbitrary parameter values.
+///
+/// A **Source** control lets you switch between:
+/// - **Crowdin** — translations downloaded from Crowdin (remote data).
+/// - **Local**   — translations bundled inside the app (`.strings` / `.stringsdict`).
 final class LocalizationTestingVC: UIViewController {
 
     // MARK: - Tab
@@ -33,17 +37,25 @@ final class LocalizationTestingVC: UIViewController {
     // MARK: - State
 
     private var currentTab: Tab = .strings
+    private var currentSource: LocalizationDataSource = .crowdin
     private var allKeys: [String] = []
     private var filteredKeys: [String] = []
     private var downloadHandlerId: Int?
 
     // MARK: - UI
 
-    private lazy var segmentedControl: UISegmentedControl = {
+    private lazy var tabControl: UISegmentedControl = {
         let items = Tab.allCases.map { $0.title }
         let control = UISegmentedControl(items: items)
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(tabChanged(_:)), for: .valueChanged)
+        return control
+    }()
+
+    private lazy var sourceControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["Crowdin", "Local"])
+        control.selectedSegmentIndex = 0
+        control.addTarget(self, action: #selector(sourceChanged(_:)), for: .valueChanged)
         return control
     }()
 
@@ -97,7 +109,7 @@ final class LocalizationTestingVC: UIViewController {
     // MARK: - Layout
 
     private func setupLayout() {
-        let headerStack = UIStackView(arrangedSubviews: [segmentedControl, searchBar])
+        let headerStack = UIStackView(arrangedSubviews: [tabControl, sourceControl, searchBar])
         headerStack.axis = .vertical
         headerStack.spacing = 4
         headerStack.translatesAutoresizingMaskIntoConstraints = false
@@ -130,8 +142,8 @@ final class LocalizationTestingVC: UIViewController {
 
     private func loadKeys() {
         switch currentTab {
-        case .strings: allKeys = CrowdinSDK.allStringKeys
-        case .plurals: allKeys = CrowdinSDK.allPluralKeys
+        case .strings: allKeys = CrowdinSDK.allStringKeys(from: currentSource)
+        case .plurals: allKeys = CrowdinSDK.allPluralKeys(from: currentSource)
         }
         applyFilter(query: searchBar.text)
     }
@@ -155,6 +167,12 @@ final class LocalizationTestingVC: UIViewController {
         searchBar.text = nil
         loadKeys()
     }
+
+    @objc private func sourceChanged(_ sender: UISegmentedControl) {
+        currentSource = sender.selectedSegmentIndex == 0 ? .crowdin : .bundle
+        searchBar.text = nil
+        loadKeys()
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -175,9 +193,9 @@ extension LocalizationTestingVC: UITableViewDataSource, UITableViewDelegate {
 
         switch currentTab {
         case .strings:
-            config.secondaryText = CrowdinSDK.rawString(forKey: key) ?? "–"
+            config.secondaryText = CrowdinSDK.rawString(forKey: key, from: currentSource) ?? "–"
         case .plurals:
-            let forms = CrowdinSDK.pluralForms(forKey: key)
+            let forms = CrowdinSDK.pluralForms(forKey: key, from: currentSource)
             config.secondaryText = forms["other"] ?? forms["one"] ?? forms["few"] ?? forms.values.first ?? "–"
         }
 
@@ -192,7 +210,7 @@ extension LocalizationTestingVC: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let key = filteredKeys[indexPath.row]
         let type: LocalizationKeyDetailVC.KeyType = currentTab == .strings ? .string : .plural
-        let detailVC = LocalizationKeyDetailVC(key: key, type: type)
+        let detailVC = LocalizationKeyDetailVC(key: key, type: type, source: currentSource)
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
