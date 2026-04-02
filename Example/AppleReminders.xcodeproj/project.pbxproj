@@ -70,6 +70,7 @@
 		E837B5F32596484F00656C9B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E837B5F22596484F00656C9B /* SettingsVC.swift */; };
 		E85EE7112F7BFDEA00531DD7 /* LocalizationTestingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */; };
 		E85EE7132F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */; };
+		E85EE7142F7C102300531DD7 /* LocalizationRuntimeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7152F7C102300531DD7 /* LocalizationRuntimeVC.swift */; };
 		E879E42026CF140600C9ED7B /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879E41F26CF140600C9ED7B /* Tests.swift */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +164,7 @@
 		E837B5F22596484F00656C9B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTestingVC.swift; sourceTree = "<group>"; };
 		E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeyDetailVC.swift; sourceTree = "<group>"; };
+		E85EE7152F7C102300531DD7 /* LocalizationRuntimeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationRuntimeVC.swift; sourceTree = "<group>"; };
 		E879E41D26CF140600C9ED7B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E879E41F26CF140600C9ED7B /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		E879E42126CF140600C9ED7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				120822662414670A005DE838 /* PickListTVC.swift */,
 				E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */,
 				E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */,
+				E85EE7152F7C102300531DD7 /* LocalizationRuntimeVC.swift */,
 				12F4D62A2450ADE300F1D006 /* SubtaskTVC.swift */,
 				122F69C62457E83E0094FEFE /* RepeatTVC.swift */,
 				12576272245943F000C056B4 /* EndRepeatTVC.swift */,
@@ -626,6 +629,7 @@
 				12706E0D23DBE1430001D243 /* ReminderListTVCell.swift in Sources */,
 				12706DDD23DBB9320001D243 /* MainVC.swift in Sources */,
 				E85EE7112F7BFDEA00531DD7 /* LocalizationTestingVC.swift in Sources */,
+				E85EE7142F7C102300531DD7 /* LocalizationRuntimeVC.swift in Sources */,
 				12344C2824BB957F00A889C7 /* ReminderHeaderView.swift in Sources */,
 				E053C3E225E7B57A0061E270 /* EmptyDataViewModel.swift in Sources */,
 				129CACD224C3C46F005FE8AD /* AddListToGroupTVC.swift in Sources */,

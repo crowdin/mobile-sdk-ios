@@ -19,6 +19,18 @@ class SettingsVC: UITableViewController {
         case language
     }
 
+    private enum TestingRow: Int, CaseIterable {
+        case localizationTesting
+        case runtimePreview
+
+        var title: String {
+            switch self {
+            case .localizationTesting: return "Localization Testing"
+            case .runtimePreview:      return "Runtime Preview"
+            }
+        }
+    }
+
     enum Strings: String {
         case settings
         case language
@@ -67,7 +79,7 @@ class SettingsVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section(rawValue: section) {
-        case .testing:  return 1
+        case .testing:  return TestingRow.allCases.count
         case .language: return localizations.count
         case .none:     return 0
         }
@@ -78,7 +90,8 @@ class SettingsVC: UITableViewController {
 
         switch Section(rawValue: indexPath.section) {
         case .testing:
-            cell.textLabel?.text = Strings.localizationTesting.rawValue
+            let row = TestingRow(rawValue: indexPath.row) ?? .localizationTesting
+            cell.textLabel?.text = row.title
             cell.textLabel?.textColor = .systemBlue
             cell.accessoryType = .disclosureIndicator
 
@@ -107,8 +120,12 @@ class SettingsVC: UITableViewController {
 
         switch Section(rawValue: indexPath.section) {
         case .testing:
-            let testingVC = LocalizationTestingVC()
-            navigationController?.pushViewController(testingVC, animated: true)
+            switch TestingRow(rawValue: indexPath.row) {
+            case .localizationTesting, .none:
+                navigationController?.pushViewController(LocalizationTestingVC(), animated: true)
+            case .runtimePreview:
+                navigationController?.pushViewController(LocalizationRuntimeVC(), animated: true)
+            }
 
         case .language:
             let localization = localizations[indexPath.row]

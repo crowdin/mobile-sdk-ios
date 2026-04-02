@@ -2,7 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Simple plural: number of reminders -->
+
+    <!-- ── Simple plurals ─────────────────────────────────────────────── -->
+
     <key>reminders_count</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
@@ -12,16 +14,16 @@
             <key>NSStringFormatSpecTypeKey</key>
             <string>NSStringPluralRuleType</string>
             <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
+            <string>lld</string>
             <key>zero</key>
             <string>No reminders</string>
             <key>one</key>
-            <string>%d reminder</string>
+            <string>%lld reminder</string>
             <key>other</key>
-            <string>%d reminders</string>
+            <string>%lld reminders</string>
         </dict>
     </dict>
-    <!-- Plural with a format parameter: lists count -->
+
     <key>lists_count</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
@@ -31,16 +33,16 @@
             <key>NSStringFormatSpecTypeKey</key>
             <string>NSStringPluralRuleType</string>
             <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
+            <string>lld</string>
             <key>zero</key>
             <string>No lists</string>
             <key>one</key>
-            <string>%d list</string>
+            <string>%lld list</string>
             <key>other</key>
-            <string>%d lists</string>
+            <string>%lld lists</string>
         </dict>
     </dict>
-    <!-- Plural for subtasks -->
+
     <key>subtasks_count</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
@@ -50,14 +52,103 @@
             <key>NSStringFormatSpecTypeKey</key>
             <string>NSStringPluralRuleType</string>
             <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
+            <string>lld</string>
             <key>zero</key>
             <string>No subtasks</string>
             <key>one</key>
-            <string>%d subtask</string>
+            <string>%lld subtask</string>
             <key>other</key>
-            <string>%d subtasks</string>
+            <string>%lld subtasks</string>
         </dict>
     </dict>
+
+    <!-- Simple plural with a custom zero form -->
+    <key>days_remaining_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@days@</string>
+        <key>days</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>Due today</string>
+            <key>one</key>
+            <string>%lld day remaining</string>
+            <key>other</key>
+            <string>%lld days remaining</string>
+        </dict>
+    </dict>
+
+    <!-- ── Multi-variable plural (two independent counts) ─────────────── -->
+
+    <key>files_in_folders_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%1$#@files@ in %2$#@folders@</string>
+        <key>files</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>no files</string>
+            <key>one</key>
+            <string>%lld file</string>
+            <key>other</key>
+            <string>%lld files</string>
+        </dict>
+        <key>folders</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>no folders</string>
+            <key>one</key>
+            <string>%lld folder</string>
+            <key>other</key>
+            <string>%lld folders</string>
+        </dict>
+    </dict>
+
+    <!-- ── Nested/dependent plural (outer references inner via %#@var@) ── -->
+
+    <key>tasks_completed_in_days</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@tasks@</string>
+        <key>tasks</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>No tasks completed in %#@days@</string>
+            <key>one</key>
+            <string>%lld task completed in %#@days@</string>
+            <key>other</key>
+            <string>%lld tasks completed in %#@days@</string>
+        </dict>
+        <key>days</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>today</string>
+            <key>one</key>
+            <string>%lld day</string>
+            <key>other</key>
+            <string>%lld days</string>
+        </dict>
+    </dict>
+
 </dict>
 </plist>

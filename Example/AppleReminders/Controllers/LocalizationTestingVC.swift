@@ -185,7 +185,12 @@ final class LocalizationTestingVC: UIViewController {
             // This works for simple and multi-variable keys (all args are 1).
             if template.contains("%#@") {
                 // Multi-variable: pass as many 1s as there are variables.
-                let varCount = CrowdinSDK.pluralEntry(forKey: key, from: .crowdin)?.variables.count ?? 1
+                // Prefer the Crowdin entry's count; fall back to the bundle entry
+                // (needed when Crowdin has no plural data but cw_localized still
+                // resolves via the bundle stringsdict).
+                let varCount = CrowdinSDK.pluralEntry(forKey: key, from: .crowdin)?.variables.count
+                            ?? CrowdinSDK.pluralEntry(forKey: key, from: .bundle)?.variables.count
+                            ?? 1
                 let args: [CVarArg] = Array(repeating: 1 as Int, count: varCount)
                 return String(format: template, arguments: args)
             }
