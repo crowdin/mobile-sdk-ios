@@ -65,9 +65,16 @@ struct LocalizationParam {
 /// text-field input per detected format specifier, and displays the final
 /// translated result once all fields are filled in.
 ///
-/// **Plurals tab** — shows every plural form (zero / one / two / few / many /
-/// other) with its format string, provides a single integer "Count" input, and
-/// displays the translated result.
+/// **Plurals tab** — shows every plural form grouped by variable, provides one
+/// integer input per variable (one for simple keys, two or more for complex
+/// multi-variable keys like `files_in_folders_count`), and displays the live
+/// result once all counts are entered.
+///
+/// Supports three stringsdict patterns:
+/// - **Simple**: one variable, single count → `reminders_count`
+/// - **Multi-variable**: two or more independent variables → `files_in_folders_count`
+/// - **Nested/dependent**: one variable whose forms embed another variable →
+///   `tasks_completed_in_days`
 final class LocalizationKeyDetailVC: UITableViewController {
 
     // MARK: - Key Type
@@ -95,6 +102,15 @@ final class LocalizationKeyDetailVC: UITableViewController {
         }
     }
 
+    // MARK: - Plural form row
+
+    /// Flat representation of a single plural form for display in the Format section.
+    private struct PluralFormRow {
+        let variableName: String
+        let rule: String
+        let format: String
+    }
+
     // MARK: - Properties
 
     let key: String
@@ -107,8 +123,9 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     // Plurals
     private let ruleOrder = ["zero", "one", "two", "few", "many", "other"]
-    private var pluralForms: [(rule: String, format: String)] = []
-    private var pluralCount: String = ""
+    private var pluralEntry: CrowdinPluralEntry?
+    private var pluralCounts: [String] = []     // one slot per variable
+    private var pluralFormRows: [PluralFormRow] = []
 
     // MARK: - Init
 
@@ -126,7 +143,8 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = source == .crowdin ? "Key Detail (Crowdin)" : "Key Detail (Local)"
+        updateTitle()
+        addSourceBadgeIfNeeded()
         tableView.register(UITableViewCell.self,    forCellReuseIdentifier: "InfoCell")
         tableView.register(TextFieldCell.self,      forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.register(TranslationResultCell.self, forCellReuseIdentifier: TranslationResultCell.reuseIdentifier)
@@ -134,6 +152,30 @@ final class LocalizationKeyDetailVC: UITableViewController {
         tableView.allowsSelection = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
+    }
+
+    // MARK: - Title & badge
+
+    private func updateTitle() {
+        switch source {
+        case .crowdin: title = "Key Detail (Crowdin)"
+        case .bundle:  title = "Key Detail (Local)"
+        }
+    }
+
+    /// When the Crowdin source is selected but no remote data has been
+    /// downloaded for this key, shows a nav bar prompt so the developer
+    /// understands the display is falling back to the local bundle.
+    private func addSourceBadgeIfNeeded() {
+        guard source == .crowdin else { return }
+        let hasCrowdinData: Bool
+        switch type {
+        case .string: hasCrowdinData = CrowdinSDK.hasCrowdinString(forKey: key)
+        case .plural: hasCrowdinData = CrowdinSDK.hasCrowdinPlural(forKey: key)
+        }
+        if !hasCrowdinData {
+            navigationItem.prompt = "⚠ No Crowdin data — showing bundle fallback"
+        }
     }
 
     // MARK: - Data Loading
@@ -145,11 +187,18 @@ final class LocalizationKeyDetailVC: UITableViewController {
             params = parseParams(from: rawFormat ?? "")
 
         case .plural:
-            let forms = CrowdinSDK.pluralForms(forKey: key, from: source)
-            pluralForms = ruleOrder.compactMap { rule in
-                guard let format = forms[rule] else { return nil }
-                return (rule: rule, format: format)
-            }
+            pluralEntry = CrowdinSDK.pluralEntry(forKey: key, from: source)
+            let varCount = pluralEntry?.variables.count ?? 1
+            pluralCounts = Array(repeating: "", count: varCount)
+
+            pluralFormRows = pluralEntry?.variables.flatMap { variable in
+                ruleOrder.compactMap { rule -> PluralFormRow? in
+                    guard let format = variable.forms[rule] else { return nil }
+                    return PluralFormRow(variableName: variable.name,
+                                        rule: rule,
+                                        format: format)
+                }
+            } ?? []
         }
     }
 
@@ -157,11 +206,6 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
     /// Scans `format` for printf-style format specifiers and returns a
     /// `LocalizationParam` for each one, preserving document order.
-    ///
-    /// Supported specifiers: `%@`, `%s`, `%d`, `%i`, `%u`, `%o`, `%x`,
-    /// `%f`, `%e`, `%g`, `%a` (and their uppercase variants), `%c`.
-    /// Optional length modifiers (`h`, `hh`, `l`, `ll`, `q`, `z`, `t`, `j`)
-    /// and precision / width components are correctly skipped.
     private func parseParams(from format: String) -> [LocalizationParam] {
         let pattern = "(?<!%)%(?:\\d+\\$)?[-+ #0]?\\d*(?:\\.\\d+)?(?:hh?|ll?|[qztj])?([dioux@fFeEgGaAcs])"
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return [] }
@@ -181,7 +225,7 @@ final class LocalizationKeyDetailVC: UITableViewController {
             case "u", "o", "x":              paramType = .uInt
             case "f", "e", "g", "a":         paramType = .double
             case "c":                        paramType = .character
-            default:                         paramType = .string  // "@", "s"
+            default:                         paramType = .string
             }
 
             return LocalizationParam(position: index + 1, type: paramType)
@@ -195,7 +239,6 @@ final class LocalizationKeyDetailVC: UITableViewController {
 
         case .string:
             guard !params.isEmpty else {
-                // No parameters — plain lookup via the selected source.
                 let result = localizedString(forKey: key)
                 return (result == key ? "No translation found for this key." : result, false)
             }
@@ -207,66 +250,121 @@ final class LocalizationKeyDetailVC: UITableViewController {
             return (String(format: format, arguments: args), false)
 
         case .plural:
-            guard !pluralCount.isEmpty else {
-                return ("Enter an integer count above to see the translation.", true)
+            guard pluralCounts.allSatisfy({ !$0.isEmpty }) else {
+                let varCount = pluralEntry?.variables.count ?? 1
+                let msg = varCount == 1
+                    ? "Enter a count above to see the translation."
+                    : "Enter all \(varCount) counts above to see the translation."
+                return (msg, true)
             }
-            guard let count = Int(pluralCount) else {
-                return ("Count must be a valid integer.", true)
+            let parsedCounts = pluralCounts.compactMap { Int($0) }
+            guard parsedCounts.count == pluralCounts.count else {
+                return ("All counts must be valid integers.", true)
             }
-            // For the bundle source, or when Crowdin has not downloaded a
-            // stringsdict, fall back to manually selecting the plural form.
-            if source == .bundle {
-                return (applyPluralFallback(count: count), false)
+
+            // ── System path ──────────────────────────────────────────────────
+            // Get the localized format key (e.g. "%#@reminders@"). When the
+            // bundle (or Crowdin) stringsdict is available, String(format:) will
+            // automatically resolve all %#@variable@ specifiers including nested
+            // ones, using the arguments in order.
+            let formatTemplate = localizedString(forKey: key)
+            if formatTemplate != key, formatTemplate.contains("%#@") {
+                let args: [CVarArg] = parsedCounts.map { $0 as CVarArg }
+                return (String(format: formatTemplate, arguments: args), false)
             }
-            // Crowdin source: try the standard SDK path first.
-            let localized = key.cw_localized
-            if !localized.contains("%#@") {
-                // Simple format string (e.g. "%d items") — apply count directly.
-                return (String(format: localized, count), false)
+            // Simple (non-stringsdict) format returned — apply first count.
+            if formatTemplate != key {
+                return (String(format: formatTemplate, parsedCounts[0]), false)
             }
-            // The format still contains a stringsdict variable reference — fall
-            // back to manual form selection.
-            return (applyPluralFallback(count: count), false)
+
+            // ── Manual fallback ───────────────────────────────────────────────
+            // System path returned the key unchanged; no stringsdict available.
+            // Build the translation by selecting forms from the parsed entry and
+            // recursively expanding variable references.
+            if let entry = pluralEntry {
+                return (applyManualPluralFallback(entry: entry, counts: parsedCounts), false)
+            }
+            return ("No translation found for this key.", false)
         }
     }
 
-    /// Returns a localized string for `key` using the selected data source.
-    /// - For `.crowdin`: goes through the Crowdin SDK (swizzled `Bundle`).
-    /// - For `.bundle`: reads the raw format string stored by the extractor,
-    ///   bypassing any Crowdin override.
-    private func localizedString(forKey key: String) -> String {
-        switch source {
-        case .crowdin:
-            return key.cw_localized
-        case .bundle:
-            return CrowdinSDK.rawString(forKey: key, from: .bundle) ?? key
-        }
-    }
+    // MARK: - Manual Plural Fallback
 
-    /// Manual fallback: pick the appropriate plural form based on a simple
-    /// CLDR-style rule for the current locale and format it with `count`.
+    /// Selects the correct plural form for each variable based on CLDR rules and
+    /// recursively expands nested variable references in the format key.
     ///
-    /// iOS stringsdict honours an explicit `"zero"` form for count == 0
-    /// regardless of CLDR rules (CLDR only defines a "zero" category for
-    /// a handful of languages like Arabic, but Apple lets any stringsdict
-    /// supply one as a literal override). We mirror that behaviour here by
-    /// putting "zero" at the top of the priority list whenever count is 0.
-    private func applyPluralFallback(count: Int) -> String {
-        guard !pluralForms.isEmpty else { return "No plural forms available." }
-
+    /// This fallback is only invoked when the system path (stringsdict via
+    /// `String(format:)`) is unavailable — e.g. when Crowdin has downloaded
+    /// `.strings` but not `.stringsdict` data.
+    ///
+    /// Handles all three stringsdict patterns:
+    /// - Simple single-variable (`%#@reminders@`)
+    /// - Multi-variable (`%1$#@files@ in %2$#@folders@`)
+    /// - Nested/dependent (`%#@tasks@` where `tasks` forms embed `%#@days@`)
+    private func applyManualPluralFallback(entry: CrowdinPluralEntry, counts: [Int]) -> String {
+        guard !entry.variables.isEmpty else { return "No plural forms available." }
         let langCode = Locale.current.languageCode ?? "en"
-        let rule = selectPluralRule(count: count, languageCode: langCode)
 
-        // When count is 0 try the explicit "zero" form first, then the CLDR
-        // rule, then the standard fallback chain.
-        let priority: [String] = count == 0
-            ? ["zero", rule, "other", "one", "many", "few", "two"]
-            : [rule, "other", "one", "many", "few", "two", "zero"]
-
-        guard let form = priority.compactMap({ r in pluralForms.first(where: { $0.rule == r }) }).first else {
-            return pluralForms.first?.format ?? "–"
+        // Map variable name → (selected raw form, driving count)
+        var selectedForms: [String: (form: String, count: Int)] = [:]
+        for (i, variable) in entry.variables.enumerated() {
+            let count = i < counts.count ? counts[i] : 0
+            let rule  = selectPluralRule(count: count, languageCode: langCode)
+            let priority: [String] = count == 0
+                ? ["zero", rule, "other", "one", "many", "few", "two"]
+                : [rule, "other", "one", "many", "few", "two", "zero"]
+            let form = priority.compactMap { variable.forms[$0] }.first ?? "–"
+            selectedForms[variable.name] = (form: form, count: count)
         }
-        return String(format: form.format, count)
+
+        /// Recursively expand `%#@varName@` (and positional `%N$#@varName@`)
+        /// references, then substitute integer specifiers with the variable's count.
+        func expand(_ template: String, depth: Int = 0) -> String {
+            guard depth < entry.variables.count + 2 else { return template }
+            var result = template
+            for (varName, info) in selectedForms {
+                let simpleRef = "%#@\(varName)@"
+                let positionalPattern = "%\\d+\\$#@\(NSRegularExpression.escapedPattern(for: varName))@"
+
+                let hasSimple     = result.contains(simpleRef)
+                let hasPositional = result.range(of: positionalPattern, options: .regularExpression) != nil
+                guard hasSimple || hasPositional else { continue }
+
+                // Recursively expand any nested variable references inside this form
+                let innerExpanded = expand(info.form, depth: depth + 1)
+                // Replace integer specifiers with the variable's own count
+                let countApplied  = applyIntegerSpecifiers(count: info.count, to: innerExpanded)
+
+                if hasSimple {
+                    result = result.replacingOccurrences(of: simpleRef, with: countApplied)
+                }
+                if hasPositional,
+                   let rx = try? NSRegularExpression(pattern: positionalPattern) {
+                    result = rx.stringByReplacingMatches(
+                        in: result,
+                        range: NSRange(result.startIndex..., in: result),
+                        withTemplate: NSRegularExpression.escapedTemplate(for: countApplied)
+                    )
+                }
+            }
+            return result
+        }
+
+        return expand(entry.formatKey)
+    }
+
+    /// Replaces printf integer specifiers (`%d`, `%ld`, `%u`, etc.) in
+    /// `template` with the literal `count` string.
+    private func applyIntegerSpecifiers(count: Int, to template: String) -> String {
+        let pattern = "%(?:\\d+\\$)?[-+ #0]?\\d*(?:\\.\\d+)?(?:hh?|ll?|[qztj])?[diouxX]"
+        guard let regex = try? NSRegularExpression(pattern: pattern) else {
+            return template.replacingOccurrences(of: "%d", with: "\(count)")
+        }
+        return regex.stringByReplacingMatches(
+            in: template,
+            range: NSRange(template.startIndex..., in: template),
+            withTemplate: "\(count)"
+        )
     }
 
     /// Returns the CLDR plural rule name for `count` in the given language.
@@ -276,8 +374,8 @@ final class LocalizationKeyDetailVC: UITableViewController {
         case "ru", "uk", "be", "sr", "bs", "hr", "sh":
             let mod10  = count % 10
             let mod100 = count % 100
-            if mod10 == 1 && mod100 != 11                          { return "one"  }
-            if (2...4).contains(mod10) && !(12...14).contains(mod100) { return "few"  }
+            if mod10 == 1 && mod100 != 11                               { return "one"  }
+            if (2...4).contains(mod10) && !(12...14).contains(mod100)  { return "few"  }
             if mod10 == 0 || (5...9).contains(mod10) || (11...14).contains(mod100) { return "many" }
             return "other"
 
@@ -285,13 +383,13 @@ final class LocalizationKeyDetailVC: UITableViewController {
         case "pl":
             let mod10  = count % 10
             let mod100 = count % 100
-            if count == 1                                          { return "one"  }
+            if count == 1                                               { return "one"  }
             if (2...4).contains(mod10) && !(12...14).contains(mod100) { return "few"  }
             return "other"
 
         // Czech / Slovak
         case "cs", "sk":
-            if count == 1 { return "one" }
+            if count == 1              { return "one" }
             if (2...4).contains(count) { return "few" }
             return "other"
 
@@ -309,13 +407,25 @@ final class LocalizationKeyDetailVC: UITableViewController {
         case "fr", "ff", "kab":
             return count <= 1 ? "one" : "other"
 
-        // Japanese, Chinese, Korean (no plural forms)
+        // Japanese, Chinese, Korean, etc. (no plural forms)
         case "ja", "zh", "ko", "vi", "th", "id", "ms":
             return "other"
 
         // Default: Germanic / Romance two-form rule (one | other)
         default:
             return count == 1 ? "one" : "other"
+        }
+    }
+
+    // MARK: - Source helper
+
+    /// Returns a localized string for `key` via the selected data source.
+    private func localizedString(forKey key: String) -> String {
+        switch source {
+        case .crowdin:
+            return key.cw_localized
+        case .bundle:
+            return CrowdinSDK.rawString(forKey: key, from: .bundle) ?? key
         }
     }
 }
@@ -334,12 +444,12 @@ extension LocalizationKeyDetailVC {
         case .format:
             switch type {
             case .string: return 1
-            case .plural: return max(pluralForms.count, 1)
+            case .plural: return max(pluralFormRows.count, 1)
             }
         case .parameters:
             switch type {
             case .string: return max(params.count, 1)
-            case .plural: return 1
+            case .plural: return max(pluralCounts.count, 1)
             }
         case .translation: return 1
         case .none:         return 0
@@ -347,7 +457,12 @@ extension LocalizationKeyDetailVC {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        Section(rawValue: section)?.headerTitle
+        guard let s = Section(rawValue: section) else { return nil }
+        if s == .parameters, type == .plural {
+            let count = pluralEntry?.variables.count ?? 1
+            return count > 1 ? "Parameters — \(count) counts" : "Parameters"
+        }
+        return s.headerTitle
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -391,7 +506,7 @@ extension LocalizationKeyDetailVC {
             return cell
 
         case .plural:
-            if pluralForms.isEmpty {
+            if pluralFormRows.isEmpty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath)
                 var config = cell.defaultContentConfiguration()
                 config.text = "No plural forms found for this key."
@@ -399,13 +514,17 @@ extension LocalizationKeyDetailVC {
                 cell.contentConfiguration = config
                 return cell
             }
-            let form = pluralForms[indexPath.row]
+            let row  = pluralFormRows[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath)
             var config = cell.defaultContentConfiguration()
-            config.text = form.format
+            config.text = row.format
             config.textProperties.font = .monospacedSystemFont(ofSize: 13, weight: .regular)
             config.textProperties.numberOfLines = 0
-            config.secondaryText = form.rule.capitalized
+            // Show "variableName • Rule" for multi-variable keys
+            let hasMultiple = (pluralEntry?.variables.count ?? 0) > 1
+            config.secondaryText = hasMultiple
+                ? "\(row.variableName) • \(row.rule.capitalized)"
+                : row.rule.capitalized
             config.secondaryTextProperties.color = .systemBlue
             config.secondaryTextProperties.font = .systemFont(ofSize: 12, weight: .semibold)
             cell.contentConfiguration = config
@@ -441,15 +560,23 @@ extension LocalizationKeyDetailVC {
             return cell
 
         case .plural:
+            guard indexPath.row < pluralCounts.count else {
+                return tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath)
+            }
+            let idx      = indexPath.row
+            let varName  = pluralEntry?.variables[safe: idx]?.name ?? "count \(idx + 1)"
+            let label    = pluralEntry?.isComplex == true
+                ? "\(varName) count"   // e.g. "files count", "folders count"
+                : "Count"
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as! TextFieldCell
             cell.configure(
-                label: "Count",
-                placeholder: "Enter integer count",
+                label: label,
+                placeholder: "Enter integer",
                 keyboardType: .numberPad,
-                currentValue: pluralCount
+                currentValue: pluralCounts[idx]
             ) { [weak self] newValue in
-                self?.pluralCount = newValue
+                self?.pluralCounts[idx] = newValue
                 self?.reloadTranslation()
             }
             return cell
@@ -471,6 +598,14 @@ extension LocalizationKeyDetailVC {
     private func reloadTranslation() {
         let ip = IndexPath(row: 0, section: Section.translation.rawValue)
         tableView.reloadRows(at: [ip], with: .none)
+    }
+}
+
+// MARK: - Array safe subscript
+
+private extension Array {
+    subscript(safe index: Int) -> Element? {
+        indices.contains(index) ? self[index] : nil
     }
 }
 

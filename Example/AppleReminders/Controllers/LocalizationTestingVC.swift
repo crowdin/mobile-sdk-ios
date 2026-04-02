@@ -78,7 +78,6 @@ final class LocalizationTestingVC: UIViewController {
 
     private lazy var emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "No localization data available.\nMake sure CrowdinSDK is initialized and a localization has been downloaded."
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .secondaryLabel
@@ -157,7 +156,57 @@ final class LocalizationTestingVC: UIViewController {
         let noData = allKeys.isEmpty
         tableView.isHidden = noData
         emptyLabel.isHidden = !noData
+        emptyLabel.text = noData ? emptyMessage : nil
         tableView.reloadData()
+    }
+
+    // MARK: - Plural preview
+
+    /// Returns a short preview string for the given plural key.
+    ///
+    /// **Crowdin source** — uses the SDK's live resolution path
+    /// (`key.cw_localized` + `String(format:, 1)`) so the cell shows what
+    /// Crowdin actually delivers, not the raw bundle form.
+    ///
+    /// **Local source** — shows the raw "other" / "one" form from the bundle
+    /// stringsdict so you can see the unformatted template.
+    private func pluralPreview(forKey key: String, source: LocalizationDataSource) -> String {
+        switch source {
+        case .crowdin:
+            // cw_localized returns the NSStringLocalizedFormatKey template
+            // (e.g. "%#@reminders@"). String.localizedStringWithFormat lets iOS
+            // walk the stringsdict and pick the right form for count 1.
+            let template = key.cw_localized
+            if template == key {
+                // SDK returned the key unchanged — no translation available.
+                return "(no Crowdin translation)"
+            }
+            // Try to resolve the plural with a sample count of 1.
+            // This works for simple and multi-variable keys (all args are 1).
+            if template.contains("%#@") {
+                // Multi-variable: pass as many 1s as there are variables.
+                let varCount = CrowdinSDK.pluralEntry(forKey: key, from: .crowdin)?.variables.count ?? 1
+                let args: [CVarArg] = Array(repeating: 1 as Int, count: varCount)
+                return String(format: template, arguments: args)
+            }
+            return String(format: template, 1)
+
+        case .bundle:
+            // Show the raw format string so the developer can see the template.
+            let forms = CrowdinSDK.pluralForms(forKey: key, from: .bundle)
+            return forms["other"] ?? forms["one"] ?? forms["few"] ?? forms.values.first ?? "–"
+        }
+    }
+
+    private var emptyMessage: String {
+        switch (currentSource, currentTab) {
+        case (.crowdin, .plurals):
+            return "No plural data downloaded from Crowdin.\nMost distributions ship only .strings files — use the Local tab to browse bundled plurals."
+        case (.crowdin, .strings):
+            return "No Crowdin translations available.\nMake sure CrowdinSDK is initialized and translations have been downloaded."
+        case (.bundle, _):
+            return "No in-bundle localization found.\nAdd a Localizable.strings / .stringsdict file for the current language."
+        }
     }
 
     // MARK: - Actions
@@ -193,10 +242,19 @@ extension LocalizationTestingVC: UITableViewDataSource, UITableViewDelegate {
 
         switch currentTab {
         case .strings:
-            config.secondaryText = CrowdinSDK.rawString(forKey: key, from: currentSource) ?? "–"
+            switch currentSource {
+            case .crowdin:
+                // Show the live SDK-resolved string (what Crowdin actually delivers).
+                // Falls back to raw bundle value when no Crowdin translation exists.
+                let resolved = key.cw_localized
+                config.secondaryText = resolved == key
+                    ? (CrowdinSDK.rawString(forKey: key, from: .bundle) ?? "–")
+                    : resolved
+            case .bundle:
+                config.secondaryText = CrowdinSDK.rawString(forKey: key, from: .bundle) ?? "–"
+            }
         case .plurals:
-            let forms = CrowdinSDK.pluralForms(forKey: key, from: currentSource)
-            config.secondaryText = forms["other"] ?? forms["one"] ?? forms["few"] ?? forms.values.first ?? "–"
+            config.secondaryText = pluralPreview(forKey: key, source: currentSource)
         }
 
         config.secondaryTextProperties.color = .secondaryLabel

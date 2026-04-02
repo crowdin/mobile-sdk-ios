@@ -59,6 +59,7 @@
 		12F4D62B2450ADE300F1D006 /* SubtaskTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F4D62A2450ADE300F1D006 /* SubtaskTVC.swift */; };
 		12F4D62D2450B5B200F1D006 /* SubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F4D62C2450B5B200F1D006 /* SubtaskCell.swift */; };
 		9065FD31EED300A9700C750B /* Pods_AppleReminders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27736980EA4FAF62A43FCEC3 /* Pods_AppleReminders.framework */; };
+		A1000001000000000000AA01 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A1000005000000000000AA01 /* Localizable.stringsdict */; };
 		A823D517FBDB6E684D5CDC5C /* libPods-AppleRemindersUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 691A25D0CEB0542933A21402 /* libPods-AppleRemindersUITests.a */; };
 		E03F1A1325ED307D003BD921 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03F1A1225ED307D003BD921 /* Layout.swift */; };
 		E053C3DB25E7B4DC0061E270 /* UIScrollView+EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3DA25E7B4DC0061E270 /* UIScrollView+EmptyState.swift */; };
@@ -66,7 +67,6 @@
 		E053C3E425E7B57A0061E270 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053C3E125E7B57A0061E270 /* EmptyDataView.swift */; };
 		E81B4C272CF559C9008D7C25 /* AppleRemindersUITestsCrowdinScreenhsotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81B4C242CF559C9008D7C25 /* AppleRemindersUITestsCrowdinScreenhsotTests.swift */; };
 		E82913D9257300E70068A629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E82913D7257300E70068A629 /* Localizable.strings */; };
-		A1000001000000000000AA01 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A1000005000000000000AA01 /* Localizable.stringsdict */; };
 		E837B5F32596484F00656C9B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E837B5F22596484F00656C9B /* SettingsVC.swift */; };
 		E85EE7112F7BFDEA00531DD7 /* LocalizationTestingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */; };
 		E85EE7132F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */; };
@@ -147,6 +147,9 @@
 		2CD340C4BD67ED96BB471276 /* Pods-AppleReminders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleReminders.debug.xcconfig"; path = "Target Support Files/Pods-AppleReminders/Pods-AppleReminders.debug.xcconfig"; sourceTree = "<group>"; };
 		691A25D0CEB0542933A21402 /* libPods-AppleRemindersUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppleRemindersUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91746CCF460E8FD3416F9E9D /* Pods-AppleRemindersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleRemindersUITests.release.xcconfig"; path = "Target Support Files/Pods-AppleRemindersUITests/Pods-AppleRemindersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A1000002000000000000AA01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		A1000003000000000000AA01 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		A1000004000000000000AA01 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AEB33D05B8BB576380B6010D /* Pods-AppleRemindersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleRemindersUITests.debug.xcconfig"; path = "Target Support Files/Pods-AppleRemindersUITests/Pods-AppleRemindersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C08BE3B2637781DB3E7C90B6 /* Pods-AppleReminders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppleReminders.release.xcconfig"; path = "Target Support Files/Pods-AppleReminders/Pods-AppleReminders.release.xcconfig"; sourceTree = "<group>"; };
 		E03F1A1225ED307D003BD921 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -157,9 +160,6 @@
 		E81B4C242CF559C9008D7C25 /* AppleRemindersUITestsCrowdinScreenhsotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleRemindersUITestsCrowdinScreenhsotTests.swift; sourceTree = "<group>"; };
 		E82913D8257300E70068A629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E82913E6257306F90068A629 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A1000002000000000000AA01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		A1000003000000000000AA01 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		A1000004000000000000AA01 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E837B5F22596484F00656C9B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		E85EE7102F7BFDEA00531DD7 /* LocalizationTestingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTestingVC.swift; sourceTree = "<group>"; };
 		E85EE7122F7BFE0500531DD7 /* LocalizationKeyDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeyDetailVC.swift; sourceTree = "<group>"; };
@@ -540,9 +540,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AppleReminders/Pods-AppleReminders-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AppleReminders/Pods-AppleReminders-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -719,16 +723,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		E82913D7257300E70068A629 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E82913D8257300E70068A629 /* en */,
-				E82913E6257306F90068A629 /* uk */,
-				E8FABB3225BD9884007F1468 /* fr */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 		A1000005000000000000AA01 /* Localizable.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -737,6 +731,16 @@
 				A1000004000000000000AA01 /* fr */,
 			);
 			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		E82913D7257300E70068A629 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E82913D8257300E70068A629 /* en */,
+				E82913E6257306F90068A629 /* uk */,
+				E8FABB3225BD9884007F1468 /* fr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
