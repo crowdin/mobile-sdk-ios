@@ -267,14 +267,23 @@ final class LocalizationKeyDetailVC: UITableViewController {
             // bundle (or Crowdin) stringsdict is available, String(format:) will
             // automatically resolve all %#@variable@ specifiers including nested
             // ones, using the arguments in order.
+            //
+            // IMPORTANT: Pass the SDK's locale so that Foundation applies the
+            // correct CLDR plural rules for the active language, not the device
+            // locale (Locale.current). Without this, a device set to English
+            // would use English rules (21 → "other") even when displaying
+            // Ukrainian translations where 21 → "one".
+            let sdkLang = CrowdinSDK.currentLocalization?.components(separatedBy: "-").first
+                ?? Locale.current.languageCode ?? "en"
+            let pluralLocale = Locale(identifier: sdkLang)
             let formatTemplate = localizedString(forKey: key)
             if formatTemplate != key, formatTemplate.contains("%#@") {
                 let args: [CVarArg] = parsedCounts.map { $0 as CVarArg }
-                return (String(format: formatTemplate, arguments: args), false)
+                return (String(format: formatTemplate, locale: pluralLocale, arguments: args), false)
             }
             // Simple (non-stringsdict) format returned — apply first count.
             if formatTemplate != key {
-                return (String(format: formatTemplate, parsedCounts[0]), false)
+                return (String(format: formatTemplate, locale: pluralLocale, parsedCounts[0]), false)
             }
 
             // ── Manual fallback ───────────────────────────────────────────────
@@ -303,7 +312,8 @@ final class LocalizationKeyDetailVC: UITableViewController {
     /// - Nested/dependent (`%#@tasks@` where `tasks` forms embed `%#@days@`)
     private func applyManualPluralFallback(entry: CrowdinPluralEntry, counts: [Int]) -> String {
         guard !entry.variables.isEmpty else { return "No plural forms available." }
-        let langCode = Locale.current.languageCode ?? "en"
+        let langCode = CrowdinSDK.currentLocalization?.components(separatedBy: "-").first
+            ?? Locale.current.languageCode ?? "en"
 
         // Map variable name → (selected raw form, driving count)
         var selectedForms: [String: (form: String, count: Int)] = [:]
