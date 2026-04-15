@@ -10,3 +10,7 @@
 "test_key_with_string_parameter" = "test value with parameter - %@ [B]"; // B - buldle
 "test_key_with_int_parameter" = "test value with parameter - %lu [B]"; // B - buldle
 "test_key_with_two_parameters" = "test value with parameter - %@, and parameter - %@ [B]"; // B - buldle
+
+// Plural key that also exists in Localizable.stringsdict - this simulates what Crowdin exports
+// The plural forms in .stringsdict should take precedence over this simple string
+"johns_pineapples_count" = "John has pineapples"; // Fallback singular form
