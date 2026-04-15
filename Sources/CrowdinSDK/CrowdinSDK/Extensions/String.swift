@@ -18,17 +18,36 @@ extension String {
 
     /// Extension method for simplifying strings localization with argumets.
     ///
+    /// Uses the SDK's active localization locale so that CLDR plural rules
+    /// (`.stringsdict`) are resolved for the correct language — not the device
+    /// locale (`Locale.current`).
+    ///
     /// - Parameter arguments: Formatted string arguments.
     /// - Returns: Localized formatted string.
     public func cw_localized(with arguments: [CVarArg]) -> String {
-        return String(format: NSLocalizedString(self, comment: .empty), arguments: arguments)
+        return String(format: NSLocalizedString(self, comment: .empty), locale: String.crowdinLocale, arguments: arguments)
     }
 
     /// Extension method for simplifying strings localization with argumets.
+    ///
+    /// Uses the SDK's active localization locale so that CLDR plural rules
+    /// (`.stringsdict`) are resolved for the correct language — not the device
+    /// locale (`Locale.current`).
+    ///
     /// - Parameter args: Formatted string arguments.
     /// - Returns: Localized formatted string.
     public func cw_localized(with args: CVarArg...) -> String {
-        return String(format: NSLocalizedString(self, comment: .empty), args)
+        return String(format: NSLocalizedString(self, comment: .empty), locale: String.crowdinLocale, arguments: args)
+    }
+
+    /// Returns a `Locale` matching the SDK's active localization so that
+    /// `String(format:locale:arguments:)` applies the correct CLDR plural rules.
+    /// Falls back to `Locale.current` when the SDK has not been started.
+    private static var crowdinLocale: Locale {
+        if let lang = Localization.currentLocalization ?? Localization.current?.provider.localization {
+            return Locale(identifier: lang)
+        }
+        return Locale.current
     }
 }
 
