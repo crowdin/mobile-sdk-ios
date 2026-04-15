@@ -11,6 +11,14 @@ import CrowdinSDK
 
 class SettingsVC: UITableViewController {
     var localizations = CrowdinSDK.allAvailableLocalizations
+    private var isLocalizationLoading = false
+    
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
     
     enum Strings: String {
         case settings
@@ -27,6 +35,7 @@ class SettingsVC: UITableViewController {
         self.title = Strings.settings.rawValue.capitalized.localized
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.done.rawValue.capitalized.localized, style: .done, target: self, action: #selector(cancelBtnTapped))
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
+        setupLoadingIndicator()
         self.tableView.reloadData()
     }
     
@@ -56,12 +65,63 @@ class SettingsVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let localization = localizations[indexPath.row]
-        if localization == Strings.auto.rawValue.capitalized.localized {
-            CrowdinSDK.currentLocalization = nil
-        } else {
-            CrowdinSDK.currentLocalization = localization
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard !isLocalizationLoading else { return }
+        
+        let localization = localizationCode(for: indexPath)
+        guard localization != CrowdinSDK.currentLocalization else {
+            self.tableView.reloadData()
+            return
         }
-        self.tableView.reloadData()
+        
+        setLocalizationLoading(true)
+        CrowdinSDK.setCurrentLocalization(localization) { [weak self] error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.setLocalizationLoading(false)
+                
+                if let error = error {
+                    self.alert(message: error.localizedDescription, title: "Error")
+                    self.tableView.reloadData()
+                    return
+                }
+                
+                self.reloadLocalizedUI()
+            }
+        }
+    }
+
+    private func setupLoadingIndicator() {
+        view.addSubview(loadingIndicator)
+        
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    private func setLocalizationLoading(_ loading: Bool) {
+        isLocalizationLoading = loading
+        tableView.allowsSelection = !loading
+        navigationItem.rightBarButtonItem?.isEnabled = !loading
+        
+        if loading {
+            loadingIndicator.startAnimating()
+        } else {
+            loadingIndicator.stopAnimating()
+        }
+    }
+    
+    private func localizationCode(for indexPath: IndexPath) -> String? {
+        return indexPath.row == 0 ? nil : localizations[indexPath.row]
+    }
+    
+    private func reloadLocalizedUI() {
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate {
+            sceneDelegate.reloadLocalizedUI()
+        } else {
+            tableView.reloadData()
+        }
     }
 }
