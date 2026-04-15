@@ -29,6 +29,9 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     public var onLogCallback: ((String) -> Void)?
 
     /// Current localization language code. If SDK is started than after setting new localization it triggers localization download.
+    ///
+    /// - Note: Deprecated. Use ``setCurrentLocalization(_:completion:)`` instead for async operation with completion handler.
+    @available(*, deprecated, message: "Please use setCurrentLocalization(_:completion:) to update localization.")
 	public class var currentLocalization: String? {
 		get {
             return Localization.currentLocalization ?? Localization.current?.provider.localization
@@ -69,7 +72,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameter completion: Remote storage preparation completion handler. Called when all required data is downloaded.
     class func startWithRemoteStorage(_ remoteStorage: RemoteLocalizationStorageProtocol, completion: @escaping () -> Void) {
         let localizations = remoteStorage.localizations + self.inBundleLocalizations
-        let localization = self.currentLocalization ?? Bundle.main.preferredLanguage(with: localizations)
+        let localization = Localization.currentLocalization ?? Localization.current?.provider.localization ?? Bundle.main.preferredLanguage(with: localizations)
         let localStorage = LocalLocalizationStorage(localization: localization)
         let localizationProvider = LocalizationProvider(localization: localization, localStorage: localStorage, remoteStorage: remoteStorage)
 
@@ -90,7 +93,7 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     /// - Parameters:
     ///   - sdkLocalization: Bool value which indicate whether to use SDK localization or native in bundle localization.
     ///   - localization: Localization code to use.
-    @available(*, deprecated, message: "Please use currentLocalization instead.")
+    @available(*, deprecated, message: "Please use setCurrentLocalization(_:completion:) and getCurrentLocalization() methods instead.")
     public class func enableSDKLocalization(_ sdkLocalization: Bool, localization: String?) {
         self.currentLocalization = localization
     }
@@ -102,6 +105,12 @@ public typealias CrowdinSDKLogMessage = (String) -> Void
     ///   - completion: Completion handler called when localization refresh finishes.
     public class func setCurrentLocalization(_ localization: String?, completion: @escaping CrowdinSDKLocalizationChangeCompletion) {
         Localization.setCurrentLocalization(localization, completion: completion)
+    }
+    
+    /// Method to get current SDK localization.
+    /// - Returns: Current SDK localization
+    public class func getCurrentLocalization() -> String? {
+        return Localization.currentLocalization
     }
 
     /// Utils method for extracting all localization strings and plurals to Documents folder.
