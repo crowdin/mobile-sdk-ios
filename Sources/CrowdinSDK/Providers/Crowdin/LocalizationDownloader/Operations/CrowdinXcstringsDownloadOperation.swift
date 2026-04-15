@@ -73,13 +73,25 @@ class XcstringsParser {
             if let value = value.localizations?[localization] {
                 if let stringUnit = value.stringUnit, let substitutions = value.substitutions {
                     var dict = [String: Any]()
-                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = stringUnit.value
 
-                    for (key, substitution) in substitutions {
-                        var pluralDict = Self.dictFor(substitution: substitution, with: substitutions)
+                    // Build mapping of original substitution key -> sanitized key
+                    var keyMapping = [String: String]()
+                    for (subKey, _) in substitutions {
+                        keyMapping[subKey] = Self.sanitizeFormatVariable(subKey)
+                    }
+
+                    // Replace key references in the format string value
+                    var formatKeyValue = stringUnit.value
+                    for (originalKey, sanitizedKey) in keyMapping {
+                        formatKeyValue = formatKeyValue.replacingOccurrences(of: "%#@\(originalKey)@", with: "%#@\(sanitizedKey)@")
+                    }
+                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = formatKeyValue
+
+                    for (subKey, substitution) in substitutions {
+                        var pluralDict = Self.dictFor(substitution: substitution, with: substitutions, keyMapping: keyMapping)
                         pluralDict?[Keys.NSStringFormatSpecTypeKey.rawValue] = Strings.NSStringPluralRuleType.rawValue
                         pluralDict?[Keys.NSStringFormatValueTypeKey.rawValue] = substitution.formatSpecifier
-                        dict[key] = pluralDict
+                        dict[keyMapping[subKey] ?? subKey] = pluralDict
                     }
 
                     plurals[key] = dict
@@ -89,8 +101,10 @@ class XcstringsParser {
                     pluralDict[Keys.NSStringFormatValueTypeKey.rawValue] = pluralDict.values.map({ Self.formats(from: $0) }).filter({ $0.count > 0 }).first?.first ?? "u"
 
                     var dict = [String: Any]()
-                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = "%#@\(key)@"
-                    dict[key] = pluralDict
+                    // Use a sanitized variable name to avoid issues with format specifiers in the key
+                    let variableName = Self.sanitizeFormatVariable(key)
+                    dict[Keys.NSStringLocalizedFormatKey.rawValue] = "%#@\(variableName)@"
+                    dict[variableName] = pluralDict
 
                     plurals[key] = dict
                 } else if let stringUnit = value.stringUnit {
@@ -111,14 +125,15 @@ class XcstringsParser {
         }
     }
 
-    static func dictFor(substitution: Substitution, with substitutions: [String: Substitution]) -> [String: Any]? {
+    static func dictFor(substitution: Substitution, with substitutions: [String: Substitution], keyMapping: [String: String] = [:]) -> [String: Any]? {
         var dict = substitution.variations.plural?.mapValues({ $0.stringUnit.value }) ?? [:]
 
         for (key, value) in dict {
             for (key1, substitution) in substitutions {
                 let refKey = "%#@\(key1)@"
                 if value.contains(refKey) {
-                    let parameteredKey = "%\(substitution.argNum)$#@\(key1)@"
+                    let sanitizedKey1 = keyMapping[key1] ?? key1
+                    let parameteredKey = "%\(substitution.argNum)$#@\(sanitizedKey1)@"
                     dict[key] = value.replacingOccurrences(of: refKey, with: parameteredKey)
                 }
             }
@@ -148,7 +163,38 @@ class XcstringsParser {
             }
         }
 
+        // Handle a format specifier that appears at the end of the string
+        if isSpecifier && !currentSpecifier.isEmpty {
+            specifiers.append(currentSpecifier)
+        }
+
         return specifiers
+    }
+    
+    /// Encodes special characters so that different inputs map to unique, safe variable names.
+    /// Allows only letters, digits, and underscores as-is; encodes any other character
+    /// (including `%`, `@`, whitespace, punctuation) using its Unicode scalar value.
+    /// - Parameter key: The original key name
+    /// - Returns: A sanitized variable name safe to use in format strings
+    static func sanitizeFormatVariable(_ key: String) -> String {
+        var result = ""
+
+        for character in key {
+            if character.isLetter || character.isNumber || character == "_" {
+                result.append(character)
+            } else {
+                for scalar in character.unicodeScalars {
+                    let hex = String(format: "%02X", scalar.value)
+                    result.append("_u\(hex)")
+                }
+            }
+        }
+
+        if result.isEmpty || result.first?.isNumber == true {
+            return "var_" + result
+        }
+
+        return result
     }
 }
 
