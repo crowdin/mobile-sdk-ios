@@ -43,11 +43,13 @@ extension String {
     /// Returns a `Locale` matching the SDK's active localization so that
     /// `String(format:locale:arguments:)` applies the correct CLDR plural rules.
     /// Falls back to `Locale.current` when the SDK has not been started.
-    private static var crowdinLocale: Locale {
-        if let lang = Localization.currentLocalization ?? Localization.current?.provider.localization {
-            return Locale(identifier: lang)
+    static var crowdinLocale: Locale {
+        guard let localization = Localization.current else {
+            return Locale.current
         }
-        return Locale.current
+
+        let lang = Localization.currentLocalization ?? localization.provider.localization
+        return Locale(identifier: lang)
     }
 }
 
