@@ -27,7 +27,7 @@ public struct StringLocalization: Codable {
 }
 
 public struct Substitution: Codable {
-    let argNum: Int
+    let argNum: Int?
     let formatSpecifier: String
     let variations: Variations
 }
@@ -131,9 +131,9 @@ class XcstringsParser {
         for (key, value) in dict {
             for (key1, substitution) in substitutions {
                 let refKey = "%#@\(key1)@"
-                if value.contains(refKey) {
+                if value.contains(refKey), let argNum = substitution.argNum {
                     let sanitizedKey1 = keyMapping[key1] ?? key1
-                    let parameteredKey = "%\(substitution.argNum)$#@\(sanitizedKey1)@"
+                    let parameteredKey = "%\(argNum)$#@\(sanitizedKey1)@"
                     dict[key] = value.replacingOccurrences(of: refKey, with: parameteredKey)
                 }
             }
