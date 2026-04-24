@@ -97,4 +97,84 @@ class ManifestManagerTests: XCTestCase {
 
         manifestManager.clear()
     }
+
+    func testXcstringsParsingKeyForStandardLanguage() {
+        let manifestManager = ManifestManager.manifest(for: "test_hash_xcstrings_standard", sourceLanguage: "en", organizationName: nil, minimumManifestUpdateInterval: 60)
+
+        struct MockLanguage: CrowdinLanguage {
+            var id: String
+            var name: String
+            var twoLettersCode: String
+            var threeLettersCode: String
+            var locale: String
+            var osxCode: String
+            var osxLocale: String
+        }
+
+        let deLang = MockLanguage(id: "de", name: "German", twoLettersCode: "de", threeLettersCode: "deu", locale: "de-DE", osxCode: "de.lproj", osxLocale: "de")
+        let ptBRLang = MockLanguage(id: "pt-BR", name: "Portuguese, Brazilian", twoLettersCode: "pt", threeLettersCode: "por", locale: "pt-BR", osxCode: "pt_BR.lproj", osxLocale: "pt-BR")
+
+        manifestManager.crowdinSupportedLanguages.supportedLanguages = [deLang, ptBRLang]
+        manifestManager.manifest = ManifestResponse(
+            files: [],
+            timestamp: 0,
+            languages: ["de", "pt-BR"],
+            responseCustomLanguages: nil,
+            content: [:],
+            mapping: []
+        )
+
+        // Standard language: returns iOSLanguageCode normalized to BCP 47
+        XCTAssertEqual(manifestManager.xcstringsParsingKey(for: "de"), "de")
+        // Standard language passed with underscore: returns iOSLanguageCode ("pt-BR"), not raw input "pt_BR"
+        XCTAssertEqual(manifestManager.xcstringsParsingKey(for: "pt_BR"), "pt-BR")
+        // Unknown language with underscore: normalizes underscore to hyphen
+        XCTAssertEqual(manifestManager.xcstringsParsingKey(for: "zh_HK"), "zh-HK")
+        // Unknown language already in BCP 47 format: returned as-is
+        XCTAssertEqual(manifestManager.xcstringsParsingKey(for: "zh-HK"), "zh-HK")
+
+        manifestManager.clear()
+    }
+
+    func testXcstringsParsingKeyForCustomLanguage() {
+        let manifestManager = ManifestManager.manifest(for: "test_hash_xcstrings_custom", sourceLanguage: "en", organizationName: nil, minimumManifestUpdateInterval: 60)
+
+        // Custom Tongan: osxLocale="to", locale="to-To" → redundant region stripped → "to"
+        let toCustomLanguage = ManifestResponse.ManifestResponseCustomLangugage(
+            locale: "to-To",
+            twoLettersCode: "to",
+            threeLettersCode: "ton",
+            localeWithUnderscore: "to_To",
+            androidCode: "to-rTo",
+            osxCode: "to.lproj",
+            osxLocale: "to"
+        )
+
+        // Custom Serbian (Kosovo): osxLocale="SRXK", locale="sr_XK" → normalized to "sr-XK"
+        let srXKCustomLanguage = ManifestResponse.ManifestResponseCustomLangugage(
+            locale: "sr_XK",
+            twoLettersCode: "sr",
+            threeLettersCode: "srp",
+            localeWithUnderscore: "sr_XK",
+            androidCode: "sr-rXK",
+            osxCode: "SRXK.lproj",
+            osxLocale: "SRXK"
+        )
+
+        manifestManager.manifest = ManifestResponse(
+            files: [],
+            timestamp: 0,
+            languages: ["to-To", "sr-XK"],
+            responseCustomLanguages: ["to-To": toCustomLanguage, "sr-XK": srXKCustomLanguage],
+            content: [:],
+            mapping: []
+        )
+
+        // Custom Tongan: iOSLanguageCode = osxLocale = "to" → xcstrings key = "to"
+        XCTAssertEqual(manifestManager.xcstringsParsingKey(for: "to"), "to")
+        // Custom Serbian Kosovo: iOSLanguageCode = osxLocale = "SRXK" → xcstrings key = "sr-XK"
+        XCTAssertEqual(manifestManager.xcstringsParsingKey(for: "SRXK"), "sr-XK")
+
+        manifestManager.clear()
+    }
 }

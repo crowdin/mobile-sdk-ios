@@ -59,16 +59,22 @@ extension ManifestManager: LanguageResolver {
 
     /// Returns the language key used inside an xcstrings file for the given iOS localization.
     ///
-    /// Standard Crowdin languages use their `osxLocale` as the xcstrings key (e.g. "de", "zh-Hans").
-    /// Custom languages have an `osxLocale` that acts as the iOS locale folder name (e.g. "tra", "SRXK")
-    /// but the xcstrings file stores their translations under the BCP 47 locale derived from the
-    /// custom language's `locale` field (e.g. "to" for "to-To", "sr-XK" for "sr-XK").
+    /// The `localization` parameter is expected to be an iOS localization identifier / BCP 47 tag,
+    /// typically `iOSLanguageCode`.
+    /// Standard Crowdin languages use that localization key directly in xcstrings files
+    /// (for example, "de" or "zh-Hans"), so this method returns the provided value as-is.
+    /// Custom languages may use an `osxLocale` as the iOS locale folder name (for example, "tra", "SRXK"),
+    /// but xcstrings stores their translations under the BCP 47 locale derived from the custom
+    /// language's `locale` field (for example, "to" for "to-To", "sr-XK" for "sr-XK").
     func xcstringsParsingKey(for localization: String) -> String {
         let custom = customLanguages
-        guard let language = crowdinSupportedLanguage(for: localization),
-              custom.contains(where: { $0.id == language.id }) else {
-            // Standard language: the iOS localization is already the xcstrings key.
-            return localization
+        guard let language = crowdinSupportedLanguage(for: localization) else {
+            // Unknown language: normalize to a BCP 47-compatible xcstrings key.
+            return localization.replacingOccurrences(of: "_", with: "-")
+        }
+        guard custom.contains(where: { $0.id == language.id }) else {
+            // Standard language: use the resolved iOS language code and normalize it to BCP 47.
+            return language.iOSLanguageCode.replacingOccurrences(of: "_", with: "-")
         }
         // Custom language: derive the xcstrings key from the locale field.
         // Replace underscores with hyphens to get BCP 47 format, then strip a redundant
