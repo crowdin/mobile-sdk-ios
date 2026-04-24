@@ -79,8 +79,9 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             guard let self = self else { return }
             if let files = files {
                 let xcstringsFiles = files.filter({ $0.isXcstrings })
-                // For xcstrings we need to parse existing files when localization is changed, otherwise we wont get localization strings from xcstrings files.
-                self.parseXCStrings(files: xcstringsFiles, for: localization, context: context)
+                // For xcstrings we need to parse existing files when localization is changed, otherwise we won't get localization strings from xcstrings files.
+                let xcstringsParsingKey = self.manifestManager.xcstringsParsingKey(for: localization)
+                self.parseXCStrings(files: xcstringsFiles, for: xcstringsParsingKey, context: context)
                 let notXcstringsFiles = files.filter({ !$0.isXcstrings })
                 let notXcstringsFilesToDownload = notXcstringsFiles.filter { self.manifestManager.hasFileChanged(filePath: $0, localization: localization) }
                 let xcStringsFilesToDownlaod = xcstringsFiles.filter({ self.manifestManager.hasFileChanged(filePath: $0, localization: self.manifestManager.xcstringsLanguage) })
@@ -165,7 +166,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
 
         xcstrings.forEach { filePath in
             let download = CrowdinXcstringsDownloadOperation(filePath: filePath,
-                                                             localization: localization,
+                                                             localization: manifestManager.xcstringsParsingKey(for: localization),
                                                              xcstringsLanguage: manifestManager.xcstringsLanguage,
                                                              timestamp: timestamp,
                                                              contentDeliveryAPI: contentDeliveryAPI)
