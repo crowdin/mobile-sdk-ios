@@ -188,10 +188,28 @@ final class LocalizationTestingVC: UIViewController {
                 // Prefer the Crowdin entry's count; fall back to the bundle entry
                 // (needed when Crowdin has no plural data but cw_localized still
                 // resolves via the bundle stringsdict).
-                let varCount = CrowdinSDK.pluralEntry(forKey: key, from: .crowdin)?.variables.count
-                            ?? CrowdinSDK.pluralEntry(forKey: key, from: .bundle)?.variables.count
-                            ?? 1
-                let args: [CVarArg] = Array(repeating: 1 as Int, count: varCount)
+                let entry = CrowdinSDK.pluralEntry(forKey: key, from: .crowdin)
+                         ?? CrowdinSDK.pluralEntry(forKey: key, from: .bundle)
+                let varCount = entry?.variables.count ?? 1
+                // Matches any object-type specifier (%@, %1$@, %-5@, …) but
+                // NOT %#@ which is a stringsdict plural reference.
+                let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ #0-9*]*@"#)
+                // When entry is nil we have no type info → use NSNumber for
+                // every position (satisfies %@ via description; avoids crash).
+                let args: [CVarArg] = (0..<varCount).map { i -> CVarArg in
+                    guard let entry = entry, let regex = objectSpecifier else {
+                        return NSNumber(value: 1)
+                    }
+                    let usesObject = i < entry.variables.count &&
+                        entry.variables[i].forms.values.contains { form in
+                            let ns = form as NSString
+                            return regex.firstMatch(
+                                in: form,
+                                range: NSRange(location: 0, length: ns.length)
+                            ) != nil
+                        }
+                    return usesObject ? NSNumber(value: 1) : 1 as CVarArg
+                }
                 return String(format: template, arguments: args)
             }
             return String(format: template, 1)

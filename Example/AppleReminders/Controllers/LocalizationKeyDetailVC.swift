@@ -278,7 +278,29 @@ final class LocalizationKeyDetailVC: UITableViewController {
             let pluralLocale = Locale(identifier: sdkLang)
             let formatTemplate = localizedString(forKey: key)
             if formatTemplate != key, formatTemplate.contains("%#@") {
-                let args: [CVarArg] = parsedCounts.map { $0 as CVarArg }
+                // Some Crowdin plural forms use %@ (object specifier) instead of
+                // %d. Passing a raw Int for %@ treats the integer value as an
+                // object pointer and crashes with respondsToSelector:.
+                // Use NSNumber for those positions so the formatter gets a real
+                // NSObject. Matches %@, %1$@, %-5@, … but not %#@ (stringsdict).
+                let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ #0-9*]*@"#)
+                let args: [CVarArg] = parsedCounts.enumerated().map { (i, count) -> CVarArg in
+                    let usesObject: Bool
+                    if let regex = objectSpecifier,
+                       let entry = pluralEntry,
+                       i < entry.variables.count {
+                        let ns = NSString()
+                        usesObject = entry.variables[i].forms.values.contains { form in
+                            let s = form as NSString
+                            return regex.firstMatch(in: form,
+                                range: NSRange(location: 0, length: s.length)) != nil
+                        }
+                    } else {
+                        // No type info — default to NSNumber to avoid crash.
+                        usesObject = true
+                    }
+                    return usesObject ? NSNumber(value: count) : count as CVarArg
+                }
                 return (String(format: formatTemplate, locale: pluralLocale, arguments: args), false)
             }
             // Simple (non-stringsdict) format returned — apply first count.

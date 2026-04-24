@@ -230,6 +230,30 @@ final class LocalizationRuntimeVC: UIViewController {
             let varCount = entry?.variables.count ?? 1
             let template = key.cw_localized
 
+            // Detect which argument positions expect an NSObject (%@) rather
+            // than an integer (%d). Some Crowdin translations use %@ in their
+            // plural forms; passing a raw Int for %@ makes the formatter treat
+            // the integer value as an object pointer and call
+            // respondsToSelector: on it — which crashes.
+            // Matches any object-type specifier (%@, %1$@, %-5@, …) but
+            // NOT %#@ which is a stringsdict plural reference.
+            let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ #0-9*]*@"#)
+            // When entry is nil we have no type info → default to NSNumber for
+            // every position (avoids crash; wrong %d display is acceptable on a
+            // debug screen).
+            let variableUsesObject: [Bool] = entry.map { e in
+                e.variables.map { variable -> Bool in
+                    guard let regex = objectSpecifier else { return true }
+                    return variable.forms.values.contains { form in
+                        let ns = form as NSString
+                        return regex.firstMatch(
+                            in: form,
+                            range: NSRange(location: 0, length: ns.length)
+                        ) != nil
+                    }
+                }
+            } ?? Array(repeating: true, count: varCount)
+
             // Build the count-tuples to test.
             // Single-variable: one row per sample count.
             // Multi-variable: "diagonal" (same count for all vars) +
@@ -250,7 +274,12 @@ final class LocalizationRuntimeVC: UIViewController {
             }
 
             return tuples.map { argCounts in
-                let args: [CVarArg] = argCounts.map { $0 as CVarArg }
+                let args: [CVarArg] = argCounts.enumerated().map { (index, count) -> CVarArg in
+                    // Pass NSNumber for %@ positions so the formatter receives
+                    // a proper NSObject rather than a bare integer pointer.
+                    let usesObject = index < variableUsesObject.count && variableUsesObject[index]
+                    return usesObject ? NSNumber(value: count) : count as CVarArg
+                }
 
                 // Format the plural string with the correct locale so that
                 // the CLDR plural rules for the target language are applied.
