@@ -128,6 +128,21 @@ class XcstringsParser {
     static func dictFor(substitution: Substitution, with substitutions: [String: Substitution], keyMapping: [String: String] = [:]) -> [String: Any]? {
         var dict = substitution.variations.plural?.mapValues({ $0.stringUnit.value }) ?? [:]
 
+        // Replace the xcstrings design-time placeholder %arg with the actual
+        // printf format specifier so the generated stringsdict entry matches what
+        // Xcode would produce when compiling the xcstrings file. Without this,
+        // Foundation sees "%a" (hex-float) instead of e.g. "%lld" and logs a
+        // format-type mismatch warning when String(format:) is called.
+        let argReplacement: String
+        if let argNum = substitution.argNum {
+            argReplacement = "%\(argNum)$\(substitution.formatSpecifier)"
+        } else {
+            argReplacement = "%\(substitution.formatSpecifier)"
+        }
+        for (key, value) in dict {
+            dict[key] = value.replacingOccurrences(of: "%arg", with: argReplacement)
+        }
+
         for (key, value) in dict {
             for (key1, substitution) in substitutions {
                 let refKey = "%#@\(key1)@"

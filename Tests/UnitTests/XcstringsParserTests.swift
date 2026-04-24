@@ -383,7 +383,7 @@ class XcstringsParserTests: XCTestCase {
                 
                 if let variableDict = variableDict {
                     XCTAssertEqual(variableDict["one"] as? String, "one item")
-                    XCTAssertEqual(variableDict["other"] as? String, "%arg items")
+                    XCTAssertEqual(variableDict["other"] as? String, "%1$lld items")
                     XCTAssertEqual(variableDict["NSStringFormatSpecTypeKey"] as? String, "NSStringPluralRuleType")
                     XCTAssertEqual(variableDict["NSStringFormatValueTypeKey"] as? String, "lld")
                 }
@@ -413,5 +413,145 @@ class XcstringsParserTests: XCTestCase {
         
         // Single character specifier at end
         XCTAssertEqual(XcstringsParser.formats(from: "%u"), ["u"])
+    }
+
+    // MARK: - %arg replacement tests
+
+    /// Verifies that `%arg` (xcstrings design-time placeholder) is replaced
+    /// with the actual format specifier so the generated stringsdict matches
+    /// what Xcode produces when compiling the xcstrings file.
+    func testDictForReplacesArgPlaceholder() {
+        // Build a substitution that mirrors the "tasks_completed_in_days" pattern.
+        let tasksForms: [String: StringUnitWrapper] = [
+            "one":   StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "%arg task completed in %#@days@")),
+            "other": StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "%arg tasks completed in %#@days@")),
+            "zero":  StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "No tasks completed in %#@days@"))
+        ]
+        let daysForms: [String: StringUnitWrapper] = [
+            "one":   StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "%arg day")),
+            "other": StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "%arg days")),
+            "zero":  StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "today"))
+        ]
+
+        let tasksSubstitution = Substitution(
+            argNum: nil,
+            formatSpecifier: "lld",
+            variations: Variations(plural: tasksForms)
+        )
+        let daysSubstitution = Substitution(
+            argNum: nil,
+            formatSpecifier: "lld",
+            variations: Variations(plural: daysForms)
+        )
+        let allSubstitutions = ["tasks": tasksSubstitution, "days": daysSubstitution]
+
+        let tasksDict = XcstringsParser.dictFor(substitution: tasksSubstitution, with: allSubstitutions)
+        let daysDict = XcstringsParser.dictFor(substitution: daysSubstitution, with: allSubstitutions)
+
+        // %arg in tasks forms must be replaced with %lld (the formatSpecifier)
+        XCTAssertEqual(tasksDict?["one"]   as? String, "%lld task completed in %#@days@")
+        XCTAssertEqual(tasksDict?["other"] as? String, "%lld tasks completed in %#@days@")
+        XCTAssertEqual(tasksDict?["zero"]  as? String, "No tasks completed in %#@days@")
+
+        // %arg in days forms must be replaced with %lld
+        XCTAssertEqual(daysDict?["one"]   as? String, "%lld day")
+        XCTAssertEqual(daysDict?["other"] as? String, "%lld days")
+        XCTAssertEqual(daysDict?["zero"]  as? String, "today")
+    }
+
+    /// Verifies that when `argNum` is set, `%arg` is replaced with a positional
+    /// specifier (e.g. `%1$lld`) instead of a plain `%lld`.
+    func testDictForReplacesArgPlaceholderWithArgNum() {
+        let forms: [String: StringUnitWrapper] = [
+            "one":   StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "%arg item")),
+            "other": StringUnitWrapper(stringUnit: StringUnit(state: "translated", value: "%arg items"))
+        ]
+        let substitution = Substitution(
+            argNum: 2,
+            formatSpecifier: "lld",
+            variations: Variations(plural: forms)
+        )
+
+        let dict = XcstringsParser.dictFor(substitution: substitution, with: [:])
+
+        XCTAssertEqual(dict?["one"]   as? String, "%2$lld item")
+        XCTAssertEqual(dict?["other"] as? String, "%2$lld items")
+    }
+
+    /// End-to-end: parse a `tasks_completed_in_days`-style xcstrings entry and
+    /// verify that the resulting plural dict contains `%lld` (not `%arg`) in its
+    /// plural form strings.
+    func testParseXcstringsWithArgPlaceholderReplacement() {
+        let jsonString = """
+        {
+          "sourceLanguage": "en",
+          "version": "1.0",
+          "strings": {
+            "tasks_completed_in_days": {
+              "extractionState": "migrated",
+              "localizations": {
+                "en": {
+                  "stringUnit": {
+                    "state": "translated",
+                    "value": "%#@tasks@"
+                  },
+                  "substitutions": {
+                    "days": {
+                      "formatSpecifier": "lld",
+                      "variations": {
+                        "plural": {
+                          "one":   { "stringUnit": { "state": "translated", "value": "%arg day" } },
+                          "other": { "stringUnit": { "state": "translated", "value": "%arg days" } },
+                          "zero":  { "stringUnit": { "state": "translated", "value": "today" } }
+                        }
+                      }
+                    },
+                    "tasks": {
+                      "formatSpecifier": "lld",
+                      "variations": {
+                        "plural": {
+                          "one":   { "stringUnit": { "state": "translated", "value": "%arg task completed in %#@days@" } },
+                          "other": { "stringUnit": { "state": "translated", "value": "%arg tasks completed in %#@days@" } },
+                          "zero":  { "stringUnit": { "state": "translated", "value": "No tasks completed in %#@days@" } }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        """
+        guard let data = jsonString.data(using: .utf8) else {
+            XCTFail("Failed to encode JSON"); return
+        }
+
+        let result = XcstringsParser.parse(data: data, localization: "en")
+        XCTAssertNil(result.error)
+        XCTAssertNotNil(result.plurals)
+
+        guard let entry = result.plurals?["tasks_completed_in_days"] as? [String: Any] else {
+            XCTFail("tasks_completed_in_days plural entry missing"); return
+        }
+
+        XCTAssertEqual(entry["NSStringLocalizedFormatKey"] as? String, "%#@tasks@")
+
+        guard let tasksDict = entry["tasks"] as? [String: Any] else {
+            XCTFail("tasks sub-dict missing"); return
+        }
+        // %arg must have been replaced with %lld — no %arg should remain
+        XCTAssertEqual(tasksDict["one"]   as? String, "%lld task completed in %#@days@")
+        XCTAssertEqual(tasksDict["other"] as? String, "%lld tasks completed in %#@days@")
+        XCTAssertFalse((tasksDict["one"]   as? String ?? "").contains("%arg"), "%%arg must not remain in 'one' form")
+        XCTAssertFalse((tasksDict["other"] as? String ?? "").contains("%arg"), "%%arg must not remain in 'other' form")
+
+        guard let daysDict = entry["days"] as? [String: Any] else {
+            XCTFail("days sub-dict missing"); return
+        }
+        XCTAssertEqual(daysDict["one"]   as? String, "%lld day")
+        XCTAssertEqual(daysDict["other"] as? String, "%lld days")
+        XCTAssertFalse((daysDict["one"]   as? String ?? "").contains("%arg"), "%%arg must not remain in days 'one' form")
+        XCTAssertFalse((daysDict["other"] as? String ?? "").contains("%arg"), "%%arg must not remain in days 'other' form")
     }
 }
