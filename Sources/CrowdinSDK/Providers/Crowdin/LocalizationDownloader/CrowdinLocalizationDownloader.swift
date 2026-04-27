@@ -79,7 +79,7 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             guard let self = self else { return }
             if let files = files {
                 let xcstringsFiles = files.filter({ $0.isXcstrings })
-                // For xcstrings we need to parse existing files when localization is changed, otherwise we wont get localization strings from xcstrings files.
+                // For xcstrings we need to parse existing files when localization is changed, otherwise we won't get localization strings from xcstrings files.
                 let xcstringsParsingKey = self.manifestManager.xcstringsParsingKey(for: localization)
                 self.parseXCStrings(files: xcstringsFiles, for: xcstringsParsingKey, context: context)
                 let notXcstringsFiles = files.filter({ !$0.isXcstrings })
