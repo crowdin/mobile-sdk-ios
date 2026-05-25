@@ -61,7 +61,7 @@ class SocketAPI: NSObject {
     }
 
     func subscribeOnUpdateDraft(localization: String, stringId: Int) {
-        let event = "\(Events.updateDraft.rawValue):\(projectWsHash):\(projectId):\(userId):\(localization):\(stringId)"
+        let event = "\(Events.updateDraft.rawValue):\(projectWsHash):pr{\(projectId)}:us{\(userId)}:\(localization):tr{\(stringId)}"
         
         // Get ticket for the event asynchronously
         websocketAPI.getWebsocketTicket(event: event) { [weak self] response, error in
@@ -82,7 +82,7 @@ class SocketAPI: NSObject {
     }
 
     func subscribeOnUpdateTopSuggestion(localization: String, stringId: Int) {
-        let event = "\(Events.topSuggestion.rawValue):\(projectWsHash):\(projectId):\(localization):\(stringId)"
+        let event = "\(Events.topSuggestion.rawValue):\(projectWsHash):pr{\(projectId)}:\(localization):tr{\(stringId)}"
         
         // Get ticket for the event asynchronously
         websocketAPI.getWebsocketTicket(event: event) { [weak self] response, error in
