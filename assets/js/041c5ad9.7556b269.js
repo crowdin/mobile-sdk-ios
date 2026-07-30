@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunk_crowdin_mobile_sdk_ios_website=globalThis.webpackChunk_crowdin_mobile_sdk_ios_website||[]).push([[992],{7702(o){o.exports=JSON.parse('{"metadata":{"permalink":"/mobile-sdk-ios/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
