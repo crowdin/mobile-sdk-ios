@@ -1,3 +1,7 @@
+---
+description: Preview translations made in the Crowdin Editor directly in your iOS app in real time. Learn how to set up and authorize the Real-Time Preview feature.
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
@@ -12,19 +16,23 @@ The Real-Time Preview feature is designed for development and staging environmen
 
 ## Setup
 
-### Swift
+### CocoaPods
 
 Add the following code to your `Podfile`:
 
-```swift title="Podfile"
+```ruby title="Podfile"
 use_frameworks!
 target 'your-app' do
     pod 'CrowdinSDK'
-    pod 'CrowdinSDK/LoginFeature' // Required for Real-Time Preview
-    pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
-    pod 'CrowdinSDK/Settings' // Optional. To add 'settings' floating button
+    pod 'CrowdinSDK/LoginFeature' # Required for Real-Time Preview
+    pod 'CrowdinSDK/RealtimeUpdate' # Required for Real-Time Preview
+    pod 'CrowdinSDK/Settings' # Optional. To add the SDK Controls floating button
 end
 ```
+
+:::info Swift Package Manager
+If you installed the SDK via Swift Package Manager, no additional setup is needed - the Real-Time Preview functionality is already included in the `CrowdinSDK` package.
+:::
 
 ## Authorization
 
@@ -45,7 +53,7 @@ Implements a secure web-based authorization flow using `clientId` and `clientSec
 - Provides a secure authentication process
 - Is ideal for development and testing environments
 
-To enable OAuth-based authorisation, add the following configuration to your `AppDelegate' class in the `application' method:
+To enable OAuth-based authorization, add the following configuration to your `AppDelegate` class in the `application` method:
 
 import rtPreviewSetupOauthSwift from '!!raw-loader!../code-samples/rt-preview-oauth-setup.swift';
 import rtPreviewSetupOauthC from '!!raw-loader!../code-samples/rt-preview-oauth-setup.m';
@@ -104,7 +112,7 @@ The SDK configuration is done using the `CrowdinSDKConfig` class. The following 
 | `realtimeUpdatesEnabled` | Enable Real-Time Preview feature                                                               | Yes      | `true`                 |
 | `accessToken`            | Crowdin API access token                                                                       | No*      | `"your_token"`         |
 
-* Either `accessToken` or OAuth configuration is required.
+* Either `accessToken` or [OAuth configuration](#oauth-options) is required.
 
 ### OAuth Options
 
