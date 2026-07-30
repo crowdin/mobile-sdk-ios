@@ -1,20 +1,24 @@
+---
+description: Add the Crowdin iOS SDK to your project using CocoaPods or Swift Package Manager. Learn about the requirements and dependencies.
+---
+
 # Installation
 
-## Cocoapods
+## CocoaPods
 
-1. Cocoapods
+1. CocoaPods
 
-   To install the Crowdin iOS SDK via [cocoapods](https://cocoapods.org), make sure you have cocoapods installed locally. If you don't have it, follow the official [installation guide](https://guides.cocoapods.org/using/getting-started.html) first.
+   To install the Crowdin iOS SDK via [CocoaPods](https://cocoapods.org), make sure you have CocoaPods installed locally. If you don't have it, follow the official [installation guide](https://guides.cocoapods.org/using/getting-started.html) first.
 
    Then add the following line to your `Podfile`:
 
-   ```swift title="Podfile"
+   ```ruby title="Podfile"
    pod 'CrowdinSDK'
    ```
 
-2. Cocoapods spec repository:
+2. CocoaPods spec repository:
 
-   ```swift
+   ```ruby
    target 'MyApp' do
      pod 'CrowdinSDK'
    end
@@ -23,22 +27,22 @@
    :::tip
    You can also specify the exact branch of the Crowdin iOS SDK in your `Podfile`:
 
-   ```swift
+   ```ruby
    pod 'CrowdinSDK', :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :branch => 'dev'
    ```
    :::
 
 3. Working with App Extensions:
 
-   Upon `pod install` result, you might experience some building issues in case your application embeds target extensions.
+   After running `pod install`, you might experience some build issues in case your application embeds target extensions.
 
    Example error:
 
    > 'shared' (Swift) / 'sharedApplication' (Objective-C) is unavailable: not available on iOS (App Extension) - Use view controller based solutions where appropriate instead.
 
-   In this scenario you'll need to add a `post_install` script to your `Podfile`:
+   In this scenario, you'll need to add a `post_install` script to your `Podfile`:
 
-    ```swift
+    ```ruby
     post_install do |installer|
 
       extension_api_exclude_pods = ['CrowdinSDK']
@@ -77,7 +81,7 @@ Alternatively, you can add it directly to your Package.swift:
 
 ```swift title="Package.swift"
 dependencies: [
-    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from: "1.10.1")
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from: "1.16.1")
 ]
 ```
 
@@ -85,7 +89,7 @@ dependencies: [
 For better version control, you can specify an exact version or version range:
 
 ```swift
-.package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.10.1"))
+.package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.16.1"))
 ```
 :::
 
@@ -101,11 +105,11 @@ R-Swift applications are also supported by the Crowdin iOS SDK.
 
 ## Dependencies
 
-* [Starscream](https://github.com/daltoniam/Starscream) (~> 4.0.4) - Websockets in swift for iOS and OSX
+* [Starscream](https://github.com/daltoniam/Starscream) (~> 4.0.4) - WebSockets in Swift for iOS and macOS
 * [BaseAPI](https://github.com/serhii-londar/BaseAPI.git) (~> 0.2.2)
 
 ## See also
 
-- [Setup](setup.mdx)
-- [Screenshots](advanced-features/screenshots.mdx)
-- [Real time preview](advanced-features/real-time-preview.mdx)
+- [Setup](setup)
+- [Screenshots](advanced-features/screenshots)
+- [Real-Time Preview](advanced-features/real-time-preview)

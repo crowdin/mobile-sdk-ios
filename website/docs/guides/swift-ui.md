@@ -1,4 +1,8 @@
-# Swift UI Localization guide
+---
+description: Watch a video guide on localizing your SwiftUI app with the Crowdin SDK for over-the-air translation updates.
+---
+
+# SwiftUI Localization Guide
 
 The following video demonstrates how to localize and translate your app for worldwide usage with the help of Crowdin SDK integrated with SwiftUI.
 

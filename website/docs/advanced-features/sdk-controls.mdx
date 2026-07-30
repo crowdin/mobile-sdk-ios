@@ -1,6 +1,10 @@
+---
+description: Use the Crowdin SDK Controls widget for quick access to core SDK features like real-time preview, screenshot capture, and translation reload.
+---
+
 # SDK Controls
 
-Crowdin SDK Controls - UI widget that provides quick access to core SDK functionality. This floating widget can be positioned anywhere on the screen and features both expanded and collapsed states. The widget enables direct interaction with key SDK features like translation preview and screenshot capture.
+Crowdin SDK Controls is a UI widget that provides quick access to core SDK functionality. This floating widget can be positioned anywhere on the screen and features both expanded and collapsed states. The widget enables direct interaction with key SDK features like translation preview and screenshot capture.
 
 | Collapsed (simple icon)                                                 | Expanded                                                                | Expanded (logged-in)                                                              |
 |-------------------------------------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
@@ -9,31 +13,35 @@ Crowdin SDK Controls - UI widget that provides quick access to core SDK function
 The expanded state provides the following action buttons:
 
 - *Log In/Out*: launch authorization flow or clear user authorization data on logout. Authorization is needed for the *Screenshots* and *Real-Time Preview* features.
-- *Real-time preview*: open/close WS connection that is required to work with Crowdin editor. Also, this is using in the "Reload Translations" option.
+- *Real-Time Preview*: open/close the WebSocket connection that is required to work with the Crowdin Editor. It is also used in the *Reload Translations* option.
 - *Capture screenshots*: capture a screenshot of the current screen with all the tagged strings and upload it to Crowdin. You'll be prompted to enter a name for the screenshot.
 - *Reload Translations*:
   - if Real-Time Preview is ON: it will fetch all the **latest translations** from the Crowdin project and apply them to UI.
   - if Real-Time preview is OFF: it will fetch the translations from the **distribution** and apply them to UI.
-- *Logs*: Provides a detailed log of all actions made by SDK (API calls, Content loading, etc). See [Debug and Logging](/guides/debug-and-logging) for more details.
+- *Logs*: provides a detailed log of all actions made by the SDK (API calls, content loading, etc.). See [Debug and Logging](/guides/debug-and-logging) for more details.
 
 :::caution
 The SDK controls feature should not be used in a production environment. It is intended for use in development or staging only.
 :::
 
-### Installation
+## Installation
 
 Add the following code to your `Podfile`:
 
-```swift title="Podfile"
+```ruby title="Podfile"
 use_frameworks!
 target 'your-app' do
   pod 'CrowdinSDK'
-  pod 'CrowdinSDK/LoginFeature' // Required for Screenshots and Real-Time Preview
-  pod 'CrowdinSDK/Screenshots' // Required for Screenshots
-  pod 'CrowdinSDK/RealtimeUpdate' // Required for Real-Time Preview
-  pod 'CrowdinSDK/Settings' // Add SDK Controls widget
+  pod 'CrowdinSDK/LoginFeature' # Required for Screenshots and Real-Time Preview
+  pod 'CrowdinSDK/Screenshots' # Required for Screenshots
+  pod 'CrowdinSDK/RealtimeUpdate' # Required for Real-Time Preview
+  pod 'CrowdinSDK/Settings' # Add SDK Controls widget
 end
 ```
+
+:::info Swift Package Manager
+If you installed the SDK via Swift Package Manager, no additional setup is needed - the SDK Controls functionality is already included in the `CrowdinSDK` package.
+:::
 
 Add the following option to your Crowdin SDK configuration:
 
@@ -45,7 +53,7 @@ Add the following option to your Crowdin SDK configuration:
 Please make sure you have made all the necessary configurations for the features you need.
 :::
 
-## See Also
+## See also
 
-- [Screenshots](advanced-features/screenshots.mdx)
-- [Real-Time Preview](advanced-features/real-time-preview.mdx)
+- [Screenshots](screenshots)
+- [Real-Time Preview](real-time-preview)

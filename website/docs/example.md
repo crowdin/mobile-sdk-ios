@@ -1,6 +1,10 @@
+---
+description: Explore the Crowdin iOS SDK example project - a todo app demonstrating SDK integration, real-time preview, and screenshots features.
+---
+
 # Example Project
 
-Crowdin [iOS SDK Example project](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example) is a simple todo app that illustrates how you can use Crowdin SDK features with a real iOS app. This app's primary purpose is to show the Crowdin SDK integration process in action and test the possibilities it provides.
+The Crowdin [iOS SDK Example project](https://github.com/crowdin/mobile-sdk-ios/tree/master/Example) is a simple todo app that illustrates how you can use Crowdin SDK features with a real iOS app. This app's primary purpose is to show the Crowdin SDK integration process in action and test the possibilities it provides.
 
 ## App Overview
 
@@ -8,12 +12,12 @@ In the Crowdin iOS SDK Example app, you can create reminders, add them to groups
 
 ## Configuration
 
-You can find all the needed configuration code in [`SceneDelegate.swift`](https://github.com/crowdin/mobile-sdk-ios/blob/master/Example/AppleReminders/SceneDelegate.swift) file. Fill in the following fields using your credentials and run the app.
+You can find all the needed configuration code in the [`SceneDelegate.swift`](https://github.com/crowdin/mobile-sdk-ios/blob/master/Example/AppleReminders/SceneDelegate.swift) file. Fill in the following fields using your credentials and run the app.
 
 ```swift
 private let distributionHash = "your_distribution_hash" // Crowdin OTA Content Delivery distribution hash
 private let sourceLanguage = "source_language" // Crowdin project source language (e.g. "en")
-    
+
 // Authentication - use either OAuth credentials or access token
 // OAuth authentication:
 private let clientId = "your_client_id" // Crowdin OAuth Client ID (needed for Screenshots and Real-Time Preview features)
@@ -23,6 +27,6 @@ private let clientSecret = "your_client_secret" // Crowdin OAuth Client Secret (
 private let accessToken = "your_access_token" // Crowdin access token (can be used instead of OAuth for Screenshots and Real-Time Preview features)
 ```
 
-To run the example project, clone the repo, and run `pod install` from the Example directory, then open `AppleReminders.xcworkspace`.
+To run the example project, clone the repo, run `pod install` from the Example directory, and then open `AppleReminders.xcworkspace`.
 
-To read more about Crowdin iOS SDK configuration read [Setup](/setup).
+To read more about the Crowdin iOS SDK configuration, visit the [Setup](/setup) page.

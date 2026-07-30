@@ -1,6 +1,10 @@
+---
+description: Configure the Crowdin iOS SDK in your app - enable Over-The-Air Content Delivery and explore config options and additional features.
+---
+
 # Setup
 
-To configure iOS SDK integration you need to:
+To configure iOS SDK integration, you need to:
 
 - Upload your localization files to Crowdin. If you have existing translations, you can upload them as well. You can use one of the following options:
     - [Crowdin CLI](https://crowdin.github.io/crowdin-cli/)
@@ -10,14 +14,14 @@ To configure iOS SDK integration you need to:
 - Set up Distribution in Crowdin.
 - Set up SDK and enable Over-The-Air Content Delivery feature.
 
-**Distribution** is a CDN vault that mirrors the translated content of your project and is required for integration with iOS app.
+**Distribution** is a CDN vault that mirrors the translated content of your project and is required for integration with the iOS app.
 
-- [Creating a distribution in crowdin.com](https://support.crowdin.com/content-delivery/)
-- [Creating a distribution in Crowdin Enterprise](https://support.crowdin.com/enterprise/content-delivery/)
+- [Creating a distribution in crowdin.com](https://support.crowdin.com/cdn-distributions/)
+- [Creating a distribution in Crowdin Enterprise](https://support.crowdin.com/enterprise/cdn-distributions/)
 
 :::info
 - The download of translations happens **asynchronously** after the start of the application. The downloaded translations will be used the next time the app is launched, otherwise the previously cached translations will be used (or local translations if no cache exists).
-- The CDN feature does not update the localization files, if you want to add new translations to the localization files, you need to do it yourself.
+- The CDN feature does not update the localization files. If you want to add new translations to the localization files, you need to do it yourself.
 - Once the SDK receives the translations, they're stored on the device as application files for future sessions to minimize requests the next time the app is launched. The storage time can be configured using the `intervalUpdatesEnabled` option.
 - CDN will cache all translations in the release for up to 1 hour and even if new translations are released in Crowdin, CDN may return them with a delay.
 :::
@@ -91,7 +95,7 @@ Configure basic SDK settings in your project's `Info.plist` file:
 
 1. Add these keys to *Info.plist*:
    - `CrowdinDistributionHash` (String) - Your Crowdin CDN hash
-   - `CrowdinSourceLanguage` (String) - Source language code in [ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php) format
+   - `CrowdinSourceLanguage` (String) - Source language code in [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/English_list.php) format
 
 2. In your `AppDelegate` call the following method:
    - Swift: `CrowdinSDK.start()`
@@ -108,7 +112,7 @@ The SDK configuration is done using the `CrowdinSDKConfig` class. The following 
 | Option             | Description                                                                                                                 | Example Value          |
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------|------------------------|
 | `hashString`       | Distribution Hash                                                                                                           | `"7a0c1...o3b"`        |
-| `sourceLanguage`   | Source language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php))                              | `sourceLanguage: "en"` |
+| `sourceLanguage`   | Source language code ([ISO 639-1](https://www.loc.gov/standards/iso639-2/php/English_list.php))                              | `sourceLanguage: "en"` |
 | `organizationName` | Organization domain (Enterprise only)                                                                                       | `"mycompany"`          |
 | `settingsEnabled`  | Enable [SDK Controls](/advanced-features/sdk-controls)                                                                      | `true`                 |
 | `accessToken`      | Crowdin API Access Token. An alternative to the OAuth-based authorization in the Screenshots and Real-Time Preview features | `"your_token"`         |
@@ -134,11 +138,11 @@ Read more about creating an [OAuth application](https://support.crowdin.com/acco
 
 ### Translations Update Interval
 
-By default, SDK searches for new translation once per application load, but not more often than 15 minutes. You can update translations in application every defined interval. To enable this feature add pod `CrowdinSDK/IntervalUpdate` to your pod file:
+By default, the SDK searches for new translations once per application load, but not more often than 15 minutes. You can update translations in the application every defined interval. To enable this feature, add the `CrowdinSDK/IntervalUpdate` pod to your `Podfile`:
 
 1.  Add to `Podfile`:
 
-    ```swift
+    ```ruby
     pod 'CrowdinSDK/IntervalUpdate'
     ```
 
@@ -148,18 +152,16 @@ By default, SDK searches for new translation once per application load, but not 
     .with(intervalUpdatesEnabled: true, interval: {interval})
     ```
 
-    Where `interval` - defines translations update time interval in seconds. Minimum allowed interval is 15 minutes (900 seconds).
+    Where `interval` defines the translations update time interval in seconds. The minimum allowed interval is 15 minutes (900 seconds).
 
 ### Change locale programmatically
 
-By default, the SDK relies on the device locale. To change the SDK target language on the fly regardless of the device locale.
-
-You can use the `CrowdinSDK.currentLocalization` property to get or set the current localization language code ([ISO 639-1](http://www.loc.gov/standards/iso639-2/php/English_list.php)) used by the Crowdin SDK. When you set this property, the SDK triggers a localization download if needed:
+By default, the SDK relies on the device locale. To change the SDK target language on the fly regardless of the device locale, use the `CrowdinSDK.currentLocalization` property to get or set the current localization language code ([ISO 639-1](https://www.loc.gov/standards/iso639-2/php/English_list.php)) used by the Crowdin SDK. When you set this property, the SDK triggers a localization download if needed:
 
 ```swift
 import CrowdinSDK
 
-// Set the current localization to German
+// Set the current localization
 CrowdinSDK.currentLocalization = "<language_code>"
 
 // ...
@@ -172,7 +174,7 @@ if let currentLocale = CrowdinSDK.currentLocalization {
 }
 ```
 
-This is the recommended way to change the language programmatically. The SDK will download the new localization if it's not already available. If set to `nil` - the localization will be detected automatically based on the languages available in Crowdin and the system's preferred languages.
+This is the recommended way to change the language programmatically. The SDK will download the new localization if it's not already available. If set to `nil`, the localization will be detected automatically based on the languages available in Crowdin and the system's preferred languages.
 
 If you need to update UI only after the localization refresh finishes, use the completion-based API:
 
@@ -186,7 +188,6 @@ CrowdinSDK.setCurrentLocalization("<language_code>") { error in
     // Reload your UI here.
 }
 ```
-
 
 :::caution
 The UI doesn't update automatically. You must manually update the UI after changing the localization.
@@ -220,7 +221,7 @@ or the convenience extension:
 Text("key".cw_localized)
 ```
 
-View the [Swift UI Localization guide](/guides/swift-ui) for more information.
+View the [SwiftUI Localization Guide](/guides/swift-ui) for more information.
 
 ## Supported Localization File Formats
 

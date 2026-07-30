@@ -5,7 +5,7 @@ import { PluginOptions } from "@easyops-cn/docusaurus-search-local";
 
 const config: Config = {
   title: 'Crowdin iOS SDK',
-  tagline: 'Crowdin iOS SDK delivers all new translations from Crowdin project to the application immediately',
+  tagline: 'Crowdin iOS SDK delivers all new translations from your Crowdin project to the application immediately',
   favicon: 'img/favicon.ico',
 
   url: 'https://crowdin.github.io/',
@@ -14,7 +14,12 @@ const config: Config = {
   projectName: 'mobile-sdk-ios',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   i18n: {
     defaultLocale: 'en',
@@ -95,7 +100,7 @@ const config: Config = {
       prism: {
         theme: themes.github,
         darkTheme: themes.dracula,
-        additionalLanguages: ['bash', 'swift', 'objectivec']
+        additionalLanguages: ['bash', 'swift', 'objectivec', 'ruby']
       },
     } satisfies Preset.ThemeConfig),
 };
