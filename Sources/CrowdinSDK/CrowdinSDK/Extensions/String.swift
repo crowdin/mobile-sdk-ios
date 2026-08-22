@@ -25,7 +25,8 @@ extension String {
     /// - Parameter arguments: Formatted string arguments.
     /// - Returns: Localized formatted string.
     public func cw_localized(with arguments: [CVarArg]) -> String {
-        return String(format: NSLocalizedString(self, comment: .empty), locale: String.crowdinLocale, arguments: arguments)
+        let translation = NSLocalizedString(self, comment: .empty)
+        return String.cw_safeFormat(translation, arguments: arguments, fallbackKey: self)
     }
 
     /// Extension method for simplifying strings localization with argumets.
@@ -37,7 +38,8 @@ extension String {
     /// - Parameter args: Formatted string arguments.
     /// - Returns: Localized formatted string.
     public func cw_localized(with args: CVarArg...) -> String {
-        return String(format: NSLocalizedString(self, comment: .empty), locale: String.crowdinLocale, arguments: args)
+        let translation = NSLocalizedString(self, comment: .empty)
+        return String.cw_safeFormat(translation, arguments: args, fallbackKey: self)
     }
 
     /// Returns a `Locale` matching the SDK's active localization so that
@@ -50,6 +52,79 @@ extension String {
 
         let lang = Localization.currentLocalization ?? localization.provider.localization
         return Locale(identifier: lang)
+    }
+}
+
+// MARK: - Format string safety.
+extension String {
+    /// Formats `value` with `arguments` via `String(format:)`, but only trusts
+    /// `value` itself as the format string when it is safe for `arguments`.
+    ///
+    /// `value` is typically a translation downloaded over the air, which a
+    /// translator can edit - the lowest privileged contributor role. Nothing
+    /// guarantees it carries the same format specifiers the app was built against,
+    /// and `String(format:)` does not check that either: extra specifiers read past
+    /// the end of `arguments`, and a specifier from the wrong category misreads the
+    /// argument that's there (CWE-134). When `value` isn't safe, this falls back to
+    /// the app's own bundled localization for `fallbackKey`, which is authored by
+    /// the developer and therefore always matches `arguments`.
+    ///
+    /// - Parameters:
+    ///   - value: The candidate format string, e.g. a downloaded translation.
+    ///   - arguments: The arguments the app supplied for formatting.
+    ///   - fallbackKey: The localization key to fall back to when `value` isn't safe.
+    /// - Returns: The formatted string.
+    static func cw_safeFormat(_ value: String, arguments: [CVarArg], fallbackKey: String) -> String {
+        let safeValue = value.isSafeFormatString(arguments: arguments) ? value : Bundle.bundledLocalizedString(forKey: fallbackKey)
+        return String(format: safeValue, locale: String.crowdinLocale, arguments: arguments)
+    }
+
+    /// Whether `self` is safe to pass to `String(format:)` together with `arguments`.
+    ///
+    /// - Parameter arguments: The arguments that would be supplied for formatting.
+    /// - Returns: `true` if every format specifier in `self` is covered by
+    ///   `arguments` and matches its broad category (object vs. numeric).
+    func isSafeFormatString(arguments: [CVarArg]) -> Bool {
+        let parts = FormatPart.formatParts(formatString: self)
+        guard parts.count <= arguments.count else { return false }
+        for (index, part) in parts.enumerated() {
+            guard let specifier = part.formatSpecifier else { continue }
+            guard specifier.isCompatible(with: arguments[index]) else { return false }
+        }
+        return true
+    }
+}
+
+private extension FormatSpecifier {
+    /// Whether a value of `argument`'s runtime type is safe to read for this
+    /// specifier. `String(format:)` reads a fixed-size word for whichever specifier
+    /// the format string names, regardless of what was actually passed at that
+    /// position, so a specifier from the wrong category re-interprets that word:
+    /// `%@` on a plain number dereferences a bogus pointer (crash), and a numeric
+    /// specifier on a `String` prints its bridged pointer as a number (an
+    /// ASLR-relevant leak). This only rejects those two unambiguous cases and
+    /// otherwise defers to the value - a narrow, defense in depth check alongside
+    /// the argument-count check above, not a full type checker.
+    func isCompatible(with argument: CVarArg) -> Bool {
+        switch self {
+        case .object:
+            return !Self.isDefinitelyScalar(argument)
+        case .double, .int, .uInt, .character:
+            return !(argument is String)
+        case .cStringPointer, .voidPointer, .topType:
+            return true
+        }
+    }
+
+    static func isDefinitelyScalar(_ argument: CVarArg) -> Bool {
+        switch argument {
+        case is Int, is Int8, is Int16, is Int32, is Int64,
+             is UInt, is UInt8, is UInt16, is UInt32, is UInt64,
+             is Double, is Float:
+            return true
+        default:
+            return false
+        }
     }
 }
 

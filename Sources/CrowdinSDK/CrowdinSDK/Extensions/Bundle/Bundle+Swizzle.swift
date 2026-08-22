@@ -60,4 +60,27 @@ extension Bundle {
         swizzled = nil
         original = nil
     }
+
+    /// Returns the app's own bundled localization for `key`, bypassing the Crowdin
+    /// OTA lookup.
+    ///
+    /// Used as a safe fallback when a downloaded translation can't be trusted as a
+    /// `String(format:)` format string: the bundled value is authored by the
+    /// developer, so it always matches the arguments the app supplies for `key`.
+    ///
+    /// - Parameters:
+    ///   - key: The key for a string in the table identified by tableName.
+    ///   - value: The value to return if key is nil or if a localized string for key can't be found in the table.
+    ///   - tableName: The receiver's string table to search. If tableName is nil or is an empty string, the method attempts to use the table in Localizable.strings.
+    /// - Returns: The bundled localization value for key, ignoring any OTA translation.
+    static func bundledLocalizedString(forKey key: String, value: String? = nil, table tableName: String? = nil) -> String {
+        guard isSwizzled else {
+            return Bundle.main.localizedString(forKey: key, value: value, table: tableName)
+        }
+        Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = true
+        defer {
+            Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = nil
+        }
+        return Bundle.main.localizedString(forKey: key, value: value, table: tableName)
+    }
 }

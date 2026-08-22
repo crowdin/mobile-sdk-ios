@@ -71,9 +71,9 @@ class StringsTests: XCTestCase {
     func testFindValuesForUInt() {
         let formatedString = "Int value = %llu"
         let string = "Int value = 23"
-        
+
         let result = String.findValues(for: string, with: formatedString)
-        
+
         XCTAssertNotNil(result, "Expect non nil result")
         if let result = result {
             XCTAssert(result.count == 1, "Expect 1 result")
@@ -81,5 +81,58 @@ class StringsTests: XCTestCase {
             // swiftlint:disable force_cast
             XCTAssert(result[0] as! UInt == 23, "Expect 23")
         }
+    }
+
+    // MARK: - isSafeFormatString (CWE-134: externally controlled format string).
+
+    func testIsSafeFormatStringRejectsMoreSpecifiersThanArguments() {
+        // Mirrors the reported PoC: a downloaded translation with more specifiers
+        // than the app supplied arguments would read past the argument list.
+        let translation = "Hallo %@ %x %x %x %x %x %x"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringRejectsRepeatedObjectSpecifiersBeyondArguments() {
+        let translation = "Hallo %@ %@ %@ %@ %@"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringAcceptsMatchingCountAndTypes() {
+        let translation = "Hello %@, you have %d messages"
+        XCTAssert(translation.isSafeFormatString(arguments: ["Alice", 5]))
+    }
+
+    func testIsSafeFormatStringAcceptsFewerSpecifiersThanArguments() {
+        let translation = "Hello %@"
+        XCTAssert(translation.isSafeFormatString(arguments: ["Alice", 5]), "Unused trailing arguments are not a safety issue")
+    }
+
+    func testIsSafeFormatStringRejectsObjectSpecifierForScalarArgument() {
+        // "%@" on a plain Int would dereference the Int's bit pattern as a pointer.
+        let translation = "Score: %@"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: [5]))
+    }
+
+    func testIsSafeFormatStringRejectsNumericSpecifierForStringArgument() {
+        // "%x" on a String would print its bridged pointer as a number.
+        let translation = "Score: %x"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testCwSafeFormatFallsBackWhenTranslationIsUnsafe() {
+        let maliciousTranslation = "Hallo %@ %@ %@ %@ %@"
+        let result = String.cw_safeFormat(maliciousTranslation, arguments: ["Alice"], fallbackKey: "unsafe_format_fallback_key")
+
+        // No bundled resource exists for this key in the test target, so
+        // Bundle.bundledLocalizedString returns the key itself - proving the
+        // unsafe translation was not handed to String(format:).
+        XCTAssertEqual(result, "unsafe_format_fallback_key")
+    }
+
+    func testCwSafeFormatUsesTranslationWhenSafe() {
+        let translation = "Hello %@"
+        let result = String.cw_safeFormat(translation, arguments: ["Alice"], fallbackKey: "unused_fallback_key")
+
+        XCTAssertEqual(result, "Hello Alice")
     }
 }
