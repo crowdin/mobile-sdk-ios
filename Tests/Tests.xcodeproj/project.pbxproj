@@ -32,6 +32,7 @@
 		E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */; };
 		E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */; };
 		E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */; };
+		E8B03C502DB8FBC7006DD844 /* CrowdinSocketManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C4F2DB8FBC7006DD844 /* CrowdinSocketManagerTests.swift */; };
 		E8B57CB02F1EF363009C98D6 /* IntegrationTestGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */; };
 		E8B57CB12F1EF400009C98D6 /* RealLocalizationProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B57CB02F1EF400009C98D6 /* RealLocalizationProviderIntegrationTests.swift */; };
 		E8B57CB22F1EF400009C98D6 /* ManifestManagerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B57CB12F1EF401009C98D6 /* ManifestManagerIntegrationTests.swift */; };
@@ -85,6 +86,7 @@
 		E8B03C362DB8FBC7006DD844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistInitializationTests.swift; sourceTree = "<group>"; };
 		E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationCompletionHandlerTests.swift; sourceTree = "<group>"; };
+		E8B03C4F2DB8FBC7006DD844 /* CrowdinSocketManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSocketManagerTests.swift; sourceTree = "<group>"; };
 		E8B57CAF2F1EF363009C98D6 /* IntegrationTestGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/Core/IntegrationTestGate.swift; sourceTree = "<group>"; };
 		E8B57CB02F1EF400009C98D6 /* RealLocalizationProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/Core/RealLocalizationProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		E8B57CB12F1EF401009C98D6 /* ManifestManagerIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../../Sources/Tests/CrowdinProvider/ManifestManagerIntegrationTests.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				E8B03C362DB8FBC7006DD844 /* Info.plist */,
 				E8B03C372DB8FBC7006DD844 /* InfoPlistInitializationTests.swift */,
 				E8B03C382DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift */,
+				E8B03C4F2DB8FBC7006DD844 /* CrowdinSocketManagerTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */,
 				E8B03C472DB8FBC7006DD844 /* InfoPlistInitializationTests.swift in Sources */,
 				E8B03C482DB8FBC7006DD844 /* InitializationCompletionHandlerTests.swift in Sources */,
+				E8B03C502DB8FBC7006DD844 /* CrowdinSocketManagerTests.swift in Sources */,
 				E8B57CB02F1EF363009C98D6 /* IntegrationTestGate.swift in Sources */,
 				E8B57CB12F1EF400009C98D6 /* RealLocalizationProviderIntegrationTests.swift in Sources */,
 				E8B57CB22F1EF400009C98D6 /* ManifestManagerIntegrationTests.swift in Sources */,
