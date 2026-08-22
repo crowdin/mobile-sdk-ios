@@ -113,6 +113,18 @@ class StringsTests: XCTestCase {
         XCTAssertFalse(translation.isSafeFormatString(arguments: [5]))
     }
 
+    func testIsSafeFormatStringRejectsObjectSpecifierForBoolArgument() {
+        // "%@" on a Bool would dereference 0x1 as an object pointer and crash.
+        let translation = "Enabled: %@"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: [true]))
+    }
+
+    func testIsSafeFormatStringRejectsObjectSpecifierForCGFloatArgument() {
+        let translation = "Progress: %@"
+        let value: CGFloat = 0.5
+        XCTAssertFalse(translation.isSafeFormatString(arguments: [value]))
+    }
+
     func testIsSafeFormatStringRejectsNumericSpecifierForStringArgument() {
         // "%x" on a String would print its bridged pointer as a number.
         let translation = "Score: %x"

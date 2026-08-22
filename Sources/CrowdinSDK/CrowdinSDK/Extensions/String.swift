@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(CoreGraphics)
+import CoreGraphics
+#endif
 
 // MARK: - String localization extension.
 extension String {
@@ -117,10 +120,14 @@ private extension FormatSpecifier {
     }
 
     static func isDefinitelyScalar(_ argument: CVarArg) -> Bool {
+        #if canImport(CoreGraphics)
+        if argument is CGFloat { return true }
+        #endif
         switch argument {
         case is Int, is Int8, is Int16, is Int32, is Int64,
              is UInt, is UInt8, is UInt16, is UInt32, is UInt64,
-             is Double, is Float:
+             is Double, is Float,
+             is Bool:
             return true
         default:
             return false

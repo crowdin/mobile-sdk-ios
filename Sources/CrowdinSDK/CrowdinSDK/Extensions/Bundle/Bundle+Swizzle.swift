@@ -77,9 +77,10 @@ extension Bundle {
         guard isSwizzled else {
             return Bundle.main.localizedString(forKey: key, value: value, table: tableName)
         }
+        let previousValue = Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey]
         Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = true
         defer {
-            Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = nil
+            Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = previousValue
         }
         return Bundle.main.localizedString(forKey: key, value: value, table: tableName)
     }
