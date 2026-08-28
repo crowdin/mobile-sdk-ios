@@ -32,6 +32,8 @@ jobs:
       - name: Install SwiftLint and Danger Swift
         run: |
           brew install swiftlint
+          brew tap danger/tap
+          brew trust danger/tap
           brew install danger/tap/danger-swift
 
       - name: Run Danger SwiftLint
