@@ -21,7 +21,14 @@ extension CrowdinSDK {
     public class func showSettings() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if let settingsView = SettingsView.shared {
-                settingsView.settingsWindow.makeKeyAndVisible()
+                if #available(iOS 13.0, tvOS 13.0, *) {
+                    if settingsView.settingsWindow.windowScene == nil {
+                        settingsView.settingsWindow.windowScene = UIApplication.shared.connectedScenes
+                            .compactMap({ $0 as? UIWindowScene })
+                            .first(where: { $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive }) ?? UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
+                    }
+                }
+                settingsView.settingsWindow.isHidden = false
                 settingsView.center = CGPoint(x: 100, y: 100)
                 settingsView.settingsWindow.settingsView = settingsView
             }

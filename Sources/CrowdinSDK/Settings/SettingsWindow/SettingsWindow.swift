@@ -24,7 +24,9 @@ class SettingsWindow: UIWindow {
 
     init() {
         if #available(iOS 13.0, tvOS 13.0, *) {
-            if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
+            if let windowScene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive }) ?? UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first {
                 super.init(windowScene: windowScene)
             } else {
                 super.init(frame: UIScreen.main.bounds)
@@ -33,6 +35,18 @@ class SettingsWindow: UIWindow {
             super.init(frame: UIScreen.main.bounds)
         }
         backgroundColor = .clear
+        windowLevel = UIWindow.Level.statusBar + 1
+
+        if #available(iOS 13.0, tvOS 13.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(sceneDidActivate(_:)), name: UIScene.didActivateNotification, object: nil)
+        }
+    }
+
+    @available(iOS 13.0, tvOS 13.0, *)
+    @objc private func sceneDidActivate(_ notification: Notification) {
+        if self.windowScene == nil, let scene = notification.object as? UIWindowScene {
+            self.windowScene = scene
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +57,10 @@ class SettingsWindow: UIWindow {
         guard let settingsView = settingsView else { return false }
         let buttonPoint = convert(point, to: settingsView)
         return settingsView.point(inside: buttonPoint, with: event)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

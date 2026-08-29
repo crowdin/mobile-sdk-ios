@@ -40,7 +40,9 @@ public extension UIViewController {
         self.alertWindow?.rootViewController = viewController
 
         if let topWindow = topWindow {
-            self.alertWindow?.windowLevel = topWindow.windowLevel + 1
+            self.alertWindow?.windowLevel = max(topWindow.windowLevel, UIWindow.Level.alert) + 1
+        } else {
+            self.alertWindow?.windowLevel = UIWindow.Level.alert + 1
         }
 
         self.alertWindow?.makeKeyAndVisible()

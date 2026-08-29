@@ -32,12 +32,14 @@ final class SettingsView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        settingsWindow.settingsView = self
         setupUI()
         layoutIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        settingsWindow.settingsView = self
         setupUI()
     }
 
@@ -114,7 +116,10 @@ final class SettingsView: UIView {
 
     func reloadData() {
         setupCells()
-        stackView.arrangedSubviews.forEach({ stackView.removeArrangedSubview($0) })
+        stackView.arrangedSubviews.forEach {
+            stackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
         cells.forEach({ stackView.addArrangedSubview($0) })
     }
 
