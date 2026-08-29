@@ -1,3 +1,7 @@
+---
+description: Capture and upload tagged screenshots from your iOS app to Crowdin to give translators visual context. Learn about setup, authorization, and config options.
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
@@ -19,19 +23,23 @@ You can capture and upload tagged screenshots to Crowdin in two ways:
 
 ## Setup
 
-### Swift
+### CocoaPods
 
 To enable the Screenshots feature in your application, add the following configuration to your `Podfile`:
 
-```swift title="Podfile"
+```ruby title="Podfile"
 use_frameworks!
 target 'your-app' do
     pod 'CrowdinSDK'
-    pod 'CrowdinSDK/LoginFeature' // Required for Screenshots
-    pod 'CrowdinSDK/Screenshots' // Required for Screenshots
-    pod 'CrowdinSDK/Settings' // Optional. To add 'settings' button
+    pod 'CrowdinSDK/LoginFeature' # Required for Screenshots
+    pod 'CrowdinSDK/Screenshots' # Required for Screenshots
+    pod 'CrowdinSDK/Settings' # Optional. To add the SDK Controls floating button
 end
 ```
+
+:::info Swift Package Manager
+If you installed the SDK via Swift Package Manager, no additional setup is needed - the Screenshots functionality is already included in the `CrowdinSDK` package.
+:::
 
 ## Authorization
 
@@ -70,7 +78,7 @@ import authCallbackObjectiveC from '!!raw-loader!../code-samples/auth-callback.m
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{authCallbackObjectiveC}</CodeBlock></TabItem>
 </Tabs>
 
-If you are using **SceneDelegate**, you need to handle callback in the **SceneDelegate** class implement method:
+If you are using **SceneDelegate**, implement the callback in the **SceneDelegate** class:
 
 import sceneDelegateCallbackSwift from '!!raw-loader!../code-samples/scene-delegate-callback.swift';
 import sceneDelegateCallbackObjectiveC from '!!raw-loader!../code-samples/scene-delegate-callback.m';
@@ -88,11 +96,11 @@ A streamlined approach using the `accessToken` option that bypasses OAuth authen
 - Requires no user interaction
 - Is perfect for CI/CD pipelines and automated workflows
 
-import screenshotsAApiSetupSwift from '!!raw-loader!../code-samples/screenshots-api-setup.swift';
+import screenshotsApiSetupSwift from '!!raw-loader!../code-samples/screenshots-api-setup.swift';
 import screenshotsApiSetupC from '!!raw-loader!../code-samples/screenshots-api-setup.m';
 
 <Tabs groupId="language">
-  <TabItem value="swift" label="Swift"><CodeBlock language="swift" title="AppDelegate.swift">{screenshotsAApiSetupSwift}</CodeBlock></TabItem>
+  <TabItem value="swift" label="Swift"><CodeBlock language="swift" title="AppDelegate.swift">{screenshotsApiSetupSwift}</CodeBlock></TabItem>
   <TabItem value="obj-c" label="Objective-C"><CodeBlock language="objectivec">{screenshotsApiSetupC}</CodeBlock></TabItem>
 </Tabs>
 
@@ -113,7 +121,6 @@ You can use one of two methods to take screenshots programmatically:
 2.  Capture and update existing screenshot:
 
     ```swift
-
     CrowdinSDK.captureAndUpdateScreenshot(name: "{screenshot_name}") { result in
         switch result {
             case .new: print("New screenshot captured")
@@ -126,7 +133,7 @@ You can use one of two methods to take screenshots programmatically:
 
 The `captureAndUpdateScreenshot` method is useful when you want to update an existing screenshot in your Crowdin project. This can help maintain screenshot organization by updating existing screenshots rather than creating new ones each time.
 
-You can also capture screenshots of specific UIView instances with either method.
+You can also capture screenshots of specific `UIView` instances with either method.
 
 ## Config Options Reference
 

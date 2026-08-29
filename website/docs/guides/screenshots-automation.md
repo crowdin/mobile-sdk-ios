@@ -1,3 +1,7 @@
+---
+description: Automate taking and uploading screenshots to Crowdin using the Crowdin SDK and XCUITest to provide visual context for translators.
+---
+
 # Screenshots Automation
 
 This guide shows how to automate the process of taking screenshots and uploading them to Crowdin to provide context for translators or AI. It covers the necessary setup, how to use the Crowdin SDK, and a sample automation test.
@@ -23,7 +27,7 @@ Add the following to your `Podfile`:
 
 ```ruby
 target 'YourAppUITests' do
-  pod 'CrowdinSDK/CrowdinTestScreenshots'
+  pod 'CrowdinSDK/CrowdinXCTestScreenshots'
 end
 ```
 
@@ -43,20 +47,20 @@ import CrowdinSDK
 
 1. In Xcode, go to File > Add Packages
 2. Add package with URL: `https://github.com/crowdin/mobile-sdk-ios`
-3. Select "CrowdinTestScreenshots" product when adding the package
+3. Select "CrowdinXCTestScreenshots" product when adding the package
 4. Add the package to your UI Tests target
 
 Or add it to your Package.swift:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "VERSION"))
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.16.1"))
 ],
 targets: [
     .target(
         name: "YourUITests",
         dependencies: [
-            .product(name: "CrowdinTestScreenshots", package: "CrowdinSDK")
+            .product(name: "CrowdinXCTestScreenshots", package: "CrowdinSDK")
         ]
     )
 ]
@@ -66,7 +70,7 @@ Then add imports in your tests source files:
 
 ```swift
 import CrowdinSDK
-import CrowdinTestScreenshots
+import CrowdinXCTestScreenshots
 ```
 
 ### Key Configuration Options
@@ -74,8 +78,8 @@ import CrowdinTestScreenshots
 To enable screenshots automation feature, you need to configure several components.
 
 :::note Notes
-- To enable screenshots tag you need to setup SDK in UI tests and in the app with the same localization. Localization should be in target language on crowdin.
-- Before you can test your application with UI Test, you need to set it up with the localization you want to test.
+- To enable screenshot tagging, you need to set up the SDK in the UI tests and in the app with the same localization. The localization should be present in the target languages of your Crowdin project.
+- Before you can test your application with UI tests, you need to set it up with the localization you want to test.
 :::
 
 #### Main App Configuration
@@ -99,7 +103,7 @@ CrowdinSDK.startWithConfig(crowdinSDKConfig)
 
 #### UI Tests Configuration
 
-For UI testing it's recommended to use the access token authorization:
+For UI testing, it's recommended to use the access token authorization:
 
 ```swift
 let crowdinProviderConfig = CrowdinProviderConfig(hashString: "{distribution_hash}",
@@ -115,7 +119,7 @@ CrowdinSDK.startWithConfigSync(crowdinSDKConfig)
 
 #### App UI Testing Mode Setup
 
-Add the `CROWDIN_UI_TESTING` launch argument to your tests so that you can set up your app for UI testing.  For example, if you use the SDK Controls button in debug - you can disable it and it won't be visible on your screenshots.
+Add the `CROWDIN_UI_TESTING` launch argument to your tests so that you can set up your app for UI testing. For example, if you use the SDK Controls button in debug, you can disable it so it won't be visible on your screenshots.
 
 To add the launch argument you need to do the following in your tests:
 
@@ -125,7 +129,7 @@ app.launchArguments = ["CROWDIN_UI_TESTING"]
 app.launch()
 ```
 
-As you can see, the application has been launched through tests:
+Then detect whether the application has been launched through tests:
 
 Using AppDelegate:
 
@@ -189,8 +193,8 @@ Parameters:
 
 The method returns a tuple containing:
 
-- `success` (ScreenshotUploadResult?): Uploading result: new or updated
-- `error` (Error?): Second element containing error if operation failed
+- `result` (ScreenshotUploadResult?): Upload result: new or updated
+- `error` (Error?): Error if the operation failed
 
 ## Example Automation Test
 
@@ -242,7 +246,7 @@ final class ScreenshotsUITests: XCTestCase {
 }
 ```
 
-### Example
+### Key Implementation Points
 
 Key implementation points from the example:
 
@@ -255,7 +259,7 @@ Key implementation points from the example:
       private static let accessToken = "{access_token}"
       
       override class func setUp() {
-          // Requires to start SDK before running testScreenshots as it needs to get all supported localizations from Crowdin.
+          // The SDK must be started before running testScreenshots as it needs to get all supported localizations from Crowdin.
           startSDK(localization: sourceLanguage)
       }
   
@@ -293,7 +297,7 @@ Key implementation points from the example:
   ```
   
   :::note
-  For a more comprehensive example of screenshot automation with multiple localizations, you can refer to our [example UI tests](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleRemindersUITests/AppleRemindersUITestsCrowdinScreenhsotTests.swift) and corresponding [app configuration](https://github.com/crowdin/mobile-sdk-ios/blob/xctests-support/Example/AppleReminders/SceneDelegate.swift).
+  For a more comprehensive example of screenshot automation with multiple localizations, you can refer to our [example UI tests](https://github.com/crowdin/mobile-sdk-ios/blob/master/Example/AppleRemindersUITests/AppleRemindersUITestsCrowdinScreenhsotTests.swift) and corresponding [app configuration](https://github.com/crowdin/mobile-sdk-ios/blob/master/Example/AppleReminders/SceneDelegate.swift).
   :::
 
 - **App Configuration for Test Mode**:
@@ -323,10 +327,10 @@ Key implementation points from the example:
 Best Practices for Screenshot Automation:
 
 1. Use descriptive screenshot names that reflect the screen or feature being captured
-2. Always use UI testing mode launch argument to ensure consistent test environment
-3. Set up appropriate test data in your app when CROWDIN_UI_TESTING argument is detected
-4. Verify screenshot capture results using XCTAssertNil(result.error)
-5. Clean up resources in tearDown method
+2. Always use the UI testing mode launch argument to ensure a consistent test environment
+3. Set up appropriate test data in your app when the `CROWDIN_UI_TESTING` argument is detected
+4. Verify screenshot capture results using `XCTAssertNil(result.error)`
+5. Clean up resources in the `tearDown` method
 6. When testing multiple localizations, ensure proper communication of locale between tests and app
 7. Use localization-specific screenshot names for better organization
 
