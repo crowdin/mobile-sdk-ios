@@ -90,7 +90,7 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
         guard let event = draft.event else { return }
         let data = event.split(separator: ":").map({ String($0) })
         guard data.count == 6 else { return }
-        guard let id = Int(data[5]) else { return }
+        guard let id = Self.parseId(from: data[5]) else { return }
         guard let newText = draft.data?.text else { return }
         guard let pluralForm = draft.data?.pluralForm else { return }
         if pluralForm == "none" {
@@ -104,12 +104,22 @@ class CrowdinSocketManager: NSObject, CrowdinSocketManagerProtocol {
         guard let event = topSuggestion.event else { return }
         let data = event.split(separator: ":").map({ String($0) })
         guard data.count == 5 else { return }
-        guard let id = Int(data[4]) else { return }
+        guard let id = Self.parseId(from: data[4]) else { return }
         guard let newText = topSuggestion.data?.text else { return }
 
         // TODO: Fix in future:
         // We're unable to detect what exact was changed string or plural. Send two callbacks.
         self.didChangeString?(id, newText)
         self.didChangePlural?(id, newText)
+    }
+
+    static func parseId(from string: String) -> Int? {
+        if let id = Int(string) {
+            return id
+        }
+        if string.hasPrefix("tr{") && string.hasSuffix("}") {
+            return Int(string.dropFirst(3).dropLast(1))
+        }
+        return nil
     }
 }
