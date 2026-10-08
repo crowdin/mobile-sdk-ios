@@ -20,24 +20,20 @@ env:
 jobs:
   danger-swiftlint:
     name: Danger SwiftLint
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     continue-on-error: true
     if: github.event_name == 'pull_request'
-    env:
-      DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install SwiftLint and Danger Swift
-        run: |
-          brew install swiftlint
-          brew tap danger/tap
-          brew trust danger/tap
-          brew install danger/tap/danger-swift
-
-      - name: Run Danger SwiftLint
-        run: danger-swift ci
+      # Prebuilt image with danger-swift, libDanger and SwiftLint.
+      - name: Danger SwiftLint
+        uses: docker://ghcr.io/danger/danger-swift-with-swiftlint:3.23.0
+        with:
+          args: --no-publish-check
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
   pod-lint:
     name: PodLint
