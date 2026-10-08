@@ -22,7 +22,7 @@ To configure iOS SDK integration, you need to:
 :::info
 - The download of translations happens **asynchronously** after the start of the application. The downloaded translations will be used the next time the app is launched, otherwise the previously cached translations will be used (or local translations if no cache exists).
 - The CDN feature does not update the localization files. If you want to add new translations to the localization files, you need to do it yourself.
-- Once the SDK receives the translations, they're stored on the device as application files for future sessions to minimize requests the next time the app is launched. The storage time can be configured using the `intervalUpdatesEnabled` option.
+- Once the SDK receives the translations, they're stored on the device as application files for future sessions to minimize requests the next time the app is launched. How often the SDK checks for updates is controlled by the `minimumManifestUpdateInterval` option. See the [Cache](/cache) page for details.
 - CDN will cache all translations in the release for up to 1 hour and even if new translations are released in Crowdin, CDN may return them with a delay.
 :::
 
@@ -114,6 +114,7 @@ The SDK configuration is done using the `CrowdinSDKConfig` class. The following 
 | `hashString`       | Distribution Hash                                                                                                           | `"7a0c1...o3b"`        |
 | `sourceLanguage`   | Source language code ([ISO 639-1](https://www.loc.gov/standards/iso639-2/php/English_list.php))                              | `sourceLanguage: "en"` |
 | `organizationName` | Organization domain (Enterprise only)                                                                                       | `"mycompany"`          |
+| `minimumManifestUpdateInterval` | Minimum interval in seconds between checks for new translations in the distribution. Default: `900` (15 minutes). See [Cache](/cache) | `60 * 60`              |
 | `settingsEnabled`  | Enable [SDK Controls](/advanced-features/sdk-controls)                                                                      | `true`                 |
 | `accessToken`      | Crowdin API Access Token. An alternative to the OAuth-based authorization in the Screenshots and Real-Time Preview features | `"your_token"`         |
 

@@ -6,7 +6,7 @@ description: Explore the Crowdin iOS SDK FAQ page for quick answers to your ques
 
 ## Is there a caching mechanism in the SDK?
 
-Yes, the SDK caches translations locally. The cache TTL can be configured by the developer. There is also a CDN cache. There is not much control over it, but it is usually 1 hour, so there is a possible delay for new translations to appear in the app.
+Yes, the SDK caches translations locally and checks the distribution for updates at most once per update interval (15 minutes by default). It also uses ETags to avoid re-downloading files that have not changed. There is also a CDN cache. There is not much control over it, but it is usually 1 hour, so there is a possible delay for new translations to appear in the app. See the [Cache](/cache) page for details.
 
 ## What translations will be displayed if the current locale is not present in the Crowdin project?
 
@@ -14,7 +14,7 @@ The app will use the bundled translations or the default language as a fallback.
 
 ## Will the SDK download all translations from Crowdin every time the app launches?
 
-No, the SDK downloads and caches translations locally. It will only download translations if they are not in the cache or if the cache has expired.
+No, the SDK downloads and caches translations locally. It will only download translations if they are not in the cache or if a new release is detected in the distribution after the update interval has elapsed. See the [Cache](/cache) page for details.
 
 ## Will the SDK download all translations from the Crowdin CDN or just the current language?
 
