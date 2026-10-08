@@ -177,8 +177,8 @@ class ManifestManager {
             let currentTime = Date().timeIntervalSince1970
             let minimumInterval = self.minimumManifestUpdateInterval
 
-            // If minimum interval not reached OR already downloaded -> just complete immediately (no new network call)
-            if currentTime - lastUpdateTimestamp < minimumInterval || _state == .downloaded {
+            // If minimum interval not reached -> just complete immediately (no new network call)
+            if currentTime - lastUpdateTimestamp < minimumInterval {
                 return .completeImmediately
             }
 
@@ -231,6 +231,14 @@ class ManifestManager {
             if let manifestTimestamp = self.manifest?.timestamp {
                 self.crowdinSupportedLanguages.updateSupportedLanguagesIfNeeded(manifestTimestamp: manifestTimestamp)
             }
+        }
+    }
+
+    /// Forgets when the manifest was last downloaded so the next `download(completion:)` call
+    /// contacts the CDN regardless of `minimumManifestUpdateInterval`.
+    func resetUpdateInterval() {
+        queue.sync {
+            lastManifestUpdateInterval = nil
         }
     }
 
