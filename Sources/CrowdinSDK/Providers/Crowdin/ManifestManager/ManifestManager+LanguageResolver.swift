@@ -8,13 +8,6 @@
 import Foundation
 
 extension ManifestManager: LanguageResolver {
-    var allLanguages: [CrowdinLanguage] {
-        // Access supportedLanguages outside queue.sync to avoid nested synchronization
-        let crowdinLanguages: [CrowdinLanguage] = crowdinSupportedLanguages.supportedLanguages ?? []
-        let custom = customLanguages
-        return ManifestManager.mergeLanguages(supported: crowdinLanguages, custom: custom)
-    }
-    
     /// Get crowdin language locale code for iOS localization code.
     /// - Parameter localization: iOS localization identifier. (List of all - Locale.availableIdentifiers).
     /// - Returns: Id of iOS localization code in crowdin system.

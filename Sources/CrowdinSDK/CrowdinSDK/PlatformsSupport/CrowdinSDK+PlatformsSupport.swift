@@ -17,7 +17,6 @@ public typealias CWScreen = NSScreen
 
 typealias CWLabel = NSTextField
 typealias CWViewController = NSViewController
-typealias CWControl = NSControl
 typealias CWWindow = NSWindow
 typealias CWApplication = NSApplication
 

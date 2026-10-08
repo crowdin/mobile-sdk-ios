@@ -248,15 +248,6 @@ class ManifestManager {
             return fileTimestampStorage.timestamp(for: localization, filePath: filePath) != currentTimestamp
         }
     }
-
-    private func updateFileTimestamps(manifest: ManifestResponse) {
-        for file in manifest.files {
-            for language in manifest.languages ?? [] {
-                fileTimestampStorage.updateTimestamp(for: language, filePath: file, timestamp: manifest.timestamp ?? 0)
-            }
-        }
-        fileTimestampStorage.saveTimestamps()
-    }
     
     static func mergeLanguages(supported: [CrowdinLanguage], custom: [CustomLangugage]) -> [CrowdinLanguage] {
         guard !custom.isEmpty else { return supported }
@@ -271,14 +262,6 @@ class ManifestManager {
         var completions = completionsMap[hash] ?? []
         completions.append(completion)
         completionsMap[hash] = completions
-    }
-
-    private func removeCompletions(for hash: String) {
-        completionsMap.removeValue(forKey: hash)
-    }
-
-    private func callCompletions(for hash: String) {
-        completionsMap[hash]?.forEach({ $0() })
     }
 
     /// Path for current hash manifests file

@@ -68,9 +68,3 @@ class ScreenshotsAPI: CrowdinAPI {
         self.cw_get(url: url, parameters: parameters, completion: completion)
     }
 }
-
-extension String {
-    func urlEncoded() -> String {
-        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? self
-    }
-}

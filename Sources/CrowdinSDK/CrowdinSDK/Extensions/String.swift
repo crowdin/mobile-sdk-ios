@@ -65,7 +65,6 @@ extension String {
 extension String {
     static let dot = "."
     static let empty = ""
-    static let space = " "
     static let enter = "\n"
     static let pathDelimiter = "/"
     static let minus = "-"

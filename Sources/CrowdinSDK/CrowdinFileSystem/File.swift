@@ -90,12 +90,6 @@ class ReadWriteFile<T: ReadWriteProtocol>: File {
     }
 }
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-class UIImageFile: ReadWriteFile<UIImage> {}
-#endif
-
-class NSDictionaryFile: ReadWriteFile<NSDictionary> {}
-
 class DictionaryFile: ReadWriteFile<Dictionary<AnyHashable, Any>> {}
 
 class StringsFile: ReadWriteFile<Dictionary<String, String>> {
