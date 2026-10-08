@@ -20,34 +20,20 @@ env:
 jobs:
   danger-swiftlint:
     name: Danger SwiftLint
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     continue-on-error: true
     if: github.event_name == 'pull_request'
-    env:
-      DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-      DANGER_SWIFT_VERSION: '3.23.0'
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install SwiftLint and Danger JS
-        run: |
-          brew install swiftlint
-          brew tap danger/tap
-          brew trust danger/tap
-          brew install danger/tap/danger-js
-
-      # Since 3.23.0 the danger/tap formula installs a prebuilt binary without
-      # libDanger, so `danger-swift ci` cannot compile the Dangerfile. Build from
-      # source instead, which installs libDanger into <prefix>/lib/danger.
-      - name: Build and install Danger Swift
-        run: |
-          git clone --depth 1 --branch "$DANGER_SWIFT_VERSION" https://github.com/danger/danger-swift.git "$RUNNER_TEMP/danger-swift"
-          make -C "$RUNNER_TEMP/danger-swift" install PREFIX="$(brew --prefix)"
-          ls "$(brew --prefix)/lib/danger"
-
-      - name: Run Danger SwiftLint
-        run: '"$(brew --prefix)/bin/danger-swift" ci'
+      # Prebuilt image with danger-swift, libDanger and SwiftLint.
+      - name: Danger SwiftLint
+        uses: docker://ghcr.io/danger/danger-swift-with-swiftlint:3.23.0
+        with:
+          args: --no-publish-check
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
 
   pod-lint:
     name: PodLint
