@@ -37,7 +37,11 @@ jobs:
           brew install danger/tap/danger-swift
 
       - name: Run Danger SwiftLint
-        run: danger-swift ci
+        # Use the Homebrew binary explicitly: the runner image also ships a
+        # mise-managed danger-swift without libDanger, which shadows it on PATH.
+        run: |
+          ls "$(brew --prefix)/lib/danger" || true
+          "$(brew --prefix)/bin/danger-swift" ci
 
   pod-lint:
     name: PodLint
