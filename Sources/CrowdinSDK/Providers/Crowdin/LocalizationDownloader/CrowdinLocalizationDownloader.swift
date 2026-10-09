@@ -198,13 +198,6 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
             completion(self.manifestManager.contentFiles(for: language), self.manifestManager.timestamp, nil)
         }
     }
-
-    func getLanguages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        manifestManager.download { [weak self] in
-            guard let self = self else { return }
-            completion(self.manifestManager.languages, nil)
-        }
-    }
     
     func updateTimestamp(for localization: String, filePath: String, timestamp: TimeInterval) {
         manifestManager.fileTimestampStorage.updateTimestamp(for: localization, filePath: filePath, timestamp: timestamp)

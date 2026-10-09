@@ -7,9 +7,6 @@
 
 import Foundation
 
-typealias LocalizationProviderCompletion = () -> Void
-typealias LocalizationProviderError = (Error) -> Void
-
 protocol LocalizationProviderProtocol {
     init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol)
     var localStorage: LocalLocalizationStorageProtocol { get }

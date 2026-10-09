@@ -26,7 +26,6 @@
 		E8B03C3F2DB8FBC7006DD844 /* BundleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C2E2DB8FBC7006DD844 /* BundleTests.swift */; };
 		E8B03C412DB8FBC7006DD844 /* CrowdinSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C302DB8FBC7006DD844 /* CrowdinSDKTests.swift */; };
 		E8B03C422DB8FBC7006DD844 /* CrowdinStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */; };
-		E8B03C432DB8FBC7006DD844 /* CrowdinTesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */; };
 		E8B03C442DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */; };
 		E8B03C452DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C342DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift */; };
 		E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */; };
@@ -79,7 +78,6 @@
 		E8B03C2F2DB8FBC7006DD844 /* CrowdinLocalizationDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinLocalizationDownloaderTests.swift; sourceTree = "<group>"; };
 		E8B03C302DB8FBC7006DD844 /* CrowdinSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinSDKTests.swift; sourceTree = "<group>"; };
 		E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinStringTests.swift; sourceTree = "<group>"; };
-		E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdinTesterTests.swift; sourceTree = "<group>"; };
 		E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableSDKLocalizationTests.swift; sourceTree = "<group>"; };
 		E8B03C342DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTimestampStorageCrashTests.swift; sourceTree = "<group>"; };
 		E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTimestampStorageTests.swift; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 				E890E4562DFDD3310029D0AA /* MockLocalizationProvider.swift */,
 				E890E45A2DFDD4AA0029D0AA /* CrowdinSupportedLanguagesThreadSafetyTests.swift */,
 				E8B03C312DB8FBC7006DD844 /* CrowdinStringTests.swift */,
-				E8B03C322DB8FBC7006DD844 /* CrowdinTesterTests.swift */,
 				E8B03C332DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift */,
 				E8B03C342DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift */,
 				E8B03C352DB8FBC7006DD844 /* FileTimestampStorageTests.swift */,
@@ -433,7 +430,6 @@
 				E8B03C3F2DB8FBC7006DD844 /* BundleTests.swift in Sources */,
 				E8B03C412DB8FBC7006DD844 /* CrowdinSDKTests.swift in Sources */,
 				E8B03C422DB8FBC7006DD844 /* CrowdinStringTests.swift in Sources */,
-				E8B03C432DB8FBC7006DD844 /* CrowdinTesterTests.swift in Sources */,
 				E8B03C442DB8FBC7006DD844 /* EnableSDKLocalizationTests.swift in Sources */,
 				E8B03C452DB8FBC7006DD844 /* FileTimestampStorageCrashTests.swift in Sources */,
 				E8B03C462DB8FBC7006DD844 /* FileTimestampStorageTests.swift in Sources */,

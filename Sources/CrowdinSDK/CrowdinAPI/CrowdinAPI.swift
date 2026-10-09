@@ -78,27 +78,6 @@ class CrowdinAPI: BaseAPI {
         })
     }
 
-    func cw_postSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
-        let result = self.post(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body)
-        CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: result.data)
-
-        if self.isUnautorized(response: result.response) {
-            NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
-            return(nil, NSError(domain: "CrowdinAPI Unautorized", code: 401, userInfo: nil))
-        }
-        guard let data = result.data else {
-            return (nil, result.error)
-        }
-
-        do {
-            let response = try JSONDecoder().decode(T.self, from: data)
-            return (response, result.error)
-        } catch {
-            print(String(data: data, encoding: .utf8) ?? "Data is empty")
-            return (nil, error)
-        }
-    }
-
     func cw_put<T: Decodable>(
         url: String,
         parameters: [String: String]? = nil,
@@ -129,27 +108,6 @@ class CrowdinAPI: BaseAPI {
                 completion(nil, error)
             }
         })
-    }
-
-    func cw_putSync<T: Decodable>(url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, body: Data?) -> (T?, Error?) {
-        let result = self.put(url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body)
-        CrowdinAPILog.logRequest(method: RequestMethod.POST.rawValue, url: url, parameters: parameters, headers: addDefaultHeaders(to: headers), body: body, responseData: result.data)
-
-        if self.isUnautorized(response: result.response) {
-            NotificationCenter.default.post(name: .CrowdinAPIUnautorizedNotification, object: nil)
-            return (nil, NSError(domain: "CrowdinAPI Unautorized", code: 401, userInfo: nil))
-        }
-        guard let data = result.data else {
-            return (nil, result.error)
-        }
-
-        do {
-            let response = try JSONDecoder().decode(T.self, from: data)
-            return (response, result.error)
-        } catch {
-            print(String(data: data, encoding: .utf8) ?? "Data is empty")
-            return (nil, error)
-        }
     }
 
     func cw_get<T: Decodable>(

@@ -35,24 +35,6 @@ class FolderBundle: FolderBundleProtocol {
     }
 }
 
-protocol FileBundleProtocol: BundleProtocol {
-    var file: File { get }
-}
-
-class FileBundle: FolderBundle, FileBundleProtocol {
-    enum Strings: String {
-        case pathDelimiter = "/"
-    }
-
-    var file: File
-
-    init(path: String, fileName: String) {
-        let folder = Folder(path: path)
-        self.file = File(path: folder.path + Strings.pathDelimiter.rawValue + fileName)
-        super.init(path: path)
-    }
-}
-
 protocol DictionaryBundleProtocol: BundleProtocol {
 	var dictionary: Dictionary<AnyHashable, Any> { get }
     var file: DictionaryFile { get }
