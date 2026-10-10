@@ -24,8 +24,4 @@ final class LogMessageObserver {
     func removeAllLogMessageHandlers() {
         logsHandlerContainer.unsubscribe()
     }
-
-    func notifyAll(_ text: String) {
-        logsHandlerContainer.handlers.values.forEach({ $0(text) })
-    }
 }

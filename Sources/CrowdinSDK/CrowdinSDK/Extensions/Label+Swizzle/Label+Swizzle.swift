@@ -90,15 +90,6 @@ extension CWLabel {
         swizzled_setText(text)
     }
 
-    /// Original method for setting attributed title string after swizzling.
-    ///
-    /// - Parameter attributedText: Attributed title text.
-    func original_setAttributedText(_ attributedText: NSAttributedString?) {
-        // TODO: Add saving attributes.
-        guard CWLabel.swizzledAttributedText != nil else { return }
-        swizzled_setAttributedText(attributedText)
-    }
-
     /// Method for swizzling implementations for text and attributedText methods.
     /// Note: This method should be called only when we need to get localization key from localization string, currently it is needed for screenshots and realtime preview features.
     class func swizzle() {

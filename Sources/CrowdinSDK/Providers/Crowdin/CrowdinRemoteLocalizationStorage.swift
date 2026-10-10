@@ -38,15 +38,6 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.downloadManifest(completion: completion)
     }
 
-    func downloadCrowdinSupportedLanguages(completion: @escaping () -> Void) {
-        crowdinSupportedLanguages.updateSupportedLanguagesIfNeeded(manifestTimestamp: manifestManager.timestamp, completion: {
-            completion()
-        }, error: {
-            LocalizationUpdateObserver.shared.notifyError(with: [$0])
-            completion()
-        })
-    }
-
     func downloadManifest(completion: @escaping () -> Void) {
         self.manifestManager.download(completion: { [weak self] in
             guard let self = self else { return }
