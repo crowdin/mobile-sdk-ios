@@ -105,16 +105,24 @@ private extension FormatSpecifier {
     /// position, so a specifier from the wrong category re-interprets that word:
     /// `%@` on a plain number dereferences a bogus pointer (crash), and a numeric
     /// specifier on a `String` prints its bridged pointer as a number (an
-    /// ASLR-relevant leak). This only rejects those two unambiguous cases and
-    /// otherwise defers to the value - a narrow, defense in depth check alongside
-    /// the argument-count check above, not a full type checker.
+    /// ASLR-relevant leak). `%s` on anything that is not a C-string pointer
+    /// dereferences the word as `char *` and crashes (verified on Apple
+    /// Foundation), and `%p` on a `String` or object prints its address.
+    /// This only rejects those unambiguous cases and otherwise defers to the
+    /// value - a narrow, defense in depth check alongside the argument-count
+    /// check above, not a full type checker.
     func isCompatible(with argument: CVarArg) -> Bool {
         switch self {
         case .object:
             return !Self.isDefinitelyScalar(argument)
         case .double, .int, .uInt, .character:
             return !(argument is String)
-        case .cStringPointer, .voidPointer, .topType:
+        case .cStringPointer:
+            return Self.isDefinitelyCStringPointer(argument)
+        case .voidPointer:
+            return Self.isDefinitelyScalar(argument) || Self.isDefinitelyCStringPointer(argument)
+        case .topType:
+            // Only used to pad unread positions in a positional format.
             return true
         }
     }
@@ -128,6 +136,18 @@ private extension FormatSpecifier {
              is UInt, is UInt8, is UInt16, is UInt32, is UInt64,
              is Double, is Float,
              is Bool:
+            return true
+        default:
+            return false
+        }
+    }
+
+    /// Whether `argument` is an actual C-string pointer, the only thing `%s`
+    /// can safely read. (`UnsafeRawPointer` is omitted because it does not
+    /// conform to `CVarArg`, so it can never appear here.)
+    static func isDefinitelyCStringPointer(_ argument: CVarArg) -> Bool {
+        switch argument {
+        case is UnsafePointer<Int8>, is UnsafeMutablePointer<Int8>:
             return true
         default:
             return false

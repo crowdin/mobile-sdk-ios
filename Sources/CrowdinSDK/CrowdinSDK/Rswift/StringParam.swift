@@ -126,6 +126,16 @@ let formatTypesRegEx: NSRegularExpression = {
 
 // "I give %d apples to %@ %#@named@" --> [.Spec(.Int), .Spec(.String), .Reference("named")]
 private func createFormatParts(_ formatString: String) -> [FormatPart] {
+	// `%%` is a literal percent. formatTypesRegEx only has a one-character
+	// `(?<!%)` lookbehind to skip it, which would also hide a genuine specifier
+	// that follows a `%%` pair - "%%%d" is literal "%" plus a real "%d", but
+	// without stripping the lookbehind blocks the match at the third "%".
+	// String(format:) still consumes an argument for that "%d", so the strip
+	// keeps the parsed parts equal to what String(format:) will actually read
+	// (CWE-134: a translation like "%%%d %%%d ..." would otherwise pass the
+	// argument-count check with zero parsed specifiers and read past the list).
+	// Left-to-right removal of "%%" pairs is equivalent to a sequential scan.
+	let formatString = formatString.replacingOccurrences(of: "%%", with: "")
 	let nsString = formatString as NSString
 	let range = NSRange(location: 0, length: nsString.length)
 

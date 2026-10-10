@@ -147,4 +147,83 @@ class StringsTests: XCTestCase {
 
         XCTAssertEqual(result, "Hello Alice")
     }
+
+    // MARK: - Escaped-percent bypass (CWE-134).
+
+    // `%%` is a literal percent. A specifier that follows a `%%` pair is still
+    // real: "%%%d" is literal "%" plus "%d", and String(format:) consumes an
+    // argument for it. The parser must count it, otherwise a translation like
+    // "%%%d %%%d ..." passes the argument-count check with zero parsed
+    // specifiers and String(format:) reads past the argument list.
+
+    func testIsSafeFormatStringRejectsEscapedPercentFollowedByExcessSpecifiers() {
+        // The report's PoC shape with each specifier hidden behind a "%%" escape.
+        let translation = "%%%d %%%d %%%d %%%d %%%d %%%d"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+        XCTAssertFalse(translation.isSafeFormatString(arguments: []))
+    }
+
+    func testIsSafeFormatStringRejectsEscapedPercentFollowedByObjectSpecifier() {
+        // "%@" behind "%%" would still dereference an object pointer.
+        let translation = "Score: %%%@"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: [5]))
+    }
+
+    func testIsSafeFormatStringRejectsRepeatedEscapedObjectBeyondArguments() {
+        // Two "%@" after "%%" escapes with one real argument reads a second
+        // word off the stack and dereferences it - undefined behavior, often a crash.
+        let translation = "%%%@ %%%@"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringAcceptsLiteralPercentBeforeRealSpecifier() {
+        // "100%% done: %@" is a legitimate translation - one literal percent
+        // sign plus one real object specifier, matching the single argument.
+        let translation = "100%% done: %@"
+        XCTAssert(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringAcceptsPureLiteralPercentEscapes() {
+        // "%%" alone consumes no arguments.
+        let translation = "Progress: 100%%"
+        XCTAssert(translation.isSafeFormatString(arguments: []))
+        XCTAssert(translation.isSafeFormatString(arguments: ["unused"]))
+    }
+
+    // MARK: - %s / %p mismatch (CWE-134).
+
+    // "%s" reads its argument word as a `char *`. On Apple Foundation this
+    // crashes for anything that is not a C-string pointer - verified:
+    // String(format: "id=%s", arguments: ["Alice"]) and with an Int both
+    // segfault in CoreFoundation. "%p" does not crash, but on a String or
+    // object argument it prints the value's address (ASLR-relevant leak).
+
+    func testIsSafeFormatStringRejectsCStringSpecifierForStringArgument() {
+        let translation = "id=%s"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringRejectsCStringSpecifierForIntArgument() {
+        let translation = "id=%s"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: [5]))
+    }
+
+    func testIsSafeFormatStringAcceptsCStringSpecifierForCStringPointerArgument() {
+        let translation = "id=%s"
+        "Alice".withCString { cString in
+            XCTAssert(translation.isSafeFormatString(arguments: [cString]))
+        }
+    }
+
+    func testIsSafeFormatStringRejectsVoidPointerSpecifierForStringArgument() {
+        // "%p" on a String prints its bridged object address.
+        let translation = "ptr=%p"
+        XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringAcceptsVoidPointerSpecifierForIntArgument() {
+        // "%p" on a plain Int just prints the bit pattern - no deref, no leak.
+        let translation = "ptr=%p"
+        XCTAssert(translation.isSafeFormatString(arguments: [5]))
+    }
 }

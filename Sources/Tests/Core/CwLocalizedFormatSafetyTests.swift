@@ -132,4 +132,29 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
 
         XCTAssertEqual(result, "Hello Alice, you have 3 messages")
     }
+
+    /// Same PoC shape, but each specifier is hidden behind a `%%` literal-percent
+    /// escape ("%%%d" = literal "%" + real "%d"). String(format:) still consumes
+    /// an argument per "%d", so the translation must be rejected too - on Apple
+    /// platforms formatting it with one argument prints several adjacent stack
+    /// words (verified: "%-1436743615 %0 %-1198766495 %122 ...").
+    func testCwLocalizedFallsBackWhenOTATranslationHidesSpecifiersBehindEscapedPercent() {
+        let key = "__cwe134_escaped_greeting_key__"
+        startSDK(translations: [key: "%%%d %%%d %%%d %%%d %%%d %%%d"])
+
+        let result = key.cw_localized(with: ["Alice"])
+
+        XCTAssertEqual(result, key)
+    }
+
+    /// A legitimate translation that contains a literal percent sign plus one
+    /// real specifier must still be used.
+    func testCwLocalizedUsesOTATranslationWithLiteralPercentEscape() {
+        let key = "__cwe134_percent_key__"
+        startSDK(translations: [key: "100%% done: %@"])
+
+        let result = key.cw_localized(with: ["Alice"])
+
+        XCTAssertEqual(result, "100% done: Alice")
+    }
 }
