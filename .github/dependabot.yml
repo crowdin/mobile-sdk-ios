@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Disable Dependabot updates (including security updates) for the documentation website
+  - package-ecosystem: "npm"
+    directory: "/website"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
