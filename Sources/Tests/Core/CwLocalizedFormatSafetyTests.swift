@@ -157,4 +157,21 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
 
         XCTAssertEqual(result, "100% done: Alice")
     }
+
+    /// `%#x` is a valid specifier the old regex counter did not recognise, so six
+    /// of them parsed as zero specifiers and sailed past the argument-count check
+    /// (verified: String(format:) printed adjacent stack words such as 0x84836c8).
+    func testCwLocalizedFallsBackWhenOTATranslationUsesFlaggedSpecifiers() {
+        let key = "__cwe134_flagged_key__"
+        startSDK(translations: [key: "%#x %#x %#x %#x %#x %#x"])
+
+        XCTAssertEqual(key.cw_localized(with: [3]), key)
+    }
+
+    func testCwLocalizedFallsBackWhenOTATranslationUsesStarWidth() {
+        let key = "__cwe134_star_key__"
+        startSDK(translations: [key: "%*d%*d%*d%*d"])
+
+        XCTAssertEqual(key.cw_localized(with: [3]), key)
+    }
 }

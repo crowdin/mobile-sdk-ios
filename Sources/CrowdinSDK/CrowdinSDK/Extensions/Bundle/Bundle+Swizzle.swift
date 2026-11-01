@@ -46,7 +46,10 @@ extension Bundle {
     }
 
     /// Method for swizzling implementation for localizedString(forKey:value:table:) method.
+    /// Idempotent: a second call would exchange the already-swapped methods and
+    /// silently unswizzle, so it is a no-op when already swizzled.
     class func swizzle() {
+        guard !isSwizzled else { return }
         // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(Bundle.localizedString(forKey:value:table:)))!
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!

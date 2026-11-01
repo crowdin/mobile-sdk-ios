@@ -88,7 +88,9 @@ extension String {
     /// - Returns: `true` if every format specifier in `self` is covered by
     ///   `arguments` and matches its broad category (object vs. numeric).
     func isSafeFormatString(arguments: [CVarArg]) -> Bool {
-        let parts = FormatPart.formatParts(formatString: self)
+        // nil means the parser found a malformed/oversized positional
+        // specifier - the format cannot be trusted.
+        guard let parts = FormatPart.formatParts(formatString: self) else { return false }
         guard parts.count <= arguments.count else { return false }
         for (index, part) in parts.enumerated() {
             guard let specifier = part.formatSpecifier else { continue }
@@ -114,13 +116,19 @@ private extension FormatSpecifier {
     func isCompatible(with argument: CVarArg) -> Bool {
         switch self {
         case .object:
-            return !Self.isDefinitelyScalar(argument)
+            // `%@` sends an ObjC message to the argument word; scalars hold a
+            // bogus pointer and raw Unsafe pointers hold a non-object address -
+            // both crash with EXC_BAD_ACCESS.
+            return !Self.isDefinitelyScalar(argument) && !Self.isDefinitelyPointer(argument)
         case .double, .int, .uInt, .character:
             return !(argument is String)
         case .cStringPointer:
             return Self.isDefinitelyCStringPointer(argument)
         case .voidPointer:
-            return Self.isDefinitelyScalar(argument) || Self.isDefinitelyCStringPointer(argument)
+            // `%p` only prints the word; scalars and any pointer are memory-safe.
+            // Rejecting String/objects is deliberate: their words are live
+            // addresses, and printing them would leak ASLR-relevant pointers.
+            return Self.isDefinitelyScalar(argument) || Self.isDefinitelyPointer(argument)
         case .topType:
             // Only used to pad unread positions in a positional format.
             return true
@@ -142,12 +150,25 @@ private extension FormatSpecifier {
         }
     }
 
+    /// Whether `argument` is any `Unsafe*Pointer` type. There is no common
+    /// protocol to cast to, so the dynamic type name is inspected - a
+    /// pragmatic check whose failure mode (a rejected safe translation falling
+    /// back to the bundled string) is harmless.
+    static func isDefinitelyPointer(_ argument: CVarArg) -> Bool {
+        // `Swift.type` disambiguates from FormatSpecifier's own `type` property.
+        let name = String(describing: Swift.type(of: argument))
+        return name.hasPrefix("Unsafe") && name.contains("Pointer")
+    }
+
     /// Whether `argument` is an actual C-string pointer, the only thing `%s`
-    /// can safely read. (`UnsafeRawPointer` is omitted because it does not
-    /// conform to `CVarArg`, so it can never appear here.)
+    /// can safely read. Both `Int8` and `UInt8` pointees are accepted - byte
+    /// buffers from `Data.withUnsafeBytes` yield `UnsafePointer<UInt8>`.
+    /// (`UnsafeRawPointer` is omitted because it does not conform to
+    /// `CVarArg`, so it can never appear here.)
     static func isDefinitelyCStringPointer(_ argument: CVarArg) -> Bool {
         switch argument {
-        case is UnsafePointer<Int8>, is UnsafeMutablePointer<Int8>:
+        case is UnsafePointer<Int8>, is UnsafeMutablePointer<Int8>,
+             is UnsafePointer<UInt8>, is UnsafeMutablePointer<UInt8>:
             return true
         default:
             return false
@@ -157,9 +178,22 @@ private extension FormatSpecifier {
 
 // MARK: - Formatting detection.
 extension String {
+    /// Replaces each `%%` literal-percent escape with U+0001 so the format
+    /// regex sees the real specifiers. `formatTypesRegEx` only has a
+    /// one-character `(?<!%)` lookbehind, which would otherwise hide a genuine
+    /// specifier following an escape ("%%%d" is literal "%" plus a real "%d").
+    /// The display-side regex consumers (`isFormated`,
+    /// `findMatch`, `findValues`) apply this so they agree on where the
+    /// specifiers are (CWE-134). The placeholder never appears in real strings;
+    /// consumers that search rendered text substitute it back to `%`.
+    var formatStringWithMaskedLiteralPercents: String {
+        return replacingOccurrences(of: "%%", with: "\u{1}")
+    }
+
     /// Detect whether current string is formated.
 	var isFormated: Bool {
-		return formatTypesRegEx.matches(in: self, options: [], range: NSRange(location: 0, length: self.count)).count > 0
+        let masked = formatStringWithMaskedLiteralPercents
+		return formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: masked.count)).count > 0
 	}
 }
 
@@ -186,15 +220,20 @@ extension String {
     static func findMatch(for formatedString: String, with string: String) -> Bool {
         // Check is it equal:
         if formatedString == string { return true }
-        // If not try to parse localized string as formated:
-        let matches = formatTypesRegEx.matches(in: formatedString, options: [], range: NSRange(location: 0, length: formatedString.count))
+        // If not try to parse localized string as formated. Literal `%%` escapes
+        // are masked so the regex sees the same specifiers as the safety check
+        // (see formatStringWithMaskedLiteralPercents).
+        let masked = formatedString.formatStringWithMaskedLiteralPercents
+        let matches = formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: masked.count))
         // If it is not formated string return false.
         guard matches.count > 0 else { return false }
         let ranges = matches.compactMap({ $0.range })
-        let nsStringValue = formatedString as NSString
-        let components = nsStringValue.splitBy(ranges: ranges)
+        let nsMaskedValue = masked as NSString
+        let components = nsMaskedValue.splitBy(ranges: ranges)
         for component in components {
-            if !string.contains(component) {
+            // A masked literal percent was rendered as a real "%" in `string`.
+            let rendered = component.replacingOccurrences(of: "\u{1}", with: "%")
+            if !string.contains(rendered) {
                 return false
             }
         }
@@ -212,6 +251,8 @@ extension NSString {
     /// - Returns: Array of substrings
     func splitBy(ranges: [NSRange]) -> [String] {
         var values = [String]()
+        // `0...(-1)` traps; an empty ranges array simply yields no splits.
+        guard !ranges.isEmpty else { return values }
         for index in 0...ranges.count - 1 {
             let range = ranges[index]
             guard range.location != NSNotFound else { continue }
@@ -260,17 +301,25 @@ extension String {
     ///   - format: Format string.
     /// - Returns: An array of detected values in a given string with a given format. If passed format doesn't match with string nil will be returned.
     static func findValues(for string: String, with format: String) -> [Any]? {
-        let parts = FormatPart.formatParts(formatString: format)
-        let matches = formatTypesRegEx.matches(in: format, options: [], range: NSRange(location: 0, length: format.count))
+        // Literal `%%` escapes are masked so the regex and formatParts agree on
+        // the specifier positions (see formatStringWithMaskedLiteralPercents);
+        // components are searched for in `string` with the mask rendered back
+        // as a real "%", because that is how the app displayed them.
+        let masked = format.formatStringWithMaskedLiteralPercents
+        guard let parts = FormatPart.formatParts(formatString: format) else { return nil }
+        let matches = formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: masked.count))
         guard matches.count > 0 else { return nil }
         let ranges = matches.compactMap({ $0.range })
-        let nsStringValue = format as NSString
+        let nsStringValue = masked as NSString
         let components = nsStringValue.splitBy(ranges: ranges)
 
         let nsStringText = string as NSString
 
         var valueRanges = [NSRange]()
-        components.forEach({ valueRanges.append(nsStringText.range(of: $0)) })
+        components.forEach({
+            let rendered = $0.replacingOccurrences(of: "\u{1}", with: "%")
+            valueRanges.append(nsStringText.range(of: rendered))
+        })
 
         guard valueRanges.count > 0 else { return nil }
 
@@ -280,6 +329,7 @@ extension String {
 
         var result = [Any]()
 
+        guard !parts.isEmpty else { return nil }
         for index in 0...parts.count - 1 {
             let part = parts[index]
             let value = values[index]

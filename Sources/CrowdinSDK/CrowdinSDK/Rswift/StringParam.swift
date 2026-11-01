@@ -16,7 +16,7 @@
 
 import Foundation
 
-enum FormatPart {
+enum FormatPart: Equatable {
 	case spec(FormatSpecifier)
 	case reference(String)
 
@@ -30,7 +30,7 @@ enum FormatPart {
 		}
 	}
 
-	static func formatParts(formatString: String) -> [FormatPart] {
+	static func formatParts(formatString: String) -> [FormatPart]? {
 		return createFormatParts(formatString)
 	}
 }
@@ -102,117 +102,177 @@ extension FormatSpecifier {
 	}
 }
 
-private let referenceRegEx: NSRegularExpression = {
-	do {
-		return try NSRegularExpression(pattern: "#@([^@]+)@", options: [.caseInsensitive])
-	} catch {
-		fatalError("Error building the regular expression used to match reference")
-	}
-}()
-
+/// Regex used by the display-side helpers (`isFormated`, `findMatch`,
+/// `findValues`) to locate specifiers inside rendered text. It is NOT used to
+/// decide whether a format string is safe to hand to `String(format:)`:
+/// a regex only recognises the specifiers it was written for, and anything it
+/// misses is an argument `String(format:)` reads that nobody counted (CWE-134).
+/// The safety check uses `createFormatParts` below, which follows the
+/// CoreFoundation grammar and fails closed.
 let formatTypesRegEx: NSRegularExpression = {
-	let patternInt = "(?:h|hh|l|ll|q|z|t|j)?([dioux])" // %d/%i/%o/%u/%x with their optional length modifiers like in "%lld"
-	let patternFloat = "[aefg]"
+	let patternLength = "(?:h|hh|l|ll|q|z|t|j|L)?"
+	let patternInt = "\(patternLength)([dioux]|[aefg])" // %d/%i/%o/%u/%x and %a/%e/%f/%g with optional length modifiers
 	let position = "([1-9]\\d*\\$)?" // like in "%3$" to make positional specifiers
 	let precision = "[-+]?\\d*(?:\\.\\d*)?" // precision like in "%1.2f" or "%012.10"
 	let reference = "#@([^@]+)@" // reference to NSStringFormatSpecType in .stringsdict
-    
+
 	do {
-		return try NSRegularExpression(pattern: "(?<!%)%\(position)\(precision)(@|\(patternInt)|\(patternFloat)|[csp]|\(reference))", options: [.caseInsensitive])
+		return try NSRegularExpression(pattern: "(?<!%)%\(position)\(precision)(@|\(patternInt)|[csp]|\(reference))", options: [.caseInsensitive])
 	} catch {
 		fatalError("Error building the regular expression used to match string formats")
 	}
 }()
 
-// "I give %d apples to %@ %#@named@" --> [.Spec(.Int), .Spec(.String), .Reference("named")]
-private func createFormatParts(_ formatString: String) -> [FormatPart] {
-	// `%%` is a literal percent. formatTypesRegEx only has a one-character
-	// `(?<!%)` lookbehind to skip it, which would also hide a genuine specifier
-	// that follows a `%%` pair - "%%%d" is literal "%" plus a real "%d", but
-	// without stripping the lookbehind blocks the match at the third "%".
-	// String(format:) still consumes an argument for that "%d", so the strip
-	// keeps the parsed parts equal to what String(format:) will actually read
-	// (CWE-134: a translation like "%%%d %%%d ..." would otherwise pass the
-	// argument-count check with zero parsed specifiers and read past the list).
-	// Left-to-right removal of "%%" pairs is equivalent to a sequential scan.
-	let formatString = formatString.replacingOccurrences(of: "%%", with: "")
-	let nsString = formatString as NSString
-	let range = NSRange(location: 0, length: nsString.length)
+/// Upper bound on a positional specifier index (e.g. the `5` in `%5$d`) and on
+/// the number of argument slots a format may use. Real localizations never come
+/// close; the bound exists because a malicious OTA translation could otherwise
+/// name an enormous position and force this parser - which runs *inside* the
+/// CWE-134 safety check - to allocate a padding array of that size.
+private let maxPositionalIndex = 100
 
-	// Extract the list of chars (conversion specifiers) and their optional positional specifier
-	let chars = formatTypesRegEx.matches(in: formatString, options: [], range: range).map { match -> (String, Int?) in
-		let range: NSRange
-		if match.range(at: 3).location != NSNotFound {
-			// [dioux] are in range #3 because in #2 there may be length modifiers (like in "lld")
-			range = match.range(at: 3)
-		} else {
-			// otherwise, no length modifier, the conversion specifier is in #2
-			range = match.range(at: 2)
-		}
-		let char = nsString.substring(with: range)
+/// Upper bound on a literal width or precision (the `10` in `%10d`, the `5` in
+/// `%.5f`). `String(format:)` materialises the padding, so an unbounded value is
+/// a memory exhaustion vector.
+private let maxFieldWidth = 256
 
-		let posRange = match.range(at: 1)
-		if posRange.location == NSNotFound {
-			// No positional specifier
-			return (char, nil)
+/// Collects the argument slots a format string consumes.
+private struct FormatSlots {
+	private var slots = [Int: FormatPart]()
+	private var nextSequential = 1
+	private var usesPositional = false
+	private var usesSequential = false
+
+	/// Registers a slot. `position` is the explicit `n$` index, or nil to take the
+	/// next sequential one. Returns false when the format must be rejected:
+	/// mixing sequential and positional specifiers (CoreFoundation's behaviour is
+	/// not worth relying on), an out-of-range position, or one position read as
+	/// two different types.
+	mutating func add(_ part: FormatPart, at position: Int?) -> Bool {
+		let index: Int
+		if let position = position {
+			usesPositional = true
+			index = position
 		} else {
-			// Remove the "$" at the end of the positional specifier, and convert to Int
-			let posRange1 = NSRange(location: posRange.location, length: posRange.length - 1)
-			let pos = nsString.substring(with: posRange1)
-			return (char, Int(pos))
+			usesSequential = true
+			index = nextSequential
+			nextSequential += 1
 		}
+		guard !(usesPositional && usesSequential), index >= 1, index <= maxPositionalIndex else { return false }
+		if let existing = slots[index], existing != part { return false }
+		slots[index] = part
+		return true
 	}
 
-	// Build up params array
-	var params = [FormatPart]()
-	var nextNonPositional = 1
-	for (str, pos) in chars {
-		let insertionPos: Int
-		if let pos = pos {
-			insertionPos = pos
-		} else {
-			insertionPos = nextNonPositional
-			nextNonPositional += 1
-		}
-
-		let param: FormatPart?
-
-		if let reference = referenceRegEx.firstSubstring(input: str) {
-			param = FormatPart.reference(reference)
-		} else if let char = str.first, let fs = FormatSpecifier(formatChar: char) {
-			param = FormatPart.spec(fs)
-		} else {
-			param = nil
-		}
-
-		if let param = param {
-			if insertionPos > 0 {
-				while params.count <= insertionPos - 1 {
-					params.append(FormatPart.spec(FormatSpecifier.topType))
-				}
-
-				params[insertionPos - 1] = param
-			}
-		}
+	/// Slots in argument order; positions the format never reads are padded with `.topType`.
+	var parts: [FormatPart] {
+		let count = slots.keys.max() ?? 0
+		return (0..<count).map { slots[$0 + 1] ?? .spec(.topType) }
 	}
-
-	return params
 }
 
-extension NSRegularExpression {
-	fileprivate func firstSubstring(input: String) -> String? {
-		let nsInput = input as NSString
-		let inputRange = NSRange(location: 0, length: nsInput.length)
+// "I give %d apples to %@ %#@named@" --> [.Spec(.Int), .Spec(.String), .Reference("named")]
+//
+// Returns one entry per argument `String(format:)` will consume for `formatString`
+// (CWE-134: the caller compares this count and the types with the arguments it
+// actually has). This is a scanner over the CoreFoundation format grammar -
+//   %[n$][flags][width][.precision][length]conversion
+// - rather than a regex, so it counts everything CoreFoundation counts. Where it
+// cannot be sure, it returns nil and callers must treat the format as unsafe:
+//   - `*` width/precision: takes its value from an argument and can force a huge
+//     allocation, and no real translation needs it;
+//   - `%n`: consumes an argument slot (verified on Apple Foundation) and has no
+//     legitimate use in a translation;
+//   - flags/width followed by a second `%` (e.g. "%5%"): how the tail is
+//     re-interpreted is not worth guessing;
+//   - widths/precisions/positions above the caps, mixed sequential and
+//     positional specifiers, or one position read as two different types.
+// A `%` followed by an unknown conversion character (e.g. "%y") is printed
+// literally by CoreFoundation and consumes nothing (verified), so it is skipped.
+private func createFormatParts(_ formatString: String) -> [FormatPart]? {
+	let s = Array(formatString.unicodeScalars)
+	var slots = FormatSlots()
+	var i = 0
 
-		guard let match = self.firstMatch(in: input, options: [], range: inputRange) else {
-			return nil
-		}
-
-		guard match.numberOfRanges > 0 else {
-			return nil
-		}
-
-		let range = match.range(at: 1)
-		return nsInput.substring(with: range)
+	func isDigit(_ index: Int) -> Bool {
+		return index < s.count && s[index].value >= 0x30 && s[index].value <= 0x39
 	}
+
+	/// Reads a run of decimal digits starting at `index`. Saturates instead of overflowing.
+	func readNumber(from index: Int) -> (value: Int, next: Int) {
+		var value = 0
+		var next = index
+		while isDigit(next) {
+			value = min(value * 10 + Int(s[next].value - 0x30), 1_000_000)
+			next += 1
+		}
+		return (value, next)
+	}
+
+	while i < s.count {
+		guard s[i] == "%" else { i += 1; continue }
+		var j = i + 1
+		guard j < s.count else { break }
+		if s[j] == "%" { i = j + 1; continue } // literal percent
+
+		// Optional explicit position: "%2$d". A leading 0 is a flag, not a position.
+		var position: Int?
+		if isDigit(j), s[j] != "0" {
+			let number = readNumber(from: j)
+			if number.next < s.count, s[number.next] == "$" {
+				guard number.value <= maxPositionalIndex else { return nil }
+				position = number.value
+				j = number.next + 1
+			}
+		}
+
+		// Stringsdict reference: "%#@name@".
+		if j + 1 < s.count, s[j] == "#", s[j + 1] == "@" {
+			var end = j + 2
+			while end < s.count, s[end] != "@" { end += 1 }
+			if end < s.count, end > j + 2 {
+				let name = String(String.UnicodeScalarView(s[(j + 2)..<end]))
+				guard slots.add(.reference(name), at: position) else { return nil }
+				i = end + 1
+				continue
+			}
+		}
+
+		// Flags.
+		while j < s.count, "-+ #0'".unicodeScalars.contains(s[j]) { j += 1 }
+
+		// Width.
+		if j < s.count, s[j] == "*" { return nil }
+		if isDigit(j) {
+			let number = readNumber(from: j)
+			guard number.value <= maxFieldWidth else { return nil }
+			j = number.next
+		}
+
+		// Precision.
+		if j < s.count, s[j] == "." {
+			j += 1
+			if j < s.count, s[j] == "*" { return nil }
+			let number = readNumber(from: j)
+			guard number.value <= maxFieldWidth else { return nil }
+			j = number.next
+		}
+
+		// Length modifiers: h, hh, l, ll, q, L, z, t, j.
+		var lengthCount = 0
+		while j < s.count, lengthCount < 2, "hlqLztj".unicodeScalars.contains(s[j]) {
+			j += 1
+			lengthCount += 1
+		}
+
+		// Conversion.
+		guard j < s.count else { break }
+		let conversion = s[j]
+		if conversion == "%" || conversion == "n" || conversion == "N" { return nil }
+		if let specifier = FormatSpecifier(formatChar: Character(conversion)) {
+			guard slots.add(.spec(specifier), at: position) else { return nil }
+		}
+		i = j + 1
+	}
+
+	return slots.parts
 }
