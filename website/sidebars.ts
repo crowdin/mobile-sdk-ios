@@ -29,6 +29,7 @@ const sidebars: SidebarsConfig = {
       ]
     },
     'example',
+    'cache',
     'security',
     'faq'
   ],

@@ -120,11 +120,6 @@ final class SettingsView: UIView {
 
     var logsVC: UIViewController? = nil
 
-    func dismissLogsVC() {
-        logsVC?.cw_dismiss()
-        logsVC = nil
-    }
-
     func reloadUI() {
         if open == true {
             self.frame.size.height = CGFloat(defaultItemHeight + CGFloat(cells.count) * defaultItemHeight)

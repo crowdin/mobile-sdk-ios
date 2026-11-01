@@ -129,13 +129,6 @@ class RUFilesDownloader: CrowdinDownloaderProtocol {
         }
     }
 
-    func getLangiages(for hash: String, completion: @escaping ([String]?, Error?) -> Void) {
-        manifestManager.download { [weak self] in
-            guard let self = self else { return }
-            completion(self.manifestManager.languages, nil)
-        }
-    }
-
     func getAllProjectFiles(completion: @escaping (_ files: [ProjectsFilesListResponseDatum]?, _ error: Error?) -> Void) {
         let defaultFilesCount = 500
         var allFiles = [ProjectsFilesListResponseDatum]()

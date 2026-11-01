@@ -177,8 +177,8 @@ class ManifestManager {
             let currentTime = Date().timeIntervalSince1970
             let minimumInterval = self.minimumManifestUpdateInterval
 
-            // If minimum interval not reached OR already downloaded -> just complete immediately (no new network call)
-            if currentTime - lastUpdateTimestamp < minimumInterval || _state == .downloaded {
+            // If minimum interval not reached -> just complete immediately (no new network call)
+            if currentTime - lastUpdateTimestamp < minimumInterval {
                 return .completeImmediately
             }
 
@@ -234,20 +234,19 @@ class ManifestManager {
         }
     }
 
+    /// Forgets when the manifest was last downloaded so the next `download(completion:)` call
+    /// contacts the CDN regardless of `minimumManifestUpdateInterval`.
+    func resetUpdateInterval() {
+        queue.sync {
+            lastManifestUpdateInterval = nil
+        }
+    }
+
     func hasFileChanged(filePath: String, localization: String) -> Bool {
         return queue.sync {
             guard let currentTimestamp = _manifest?.timestamp else { return false }
             return fileTimestampStorage.timestamp(for: localization, filePath: filePath) != currentTimestamp
         }
-    }
-
-    private func updateFileTimestamps(manifest: ManifestResponse) {
-        for file in manifest.files {
-            for language in manifest.languages ?? [] {
-                fileTimestampStorage.updateTimestamp(for: language, filePath: file, timestamp: manifest.timestamp ?? 0)
-            }
-        }
-        fileTimestampStorage.saveTimestamps()
     }
     
     static func mergeLanguages(supported: [CrowdinLanguage], custom: [CustomLangugage]) -> [CrowdinLanguage] {
@@ -263,14 +262,6 @@ class ManifestManager {
         var completions = completionsMap[hash] ?? []
         completions.append(completion)
         completionsMap[hash] = completions
-    }
-
-    private func removeCompletions(for hash: String) {
-        completionsMap.removeValue(forKey: hash)
-    }
-
-    private func callCompletions(for hash: String) {
-        completionsMap[hash]?.forEach({ $0() })
     }
 
     /// Path for current hash manifests file

@@ -7,9 +7,6 @@
 
 import Foundation
 
-typealias LocalizationProviderCompletion = () -> Void
-typealias LocalizationProviderError = (Error) -> Void
-
 protocol LocalizationProviderProtocol {
     init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol)
     var localStorage: LocalLocalizationStorageProtocol { get }
@@ -155,7 +152,9 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
 		pluralsBundle?.remove()
 		pluralsFolder.directories.forEach { try? $0.remove() }
         let localizationFolderName = localStorage.localization + String.minus + UUID().uuidString
-        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.localizableStringsdict.rawValue, dictionary: self.plurals)
+        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName,
+                                        fileName: Strings.localizableStringsdict.rawValue,
+                                        dictionary: PluralsFormatValidator.sanitized(self.plurals))
     }
 
     // Setup strings
@@ -214,5 +213,65 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     func set(string: String, for key: String) {
         self.localStorage.strings[key] = string
         stringsDataSource.update(with: self.strings)
+    }
+}
+
+/// Guards the stringsdict path against CWE-134.
+///
+/// A plural key resolves to its `NSStringLocalizedFormatKey` (e.g. `%#@n@`), and
+/// `String(format:)` then expands it from the downloaded plural variants. The
+/// format-string check in `String.cw_safeFormat` only sees the former, so the
+/// variants have to be vetted before they reach the plurals bundle: an entry
+/// whose variants read more arguments than its format key declares (or read
+/// them as the wrong type) would otherwise let a translator walk past the
+/// argument list. Unsafe entries are dropped, so the lookup falls back to the
+/// plain string or the app's bundled localization.
+enum PluralsFormatValidator {
+    private static let formatKey = "NSStringLocalizedFormatKey"
+    private static let valueTypeKey = "NSStringFormatValueTypeKey"
+    private static let specTypeKey = "NSStringFormatSpecTypeKey"
+
+    /// What `NSStringFormatValueTypeKey` may hold: one numeric conversion with an optional length modifier.
+    private static let valueTypeRegEx = try? NSRegularExpression(pattern: "^(?:hh|h|ll|l|q|L|z|t|j)?[dDiuUoOxXaAeEfFgG]$")
+
+    static func sanitized(_ plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
+        return plurals.filter { isSafe(entry: $0.value) }
+    }
+
+    static func isSafe(entry: Any) -> Bool {
+        guard let dictionary = entry as? [AnyHashable: Any],
+              let format = dictionary[formatKey] as? String,
+              let formatParts = FormatPart.formatParts(formatString: format) else { return false }
+        // The runtime check requires the format key's argument count to be covered by the caller's
+        // arguments, so variants may read at most that many.
+        return dictionary.allSatisfy { key, value in
+            if let key = key as? String, key == formatKey { return true }
+            guard let variable = value as? [AnyHashable: Any] else { return true }
+            return isSafe(variable: variable, argumentLimit: formatParts.count)
+        }
+    }
+
+    private static func isSafe(variable: [AnyHashable: Any], argumentLimit: Int) -> Bool {
+        return variable.allSatisfy { key, value in
+            if let key = key as? String, key == specTypeKey { return true }
+            if let key = key as? String, key == valueTypeKey {
+                guard let valueType = value as? String, let regEx = valueTypeRegEx else { return false }
+                return regEx.firstMatch(in: valueType, options: [], range: NSRange(location: 0, length: (valueType as NSString).length)) != nil
+            }
+            if let nested = value as? [AnyHashable: Any] {
+                return isSafe(variable: nested, argumentLimit: argumentLimit)
+            }
+            guard let variant = value as? String else { return true }
+            return isSafe(variant: variant, argumentLimit: argumentLimit)
+        }
+    }
+
+    /// A variant formats the variable's own number, so it may hold at most one numeric specifier
+    /// (plus references to other variables) and must not reach beyond the format key's arguments.
+    private static func isSafe(variant: String, argumentLimit: Int) -> Bool {
+        guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= argumentLimit else { return false }
+        let specifiers = parts.compactMap { $0.formatSpecifier }.filter { $0 != .topType }
+        guard specifiers.count <= 1 else { return false }
+        return specifiers.allSatisfy { $0 == .int || $0 == .uInt || $0 == .double }
     }
 }

@@ -164,7 +164,21 @@ class XcstringsParser {
 
         for char in value {
             if char == "%" {
-                isSpecifier = true
+                if isSpecifier && currentSpecifier.isEmpty {
+                    // "%%" - a literal percent, not a specifier.
+                    isSpecifier = false
+                } else if isSpecifier {
+                    // A new "%" while the previous specifier still collects
+                    // letters: flush what we have (its conversion char was the
+                    // last letter, e.g. the "s" in "%s%%d") and start over.
+                    if !currentSpecifier.isEmpty {
+                        specifiers.append(currentSpecifier)
+                        currentSpecifier = ""
+                    }
+                    isSpecifier = true
+                } else {
+                    isSpecifier = true
+                }
             } else if isSpecifier {
                 if char.isLetter || char == "@" {
                     currentSpecifier.append(char)

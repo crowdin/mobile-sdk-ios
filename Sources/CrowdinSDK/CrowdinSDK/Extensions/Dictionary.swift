@@ -46,8 +46,4 @@ extension Dictionary {
 		}
 		return result
 	}
-
-    mutating func trim(header key: Key, placeholder: Value) {
-        updateValue(placeholder, forKey: key)
-    }
 }
