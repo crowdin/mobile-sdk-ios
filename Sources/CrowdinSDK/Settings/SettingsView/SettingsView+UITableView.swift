@@ -129,9 +129,7 @@ extension SettingsView {
             if let settingsView = SettingsView.shared {
                 settingsView.removeFromSuperview()
                 settingsView.settingsWindow.isHidden = true
-                if #available(iOS 13.0, tvOS 13.0, *) {
-                    settingsView.settingsWindow.windowScene = nil
-                }
+                settingsView.settingsWindow.windowScene = nil
                 SettingsView.shared = nil
             }
         }

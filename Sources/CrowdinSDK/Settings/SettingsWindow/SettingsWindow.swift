@@ -23,12 +23,8 @@ class SettingsWindow: UIWindow {
     }
 
     init() {
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
-                super.init(windowScene: windowScene)
-            } else {
-                super.init(frame: UIScreen.main.bounds)
-            }
+        if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
+            super.init(windowScene: windowScene)
         } else {
             super.init(frame: UIScreen.main.bounds)
         }
