@@ -26,12 +26,8 @@ public extension UIViewController {
     /// https://stackoverflow.com/a/51723032/3697225
     @objc func cw_present() {
         self.topWindow = UIApplication.shared.keyWindow
-        if #available(iOS 13.0, *), #available(tvOS 13.0, *) {
-            if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
-                self.alertWindow = UIWindow(windowScene: windowScene)
-            } else {
-                self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
-            }
+        if let windowScene = UIApplication.shared.connectedScenes.filter({ $0.activationState == .foregroundActive }).first as? UIWindowScene {
+            self.alertWindow = UIWindow(windowScene: windowScene)
         } else {
             self.alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         }
