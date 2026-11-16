@@ -26,6 +26,16 @@ The SDK controls feature should not be used in a production environment. It is i
 
 ## Installation
 
+### Swift Package Manager
+
+No additional setup is needed - the SDK Controls functionality is already included in the `CrowdinSDK` package. See [Installation](/installation) for how to add it to your project.
+
+### CocoaPods (deprecated)
+
+:::caution
+CocoaPods is deprecated and will not receive new SDK releases. See [Installation](/installation#migrating-from-cocoapods) for how to migrate to Swift Package Manager.
+:::
+
 Add the following code to your `Podfile`:
 
 ```ruby title="Podfile"
@@ -38,10 +48,6 @@ target 'your-app' do
   pod 'CrowdinSDK/Settings' # Add SDK Controls widget
 end
 ```
-
-:::info Swift Package Manager
-If you installed the SDK via Swift Package Manager, no additional setup is needed - the SDK Controls functionality is already included in the `CrowdinSDK` package.
-:::
 
 Add the following option to your Crowdin SDK configuration:
 

@@ -1,10 +1,70 @@
 ---
-description: Add the Crowdin iOS SDK to your project using CocoaPods or Swift Package Manager. Learn about the requirements and dependencies.
+description: Add the Crowdin iOS SDK to your project using Swift Package Manager. Learn how to migrate from CocoaPods, and about the requirements and dependencies.
 ---
 
 # Installation
 
-## CocoaPods
+## Swift Package Manager
+
+Swift Package Manager (SPM) is the recommended way to install the Crowdin iOS SDK. It is integrated with Xcode and the Swift compiler, so there is nothing to install locally.
+
+To add `CrowdinSDK` to your project using SPM:
+
+1. In Xcode, select File > Add Package Dependencies...
+2. Enter the package repository URL: `https://github.com/crowdin/mobile-sdk-ios.git`
+3. Select the version you want to use (latest release recommended)
+4. Click Add Package and add the `CrowdinSDK` product to your app target
+
+Alternatively, you can add it directly to your Package.swift:
+
+```swift title="Package.swift"
+dependencies: [
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from: "1.16.1")
+],
+targets: [
+    .target(
+        name: "YourApp",
+        dependencies: [
+            .product(name: "CrowdinSDK", package: "mobile-sdk-ios")
+        ]
+    )
+]
+```
+
+:::tip
+For better version control, you can specify an exact version or version range:
+
+```swift
+.package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.16.1"))
+```
+:::
+
+The package provides two products:
+
+- `CrowdinSDK` - the SDK itself, including Real-Time Preview, Screenshots, and SDK Controls. No additional setup is needed to enable these features.
+- `CrowdinXCTestScreenshots` - screenshots automation for UI tests. See the [Screenshots Automation](/guides/screenshots-automation) guide.
+
+## Migrating from CocoaPods
+
+:::warning CocoaPods is deprecated
+CocoaPods Trunk becomes read-only on December 2, 2026, so new SDK releases will not be published to CocoaPods. Versions already published there stay available for download, but we recommend moving to Swift Package Manager to receive updates.
+:::
+
+To migrate an existing project:
+
+1. Remove `pod 'CrowdinSDK'` and every `pod 'CrowdinSDK/...'` subspec line from your `Podfile`. If you added the `post_install` script for App Extensions, remove it as well.
+2. Run `pod install` to update your workspace. If `CrowdinSDK` was the last pod in the project, run `pod deintegrate` instead and continue with the `.xcodeproj` rather than the `.xcworkspace`.
+3. Add the package as described in the [Swift Package Manager](#swift-package-manager) section.
+4. If you used the `CrowdinSDK/CrowdinXCTestScreenshots` subspec in your UI tests target, add the `CrowdinXCTestScreenshots` product to that target instead.
+5. Build the project. Your code doesn't need any changes: the module is still named `CrowdinSDK`, so existing `import CrowdinSDK` statements keep working.
+
+CocoaPods subspecs (`Screenshots`, `RealtimeUpdate`, `LoginFeature`, `Settings`, and others) don't exist in SPM. Their functionality is part of the single `CrowdinSDK` product, so you only need to enable the features in the SDK configuration. See [SDK Structure](/guides/sdk-structure).
+
+## CocoaPods (deprecated)
+
+:::caution
+This installation method is deprecated and will not receive new releases after CocoaPods Trunk becomes read-only. Use [Swift Package Manager](#swift-package-manager) for new projects.
+:::
 
 1. CocoaPods
 
@@ -65,33 +125,6 @@ description: Add the Crowdin iOS SDK to your project using CocoaPods or Swift Pa
    Then run `pod install` again to fix it.
 
 After you've added `CrowdinSDK` to your `Podfile`, run `pod install` in your project directory, open `App.xcworkspace` and build it.
-
-## Swift Package Manager
-
-The Swift Package Manager is a tool that automates the distribution of Swift code and is integrated with the Swift compiler.
-
-To add `CrowdinSDK` to your project using SPM:
-
-1. In Xcode, select File > Add Packages...
-2. Enter the package repository URL: `https://github.com/crowdin/mobile-sdk-ios.git`
-3. Select the version you want to use (latest release recommended)
-4. Click Add Package
-
-Alternatively, you can add it directly to your Package.swift:
-
-```swift title="Package.swift"
-dependencies: [
-    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from: "1.16.1")
-]
-```
-
-:::tip
-For better version control, you can specify an exact version or version range:
-
-```swift
-.package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.16.1"))
-```
-:::
 
 ## Requirements
 
