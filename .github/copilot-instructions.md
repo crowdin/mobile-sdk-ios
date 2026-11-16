@@ -49,25 +49,28 @@ if CrowdinSDK.responds(to: Selectors.initializeScreenshotFeature.rawValue) {
 ## Build & Test Workflow
 
 ### Package Managers
-- **Swift Package Manager**: Primary build system (builds all platforms)
-- **CocoaPods**: Used by Example apps and Tests (`pod_install.sh` installs all Podfiles)
+- **Swift Package Manager**: The only build and distribution system. The Example apps and `Tests` project reference the local package (`..`).
+- **CocoaPods**: Deprecated (Trunk is read-only from Dec 2, 2026). `CrowdinSDK.podspec` is kept only for legacy `:git` installs.
 
 ### Running Tests
 ```bash
-# Install test dependencies
-cd Tests && pod install
-
-# Run tests via xcodebuild (CI approach)
+# Hosted unit tests (CI approach)
 xcodebuild test \
-  -workspace ./Tests.xcworkspace \
-  -scheme TestsTests \
+  -project ./Tests/Tests.xcodeproj \
+  -scheme Tests \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -enableCodeCoverage YES
+
+# Swift Package test targets
+xcodebuild test \
+  -scheme CrowdinSDK-Package \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
   -enableCodeCoverage YES
 ```
 
 Tests are in two locations:
-- `Sources/Tests/` - Embedded test specs for Core/API/Provider
-- `Tests/UnitTests/` - Full integration tests
+- `Sources/Tests/` - Swift Package test targets (`CrowdinCoreTests`, `CrowdinProviderTests`, `CrowdinAPITests`)
+- `Tests/UnitTests/` - App-hosted tests in `Tests/Tests.xcodeproj`
 
 ### Code Quality
 - **SwiftLint**: Enforced via pre-commit hook (`pre-commit`) and CI

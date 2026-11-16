@@ -1,5 +1,10 @@
 name: Publish
 
+# CocoaPods Trunk becomes read-only on December 2, 2026, so releases are distributed
+# through Swift Package Manager only. SPM resolves versions straight from Git tags,
+# so there is no registry to push to: this workflow verifies that the tagged commit
+# is a valid, buildable Swift package.
+
 on:
   release:
     types: [released]
@@ -9,10 +14,10 @@ env:
   XCODE_VERSION: '16.4'
 
 jobs:
-  publish:
-    runs-on: macos-latest
-    env:
-      COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+  verify-release:
+    name: Verify Swift Package release
+    runs-on: macos-15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -20,8 +25,21 @@ jobs:
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
 
-      - name: Install cocoapods
-        run: gem install cocoapods
+      - name: Validate release tag
+        if: github.event_name == 'release'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          if ! [[ "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Release tag '$TAG' is not a semantic version (e.g. 1.17.0). SPM would not resolve it."
+            exit 1
+          fi
 
-      - name: Publish
-        run: pod trunk push --allow-warnings --skip-tests --verbose
+      - name: Resolve package dependencies
+        run: swift package resolve
+
+      - name: Build for iOS
+        run: |
+          xcodebuild build \
+          -scheme CrowdinSDK \
+          -destination 'generic/platform=iOS Simulator'

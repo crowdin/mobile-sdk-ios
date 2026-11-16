@@ -1,0 +1,24 @@
+{
+  "originHash" : "ad4036cabe439616f3d6f5579068846f4efe975f451c03bd2b7f406ef5b0d831",
+  "pins" : [
+    {
+      "identity" : "baseapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/serhii-londar/BaseAPI.git",
+      "state" : {
+        "revision" : "f861b982abc38b75e2c5332e2e333a9da06bcf6a",
+        "version" : "0.2.2"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream.git",
+      "state" : {
+        "revision" : "c6bfd1af48efcc9a9ad203665db12375ba6b145a",
+        "version" : "4.0.8"
+      }
+    }
+  ],
+  "version" : 3
+}

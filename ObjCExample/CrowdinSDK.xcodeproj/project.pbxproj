@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6798FF92AF00C82F72FB9B61 /* Pods_CrowdinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC7EFE64B4DA2809E716605 /* Pods_CrowdinSDK.framework */; };
+		8A984FCD9B1D4C4D51678C99 /* CrowdinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 343804C4DE78A6F4CD5385CF /* CrowdinSDK */; };
 		922CD8C7224DB3B300D62777 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922CD8C6224DB3B300D62777 /* Empty.swift */; };
 		92DC5366224DB30E00431575 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DC5365224DB30E00431575 /* AppDelegate.m */; };
 		92DC5369224DB30E00431575 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DC5368224DB30E00431575 /* ViewController.m */; };
@@ -18,8 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		061571C374C2642D379082C1 /* Pods-CrowdinSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK.debug.xcconfig"; path = "Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK.debug.xcconfig"; sourceTree = "<group>"; };
-		38D5534CDBFDECEB4DB33419 /* Pods-CrowdinSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrowdinSDK.release.xcconfig"; path = "Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK.release.xcconfig"; sourceTree = "<group>"; };
 		922CD8C5224DB3B200D62777 /* CrowdinSDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrowdinSDK-Bridging-Header.h"; sourceTree = "<group>"; };
 		922CD8C6224DB3B300D62777 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		92DC5361224DB30E00431575 /* CrowdinSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrowdinSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,7 +30,6 @@
 		92DC5370224DB30F00431575 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92DC5372224DB30F00431575 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92DC5373224DB30F00431575 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9FC7EFE64B4DA2809E716605 /* Pods_CrowdinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CrowdinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,29 +37,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6798FF92AF00C82F72FB9B61 /* Pods_CrowdinSDK.framework in Frameworks */,
+				8A984FCD9B1D4C4D51678C99 /* CrowdinSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		20F8A2ACC2BD64AB279EA0D6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				061571C374C2642D379082C1 /* Pods-CrowdinSDK.debug.xcconfig */,
-				38D5534CDBFDECEB4DB33419 /* Pods-CrowdinSDK.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		92DC5358224DB30E00431575 = {
 			isa = PBXGroup;
 			children = (
 				92DC5363224DB30E00431575 /* CrowdinSDK */,
 				92DC5362224DB30E00431575 /* Products */,
-				20F8A2ACC2BD64AB279EA0D6 /* Pods */,
-				CA8279CAB453BBC149B53EEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,14 +78,6 @@
 			path = CrowdinSDK;
 			sourceTree = "<group>";
 		};
-		CA8279CAB453BBC149B53EEE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9FC7EFE64B4DA2809E716605 /* Pods_CrowdinSDK.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,17 +85,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92DC5377224DB30F00431575 /* Build configuration list for PBXNativeTarget "CrowdinSDK" */;
 			buildPhases = (
-				EDB5649664D86A8ADD1F3CB1 /* [CP] Check Pods Manifest.lock */,
 				92DC535D224DB30E00431575 /* Sources */,
 				92DC535E224DB30E00431575 /* Frameworks */,
 				92DC535F224DB30E00431575 /* Resources */,
-				8C234EC6E3563F71BBD47A88 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CrowdinSDK;
+			packageProductDependencies = (
+				343804C4DE78A6F4CD5385CF /* CrowdinSDK */,
+			);
 			productName = CrowdinSDK;
 			productReference = 92DC5361224DB30E00431575 /* CrowdinSDK.app */;
 			productType = "com.apple.product-type.application";
@@ -146,6 +125,9 @@
 				Base,
 			);
 			mainGroup = 92DC5358224DB30E00431575;
+			packageReferences = (
+				9BC73A64F8C460849E9A235B /* XCLocalSwiftPackageReference ".." */,
+			);
 			productRefGroup = 92DC5362224DB30E00431575 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -167,48 +149,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		8C234EC6E3563F71BBD47A88 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CrowdinSDK/Pods-CrowdinSDK-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EDB5649664D86A8ADD1F3CB1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CrowdinSDK-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		92DC535D224DB30E00431575 /* Sources */ = {
@@ -358,7 +298,6 @@
 		};
 		92DC5378224DB30F00431575 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 061571C374C2642D379082C1 /* Pods-CrowdinSDK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -370,6 +309,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhii.londar.CrowdinSDK;
+				PRODUCT_MODULE_NAME = CrowdinObjCExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CrowdinSDK/CrowdinSDK-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -380,7 +320,6 @@
 		};
 		92DC5379224DB30F00431575 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38D5534CDBFDECEB4DB33419 /* Pods-CrowdinSDK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -392,6 +331,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.serhii.londar.CrowdinSDK;
+				PRODUCT_MODULE_NAME = CrowdinObjCExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CrowdinSDK/CrowdinSDK-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -421,6 +361,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		9BC73A64F8C460849E9A235B /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		343804C4DE78A6F4CD5385CF /* CrowdinSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9BC73A64F8C460849E9A235B /* XCLocalSwiftPackageReference ".." */;
+			productName = CrowdinSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92DC5359224DB30E00431575 /* Project object */;
 }

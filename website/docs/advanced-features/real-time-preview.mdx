@@ -16,7 +16,15 @@ The Real-Time Preview feature is designed for development and staging environmen
 
 ## Setup
 
-### CocoaPods
+### Swift Package Manager
+
+No additional setup is needed - the Real-Time Preview functionality is already included in the `CrowdinSDK` package. See [Installation](/installation) for how to add it to your project.
+
+### CocoaPods (deprecated)
+
+:::caution
+CocoaPods is deprecated and will not receive new SDK releases. See [Installation](/installation#migrating-from-cocoapods) for how to migrate to Swift Package Manager.
+:::
 
 Add the following code to your `Podfile`:
 
@@ -29,10 +37,6 @@ target 'your-app' do
     pod 'CrowdinSDK/Settings' # Optional. To add the SDK Controls floating button
 end
 ```
-
-:::info Swift Package Manager
-If you installed the SDK via Swift Package Manager, no additional setup is needed - the Real-Time Preview functionality is already included in the `CrowdinSDK` package.
-:::
 
 ## Authorization
 

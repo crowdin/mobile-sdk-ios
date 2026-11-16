@@ -36,6 +36,21 @@ let package = Package(
             swiftSettings: [
                 .define("CrowdinSDKSPM")
             ]
+        ),
+        .testTarget(
+            name: "CrowdinCoreTests",
+            dependencies: ["CrowdinSDK"],
+            path: "Sources/Tests/Core"
+        ),
+        .testTarget(
+            name: "CrowdinProviderTests",
+            dependencies: ["CrowdinSDK"],
+            path: "Sources/Tests/CrowdinProvider"
+        ),
+        .testTarget(
+            name: "CrowdinAPITests",
+            dependencies: ["CrowdinSDK"],
+            path: "Sources/Tests/CrowdinAPI"
         )
     ]
 )

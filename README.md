@@ -28,15 +28,27 @@ The SDK provides:
 
 <div align="center">
 
-[![Cocoapods](https://img.shields.io/cocoapods/v/CrowdinSDK?logo=pods&cacheSeconds=3600)](https://cocoapods.org/pods/CrowdinSDK)
-[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CrowdinSDK?cacheSeconds=10000)](https://cocoapods.org/pods/CrowdinSDK)
-[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-blue)](https://img.shields.io/badge/Swift_Package_Manager-compatible-red)
+[![GitHub release](https://img.shields.io/github/v/release/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/releases)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-blue)](https://www.swift.org/documentation/package-manager/)
 [![CI/CD](https://github.com/crowdin/mobile-sdk-ios/actions/workflows/build.yml/badge.svg)](https://github.com/crowdin/mobile-sdk-ios/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/crowdin/mobile-sdk-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/crowdin/mobile-sdk-ios)
 [![GitHub contributors](https://img.shields.io/github/contributors/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/graphs/contributors)
 [![GitHub License](https://img.shields.io/github/license/crowdin/mobile-sdk-ios?cacheSeconds=3600)](https://github.com/crowdin/mobile-sdk-ios/blob/master/LICENSE)
 
 </div>
+
+## Installation
+
+Add the package with Swift Package Manager. In Xcode, select File > Add Package Dependencies... and enter `https://github.com/crowdin/mobile-sdk-ios.git`, or add it to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", from: "1.16.1")
+]
+```
+
+> [!IMPORTANT]
+> CocoaPods Trunk becomes read-only on December 2, 2026, so new SDK releases will be distributed via Swift Package Manager only. See the [installation guide](https://crowdin.github.io/mobile-sdk-ios/installation#migrating-from-cocoapods) to migrate an existing CocoaPods setup.
 
 ## Usage
 
