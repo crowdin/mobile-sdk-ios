@@ -77,7 +77,7 @@ Tests are in two locations:
 - **Danger**: PR review automation (`Dangerfile.swift`) - warns on large PRs, runs SwiftLint
 
 ### Platform Testing
-SDK supports iOS 12+, macOS 10.13+, tvOS 12+, watchOS 5+. Always test cross-platform changes:
+SDK supports iOS 15+, macOS 12+, tvOS 15+, watchOS 9+. Always test cross-platform changes:
 ```bash
 xcodebuild build -scheme CrowdinSDK -destination 'platform=macOS'
 xcodebuild build -scheme CrowdinSDK -destination 'platform=tvOS Simulator,name=Apple TV'

@@ -29,10 +29,10 @@ Pod::Spec.new do |spec|
   spec.source           = { :git => 'https://github.com/crowdin/mobile-sdk-ios.git', :tag => spec.version.to_s }
   spec.social_media_url    = 'https://twitter.com/crowdin'
   
-  spec.watchos.deployment_target = '4.0'
-  spec.ios.deployment_target = '12.0'
-  spec.tvos.deployment_target = '12.0'
-  spec.macos.deployment_target = '10.13'
+  spec.watchos.deployment_target = '9.0'
+  spec.ios.deployment_target = '15.0'
+  spec.tvos.deployment_target = '15.0'
+  spec.macos.deployment_target = '12.0'
   
   spec.ios.frameworks = 'UIKit'
   spec.tvos.frameworks = 'UIKit'

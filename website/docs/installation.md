@@ -97,7 +97,10 @@ For better version control, you can specify an exact version or version range:
 
 * Xcode 15.0+
 * Swift 5.0+
-* iOS 12.0+
+* iOS 15.0+
+* macOS 12.0+
+* tvOS 15.0+
+* watchOS 9.0+
 
 :::info
 R-Swift applications are also supported by the Crowdin iOS SDK.
