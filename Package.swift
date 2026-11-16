@@ -6,10 +6,10 @@ import PackageDescription
 let package = Package(
     name: "CrowdinSDK",
     platforms: [
-        .macOS(.v10_13),
-        .watchOS(.v5),
-        .iOS(.v12),
-        .tvOS(.v12)
+        .macOS(.v12),
+        .watchOS(.v9),
+        .iOS(.v15),
+        .tvOS(.v15)
     ],
     products: [
         .library(name: "CrowdinSDK", targets: ["CrowdinSDK"]),

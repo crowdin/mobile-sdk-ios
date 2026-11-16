@@ -32,12 +32,7 @@ final class CrowdinLogsVC: UITableViewController {
 #if os(iOS)
             self.refreshControl = UIRefreshControl()
             self.refreshControl?.addTarget(self, action: #selector(reloadData), for: .valueChanged)
-            if #available(iOS 10.0, *) {
-                tableView.refreshControl = refreshControl
-            } else {
-                // swiftlint:disable force_unwrapping
-                tableView.addSubview(refreshControl!)
-            }
+            tableView.refreshControl = refreshControl
 #endif
         }
     }
