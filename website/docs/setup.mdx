@@ -87,7 +87,7 @@ Add the following code to your Library Search Paths:
     $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
     ```
 
-2.  Add `use_frameworks!` to your `Podfile`.
+2.  If you use CocoaPods (deprecated), add `use_frameworks!` to your `Podfile`.
 
 ### Alternative Setup: Info.plist
 
@@ -139,21 +139,19 @@ Read more about creating an [OAuth application](https://support.crowdin.com/acco
 
 ### Translations Update Interval
 
-By default, the SDK searches for new translations once per application load, but not more often than 15 minutes. You can update translations in the application every defined interval. To enable this feature, add the `CrowdinSDK/IntervalUpdate` pod to your `Podfile`:
+By default, the SDK searches for new translations once per application load, but not more often than 15 minutes. You can update translations in the application every defined interval. This feature is included in the `CrowdinSDK` package when you use Swift Package Manager. If you use CocoaPods (deprecated), add the `CrowdinSDK/IntervalUpdate` pod to your `Podfile`:
 
-1.  Add to `Podfile`:
+```ruby
+pod 'CrowdinSDK/IntervalUpdate'
+```
 
-    ```ruby
-    pod 'CrowdinSDK/IntervalUpdate'
-    ```
+To enable it, configure the SDK:
 
-2.  Configure in SDK:
+```swift
+.with(intervalUpdatesEnabled: true, interval: {interval})
+```
 
-    ```swift
-    .with(intervalUpdatesEnabled: true, interval: {interval})
-    ```
-
-    Where `interval` defines the translations update time interval in seconds. The minimum allowed interval is 15 minutes (900 seconds).
+Where `interval` defines the translations update time interval in seconds. The minimum allowed interval is 15 minutes (900 seconds).
 
 ### Change locale programmatically
 

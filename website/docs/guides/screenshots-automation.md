@@ -19,9 +19,36 @@ Before you start, ensure you have:
 
 ### Installation
 
-First, add the screenshot feature to your UI Tests target. You can use either CocoaPods or Swift Package Manager.
+First, add the screenshot feature to your UI Tests target using Swift Package Manager.
 
-#### CocoaPods
+#### Swift Package Manager
+
+1. In Xcode, go to File > Add Package Dependencies
+2. Add package with URL: `https://github.com/crowdin/mobile-sdk-ios`
+3. Select "CrowdinXCTestScreenshots" product when adding the package
+4. Add the package to your UI Tests target
+
+Or add it to your Package.swift:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.16.1"))
+],
+targets: [
+    .target(
+        name: "YourUITests",
+        dependencies: [
+            .product(name: "CrowdinXCTestScreenshots", package: "mobile-sdk-ios")
+        ]
+    )
+]
+```
+
+#### CocoaPods (deprecated)
+
+:::caution
+CocoaPods is deprecated and will not receive new SDK releases. See [Installation](/installation#migrating-from-cocoapods) for how to migrate to Swift Package Manager.
+:::
 
 Add the following to your `Podfile`:
 
@@ -41,29 +68,6 @@ Then add import to your tests source files:
 
 ```swift
 import CrowdinSDK
-```
-
-#### Swift Package Manager
-
-1. In Xcode, go to File > Add Packages
-2. Add package with URL: `https://github.com/crowdin/mobile-sdk-ios`
-3. Select "CrowdinXCTestScreenshots" product when adding the package
-4. Add the package to your UI Tests target
-
-Or add it to your Package.swift:
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/crowdin/mobile-sdk-ios.git", .upToNextMajor(from: "1.16.1"))
-],
-targets: [
-    .target(
-        name: "YourUITests",
-        dependencies: [
-            .product(name: "CrowdinXCTestScreenshots", package: "CrowdinSDK")
-        ]
-    )
-]
 ```
 
 Then add imports in your tests source files:
