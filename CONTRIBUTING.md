@@ -71,12 +71,12 @@ Before sending your pull requests, make sure you followed the list below:
 - Run Unit tests.
 
 > **Note**
-> Integration tests are available in this project but are disabled by default to avoid external dependencies during regular development. They run automatically on a weekly schedule via GitHub Actions. To enable them locally, set the `RUN_INTEGRATION_TESTS=1` environment variable when running tests:
+> Integration tests are available in this project but are disabled by default to avoid external dependencies during regular development. They run automatically on a weekly schedule via GitHub Actions. To enable them locally, set the `TEST_RUNNER_RUN_INTEGRATION_TESTS=1` environment variable when running tests (`xcodebuild` strips the `TEST_RUNNER_` prefix and passes the variable to the test process as `RUN_INTEGRATION_TESTS`):
 > ```bash
 > cd Tests
-> RUN_INTEGRATION_TESTS=1 xcodebuild test \
+> TEST_RUNNER_RUN_INTEGRATION_TESTS=1 xcodebuild test \
 >   -sdk iphonesimulator \
->   -workspace ./Tests.xcworkspace \
+>   -project ./Tests.xcodeproj \
 >   -scheme Tests \
 >   -configuration Debug \
 >   -destination 'platform=iOS Simulator,name=iPhone 15 Pro'

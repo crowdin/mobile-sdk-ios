@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <CrowdinSDK/CrowdinSDK-Swift.h>
+@import CrowdinSDK;
 
 @interface AppDelegate ()
 

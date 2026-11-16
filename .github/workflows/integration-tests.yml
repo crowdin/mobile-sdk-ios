@@ -17,21 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache CocoaPods
-        uses: actions/cache@v4
-        with:
-          path: Tests/Pods
-          key: ${{ runner.os }}-pods-tests-${{ hashFiles('Tests/Podfile.lock') }}
-
       - name: Cache Xcode Derived Data
         uses: actions/cache@v4
         with:
           path: ~/Library/Developer/Xcode/DerivedData
           key: ${{ runner.os }}-xcode-derived-${{ hashFiles('Tests/**/*.swift', 'Tests/**/*.m', 'Tests/**/*.h') }}
-
-      - name: Install CocoaPods
-        working-directory: Tests
-        run: pod install
 
       - name: Install xcbeautify
         run: brew install xcbeautify
@@ -56,11 +46,27 @@ jobs:
         working-directory: Tests
         env:
           RUN_INTEGRATION_TESTS: "1"
+          # xcodebuild only forwards TEST_RUNNER_-prefixed variables to the test process
+          TEST_RUNNER_RUN_INTEGRATION_TESTS: "1"
         run: |
           xcodebuild test \
           -sdk iphonesimulator \
-          -workspace ./Tests.xcworkspace \
+          -project ./Tests.xcodeproj \
           -scheme Tests \
+          -configuration Debug \
+          -destination '${{ steps.select_sim.outputs.destination }}' \
+          -parallel-testing-enabled NO \
+          -enableCodeCoverage YES | xcbeautify && exit ${PIPESTATUS[0]}
+
+      - name: Run Integration Tests (Swift Package)
+        env:
+          RUN_INTEGRATION_TESTS: "1"
+          # xcodebuild only forwards TEST_RUNNER_-prefixed variables to the test process
+          TEST_RUNNER_RUN_INTEGRATION_TESTS: "1"
+        run: |
+          xcodebuild test \
+          -sdk iphonesimulator \
+          -scheme CrowdinSDK-Package \
           -configuration Debug \
           -destination '${{ steps.select_sim.outputs.destination }}' \
           -parallel-testing-enabled NO \
