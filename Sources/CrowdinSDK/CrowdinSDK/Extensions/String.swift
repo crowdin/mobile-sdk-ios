@@ -93,8 +93,15 @@ extension String {
         guard let parts = FormatPart.formatParts(formatString: self) else { return false }
         guard parts.count <= arguments.count else { return false }
         for (index, part) in parts.enumerated() {
-            guard let specifier = part.formatSpecifier else { continue }
-            guard specifier.isCompatible(with: arguments[index]) else { return false }
+            switch part {
+            case .spec(let specifier):
+                guard specifier.isCompatible(with: arguments[index]) else { return false }
+            case .reference:
+                // Stringsdict plural references format numeric values; reject
+                // non-scalars so an OTA stringsdict cannot reinterpret an object
+                // pointer as an integer.
+                guard FormatSpecifier.isDefinitelyScalar(arguments[index]) else { return false }
+            }
         }
         return true
     }
@@ -121,7 +128,10 @@ private extension FormatSpecifier {
             // both crash with EXC_BAD_ACCESS.
             return !Self.isDefinitelyScalar(argument) && !Self.isDefinitelyPointer(argument)
         case .double, .int, .uInt, .character:
-            return !(argument is String)
+            // Only scalar values are safe here: objects (String, NSURL,
+            // NSNumber, etc.) and raw pointers would leak their addresses
+            // as numbers (ASLR leak).
+            return Self.isDefinitelyScalar(argument)
         case .cStringPointer:
             return Self.isDefinitelyCStringPointer(argument)
         case .voidPointer:
@@ -136,6 +146,10 @@ private extension FormatSpecifier {
     }
 
     static func isDefinitelyScalar(_ argument: CVarArg) -> Bool {
+        // Class instances (e.g. NSNumber) bridge to Swift numeric types under
+        // `is Int`/`is Double`, but CVarArg passes their object pointer word,
+        // not the boxed scalar value.
+        if Swift.type(of: argument) is AnyClass { return false }
         #if canImport(CoreGraphics)
         if argument is CGFloat { return true }
         #endif
@@ -193,7 +207,7 @@ extension String {
     /// Detect whether current string is formated.
 	var isFormated: Bool {
         let masked = formatStringWithMaskedLiteralPercents
-		return formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: masked.count)).count > 0
+		return formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: (masked as NSString).length)).count > 0
 	}
 }
 
@@ -224,11 +238,11 @@ extension String {
         // are masked so the regex sees the same specifiers as the safety check
         // (see formatStringWithMaskedLiteralPercents).
         let masked = formatedString.formatStringWithMaskedLiteralPercents
-        let matches = formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: masked.count))
+        let nsMaskedValue = masked as NSString
+        let matches = formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: nsMaskedValue.length))
         // If it is not formated string return false.
         guard matches.count > 0 else { return false }
         let ranges = matches.compactMap({ $0.range })
-        let nsMaskedValue = masked as NSString
         let components = nsMaskedValue.splitBy(ranges: ranges)
         for component in components {
             // A masked literal percent was rendered as a real "%" in `string`.
@@ -306,11 +320,11 @@ extension String {
         // components are searched for in `string` with the mask rendered back
         // as a real "%", because that is how the app displayed them.
         let masked = format.formatStringWithMaskedLiteralPercents
+        let nsStringValue = masked as NSString
         guard let parts = FormatPart.formatParts(formatString: format) else { return nil }
-        let matches = formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: masked.count))
+        let matches = formatTypesRegEx.matches(in: masked, options: [], range: NSRange(location: 0, length: nsStringValue.length))
         guard matches.count > 0 else { return nil }
         let ranges = matches.compactMap({ $0.range })
-        let nsStringValue = masked as NSString
         let components = nsStringValue.splitBy(ranges: ranges)
 
         let nsStringText = string as NSString

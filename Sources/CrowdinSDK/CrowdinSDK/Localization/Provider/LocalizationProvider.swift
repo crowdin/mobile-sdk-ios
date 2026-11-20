@@ -247,11 +247,11 @@ enum PluralsFormatValidator {
         return dictionary.allSatisfy { key, value in
             if let key = key as? String, key == formatKey { return true }
             guard let variable = value as? [AnyHashable: Any] else { return true }
-            return isSafe(variable: variable, argumentLimit: formatParts.count)
+            return isSafe(variable: variable, formatParts: formatParts)
         }
     }
 
-    private static func isSafe(variable: [AnyHashable: Any], argumentLimit: Int) -> Bool {
+    private static func isSafe(variable: [AnyHashable: Any], formatParts: [FormatPart]) -> Bool {
         return variable.allSatisfy { key, value in
             if let key = key as? String, key == specTypeKey { return true }
             if let key = key as? String, key == valueTypeKey {
@@ -259,19 +259,37 @@ enum PluralsFormatValidator {
                 return regEx.firstMatch(in: valueType, options: [], range: NSRange(location: 0, length: (valueType as NSString).length)) != nil
             }
             if let nested = value as? [AnyHashable: Any] {
-                return isSafe(variable: nested, argumentLimit: argumentLimit)
+                return isSafe(variable: nested, formatParts: formatParts)
             }
             guard let variant = value as? String else { return true }
-            return isSafe(variant: variant, argumentLimit: argumentLimit)
+            return isSafe(variant: variant, formatParts: formatParts)
         }
     }
 
     /// A variant formats the variable's own number, so it may hold at most one numeric specifier
-    /// (plus references to other variables) and must not reach beyond the format key's arguments.
-    private static func isSafe(variant: String, argumentLimit: Int) -> Bool {
-        guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= argumentLimit else { return false }
+    /// (plus references to other variables) and must not reach beyond the format key's arguments
+    /// or target a non-numeric positional slot in `formatParts`.
+    private static func isSafe(variant: String, formatParts: [FormatPart]) -> Bool {
+        guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= formatParts.count else { return false }
         let specifiers = parts.compactMap { $0.formatSpecifier }.filter { $0 != .topType }
         guard specifiers.count <= 1 else { return false }
-        return specifiers.allSatisfy { $0 == .int || $0 == .uInt || $0 == .double }
+        guard specifiers.allSatisfy({ $0 == .int || $0 == .uInt || $0 == .double }) else { return false }
+
+        // If the variant uses positional indexing (e.g. `%1$d` or `%2$lld`), ensure the
+        // referenced slot in `formatParts` is actually numeric or a plural reference, not
+        // e.g. `%1$@` (an object/String slot).
+        let isPositional = parts.count > 1 || variant.formatStringWithMaskedLiteralPercents.contains("%1$")
+        if isPositional {
+            for (index, part) in parts.enumerated() {
+                guard let specifier = part.formatSpecifier, specifier != .topType else { continue }
+                switch formatParts[index] {
+                case .reference, .spec(.int), .spec(.uInt), .spec(.double):
+                    break
+                default:
+                    return false
+                }
+            }
+        }
+        return true
     }
 }

@@ -174,4 +174,23 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
 
         XCTAssertEqual(key.cw_localized(with: [3]), key)
     }
+
+    func testCwLocalizedFallsBackWhenOTATranslationHidesSpecifiersInsideReferenceName() {
+        let key = "__cwe134_ref_bypass_key__"
+        startSDK(translations: [key: "%#@a%p%p%p%p@"])
+
+        XCTAssertEqual(key.cw_localized(with: ["Alice"]), key)
+    }
+
+    func testCwLocalizedFallsBackWhenOTATranslationUsesTripleLengthOrReorderedModifiers() {
+        let key1 = "__cwe134_lll_key__"
+        let key2 = "__cwe134_reordered_key__"
+        startSDK(translations: [
+            key1: "%lllp %lllp %lllp",
+            key2: "%l+p %5-p %l5p"
+        ])
+
+        XCTAssertEqual(key1.cw_localized(with: []), key1)
+        XCTAssertEqual(key2.cw_localized(with: []), key2)
+    }
 }

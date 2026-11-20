@@ -228,7 +228,12 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 		// Stringsdict reference: "%#@name@".
 		if j + 1 < s.count, s[j] == "#", s[j + 1] == "@" {
 			var end = j + 2
-			while end < s.count, s[end] != "@" { end += 1 }
+			while end < s.count, s[end] != "@" {
+				// A `%` inside `%#@...@` causes Foundation to reject the
+				// reference and execute the inner specifier instead (CWE-134).
+				if s[end] == "%" { return nil }
+				end += 1
+			}
 			if end < s.count, end > j + 2 {
 				let name = String(String.UnicodeScalarView(s[(j + 2)..<end]))
 				guard slots.add(.reference(name), at: position) else { return nil }
@@ -237,31 +242,33 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 			}
 		}
 
-		// Flags.
-		while j < s.count, "-+ #0'".unicodeScalars.contains(s[j]) { j += 1 }
-
-		// Width.
-		if j < s.count, s[j] == "*" { return nil }
-		if isDigit(j) {
-			let number = readNumber(from: j)
-			guard number.value <= maxFieldWidth else { return nil }
-			j = number.next
-		}
-
-		// Precision.
-		if j < s.count, s[j] == "." {
-			j += 1
-			if j < s.count, s[j] == "*" { return nil }
-			let number = readNumber(from: j)
-			guard number.value <= maxFieldWidth else { return nil }
-			j = number.next
-		}
-
-		// Length modifiers: h, hh, l, ll, q, L, z, t, j.
-		var lengthCount = 0
-		while j < s.count, lengthCount < 2, "hlqLztj".unicodeScalars.contains(s[j]) {
-			j += 1
-			lengthCount += 1
+		// Modifiers: CoreFoundation parses flags, width, precision, and length
+		// modifiers in a single loop (accepting arbitrary order and 3+ length
+		// modifiers like `%lllp` or `%l+p`), so we mirror that loop here.
+		while j < s.count {
+			let ch = s[j]
+			if "-+ #0'".unicodeScalars.contains(ch) {
+				j += 1
+			} else if ch == "*" || ch == "$" {
+				return nil
+			} else if isDigit(j) {
+				let number = readNumber(from: j)
+				// A positional `$` after modifiers (e.g. `%+1$d`, `%1$2$d`) is
+				// malformed and not worth guessing about.
+				if number.next < s.count, s[number.next] == "$" { return nil }
+				guard number.value <= maxFieldWidth else { return nil }
+				j = number.next
+			} else if ch == "." {
+				j += 1
+				if j < s.count, s[j] == "*" { return nil }
+				let number = readNumber(from: j)
+				guard number.value <= maxFieldWidth else { return nil }
+				j = number.next
+			} else if "hlqLztj".unicodeScalars.contains(ch) {
+				j += 1
+			} else {
+				break
+			}
 		}
 
 		// Conversion.
