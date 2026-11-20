@@ -23,7 +23,15 @@ You can capture and upload tagged screenshots to Crowdin in two ways:
 
 ## Setup
 
-### CocoaPods
+### Swift Package Manager
+
+No additional setup is needed - the Screenshots functionality is already included in the `CrowdinSDK` package. See [Installation](/installation) for how to add it to your project.
+
+### CocoaPods (deprecated)
+
+:::caution
+CocoaPods is deprecated and will not receive new SDK releases. See [Installation](/installation#migrating-from-cocoapods) for how to migrate to Swift Package Manager.
+:::
 
 To enable the Screenshots feature in your application, add the following configuration to your `Podfile`:
 
@@ -36,10 +44,6 @@ target 'your-app' do
     pod 'CrowdinSDK/Settings' # Optional. To add the SDK Controls floating button
 end
 ```
-
-:::info Swift Package Manager
-If you installed the SDK via Swift Package Manager, no additional setup is needed - the Screenshots functionality is already included in the `CrowdinSDK` package.
-:::
 
 ## Authorization
 

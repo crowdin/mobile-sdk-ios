@@ -27,6 +27,6 @@ private let clientSecret = "your_client_secret" // Crowdin OAuth Client Secret (
 private let accessToken = "your_access_token" // Crowdin access token (can be used instead of OAuth for Screenshots and Real-Time Preview features)
 ```
 
-To run the example project, clone the repo, run `pod install` from the Example directory, and then open `AppleReminders.xcworkspace`.
+To run the example project, clone the repo and open `Example/AppleReminders.xcodeproj` in Xcode. Dependencies are resolved by Swift Package Manager.
 
 To read more about the Crowdin iOS SDK configuration, visit the [Setup](/setup) page.

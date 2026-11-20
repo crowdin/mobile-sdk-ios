@@ -16,7 +16,6 @@ struct MyRealm {
         let config = Realm.Configuration(
             fileURL: URL(fileURLWithPath: RLMRealmPathForFile("default.realm"), isDirectory: false), //default file URL provided by Realm doc; need to import Realm
             inMemoryIdentifier: nil,
-            syncConfiguration: nil,
             encryptionKey: nil,
             readOnly: false,
             schemaVersion: 1,
