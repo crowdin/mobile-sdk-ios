@@ -102,13 +102,8 @@ extension FormatSpecifier {
 	}
 }
 
-/// Regex used by the display-side helpers (`isFormated`, `findMatch`,
-/// `findValues`) to locate specifiers inside rendered text. It is NOT used to
-/// decide whether a format string is safe to hand to `String(format:)`:
-/// a regex only recognises the specifiers it was written for, and anything it
-/// misses is an argument `String(format:)` reads that nobody counted (CWE-134).
-/// The safety check uses `createFormatParts` below, which follows the
-/// CoreFoundation grammar and fails closed.
+/// Display-side regex for `isFormated`, `findMatch`, and `findValues`.
+/// Safety validation uses `createFormatParts` instead (regexes fail open on unknown specifiers).
 let formatTypesRegEx: NSRegularExpression = {
 	let patternLength = "(?:h|hh|l|ll|q|z|t|j|L)?"
 	let patternInt = "\(patternLength)([dioux]|[aefg])" // %d/%i/%o/%u/%x and %a/%e/%f/%g with optional length modifiers
@@ -123,30 +118,21 @@ let formatTypesRegEx: NSRegularExpression = {
 	}
 }()
 
-/// Upper bound on a positional specifier index (e.g. the `5` in `%5$d`) and on
-/// the number of argument slots a format may use. Real localizations never come
-/// close; the bound exists because a malicious OTA translation could otherwise
-/// name an enormous position and force this parser - which runs *inside* the
-/// CWE-134 safety check - to allocate a padding array of that size.
+/// Caps positional indices (e.g. `%5$d`) and slot count to prevent large padding allocations.
 private let maxPositionalIndex = 100
 
-/// Upper bound on a literal width or precision (the `10` in `%10d`, the `5` in
-/// `%.5f`). `String(format:)` materialises the padding, so an unbounded value is
-/// a memory exhaustion vector.
+/// Caps literal width/precision (e.g. `%256d`) to prevent `String(format:)` memory exhaustion.
 private let maxFieldWidth = 256
 
-/// Collects the argument slots a format string consumes.
+/// Tracks argument slots consumed by a format string.
 private struct FormatSlots {
 	private var slots = [Int: FormatPart]()
 	private var nextSequential = 1
 	private var usesPositional = false
 	private var usesSequential = false
 
-	/// Registers a slot. `position` is the explicit `n$` index, or nil to take the
-	/// next sequential one. Returns false when the format must be rejected:
-	/// mixing sequential and positional specifiers (CoreFoundation's behaviour is
-	/// not worth relying on), an out-of-range position, or one position read as
-	/// two different types.
+	/// Registers a slot at `position` (or next sequential index).
+	/// Rejects mixed positional/sequential, out-of-range indices, or conflicting types.
 	mutating func add(_ part: FormatPart, at position: Int?) -> Bool {
 		let index: Int
 		if let position = position {
@@ -163,31 +149,21 @@ private struct FormatSlots {
 		return true
 	}
 
-	/// Slots in argument order; positions the format never reads are padded with `.topType`.
+	/// Slots in argument order; unread positional gaps are padded with `.topType`.
 	var parts: [FormatPart] {
 		let count = slots.keys.max() ?? 0
 		return (0..<count).map { slots[$0 + 1] ?? .spec(.topType) }
 	}
 }
 
-// "I give %d apples to %@ %#@named@" --> [.Spec(.Int), .Spec(.String), .Reference("named")]
+// "I give %d apples to %@ %#@named@" --> [.spec(.int), .spec(.object), .reference("named")]
 //
-// Returns one entry per argument `String(format:)` will consume for `formatString`
-// (CWE-134: the caller compares this count and the types with the arguments it
-// actually has). This is a scanner over the CoreFoundation format grammar -
-//   %[n$][flags][width][.precision][length]conversion
-// - rather than a regex, so it counts everything CoreFoundation counts. Where it
-// cannot be sure, it returns nil and callers must treat the format as unsafe:
-//   - `*` width/precision: takes its value from an argument and can force a huge
-//     allocation, and no real translation needs it;
-//   - `%n`: consumes an argument slot (verified on Apple Foundation) and has no
-//     legitimate use in a translation;
-//   - flags/width followed by a second `%` (e.g. "%5%"): how the tail is
-//     re-interpreted is not worth guessing;
-//   - widths/precisions/positions above the caps, mixed sequential and
-//     positional specifiers, or one position read as two different types.
-// A `%` followed by an unknown conversion character (e.g. "%y") is printed
-// literally by CoreFoundation and consumes nothing (verified), so it is skipped.
+// CoreFoundation format grammar scanner: %[n$][flags][width][.precision][length]conversion
+// Fails closed (returns `nil`) on:
+// - `*` dynamic width/precision or `%n` (consumes/writes an argument slot)
+// - malformed modifiers (e.g. `%5%`, trailing `$`, mixed positional/sequential, type conflicts)
+// - positions > `maxPositionalIndex` or widths/precisions > `maxFieldWidth`
+// Unknown conversions (e.g. `%y`) are printed literally by CoreFoundation and skipped.
 private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 	let s = Array(formatString.unicodeScalars)
 	var slots = FormatSlots()
@@ -197,7 +173,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 		return index < s.count && s[index].value >= 0x30 && s[index].value <= 0x39
 	}
 
-	/// Reads a run of decimal digits starting at `index`. Saturates instead of overflowing.
+	/// Reads decimal digits from `index`, saturating at `1_000_000`.
 	func readNumber(from index: Int) -> (value: Int, next: Int) {
 		var value = 0
 		var next = index
@@ -214,7 +190,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 		guard j < s.count else { break }
 		if s[j] == "%" { i = j + 1; continue } // literal percent
 
-		// Optional explicit position: "%2$d". A leading 0 is a flag, not a position.
+		// Optional positional index (`%2$d`); leading `0` is a flag.
 		var position: Int?
 		if isDigit(j), s[j] != "0" {
 			let number = readNumber(from: j)
@@ -229,8 +205,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 		if j + 1 < s.count, s[j] == "#", s[j + 1] == "@" {
 			var end = j + 2
 			while end < s.count, s[end] != "@" {
-				// A `%` inside `%#@...@` causes Foundation to reject the
-				// reference and execute the inner specifier instead (CWE-134).
+				// `%` inside `%#@...@` causes Foundation to reject the reference and parse inner specifiers.
 				if s[end] == "%" { return nil }
 				end += 1
 			}
@@ -242,9 +217,8 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 			}
 		}
 
-		// Modifiers: CoreFoundation parses flags, width, precision, and length
-		// modifiers in a single loop (accepting arbitrary order and 3+ length
-		// modifiers like `%lllp` or `%l+p`), so we mirror that loop here.
+		// CoreFoundation parses flags, width, precision, and length in one loop
+		// (allowing arbitrary order and 3+ length chars like `%lllp`).
 		while j < s.count {
 			let ch = s[j]
 			if "-+ #0'".unicodeScalars.contains(ch) {
@@ -253,8 +227,7 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 				return nil
 			} else if isDigit(j) {
 				let number = readNumber(from: j)
-				// A positional `$` after modifiers (e.g. `%+1$d`, `%1$2$d`) is
-				// malformed and not worth guessing about.
+				// Reject malformed `$` after modifiers (e.g. `%+1$d`, `%1$2$d`).
 				if number.next < s.count, s[number.next] == "$" { return nil }
 				guard number.value <= maxFieldWidth else { return nil }
 				j = number.next

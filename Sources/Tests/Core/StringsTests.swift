@@ -83,11 +83,9 @@ class StringsTests: XCTestCase {
         }
     }
 
-    // MARK: - isSafeFormatString (CWE-134: externally controlled format string).
+    // MARK: - isSafeFormatString (CWE-134)
 
     func testIsSafeFormatStringRejectsMoreSpecifiersThanArguments() {
-        // Mirrors the reported PoC: a downloaded translation with more specifiers
-        // than the app supplied arguments would read past the argument list.
         let translation = "Hallo %@ %x %x %x %x %x %x"
         XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
     }
@@ -108,13 +106,11 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsObjectSpecifierForScalarArgument() {
-        // "%@" on a plain Int would dereference the Int's bit pattern as a pointer.
         let translation = "Score: %@"
         XCTAssertFalse(translation.isSafeFormatString(arguments: [5]))
     }
 
     func testIsSafeFormatStringRejectsObjectSpecifierForBoolArgument() {
-        // "%@" on a Bool would dereference 0x1 as an object pointer and crash.
         let translation = "Enabled: %@"
         XCTAssertFalse(translation.isSafeFormatString(arguments: [true]))
     }
@@ -126,7 +122,7 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsNumericSpecifierForStringArgument() {
-        // "%x" on a String would print its bridged pointer as a number.
+        // "%x" on a String leaks its bridged object pointer.
         let translation = "Score: %x"
         XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
     }
@@ -135,9 +131,7 @@ class StringsTests: XCTestCase {
         let maliciousTranslation = "Hallo %@ %@ %@ %@ %@"
         let result = String.cw_safeFormat(maliciousTranslation, arguments: ["Alice"], fallbackKey: "unsafe_format_fallback_key")
 
-        // No bundled resource exists for this key in the test target, so
-        // Bundle.bundledLocalizedString returns the key itself - proving the
-        // unsafe translation was not handed to String(format:).
+        // Missing bundle resource returns the key itself, confirming fallback.
         XCTAssertEqual(result, "unsafe_format_fallback_key")
     }
 
@@ -148,55 +142,38 @@ class StringsTests: XCTestCase {
         XCTAssertEqual(result, "Hello Alice")
     }
 
-    // MARK: - Escaped-percent bypass (CWE-134).
-
-    // `%%` is a literal percent. A specifier that follows a `%%` pair is still
-    // real: "%%%d" is literal "%" plus "%d", and String(format:) consumes an
-    // argument for it. The parser must count it, otherwise a translation like
-    // "%%%d %%%d ..." passes the argument-count check with zero parsed
-    // specifiers and String(format:) reads past the argument list.
+    // MARK: - Escaped-percent bypass (CWE-134)
+    // "%%%d" is literal "%" + real "%d" and still consumes an argument.
 
     func testIsSafeFormatStringRejectsEscapedPercentFollowedByExcessSpecifiers() {
-        // The report's PoC shape with each specifier hidden behind a "%%" escape.
         let translation = "%%%d %%%d %%%d %%%d %%%d %%%d"
         XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
         XCTAssertFalse(translation.isSafeFormatString(arguments: []))
     }
 
     func testIsSafeFormatStringRejectsEscapedPercentFollowedByObjectSpecifier() {
-        // "%@" behind "%%" would still dereference an object pointer.
         let translation = "Score: %%%@"
         XCTAssertFalse(translation.isSafeFormatString(arguments: [5]))
     }
 
     func testIsSafeFormatStringRejectsRepeatedEscapedObjectBeyondArguments() {
-        // Two "%@" after "%%" escapes with one real argument reads a second
-        // word off the stack and dereferences it - undefined behavior, often a crash.
         let translation = "%%%@ %%%@"
         XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
     }
 
     func testIsSafeFormatStringAcceptsLiteralPercentBeforeRealSpecifier() {
-        // "100%% done: %@" is a legitimate translation - one literal percent
-        // sign plus one real object specifier, matching the single argument.
         let translation = "100%% done: %@"
         XCTAssert(translation.isSafeFormatString(arguments: ["Alice"]))
     }
 
     func testIsSafeFormatStringAcceptsPureLiteralPercentEscapes() {
-        // "%%" alone consumes no arguments.
         let translation = "Progress: 100%%"
         XCTAssert(translation.isSafeFormatString(arguments: []))
         XCTAssert(translation.isSafeFormatString(arguments: ["unused"]))
     }
 
-    // MARK: - %s / %p mismatch (CWE-134).
-
-    // "%s" reads its argument word as a `char *`. On Apple Foundation this
-    // crashes for anything that is not a C-string pointer - verified:
-    // String(format: "id=%s", arguments: ["Alice"]) and with an Int both
-    // segfault in CoreFoundation. "%p" does not crash, but on a String or
-    // object argument it prints the value's address (ASLR-relevant leak).
+    // MARK: - %s / %p mismatch (CWE-134)
+    // %s on non-C-strings segfaults in CoreFoundation; %p on objects leaks addresses.
 
     func testIsSafeFormatStringRejectsCStringSpecifierForStringArgument() {
         let translation = "id=%s"
@@ -216,18 +193,17 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsVoidPointerSpecifierForStringArgument() {
-        // "%p" on a String prints its bridged object address.
         let translation = "ptr=%p"
         XCTAssertFalse(translation.isSafeFormatString(arguments: ["Alice"]))
     }
 
     func testIsSafeFormatStringAcceptsVoidPointerSpecifierForIntArgument() {
-        // "%p" on a plain Int just prints the bit pattern - no deref, no leak.
+        // "%p" on Int prints a scalar value, not an object address.
         let translation = "ptr=%p"
         XCTAssert(translation.isSafeFormatString(arguments: [5]))
     }
 
-    // MARK: - Positional specifiers and parser bounds (CWE-134).
+    // MARK: - Positional specifiers and parser bounds (CWE-134)
 
     func testIsSafeFormatStringHandlesPositionalSpecifiers() {
         let translation = "%2$@ has %1$d messages"
@@ -236,8 +212,7 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsOversizedPositionalSpecifier() {
-        // A malicious translation naming an enormous position must be rejected
-        // without the parser allocating a padding array of that size.
+        // Reject huge positions without allocating a padding array.
         let translation = "%999999999$d"
         XCTAssertFalse(translation.isSafeFormatString(arguments: [1]))
     }
@@ -247,21 +222,19 @@ class StringsTests: XCTestCase {
         XCTAssertFalse(translation.isSafeFormatString(arguments: [1]))
     }
 
-    // MARK: - %L length modifier (CWE-134).
+    // MARK: - %L length modifier (CWE-134)
 
     func testIsSafeFormatStringCountsLongDoubleSpecifier() {
-        // Apple's String(format:) consumes an argument for "%Lf" (verified:
-        // prints "x2.500000"), so the parser must count it.
+        // "%Lf" consumes a Double argument in String(format:).
         let translation = "x%Lf"
         XCTAssert(translation.isSafeFormatString(arguments: [2.5]))
         XCTAssertFalse(translation.isSafeFormatString(arguments: []))
     }
 
-    // MARK: - Escaped-percent reverse lookup consistency.
+    // MARK: - Escaped-percent reverse lookup
 
     func testFindMatchSupportsLiteralPercentBeforeSpecifier() {
-        // "100%% done: %@" renders as "100% done: <value>"; the reverse lookup
-        // must agree with the safety check that the specifier is the %@.
+        // Reverse lookup must match the safety parser on "100%% done: %@".
         XCTAssert(String.findMatch(for: "100%% done: %@", with: "100% done: Alice"))
         XCTAssertFalse(String.findMatch(for: "100%% done: %@", with: "something else"))
     }
@@ -274,21 +247,17 @@ class StringsTests: XCTestCase {
     }
 
     func testSplitByWithEmptyRanges() {
-        // Used to trap: `0...(-1)` is an invalid ClosedRange.
+        // Regression: empty ranges used to trap on `0...(-1)`.
         let result = ("Awesome string" as NSString).splitBy(ranges: [])
         XCTAssert(result.isEmpty)
     }
 
     func testIsFormatedWithLiteralPercentEscapes() {
-        // "%%%d" is a literal "%" plus one real specifier; "100%%" has none.
         XCTAssert("%%%d".isFormated)
         XCTAssertFalse("100%%".isFormated)
     }
 
-    // MARK: - Specifiers the old regex counter missed (CWE-134).
-    // Each of these made `String(format:)` consume arguments the parser did not
-    // count (verified on Apple Foundation), so a translation made of them passed
-    // the argument-count check with zero parsed specifiers.
+    // MARK: - CoreFoundation grammar edge cases (CWE-134)
 
     func testIsSafeFormatStringRejectsAlternateFormFlagBeyondArguments() {
         XCTAssertFalse("%#x %#x %#x %#x %#x %#x".isSafeFormatString(arguments: [3]))
@@ -314,7 +283,7 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsPercentN() {
-        // %n consumes an argument slot without printing, shifting every later specifier.
+        // %n writes to a pointer argument without printing, shifting later slots.
         XCTAssertFalse("%n%n%n%d".isSafeFormatString(arguments: [1, 2, 3]))
     }
 
@@ -342,13 +311,13 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringTreatsUnknownConversionAsLiteral() {
-        // CoreFoundation prints "%y" literally and consumes no argument.
+        // CoreFoundation prints unknown conversions like "%y" literally.
         XCTAssert("100%y done".isSafeFormatString(arguments: []))
         XCTAssert("Save 5%".isSafeFormatString(arguments: []))
     }
 
     func testIsSafeFormatStringCountsSpaceFlagConversionInPlainText() {
-        // "100% done" is "% d" + "one": CoreFoundation reads an int for it.
+        // "100% done" parses as "% d" + "one" (space flag + d), consuming an Int.
         XCTAssertFalse("100% done".isSafeFormatString(arguments: []))
         XCTAssert("100% done".isSafeFormatString(arguments: [5]))
     }
@@ -360,16 +329,14 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsPercentInsideReferenceName() {
-        // CoreFoundation rejects `%#@a%p%p%p@` as a reference and executes the
-        // inner specifiers instead (CWE-134).
+        // Foundation rejects "%#@a%p...@" as a reference and parses inner "%p"s.
         XCTAssertFalse("%#@a%p%p%p@".isSafeFormatString(arguments: ["Alice"]))
         XCTAssertFalse("%#@a%x%x%x@".isSafeFormatString(arguments: [1]))
         XCTAssertFalse("%1$#@a%p@".isSafeFormatString(arguments: [1]))
     }
 
     func testIsSafeFormatStringCountsThreeOrMoreLengthModifiersAndOutOfOrderModifiers() {
-        // CoreFoundation parses flags/width/precision/length in a single loop,
-        // accepting 3+ length modifiers and arbitrary modifier ordering.
+        // CoreFoundation accepts 3+ length modifiers and arbitrary modifier order.
         XCTAssertFalse("%lllp".isSafeFormatString(arguments: []))
         XCTAssertFalse("%hhhp".isSafeFormatString(arguments: []))
         XCTAssertFalse("%lllx".isSafeFormatString(arguments: []))
@@ -388,8 +355,7 @@ class StringsTests: XCTestCase {
     }
 
     func testIsSafeFormatStringRejectsNonScalarObjectsForNumericSpecifiers() {
-        // Non-String NSObject subclasses (NSURL, NSNumber, NSObject) would leak
-        // their pointer addresses when formatted with numeric specifiers.
+        // NSObject subclasses (NSURL, NSNumber) would leak pointer addresses under numeric specifiers.
         let url = NSURL(string: "https://example.com")!
         XCTAssertFalse("%llx".isSafeFormatString(arguments: [url]))
         XCTAssertFalse("%d".isSafeFormatString(arguments: [NSNumber(value: 5)]))
@@ -401,7 +367,7 @@ class StringsTests: XCTestCase {
         XCTAssert(String.findMatch(for: "🎉 %@", with: "🎉 Alice"))
     }
 
-    // MARK: - Plural (stringsdict) variants (CWE-134).
+    // MARK: - Plural (stringsdict) variants (CWE-134)
 
     private func pluralEntry(format: String = "%#@n@", valueType: String = "d", variants: [String: String]) -> [AnyHashable: Any] {
         var variable: [String: Any] = ["NSStringFormatSpecTypeKey": "NSStringPluralRuleType", "NSStringFormatValueTypeKey": valueType]

@@ -2,11 +2,7 @@
 //  CwLocalizedFormatSafetyTests.swift
 //  CrowdinSDK-Unit-Core_Tests
 //
-//  End-to-end regression coverage for CWE-134: an OTA translation must not be
-//  trusted as a String(format:) format string when its specifiers don't match
-//  the arguments the app supplied. Exercises the real Bundle swizzle ->
-//  NSLocalizedString -> cw_localized(with:) path, not just the format check
-//  in isolation.
+//  End-to-end CWE-134 tests: Bundle swizzle -> NSLocalizedString -> cw_localized(with:).
 //
 
 import XCTest
@@ -43,9 +39,7 @@ private class FormatSafetyRemoteStorage: RemoteLocalizationStorageProtocol {
     func deintegrate() {}
 }
 
-/// Stands in for the OTA-backed provider: `localizedString(for:)` returns
-/// whatever translation the test wants to simulate a translator having set on
-/// Crowdin - the lowest-privileged contributor role.
+/// Stub provider returning arbitrary OTA translations.
 private class MaliciousTranslationProvider: LocalizationProviderProtocol {
     var localStorage: LocalLocalizationStorageProtocol
     var remoteStorage: RemoteLocalizationStorageProtocol
@@ -94,25 +88,17 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
         self.provider = provider
     }
 
-    /// Reproduces the report's PoC: a downloaded translation with more format
-    /// specifiers than the app supplied arguments must not reach
-    /// String(format:) - it would read past the end of the argument list,
-    /// disclosing memory via %x/%p or dereferencing a bad pointer via %@.
     func testCwLocalizedFallsBackWhenOTATranslationHasExcessSpecifiers() {
         let key = "__cwe134_greeting_key__"
         startSDK(translations: [key: "Hallo %@ %x %x %x %x %x %x"])
 
         let result = key.cw_localized(with: ["Alice"])
 
-        // No bundled resource exists for this key in the test target, so the
-        // safe fallback (the app's own bundled localization) returns the key
-        // itself - proving the malicious translation was never formatted.
+        // Unbundled test keys fall back to the key itself, confirming the OTA string was skipped.
         XCTAssertEqual(result, key)
     }
 
-    /// Same specifier count as the app's argument list, but the wrong category:
-    /// %@ in place of %d would dereference the Int's bit pattern as an object
-    /// pointer and crash.
+    /// `%@` for an `Int` would dereference the integer as an object pointer.
     func testCwLocalizedFallsBackWhenOTATranslationSwapsSpecifierCategory() {
         let key = "__cwe134_score_key__"
         startSDK(translations: [key: "Score: %@"])
@@ -122,8 +108,6 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
         XCTAssertEqual(result, key)
     }
 
-    /// A legitimate translation - same specifiers and categories the app
-    /// expects, just translated surrounding text - must still be used.
     func testCwLocalizedUsesOTATranslationWhenSpecifiersMatch() {
         let key = "__cwe134_safe_key__"
         startSDK(translations: [key: "Hello %@, you have %d messages"])
@@ -133,11 +117,7 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
         XCTAssertEqual(result, "Hello Alice, you have 3 messages")
     }
 
-    /// Same PoC shape, but each specifier is hidden behind a `%%` literal-percent
-    /// escape ("%%%d" = literal "%" + real "%d"). String(format:) still consumes
-    /// an argument per "%d", so the translation must be rejected too - on Apple
-    /// platforms formatting it with one argument prints several adjacent stack
-    /// words (verified: "%-1436743615 %0 %-1198766495 %122 ...").
+    /// Specifiers after `%%` escapes (`%%%d` = literal `%` + `%d`) still consume arguments.
     func testCwLocalizedFallsBackWhenOTATranslationHidesSpecifiersBehindEscapedPercent() {
         let key = "__cwe134_escaped_greeting_key__"
         startSDK(translations: [key: "%%%d %%%d %%%d %%%d %%%d %%%d"])
@@ -147,8 +127,6 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
         XCTAssertEqual(result, key)
     }
 
-    /// A legitimate translation that contains a literal percent sign plus one
-    /// real specifier must still be used.
     func testCwLocalizedUsesOTATranslationWithLiteralPercentEscape() {
         let key = "__cwe134_percent_key__"
         startSDK(translations: [key: "100%% done: %@"])
@@ -158,9 +136,7 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
         XCTAssertEqual(result, "100% done: Alice")
     }
 
-    /// `%#x` is a valid specifier the old regex counter did not recognise, so six
-    /// of them parsed as zero specifiers and sailed past the argument-count check
-    /// (verified: String(format:) printed adjacent stack words such as 0x84836c8).
+    /// `%#x` must be counted as a specifier so excess arguments are rejected.
     func testCwLocalizedFallsBackWhenOTATranslationUsesFlaggedSpecifiers() {
         let key = "__cwe134_flagged_key__"
         startSDK(translations: [key: "%#x %#x %#x %#x %#x %#x"])

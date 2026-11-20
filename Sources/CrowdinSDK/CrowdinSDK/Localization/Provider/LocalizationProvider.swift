@@ -216,22 +216,15 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     }
 }
 
-/// Guards the stringsdict path against CWE-134.
-///
-/// A plural key resolves to its `NSStringLocalizedFormatKey` (e.g. `%#@n@`), and
-/// `String(format:)` then expands it from the downloaded plural variants. The
-/// format-string check in `String.cw_safeFormat` only sees the former, so the
-/// variants have to be vetted before they reach the plurals bundle: an entry
-/// whose variants read more arguments than its format key declares (or read
-/// them as the wrong type) would otherwise let a translator walk past the
-/// argument list. Unsafe entries are dropped, so the lookup falls back to the
-/// plain string or the app's bundled localization.
+/// Validates `.stringsdict` entries against CWE-134 before writing to the plurals bundle.
+/// `cw_safeFormat` only sees `NSStringLocalizedFormatKey`, so variants must be vetted here
+/// to prevent reading past `arguments` or misinterpreting types. Unsafe entries are dropped.
 enum PluralsFormatValidator {
     private static let formatKey = "NSStringLocalizedFormatKey"
     private static let valueTypeKey = "NSStringFormatValueTypeKey"
     private static let specTypeKey = "NSStringFormatSpecTypeKey"
 
-    /// What `NSStringFormatValueTypeKey` may hold: one numeric conversion with an optional length modifier.
+    /// Single numeric conversion with optional length modifier.
     private static let valueTypeRegEx = try? NSRegularExpression(pattern: "^(?:hh|h|ll|l|q|L|z|t|j)?[dDiuUoOxXaAeEfFgG]$")
 
     static func sanitized(_ plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
@@ -242,8 +235,7 @@ enum PluralsFormatValidator {
         guard let dictionary = entry as? [AnyHashable: Any],
               let format = dictionary[formatKey] as? String,
               let formatParts = FormatPart.formatParts(formatString: format) else { return false }
-        // The runtime check requires the format key's argument count to be covered by the caller's
-        // arguments, so variants may read at most that many.
+        // Variants may read at most as many arguments as `NSStringLocalizedFormatKey` declares.
         return dictionary.allSatisfy { key, value in
             if let key = key as? String, key == formatKey { return true }
             guard let variable = value as? [AnyHashable: Any] else { return true }
@@ -266,18 +258,15 @@ enum PluralsFormatValidator {
         }
     }
 
-    /// A variant formats the variable's own number, so it may hold at most one numeric specifier
-    /// (plus references to other variables) and must not reach beyond the format key's arguments
-    /// or target a non-numeric positional slot in `formatParts`.
+    /// Each variant may hold at most one numeric specifier (plus variable references)
+    /// within `formatParts.count`.
     private static func isSafe(variant: String, formatParts: [FormatPart]) -> Bool {
         guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= formatParts.count else { return false }
         let specifiers = parts.compactMap { $0.formatSpecifier }.filter { $0 != .topType }
         guard specifiers.count <= 1 else { return false }
         guard specifiers.allSatisfy({ $0 == .int || $0 == .uInt || $0 == .double }) else { return false }
 
-        // If the variant uses positional indexing (e.g. `%1$d` or `%2$lld`), ensure the
-        // referenced slot in `formatParts` is actually numeric or a plural reference, not
-        // e.g. `%1$@` (an object/String slot).
+        // For positional variants (e.g. `%1$d`), ensure the target slot in `formatParts` is numeric or a reference.
         let isPositional = parts.count > 1 || variant.formatStringWithMaskedLiteralPercents.contains("%1$")
         if isPositional {
             for (index, part) in parts.enumerated() {
