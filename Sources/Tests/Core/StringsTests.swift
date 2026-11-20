@@ -356,6 +356,49 @@ class StringsTests: XCTestCase {
     func testIsSafeFormatStringAcceptsReferenceSlot() {
         XCTAssert("%#@n@".isSafeFormatString(arguments: [3]))
         XCTAssertFalse("%#@n@ %#@m@".isSafeFormatString(arguments: [3]))
+        XCTAssertFalse("%#@n@".isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringRejectsPercentInsideReferenceName() {
+        // CoreFoundation rejects `%#@a%p%p%p@` as a reference and executes the
+        // inner specifiers instead (CWE-134).
+        XCTAssertFalse("%#@a%p%p%p@".isSafeFormatString(arguments: ["Alice"]))
+        XCTAssertFalse("%#@a%x%x%x@".isSafeFormatString(arguments: [1]))
+        XCTAssertFalse("%1$#@a%p@".isSafeFormatString(arguments: [1]))
+    }
+
+    func testIsSafeFormatStringCountsThreeOrMoreLengthModifiersAndOutOfOrderModifiers() {
+        // CoreFoundation parses flags/width/precision/length in a single loop,
+        // accepting 3+ length modifiers and arbitrary modifier ordering.
+        XCTAssertFalse("%lllp".isSafeFormatString(arguments: []))
+        XCTAssertFalse("%hhhp".isSafeFormatString(arguments: []))
+        XCTAssertFalse("%lllx".isSafeFormatString(arguments: []))
+        XCTAssertFalse("%l+p".isSafeFormatString(arguments: []))
+        XCTAssertFalse("%5-p".isSafeFormatString(arguments: []))
+        XCTAssertFalse("%l5p".isSafeFormatString(arguments: []))
+        XCTAssertFalse("%1.2.3f".isSafeFormatString(arguments: []))
+        XCTAssert("%llld".isSafeFormatString(arguments: [42]))
+    }
+
+    func testIsSafeFormatStringRejectsPositionalDollarAfterModifiers() {
+        XCTAssertFalse("%+1$d".isSafeFormatString(arguments: [42]))
+        XCTAssertFalse("%1$2$d".isSafeFormatString(arguments: [1, 2]))
+        XCTAssertFalse("%l1$d".isSafeFormatString(arguments: [42]))
+        XCTAssertFalse("%0$d".isSafeFormatString(arguments: [42]))
+    }
+
+    func testIsSafeFormatStringRejectsNonScalarObjectsForNumericSpecifiers() {
+        // Non-String NSObject subclasses (NSURL, NSNumber, NSObject) would leak
+        // their pointer addresses when formatted with numeric specifiers.
+        let url = NSURL(string: "https://example.com")!
+        XCTAssertFalse("%llx".isSafeFormatString(arguments: [url]))
+        XCTAssertFalse("%d".isSafeFormatString(arguments: [NSNumber(value: 5)]))
+        XCTAssertFalse("%f".isSafeFormatString(arguments: [NSObject()]))
+    }
+
+    func testIsFormatedHandlesEmojiBeforeSpecifier() {
+        XCTAssert("🎉 %@".isFormated)
+        XCTAssert(String.findMatch(for: "🎉 %@", with: "🎉 Alice"))
     }
 
     // MARK: - Plural (stringsdict) variants (CWE-134).
@@ -373,6 +416,16 @@ class StringsTests: XCTestCase {
     func testPluralsValidatorAcceptsXcstringsStylePositionalEntry() {
         let entry = pluralEntry(format: "%1$@ has %2$#@n@", valueType: "lld", variants: ["one": "%2$lld item", "other": "%2$lld items"])
         XCTAssert(PluralsFormatValidator.isSafe(entry: entry))
+    }
+
+    func testPluralsValidatorAcceptsNonPositionalVariantInMultiArgEntry() {
+        let entry = pluralEntry(format: "%1$@ has %2$#@n@", valueType: "d", variants: ["one": "%d item", "other": "%d items"])
+        XCTAssert(PluralsFormatValidator.isSafe(entry: entry))
+    }
+
+    func testPluralsValidatorRejectsVariantTargetingNonNumericSlot() {
+        let entry = pluralEntry(format: "%1$@ has %2$#@n@", valueType: "d", variants: ["one": "%1$d item", "other": "%1$d items"])
+        XCTAssertFalse(PluralsFormatValidator.isSafe(entry: entry))
     }
 
     func testPluralsValidatorRejectsVariantWithExtraSpecifiers() {

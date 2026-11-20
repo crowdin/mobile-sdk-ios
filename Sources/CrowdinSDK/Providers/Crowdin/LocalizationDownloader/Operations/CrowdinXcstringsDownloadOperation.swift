@@ -171,10 +171,8 @@ class XcstringsParser {
                     // A new "%" while the previous specifier still collects
                     // letters: flush what we have (its conversion char was the
                     // last letter, e.g. the "s" in "%s%%d") and start over.
-                    if !currentSpecifier.isEmpty {
-                        specifiers.append(currentSpecifier)
-                        currentSpecifier = ""
-                    }
+                    specifiers.append(currentSpecifier)
+                    currentSpecifier = ""
                     isSpecifier = true
                 } else {
                     isSpecifier = true
