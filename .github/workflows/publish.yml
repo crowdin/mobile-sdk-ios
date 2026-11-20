@@ -10,7 +10,7 @@ env:
 
 jobs:
   publish:
-    runs-on: macos-latest
+    runs-on: macos-15
     env:
       COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
     steps:
