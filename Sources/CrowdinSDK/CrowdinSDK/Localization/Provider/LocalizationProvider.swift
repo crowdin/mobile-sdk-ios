@@ -152,7 +152,9 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
 		pluralsBundle?.remove()
 		pluralsFolder.directories.forEach { try? $0.remove() }
         let localizationFolderName = localStorage.localization + String.minus + UUID().uuidString
-        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName, fileName: Strings.localizableStringsdict.rawValue, dictionary: self.plurals)
+        pluralsBundle = DictionaryBundle(path: pluralsFolder.path + String.pathDelimiter + localizationFolderName,
+                                        fileName: Strings.localizableStringsdict.rawValue,
+                                        dictionary: PluralsFormatValidator.sanitized(self.plurals))
     }
 
     // Setup strings
@@ -211,5 +213,72 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     func set(string: String, for key: String) {
         self.localStorage.strings[key] = string
         stringsDataSource.update(with: self.strings)
+    }
+}
+
+/// Validates `.stringsdict` entries against CWE-134 before writing to the plurals bundle.
+/// `cw_safeFormat` only sees `NSStringLocalizedFormatKey`, so variants must be vetted here
+/// to prevent reading past `arguments` or misinterpreting types. Unsafe entries are dropped.
+enum PluralsFormatValidator {
+    private static let formatKey = "NSStringLocalizedFormatKey"
+    private static let valueTypeKey = "NSStringFormatValueTypeKey"
+    private static let specTypeKey = "NSStringFormatSpecTypeKey"
+
+    /// Single numeric conversion with optional length modifier.
+    private static let valueTypeRegEx = try? NSRegularExpression(pattern: "^(?:hh|h|ll|l|q|L|z|t|j)?[dDiuUoOxXaAeEfFgG]$")
+
+    static func sanitized(_ plurals: [AnyHashable: Any]) -> [AnyHashable: Any] {
+        return plurals.filter { isSafe(entry: $0.value) }
+    }
+
+    static func isSafe(entry: Any) -> Bool {
+        guard let dictionary = entry as? [AnyHashable: Any],
+              let format = dictionary[formatKey] as? String,
+              let formatParts = FormatPart.formatParts(formatString: format) else { return false }
+        // Variants may read at most as many arguments as `NSStringLocalizedFormatKey` declares.
+        return dictionary.allSatisfy { key, value in
+            if let key = key as? String, key == formatKey { return true }
+            guard let variable = value as? [AnyHashable: Any] else { return true }
+            return isSafe(variable: variable, formatParts: formatParts)
+        }
+    }
+
+    private static func isSafe(variable: [AnyHashable: Any], formatParts: [FormatPart]) -> Bool {
+        return variable.allSatisfy { key, value in
+            if let key = key as? String, key == specTypeKey { return true }
+            if let key = key as? String, key == valueTypeKey {
+                guard let valueType = value as? String, let regEx = valueTypeRegEx else { return false }
+                return regEx.firstMatch(in: valueType, options: [], range: NSRange(location: 0, length: (valueType as NSString).length)) != nil
+            }
+            if let nested = value as? [AnyHashable: Any] {
+                return isSafe(variable: nested, formatParts: formatParts)
+            }
+            guard let variant = value as? String else { return true }
+            return isSafe(variant: variant, formatParts: formatParts)
+        }
+    }
+
+    /// Each variant may hold at most one numeric specifier (plus variable references)
+    /// within `formatParts.count`.
+    private static func isSafe(variant: String, formatParts: [FormatPart]) -> Bool {
+        guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= formatParts.count else { return false }
+        let specifiers = parts.compactMap { $0.formatSpecifier }.filter { $0 != .topType }
+        guard specifiers.count <= 1 else { return false }
+        guard specifiers.allSatisfy({ $0 == .int || $0 == .uInt || $0 == .double }) else { return false }
+
+        // For positional variants (e.g. `%1$d`), ensure the target slot in `formatParts` is numeric or a reference.
+        let isPositional = parts.count > 1 || variant.formatStringWithMaskedLiteralPercents.contains("%1$")
+        if isPositional {
+            for (index, part) in parts.enumerated() {
+                guard let specifier = part.formatSpecifier, specifier != .topType else { continue }
+                switch formatParts[index] {
+                case .reference, .spec(.int), .spec(.uInt), .spec(.double):
+                    break
+                default:
+                    return false
+                }
+            }
+        }
+        return true
     }
 }
