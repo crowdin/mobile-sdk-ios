@@ -98,3 +98,5 @@
 "End Repeat Date" = "End Repeat Date[fr][L]";
 "Settings" = "Settings[fr][L]";
 "You do not have any lists. To create a new one, press the \"Add List\" button" = "You do not have any lists. To create a new one, press the \"Add List\" button[fr][L]";
+"Items: %d" = "Items: %d[fr][L]";
+"%@ has %d items" = "%@ has %d items[fr][L]";

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Josh R. All rights reserved.
 //
 
+import CrowdinSDK // TEST ONLY (CWE-134 manual repro) - do not merge
 import RealmSwift
 import SwiftUI
 import UIKit
@@ -61,7 +62,26 @@ final class MainVC: UIViewController {
         setupTableView()
         addListView()
         setupNavBar()
-        
+
+        // TEST ONLY (CWE-134 manual repro) - do not merge.
+        // Three probe lines in the nav bar: the app passes arguments to cw_localized(with:), so a translation
+        // downloaded from Crowdin reaches String(format:). Each line is a separate UILabel (tracked by real-time preview).
+        let debugStack = UIStackView(arrangedSubviews: [
+            "Items: %d".cw_localized(with: [3]),
+            "Delete %@?".cw_localized(with: ["Groceries"]),
+            "%@ has %d items".cw_localized(with: ["Groceries", 3])
+        ].map { text -> UILabel in
+            let label = UILabel()
+            label.font = .systemFont(ofSize: 10)
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.5
+            label.textAlignment = .center
+            label.text = text
+            return label
+        })
+        debugStack.axis = .vertical
+        navigationItem.titleView = debugStack
+
         footerView.addListBtn.addTarget(self, action: #selector(addListBtnTapped), for: .touchUpInside)
         footerView.settingsBtn.addTarget(self, action: #selector(settingsBtnTapped), for: .touchUpInside)
         footerView.addGroupBtn.addTarget(self, action: #selector(addGroupBtnTapped), for: .touchUpInside)
