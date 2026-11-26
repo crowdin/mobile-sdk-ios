@@ -304,7 +304,10 @@ extension String {
             case .double: formatValue = Double(value)
             case .int: formatValue = Int(value)
             case .uInt: formatValue = UInt(value)
-            case .character: formatValue = Character(value)
+            case .character:
+                // `Character` is not a `CVarArg`; `%c` reads a character code.
+                let scalars = value.unicodeScalars
+                formatValue = scalars.count == 1 ? Int32(scalars[scalars.startIndex].value) : nil
             case .cStringPointer: formatValue = value
             case .voidPointer: formatValue = value
             case .topType: formatValue = value
