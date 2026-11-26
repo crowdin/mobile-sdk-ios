@@ -79,18 +79,19 @@ extension FormatSpecifier {
 		self.init(formatChar: last)
 	}
 
+	// Case-sensitive whitelist of CoreFoundation conversions: `%P` and `%S` are NOT
+	// aliases of `%p`/`%s` (CoreFoundation crashes on both), so letters must not be lowercased.
 	init?(formatChar char: Swift.Character) {
-        guard let lcChar = Swift.String(char).lowercased().first else { return nil }
-		switch lcChar {
+		switch char {
 		case "@":
 			self = .object
-		case "a", "e", "f", "g":
+		case "a", "A", "e", "E", "f", "F", "g", "G":
 			self = .double
-		case "d", "i":
+		case "d", "D", "i":
 			self = .int
-		case "o", "u", "x":
+		case "o", "O", "u", "U", "x", "X":
 			self = .uInt
-		case "c":
+		case "c", "C":
 			self = .character
 		case "s":
 			self = .cStringPointer
@@ -156,11 +157,20 @@ private struct FormatSlots {
 	}
 }
 
+/// `[A-Za-z0-9_]`: names CoreFoundation treats as a stringsdict reference.
+private func isReferenceNameScalar(_ scalar: Unicode.Scalar) -> Bool {
+	switch scalar {
+	case "A"..."Z", "a"..."z", "0"..."9", "_": return true
+	default: return false
+	}
+}
+
 // "I give %d apples to %@ %#@named@" --> [.spec(.int), .spec(.object), .reference("named")]
 //
 // CoreFoundation format grammar scanner: %[n$][flags][width][.precision][length]conversion
 // Fails closed (returns `nil`) on:
 // - `*` dynamic width/precision or `%n` (consumes/writes an argument slot)
+// - `%P`/`%S` (consume an argument; CoreFoundation crashes on them)
 // - malformed modifiers (e.g. `%5%`, trailing `$`, mixed positional/sequential, type conflicts)
 // - positions > `maxPositionalIndex` or widths/precisions > `maxFieldWidth`
 // Unknown conversions (e.g. `%y`) are printed literally by CoreFoundation and skipped.
@@ -209,7 +219,9 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 				if s[end] == "%" { return nil }
 				end += 1
 			}
-			if end < s.count, end > j + 2 {
+			// CoreFoundation only resolves identifier-like names; for any other name it parses
+			// `%#@` as a `#`-flagged `%@` object conversion, so fall through to the generic scan below.
+			if end < s.count, end > j + 2, s[(j + 2)..<end].allSatisfy(isReferenceNameScalar) {
 				let name = String(String.UnicodeScalarView(s[(j + 2)..<end]))
 				guard slots.add(.reference(name), at: position) else { return nil }
 				i = end + 1
@@ -247,7 +259,8 @@ private func createFormatParts(_ formatString: String) -> [FormatPart]? {
 		// Conversion.
 		guard j < s.count else { break }
 		let conversion = s[j]
-		if conversion == "%" || conversion == "n" || conversion == "N" { return nil }
+		// `%n` writes memory; `%P`/`%S` consume an argument but crash CoreFoundation.
+		if "%nNPS".unicodeScalars.contains(conversion) { return nil }
 		if let specifier = FormatSpecifier(formatChar: Character(conversion)) {
 			guard slots.add(.spec(specifier), at: position) else { return nil }
 		}

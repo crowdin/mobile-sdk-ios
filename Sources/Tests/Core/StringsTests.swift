@@ -335,6 +335,55 @@ class StringsTests: XCTestCase {
         XCTAssertFalse("%1$#@a%p@".isSafeFormatString(arguments: [1]))
     }
 
+    func testIsSafeFormatStringRejectsUppercasePointerAndWideStringConversions() {
+        // CoreFoundation crashes on `%P` and `%S`; they are not aliases of `%p`/`%s`.
+        XCTAssertFalse("Items: %P".isSafeFormatString(arguments: [3]))
+        XCTAssertFalse("Items: %S".isSafeFormatString(arguments: [3]))
+        XCTAssertFalse("Items: %lP".isSafeFormatString(arguments: [3]))
+        XCTAssertFalse("Items: %1$S".isSafeFormatString(arguments: ["Alice"]))
+    }
+
+    func testIsSafeFormatStringAcceptsUppercaseConversionsCoreFoundationSupports() {
+        XCTAssert("%X %E %G %A %F".isSafeFormatString(arguments: [1, 1.0, 1.0, 1.0, 1.0]))
+        XCTAssert("%D %O %U %C".isSafeFormatString(arguments: [1, 2, 3, 65]))
+    }
+
+    func testIsSafeFormatStringOnlyAcceptsCoreFoundationUppercaseConversions() {
+        // Every A-Z either matches the CoreFoundation-supported set or is rejected / printed literally.
+        let consumingScalar: Set<Character> = ["A", "C", "D", "E", "F", "G", "O", "U", "X"]
+        // `%P`/`%S` crash CoreFoundation; `%N` is rejected alongside `%n`.
+        let rejected: Set<Character> = ["N", "P", "S"]
+        for scalar in UnicodeScalar("A").value...UnicodeScalar("Z").value {
+            let letter = Character(UnicodeScalar(scalar)!)
+            let format = "Items: %\(letter)"
+            if rejected.contains(letter) {
+                XCTAssertFalse(format.isSafeFormatString(arguments: [3]), format)
+            } else if consumingScalar.contains(letter) {
+                XCTAssert(format.isSafeFormatString(arguments: [3]), format)
+                XCTAssertFalse(format.isSafeFormatString(arguments: []), format)
+            } else {
+                // Unknown conversions are printed literally and consume nothing.
+                XCTAssert(format.isSafeFormatString(arguments: []), format)
+            }
+        }
+    }
+
+    func testIsSafeFormatStringTreatsNonIdentifierReferenceNameAsObjectConversion() {
+        // CoreFoundation parses `%#@<non-identifier>@` as a `#`-flagged `%@`, which crashes on scalars.
+        let names = [" ", ".", "$", "=", "\"", "-", "#", "'", "ab.", "abc!", "x+", "a b", "a-b", "é", "\u{00A0}", "\u{200B}", "\t"]
+        for name in names {
+            let format = "Items: %#@\(name)@"
+            XCTAssertFalse(format.isSafeFormatString(arguments: [3]), format.debugDescription)
+            XCTAssert(format.isSafeFormatString(arguments: ["Alice"]), format.debugDescription)
+        }
+    }
+
+    func testIsSafeFormatStringAcceptsIdentifierReferenceNames() {
+        for name in ["a", "name", "a_b", "A1", "_", "9"] {
+            XCTAssert("Items: %#@\(name)@".isSafeFormatString(arguments: [3]), name)
+        }
+    }
+
     func testIsSafeFormatStringCountsThreeOrMoreLengthModifiersAndOutOfOrderModifiers() {
         // CoreFoundation accepts 3+ length modifiers and arbitrary modifier order.
         XCTAssertFalse("%lllp".isSafeFormatString(arguments: []))

@@ -169,4 +169,20 @@ class CwLocalizedFormatSafetyTests: XCTestCase {
         XCTAssertEqual(key1.cw_localized(with: []), key1)
         XCTAssertEqual(key2.cw_localized(with: []), key2)
     }
+
+    /// `%P` (lowercased to `%p` before the fix) crashed CoreFoundation instead of falling back.
+    func testCwLocalizedFallsBackWhenOTATranslationUsesUppercasePointer() {
+        let key = "__cwe134_uppercase_pointer_key__"
+        startSDK(translations: [key: "Items: %P"])
+
+        XCTAssertEqual(key.cw_localized(with: [3]), key)
+    }
+
+    /// `%#@ @` is parsed by CoreFoundation as `%#@` (object) and crashed on a scalar argument.
+    func testCwLocalizedFallsBackWhenOTATranslationUsesNonIdentifierReferenceName() {
+        let key = "__cwe134_odd_reference_key__"
+        startSDK(translations: [key: "Items: %#@ @"])
+
+        XCTAssertEqual(key.cw_localized(with: [3]), key)
+    }
 }
