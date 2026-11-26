@@ -51,7 +51,7 @@ final class LocalizationRuntimeVC: UIViewController {
     // MARK: - Format specifier regex (reused from testing screen)
 
     private let specifierPattern =
-        "(?<!%)%(?:\\d+\\$)?[-+ #0]?\\d*(?:\\.\\d+)?(?:hh?|ll?|[qztj])?([dioux@fFeEgGaAcs])"
+        "(?<!%)%(?:(\\d+)\\$)?[-+ #0]?\\d*(?:\\.\\d+)?(?:hh?|ll?|[qztj])?([dioux@fFeEgGaAcs])"
 
     // MARK: - UI
 
@@ -356,20 +356,36 @@ final class LocalizationRuntimeVC: UIViewController {
 
     private enum Specifier { case int, uInt, double, string }
 
+    /// Specifiers in argument order. Honors positional indices (`%2$lld ... %1$@`),
+    /// so sample args line up with the slots `String(format:)` will read.
     private func detectSpecifiers(in format: String) -> [Specifier] {
         guard let regex = try? NSRegularExpression(pattern: specifierPattern) else { return [] }
         let ns = format as NSString
-        return regex.matches(in: format, range: NSRange(location: 0, length: ns.length))
-            .compactMap { match -> Specifier? in
-                let r = match.range(at: 1)
-                guard r.location != NSNotFound else { return .string }
-                switch ns.substring(with: r).lowercased() {
-                case "d", "i":           return .int
-                case "u", "o", "x":     return .uInt
-                case "f", "e", "g", "a":return .double
-                default:                 return .string
+        var slots = [Int: Specifier]()
+        var next = 1
+        for match in regex.matches(in: format, range: NSRange(location: 0, length: ns.length)) {
+            let typeRange = match.range(at: 2)
+            let spec: Specifier
+            if typeRange.location == NSNotFound {
+                spec = .string
+            } else {
+                switch ns.substring(with: typeRange).lowercased() {
+                case "d", "i":           spec = .int
+                case "u", "o", "x":     spec = .uInt
+                case "f", "e", "g", "a":spec = .double
+                default:                 spec = .string
                 }
             }
+            let posRange = match.range(at: 1)
+            if posRange.location != NSNotFound, let pos = Int(ns.substring(with: posRange)), pos >= 1, pos <= 100 {
+                slots[pos] = spec
+            } else {
+                slots[next] = spec
+                next += 1
+            }
+        }
+        let count = slots.keys.max() ?? 0
+        return (0..<count).map { slots[$0 + 1] ?? .string }
     }
 
     private func sampleArg(for spec: Specifier) -> CVarArg {

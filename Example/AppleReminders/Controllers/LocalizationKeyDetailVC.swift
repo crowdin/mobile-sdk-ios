@@ -205,16 +205,19 @@ final class LocalizationKeyDetailVC: UITableViewController {
     // MARK: - Format Specifier Parsing
 
     /// Scans `format` for printf-style format specifiers and returns a
-    /// `LocalizationParam` for each one, preserving document order.
+    /// `LocalizationParam` per argument slot, in argument order. Honors positional
+    /// indices (`%2$lld ... %1$@`) so values line up with what `String(format:)` reads.
     private func parseParams(from format: String) -> [LocalizationParam] {
-        let pattern = "(?<!%)%(?:\\d+\\$)?[-+ #0]?\\d*(?:\\.\\d+)?(?:hh?|ll?|[qztj])?([dioux@fFeEgGaAcs])"
+        let pattern = "(?<!%)%(?:(\\d+)\\$)?[-+ #0]?\\d*(?:\\.\\d+)?(?:hh?|ll?|[qztj])?([dioux@fFeEgGaAcs])"
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return [] }
 
         let nsFormat = format as NSString
         let matches = regex.matches(in: format, range: NSRange(location: 0, length: nsFormat.length))
 
-        return matches.enumerated().map { index, match in
-            let specRange = match.range(at: 1)
+        var slots = [Int: LocalizationParam.ParamType]()
+        var next = 1
+        for match in matches {
+            let specRange = match.range(at: 2)
             let spec = specRange.location != NSNotFound
                 ? nsFormat.substring(with: specRange).lowercased()
                 : "@"
@@ -228,8 +231,18 @@ final class LocalizationKeyDetailVC: UITableViewController {
             default:                         paramType = .string
             }
 
-            return LocalizationParam(position: index + 1, type: paramType)
+            let posRange = match.range(at: 1)
+            if posRange.location != NSNotFound,
+               let pos = Int(nsFormat.substring(with: posRange)), pos >= 1, pos <= 100 {
+                slots[pos] = paramType
+            } else {
+                slots[next] = paramType
+                next += 1
+            }
         }
+
+        let count = slots.keys.max() ?? 0
+        return (0..<count).map { LocalizationParam(position: $0 + 1, type: slots[$0 + 1] ?? .string) }
     }
 
     // MARK: - Translation Computation
