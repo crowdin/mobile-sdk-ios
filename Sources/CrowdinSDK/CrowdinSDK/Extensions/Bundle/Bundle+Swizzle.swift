@@ -45,9 +45,7 @@ extension Bundle {
         return translation ?? key
     }
 
-    /// Method for swizzling implementation for localizedString(forKey:value:table:) method.
-    /// Idempotent: a second call would exchange the already-swapped methods and
-    /// silently unswizzle, so it is a no-op when already swizzled.
+    /// Swizzles `localizedString(forKey:value:table:)`. No-op if already swizzled (calling `method_exchangeImplementations` twice would unswizzle).
     class func swizzle() {
         guard !isSwizzled else { return }
         // swiftlint:disable force_unwrapping
@@ -64,18 +62,8 @@ extension Bundle {
         original = nil
     }
 
-    /// Returns the app's own bundled localization for `key`, bypassing the Crowdin
-    /// OTA lookup.
-    ///
-    /// Used as a safe fallback when a downloaded translation can't be trusted as a
-    /// `String(format:)` format string: the bundled value is authored by the
-    /// developer, so it always matches the arguments the app supplies for `key`.
-    ///
-    /// - Parameters:
-    ///   - key: The key for a string in the table identified by tableName.
-    ///   - value: The value to return if key is nil or if a localized string for key can't be found in the table.
-    ///   - tableName: The receiver's string table to search. If tableName is nil or is an empty string, the method attempts to use the table in Localizable.strings.
-    /// - Returns: The bundled localization value for key, ignoring any OTA translation.
+    /// Returns the app's bundled localization for `key`, bypassing Crowdin OTA lookups.
+    /// Used as a safe fallback when an OTA format string fails validation against caller arguments.
     static func bundledLocalizedString(forKey key: String, value: String? = nil, table tableName: String? = nil) -> String {
         guard isSwizzled else {
             return Bundle.main.localizedString(forKey: key, value: value, table: tableName)

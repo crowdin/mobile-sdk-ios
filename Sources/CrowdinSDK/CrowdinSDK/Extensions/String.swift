@@ -45,9 +45,7 @@ extension String {
         return String.cw_safeFormat(translation, arguments: args, fallbackKey: self)
     }
 
-    /// Returns a `Locale` matching the SDK's active localization so that
-    /// `String(format:locale:arguments:)` applies the correct CLDR plural rules.
-    /// Falls back to `Locale.current` when the SDK has not been started.
+    /// Active SDK locale for CLDR plural rules; falls back to `Locale.current` before SDK startup.
     static var crowdinLocale: Locale {
         guard let localization = Localization.current else {
             return Locale.current
@@ -60,36 +58,16 @@ extension String {
 
 // MARK: - Format string safety.
 extension String {
-    /// Formats `value` with `arguments` via `String(format:)`, but only trusts
-    /// `value` itself as the format string when it is safe for `arguments`.
-    ///
-    /// `value` is typically a translation downloaded over the air, which a
-    /// translator can edit - the lowest privileged contributor role. Nothing
-    /// guarantees it carries the same format specifiers the app was built against,
-    /// and `String(format:)` does not check that either: extra specifiers read past
-    /// the end of `arguments`, and a specifier from the wrong category misreads the
-    /// argument that's there (CWE-134). When `value` isn't safe, this falls back to
-    /// the app's own bundled localization for `fallbackKey`, which is authored by
-    /// the developer and therefore always matches `arguments`.
-    ///
-    /// - Parameters:
-    ///   - value: The candidate format string, e.g. a downloaded translation.
-    ///   - arguments: The arguments the app supplied for formatting.
-    ///   - fallbackKey: The localization key to fall back to when `value` isn't safe.
-    /// - Returns: The formatted string.
+    /// Formats `value` with `arguments`, falling back to the bundled string for `fallbackKey`
+    /// if `value` fails CWE-134 validation (extra specifiers or mismatched argument types).
     static func cw_safeFormat(_ value: String, arguments: [CVarArg], fallbackKey: String) -> String {
         let safeValue = value.isSafeFormatString(arguments: arguments) ? value : Bundle.bundledLocalizedString(forKey: fallbackKey)
         return String(format: safeValue, locale: String.crowdinLocale, arguments: arguments)
     }
 
-    /// Whether `self` is safe to pass to `String(format:)` together with `arguments`.
-    ///
-    /// - Parameter arguments: The arguments that would be supplied for formatting.
-    /// - Returns: `true` if every format specifier in `self` is covered by
-    ///   `arguments` and matches its broad category (object vs. numeric).
+    /// Returns `true` if all specifiers in `self` are covered by `arguments` and match their expected types.
     func isSafeFormatString(arguments: [CVarArg]) -> Bool {
-        // nil means the parser found a malformed/oversized positional
-        // specifier - the format cannot be trusted.
+        // `nil` indicates a malformed or oversized specifier.
         guard let parts = FormatPart.formatParts(formatString: self) else { return false }
         guard parts.count <= arguments.count else { return false }
         for (index, part) in parts.enumerated() {
@@ -97,9 +75,7 @@ extension String {
             case .spec(let specifier):
                 guard specifier.isCompatible(with: arguments[index]) else { return false }
             case .reference:
-                // Stringsdict plural references format numeric values; reject
-                // non-scalars so an OTA stringsdict cannot reinterpret an object
-                // pointer as an integer.
+                // Stringsdict plural references format numeric values; reject non-scalars.
                 guard FormatSpecifier.isDefinitelyScalar(arguments[index]) else { return false }
             }
         }
@@ -108,47 +84,30 @@ extension String {
 }
 
 private extension FormatSpecifier {
-    /// Whether a value of `argument`'s runtime type is safe to read for this
-    /// specifier. `String(format:)` reads a fixed-size word for whichever specifier
-    /// the format string names, regardless of what was actually passed at that
-    /// position, so a specifier from the wrong category re-interprets that word:
-    /// `%@` on a plain number dereferences a bogus pointer (crash), and a numeric
-    /// specifier on a `String` prints its bridged pointer as a number (an
-    /// ASLR-relevant leak). `%s` on anything that is not a C-string pointer
-    /// dereferences the word as `char *` and crashes (verified on Apple
-    /// Foundation), and `%p` on a `String` or object prints its address.
-    /// This only rejects those unambiguous cases and otherwise defers to the
-    /// value - a narrow, defense in depth check alongside the argument-count
-    /// check above, not a full type checker.
+    /// Defense-in-depth type check: rejects mismatches that crash (`%@` on scalar, `%s` on non-C-string)
+    /// or leak object addresses (`%d`/`%x`/`%p` on `String`/objects).
     func isCompatible(with argument: CVarArg) -> Bool {
         switch self {
         case .object:
-            // `%@` sends an ObjC message to the argument word; scalars hold a
-            // bogus pointer and raw Unsafe pointers hold a non-object address -
-            // both crash with EXC_BAD_ACCESS.
+            // `%@` sends an ObjC message; scalars and raw pointers crash with EXC_BAD_ACCESS.
             return !Self.isDefinitelyScalar(argument) && !Self.isDefinitelyPointer(argument)
         case .double, .int, .uInt, .character:
-            // Only scalar values are safe here: objects (String, NSURL,
-            // NSNumber, etc.) and raw pointers would leak their addresses
-            // as numbers (ASLR leak).
+            // Reject objects and raw pointers to prevent pointer/ASLR leaks.
             return Self.isDefinitelyScalar(argument)
         case .cStringPointer:
             return Self.isDefinitelyCStringPointer(argument)
         case .voidPointer:
-            // `%p` only prints the word; scalars and any pointer are memory-safe.
-            // Rejecting String/objects is deliberate: their words are live
-            // addresses, and printing them would leak ASLR-relevant pointers.
+            // Allow scalars and raw pointers; reject objects to prevent pointer/ASLR leaks.
             return Self.isDefinitelyScalar(argument) || Self.isDefinitelyPointer(argument)
         case .topType:
-            // Only used to pad unread positions in a positional format.
+            // Unused positional padding slot.
             return true
         }
     }
 
     static func isDefinitelyScalar(_ argument: CVarArg) -> Bool {
-        // Class instances (e.g. NSNumber) bridge to Swift numeric types under
-        // `is Int`/`is Double`, but CVarArg passes their object pointer word,
-        // not the boxed scalar value.
+        // NSNumber and other classes bridge to Swift numeric types via `is`,
+        // but CVarArg passes their object pointer rather than the boxed value.
         if Swift.type(of: argument) is AnyClass { return false }
         #if canImport(CoreGraphics)
         if argument is CGFloat { return true }
@@ -164,21 +123,15 @@ private extension FormatSpecifier {
         }
     }
 
-    /// Whether `argument` is any `Unsafe*Pointer` type. There is no common
-    /// protocol to cast to, so the dynamic type name is inspected - a
-    /// pragmatic check whose failure mode (a rejected safe translation falling
-    /// back to the bundled string) is harmless.
+    /// Matches `Unsafe*Pointer` types via type name (no shared protocol).
+    /// False negatives safely fall back to bundled strings.
     static func isDefinitelyPointer(_ argument: CVarArg) -> Bool {
-        // `Swift.type` disambiguates from FormatSpecifier's own `type` property.
+        // Disambiguate from FormatSpecifier.type.
         let name = String(describing: Swift.type(of: argument))
         return name.hasPrefix("Unsafe") && name.contains("Pointer")
     }
 
-    /// Whether `argument` is an actual C-string pointer, the only thing `%s`
-    /// can safely read. Both `Int8` and `UInt8` pointees are accepted - byte
-    /// buffers from `Data.withUnsafeBytes` yield `UnsafePointer<UInt8>`.
-    /// (`UnsafeRawPointer` is omitted because it does not conform to
-    /// `CVarArg`, so it can never appear here.)
+    /// Matches C-string pointers (`Int8`/`UInt8` for `Data.withUnsafeBytes`; `UnsafeRawPointer` is not `CVarArg`).
     static func isDefinitelyCStringPointer(_ argument: CVarArg) -> Bool {
         switch argument {
         case is UnsafePointer<Int8>, is UnsafeMutablePointer<Int8>,
@@ -192,14 +145,8 @@ private extension FormatSpecifier {
 
 // MARK: - Formatting detection.
 extension String {
-    /// Replaces each `%%` literal-percent escape with U+0001 so the format
-    /// regex sees the real specifiers. `formatTypesRegEx` only has a
-    /// one-character `(?<!%)` lookbehind, which would otherwise hide a genuine
-    /// specifier following an escape ("%%%d" is literal "%" plus a real "%d").
-    /// The display-side regex consumers (`isFormated`,
-    /// `findMatch`, `findValues`) apply this so they agree on where the
-    /// specifiers are (CWE-134). The placeholder never appears in real strings;
-    /// consumers that search rendered text substitute it back to `%`.
+    /// Replaces `%%` with `\u{1}` so `formatTypesRegEx`'s single-char `(?<!%)` lookbehind
+    /// sees specifiers after escapes (e.g. `%%%d`). Callers searching rendered text map it back to `%`.
     var formatStringWithMaskedLiteralPercents: String {
         return replacingOccurrences(of: "%%", with: "\u{1}")
     }

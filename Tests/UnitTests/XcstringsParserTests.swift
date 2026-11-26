@@ -414,9 +414,7 @@ class XcstringsParserTests: XCTestCase {
         // Single character specifier at end
         XCTAssertEqual(XcstringsParser.formats(from: "%u"), ["u"])
 
-        // Literal `%%` escapes must not corrupt specifier extraction: the
-        // second "%" ends the previous specifier (or is itself the escape)
-        // instead of being glued onto the next conversion character.
+        // Literal "%%" escapes must not merge into adjacent specifiers.
         XCTAssertEqual(XcstringsParser.formats(from: "%s%%d"), ["s"])
         XCTAssertEqual(XcstringsParser.formats(from: "%%%d"), ["d"])
         XCTAssertEqual(XcstringsParser.formats(from: "%d%%"), ["d"])
