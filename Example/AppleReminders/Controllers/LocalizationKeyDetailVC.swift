@@ -45,8 +45,11 @@ struct LocalizationParam {
     /// input cannot be parsed.
     var cvarArg: CVarArg {
         switch type {
-        case .string, .character:
+        case .string:
             return value as CVarArg
+        case .character:
+            // `%c` reads a character code, not a string.
+            return Int32(value.unicodeScalars.first?.value ?? 0) as CVarArg
         case .int:
             return (Int(value) ?? 0) as CVarArg
         case .uInt:
@@ -290,31 +293,26 @@ final class LocalizationKeyDetailVC: UITableViewController {
                 ?? Locale.current.languageCode ?? "en"
             let pluralLocale = Locale(identifier: sdkLang)
             let formatTemplate = localizedString(forKey: key)
-            if formatTemplate != key, formatTemplate.contains("%#@") {
+            if formatTemplate != key, formatTemplate.range(of: #"%(?:\d+\$)?#@"#, options: .regularExpression) != nil {
                 // Some Crowdin plural forms use %@ (object specifier) instead of
                 // %d. Passing a raw Int for %@ treats the integer value as an
                 // object pointer and crashes with respondsToSelector:.
                 // Use NSNumber for those positions so the formatter gets a real
                 // NSObject. Matches %@, %1$@, %-5@, … but not %#@ (stringsdict).
-                let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ #0-9*]*@"#)
                 let args: [CVarArg] = parsedCounts.enumerated().map { (i, count) -> CVarArg in
                     let usesObject: Bool
-                    if let regex = objectSpecifier,
-                       let entry = pluralEntry,
-                       i < entry.variables.count {
-                        let ns = NSString()
-                        usesObject = entry.variables[i].forms.values.contains { form in
-                            let s = form as NSString
-                            return regex.firstMatch(in: form,
-                                range: NSRange(location: 0, length: s.length)) != nil
-                        }
+                    if let entry = pluralEntry, i < entry.variables.count {
+                        usesObject = pluralFormsUseObject(Array(entry.variables[i].forms.values), atSlot: i + 1)
                     } else {
                         // No type info — default to NSNumber to avoid crash.
                         usesObject = true
                     }
                     return usesObject ? NSNumber(value: count) : count as CVarArg
                 }
-                return (String(format: formatTemplate, locale: pluralLocale, arguments: args), false)
+                let formatArgs = pluralArgs(
+                    into: args,
+                    formats: [formatTemplate] + (pluralEntry?.variables.flatMap { Array($0.forms.values) } ?? []))
+                return (String(format: formatTemplate, locale: pluralLocale, arguments: formatArgs), false)
             }
             // Simple (non-stringsdict) format returned — apply first count.
             if formatTemplate != key {

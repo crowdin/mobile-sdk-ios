@@ -22,6 +22,60 @@ import CrowdinSDK
 /// count*, chosen to cover every CLDR plural category for the current device
 /// language.  Multi-variable keys (e.g. `files_in_folders_count`) additionally
 /// show mixed-count combinations so you can see every variable's forms.
+/// `true` if any form reads the plural variable's own argument slot as an object (`%@` / `%N$@`
+/// with N == `slot`). Object specifiers in other slots (e.g. a string argument) don't count.
+func pluralFormsUseObject(_ forms: [String], atSlot slot: Int) -> Bool {
+    guard let regex = try? NSRegularExpression(pattern: #"%(?:(\d+)\$)?[-+ 0-9*]*@"#) else { return true }
+    return forms.contains { form in
+        let ns = form as NSString
+        return regex.matches(in: form, range: NSRange(location: 0, length: ns.length)).contains { match in
+            let posRange = match.range(at: 1)
+            guard posRange.location != NSNotFound, let pos = Int(ns.substring(with: posRange)) else { return true }
+            return pos == slot
+        }
+    }
+}
+
+/// Format keys can carry plain object slots next to plural references
+/// (`%2$@ has %1$#@messages@`). `args` holds one count per plural variable;
+/// this places a sample string in each object slot and the counts in the rest.
+func pluralArgs(inserting sample: String = "Sample", into args: [CVarArg], formats: [String]) -> [CVarArg] {
+    guard let regex = try? NSRegularExpression(pattern: #"%(?:(\d+)\$)?(#@\w+@|[-+ 0-9.]*(?:hh?|ll?|[qztj])?[@dioux])"#) else { return args }
+    var objectSlots = Set<Int>()
+    var maxSlot = 0
+    for format in formats {
+        let ns = format as NSString
+        var next = 1
+        for match in regex.matches(in: format, range: NSRange(location: 0, length: ns.length)) {
+            let slot: Int
+            let posRange = match.range(at: 1)
+            if posRange.location != NSNotFound, let pos = Int(ns.substring(with: posRange)), pos >= 1, pos <= 100 {
+                slot = pos
+            } else {
+                slot = next
+                next += 1
+            }
+            maxSlot = max(maxSlot, slot)
+            let conversion = ns.substring(with: match.range(at: 2))
+            if conversion.hasSuffix("@"), !conversion.hasPrefix("#@") {
+                objectSlots.insert(slot)
+            }
+        }
+    }
+    guard !objectSlots.isEmpty else { return args }
+    var remaining = args[...]
+    var result = [CVarArg]()
+    for slot in 1...max(maxSlot, args.count + objectSlots.count) {
+        if objectSlots.contains(slot) {
+            result.append(sample as String)
+        } else if let value = remaining.first {
+            result.append(value)
+            remaining = remaining.dropFirst()
+        }
+    }
+    return result
+}
+
 final class LocalizationRuntimeVC: UIViewController {
 
     // MARK: - Tab
@@ -176,7 +230,7 @@ final class LocalizationRuntimeVC: UIViewController {
             // an Apple-specific specifier, not a printf specifier. Passing sample
             // args to such templates causes format-type-mismatch console warnings.
             // These keys are already covered by the Plurals tab.
-            let isStringsdictFormat = rawFormat.contains("%#@") || template.contains("%#@")
+            let isStringsdictFormat = Self.hasStringsdictReference(rawFormat) || Self.hasStringsdictReference(template)
 
             let translation: String
             let detailSuffix: String
@@ -237,20 +291,13 @@ final class LocalizationRuntimeVC: UIViewController {
             // respondsToSelector: on it — which crashes.
             // Matches any object-type specifier (%@, %1$@, %-5@, …) but
             // NOT %#@ which is a stringsdict plural reference.
-            let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ #0-9*]*@"#)
+            let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ 0-9*]*@"#)
             // When entry is nil we have no type info → default to NSNumber for
             // every position (avoids crash; wrong %d display is acceptable on a
             // debug screen).
             let variableUsesObject: [Bool] = entry.map { e in
-                e.variables.map { variable -> Bool in
-                    guard let regex = objectSpecifier else { return true }
-                    return variable.forms.values.contains { form in
-                        let ns = form as NSString
-                        return regex.firstMatch(
-                            in: form,
-                            range: NSRange(location: 0, length: ns.length)
-                        ) != nil
-                    }
+                e.variables.enumerated().map { index, variable -> Bool in
+                    pluralFormsUseObject(Array(variable.forms.values), atSlot: index + 1)
                 }
             } ?? Array(repeating: true, count: varCount)
 
@@ -285,15 +332,18 @@ final class LocalizationRuntimeVC: UIViewController {
                 // the CLDR plural rules for the target language are applied.
                 // Always pass ALL arguments — stringsdict entries may use
                 // positional specifiers (%1$#@var@) that require every arg.
+                let formatArgs = pluralArgs(
+                    into: args,
+                    formats: [entry?.formatKey ?? template] + (entry?.variables.flatMap { Array($0.forms.values) } ?? []))
                 let translation: String
                 if template != key {
-                    translation = String(format: template, locale: pluralLocale, arguments: args)
+                    translation = String(format: template, locale: pluralLocale, arguments: formatArgs)
                 } else {
                     // SDK returned the key — try bundle stringsdict directly.
                     let bundleTemplate = Bundle.main.localizedString(
                         forKey: key, value: nil, table: "Localizable")
                     if bundleTemplate != key {
-                        translation = String(format: bundleTemplate, locale: pluralLocale, arguments: args)
+                        translation = String(format: bundleTemplate, locale: pluralLocale, arguments: formatArgs)
                     } else {
                         translation = key    // truly missing
                     }
@@ -354,7 +404,12 @@ final class LocalizationRuntimeVC: UIViewController {
 
     // MARK: - Format specifier helpers
 
-    private enum Specifier { case int, uInt, double, string }
+    private enum Specifier { case int, uInt, double, string, character }
+
+    /// `true` for stringsdict plural references: `%#@name@` and positional `%1$#@name@`.
+    private static func hasStringsdictReference(_ format: String) -> Bool {
+        format.range(of: #"%(?:\d+\$)?#@"#, options: .regularExpression) != nil
+    }
 
     /// Specifiers in argument order. Honors positional indices (`%2$lld ... %1$@`),
     /// so sample args line up with the slots `String(format:)` will read.
@@ -373,6 +428,7 @@ final class LocalizationRuntimeVC: UIViewController {
                 case "d", "i":           spec = .int
                 case "u", "o", "x":     spec = .uInt
                 case "f", "e", "g", "a":spec = .double
+                case "c":                spec = .character
                 default:                 spec = .string
                 }
             }
@@ -394,6 +450,7 @@ final class LocalizationRuntimeVC: UIViewController {
         case .uInt:   return 42 as UInt
         case .double: return 3.14 as Double
         case .string: return "Sample" as String
+        case .character: return 65 as Int32 // "A"
         }
     }
 
@@ -403,6 +460,7 @@ final class LocalizationRuntimeVC: UIViewController {
         case .uInt:   return "42"
         case .double: return "3.14"
         case .string: return "\"Sample\""
+        case .character: return "'A'"
         }
     }
 

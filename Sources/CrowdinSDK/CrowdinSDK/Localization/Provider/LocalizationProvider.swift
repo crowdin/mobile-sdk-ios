@@ -235,15 +235,70 @@ enum PluralsFormatValidator {
         guard let dictionary = entry as? [AnyHashable: Any],
               let format = dictionary[formatKey] as? String,
               let formatParts = FormatPart.formatParts(formatString: format) else { return false }
-        // Variants may read at most as many arguments as `NSStringLocalizedFormatKey` declares.
+        // Nested variables (`%1$#@a@` -> `%2$#@b@`) may read slots beyond `NSStringLocalizedFormatKey`.
+        // They are bounded by the entry's total slot count, which `cw_safeFormat` enforces
+        // against the caller's arguments via `hasEnoughArguments`.
+        guard let slotCount = requiredArgumentCount(entry: dictionary) else { return false }
         return dictionary.allSatisfy { key, value in
             if let key = key as? String, key == formatKey { return true }
             guard let variable = value as? [AnyHashable: Any] else { return true }
-            return isSafe(variable: variable, formatParts: formatParts)
+            return isSafe(variable: variable, formatParts: formatParts, slotCount: slotCount)
         }
     }
 
-    private static func isSafe(variable: [AnyHashable: Any], formatParts: [FormatPart]) -> Bool {
+    /// What a slot of a plural entry reads: a number (`%lld`, plural reference) or an object (`%@`).
+    enum SlotKind { case numeric, object, any }
+
+    /// Per-slot kinds read by the format key and every variant, in argument order
+    /// (`nil` if unparsable or two parts disagree on a slot's kind).
+    static func requiredSlotKinds(entry: [AnyHashable: Any]) -> [SlotKind]? {
+        guard let format = entry[formatKey] as? String else { return nil }
+        var kinds = [Int: SlotKind]()
+        var count = 0
+        func record(_ string: String) -> Bool {
+            guard let parts = FormatPart.formatParts(formatString: string) else { return false }
+            count = max(count, parts.count)
+            for (index, part) in parts.enumerated() {
+                let kind: SlotKind
+                switch part {
+                case .reference, .spec(.int), .spec(.uInt), .spec(.double): kind = .numeric
+                case .spec(.object): kind = .object
+                case .spec(.topType): continue
+                default: return false
+                }
+                if let existing = kinds[index], existing != kind { return false }
+                kinds[index] = kind
+            }
+            return true
+        }
+        func visit(_ dictionary: [AnyHashable: Any]) -> Bool {
+            for (key, value) in dictionary {
+                if let key = key as? String, key == specTypeKey || key == valueTypeKey || key == formatKey { continue }
+                if let nested = value as? [AnyHashable: Any] {
+                    guard visit(nested) else { return false }
+                } else if let variant = value as? String {
+                    guard record(variant) else { return false }
+                }
+            }
+            return true
+        }
+        guard record(format), visit(entry) else { return nil }
+        return (0..<count).map { kinds[$0] ?? .any }
+    }
+
+    /// Highest argument slot read by the format key or any variant (`nil` if unparsable).
+    static func requiredArgumentCount(entry: [AnyHashable: Any]) -> Int? {
+        return requiredSlotKinds(entry: entry)?.count
+    }
+
+    /// Slot kinds read by the stored plural entry for `key`; `nil` if there is no such entry.
+    static func requiredSlotKinds(forKey key: String) -> [SlotKind]? {
+        guard let localization = Localization.current,
+              let entry = localization.provider.localStorage.plurals[key] as? [AnyHashable: Any] else { return nil }
+        return requiredSlotKinds(entry: entry)
+    }
+
+    private static func isSafe(variable: [AnyHashable: Any], formatParts: [FormatPart], slotCount: Int) -> Bool {
         return variable.allSatisfy { key, value in
             if let key = key as? String, key == specTypeKey { return true }
             if let key = key as? String, key == valueTypeKey {
@@ -251,28 +306,32 @@ enum PluralsFormatValidator {
                 return regEx.firstMatch(in: valueType, options: [], range: NSRange(location: 0, length: (valueType as NSString).length)) != nil
             }
             if let nested = value as? [AnyHashable: Any] {
-                return isSafe(variable: nested, formatParts: formatParts)
+                return isSafe(variable: nested, formatParts: formatParts, slotCount: slotCount)
             }
             guard let variant = value as? String else { return true }
-            return isSafe(variant: variant, formatParts: formatParts)
+            return isSafe(variant: variant, formatParts: formatParts, slotCount: slotCount)
         }
     }
 
     /// Each variant may hold at most one numeric specifier (plus variable references)
     /// within `formatParts.count`.
-    private static func isSafe(variant: String, formatParts: [FormatPart]) -> Bool {
-        guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= formatParts.count else { return false }
+    private static func isSafe(variant: String, formatParts: [FormatPart], slotCount: Int) -> Bool {
+        guard let parts = FormatPart.formatParts(formatString: variant), parts.count <= slotCount else { return false }
         let specifiers = parts.compactMap { $0.formatSpecifier }.filter { $0 != .topType }
-        guard specifiers.count <= 1 else { return false }
-        guard specifiers.allSatisfy({ $0 == .int || $0 == .uInt || $0 == .double }) else { return false }
+        let numerics = specifiers.filter { $0 == .int || $0 == .uInt || $0 == .double }
+        let objects = specifiers.filter { $0 == .object }
+        guard numerics.count <= 1, objects.count <= 1, numerics.count + objects.count == specifiers.count else { return false }
 
         // For positional variants (e.g. `%1$d`), ensure the target slot in `formatParts` is numeric or a reference.
         let isPositional = parts.count > 1 || variant.formatStringWithMaskedLiteralPercents.contains("%1$")
         if isPositional {
-            for (index, part) in parts.enumerated() {
+            for (index, part) in parts.enumerated() where index < formatParts.count {
                 guard let specifier = part.formatSpecifier, specifier != .topType else { continue }
-                switch formatParts[index] {
-                case .reference, .spec(.int), .spec(.uInt), .spec(.double):
+                switch (specifier, formatParts[index]) {
+                case (.object, .spec(.object)),
+                     (.int, .reference), (.int, .spec(.int)), (.int, .spec(.uInt)), (.int, .spec(.double)),
+                     (.uInt, .reference), (.uInt, .spec(.int)), (.uInt, .spec(.uInt)), (.uInt, .spec(.double)),
+                     (.double, .reference), (.double, .spec(.int)), (.double, .spec(.uInt)), (.double, .spec(.double)):
                     break
                 default:
                     return false

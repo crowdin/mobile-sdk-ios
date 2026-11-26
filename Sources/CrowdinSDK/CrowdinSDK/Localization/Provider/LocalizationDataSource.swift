@@ -74,8 +74,7 @@ class StringsLocalizationDataSource: LocalizationDataSourceProtocol {
             for (key, value) in self._strings {
                 if String.findMatch(for: value, with: string) {
                     if let values = String.findValues(for: string, with: value) {
-                        // swiftlint:disable force_cast
-                        if key.cw_localized(with: values as! [CVarArg]) == string {
+                        if let args = values as? [CVarArg], key.cw_localized(with: args) == string {
                             result = key
                             return
                         }
@@ -170,8 +169,7 @@ class PluralsLocalizationDataSource: LocalizationDataSourceProtocol {
                     }
                     if String.findMatch(for: formatedString, with: text), let values = String.findValues(for: text, with: formatedString) {
                         // Check if localized string is equal to text.
-                        // swiftlint:disable force_cast
-                        if key.cw_localized(with: values as! [CVarArg]) == text {
+                        if let args = values as? [CVarArg], key.cw_localized(with: args) == text {
                             return (key, values)
                         }
                     }

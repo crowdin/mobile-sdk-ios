@@ -61,8 +61,28 @@ extension String {
     /// Formats `value` with `arguments`, falling back to the bundled string for `fallbackKey`
     /// if `value` fails CWE-134 validation (extra specifiers or mismatched argument types).
     static func cw_safeFormat(_ value: String, arguments: [CVarArg], fallbackKey: String) -> String {
-        let safeValue = value.isSafeFormatString(arguments: arguments) ? value : Bundle.bundledLocalizedString(forKey: fallbackKey)
+        let isSafe = value.isSafeFormatString(arguments: arguments)
+            && value.hasArgumentsForNestedPlurals(key: fallbackKey, arguments: arguments)
+        let safeValue = isSafe ? value : Bundle.bundledLocalizedString(forKey: fallbackKey)
         return String(format: safeValue, locale: String.crowdinLocale, arguments: arguments)
+    }
+
+    /// Nested plural variables read slots beyond `self`'s own specifiers (`%1$#@a@` -> `%2$#@b@`).
+    /// Requires the caller to supply those slots with matching types (number or object).
+    func hasArgumentsForNestedPlurals(key: String, arguments: [CVarArg]) -> Bool {
+        guard let parts = FormatPart.formatParts(formatString: self),
+              parts.contains(where: { if case .reference = $0 { return true } else { return false } }),
+              let kinds = PluralsFormatValidator.requiredSlotKinds(forKey: key),
+              kinds.count > parts.count else { return true }
+        guard arguments.count >= kinds.count else { return false }
+        for index in parts.count..<kinds.count {
+            switch kinds[index] {
+            case .numeric: guard FormatSpecifier.isDefinitelyScalar(arguments[index]) else { return false }
+            case .object: guard FormatSpecifier.object.isCompatible(with: arguments[index]) else { return false }
+            case .any: continue
+            }
+        }
+        return true
     }
 
     /// Returns `true` if all specifiers in `self` are covered by `arguments` and match their expected types.
@@ -304,7 +324,10 @@ extension String {
             case .double: formatValue = Double(value)
             case .int: formatValue = Int(value)
             case .uInt: formatValue = UInt(value)
-            case .character: formatValue = Character(value)
+            case .character:
+                // `Character` is not a `CVarArg`; `%c` reads a character code.
+                let scalars = value.unicodeScalars
+                formatValue = scalars.count == 1 ? Int32(scalars[scalars.startIndex].value) : nil
             case .cStringPointer: formatValue = value
             case .voidPointer: formatValue = value
             case .topType: formatValue = value

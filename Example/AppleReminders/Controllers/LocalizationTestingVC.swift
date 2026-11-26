@@ -183,7 +183,7 @@ final class LocalizationTestingVC: UIViewController {
             }
             // Try to resolve the plural with a sample count of 1.
             // This works for simple and multi-variable keys (all args are 1).
-            if template.contains("%#@") {
+            if template.range(of: #"%(?:\d+\$)?#@"#, options: .regularExpression) != nil {
                 // Multi-variable: pass as many 1s as there are variables.
                 // Prefer the Crowdin entry's count; fall back to the bundle entry
                 // (needed when Crowdin has no plural data but cw_localized still
@@ -193,24 +193,18 @@ final class LocalizationTestingVC: UIViewController {
                 let varCount = entry?.variables.count ?? 1
                 // Matches any object-type specifier (%@, %1$@, %-5@, …) but
                 // NOT %#@ which is a stringsdict plural reference.
-                let objectSpecifier = try? NSRegularExpression(pattern: #"%(?:\d+\$)?[-+ #0-9*]*@"#)
                 // When entry is nil we have no type info → use NSNumber for
                 // every position (satisfies %@ via description; avoids crash).
                 let args: [CVarArg] = (0..<varCount).map { i -> CVarArg in
-                    guard let entry = entry, let regex = objectSpecifier else {
-                        return NSNumber(value: 1)
-                    }
+                    guard let entry = entry else { return NSNumber(value: 1) }
                     let usesObject = i < entry.variables.count &&
-                        entry.variables[i].forms.values.contains { form in
-                            let ns = form as NSString
-                            return regex.firstMatch(
-                                in: form,
-                                range: NSRange(location: 0, length: ns.length)
-                            ) != nil
-                        }
+                        pluralFormsUseObject(Array(entry.variables[i].forms.values), atSlot: i + 1)
                     return usesObject ? NSNumber(value: 1) : 1 as CVarArg
                 }
-                return String(format: template, arguments: args)
+                let formatArgs = pluralArgs(
+                    into: args,
+                    formats: [entry?.formatKey ?? template] + (entry?.variables.flatMap { Array($0.forms.values) } ?? []))
+                return String(format: template, arguments: formatArgs)
             }
             return String(format: template, 1)
 
