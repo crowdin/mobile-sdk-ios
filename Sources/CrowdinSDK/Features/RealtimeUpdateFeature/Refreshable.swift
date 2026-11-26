@@ -20,8 +20,8 @@ protocol Refreshable: NSObjectProtocol {
 
 extension CWLabel: Refreshable {
     func refresh(text: String) {
-        if let values = self.localizationValues as? [CVarArg] {
-            let newText = String(format: text, arguments: values)
+        if let values = self.localizationValues as? [CVarArg], let key = self.key {
+            let newText = String.cw_safeFormat(text, arguments: values, fallbackKey: key)
             self.original_setText(newText)
         } else {
             self.original_setText(text)
@@ -45,8 +45,8 @@ extension CWLabel: Refreshable {
 #if os(iOS) || os(tvOS)
 extension UIButton: Refreshable {
     func refresh(text: String) {
-        if let values = self.localizationValues?[state.rawValue] as? [CVarArg] {
-            let newText = String(format: text, arguments: values)
+        if let values = self.localizationValues?[state.rawValue] as? [CVarArg], let key = self.key {
+            let newText = String.cw_safeFormat(text, arguments: values, fallbackKey: key)
             self.cw_setTitle(newText, for: self.state)
         } else {
             self.cw_setTitle(text, for: self.state)
@@ -71,8 +71,8 @@ extension UIButton: Refreshable {
 #elseif os(macOS)
 extension NSButton: Refreshable {
     func refresh(text: String) {
-        if let values = self.localizationValues as? [CVarArg] {
-            let newText = String(format: text, arguments: values)
+        if let values = self.localizationValues as? [CVarArg], let key = self.key {
+            let newText = String.cw_safeFormat(text, arguments: values, fallbackKey: key)
             self.cw_setTitle(newText)
         } else {
             self.cw_setTitle(text)

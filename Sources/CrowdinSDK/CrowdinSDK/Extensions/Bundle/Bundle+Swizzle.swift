@@ -45,8 +45,9 @@ extension Bundle {
         return translation ?? key
     }
 
-    /// Method for swizzling implementation for localizedString(forKey:value:table:) method.
+    /// Swizzles `localizedString(forKey:value:table:)`. No-op if already swizzled (calling `method_exchangeImplementations` twice would unswizzle).
     class func swizzle() {
+        guard !isSwizzled else { return }
         // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(Bundle.localizedString(forKey:value:table:)))!
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!
@@ -59,5 +60,19 @@ extension Bundle {
         method_exchangeImplementations(swizzled, original)
         swizzled = nil
         original = nil
+    }
+
+    /// Returns the app's bundled localization for `key`, bypassing Crowdin OTA lookups.
+    /// Used as a safe fallback when an OTA format string fails validation against caller arguments.
+    static func bundledLocalizedString(forKey key: String, value: String? = nil, table tableName: String? = nil) -> String {
+        guard isSwizzled else {
+            return Bundle.main.localizedString(forKey: key, value: value, table: tableName)
+        }
+        let previousValue = Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey]
+        Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = true
+        defer {
+            Thread.current.threadDictionary[Bundle.swizzledMethodProcessingKey] = previousValue
+        }
+        return Bundle.main.localizedString(forKey: key, value: value, table: tableName)
     }
 }

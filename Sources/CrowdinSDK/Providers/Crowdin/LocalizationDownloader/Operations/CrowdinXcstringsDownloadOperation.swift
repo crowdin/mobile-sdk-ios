@@ -164,7 +164,17 @@ class XcstringsParser {
 
         for char in value {
             if char == "%" {
-                isSpecifier = true
+                if isSpecifier && currentSpecifier.isEmpty {
+                    // Escaped "%%".
+                    isSpecifier = false
+                } else if isSpecifier {
+                    // New "%" terminates the previous specifier (e.g. "%s%%d" -> "s") and starts the next.
+                    specifiers.append(currentSpecifier)
+                    currentSpecifier = ""
+                    isSpecifier = true
+                } else {
+                    isSpecifier = true
+                }
             } else if isSpecifier {
                 if char.isLetter || char == "@" {
                     currentSpecifier.append(char)

@@ -413,6 +413,12 @@ class XcstringsParserTests: XCTestCase {
         
         // Single character specifier at end
         XCTAssertEqual(XcstringsParser.formats(from: "%u"), ["u"])
+
+        // Literal "%%" escapes must not merge into adjacent specifiers.
+        XCTAssertEqual(XcstringsParser.formats(from: "%s%%d"), ["s"])
+        XCTAssertEqual(XcstringsParser.formats(from: "%%%d"), ["d"])
+        XCTAssertEqual(XcstringsParser.formats(from: "%d%%"), ["d"])
+        XCTAssertEqual(XcstringsParser.formats(from: "100%% done: %@"), ["@"])
     }
 
     // MARK: - %arg replacement tests
